@@ -9,12 +9,6 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_refuse?
   end
 
-  def revoke?
-    show? &&
-      instructor_for_record? &&
-      record.can_revoke?
-  end
-
   def request_changes?
     show? &&
       instructor_for_record? &&
@@ -67,8 +61,8 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
     archive? ||
       approve? ||
       refuse? ||
-      revoke? ||
       request_changes? ||
+      transfer? ||
       cancel_reopening? ||
       cancel_next_stage?
   end

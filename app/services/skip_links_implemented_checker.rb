@@ -60,8 +60,6 @@ class SkipLinksImplementedChecker
     instruction/cancel_authorization_reopenings#create
     instruction/cancel_next_authorization_request_stages#new
     instruction/cancel_next_authorization_request_stages#create
-    instruction/revoke_authorization_requests#new
-    instruction/revoke_authorization_requests#create
     instruction/revoke_authorizations#new
     instruction/revoke_authorizations#create
     instruction/instructor_draft_requests/invite#new

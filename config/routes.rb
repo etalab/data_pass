@@ -121,7 +121,6 @@ Rails.application.routes.draw do
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :refuse_authorization_requests, only: %w[new create], path: 'refuser', as: :refusal
       resources :request_changes_on_authorization_requests, only: %w[new create], path: 'demande-de-modifications', as: :request_changes
-      resources :revoke_authorization_requests, only: %w[new create], path: 'révoquer', as: :revocation
       resources :cancel_authorization_reopenings, only: %w[new create], path: 'annuler_reouverture', as: :cancel_reopening
       resources :cancel_next_authorization_request_stages, only: %w[new create], path: 'annuler_prochaine_etape', as: :cancel_next_stage
       resources :transfer_authorization_requests, only: %w[new create], path: 'transferer', as: :transfer
