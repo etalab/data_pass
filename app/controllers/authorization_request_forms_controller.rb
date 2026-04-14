@@ -263,8 +263,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       redirect_to dashboard_path
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit', include_model_errors: true)
-
-      render 'summary', status: :unprocessable_content
+      @force_render_summary_tab = @authorization_request.state != 'draft'
+      render 'summary', status: :unprocessable_content, layout: layout_name # Forces turbo to render the whole body
     end
   end
 
@@ -332,6 +332,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def show_tabs?
+    return true if @force_render_summary_tab
     return false unless action_name == 'summary'
     return false if @authorization_request.nil?
     return false if @authorization_request.new_record?
