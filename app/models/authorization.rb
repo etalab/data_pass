@@ -1,8 +1,5 @@
 class Authorization < ApplicationRecord
-  extend FriendlyId
   include DemandesHabilitationsSearchable
-
-  friendly_id :slug_candidates, use: :slugged
 
   validates :data, presence: true
 
@@ -103,6 +100,8 @@ class Authorization < ApplicationRecord
 
   def self.find(id)
     super(id.to_s.sub(/\AH/i, ''))
+  rescue ActiveRecord::RecordNotFound => e
+    find_by(slug: id.to_s) || raise(e)
   end
 
   def self.ransackable_associations(_auth_object = nil)
@@ -221,18 +220,5 @@ class Authorization < ApplicationRecord
         request_as_validated.public_send(:"#{document.name}").attach(file.blob)
       end
     end
-  end
-
-  def slug_candidates
-    [
-      :authorization_request_id_with_date,
-      -> { "#{authorization_request_id_with_date}--1" },
-      -> { "#{authorization_request_id_with_date}--2" },
-      -> { "#{authorization_request_id_with_date}--3" },
-    ]
-  end
-
-  def authorization_request_id_with_date
-    "#{request.id}--#{(created_at || Date.current).strftime('%d-%m-%Y')}"
   end
 end

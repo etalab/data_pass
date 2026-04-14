@@ -13,7 +13,7 @@ RSpec.describe RedirectFromV1Controller do
       let(:id) { authorization.id }
 
       it 'redirects to the authorization path' do
-        expect(redirect_from_v1).to redirect_to(authorization_path(authorization.slug))
+        expect(redirect_from_v1).to redirect_to(authorization_path(authorization))
       end
     end
 

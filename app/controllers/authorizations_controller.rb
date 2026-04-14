@@ -3,6 +3,7 @@ class AuthorizationsController < AuthenticatedUserController
 
   before_action :set_context, only: :index
   before_action :set_authorization, only: :show
+  before_action :redirect_to_canonical, only: :show
   decorates_assigned :authorization, :authorizations, :authorization_request
 
   def index
@@ -23,7 +24,7 @@ class AuthorizationsController < AuthenticatedUserController
 
   def set_context
     if params[:authorization_id].present?
-      @authorization = Authorization.friendly.find(params[:authorization_id])
+      @authorization = Authorization.find(params[:authorization_id])
       @authorization_request = @authorization.request
     else
       @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
@@ -31,7 +32,13 @@ class AuthorizationsController < AuthenticatedUserController
   end
 
   def set_authorization
-    @authorization = Authorization.friendly.find(params[:id])
+    @authorization = Authorization.find(params[:id])
+  end
+
+  def redirect_to_canonical
+    return unless params[:id] == @authorization.slug.to_s
+
+    redirect_to authorization_path(@authorization), status: :moved_permanently
   end
 
   def authorization_or_request

@@ -32,7 +32,7 @@ class ReopenAuthorizationsController < AuthenticatedUserController
 
   def extract_authorization
     authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
-    @authorization = authorization_request.authorizations.friendly.find(params[:authorization_id])
+    @authorization = authorization_request.authorizations.find(params[:authorization_id])
   end
 
   def authorize_authorization_reopening

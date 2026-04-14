@@ -23,12 +23,12 @@ RSpec.describe DGFIP::APIMMailer do
         )
       end
 
-      it 'includes the authorization request id in the body' do
-        expect(mail.body.encoded).to include(authorization_request.id.to_s)
+      it 'includes the authorization_request\'s formatted_id in the body' do
+        expect(mail.body.encoded).to include(authorization_request.formatted_id)
       end
 
-      it 'includes the authorization slug in the body' do
-        expect(mail.body.encoded).to include(authorization.slug)
+      it 'includes the authorization\'s formatted id in the body' do
+        expect(mail.body.encoded).to include(authorization.formatted_id)
       end
 
       it 'includes BAS for sandbox stage' do

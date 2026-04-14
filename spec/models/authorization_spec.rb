@@ -39,7 +39,7 @@ RSpec.describe Authorization do
   end
 
   describe '.find' do
-    let!(:authorization) { create(:authorization) }
+    let!(:authorization) { create(:authorization, slug: 'old-slug-backward-compat') }
 
     it 'finds by numeric ID' do
       expect(described_class.find(authorization.id)).to eq(authorization)
@@ -51,6 +51,10 @@ RSpec.describe Authorization do
 
     it 'finds by lowercase prefixed ID (h123)' do
       expect(described_class.find("h#{authorization.id}")).to eq(authorization)
+    end
+
+    it 'finds by slug for backward compatibility' do
+      expect(described_class.find('old-slug-backward-compat')).to eq(authorization)
     end
   end
 

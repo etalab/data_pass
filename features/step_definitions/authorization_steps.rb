@@ -82,7 +82,7 @@ Quand("j'ai une habilitation {string} liée à une demande d'habilitation ayant 
 end
 
 Alors('il y a un formulaire en mode résumé non modifiable') do
-  expect(page).to have_current_path(%r{/habilitations/#{@authorization.slug}})
+  expect(page).to have_current_path(%r{/habilitations/#{@authorization.id}})
 
   # Verify the form is not editable by checking if inputs are disabled or read-only
   expect(page).to have_css('input[disabled]') if page.has_css?('input')
