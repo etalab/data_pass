@@ -1,0 +1,9 @@
+<% if MaintenanceBanner.active? %>
+  <%= render DsfrComponent::NoticeComponent.new(
+    title: MaintenanceBanner.title,
+    description: MaintenanceBanner.description,
+    type: 'info',
+    dismissible: true,
+    html_attributes: { class: 'fr-notice--full-width' }
+  ) %>
+<% end %>
