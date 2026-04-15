@@ -29,7 +29,7 @@ Chaque demande possède un cycle de vie déterminer via une machine à états. L
 
 1. `draft`: état initial, lorsque le demandeur démarre la demande d'habilitation ;
 2. `submitted`: lorsque l'usager a soumis sa demande d'habilitation ;
-3. `NYI` `changes_requested`: lorsqu'un instructeur demande des modifications au
+   `changes_requested`: lorsqu'un instructeur demande des modifications au
    demandeur ;
 4. `refused`: l'instructeur a refusé la demande d'habilitation. Il s'agit d'un
    état final pour la demande.
@@ -46,7 +46,7 @@ remplie, et une introduction de ce à quoi va consister le formulaire.
 
 Si il y a plusieurs formulaires disponibles, par défaut il s'agit d'un simple
 index sans aide, il est possible de personnaliser cette page (par exemple avec
-un arbre de décision `NYI`)
+un arbre de décision)
 
 ### 3. Formulaires de demandes d'habilitation
 
@@ -74,18 +74,21 @@ configuration.
 
 ### 4. Habilitation
 
-`NIY` (not sure?) Formulaire validé et figé, associé à la demande.
+Formulaire validé et figé, associé à la demande.
 
 ### 5. Utilisateurs
 
-Il y a 3 types d'utilisateur `User`, distingués via le tableau `roles`
+Il y a 6 types d'utilisateur `User`, distingués via le tableau `roles`
 
-1. Les usagers normaux: principalement les demandeurs, sans roles ;
-2. Les instructeurs: instruisent les demandes (possède des rôles de type
+1. Les usagers normaux: principalement les demandeurs, sans rôles
+2. Les instructeurs: instruisent les demandes déposées (possèdent des rôles de type
    `mon_api:instructor`)
-3. `NYI` Les rapporteurs
-4. `NYI` Les administrateurs: peuvent changer les instructeurs (possède le rôle
-   `administrator`)
+3. Les rapporteurs: consultent les demandes, mais ne peuvent pas les instruire (possèdent des rôles de type
+   `mon_api:reporter`)
+4. Les managers : peuvent gérer les modèles de messages envoyés aux demandeurs, `NYI` et gérer les rôles instructeurs/rapporteurs liés à leurs habilitations (possèdent des rôles de type `mon_api:manager`)
+5. Les développeurs : accèdent à l'espace développeur, et donc à la documentation de l'API DataPass, à la gestion des applications OAuth et des webhooks (possèdent des rôles de type `mon_api:developer`)
+6. Les administrateurs: peuvent modifier les rôles de tous les utilisateurs (possède le rôle
+   `admin`)
 
 ### 5. Organisations
 
