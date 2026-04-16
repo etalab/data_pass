@@ -824,7 +824,7 @@ GEM
     yajl-ruby (1.4.3)
     yard (0.9.38)
     zeitwerk (2.7.5)
-    zlib (3.2.2)
+    zlib (3.2.3)
 
 PLATFORMS
   aarch64-linux
