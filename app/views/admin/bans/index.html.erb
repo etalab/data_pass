@@ -1,0 +1,40 @@
+<% set_title! t('.title') %>
+
+<%= content_for(:header_action) do %>
+  <%= link_to t('.ban'), new_admin_ban_path, class: 'fr-btn' %>
+<% end %>
+
+<% if @banned_users.empty? %>
+  <p><%= t('.empty') %></p>
+<% else %>
+  <div class="fr-table fr-table--bordered">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <caption class="fr-sr-only"><%= t('.title') %></caption>
+          <thead>
+            <tr>
+              <% %w[email banned_at ban_reason actions].each do |attr| %>
+                <th scope="col"><%= t(".table.header.#{attr}") %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @banned_users.each do |user| %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><%= l(user.banned_at, format: :long) %></td>
+                <td><%= user.ban_reason %></td>
+                <td>
+                  <%= dsfr_main_modal_button t('.unban'), confirm_destroy_admin_ban_path(user),
+                      class: %w[fr-btn fr-btn--sm fr-btn--secondary],
+                      aria: { label: "#{t('.unban')} #{user.email}" } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

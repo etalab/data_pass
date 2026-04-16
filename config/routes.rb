@@ -157,6 +157,11 @@ Rails.application.routes.draw do
     resources :mark_user_organization_as_verified, only: %i[new create edit update], path: 'marquer-verifie'
     resources :unmark_user_organization_as_verified, only: %i[destroy], path: 'retirer-verification'
     resources :habilitation_types, path: 'types-habilitation'
+    resources :bans, only: %i[index new create destroy], path: 'bannissements' do
+      member do
+        get :confirm_destroy
+      end
+    end
     resources :data_providers, path: 'fournisseurs-donnees' do
       member do
         get :confirm_destroy

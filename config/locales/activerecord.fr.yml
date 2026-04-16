@@ -21,6 +21,7 @@ fr:
         job_title: Poste occupé
         email: Email
         phone_number: Numéro de téléphone
+        ban_reason: Raison du ban
       organizations_user:
         verified_reason: Justification
       organization:
@@ -169,6 +170,8 @@ fr:
         comment: Note associée à l'invitation
 
     hints:
+      user:
+        ban_reason: "Exemple : Compte compromis signalé par le CSIRT"
       habilitation_type:
         name: "À la création, le nom génère l’identifiant technique : il doit commencer par une lettre (ex: « Espace agent de l'Annuaire des Entreprises »)"
         access_link: "Utilisez %{external_provider_id} pour insérer l’identifiant de jeton webhook<br>(ex : https://mon-api.gouv.fr/jetons/%{external_provider_id})"

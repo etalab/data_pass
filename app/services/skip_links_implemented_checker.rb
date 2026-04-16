@@ -103,6 +103,12 @@ class SkipLinksImplementedChecker
     admin/data_providers#edit
     admin/data_providers#update
 
+    admin/bans#index
+    admin/bans#new
+    admin/bans#create
+    admin/bans#destroy
+    admin/bans#confirm_destroy
+
     developers/open_api#show
     developers/oauth_applications#index
     pages#proconnect_connexion

@@ -9,6 +9,40 @@ fr:
       user_organization_verification: "Vérification lien utilisateur / organisation"
       habilitation_types: Types d’habilitation
       data_providers: Fournisseurs de données
+      bans: Bannir un utilisateur
+    bans:
+      index:
+        title: Utilisateurs bannis
+        empty: Aucun utilisateur banni
+        ban: Bannir un utilisateur
+        table:
+          header:
+            email: Email
+            banned_at: Banni le
+            ban_reason: Raison
+            actions: Actions
+        unban: Lever le ban
+      confirm_destroy:
+        title: Lever le ban
+        description: "Voulez-vous lever le ban de l’utilisateur %{email} ?"
+        cancel: Annuler
+        confirm: Confirmer
+      new:
+        title: Bannir un utilisateur
+        cta: Bannir
+        cancel: Annuler
+      create:
+        title: Utilisateur banni
+        description: L’utilisateur %{email} a été banni avec succès
+      destroy:
+        title: Ban levé
+        description: Le ban de l’utilisateur %{email} a été levé
+      errors:
+        title: Erreur lors du bannissement
+        user_not_found: Aucun utilisateur trouvé avec cet email
+        missing_reason: La raison du ban est obligatoire
+        cannot_ban_self: Vous ne pouvez pas bannir votre propre compte
+        already_banned: Cet utilisateur est déjà banni
     users_with_roles:
       index:
         title: Utilisateurs avec rôles
