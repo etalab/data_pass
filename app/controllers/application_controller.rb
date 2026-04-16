@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  class BannedUserError < StandardError; end
+
   layout :custom_layout
 
   default_form_builder DsfrFormBuilder
@@ -6,6 +8,8 @@ class ApplicationController < ActionController::Base
   helper ActiveLinks
 
   helper_method :namespace?, :displayed_on_a_public_page?, :impersonating?
+
+  rescue_from BannedUserError, with: :reject_banned_user
 
   def current_namespace
     self.class.name.split('::').first
@@ -52,6 +56,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def reject_banned_user
+    sign_out if user_signed_in?
+    flash[:error] = { 'title' => I18n.t('sessions.authenticate_user.errors.banned') }
+    redirect_to root_path
+  end
 
   def flash_message(kind, **options)
     flash_object = flash_object_for(kind)
