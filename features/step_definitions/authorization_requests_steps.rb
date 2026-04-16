@@ -142,6 +142,11 @@ Quand('je me rends sur cette demande d\'habilitation') do
   end
 end
 
+Quand('je me rends sur la page résumé de cette demande') do
+  authorization_request = @authorization_request || AuthorizationRequest.last
+  visit summary_authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id)
+end
+
 Quand('je me rends sur la page demandeur de cette demande') do
   authorization_request = @authorization_request || AuthorizationRequest.last
   visit authorization_request_path(authorization_request)
