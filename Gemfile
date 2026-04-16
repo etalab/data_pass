@@ -92,6 +92,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'parallel_tests'
   gem 'cucumber'
   gem 'cucumber-rails', require: false
   gem 'cuprite'

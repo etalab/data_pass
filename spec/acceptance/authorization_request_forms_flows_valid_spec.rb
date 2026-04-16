@@ -216,9 +216,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
     print_debug "\n'#{request_form.name_with_definition}' (#{request_form.id})"
   end
 
-  # rubocop:disable RSpec/Output, Rails/Output
   def print_debug(message)
-    print "\n#{message}\n"
+    Rails.logger.debug { "\n#{message}\n" }
   end
-  # rubocop:enable RSpec/Output, Rails/Output
 end
