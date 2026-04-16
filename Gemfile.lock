@@ -630,6 +630,10 @@ GEM
     rails-i18n (8.1.0)
       i18n (>= 0.7, < 2)
       railties (>= 8.0.0, < 9)
+    rails_autolink (1.1.8)
+      actionview (> 3.1)
+      activesupport (> 3.1)
+      railties (> 3.1)
     rails_pulse (0.2.5.pre.14)
       async (~> 2.0)
       rails (>= 7.1.0, < 9.0.0)
@@ -903,6 +907,7 @@ DEPENDENCIES
   rails (= 8.1.3)
   rails-controller-testing
   rails-i18n
+  rails_autolink
   rails_pulse (= 0.2.5.pre.14)
   ransack
   redcarpet
