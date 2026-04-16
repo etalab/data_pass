@@ -118,6 +118,7 @@ Available test accounts:
 ## Git
 
 - When you move files, use `git mv` to keep history.
+- No `Co-Authored-By` trailer in commits.
 
 ## ViewComponents Guidelines
 
