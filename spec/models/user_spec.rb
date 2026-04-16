@@ -4,6 +4,20 @@ RSpec.describe User do
     expect(build(:user, :instructor)).to be_valid
   end
 
+  describe 'validation ban_reason' do
+    it 'est invalide si banned_at est présent sans ban_reason' do
+      expect(build(:user, banned_at: Time.zone.now, ban_reason: nil)).not_to be_valid
+    end
+
+    it 'est valide si non banni sans ban_reason' do
+      expect(build(:user, banned_at: nil, ban_reason: nil)).to be_valid
+    end
+
+    it 'est valide si banni avec une raison' do
+      expect(build(:user, banned_at: Time.zone.now, ban_reason: 'Abus de service')).to be_valid
+    end
+  end
+
   describe '.instructor_for' do
     subject { described_class.instructor_for(authorization_request_type) }
 
@@ -414,5 +428,30 @@ RSpec.describe User do
         expect(result.identity_provider).to be_unknown
       end
     end
+  end
+
+  describe '#banned?' do
+    subject { user.banned? }
+
+    context 'when user has no ban' do
+      let(:user) { create(:user) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when user is banned' do
+      let(:user) { create(:user, banned_at: Time.zone.now, ban_reason: 'Abus de service') }
+
+      it { is_expected.to be true }
+    end
+  end
+
+  describe '.banned' do
+    subject { described_class.banned }
+
+    let!(:active_user) { create(:user) }
+    let!(:banned_user) { create(:user, banned_at: Time.zone.now, ban_reason: 'Abus de service') }
+
+    it { is_expected.to contain_exactly(banned_user) }
   end
 end

@@ -14,6 +14,8 @@ class User < ApplicationRecord
 
   validates :external_id, uniqueness: true, allow_nil: true
 
+  validates :ban_reason, presence: true, if: :banned?
+
   has_many :organizations_users,
     dependent: :destroy
 
@@ -54,6 +56,7 @@ class User < ApplicationRecord
     dependent: :restrict_with_exception
 
   scope :with_roles, -> { where("roles <> '{}'") }
+  scope :banned, -> { where.not(banned_at: nil) }
 
   scope :instructor_for, lambda { |authorization_request_type|
     where("
@@ -130,6 +133,10 @@ class User < ApplicationRecord
     foreign_key: :resource_owner_id,
     inverse_of: :resource_owner,
     dependent: :delete_all
+
+  def banned?
+    banned_at.present?
+  end
 
   def full_name
     return email unless family_name.present? && given_name.present?
