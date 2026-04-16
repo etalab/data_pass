@@ -8,6 +8,7 @@ gem 'active_model_validates_intersection_of'
 gem 'active_storage_validations'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
+gem 'chronic'
 gem 'caxlsx'
 gem 'csv'
 gem 'doorkeeper'
