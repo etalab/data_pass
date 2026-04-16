@@ -209,7 +209,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/me', to: 'credentials#me'
 
-      resources :authorization_requests, path: 'demandes', only: %i[index show] do
+      resources :authorization_requests, path: 'demandes', only: %i[index show create update] do
         resources :authorization_request_events, only: [:index], path: 'events', as: :events
       end
 

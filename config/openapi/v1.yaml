@@ -331,6 +331,8 @@ components:
             - system_reminder
             - system_archive
             - system_import
+            - create_by_api
+            - update_by_api
         created_at:
           type: string
           format: date-time
@@ -734,6 +736,90 @@ paths:
           $ref: "#/components/responses/ForbiddenError"
         404:
           $ref: "#/components/responses/NotFoundError"
+    post:
+      summary: Créer une demande d'habilitation
+      description: |
+        Crée une nouvelle demande d'habilitation en état `draft`.
+
+        Le demandeur (applicant) est créé s'il n'existe pas, identifié par email.
+        L'organisation est créée si elle n'existe pas, identifiée par SIRET, et un rafraîchissement des données INSEE est planifié.
+        Si aucun lien n'existe entre le demandeur et l'organisation, un lien non vérifié est créé.
+
+        Requiert le scope OAuth2 `write_authorizations` et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
+      tags:
+        - Demandes d'habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - demande
+              properties:
+                demande:
+                  type: object
+                  required:
+                    - applicant
+                    - organization
+                  properties:
+                    form_uid:
+                      type: string
+                      description: Identifiant du formulaire. Obligatoire si `type` n'est pas fourni.
+                      example: "api-entreprise"
+                    type:
+                      type: string
+                      description: Type de demande (snake_case). Le formulaire par défaut sera utilisé. Obligatoire si `form_uid` n'est pas fourni.
+                      example: "api_entreprise"
+                    applicant:
+                      type: object
+                      required:
+                        - email
+                        - given_name
+                        - family_name
+                      properties:
+                        email:
+                          type: string
+                          example: "demandeur@example.com"
+                        given_name:
+                          type: string
+                          example: "Jean"
+                        family_name:
+                          type: string
+                          example: "Dupont"
+                        job_title:
+                          type: string
+                          example: "Responsable informatique"
+                        phone_number:
+                          type: string
+                          example: "0612345678"
+                    organization:
+                      type: object
+                      required:
+                        - siret
+                      properties:
+                        siret:
+                          type: string
+                          example: "13002526500013"
+                    data:
+                      type: object
+                      description: Données du formulaire. Les clés doivent correspondre aux attributs définis pour le type de demande.
+                      additionalProperties: true
+      responses:
+        201:
+          description: Demande d'habilitation créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demande"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        422:
+          $ref: "#/components/responses/ValidationError"
   /demandes/{id}:
     get:
       summary: Récupérer une demande d'habilitation
@@ -758,6 +844,57 @@ paths:
                   - $ref: "#/components/schemas/Demande"
         404:
           $ref: "#/components/responses/NotFoundError"
+    patch:
+      summary: Mettre à jour une demande d'habilitation
+      description: |
+        Met à jour les données d'une demande d'habilitation existante.
+
+        Seules les données et les documents peuvent être modifiés. Le demandeur et l'organisation ne peuvent pas être changés.
+
+        La mise à jour n'est pas autorisée si la demande est dans un état terminal (`validated`, `refused`, `revoked`, `archived`).
+
+        Requiert le scope OAuth2 `write_authorizations`.
+      tags:
+        - Demandes d'habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: id
+          in: path
+          description: Identifiant de la demande d'habilitation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - demande
+              properties:
+                demande:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      description: Données du formulaire à mettre à jour. Les clés doivent correspondre aux attributs définis pour le type de demande.
+                      additionalProperties: true
+      responses:
+        200:
+          description: Demande d'habilitation mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demande"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        422:
+          $ref: "#/components/responses/ValidationError"
 
   /demandes/{id}/events:
     get:
