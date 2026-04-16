@@ -12,7 +12,6 @@ RSpec.describe AuthorizationRequestMailer do
       let(:authorization_request) { create(:authorization_request, :annuaire_des_entreprises, :validated) }
 
       it 'renders the custom template which is html' do
-        expect(mail.body.encoded).to match('href')
         expect(mail.body.encoded).to match('espace agent')
       end
     end
@@ -20,10 +19,9 @@ RSpec.describe AuthorizationRequestMailer do
     context 'when there is no custom HTML template for the kind' do
       let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
 
-      it 'renders the generic HTML template with linkified URLs' do
+      it 'renders the generic HTML template' do
         html = decoded_html_body(mail)
         expect(html).to be_present
-        expect(html).to match(/<a href=/)
         expect(html).to match('validée')
         expect(html).to match('consulter')
       end
@@ -130,10 +128,9 @@ RSpec.describe AuthorizationRequestMailer do
       expect(decoded_text_body(mail)).to match('a été révoquée')
     end
 
-    it 'renders HTML part with linkified content' do
+    it 'renders HTML part' do
       html = decoded_html_body(mail)
       expect(html).to be_present
-      expect(html).to match('href')
       expect(html).to match('révoquée')
     end
   end

@@ -2,15 +2,15 @@ class EmailPreviewRenderer
   PLACEHOLDER_MESSAGE = '{{MESSAGE_PERSONNALISE}}'.freeze
 
   ACTION_TO_MAILER_ACTION = {
-    approval: 'approve',
-    refusal: 'refuse',
-    request_changes: 'request_changes'
+    approval: :approve,
+    refusal: :refuse,
+    request_changes: :request_changes
   }.freeze
 
   ACTION_TO_REOPENING_MAILER_ACTION = {
-    approval: 'reopening_approve',
-    refusal: 'reopening_refuse',
-    request_changes: 'reopening_request_changes'
+    approval: :reopening_approve,
+    refusal: :reopening_refuse,
+    request_changes: :reopening_request_changes
   }.freeze
 
   def initialize(authorization_request, action:)
@@ -19,27 +19,17 @@ class EmailPreviewRenderer
   end
 
   def render
-    ApplicationController.render(
-      template: template_path,
-      assigns: { authorization_request: build_preview_request },
-      formats: [:text]
-    )
+    mail = AuthorizationRequestMailer.with(
+      authorization_request: build_preview_request
+    ).send(mailer_action)
+
+    LinkifyUrlsInterceptor.delivering_email(mail)
+    Nokogiri::HTML(mail.html_part.body.decoded).at('body').inner_html
   end
 
   private
 
   attr_reader :authorization_request, :action
-
-  def template_path
-    kind_specific = "authorization_request_mailer/#{authorization_definition_uid}/#{mailer_action}"
-    generic = "authorization_request_mailer/#{mailer_action}"
-
-    template_exists?(kind_specific) ? kind_specific : generic
-  end
-
-  def template_exists?(path)
-    ApplicationController.new.lookup_context.exists?(path, [], false)
-  end
 
   def mailer_action
     if authorization_request.reopening?
@@ -47,10 +37,6 @@ class EmailPreviewRenderer
     else
       ACTION_TO_MAILER_ACTION.fetch(action)
     end
-  end
-
-  def authorization_definition_uid
-    authorization_request.definition.id
   end
 
   def build_preview_request

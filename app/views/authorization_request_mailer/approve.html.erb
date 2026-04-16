@@ -1,18 +1,18 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 <br/>
-<%= simple_format(linkify_urls(t(
+<%= simple_format(t(
   '.description',
   authorization_request_id: @authorization_request.id,
   authorization_request_name: @authorization_request.name,
   authorization_request_url: authorization_request_url(@authorization_request),
-))) %>
+)) %>
 <% if @authorization_request.latest_authorization&.message.present? %>
 <br/>
-<%= simple_format(linkify_urls(t('.additional_message', message: @authorization_request.latest_authorization.message))) %>
+<%= simple_format(t('.additional_message', message: @authorization_request.latest_authorization.message)) %>
 <% end %>
 <% if @authorization_request.definition.need_homologation? %>
 <br/>
-<%= simple_format(linkify_urls(t('.need_homologation', authorization_definition_name: @authorization_request.definition.name))) %>
+<%= simple_format(t('.need_homologation', authorization_definition_name: @authorization_request.definition.name)) %>
 <% end %>
 <br/>
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
