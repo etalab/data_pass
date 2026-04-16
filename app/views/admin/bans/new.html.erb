@@ -1,0 +1,15 @@
+<% set_title! t('.title') %>
+<div class="fr-container fr-mt-5w">
+  <div class="fr-grid-row">
+    <div class="fr-col-md-8">
+      <%= form_with model: @user, url: admin_bans_path do |f| %>
+        <%= f.dsfr_email_field :email, required: true, autocomplete: 'off' %>
+        <%= f.dsfr_text_area :ban_reason, required: true, rows: 4 %>
+        <div class="fr-btns-group">
+          <%= f.submit t('.cta'), class: 'fr-btn fr-btn--warning' %>
+          <%= link_to t('.cancel'), admin_bans_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

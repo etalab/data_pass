@@ -18,17 +18,9 @@ module Authentication
     alias_method :api_mode!, :allow_unauthenticated_access
   end
 
-  def sign_in_path
-    root_path
-  end
-
-  def sign_out_path
-    root_path
-  end
-
-  def after_sign_in_path
-    dashboard_path
-  end
+  def sign_in_path = root_path
+  def sign_out_path = root_path
+  def after_sign_in_path = dashboard_path
 
   def sign_in(user, identity_federator:, identity_provider_uid:)
     session[:user_id] = {
@@ -55,7 +47,11 @@ module Authentication
   end
 
   def authenticate_user!
-    return if user_signed_in?
+    if user_signed_in?
+      raise ApplicationController::BannedUserError if current_user.banned?
+
+      return
+    end
 
     session[:return_to_after_sign_in] = request.url
     redirect_to sign_in_path

@@ -13,6 +13,8 @@ class AuthenticatedUserController < ApplicationController
 
     user = User.find_by!(email: params[:email])
 
+    raise ApplicationController::BannedUserError if user.banned?
+
     sign_in(user, identity_federator: :bypass_login, identity_provider_uid: 'bypass')
 
     redirect_to dashboard_path

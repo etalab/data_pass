@@ -50,6 +50,7 @@ class SessionsController < ApplicationController
 
   def complete_proconnect_sign_in
     organizer = authenticate_user(identity_federator: 'proconnect')
+
     user = organizer.user
 
     if user.current_identity_provider.choose_organization_on_sign_in?
@@ -85,6 +86,9 @@ class SessionsController < ApplicationController
     sign_out if user_signed_in?
 
     organizer = call_authenticator(identity_federator)
+
+    raise ApplicationController::BannedUserError if organizer.user.banned?
+
     sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
 
     organizer
