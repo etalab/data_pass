@@ -1724,6 +1724,10 @@ api-particulier-docaposte-fast:
   service_provider_id: docaposte
   static_blocks: &api_particulier_through_editor_static_blocks
     - name: modalities
+  scopes_config:
+    hide:
+      - men_statut_boursier
+      - men_echelon_bourse
   initialize_with:
     intitule:
       Récupération du Quotient Familial ainsi que les informations administratives
@@ -1758,6 +1762,10 @@ api-particulier-odyssee-informatique-pandore:
   use_case: tarification_municipale_enfance
   service_provider_id: odyssee_informatique
   static_blocks: *api_particulier_through_editor_static_blocks
+  scopes_config:
+    hide:
+      - men_statut_boursier
+      - men_echelon_bourse
   initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description:
@@ -1794,6 +1802,10 @@ api-particulier-qiis-eticket:
   single_page_view: "api_particulier_through_editor"
   service_provider_id: qiis
   static_blocks: *api_particulier_through_editor_static_blocks
+  scopes_config:
+    hide:
+      - men_statut_boursier
+      - men_echelon_bourse
   initialize_with:
     intitule: eTicket - Portail Famille
     description:
@@ -1828,6 +1840,10 @@ api-particulier-teamnet-axel:
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: teamnet
   static_blocks: *api_particulier_through_editor_static_blocks
+  scopes_config:
+    hide:
+      - men_statut_boursier
+      - men_echelon_bourse
   initialize_with:
     intitule:
       Déclaration des revenus et calcul du quotient familial pour actualiser
@@ -1955,6 +1971,10 @@ api-particulier-sigec-maelis:
   use_case: tarification_municipale_enfance
   service_provider_id: sigec
   static_blocks: *api_particulier_through_editor_static_blocks
+  scopes_config:
+    hide:
+      - men_statut_boursier
+      - men_echelon_bourse
   initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description:
