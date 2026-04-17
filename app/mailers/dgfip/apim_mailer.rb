@@ -6,7 +6,7 @@ class DGFIP::APIMMailer < ApplicationMailer
     @stage_label = stage_label
 
     mail(
-      to: dgfip_apim_emails,
+      to: dgfip_emails,
       subject: subject_for_approve
     )
   end
@@ -27,8 +27,16 @@ class DGFIP::APIMMailer < ApplicationMailer
     end
   end
 
-  def dgfip_apim_emails
+  def dgfip_emails
+    apim_emails + api_specific_emails
+  end
+
+  def apim_emails
     Rails.application.credentials.dgfip_apim_emails || []
+  end
+
+  def api_specific_emails
+    (Rails.application.credentials.dgfip_api_specific_emails || {})[@authorization_request.definition.id.to_sym] || []
   end
 
   def stage_label
