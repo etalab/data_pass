@@ -1,7 +1,7 @@
-<% preview_with_marker = email_preview.gsub(
-  EmailPreviewRenderer::PLACEHOLDER_MESSAGE,
-  '<span data-message-template-selector-target="previewMessage">&lt;MESSAGE PERSONNALISÉ&gt;</span>'
-) %>
+<% preview_placeholder_token = SecureRandom.hex %>
+<% preview_with_token = email_preview.gsub(EmailPreviewRenderer::PLACEHOLDER_MESSAGE, preview_placeholder_token) %>
+<% linkified = linkify_urls(preview_with_token) %>
+<% preview_with_marker = linkified.gsub(preview_placeholder_token, '<span data-message-template-selector-target="previewMessage">&lt;MESSAGE PERSONNALISÉ&gt;</span>').html_safe %>
 <section class="fr-accordion fr-mt-3w">
   <h3 class="fr-accordion__title">
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="email-preview-accordion">

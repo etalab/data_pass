@@ -14,6 +14,12 @@ module ApplicationHelper
     simple_format(text, html_options, { sanitize_options: { tags: [], attributes: [] } }.merge(options))
   end
 
+  def linkify_urls(text)
+    return '' if text.blank?
+
+    auto_link(h(text), link: :urls, html: { target: '_blank', rel: 'noopener noreferrer' }, sanitize: false).html_safe
+  end
+
   def provider_logo_image_tag(authorization_definition, options = {})
     return nil unless authorization_definition.provider
     return nil unless authorization_definition.provider.logo.attached?
