@@ -31,11 +31,18 @@ class Organization < ApplicationRecord
   end
 
   def name
+    return "L'organisation #{legal_entity_id} (issu de #{legal_entity_registry})" if foreign?
+    return "#{nom} #{prenom}".strip if personne_physique?
+
     denomination || "l'organisation #{legal_entity_id} (nom inconnu)"
   end
 
   def denomination
-    insee_payload.dig('etablissement', 'uniteLegale', 'denominationUniteLegale')
+    unite_legale['denominationUniteLegale']
+  end
+
+  def personne_physique?
+    unite_legale['categorieJuridiqueUniteLegale'] == '1000'
   end
 
   def insee_payload
@@ -83,6 +90,18 @@ class Organization < ApplicationRecord
   end
 
   private
+
+  def unite_legale
+    insee_payload.dig('etablissement', 'uniteLegale') || {}
+  end
+
+  def nom
+    unite_legale['nomUniteLegale'].to_s
+  end
+
+  def prenom
+    unite_legale['prenom1UniteLegale'].to_s
+  end
 
   def insee_latest_etablissement_period
     return unless insee_payload['etablissement']
