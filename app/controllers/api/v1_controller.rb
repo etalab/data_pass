@@ -5,6 +5,7 @@ class API::V1Controller < APIController
   rescue_from Doorkeeper::Errors::TokenUnknown, with: :render_unauthorized_error
   rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
+  rescue_from ActionController::ParameterMissing, with: :render_parameter_missing_error
 
   protected
 
@@ -22,6 +23,15 @@ class API::V1Controller < APIController
 
   def render_generic_error
     render_error(422, title: 'Entité non traitable', detail: 'Un problème est survenu lors du traitement de la requête.')
+  end
+
+  def render_parameter_missing_error(exception)
+    render_error(
+      400,
+      title: 'Paramètre manquant',
+      detail: "Le paramètre « #{exception.param} » est requis mais absent de la requête.",
+      source: { pointer: "/#{exception.param}" },
+    )
   end
 
   def render_error(http_code, title:, detail:, source: nil)

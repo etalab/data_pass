@@ -196,6 +196,29 @@ RSpec.describe 'API: Authorization requests write' do
       end
     end
 
+    context 'without an applicant key' do
+      let(:params) do
+        {
+          demande: {
+            form_uid: 'api-entreprise',
+            organization: { siret: '13002526500013' },
+            data: { intitule: 'Mon projet' }
+          }
+        }
+      end
+
+      it 'returns 400 with the missing parameter name' do
+        create_request
+
+        expect(response).to have_http_status(:bad_request)
+        expect(response.parsed_body['errors'].first).to include(
+          'status' => '400',
+          'source' => { 'pointer' => '/applicant' },
+        )
+        expect(response.parsed_body['errors'].first['detail']).to include('applicant')
+      end
+    end
+
     context 'with missing applicant email' do
       let(:params) do
         {
