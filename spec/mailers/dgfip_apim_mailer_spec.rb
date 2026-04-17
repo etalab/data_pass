@@ -14,7 +14,7 @@ RSpec.describe DGFIP::APIMMailer do
       end
 
       it 'sends to the DGFiP APIM emails from test credentials' do
-        expect(mail.to).to eq ['test1@dgfip.finances.gouv.fr', 'test2@dgfip.finances.gouv.fr']
+        expect(mail.to).to eq ['test1@dgfip.finances.gouv.fr', 'test2@dgfip.finances.gouv.fr', 'test3@dgfip.finances.gouv.fr', 'test4@dgfip.finances.gouv.fr']
       end
 
       it 'has the correct subject for new request' do
@@ -71,6 +71,21 @@ RSpec.describe DGFIP::APIMMailer do
 
       it 'includes PROD for production stage' do
         expect(mail.body.encoded).to include('PROD')
+      end
+    end
+
+    context 'when the API has no specific emails configured' do
+      let(:authorization_request) { create(:authorization_request, :api_hermes_sandbox, :validated) }
+
+      let(:mail) do
+        described_class.with(
+          authorization:,
+          reopening: false
+        ).approve
+      end
+
+      it 'sends only to the base DGFiP APIM emails' do
+        expect(mail.to).to eq ['test1@dgfip.finances.gouv.fr', 'test2@dgfip.finances.gouv.fr']
       end
     end
   end
