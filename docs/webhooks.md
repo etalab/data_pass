@@ -337,7 +337,10 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
     "organization": {
       "id": 9002,
       "name": "UMAD CORP",
-      "siret": "98043033400022"
+      "siret": "98043033400022",
+      "insee_payload": {
+        "...": "données INSEE complètes associées à l'organisation (voir l'API Sirene)"
+      }
     },
     "applicant": {
       "id": 9003,
@@ -386,6 +389,9 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
 - **`fired_at`** (timestamp) : Horodatage Unix du moment où le webhook a été déclenché
 - **`model_type`** (string) : Type de la demande (format snake_case, ex: `authorization_request/api_particulier`)
 - **`data`** (object) : Données complètes de la demande d'habilitation (voir le serializer `WebhookAuthorizationRequestSerializer`)
+  - **`organization`** (object) : Organisation associée à la demande. Contient notamment :
+    - `id`, `name`, `siret`
+    - `insee_payload` : Données INSEE brutes associées à l'organisation (réponse de l'[API Sirene](https://portail-api.insee.fr/catalog/api/2ba0e549-5587-3ef1-9082-99cd865de66f), endpoint `GET /siret/{siret}`)
   - **`authorizations`** (array) : Liste des habilitations associées à la demande. Chaque habilitation contient :
     - `id` : Identifiant unique de l'habilitation
     - `slug` : Identifiant public de l'habilitation
