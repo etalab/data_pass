@@ -20,7 +20,8 @@ class AnnouncementBanner
   def parse(value)
     return nil if value.blank?
 
-    Chronic.parse(value.to_s)
+    parsed = Chronic.parse(value.to_s) or return nil
+    Time.zone.local(parsed.year, parsed.month, parsed.day, parsed.hour, parsed.min, parsed.sec)
   end
 
   def config
