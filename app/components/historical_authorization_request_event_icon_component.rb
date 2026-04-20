@@ -7,6 +7,7 @@ class HistoricalAuthorizationRequestEventIconComponent < IconComponent
       'request_changes' => { icon: 'pencil-line', color: 'warning' },
       'refuse' => { icon: 'close-circle-line', color: 'error' },
       'revoke' => { icon: 'close-circle-line', color: 'error' },
+      'admin_change' => { icon: 'settings-5-line', color: 'info' },
     }.freeze
   end
 

@@ -61,6 +61,9 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :admin_changes,
+    dependent: :destroy
+
   has_many :transfers,
     class_name: 'AuthorizationRequestTransfer',
     inverse_of: :authorization_request,

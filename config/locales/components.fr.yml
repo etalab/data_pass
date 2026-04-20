@@ -5,6 +5,8 @@ fr:
       hide_message: "masquer le message"
       show_changelog: "voir les modifications"
       hide_changelog: "masquer les modifications"
+      show_details: "voir les détails"
+      hide_details: "masquer les détails"
     authorization_header_component:
       title: "Habilitation à %{definition_name}"
       authorization_badge: "Habilitation %{formatted_id}"

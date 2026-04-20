@@ -3,5 +3,5 @@
 </h3>
 
 <ul class="authorization-request-events">
-  <%= render(HistoricalAuthorizationRequestEventComponent.with_collection(@events)) %>
+  <%= render(HistoricalAuthorizationRequestEventComponent.with_collection(@events, show_private_reason: current_user&.admin?)) %>
 </ul>

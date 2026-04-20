@@ -263,6 +263,19 @@ FactoryBot.define do
       user { nil }
     end
 
+    trait :admin_change do
+      name { 'admin_change' }
+
+      entity factory: %i[admin_change]
+
+      after(:build) do |authorization_request_event, evaluator|
+        if evaluator.authorization_request.present?
+          authorization_request_event.entity = build(:admin_change,
+            authorization_request: evaluator.authorization_request)
+        end
+      end
+    end
+
     trait :bulk_update do
       name { 'bulk_update' }
 

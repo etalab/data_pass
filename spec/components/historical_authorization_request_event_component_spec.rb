@@ -132,6 +132,10 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     context 'with changelog kind of event' do
       let(:authorization_request_event) { create(:authorization_request_event, :admin_update) }
 
+      before do
+        authorization_request_event.entity.update!(diff: { 'intitule' => %w[ancien nouveau] })
+      end
+
       it 'uses show/hide changelog' do
         page = render_inline(subject)
 
@@ -191,6 +195,75 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         render_inline(subject)
 
         expect(subject.message_details_text).to be_blank
+      end
+    end
+  end
+
+  describe 'render admin_change' do
+    let(:authorization_request_event) { create(:authorization_request_event, :admin_change) }
+
+    context 'with a non-empty diff' do
+      before do
+        authorization_request_event.entity.update!(public_reason: 'Correction du contact technique', diff: { 'intitule' => %w[ancien nouveau] })
+      end
+
+      it 'renders public_reason and diff entries' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('Correction du contact technique')
+        expect(page).to have_text('ancien')
+        expect(page).to have_text('nouveau')
+      end
+
+      it 'renders expand/collapse with details labels' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('voir les détails')
+        expect(page).to have_text('masquer les détails')
+      end
+    end
+
+    context 'with an empty diff' do
+      before do
+        authorization_request_event.entity.update!(public_reason: 'Migration technique', diff: {})
+      end
+
+      it 'renders only the public_reason' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('Migration technique')
+      end
+    end
+
+    context 'with show_private_reason: true' do
+      let(:component) { described_class.new(authorization_request_event:, show_private_reason: true) }
+
+      before do
+        authorization_request_event.entity.update!(
+          public_reason: 'Correction des données',
+          private_reason: 'Ticket #SP-1234',
+        )
+      end
+
+      it 'renders the private_reason' do
+        page = render_inline(component)
+
+        expect(page).to have_text('Ticket #SP-1234')
+      end
+    end
+
+    context 'with show_private_reason: false' do
+      before do
+        authorization_request_event.entity.update!(
+          public_reason: 'Correction des données',
+          private_reason: 'Ticket #SP-1234',
+        )
+      end
+
+      it 'does not render the private_reason' do
+        page = render_inline(subject)
+
+        expect(page).to have_no_text('Ticket #SP-1234')
       end
     end
   end

@@ -265,6 +265,9 @@ fr:
         success: "« %{name} » supprimé"
         error: "Une erreur est survenue lors de la suppression"
 
+    build_admin_change_diff:
+      unsaved_changes: "Les modifications sur authorization_request doivent être sauvegardées dans le bloc (utiliser update!/save!)"
+
     data_providers:
       not_authorized: "Ce fournisseur de données ne peut pas être supprimé car des types d'habilitation y sont rattachés"
       index:

@@ -21,6 +21,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     instructor_message
 
     admin_update
+    admin_change
     bulk_update
 
     start_next_stage
@@ -55,6 +56,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     return if %w[approve auto_generate reopen].include?(name) && entity_type == 'Authorization'
     return if %w[applicant_message instructor_message].include?(name) && entity_type == 'Message'
     return if %w[approve refuse request_changes revoke].exclude?(name) && entity_type == 'AuthorizationRequest'
+    return if name == 'admin_change' && entity_type == 'AdminChange'
     return if %w[bulk_update].include?(name) && entity_type == 'BulkAuthorizationRequestUpdate'
     return if name == 'claim' && entity_type == 'InstructorDraftRequest'
 
