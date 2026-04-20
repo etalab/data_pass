@@ -13,9 +13,7 @@ class APIController < ActionController::API
   private
 
   def current_user_authorization_request_types
-    current_user.developer_roles.map do |role|
-      "AuthorizationRequest::#{role.split(':')[0].classify}"
-    end
+    current_user.authorization_request_types_for(:developer)
   end
 
   def set_authorization_request

@@ -59,60 +59,37 @@ class User < ApplicationRecord
   scope :banned, -> { where.not(banned_at: nil) }
 
   scope :instructor_for, lambda { |authorization_request_type|
-    where("
-      EXISTS (
-        SELECT 1
-        FROM unnest(roles) AS role
-        WHERE role = ?
-      )
-    ", "#{authorization_request_type.underscore}:instructor")
+    qualifying = RoleHierarchy.qualifying_roles(:instructor)
+    where(
+      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role IN (?))',
+      qualifying.map { |q| "#{authorization_request_type.underscore}:#{q}" }
+    )
   }
 
   scope :developer_for, lambda { |authorization_request_type|
-    where("
-      EXISTS (
-        SELECT 1
-        FROM unnest(roles) AS role
-        WHERE role = ?
-      )
-    ", "#{authorization_request_type.underscore}:developer")
+    where(
+      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role = ?)',
+      "#{authorization_request_type.underscore}:developer"
+    )
   }
 
   scope :manager_for, lambda { |authorization_request_type|
-    where("
-      EXISTS (
-        SELECT 1
-        FROM unnest(roles) AS role
-        WHERE role = ?
-      )
-    ", "#{authorization_request_type.underscore}:manager")
+    where(
+      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role = ?)',
+      "#{authorization_request_type.underscore}:manager"
+    )
   }
 
   scope :reporter_for, lambda { |authorization_request_type|
+    qualifying = RoleHierarchy.qualifying_roles(:reporter)
     where(
-      "EXISTS (
-        SELECT 1
-        FROM unnest(roles) AS role
-        WHERE role in (?)
-      )",
-      [
-        "#{authorization_request_type.underscore}:instructor",
-        "#{authorization_request_type.underscore}:manager",
-        "#{authorization_request_type.underscore}:developer",
-        "#{authorization_request_type.underscore}:reporter",
-      ]
+      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role IN (?))',
+      qualifying.map { |q| "#{authorization_request_type.underscore}:#{q}" }
     )
   }
 
   scope :admin, lambda {
-    where(
-      "EXISTS (
-        SELECT 1
-        FROM unnest(roles) AS role
-        WHERE role in (?)
-      )",
-      ['admin']
-    )
+    where("'admin' = ANY(roles)")
   }
 
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
@@ -145,57 +122,35 @@ class User < ApplicationRecord
     "#{family_name.upcase} #{formatted_given_name}"
   end
 
-  def instructor?(authorization_request_type = nil)
-    return true if manager?(authorization_request_type)
-
-    if authorization_request_type
-      roles.include?("#{authorization_request_type}:instructor")
-    else
-      roles.any? { |role| role.end_with?(':instructor') }
-    end
+  def roles_for(kind)
+    @role_sets ||= {}
+    @role_sets[kind] ||= RoleSet.new(roles, kind)
   end
 
-  def manager?(authorization_request_type = nil)
-    if authorization_request_type
-      roles.include?("#{authorization_request_type}:manager")
-    else
-      roles.any? { |role| role.end_with?(':manager') }
-    end
+  def instructor?(definition_id = nil)
+    roles_for(:instructor).covers?(definition_id)
   end
 
-  def reporter_roles
-    (roles.select { |role|
-      role.end_with?(':reporter')
-    } + instructor_roles + manager_roles + developer_roles).uniq
+  def manager?(definition_id = nil)
+    roles_for(:manager).covers?(definition_id)
   end
 
-  def instructor_roles
-    (roles.select { |role|
-      role.end_with?(':instructor')
-    } + manager_roles).uniq
-  end
-
-  def manager_roles
-    roles.select { |role| role.end_with?(':manager') }
-  end
-
-  def developer_roles
-    roles.select { |role| role.end_with?(':developer') }
-  end
-
-  def reporter?(authorization_request_type = nil)
+  def reporter?(definition_id = nil)
     return true if admin?
-    return true if instructor?(authorization_request_type)
 
-    if authorization_request_type
-      roles.include?("#{authorization_request_type}:reporter")
-    else
-      roles.any? { |role| role.end_with?(':reporter') }
-    end
+    roles_for(:reporter).covers?(definition_id)
   end
 
   def developer?
-    developer_roles.any?
+    roles_for(:developer).any?
+  end
+
+  def definition_ids_for(kind)
+    roles_for(kind).definition_ids
+  end
+
+  def authorization_request_types_for(kind)
+    roles_for(kind).authorization_request_types
   end
 
   def admin?
@@ -209,9 +164,7 @@ class User < ApplicationRecord
   end
 
   def authorization_definition_roles_as(kind)
-    public_send(:"#{kind}_roles")
-      .map { |role| AuthorizationDefinition.find(role.split(':').first) }
-      .uniq(&:id)
+    roles_for(kind).authorization_definitions
   end
 
   def self.ransackable_attributes(_auth_object = nil)
