@@ -110,9 +110,26 @@ class Admin::HabilitationTypesController < AdminController
     existing = @habilitation_type.scopes || []
     return existing if submitted_scopes.blank?
 
-    existing.each_with_index.map do |scope, i|
-      submitted = (submitted_scopes[i] || {}).stringify_keys
-      scope.merge(submitted.slice(*HabilitationType::EDITORIAL_SCOPE_PARAMS))
+    update_existing_scopes(existing, submitted_scopes) +
+      extract_new_scopes(existing, submitted_scopes)
+  end
+
+  def update_existing_scopes(existing, submitted_scopes)
+    existing.map do |scope|
+      submitted = submitted_scopes.find { |s| s[:value] == scope['value'] } || {}
+      scope.merge(submitted.stringify_keys.slice(*HabilitationType::EDITORIAL_SCOPE_PARAMS))
+    end
+  end
+
+  def extract_new_scopes(existing, submitted_scopes)
+    remaining = existing.pluck('value').tally
+
+    submitted_scopes.filter_map do |scope|
+      value = scope[:value]
+      next scope.stringify_keys unless remaining[value]&.positive?
+
+      remaining[value] -= 1
+      nil
     end
   end
 end

@@ -12,6 +12,21 @@ Sachantque("un type d'habilitation {string} avec des demandes liées existe") do
   )
 end
 
+Sachantque("un type d'habilitation {string} avec des demandes liées et des scopes existe") do |name|
+  data_provider = DataProvider.first || FactoryBot.create(:data_provider)
+  habilitation_type = FactoryBot.create(
+    :habilitation_type,
+    name:,
+    data_provider:,
+    blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'scopes' }],
+    scopes: [{ 'name' => 'Revenu fiscal', 'value' => 'rfr', 'group' => 'Revenus' }]
+  )
+  FactoryBot.create(
+    :authorization_request,
+    type: habilitation_type.authorization_request_type
+  )
+end
+
 Quand('je choisis le type {string}') do |kind|
   choose kind, allow_label_click: true
 end
@@ -31,4 +46,12 @@ end
 
 Alors('le champ radio {string} est désactivé') do |label|
   expect(page).to have_field(label, disabled: true, visible: :all)
+end
+
+Alors('le champ du scope {int} {string} est désactivé') do |index, field|
+  expect(page).to have_css("#scope-#{index - 1}-#{field}[disabled]")
+end
+
+Alors('le scope {int} a pour nom {string}') do |index, name|
+  expect(page).to have_css("#scope-#{index - 1}-name[value='#{name}']")
 end

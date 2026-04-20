@@ -7,7 +7,7 @@
     </div>
   <% end %>
 
-  <% unless structural_fields_locked? %>
+  <% unless disabled? %>
     <script type="text/x-template" data-nested-form-target="template">
       <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
         <div class="fr-col-4">
@@ -57,6 +57,9 @@
           <div class="fr-input-group <%= scope_field_error_class(index, :value) %>">
             <label class="fr-label" for="scope-<%= index %>-value"><%= t('admin.habilitation_types.form.scopes_editor.value') %> <span class="fr-ml-1w fr-text-error">*</span></label>
             <input type="text" id="scope-<%= index %>-value" name="habilitation_type[scopes][][value]" value="<%= scope['value'] %>" class="fr-input" required aria-describedby="scope-<%= index %>-value-error"<%= ' disabled' if structural_fields_locked? %>>
+            <% if structural_fields_locked? %>
+              <input type="hidden" name="habilitation_type[scopes][][value]" value="<%= scope['value'] %>">
+            <% end %>
             <% if scope_field_errors(index, :value).any? %>
               <p class="fr-messages-group" id="scope-<%= index %>-value-error">
                 <% scope_field_errors(index, :value).each do |msg| %>
@@ -72,18 +75,18 @@
             <input type="text" id="scope-<%= index %>-group" name="habilitation_type[scopes][][group]" value="<%= scope['group'] %>" class="fr-input"<%= ' disabled' if disabled? %>>
           </div>
         </div>
-        <% unless structural_fields_locked? %>
-          <div class="fr-col-2 fr-mt-4w">
+        <div class="fr-col-2 fr-mt-4w">
+          <% unless structural_fields_locked? %>
             <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form#remove">
               <%= t('admin.habilitation_types.form.scopes_editor.remove') %>
             </button>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>
 
-  <% unless structural_fields_locked? %>
+  <% unless disabled? %>
     <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="click->nested-form#add">
       <%= t('admin.habilitation_types.form.scopes_editor.add') %>
     </button>

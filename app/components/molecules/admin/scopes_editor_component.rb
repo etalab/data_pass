@@ -22,8 +22,9 @@ class Molecules::Admin::ScopesEditorComponent < ApplicationComponent
   end
 
   def scope_field_errors(index, field)
-    error_type = :"scope_#{field}_blank"
-    habilitation_type.errors.where(:scopes, error_type, index:).map(&:message)
+    %W[scope_#{field}_blank scope_#{field}_duplicate].flat_map do |type|
+      habilitation_type.errors.where(:scopes, type.to_sym, index:).map(&:message)
+    end
   end
 
   def scope_field_error_class(index, field)

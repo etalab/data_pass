@@ -149,6 +149,16 @@ RSpec.describe HabilitationType do
         expect(habilitation_type.errors.where(:scopes, :scope_name_blank, index: 1)).to be_present
         expect(habilitation_type.errors.where(:scopes, :scope_value_blank, index: 1)).to be_present
       end
+
+      it 'is invalid when two scopes have the same value' do
+        habilitation_type.scopes = [
+          { 'name' => 'Revenu fiscal', 'value' => 'rfr', 'group' => 'Revenus' },
+          { 'name' => 'Autre revenu', 'value' => 'rfr', 'group' => 'Revenus' },
+        ]
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors.where(:scopes, :scope_value_duplicate, index: 0)).to be_empty
+        expect(habilitation_type.errors.where(:scopes, :scope_value_duplicate, index: 1)).to be_present
+      end
     end
 
     context 'when scopes block is not selected' do
