@@ -12,12 +12,8 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     FindOrCreateApplicantFromAPI,
     FindOrCreateOrganizationForAPI,
     LinkApplicantToOrganization,
-    AssignAPIAuthorizationRequestModel,
-    AssignDefaultDataToAuthorizationRequest,
-    AssignParamsToAuthorizationRequest,
-    AssignFranceConnectDefaults,
-    SaveAuthorizationRequest,
+    CreateAuthorizationRequestModel,
     CreateAuthorizationRequestChangelog,
-    CreateAuthorizationRequestEventModel,
+    AfterCreateAuthorizationRequest,
     EnqueueOrganizationINSEERefresh
 end

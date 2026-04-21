@@ -8,9 +8,7 @@ class UpdateAuthorizationRequestFromAPI < ApplicationOrganizer
 
   organize EnsureAuthorizationRequestIsUpdatable,
     ValidateAPIDataKeys,
-    AssignParamsToAuthorizationRequest,
-    AssignFranceConnectDefaults,
-    SaveAuthorizationRequest,
+    UpdateAuthorizationRequestModel,
     CreateAuthorizationRequestChangelog,
-    CreateAuthorizationRequestEventModel
+    AfterUpdateAuthorizationRequest
 end
