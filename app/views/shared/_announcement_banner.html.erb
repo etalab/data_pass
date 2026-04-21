@@ -1,0 +1,9 @@
+<% if AnnouncementBanner.instance.active? %>
+  <%= render DsfrComponent::NoticeComponent.new(
+    title: AnnouncementBanner.instance.title,
+    description: AnnouncementBanner.instance.description,
+    type: 'info',
+    dismissible: true,
+    html_attributes: { class: 'fr-notice--full-width' }
+  ) %>
+<% end %>
