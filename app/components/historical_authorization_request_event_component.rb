@@ -3,7 +3,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   REASON_EVENTS = %w[request_changes revoke refuse bulk_update cancel_reopening_from_instructor].freeze
   MESSAGE_EVENTS = %w[applicant_message instructor_message].freeze
-  CHANGELOG_EVENTS = %w[initial_submit_with_changes_on_prefilled_data submit_with_changes legacy_submit_with_changes].freeze
+  CHANGELOG_EVENTS = %w[initial_submit_with_changes_on_prefilled_data submit_with_changes legacy_submit_with_changes create_by_api update_by_api].freeze
 
   delegate :user_full_name, :entity, to: :authorization_request_event
 
@@ -94,6 +94,11 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
     return formatted_reason if REASON_EVENTS.include?(name)
     return formatted_body if MESSAGE_EVENTS.include?(name)
     return formatted_approval_message if approval_with_message?
+
+    compute_changelog_details_text
+  end
+
+  def compute_changelog_details_text
     return humanized_changelog if CHANGELOG_EVENTS.include?(name)
 
     return humanized_changelog(from_admin: true) if name == 'admin_update'
@@ -162,7 +167,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
       :message
     when 'admin_change'
       :details
-    when 'submit', 'admin_update'
+    when 'submit', 'admin_update', 'create_by_api', 'update_by_api'
       :changelog
     end
   end

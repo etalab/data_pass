@@ -276,6 +276,30 @@ FactoryBot.define do
       end
     end
 
+    trait :create_by_api do
+      name { 'create_by_api' }
+
+      entity factory: %i[authorization_request_changelog]
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization_request_changelog, authorization_request: evaluator.authorization_request)
+      end
+    end
+
+    trait :update_by_api do
+      name { 'update_by_api' }
+
+      entity factory: %i[authorization_request_changelog]
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization_request_changelog, authorization_request: evaluator.authorization_request)
+      end
+    end
+
     trait :bulk_update do
       name { 'bulk_update' }
 
