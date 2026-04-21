@@ -6,7 +6,7 @@ class ApplicationNotifier
   end
 
   def self.notifier_event_names
-    AuthorizationRequest.state_machine.events.map(&:name) + %w[create update transfer]
+    AuthorizationRequest.state_machine.events.map(&:name) + %w[create update transfer create_by_api update_by_api]
   end
 
   notifier_event_names.each do |notifier_event_name|
