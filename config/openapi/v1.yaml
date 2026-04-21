@@ -805,7 +805,7 @@ paths:
                           example: "13002526500013"
                     data:
                       type: object
-                      description: Données du formulaire. Les clés doivent correspondre aux attributs définis pour le type de demande.
+                      description: Données du formulaire. Les clés doivent correspondre aux attributs définis pour la définition d'habilitation. Voir /defintions/{id} pour le détail des clés nécessaires.
                       additionalProperties: true
       responses:
         201:
@@ -852,8 +852,9 @@ paths:
         Seules les données et les documents peuvent être modifiés. Le demandeur et l'organisation ne peuvent pas être changés.
 
         La mise à jour n'est pas autorisée si la demande est dans un état terminal (`validated`, `refused`, `revoked`, `archived`).
+        La liste de l'ensemble des états possibles d'une demande sont documentés ici https://datapass.api.gouv.fr/developpeurs/webhooks/documentation#tats-possibles-dune-demande-dhabilitation
 
-        Requiert le scope OAuth2 `write_authorizations`.
+        Requiert le scope OAuth2 write_authorizations et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
       tags:
         - Demandes d'habilitations
       parameters:
