@@ -58,35 +58,32 @@ class User < ApplicationRecord
   scope :with_roles, -> { where("roles <> '{}'") }
   scope :banned, -> { where.not(banned_at: nil) }
 
-  scope :instructor_for, lambda { |authorization_request_type|
-    qualifying = RoleHierarchy.qualifying_roles(:instructor)
+  scope :with_role_matching, lambda { |role_strings|
     where(
-      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role IN (?))',
-      qualifying.map { |q| "#{authorization_request_type.underscore}:#{q}" }
+      'EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE r IN (?))',
+      role_strings
     )
   }
 
-  scope :developer_for, lambda { |authorization_request_type|
-    where(
-      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role = ?)',
-      "#{authorization_request_type.underscore}:developer"
+  scope :with_role_for_definition, lambda { |definition_id, kind|
+    fd_slug = ParsedRole.resolve_provider_slug(definition_id)
+    qualifying = RoleHierarchy.qualifying_roles(kind)
+
+    with_role_matching(
+      qualifying.flat_map { |role_type| ["#{fd_slug}:#{definition_id}:#{role_type}", "#{fd_slug}:*:#{role_type}"] }
     )
   }
 
-  scope :manager_for, lambda { |authorization_request_type|
+  scope :with_role_for_provider, lambda { |provider_slug, roles|
     where(
-      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role = ?)',
-      "#{authorization_request_type.underscore}:manager"
+      'EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE r LIKE ANY(ARRAY[?]))',
+      roles.map { |role| "#{provider_slug}:%:#{role}" }
     )
   }
 
-  scope :reporter_for, lambda { |authorization_request_type|
-    qualifying = RoleHierarchy.qualifying_roles(:reporter)
-    where(
-      'EXISTS (SELECT 1 FROM unnest(roles) AS role WHERE role IN (?))',
-      qualifying.map { |q| "#{authorization_request_type.underscore}:#{q}" }
-    )
-  }
+  %i[instructor developer manager reporter].each do |role|
+    scope :"#{role}_for", ->(type) { with_role_for_definition(type.underscore, role) }
+  end
 
   scope :admin, lambda {
     where("'admin' = ANY(roles)")
@@ -153,6 +150,32 @@ class User < ApplicationRecord
     roles_for(kind).authorization_request_types
   end
 
+  def grant_role(kind, definition_id)
+    fd = ParsedRole.resolve_provider_slug(definition_id)
+    raise ParsedRole::UnknownDefinitionError, "Unknown definition: #{definition_id}" unless fd
+
+    roles << "#{fd}:#{definition_id}:#{kind}"
+    roles.uniq!
+    @role_sets = nil
+  end
+
+  def grant_fd_role(kind, provider_slug)
+    roles << "#{provider_slug}:*:#{kind}"
+    roles.uniq!
+    @role_sets = nil
+  end
+
+  def grant_admin_role
+    roles << 'admin'
+    roles.uniq!
+    @role_sets = nil
+  end
+
+  def revoke_all_roles
+    self.roles = []
+    @role_sets = nil
+  end
+
   def admin?
     roles.include?('admin') ||
       bug_bounty_users_within_staging_env?
@@ -183,17 +206,38 @@ class User < ApplicationRecord
   end
 
   ransacker :api_role do |_parent|
-    Arel.sql <<~SQL.squish
+    Arel.sql(api_role_ransacker_sql)
+  end
+
+  def self.api_role_ransacker_sql
+    <<~SQL.squish
       COALESCE(
-        array_to_string(
-          ARRAY(
-            SELECT split_part(elem, ':', 1)
-            FROM unnest(users.roles) AS elem
-          ),
-          ','
-        ),
+        (SELECT string_agg(DISTINCT def_id, ',') FROM (
+          SELECT split_part(elem, ':', 2) AS def_id
+          FROM unnest(users.roles) AS elem
+          WHERE elem ~ '^[^:]+:[^:]+:[^:]+$' AND split_part(elem, ':', 2) <> '*'
+          #{api_role_fd_expansion_sql}
+        ) expanded),
         ''
       )
+    SQL
+  end
+
+  def self.api_role_fd_expansion_sql
+    all_definitions = AuthorizationDefinition.all.select(&:provider_slug)
+    values = all_definitions.map { |ad|
+      "(#{connection.quote(ad.id)}, #{connection.quote(ad.provider_slug)})"
+    }.join(', ')
+
+    return '' if values.blank?
+
+    <<~SQL.squish
+      UNION
+      SELECT ad_map.def_id
+      FROM unnest(users.roles) AS elem
+      JOIN (VALUES #{values}) AS ad_map(def_id, provider_slug)
+        ON ad_map.provider_slug = split_part(elem, ':', 1)
+      WHERE split_part(elem, ':', 2) = '*'
     SQL
   end
 

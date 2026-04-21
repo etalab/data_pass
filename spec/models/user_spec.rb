@@ -319,7 +319,7 @@ RSpec.describe User do
       let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
       before do
-        user.roles << 'api_entreprise:developer'
+        user.grant_role(:developer, 'api_entreprise')
         user.save
       end
 

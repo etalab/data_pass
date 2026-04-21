@@ -176,7 +176,7 @@ class Seeds
       external_id: '4',
       job_title: 'Responsable des instructions',
       phone_number: '0423456789',
-      roles: ['api_entreprise:instructor', 'api_entreprise:developer']
+      roles: ['dinum:api_entreprise:instructor', 'dinum:api_entreprise:developer']
     )
   end
 
@@ -188,40 +188,30 @@ class Seeds
       external_id: '12',
       job_title: 'Responsable des reporteurs',
       phone_number: '0423456789',
-      roles: ['api_entreprise:reporter']
+      roles: ['dinum:api_entreprise:reporter']
     )
   end
 
   def data_pass_admin
     @data_pass_admin ||= User.create!(
       email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_manager_roles + ['api_entreprise:developer', 'api_particulier:developer'],
+      roles: ['admin'] + all_authorization_definition_manager_roles + ['dinum:api_entreprise:developer', 'dinum:api_particulier:developer'],
     )
   end
 
   def dgfip_instructor_developer
     @dgfip_instructor_developer ||= User.create!(
       email: 'dgfip@yopmail.com',
-      roles: all_dgfip_instructor_roles + all_dgfip_developer_roles
+      roles: %w[dgfip:*:instructor dgfip:*:developer]
     )
   end
 
   def all_authorization_definition_manager_roles
-    AuthorizationDefinition.all.map { |definition| "#{definition.id}:manager" }
-  end
+    AuthorizationDefinition.all.filter_map do |definition|
+      next unless definition.provider_slug
 
-  def all_dgfip_authorizations_definitions
-    AuthorizationDefinition
-      .all
-      .select { |definition| definition.provider&.id == 'dgfip' }
-  end
-
-  def all_dgfip_developer_roles
-    all_dgfip_authorizations_definitions.map { |definition| "#{definition.id}:developer" }
-  end
-
-  def all_dgfip_instructor_roles
-    all_dgfip_authorizations_definitions.map { |definition| "#{definition.id}:instructor" }
+      "#{definition.provider_slug}:#{definition.id}:manager"
+    end
   end
 
   def clamart_organization

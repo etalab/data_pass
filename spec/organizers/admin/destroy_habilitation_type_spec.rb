@@ -19,12 +19,13 @@ RSpec.describe Admin::DestroyHabilitationType, type: :organizer do
     end
 
     context 'when users have roles linked to the habilitation type' do
-      let!(:instructor) { create(:user, roles: ["#{habilitation_type.uid}:instructor", 'other_type:manager']) }
+      let(:fd_slug) { habilitation_type.data_provider.slug }
+      let!(:instructor) { create(:user, roles: ["#{fd_slug}:#{habilitation_type.uid}:instructor", 'dinum:api_entreprise:manager']) }
 
       it 'removes roles linked to the habilitation type' do
         organizer
 
-        expect(instructor.reload.roles).to eq(['other_type:manager'])
+        expect(instructor.reload.roles).to eq(['dinum:api_entreprise:manager'])
       end
     end
 

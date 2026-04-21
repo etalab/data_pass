@@ -10,26 +10,26 @@ RSpec.describe DGFIP::ExportController do
 
     describe 'access' do
       context 'when admin' do
-        let(:user) { create(:user, roles: %w[admin]) }
+        let(:user) { create(:user, :admin) }
 
         it { is_expected.to have_http_status(:ok) }
       end
 
       context 'when dgfip reporter' do
-        let(:user) { create(:user, roles: %w[api_impot_particulier:reporter]) }
+        let(:user) { create(:user, :reporter, authorization_request_types: %w[api_impot_particulier]) }
 
         it { is_expected.to have_http_status(:ok) }
       end
 
       context 'when another reporter' do
-        let(:user) { create(:user, roles: %w[api_whatever:reporter]) }
+        let(:user) { create(:user, :reporter, authorization_request_types: %w[api_entreprise]) }
 
         it { is_expected.to have_http_status(:forbidden) }
       end
     end
 
     describe 'response body' do
-      let(:user) { create(:user, roles: %w[api_impot_particulier:reporter]) }
+      let(:user) { create(:user, :reporter, authorization_request_types: %w[api_impot_particulier]) }
 
       it 'is expected to be a spreadsheet' do
         get_spreadsheet
