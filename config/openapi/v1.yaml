@@ -55,13 +55,26 @@ tags:
   - name: Webhooks
     description: Les webhooks permettent de recevoir des notifications sur les événements liés aux demandes d'habilitations.
 
+security:
+  - OAuth2:
+      - read_authorizations
+
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Bearer token d'authentification obtenu via le endpoint OAuth2 `/oauth/token`
+    OAuth2:
+      type: oauth2
+      description: |
+        Authentification OAuth2 via le flow `client_credentials`. Le jeton obtenu sur `/oauth/token` est à transmettre dans l'en-tête `Authorization: Bearer …`.
+
+        Les scopes accordés à un jeton sont définis au moment de sa demande. Chaque opération documente les scopes qu'elle exige.
+      flows:
+        clientCredentials:
+          tokenUrl: https://datapass.api.gouv.fr/api/v1/oauth/token
+          scopes:
+            public: Accès aux informations publiques de l'utilisateur courant (`/me`)
+            read_authorizations: Lecture des demandes, habilitations, événements et définitions d'habilitations
+            write_authorizations: Création et mise à jour des demandes d'habilitations via l'API
+            read_webhooks: Lecture de l'historique des appels webhooks
   parameters:
     Authorization:
       name: Authorization
@@ -748,6 +761,9 @@ paths:
         Requiert le scope OAuth2 `write_authorizations` et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
       tags:
         - Demandes d'habilitations
+      security:
+        - OAuth2:
+            - write_authorizations
       parameters:
         - $ref: '#/components/parameters/Authorization'
       requestBody:
@@ -857,6 +873,9 @@ paths:
         Requiert le scope OAuth2 write_authorizations et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
       tags:
         - Demandes d'habilitations
+      security:
+        - OAuth2:
+            - write_authorizations
       parameters:
         - $ref: '#/components/parameters/Authorization'
         - name: id
@@ -1021,6 +1040,9 @@ paths:
       description: Récupère les informations de l'utilisateur associé au token d'authentification.
       tags:
         - Utilisateurs
+      security:
+        - OAuth2:
+            - public
       parameters:
         - $ref: '#/components/parameters/Authorization'
       responses:
@@ -1126,7 +1148,8 @@ paths:
         a son propre identifiant et ses propres informations de stage.
       operationId: getAuthorizationDefinition
       security:
-        - BearerAuth: []
+        - OAuth2:
+            - read_authorizations
       parameters:
         - name: id
           in: path
@@ -1221,7 +1244,8 @@ paths:
         Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, notamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
       operationId: getAuthorizationDefinitionForms
       security:
-        - BearerAuth: []
+        - OAuth2:
+            - read_authorizations
       parameters:
         - name: id
           in: path
@@ -1297,7 +1321,8 @@ paths:
         Les résultats sont triés par date de création décroissante (du plus récent au plus ancien).
       operationId: getWebhookAttempts
       security:
-        - BearerAuth: [read_webhooks]
+        - OAuth2:
+            - read_webhooks
       parameters:
         - name: webhook_id
           in: path
