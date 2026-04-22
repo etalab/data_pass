@@ -388,8 +388,14 @@ class AuthorizationRequest < ApplicationRecord
     %w[draft changes_requested].include?(state)
   end
 
+  TERMINAL_STATES = %w[validated refused revoked archived].freeze
+
   def finished?
     %w[validated refused].include?(state)
+  end
+
+  def in_terminal_state?
+    TERMINAL_STATES.include?(state)
   end
 
   def already_been_validated?

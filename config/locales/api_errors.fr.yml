@@ -1,0 +1,23 @@
+fr:
+  api_errors:
+    form_not_found:
+      title: Formulaire introuvable
+      detail: Le formulaire demandé est introuvable.
+    unauthorized_type:
+      title: Non autorisé
+      detail: Vous n’avez pas les droits pour créer ce type de demande.
+    dead_end_state:
+      title: État non modifiable
+      detail: La demande ne peut pas être modifiée dans l’état actuel.
+    invalid_data_keys:
+      title: Clé invalide
+      detail: "La clé « %{key} » n’existe pas pour ce type de demande."
+    applicant_invalid:
+      title: Demandeur invalide
+    organization_invalid:
+      title: Organisation invalide
+    authorization_request_invalid:
+      title: Demande invalide
+    generic:
+      title: Entité non traitable
+      detail: Un problème est survenu lors du traitement de la requête.

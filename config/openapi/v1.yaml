@@ -55,13 +55,26 @@ tags:
   - name: Webhooks
     description: Les webhooks permettent de recevoir des notifications sur les événements liés aux demandes d'habilitations.
 
+security:
+  - OAuth2:
+      - read_authorizations
+
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Bearer token d'authentification obtenu via le endpoint OAuth2 `/oauth/token`
+    OAuth2:
+      type: oauth2
+      description: |
+        Authentification OAuth2 via le flow `client_credentials`. Le jeton obtenu sur `/oauth/token` est à transmettre dans l'en-tête `Authorization: Bearer …`.
+
+        Les scopes accordés à un jeton sont définis au moment de sa demande. Chaque opération documente les scopes qu'elle exige.
+      flows:
+        clientCredentials:
+          tokenUrl: https://datapass.api.gouv.fr/api/v1/oauth/token
+          scopes:
+            public: Accès aux informations publiques de l'utilisateur courant (`/me`)
+            read_authorizations: Lecture des demandes, habilitations, événements et définitions d'habilitations
+            write_authorizations: Création et mise à jour des demandes d'habilitations via l'API
+            read_webhooks: Lecture de l'historique des appels webhooks
   parameters:
     Authorization:
       name: Authorization
@@ -331,6 +344,8 @@ components:
             - system_reminder
             - system_archive
             - system_import
+            - create_by_api
+            - update_by_api
         created_at:
           type: string
           format: date-time
@@ -734,6 +749,93 @@ paths:
           $ref: "#/components/responses/ForbiddenError"
         404:
           $ref: "#/components/responses/NotFoundError"
+    post:
+      summary: Créer une demande d'habilitation
+      description: |
+        Crée une nouvelle demande d'habilitation en état `draft`.
+
+        Le demandeur (applicant) est créé s'il n'existe pas, identifié par email.
+        L'organisation est créée si elle n'existe pas, identifiée par SIRET, et un rafraîchissement des données INSEE est planifié.
+        Si aucun lien n'existe entre le demandeur et l'organisation, un lien non vérifié est créé.
+
+        Requiert le scope OAuth2 `write_authorizations` et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
+      tags:
+        - Demandes d'habilitations
+      security:
+        - OAuth2:
+            - write_authorizations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - demande
+              properties:
+                demande:
+                  type: object
+                  required:
+                    - applicant
+                    - organization
+                  properties:
+                    form_uid:
+                      type: string
+                      description: Identifiant du formulaire. Obligatoire si `type` n'est pas fourni.
+                      example: "api-entreprise"
+                    type:
+                      type: string
+                      description: Type de demande (snake_case). Le formulaire par défaut sera utilisé. Obligatoire si `form_uid` n'est pas fourni.
+                      example: "api_entreprise"
+                    applicant:
+                      type: object
+                      required:
+                        - email
+                        - given_name
+                        - family_name
+                      properties:
+                        email:
+                          type: string
+                          example: "demandeur@example.com"
+                        given_name:
+                          type: string
+                          example: "Jean"
+                        family_name:
+                          type: string
+                          example: "Dupont"
+                        job_title:
+                          type: string
+                          example: "Responsable informatique"
+                        phone_number:
+                          type: string
+                          example: "0612345678"
+                    organization:
+                      type: object
+                      required:
+                        - siret
+                      properties:
+                        siret:
+                          type: string
+                          example: "13002526500013"
+                    data:
+                      type: object
+                      description: Données du formulaire. Les clés doivent correspondre aux attributs définis pour la définition d'habilitation. Voir /defintions/{id} pour le détail des clés nécessaires.
+                      additionalProperties: true
+      responses:
+        201:
+          description: Demande d'habilitation créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demande"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        422:
+          $ref: "#/components/responses/ValidationError"
   /demandes/{id}:
     get:
       summary: Récupérer une demande d'habilitation
@@ -758,6 +860,61 @@ paths:
                   - $ref: "#/components/schemas/Demande"
         404:
           $ref: "#/components/responses/NotFoundError"
+    patch:
+      summary: Mettre à jour une demande d'habilitation
+      description: |
+        Met à jour les données d'une demande d'habilitation existante.
+
+        Seules les données et les documents peuvent être modifiés. Le demandeur et l'organisation ne peuvent pas être changés.
+
+        La mise à jour n'est pas autorisée si la demande est dans un état terminal (`validated`, `refused`, `revoked`, `archived`).
+        La liste de l'ensemble des états possibles d'une demande sont documentés ici https://datapass.api.gouv.fr/developpeurs/webhooks/documentation#tats-possibles-dune-demande-dhabilitation
+
+        Requiert le scope OAuth2 write_authorizations et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
+      tags:
+        - Demandes d'habilitations
+      security:
+        - OAuth2:
+            - write_authorizations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: id
+          in: path
+          description: Identifiant de la demande d'habilitation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - demande
+              properties:
+                demande:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      description: Données du formulaire à mettre à jour. Les clés doivent correspondre aux attributs définis pour le type de demande.
+                      additionalProperties: true
+      responses:
+        200:
+          description: Demande d'habilitation mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demande"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        422:
+          $ref: "#/components/responses/ValidationError"
 
   /demandes/{id}/events:
     get:
@@ -883,6 +1040,9 @@ paths:
       description: Récupère les informations de l'utilisateur associé au token d'authentification.
       tags:
         - Utilisateurs
+      security:
+        - OAuth2:
+            - public
       parameters:
         - $ref: '#/components/parameters/Authorization'
       responses:
@@ -988,7 +1148,8 @@ paths:
         a son propre identifiant et ses propres informations de stage.
       operationId: getAuthorizationDefinition
       security:
-        - BearerAuth: []
+        - OAuth2:
+            - read_authorizations
       parameters:
         - name: id
           in: path
@@ -1083,7 +1244,8 @@ paths:
         Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, notamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
       operationId: getAuthorizationDefinitionForms
       security:
-        - BearerAuth: []
+        - OAuth2:
+            - read_authorizations
       parameters:
         - name: id
           in: path
@@ -1159,7 +1321,8 @@ paths:
         Les résultats sont triés par date de création décroissante (du plus récent au plus ancien).
       operationId: getWebhookAttempts
       security:
-        - BearerAuth: [read_webhooks]
+        - OAuth2:
+            - read_webhooks
       parameters:
         - name: webhook_id
           in: path

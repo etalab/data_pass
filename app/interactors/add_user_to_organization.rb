@@ -1,6 +1,6 @@
 class AddUserToOrganization < ApplicationInteractor
   def call
-    context.user.add_to_organization(
+    user.add_to_organization(
       context.organization,
       identity_provider_uid: context.identity_provider_uid,
       identity_federator: context.identity_federator,
@@ -11,6 +11,10 @@ class AddUserToOrganization < ApplicationInteractor
   end
 
   protected
+
+  def user
+    context.user
+  end
 
   def current
     false
@@ -25,7 +29,7 @@ class AddUserToOrganization < ApplicationInteractor
   end
 
   def organization_link_already_verified?
-    context.user.organizations_users.where(
+    user.organizations_users.where(
       organization_id: context.organization.id,
       verified: true,
     ).any?

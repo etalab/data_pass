@@ -78,8 +78,10 @@ Vous pouvez vérifier vos rôles développeur en vous connectant à DataPass et 
 
 Vous pouvez souscrire aux événements suivants (sélection multiple possible) :
 
-- `create` : Une nouvelle demande d'habilitation a été créée
-- `update` : Une demande d'habilitation a été mise à jour par le demandeur
+- `create` : Une nouvelle demande d'habilitation a été créée via l'interface
+- `update` : Une demande d'habilitation a été mise à jour par le demandeur via l'interface
+- `create_by_api` : Une nouvelle demande d'habilitation a été créée via l'API (`POST /api/v1/demandes`)
+- `update_by_api` : Une demande d'habilitation a été mise à jour via l'API (`PATCH /api/v1/demandes/:id`)
 - `submit` : Une demande d'habilitation a été soumise pour instruction
 - `approve` : Une demande d'habilitation a été validée par un instructeur
 - `refuse` : Une demande d'habilitation a été refusée
@@ -385,7 +387,7 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
 
 ### Description des champs
 
-- **`event`** (string) : Nom de l'événement (`create`, `update`, `submit`, `approve`, etc.)
+- **`event`** (string) : Nom de l'événement (`create`, `update`, `create_by_api`, `update_by_api`, `submit`, `approve`, etc.)
 - **`fired_at`** (timestamp) : Horodatage Unix du moment où le webhook a été déclenché
 - **`model_type`** (string) : Type de la demande (format snake_case, ex: `authorization_request/api_particulier`)
 - **`data`** (object) : Données complètes de la demande d'habilitation (voir le serializer `WebhookAuthorizationRequestSerializer`)

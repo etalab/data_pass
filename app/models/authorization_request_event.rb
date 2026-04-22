@@ -30,6 +30,9 @@ class AuthorizationRequestEvent < ApplicationRecord
     system_reminder
     system_archive
     system_import
+
+    create_by_api
+    update_by_api
   ].freeze
 
   belongs_to :user, optional: true
@@ -52,7 +55,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     return if name == 'request_changes' && entity_type == 'InstructorModificationRequest'
     return if name == 'transfer' && entity_type == 'AuthorizationRequestTransfer'
     return if name == 'cancel_reopening' && entity_type == 'AuthorizationRequestReopeningCancellation'
-    return if %w[submit admin_update].include?(name) && entity_type == 'AuthorizationRequestChangelog'
+    return if %w[submit admin_update create_by_api update_by_api].include?(name) && entity_type == 'AuthorizationRequestChangelog'
     return if %w[approve auto_generate reopen].include?(name) && entity_type == 'Authorization'
     return if %w[applicant_message instructor_message].include?(name) && entity_type == 'Message'
     return if %w[approve refuse request_changes revoke].exclude?(name) && entity_type == 'AuthorizationRequest'
