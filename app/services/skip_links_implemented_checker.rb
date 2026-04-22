@@ -112,6 +112,8 @@ class SkipLinksImplementedChecker
 
     developers/open_api#show
     developers/oauth_applications#index
+    developers/tutorials#index
+    developers/tutorials#show
     pages#proconnect_connexion
     public/authorization_requests#show
 

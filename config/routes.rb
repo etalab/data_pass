@@ -183,6 +183,9 @@ Rails.application.routes.draw do
     resources :oauth_applications, only: :index, path: 'applications'
     get 'documentation', to: 'open_api#show'
 
+    get 'tutoriels', to: 'tutorials#index', as: :tutorials
+    get 'tutoriels/:slug', to: 'tutorials#show', as: :tutorial
+
     resources :webhooks, path: 'webhooks' do
       collection do
         get :documentation

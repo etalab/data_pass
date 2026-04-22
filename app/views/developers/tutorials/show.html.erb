@@ -1,0 +1,15 @@
+<% set_title! t('page_titles.developers_tutorial', title: t("developers.tutorials.index.#{@slug}.title")) %>
+
+<% content_for :content_skip_link_text do %>
+  <%= t("developers.tutorials.index.#{@slug}.title") %>
+<% end %>
+
+<div class="fr-container fr-my-4w">
+  <p class="fr-mb-2w">
+    <%= link_to t('.back'), developers_tutorials_path, class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+  </p>
+
+  <div class="markdown-content">
+    <%= @html_content %>
+  </div>
+</div>

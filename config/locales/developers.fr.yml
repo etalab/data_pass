@@ -21,6 +21,23 @@ fr:
       applications_desc: Créez et gérez vos applications OAuth pour accéder à l'API DataPass de manière sécurisée. Générez vos identifiants client et configurez vos URLs de redirection.
       webhooks: Webhooks
       webhooks_desc: Configurez des webhooks pour recevoir des notifications en temps réel lors des changements de statut de vos demandes d'autorisation. Suivez l'historique des appels et rejouez les webhooks en cas d'échec.
+      tutorials: Tutoriels
+      tutorials_desc: Guides pas-à-pas pour exploiter l'API DataPass — lecture, écriture, webhooks — avec exemples de code et cas d'usage (tableau de bord, intégration CRM, suivi de demandes).
+    tutorials:
+      index:
+        title: Tutoriels développeurs
+        intro: Guides pratiques pour intégrer DataPass dans vos systèmes — fournisseurs de données, intégrateurs CRM, créateurs de tableaux de bord. Chaque tutoriel suppose que vous avez au minimum le rôle « développeur » pour le type d'habilitation visé.
+        lecture:
+          title: Exploiter l'API en lecture
+          desc: Obtenir un jeton OAuth2, interroger les demandes et habilitations, construire un tableau de bord de pilotage.
+        ecriture:
+          title: Exploiter l'API en écriture
+          desc: Créer et mettre à jour des demandes depuis un formulaire ou un CRM. Comprendre la clé « data » spécifique à chaque type d'habilitation.
+        webhooks:
+          title: Suivre les demandes via webhooks
+          desc: Recevoir les événements de cycle de vie en temps réel, vérifier la signature, distinguer les actions initiées par l'API.
+      show:
+        back: Retour aux tutoriels
     webhooks:
       index:
         title: Mes webhooks

@@ -10,6 +10,9 @@ fr:
     cgu_api_impot_particulier_production: CGU API Impôt Particulier - Production
     api_documentation: Documentation API
     webhooks_documentation: Documentation des webhooks
+    developers_home: Espace développeur
+    developers_tutorials: Tutoriels développeurs
+    developers_tutorial: "Tutoriel : %{title}"
 
     dashboard: Tableau de bord
     profile: Votre compte utilisateur
