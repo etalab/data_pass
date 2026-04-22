@@ -7,6 +7,8 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   retry_on INSEESireneAPIClient::InvalidResponseError, wait: :polynomially_longer, attempts: Float::INFINITY
 
   def perform(organization_id)
+    return if skip_development?
+
     @organization = Organization.find(organization_id)
 
     return if last_update_within_24h?
@@ -19,6 +21,10 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   # rubocop:enable Lint/SuppressedException
 
   private
+
+  def skip_development?
+    Rails.env.development? && ENV.fetch('INSEE_CLIENT_ID', Rails.application.credentials.insee_client_id).blank?
+  end
 
   def last_update_within_24h?
     organization.last_insee_update_within_24h?
