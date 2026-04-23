@@ -11,6 +11,20 @@ module PageTitleHelper
   end
 
   def page_title
-    content_for(:page_title) || format_title
+    return content_for(:page_title) if content_for?(:page_title)
+
+    validate_page_title_in_test! if Rails.env.test?
+
+    format_title
+  end
+
+  private
+
+  def validate_page_title_in_test!
+    TitleDefinedChecker.new(
+      controller_name: controller_path,
+      action_name: action_name,
+      has_title: content_for?(:page_title)
+    ).perform!
   end
 end
