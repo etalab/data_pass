@@ -13,7 +13,7 @@ RSpec.describe Admin::StartImpersonation do
         }
       }
     end
-    let(:admin) { create(:user, :admin) }
+    let(:admin) { create(:user, roles: ['admin']) }
     let(:user_email) { create(:user).email }
     let(:reason) { 'Testing purposes' }
 

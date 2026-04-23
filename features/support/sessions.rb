@@ -26,12 +26,12 @@ def create_admin
   user = User.find_by(email:)
 
   if user
-    user.revoke_all_roles
+    user.roles = []
   else
     user = FactoryBot.create(:user, email:)
   end
 
-  user.grant_admin_role
+  user.roles << 'admin'
   user.save!
 
   user
@@ -54,13 +54,12 @@ def create_user_with_role(role, kind)
   user = User.find_by(email:)
 
   if user
-    user.revoke_all_roles
+    user.roles = []
   else
     user = FactoryBot.create(:user, email:)
   end
 
-  def_id = find_factory_trait_from_name(kind)
-  user.grant_role(role, def_id)
+  user.roles << "#{find_factory_trait_from_name(kind)}:#{role}"
   user.save!
 
   user

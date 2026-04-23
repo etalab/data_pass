@@ -61,7 +61,7 @@ class Instruction::MessageTemplatesController < InstructionController
   end
 
   def managed_authorization_definition_uids
-    current_user.definition_ids_for(:manager)
+    current_user.manager_roles.map { |role| role.split(':').first }
   end
 
   def managed_authorization_definitions
