@@ -45,17 +45,7 @@ class Instruction::InstructorDraftRequestPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(authorization_request_class: current_user_instructor_types)
-    end
-
-    def current_user_instructor_types
-      current_user_instructor_roles.map do |scope|
-        "AuthorizationRequest::#{scope.split(':').first.classify}"
-      end
-    end
-
-    def current_user_instructor_roles
-      user.instructor_roles
+      scope.where(authorization_request_class: user.authorization_request_types_for(:instructor))
     end
   end
 end

@@ -27,8 +27,9 @@ RSpec.describe User do
     let!(:valid_instructor_with_multiple_authorization_type) { create(:user, :instructor, authorization_request_types: %i[api_entreprise api_particulier]) }
     let!(:invalid_instructor) { create(:user, :instructor, authorization_request_types: %i[api_particulier]) }
     let!(:valid_reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+    let!(:valid_manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
 
-    it { is_expected.to contain_exactly(valid_instructor, valid_instructor_with_multiple_authorization_type) }
+    it { is_expected.to contain_exactly(valid_instructor, valid_instructor_with_multiple_authorization_type, valid_manager) }
   end
 
   describe '.developer_for' do
@@ -318,7 +319,7 @@ RSpec.describe User do
       let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
       before do
-        user.roles << 'api_entreprise:developer'
+        user.grant_role(:developer, 'api_entreprise')
         user.save
       end
 

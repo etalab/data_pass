@@ -66,19 +66,6 @@ class DataProvider < ApplicationRecord
   end
 
   def users_for_roles(roles)
-    User.where(
-      "EXISTS (
-        SELECT 1
-        FROM unnest(roles) AS role
-        WHERE role in (?)
-      )",
-      roles.map { |role| build_user_role_query_param(role) }.flatten,
-    )
-  end
-
-  def build_user_role_query_param(role)
-    authorization_definitions.map do |authorization_definition|
-      "#{authorization_definition.id}:#{role}"
-    end
+    User.with_role_for_provider(slug, roles)
   end
 end

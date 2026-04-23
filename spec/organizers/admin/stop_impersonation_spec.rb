@@ -10,7 +10,7 @@ RSpec.describe Admin::StopImpersonation do
         impersonation:
       }
     end
-    let(:admin) { create(:user, roles: ['admin']) }
+    let(:admin) { create(:user, :admin) }
     let(:impersonation) { create(:impersonation, admin:) }
 
     context 'when all conditions are met' do

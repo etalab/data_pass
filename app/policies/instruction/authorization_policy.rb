@@ -36,17 +36,7 @@ class Instruction::AuthorizationPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(authorization_request_class: current_user_reporter_types)
-    end
-
-    def current_user_reporter_types
-      current_user_reporter_roles.map do |scope|
-        "AuthorizationRequest::#{scope.split(':').first.classify}"
-      end
-    end
-
-    def current_user_reporter_roles
-      user.reporter_roles
+      scope.where(authorization_request_class: user.authorization_request_types_for(:reporter))
     end
   end
 end
