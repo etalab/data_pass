@@ -4,70 +4,6 @@ class MigrateRolesToThreePartFormat < ActiveRecord::Migration[8.1]
     migrate_admin_events
   end
 
-  YAML_PROVIDER_MAP = {
-    'api_entreprise' => 'dinum',
-    'api_particulier' => 'dinum',
-    'formulaire_qf' => 'dinum',
-    'france_connect' => 'dinum',
-    'hubee_cert_dc' => 'dgs',
-    'hubee_dila' => 'dila',
-    'le_taxi' => 'dinum',
-    'pro_connect_service_provider' => 'dinum',
-    'pro_connect_identity_provider' => 'dinum',
-    'api_indicateurs_sociaux' => 'dinum',
-    'annuaire_des_entreprises' => 'dinum',
-    'api_impot_particulier' => 'dgfip',
-    'api_impot_particulier_sandbox' => 'dgfip',
-    'api_sfip' => 'dgfip',
-    'api_sfip_sandbox' => 'dgfip',
-    'api_hermes' => 'dgfip',
-    'api_hermes_sandbox' => 'dgfip',
-    'api_e_contacts' => 'dgfip',
-    'api_e_contacts_sandbox' => 'dgfip',
-    'api_opale' => 'dgfip',
-    'api_opale_sandbox' => 'dgfip',
-    'api_ocfi' => 'dgfip',
-    'api_ocfi_sandbox' => 'dgfip',
-    'api_e_pro' => 'dgfip',
-    'api_e_pro_sandbox' => 'dgfip',
-    'api_robf' => 'dgfip',
-    'api_robf_sandbox' => 'dgfip',
-    'api_cpr_pro_adelie' => 'dgfip',
-    'api_cpr_pro_adelie_sandbox' => 'dgfip',
-    'api_imprimfip' => 'dgfip',
-    'api_imprimfip_sandbox' => 'dgfip',
-    'api_satelit' => 'dgfip',
-    'api_satelit_sandbox' => 'dgfip',
-    'api_mire' => 'dgfip',
-    'api_mire_sandbox' => 'dgfip',
-    'api_ensu_documents' => 'dgfip',
-    'api_ensu_documents_sandbox' => 'dgfip',
-    'api_rial' => 'dgfip',
-    'api_rial_sandbox' => 'dgfip',
-    'api_infinoe' => 'dgfip',
-    'api_infinoe_sandbox' => 'dgfip',
-    'api_ficoba' => 'dgfip',
-    'api_ficoba_sandbox' => 'dgfip',
-    'api_r2p' => 'dgfip',
-    'api_r2p_sandbox' => 'dgfip',
-    'api_sfip_r2p' => 'dgfip',
-    'api_sfip_r2p_sandbox' => 'dgfip',
-    'api_droits_cnam' => 'cnam',
-    'api_indemnites_journalieres_cnam' => 'cnam',
-    'api_scolarite' => 'menj',
-    'api_gfe_echange_collectivites' => 'menj',
-    'api_gfe_echange_editeurs_restauration' => 'menj',
-    'api_inser_jeunes_sup' => 'menj',
-    'api_mobilic' => 'mtes',
-    'api_gunenv' => 'mtes',
-    'api_ingres' => 'cisirh',
-    'services_cisirh' => 'cisirh',
-    'api_declaration_auto_entrepreneur' => 'urssaf',
-    'api_declaration_cesu' => 'urssaf',
-    'api_captchetat' => 'aife',
-    'api_pro_sante_connect' => 'ans',
-  }.freeze
-
   def down
     revert_user_roles
     revert_admin_events
@@ -82,7 +18,7 @@ class MigrateRolesToThreePartFormat < ActiveRecord::Migration[8.1]
       user_id = row['id']
       old_roles = parse_pg_array(row['roles'])
 
-      new_roles = old_roles.map { |role_string| convert_role(role_string) }
+      new_roles = old_roles.filter_map { |role_string| convert_role(role_string) }
 
       escaped = new_roles.map { |r| quote(r) }.join(',')
       sql_array = new_roles.any? ? "ARRAY[#{escaped}]" : 'ARRAY[]::varchar[]'
@@ -114,7 +50,7 @@ class MigrateRolesToThreePartFormat < ActiveRecord::Migration[8.1]
 
   def convert_roles_json(json_string)
     roles = JSON.parse(json_string)['roles'] || []
-    roles.map { |r| convert_role(r) }.to_json
+    roles.filter_map { |r| convert_role(r) }.to_json
   end
 
   def convert_role(role_string)
@@ -129,20 +65,16 @@ class MigrateRolesToThreePartFormat < ActiveRecord::Migration[8.1]
     def_id, role_type = parts
     provider_slug = find_provider_slug(def_id)
 
-    raise "Cannot resolve provider for definition #{def_id.inspect} in role #{role_string.inspect}. Add it to YAML_PROVIDER_MAP." unless provider_slug
+    unless provider_slug
+      say "Orphaned role #{role_string.inspect} (definition #{def_id.inspect} not found) — removing"
+      return nil
+    end
 
     "#{provider_slug}:#{def_id}:#{role_type}"
   end
 
   def find_provider_slug(definition_id)
-    result = execute(<<~SQL.squish).first
-      SELECT dp.slug FROM habilitation_types ht
-      JOIN data_providers dp ON dp.id = ht.data_provider_id
-      WHERE LOWER(REPLACE(ht.slug, '-', '_')) = #{quote(definition_id)}
-    SQL
-    return result['slug'] if result
-
-    YAML_PROVIDER_MAP[definition_id]
+    AuthorizationDefinition.find_by(id: definition_id)&.provider_slug
   end
 
   def parse_pg_array(pg_string)
