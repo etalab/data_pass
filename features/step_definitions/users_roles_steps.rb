@@ -3,32 +3,33 @@ Quand("il y a l'utilisateur {string} avec le rôle {string} pour {string}") do |
 
   case humanized_role.downcase
   when 'instructeur'
-    role = :instructor
+    role = 'instructor'
   when 'rapporteur'
-    role = :reporter
+    role = 'reporter'
   when 'manager'
-    role = :manager
+    role = 'manager'
   when 'développeur'
-    role = :developer
+    role = 'developer'
   else
     raise "Unknown role #{humanized_role}"
   end
 
-  def_id = find_factory_trait_from_name(authorization_definition_name)
-  user.grant_role(role, def_id)
+  user.roles << "#{find_factory_trait_from_name(authorization_definition_name)}:#{role}"
+  user.roles.uniq!
   user.save!
 end
 
 Quand("il y a l'utilisateur {string} avec le rôle d'administrateur") do |email|
   user = User.find_by(email:) || FactoryBot.create(:user, email: email)
 
-  user.grant_admin_role
+  user.roles << 'admin'
+  user.roles.uniq!
   user.save!
 end
 
 Quand("il y a l'utilisateur {string} sans rôle") do |email|
   user = User.find_by(email:) || FactoryBot.create(:user, email: email)
 
-  user.revoke_all_roles
+  user.roles = []
   user.save!
 end

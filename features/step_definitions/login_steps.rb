@@ -101,16 +101,19 @@ Sachantque('je suis un instructeur {string}') do |kind|
   end
 
   if @current_user_email != user.email
-    current_user.grant_role(:instructor, find_factory_trait_from_name(kind))
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:instructor"
+    current_user.roles.uniq!
     current_user.save!
   end
 end
 
 Sachantque('je suis un instructeur avec plusieurs types d\'autorisation') do
   user = create_instructor('API Entreprise')
-  user.grant_role(:instructor, 'api_particulier')
-  user.grant_role(:reporter, 'api_entreprise')
-  user.grant_role(:reporter, 'api_particulier')
+  # Add API Particulier instructor role, plus reporter roles for both types
+  user.roles << 'api_particulier:instructor'
+  user.roles << 'api_entreprise:reporter'
+  user.roles << 'api_particulier:reporter'
+  user.roles.uniq!
   user.save!
 
   if @current_user_email.blank?
@@ -128,7 +131,8 @@ Sachantque('je suis un rapporteur {string}') do |kind|
   end
 
   if @current_user_email != user.email
-    current_user.grant_role(:reporter, find_factory_trait_from_name(kind))
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter"
+    current_user.roles.uniq!
     current_user.save!
   end
 end
@@ -142,7 +146,8 @@ Sachantque('je suis un manager {string}') do |kind|
   end
 
   if @current_user_email != user.email
-    current_user.grant_role(:manager, find_factory_trait_from_name(kind))
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:manager"
+    current_user.roles.uniq!
     current_user.save!
   end
 end
@@ -155,9 +160,9 @@ Sachantque('je suis un développeur {string}') do |kind|
     mock_identity_federators(user)
   end
 
-  def_id = find_factory_trait_from_name(kind)
-  current_user.grant_role(:reporter, def_id) if @current_user_email != user.email
-  current_user.grant_role(:developer, def_id)
+  current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter" if @current_user_email != user.email
+  current_user.roles << "#{find_factory_trait_from_name(kind)}:developer"
+  current_user.roles.uniq!
   current_user.save!
 
   Doorkeeper::Application.create!(
@@ -177,7 +182,8 @@ Sachantque('je suis un administrateur') do
   end
 
   if @current_user_email != user.email
-    current_user.grant_admin_role
+    current_user.roles << 'admin'
+    current_user.roles.uniq!
     current_user.save!
   end
 end

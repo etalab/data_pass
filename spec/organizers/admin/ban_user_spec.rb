@@ -11,7 +11,7 @@ RSpec.describe Admin::BanUser do
         admin:,
       }
     end
-    let(:admin) { create(:user, :admin) }
+    let(:admin) { create(:user, roles: ['admin']) }
     let(:target_user) { create(:user) }
     let(:user_email) { target_user.email }
     let(:ban_reason) { 'Compte compromis (CSIRT)' }

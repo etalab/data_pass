@@ -46,7 +46,13 @@ class Instruction::MessageTemplatePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(authorization_definition_uid: user.definition_ids_for(:instructor))
+      scope.where(authorization_definition_uid: accessible_authorization_definition_uids)
+    end
+
+    private
+
+    def accessible_authorization_definition_uids
+      user.instructor_roles.map { |role| role.split(':').first }
     end
   end
 end

@@ -47,11 +47,11 @@ Fonctionnalité: Espace admin: utilisateurs avec rôles
     Quand il y a l'utilisateur "api-entreprise@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"
     Et que je me rends sur le module "Utilisateurs avec rôles" de l'espace administrateur
     Et que je clique sur "Éditer" pour l'utilisateur "api-entreprise@gouv.fr"
-    Et que je remplis "Role" avec "dinum:api_entreprise:reporter"
+    Et que je remplis "Role" avec "api_entreprise:reporter"
     Et que je clique sur "Mettre à jour"
     Alors il y a un message de succès contenant "mis à jour"
-    Et la page contient "dinum:api_entreprise:reporter"
-    Et la page ne contient pas "dinum:api_entreprise:instructor"
+    Et la page contient "api_entreprise:reporter"
+    Et la page ne contient pas "api_entreprise:instructor"
 
   Scénario: Je peux retirer tous les rôles d'un utilisateur
     Quand il y a l'utilisateur "api-entreprise@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"
@@ -67,17 +67,17 @@ Fonctionnalité: Espace admin: utilisateurs avec rôles
     Et que je me rends sur le module "Utilisateurs avec rôles" de l'espace administrateur
     Et que je clique sur "Ajouter des rôles à un utilisateur"
     Et que je remplis "Email" avec "api-entreprise@gouv.fr"
-    Et que je remplis "Role" avec "dinum:api_entreprise:reporter"
+    Et que je remplis "Role" avec "api_entreprise:reporter"
     Et que je clique sur "Mettre à jour"
     Alors il y a un message de succès contenant "mis à jour"
-    Et la page contient "dinum:api_entreprise:reporter"
+    Et la page contient "api_entreprise:reporter"
 
   Scénario: Je veux ajouter des rôles à un utilisateur qui n'existe pas
     Quand il y a l'utilisateur "api-entreprise@gouv.fr" sans rôle
     Et que je me rends sur le module "Utilisateurs avec rôles" de l'espace administrateur
     Et que je clique sur "Ajouter des rôles à un utilisateur"
     Et que je remplis "Email" avec "inconnu@gouv.fr"
-    Et que je remplis "Role" avec "dinum:api_entreprise:reporter"
+    Et que je remplis "Role" avec "api_entreprise:reporter"
     Et que je clique sur "Mettre à jour"
     Alors il y a un message d'erreur contenant "n'existe pas"
 

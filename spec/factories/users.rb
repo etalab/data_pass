@@ -12,8 +12,6 @@ FactoryBot.define do
 
     transient do
       skip_organization_creation { false }
-      authorization_request_types { %w[hubee_cert_dc api_entreprise] }
-      data_provider_slugs { %w[dgfip] }
     end
 
     after(:build) do |user, evaluator|
@@ -26,28 +24,66 @@ FactoryBot.define do
       )
     end
 
-    %i[reporter instructor developer manager].each do |role|
-      trait role do
-        after(:build) do |user, evaluator|
-          evaluator.authorization_request_types.each do |art|
-            user.grant_role(role, art.to_s)
-          rescue ParsedRole::UnknownDefinitionError
-            user.roles << "unknown:#{art}:#{role}"
-          end
+    trait :reporter do
+      transient do
+        authorization_request_types do
+          %w[hubee_cert_dc api_entreprise]
         end
       end
 
-      trait :"fd_#{role}" do
-        after(:build) do |user, evaluator|
-          evaluator.data_provider_slugs.each do |slug|
-            user.grant_fd_role(role, slug)
-          end
+      after(:build) do |user, evaluator|
+        evaluator.authorization_request_types.each do |authorization_request_type|
+          user.roles << "#{authorization_request_type}:reporter"
+        end
+      end
+    end
+
+    trait :instructor do
+      transient do
+        authorization_request_types do
+          %w[hubee_cert_dc api_entreprise]
+        end
+      end
+
+      after(:build) do |user, evaluator|
+        evaluator.authorization_request_types.each do |authorization_request_type|
+          user.roles << "#{authorization_request_type}:instructor"
+        end
+      end
+    end
+
+    trait :developer do
+      transient do
+        authorization_request_types do
+          %w[hubee_cert_dc api_entreprise]
+        end
+      end
+
+      after(:build) do |user, evaluator|
+        evaluator.authorization_request_types.each do |authorization_request_type|
+          user.roles << "#{authorization_request_type}:developer"
+        end
+      end
+    end
+
+    trait :manager do
+      transient do
+        authorization_request_types do
+          %w[hubee_cert_dc api_entreprise]
+        end
+      end
+
+      after(:build) do |user, evaluator|
+        evaluator.authorization_request_types.each do |authorization_request_type|
+          user.roles << "#{authorization_request_type}:manager"
         end
       end
     end
 
     trait :admin do
-      after(:build, &:grant_admin_role)
+      after(:build) do |user|
+        user.roles << 'admin'
+      end
     end
   end
 end
