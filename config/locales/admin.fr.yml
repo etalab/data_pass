@@ -68,7 +68,7 @@ fr:
             placeholder: user@gouv.fr
           roles:
             label: Rôles
-            placeholder: "api_entreprise:instructor\napi_particulier:reporter"
+            placeholder: "dinum:api_entreprise:instructor\ndinum:api_particulier:reporter"
         cta: Mettre à jour les rôles
       update: &admin_user_with_roles_create
         success: L'utilisateur %{user_email} a été mis à jour avec succès
