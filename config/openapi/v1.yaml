@@ -199,6 +199,11 @@ components:
           example: "Dupont"
           description: Nom de famille de l'utilisateur
           nullable: true
+        phone_number:
+          type: string
+          example: "0612345678"
+          description: Numéro de téléphone de l'utilisateur
+          nullable: true
       required:
         - id
         - email
