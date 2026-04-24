@@ -1,9 +1,5 @@
 shared:
-  start: "2026-04-23 14:00"
-  end: "2026-04-23 19:30"
-  title: "Maintenance ProConnect ce soir à 18h"
-  description: "Une opération de maintenance sera effectuée par ProConnect,
-    le service de connexion à DataPass, ce soir à partir de 18h00.
-    Aucune connexion ne sera possible alors, et ce pour une durée
-    d’1h environ : nous vous conseillons de ne pas utiliser DataPass
-    durant ce laps de temps, afin d’éviter tout désagrément."
+  start: "2026-04-24 9:00"
+  end: "2026-04-24 23:59"
+  title: "Incident en cours sur ProConnect"
+  description: "Un incident en cours sur ProConnect empêche la connexion à DataPass."
