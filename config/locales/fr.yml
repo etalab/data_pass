@@ -188,6 +188,8 @@ fr:
       title: Vous n'avez pas le droit d'accéder à cette page
 
   sessions:
+    failure:
+      title: La connexion a échoué. Veuillez réessayer.
     authenticate_user:
       success:
         title: Vous êtes connecté

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
+  get 'auth/failure', to: 'sessions#failure'
 
   get 'local-sign-in', to: 'authenticated_user#bypass_login' unless Rails.env.production?
 

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   include Authentication
 
-  allow_unauthenticated_access only: [:create]
+  allow_unauthenticated_access only: %i[create failure]
 
   def create
     if mon_compte_pro_connect?
@@ -9,6 +9,11 @@ class SessionsController < ApplicationController
     else
       create_from_proconnect
     end
+  end
+
+  def failure
+    flash[:error] = { 'title' => t('sessions.failure.title') }
+    redirect_to root_path
   end
 
   def destroy
