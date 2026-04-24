@@ -266,7 +266,7 @@ GEM
       html-attributes-utils (~> 1)
       view_component (~> 3)
     emailable (4.2.2)
-    erb (6.0.2)
+    erb (6.0.4)
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
