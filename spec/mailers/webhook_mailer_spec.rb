@@ -7,8 +7,8 @@ RSpec.describe WebhookMailer do
     end
 
     let(:webhook) { create(:webhook, authorization_definition_id: 'api_entreprise', url: webhook_url) }
-    let!(:api_entreprise_developer) { create(:user, roles: ['api_entreprise:developer']) }
-    let!(:foreign_developer) { create(:user, roles: ['api_particulier:developer']) }
+    let!(:api_entreprise_developer) { create(:user, :developer, authorization_request_types: %w[api_entreprise]) }
+    let!(:foreign_developer) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
     let(:webhook_url) { 'https://service.api.gouv.fr/webhook' }
 
     it 'sends email to definition developers, from datapass@api.gouv.fr' do

@@ -18,7 +18,7 @@ RSpec.describe InstructorDraftRequest do
     end
 
     context 'with another instructor' do
-      let(:authorization_request_types) { %w[whatever] }
+      let(:authorization_request_types) { %w[api_particulier] }
 
       it { is_expected.not_to be_valid }
     end

@@ -98,12 +98,8 @@ class Instruction::InstructorDraftRequestsController < InstructionController
   private
 
   def extract_available_definitions
-    @definitions = current_user.instructor_roles.map do |scope|
-      authorization_definition_id = scope.split(':').first
-      AuthorizationDefinition.find(authorization_definition_id)
-    end
-
-    @definitions.select! { |definition| definition.feature?('instructor_drafts', default: false) }
+    @definitions = current_user.authorization_definition_roles_as(:instructor)
+      .select { |definition| definition.feature?('instructor_drafts', default: false) }
   end
 
   def instructor_draft_request_params

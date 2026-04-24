@@ -10,7 +10,7 @@ RSpec.describe Admin::UnbanUser do
         admin:,
       }
     end
-    let(:admin) { create(:user, roles: ['admin']) }
+    let(:admin) { create(:user, :admin) }
     let(:target_user) { create(:user, banned_at: Time.zone.now, ban_reason: 'Compte compromis') }
 
     context 'when all conditions are met' do

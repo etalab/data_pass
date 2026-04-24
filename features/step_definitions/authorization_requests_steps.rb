@@ -262,8 +262,11 @@ end
 
 Quand("un instructeur a validé la demande d'habilitation") do
   authorization_request = AuthorizationRequest.last
-  instructor = create_instructor(authorization_request.definition.id)
-  instructor.update!(roles: AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" })
+  definition = authorization_request.definition
+  instructor = create_instructor(definition.name)
+  instructor.revoke_all_roles
+  instructor.grant_role(:instructor, definition.id)
+  instructor.save!
   ApproveAuthorizationRequest.call(authorization_request: authorization_request, user: instructor)
 end
 
