@@ -75,6 +75,10 @@ If the user is NOT using Docker, you can use these commands directly:
 - Be sure that tests you introduce pass before stopping your work.
 - Authorization should be done in the controller, not in the model/services.
 - Check docs/ for technical documentation if needed.
+- When touching the API (endpoints, payloads, événements webhooks, scopes,
+  politique de retry, etc.), iterate on the relevant files under `docs/` and on
+  the tutorials (`docs/developers/tutorials/` + `app/views/developers/tutorials/`)
+  so docs et tutos restent alignés avec le code.
 - For building forms use DSFRFormBuilder
 - Components are documented here
     https://www.systeme-de-design.gouv.fr/version-courante/fr/composants
