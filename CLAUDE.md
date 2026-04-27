@@ -78,7 +78,7 @@ If the user is NOT using Docker, you can use these commands directly:
 - When touching the API (endpoints, payloads, événements webhooks, scopes,
   politique de retry, etc.), iterate on the relevant files under `docs/` and on
   the tutorials (`docs/developers/tutorials/` + `app/views/developers/tutorials/`)
-  so docs et tutos restent alignés avec le code.
+  so docs et tutos remain consistent with the code.
 - For building forms use DSFRFormBuilder
 - Components are documented here
     https://www.systeme-de-design.gouv.fr/version-courante/fr/composants
