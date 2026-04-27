@@ -5,6 +5,9 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   retry_on Faraday::ConnectionFailed, wait: :polynomially_longer, attempts: Float::INFINITY
   retry_on Faraday::UnauthorizedError, wait: 1, attempts: 5
   retry_on INSEESireneAPIClient::InvalidResponseError, wait: :polynomially_longer, attempts: Float::INFINITY
+  rescue_from INSEESireneAPIClient::EntityNotFoundError do |e|
+    Sentry.capture_exception(e, level: :warning)
+  end
 
   def perform(organization_id)
     return if skip_development?

@@ -68,10 +68,20 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
 
       before do
         allow(insee_sirene_api_client).to receive(:etablissement).and_raise(INSEESireneAPIClient::EntityNotFoundError)
+        allow(Sentry).to receive(:capture_exception)
       end
 
-      it 're raise this error' do
-        expect { update_organization_insee_payload_job }.to raise_error(INSEESireneAPIClient::EntityNotFoundError)
+      it 'does not raise' do
+        expect { update_organization_insee_payload_job }.not_to raise_error
+      end
+
+      it 'reports to Sentry as a warning' do
+        update_organization_insee_payload_job
+
+        expect(Sentry).to have_received(:capture_exception).with(
+          an_instance_of(INSEESireneAPIClient::EntityNotFoundError),
+          level: :warning,
+        )
       end
     end
   end
