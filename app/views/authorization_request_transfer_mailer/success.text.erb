@@ -3,7 +3,7 @@ Bonjour,
 <%=
   t(
     '.description',
-    authorization_request_id: @authorization_request.id,
+    authorization_request_id: @authorization_request.formatted_id,
     authorization_request_name: @authorization_request.name,
     new_applicant_email: @authorization_request_transfer.to.email,
     old_applicant_email: @authorization_request_transfer.from.email,

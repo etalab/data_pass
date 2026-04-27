@@ -19,7 +19,7 @@ RSpec.describe DGFIP::APIMMailer do
 
       it 'has the correct subject for new request' do
         expect(mail.subject).to eq(
-          I18n.t('dgfip_apim_mailer.approve.subject', authorization_request_id: authorization_request.id)
+          I18n.t('dgfip_apim_mailer.approve.subject', authorization_request_id: authorization_request.formatted_id)
         )
       end
 
@@ -50,7 +50,7 @@ RSpec.describe DGFIP::APIMMailer do
 
       it 'has the correct subject for reopening' do
         expect(mail.subject).to eq(
-          I18n.t('dgfip_apim_mailer.approve.reopening_subject', authorization_request_id: authorization_request.id)
+          I18n.t('dgfip_apim_mailer.approve.reopening_subject', authorization_request_id: authorization_request.formatted_id)
         )
       end
 

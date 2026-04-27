@@ -5,7 +5,7 @@ class AuthorizationRequestTransferMailer < ApplicationMailer
 
     mail(
       to: [@authorization_request_transfer.to.email, @authorization_request_transfer.from.email],
-      subject: t('.subject', authorization_request_id: @authorization_request_transfer.authorization_request.id)
+      subject: t('.subject', authorization_request_id: @authorization_request_transfer.authorization_request.formatted_id)
     )
   end
 end

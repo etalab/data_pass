@@ -10,7 +10,7 @@ class AuthorizationRequestMailer < ApplicationMailer
           to: @authorization_request.applicant.email,
           subject: t(
             '.subject',
-            authorization_request_id: @authorization_request.id,
+            authorization_request_id: @authorization_request.formatted_id,
           )
         ) do |format|
           format.text { render text_template_path_for(@authorization_request.kind, mth) }
