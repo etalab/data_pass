@@ -65,6 +65,17 @@ class User < ApplicationRecord
     )
   }
 
+  scope :with_any_role_on, lambda { |definition_ids|
+    ids = Array(definition_ids)
+    next none if ids.empty?
+
+    patterns = AuthorizationDefinition.where(id: ids).flat_map { |ad|
+      ROLES.flat_map { |role| ["#{ad.provider_slug}:#{ad.id}:#{role}", "#{ad.provider_slug}:*:#{role}"] }
+    }
+
+    with_role_matching(patterns)
+  }
+
   scope :with_role_for_definition, lambda { |definition_id, kind|
     fd_slug = ParsedRole.resolve_provider_slug(definition_id)
     qualifying = RoleHierarchy.qualifying_roles(kind)
@@ -144,6 +155,24 @@ class User < ApplicationRecord
 
   def definition_ids_for(kind)
     roles_for(kind).definition_ids
+  end
+
+  def managed_fd_slugs
+    roles.filter_map { |role_string|
+      parsed = ParsedRole.parse(role_string)
+      parsed.provider_slug if parsed.fd_level? && parsed.role == 'manager'
+    }.uniq
+  end
+
+  def manages_role?(role_string)
+    parsed = ParsedRole.parse(role_string)
+    return false if parsed.admin? || parsed.role.nil?
+
+    if parsed.fd_level?
+      managed_fd_slugs.include?(parsed.provider_slug)
+    else
+      definition_ids_for(:manager).include?(parsed.definition_id)
+    end
   end
 
   def authorization_request_types_for(kind)
