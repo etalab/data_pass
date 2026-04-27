@@ -39,6 +39,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 Faker::Config.locale = 'fr'
+Faker::Config.lazy_loading = true
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
