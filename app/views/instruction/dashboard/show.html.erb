@@ -11,7 +11,7 @@
         <% @facade.tabs.each do |tab| %>
           <li role="presentation">
             <%=
-              link_to t(".tabs.#{tab.id}.title", count: tab.count),
+              link_to t(".tabs.#{tab.id}.title"),
                 tab.path,
                 class: [
                   'fr-tabs__tab',

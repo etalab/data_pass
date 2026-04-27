@@ -4,12 +4,4 @@ class Instruction::DashboardHabilitationsFacade < Instruction::DashboardFacade
   def partial_name
     'authorizations'
   end
-
-  def demandes_count
-    0
-  end
-
-  def habilitations_count
-    search_object.count
-  end
 end

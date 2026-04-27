@@ -23,16 +23,4 @@ RSpec.describe Instruction::DashboardHabilitationsFacade do
       expect(facade.send(:partial_name)).to eq 'authorizations'
     end
   end
-
-  describe '#demandes_count' do
-    it 'returns 0' do
-      expect(facade.send(:demandes_count)).to eq 0
-    end
-  end
-
-  describe '#habilitations_count' do
-    it 'returns the search object count' do
-      expect(facade.send(:habilitations_count)).to eq search_object.count
-    end
-  end
 end
