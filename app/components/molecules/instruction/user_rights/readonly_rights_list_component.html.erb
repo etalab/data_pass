@@ -1,0 +1,13 @@
+<div class="fr-panel--soft fr-mb-3w fr-p-3w" id="readonly-rights">
+  <h3 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.edit.readonly_section') %></h3>
+  <p class="fr-hint-text fr-mb-2w"><%= t('instruction.user_rights.edit.readonly_hint') %></p>
+  <%# role="list" : restaure le rôle implicite que VoiceOver retire quand list-style:none est appliqué (DSFR fr-list--flat-flex) %>
+  <ul role="list" class="fr-list--flat-flex">
+    <% rights.each do |right| %>
+      <li>
+        <strong><%= Instruction::Scope.new(right[:scope]).label %></strong>
+        <%= helpers.role_badge(right[:role_type]) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

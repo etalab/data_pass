@@ -1,0 +1,39 @@
+<fieldset class="fr-fieldset nested-fields fr-grid-row fr-grid-row--gutters fr-grid-row--bottom fr-mb-2w">
+  <legend class="fr-sr-only"><%= legend_label %></legend>
+  <div class="fr-col-12 fr-col-md-5">
+    <div class="fr-select-group">
+      <label class="fr-label" for="<%= id_for(:scope) %>">
+        <%= t('instruction.user_rights.new.scope_label') %>
+      </label>
+      <%= select_tag name_for(:scope),
+            grouped_options_for_select(grouped_scope_pairs, scope),
+            prompt: t('instruction.user_rights.new.scope_placeholder'),
+            id: id_for(:scope),
+            class: 'fr-select',
+            required: true,
+            'aria-required': 'true' %>
+    </div>
+  </div>
+
+  <div class="fr-col-12 fr-col-md-5">
+    <div class="fr-select-group">
+      <label class="fr-label" for="<%= id_for(:role_type) %>">
+        <%= t('instruction.user_rights.new.role_label') %>
+      </label>
+      <%= select_tag name_for(:role_type),
+            options_for_select(role_pairs, role_type),
+            prompt: t('instruction.user_rights.new.role_placeholder'),
+            id: id_for(:role_type),
+            class: 'fr-select',
+            required: true,
+            'aria-required': 'true' %>
+    </div>
+  </div>
+
+  <div class="fr-col-12 fr-col-md-2">
+    <button type="button"
+            class="fr-btn fr-btn--tertiary-no-outline fr-icon-delete-line"
+            aria-label="<%= t('instruction.user_rights.new.remove_right') %>"
+            data-action="click->nested-form#remove"></button>
+  </div>
+</fieldset>

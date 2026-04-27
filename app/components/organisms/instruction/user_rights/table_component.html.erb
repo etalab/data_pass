@@ -1,0 +1,23 @@
+<div class="fr-table fr-table--bordered">
+  <div class="fr-table__container">
+    <div class="fr-table__content">
+      <table class="fr-table--align-middle" id="user-rights-table">
+        <caption class="fr-sr-only">
+          <%= t('instruction.user_rights.index.title') %> — <%= t('instruction.user_rights.index.users_count', count: users.size) %>
+        </caption>
+        <thead>
+          <tr>
+            <% HEADERS.each do |header| %>
+              <th scope="col"><%= t("instruction.user_rights.index.table.header.#{header}") %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.each do |user| %>
+            <%= render Molecules::Instruction::UserRights::TableRowComponent.new(user: user, actor: actor) %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

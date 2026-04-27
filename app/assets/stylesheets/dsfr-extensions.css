@@ -134,6 +134,10 @@
   mask-image: url("icons/others/recycle-fill.svg");
 }
 
+.fr-badge--no-icon::before {
+  content: none;
+}
+
 .fr-badge.fr-badge--secondary::before,
 .fr-badge--sm.fr-badge--secondary::before {
   -webkit-mask-image: url("icons/business/archive-fill.svg");
@@ -254,4 +258,57 @@ fr-badge--grey {
    context that keeps the footer above expanded accordion content. */
 .fr-modal__footer--above-accordion {
   z-index: 1;
+}
+
+/* Bordered panel: simple white box with grey border. fr-card is a full
+   styled component (hover, layout, links) ; this is the bare form. */
+.fr-panel {
+  background-color: var(--background-default-grey);
+  border: 1px solid var(--border-default-grey);
+}
+
+/* Soft inset panel: grey rounded zone for inline groupings (read-only
+   sub-sections inside a form, e.g. preserved rights). */
+.fr-panel--soft {
+  background-color: var(--background-contrast-grey);
+  border-radius: 4px;
+}
+
+/* Read-only display of a value styled like a fr-input[readonly] but
+   compatible with non-input elements (dl/dd, span, etc). */
+.fr-input--readonly-display {
+  background-color: var(--background-contrast-grey);
+  border-bottom: 2px solid var(--border-plain-grey);
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  color: var(--text-default-grey);
+}
+
+/* Flat flex list: removes default list styling for content laid out
+   as wrapping rows (typically scope label + role badges). */
+.fr-list--flat-flex {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.fr-list--flat-flex > li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.fr-list--flat-flex > li:last-child {
+  margin-bottom: 0;
+}
+
+/* Vertically center table cells. DSFR default leaves them at top
+   which misaligns short content (action icons) with multi-line cells. */
+.fr-table--align-middle td,
+.fr-table--align-middle th {
+  vertical-align: middle;
 }

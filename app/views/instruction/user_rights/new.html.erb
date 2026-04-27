@@ -1,0 +1,31 @@
+<% set_title! t('instruction.user_rights.new.title') %>
+
+<% content_for :skip_links do %>
+  <%= skip_link(t('instruction.user_rights.index.skip_links.content'), 'content') %>
+  <%= skip_link(t('instruction.user_rights.index.skip_links.menu'), 'header') %>
+  <%= skip_link(t('instruction.user_rights.index.skip_links.footer'), 'footer') %>
+<% end %>
+
+<div class="fr-bg-grey fr-py-5w fr-mb-3w">
+  <div class="fr-container">
+    <%= dsfr_breadcrumbs do |b|
+          b.with_breadcrumb(label: t('layouts.header.menu.instruction.user_rights'),
+                            href: instruction_user_rights_path)
+          b.with_breadcrumb(label: t('instruction.user_rights.new.breadcrumb'))
+        end %>
+
+    <h1 class="fr-mb-0"><%= t('instruction.user_rights.new.title') %></h1>
+  </div>
+</div>
+
+<div class="fr-container fr-my-5w">
+  <%= render 'form',
+    form: @form,
+    target_user: nil,
+    permissions: @form.permissions,
+    url: instruction_user_rights_path,
+    method: :post,
+    show_email_field: true,
+    readonly_rights: [],
+    submit_label: t('instruction.user_rights.new.submit') %>
+</div>

@@ -1,0 +1,40 @@
+<% set_title! t('instruction.user_rights.edit.title', email: @target_user.email) %>
+
+<% content_for :skip_links do %>
+  <%= skip_link(t('instruction.user_rights.index.skip_links.content'), 'content') %>
+  <%= skip_link(t('instruction.user_rights.index.skip_links.menu'), 'header') %>
+  <%= skip_link(t('instruction.user_rights.index.skip_links.footer'), 'footer') %>
+<% end %>
+
+<div class="fr-bg-grey fr-py-5w fr-mb-3w">
+  <div class="fr-container">
+    <%= dsfr_breadcrumbs do |b|
+          b.with_breadcrumb(label: t('layouts.header.menu.instruction.user_rights'),
+                            href: instruction_user_rights_path)
+          b.with_breadcrumb(label: t('instruction.user_rights.edit.breadcrumb'))
+        end %>
+
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+      <div class="fr-col">
+        <h1 class="fr-mb-0"><%= t('instruction.user_rights.edit.heading') %></h1>
+      </div>
+      <div class="fr-col-auto">
+        <%= dsfr_main_modal_button t('instruction.user_rights.edit.destroy_cta'),
+              confirm_destroy_instruction_user_right_path(@target_user),
+              class: 'fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-delete-line' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fr-container fr-my-5w">
+  <%= render 'form',
+    form: @form,
+    target_user: @target_user,
+    permissions: @form.permissions,
+    url: instruction_user_right_path(@target_user),
+    method: :patch,
+    show_email_field: false,
+    readonly_rights: @form.readonly_rights,
+    submit_label: t('instruction.user_rights.edit.submit') %>
+</div>

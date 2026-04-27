@@ -1,0 +1,32 @@
+<% set_title! t('page_titles.instruction_user_rights') %>
+
+<% content_for :skip_links do %>
+  <%= skip_link(t('.skip_links.content'), 'content') %>
+  <%= skip_link(t('.skip_links.menu'), 'header') %>
+  <%= skip_link(t('.skip_links.footer'), 'footer') %>
+<% end %>
+
+<div class="fr-container fr-my-5w">
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-4w">
+    <div class="fr-col">
+      <h1 class="fr-mb-0"><%= t('instruction.user_rights.index.title') %></h1>
+    </div>
+    <div class="fr-col-auto">
+      <%= link_to t('instruction.user_rights.index.add_cta'),
+        new_instruction_user_right_path,
+        class: 'fr-btn fr-btn--icon-left fr-icon-user-add-line',
+        id: 'add-user-rights-button' %>
+    </div>
+  </div>
+
+  <% if @users.empty? %>
+    <div class="fr-py-6w fr-text--center" id="user-rights-empty-state">
+      <p class="fr-text--lg fr-mb-4w"><%= t('instruction.user_rights.index.empty_state') %></p>
+      <%= link_to t('instruction.user_rights.index.add_cta'),
+        new_instruction_user_right_path,
+        class: 'fr-btn fr-btn--icon-left fr-icon-user-add-line' %>
+    </div>
+  <% else %>
+    <%= render Organisms::Instruction::UserRights::TableComponent.new(users: @users, actor: current_user) %>
+  <% end %>
+</div>
