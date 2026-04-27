@@ -10,38 +10,38 @@ class TitleDefinedChecker
     claim_instructor_draft_requests#show
     developers/oauth_applications#index
     developers/webhook_attempts#index
+    developers/webhook_attempts#show
+    developers/webhooks#edit
+    developers/webhooks#enable
     developers/webhooks#index
+    developers/webhooks#new
+    developers/webhooks#show_secret
     instruction/approve_authorization_requests#new
     instruction/archive_authorization_requests#new
+    instruction/cancel_authorization_reopenings#create
     instruction/cancel_authorization_reopenings#new
     instruction/cancel_next_authorization_request_stages#new
+    instruction/instructor_draft_requests/invite#create
     instruction/instructor_draft_requests/invite#new
+    instruction/message_templates#create
+    instruction/message_templates#edit
     instruction/message_templates#index
+    instruction/message_templates#new
+    instruction/refuse_authorization_requests#create
     instruction/refuse_authorization_requests#new
     instruction/request_changes_on_authorization_requests#create
     instruction/request_changes_on_authorization_requests#new
     instruction/revoke_authorization_requests#new
     instruction/revoke_authorizations#new
+    instruction/transfer_authorization_requests#create
     instruction/transfer_authorization_requests#new
     manual_transfer_authorization_requests#new
-    organizations#new
-    reopen_authorizations#new
-    transfer_authorization_requests#new
-    developers/webhook_attempts#show
-    developers/webhooks#edit
-    developers/webhooks#enable
-    developers/webhooks#new
-    developers/webhooks#show_secret
-    instruction/cancel_authorization_reopenings#create
-    instruction/instructor_draft_requests/invite#create
-    instruction/message_templates#edit
-    instruction/message_templates#new
-    instruction/refuse_authorization_requests#create
-    instruction/transfer_authorization_requests#create
     organizations#create
+    organizations#new
     organizations#show
+    reopen_authorizations#new
     transfer_authorization_requests#create
-    instruction/message_templates#create
+    transfer_authorization_requests#new
   ].freeze
 
   def initialize(controller_name:, action_name:, has_title: false)
