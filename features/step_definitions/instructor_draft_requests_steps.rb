@@ -41,7 +41,7 @@ Quand("je me rends sur cette invitation à remplir une demande d'habilitation") 
   visit claim_instructor_draft_request_path(instructor_draft_request.public_id)
 end
 
-Quand("ce brouillon de demande d'habilitation a déjà été finalisée") do
+Quand("ce brouillon de demande d'habilitation a déjà été créée") do
   instructor_draft_request = InstructorDraftRequest.last
   instructor_draft_request.update!(claimed: true)
 end

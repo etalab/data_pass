@@ -1,7 +1,7 @@
 fr:
   instructor_draft_request_mailer:
     invite_applicant:
-      subject: Invitation à revendiquer une demande d'habilitation pour « %{project_name} »
+      subject: Invitation à créer une demande d'habilitation pour « %{project_name} »
 
   mailer:
     shared:

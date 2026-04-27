@@ -18,8 +18,8 @@ Rails.application.routes.draw do
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
 
-  get '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#show', as: :claim_instructor_draft_request
-  post '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#create'
+  get '/demandes-instructeurs/:id/creer', to: 'claim_instructor_draft_requests#show', as: :claim_instructor_draft_request
+  post '/demandes-instructeurs/:id/creer', to: 'claim_instructor_draft_requests#create'
 
   get '/stats', to: 'stats#index', as: :stats
   get '/stats/filters', to: 'stats#filters', as: :stats_filters

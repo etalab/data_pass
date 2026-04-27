@@ -20,7 +20,7 @@ Fonctionnalité: Instruction: invitation d'un demandeur à des demandes d'habili
     Et que je clique sur "Envoyer"
     Alors il y a un message de succès contenant "avec succès"
     Et un email est envoyé contenant "Merci de finaliser la demande comme discuté au téléphone." à "demandeur@example.com"
-    Et la page contient un lien vers "finaliser"
+    Et la page contient un lien vers "créer"
     Et il n'y a pas de bouton "Inviter"
 
   Scénario: Je ne peux pas inviter un demandeur avec un email invalide

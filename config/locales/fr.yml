@@ -117,7 +117,7 @@ fr:
         - legifrance.gouv.fr
         - data.gouv.fr
     claim_instructor_draft_request:
-      title: Finaliser votre demande « %{project_name} »
+      title: Créer votre demande « %{project_name} »
       description: |
         Vous êtes invité à compléter une demande d'habilitation pour %{definition_name} intitulé <strong>%{project_name}</strong> pour le compte de <strong>%{organization_name} (%{organization_legal_entity_id})</strong>.
 
@@ -831,23 +831,23 @@ fr:
     claim:
       errors:
         generic:
-          title: Une erreur est survenue lors de la revendication de la demande d'habilitation
+          title: Une erreur est survenue lors de la création de la demande d'habilitation
         not_same_user:
-          title: Vous ne pouvez pas finaliser cette demande d'habilitation
+          title: Vous ne pouvez pas créer cette demande d'habilitation
           description: Cette demande d'habilitation a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
         already_claimed:
-          title: Vous ne pouvez pas finaliser cette demande d'habilitation
-          description: Cette demande d'habilitation a déjà été finalisée par un autre usager.
+          title: Vous ne pouvez pas créer cette demande d'habilitation
+          description: Cette demande d'habilitation a déjà été créée par un autre usager.
         invalid_authorization_request:
-          title: Vous ne pouvez pas finaliser cette demande d'habilitation
-          description: Cette demande d'habilitation n'est pas dans un état permettant d'être finalisée. Veuillez contacter le support pour plus d'informations.
+          title: Vous ne pouvez pas créer cette demande d'habilitation
+          description: Cette demande d'habilitation n'est pas dans un état permettant d'être créée. Veuillez contacter le support pour plus d'informations.
         could_not_mark_draft_as_claimed:
-          title: Vous ne pouvez pas finaliser cette demande d'habilitation
-          description: Une erreur est survenue lors de la finalisation de cette demande d'habilitation. Veuillez contacter le support pour plus d'informations.
+          title: Vous ne pouvez pas créer cette demande d'habilitation
+          description: Une erreur est survenue lors de la création de cette demande d'habilitation. Veuillez contacter le support pour plus d'informations.
   claim_instructor_draft_requests:
     show:
-      description: Pour finaliser cette demande d'habilitation, cliquez sur le bouton ci-dessous
-      cta: Finaliser cette demande
+      description: Pour créer puis compléter cette demande d'habilitation, cliquez sur le bouton ci-dessous
+      cta: Créer cette demande
 
   errors:
     messages:
