@@ -1,0 +1,5 @@
+<%= turbo_stream.replace 'flash-alerts' do %>
+  <div id="flash-alerts" data-controller="scroll-into-view">
+    <%= render partial: 'shared/alerts' %>
+  </div>
+<% end %>
