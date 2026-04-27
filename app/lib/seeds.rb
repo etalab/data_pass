@@ -175,9 +175,11 @@ class Seeds
       email: 'api-entreprise@yopmail.com',
       external_id: '4',
       job_title: 'Responsable des instructions',
-      phone_number: '0423456789',
-      roles: ['dinum:api_entreprise:instructor', 'dinum:api_entreprise:developer']
-    )
+      phone_number: '0423456789'
+    ).tap do |user|
+      user.grant_role(:instructor, 'api_entreprise')
+      user.grant_role(:developer, 'api_entreprise')
+    end
   end
 
   def api_entreprise_reporter
@@ -187,30 +189,27 @@ class Seeds
       email: 'user12@yopmail.com',
       external_id: '12',
       job_title: 'Responsable des reporteurs',
-      phone_number: '0423456789',
-      roles: ['dinum:api_entreprise:reporter']
-    )
+      phone_number: '0423456789'
+    ).tap do |user|
+      user.grant_role(:reporter, 'api_entreprise')
+    end
   end
 
   def data_pass_admin
-    @data_pass_admin ||= User.create!(
-      email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_manager_roles + ['dinum:api_entreprise:developer', 'dinum:api_particulier:developer'],
-    )
+    @data_pass_admin ||= User.create!(email: 'datapass@yopmail.com').tap do |user|
+      user.grant_admin_role
+      AuthorizationDefinition.all.each do |definition|
+        user.grant_role(:manager, definition.id) if definition.provider_slug
+      end
+      user.grant_role(:developer, 'api_entreprise')
+      user.grant_role(:developer, 'api_particulier')
+    end
   end
 
   def dgfip_instructor_developer
-    @dgfip_instructor_developer ||= User.create!(
-      email: 'dgfip@yopmail.com',
-      roles: %w[dgfip:*:instructor dgfip:*:developer]
-    )
-  end
-
-  def all_authorization_definition_manager_roles
-    AuthorizationDefinition.all.filter_map do |definition|
-      next unless definition.provider_slug
-
-      "#{definition.provider_slug}:#{definition.id}:manager"
+    @dgfip_instructor_developer ||= User.create!(email: 'dgfip@yopmail.com').tap do |user|
+      user.grant_fd_role(:instructor, 'dgfip')
+      user.grant_fd_role(:developer, 'dgfip')
     end
   end
 
