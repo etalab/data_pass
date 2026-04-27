@@ -17,12 +17,12 @@ class DGFIP::APIMMailer < ApplicationMailer
     if @reopening
       I18n.t(
         'dgfip_apim_mailer.approve.reopening_subject',
-        authorization_request_id: @authorization_request.id
+        authorization_request_id: @authorization_request.formatted_id
       )
     else
       I18n.t(
         'dgfip_apim_mailer.approve.subject',
-        authorization_request_id: @authorization_request.id
+        authorization_request_id: @authorization_request.formatted_id
       )
     end
   end
