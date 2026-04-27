@@ -36,13 +36,36 @@ RSpec.describe PageTitleHelper do
   end
 
   describe '#page_title' do
-    it 'returns the formatted title when title is set' do
-      helper.set_title!('Dashboard')
-      expect(helper.page_title).to eq('Dashboard - DataPass')
+    context 'when a title has been set' do
+      it 'returns the formatted title' do
+        helper.set_title!('Dashboard')
+        expect(helper.page_title).to eq('Dashboard - DataPass')
+      end
     end
 
-    it 'returns only site name when no title is set' do
-      expect(helper.page_title).to eq('DataPass')
+    context 'when no title has been set' do
+      context 'when in the test environment' do
+        before do
+          allow(helper).to receive_messages(controller_path: 'non_existent', action_name: 'show')
+        end
+
+        it 'raises TitleNotDefinedError to surface the missing set_title!' do
+          expect { helper.page_title }.to raise_error(
+            TitleDefinedChecker::TitleNotDefinedError,
+            /No page title has been defined for the current page \(non_existent#show\)/
+          )
+        end
+      end
+
+      context 'when outside the test environment' do
+        before do
+          allow(Rails.env).to receive(:test?).and_return(false)
+        end
+
+        it 'falls back to the site name' do
+          expect(helper.page_title).to eq('DataPass')
+        end
+      end
     end
   end
 end
