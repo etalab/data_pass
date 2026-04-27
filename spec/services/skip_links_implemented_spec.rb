@@ -34,8 +34,12 @@ RSpec.describe SkipLinksImplementedChecker do
 
         expect {
           skip_links_checker.perform!
-        }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError,
-          /Accessibility Error: No skip links have been defined for the current page \(test#show\)\. To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for\(:skip_links\)` in your view or defining them through a dedicated helper method\./)
+        }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError) { |error|
+          expect(error.message).to include('Accessibility Error: No skip links have been defined for the current page (test#show).')
+          expect(error.message).to include('Add `test#show` to SkipLinksImplementedChecker::WHITELISTED_ROUTES')
+          expect(error.message).to include('content_for(:content_skip_link_text)')
+          expect(error.message).to include('Define `content_for(:skip_links)` in your view')
+        }
       end
     end
   end

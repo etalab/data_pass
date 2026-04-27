@@ -1,0 +1,34 @@
+<% set_title! t('page_titles.developers_tutorials') %>
+
+<% content_for :content_skip_link_text do %>
+  <%= t('.title') %>
+<% end %>
+
+<div class="fr-mt-4w fr-mb-2w">
+  <div class="sub-header">
+    <div class="sub-header-content">
+      <h1><%= t('.title') %></h1>
+    </div>
+  </div>
+</div>
+
+<div class="fr-my-4w">
+  <p class="fr-text--lead"><%= t('.intro') %></p>
+
+  <div class="fr-grid-row fr-grid-row--gutters fr-mt-4w">
+    <% %w[lecture ecriture webhooks].each do |slug| %>
+      <div class="fr-col-12 fr-col-md-4">
+        <div class="fr-card fr-enlarge-link">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <h3 class="fr-card__title">
+                <%= link_to t(".#{slug}.title"), developers_tutorial_path(slug: slug) %>
+              </h3>
+              <p class="fr-card__desc"><%= t(".#{slug}.desc") %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

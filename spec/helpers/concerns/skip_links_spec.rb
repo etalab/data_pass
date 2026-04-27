@@ -118,7 +118,7 @@ RSpec.describe SkipLinks do
       it 'raises SkipLinksNotDefinedError to highlight missing skip links' do
         expect { validate_skip_links_in_test! }.to raise_error(
           SkipLinksImplementedChecker::SkipLinksNotDefinedError,
-          /Accessibility Error: No skip links have been defined for the current page \(non_existent#show\)\. To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for\(:skip_links\)` in your view or defining them through a dedicated helper method\./
+          /Accessibility Error: No skip links have been defined for the current page \(non_existent#show\)\./
         )
       end
     end

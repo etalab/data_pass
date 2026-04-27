@@ -112,6 +112,8 @@ class SkipLinksImplementedChecker
 
     developers/open_api#show
     developers/oauth_applications#index
+    developers/tutorials#index
+    developers/tutorials#show
     pages#proconnect_connexion
     public/authorization_requests#show
 
@@ -133,7 +135,21 @@ class SkipLinksImplementedChecker
     return true if whitelisted?
 
     current_route = "#{controller_name}##{action_name}"
-    raise SkipLinksNotDefinedError, "Accessibility Error: No skip links have been defined for the current page (#{current_route}). To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for(:skip_links)` in your view or defining them through a dedicated helper method."
+    raise SkipLinksNotDefinedError, <<~MSG.strip
+      Accessibility Error: No skip links have been defined for the current page (#{current_route}).
+
+      Two ways to fix this, depending on your use case:
+
+      1. Standard case (default skip links: Contenu / Menu / Pied de page):
+         Add `#{current_route}` to SkipLinksImplementedChecker::WHITELISTED_ROUTES.
+         The default skip links from `SkipLinks#default_skip_links` will be rendered.
+         To customize the « Aller au contenu » label, set `content_for(:content_skip_link_text)` in your view.
+
+      2. Specific case (custom anchors, tabs, business-specific navigation):
+         Define `content_for(:skip_links)` in your view with your own `skip_link(...)` calls.
+
+      Prefer option 1 unless you actually need custom anchors.
+    MSG
   end
 
   private
