@@ -14,6 +14,8 @@ Always use `make` commands - they handle Docker setup including Chrome for tests
 - Fix linting issues: `make fix-lint`
 - JS linting: `make js-lint`
 
+If a Docker command fails with missing dependencies (gems, packages, etc.), run `make build` to rebuild the image, then retry.
+
 ### Without Docker (local development)
 If the user is NOT using Docker, you can use these commands directly:
 - Run server: `bin/local_run.sh`

@@ -1,0 +1,29 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+<%
+  action = @authorization_request.reopening? ? :reopening_submit : :submit
+  contact_sentence = @authorization_request.definition.feature?(:messaging) ? "contact_sentence" : "contact_sentence_without_messaging"
+%>
+<%=
+  t(
+    "authorization_request_mailer.#{action}.description",
+    authorization_request_id: @authorization_request.formatted_id,
+    submitted_at: l(@authorization_request.last_submitted_at, format: :long),
+    api_name: @authorization_request.definition.name,
+  )
+%> <%= 
+  t("authorization_request_mailer.submit.#{contact_sentence}",
+    provider_name: @authorization_request.definition.provider&.name,
+    messages_url: authorization_request_messages_url(@authorization_request),
+    support_email: @authorization_request.definition.support_email
+  )
+%>
+
+<%=
+  t(
+    'authorization_request_mailer.submit.legal_paragraphs',
+    rejection_deadline: l(@authorization_request.last_submitted_at + 2.months, format: :long),
+  )
+%>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

@@ -208,6 +208,76 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
+  describe '#submit' do
+    subject(:mail) { described_class.with(authorization_request:).submit }
+
+    context 'when messaging is enabled' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, last_submitted_at: 1.day.ago) }
+
+      it 'sends the email to the applicant' do
+        expect(mail.to).to eq([authorization_request.applicant.email])
+      end
+
+      it 'renders valid template with legal content' do
+        text = decoded_text_body(mail)
+        expect(text).to match('accusons réception')
+        expect(text).to match(authorization_request.id.to_s)
+        expect(text).to match('CRPA')
+      end
+
+      it 'includes the messages url' do
+        expect(decoded_text_body(mail)).to match('messagerie')
+      end
+    end
+
+    context 'when messaging is disabled' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_sandbox, :submitted, last_submitted_at: 1.day.ago) }
+
+      it 'includes the support email' do
+        expect(decoded_text_body(mail)).to match(authorization_request.definition.support_email)
+      end
+
+      it 'does not include the messages url' do
+        expect(decoded_text_body(mail)).not_to match('messagerie')
+      end
+    end
+  end
+
+  describe '#reopening_submit' do
+    subject(:mail) { described_class.with(authorization_request:).reopening_submit }
+
+    context 'when messaging is enabled' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :reopened_and_submitted) }
+
+      it 'sends the email to the applicant' do
+        expect(mail.to).to eq([authorization_request.applicant.email])
+      end
+
+      it 'renders valid template with legal content' do
+        text = decoded_text_body(mail)
+        expect(text).to match('accusons réception')
+        expect(text).to match(authorization_request.id.to_s)
+        expect(text).to match('CRPA')
+      end
+
+      it 'includes the messages url' do
+        expect(decoded_text_body(mail)).to match('messagerie')
+      end
+    end
+
+    context 'when messaging is disabled' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_sandbox, :reopened_and_submitted) }
+
+      it 'includes the support email' do
+        expect(decoded_text_body(mail)).to match(authorization_request.definition.support_email)
+      end
+
+      it 'does not include the messages url' do
+        expect(decoded_text_body(mail)).not_to match('messagerie')
+      end
+    end
+  end
+
   describe '#reopening_request_changes' do
     subject(:mail) do
       described_class.with(

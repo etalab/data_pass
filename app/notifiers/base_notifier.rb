@@ -25,6 +25,7 @@ class BaseNotifier < ApplicationNotifier
 
   def submit(params)
     email_notification_with_reopening('submit', params, mailer: Instruction::AuthorizationRequestMailer)
+    email_notification_with_reopening('submit', params)
   end
 
   def revoke(params)

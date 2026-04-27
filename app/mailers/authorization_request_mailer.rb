@@ -1,5 +1,5 @@
 class AuthorizationRequestMailer < ApplicationMailer
-  %i[approve refuse request_changes revoke].each do |event|
+  %i[approve refuse request_changes revoke submit].each do |event|
     [event, "reopening_#{event}"].each do |mth|
       next if mth == 'reopening_revoke'
 

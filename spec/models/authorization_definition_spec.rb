@@ -151,6 +151,14 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '#provider_slug' do
+    it 'is present on each definition' do
+      described_class.all.each do |definition|
+        expect(definition.provider_slug).to be_present, "#{definition.id} provider is missing"
+      end
+    end
+  end
+
   describe '#editors' do
     subject(:editors) { instance.editors }
 

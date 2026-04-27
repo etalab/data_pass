@@ -90,6 +90,7 @@ class Seeds
     create_refused_authorization_request(:api_entreprise, attributes: { intitule: 'Statistiques sur les effectifs', applicant: demandeur })
     create_revoked_authorization_request(:api_entreprise, attributes: { intitule: 'Loi énérgie', applicant: demandeur })
     create_reopened_authorization_request(:api_entreprise_mgdis, attributes: { applicant: demandeur })
+    create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Mise à jour soumise en cours', applicant: demandeur })
 
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: "Je ne suis pas sûr du cadre de cette demande, pouvez-vous m'aider ?")
@@ -307,6 +308,17 @@ class Seeds
     authorization_request = create_validated_authorization_request(kind, attributes:)
 
     ReopenAuthorization.call(authorization: authorization_request.latest_authorization, user: authorization_request.applicant).perform
+
+    authorization_request
+  end
+
+  def create_reopened_and_submitted_authorization_request(kind, attributes: {})
+    user = extract_applicant(attributes)
+    authorization_request = create_reopened_authorization_request(kind, attributes:)
+
+    organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
+
+    raise "Fail to submit authorization request: #{organizer}" unless organizer.success?
 
     authorization_request
   end

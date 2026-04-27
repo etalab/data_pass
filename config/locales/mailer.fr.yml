@@ -131,6 +131,21 @@ fr:
         %{reason}
 
         Vous pouvez consulter votre demande de mise à jour en suivant le lien suivant: %{authorization_request_url}
+    submit:
+      subject: Nous accusons réception de votre demande d'habilitation n°%{authorization_request_id} sur DataPass
+      description: Nous accusons réception de votre demande d'habilitation n°%{authorization_request_id} du %{submitted_at} pour accéder à %{api_name}.
+      contact_sentence: "Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via la messagerie sur votre demande d'habilitation : %{messages_url}"
+      contact_sentence_without_messaging: Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via l'email %{support_email}.
+      legal_paragraphs: |
+        Si votre demande est incomplète, nous vous informerons via la plateforme DataPass des pièces et informations manquantes à fournir. Vous disposerez d'un délai de deux mois pour nous fournir ces pièces et informations.
+
+        En cas de silence dans un délai de deux mois à compter d'aujourd'hui, soit le %{rejection_deadline}, votre demande sera réputée rejetée implicitement en application des articles L. 231-1 et L. 231-4 du code des relations entre le public et l'administration (CRPA).
+
+        Dans le cas d'une telle décision implicite de rejet, vous pouvez contester cette décision dans un délai de deux mois à compter de la date à laquelle naît la décision en formant un recours gracieux, hiérarchique ou en saisissant le tribunal administratif de Paris, en application des dispositions des articles L. 411-2 et L. 431-1 du CRPA et L. 211-1, R. 312-1, R. 421-1 du code de justice administrative.
+    
+    reopening_submit:
+      subject: Nous accusons réception de votre demande de modification d'habilitation n°%{authorization_request_id} sur DataPass
+      description: Nous accusons réception de votre demande de modification de l'habilitation n°%{authorization_request_id} du %{submitted_at} pour %{api_name}.
   gdpr_contact_mailer:
     responsable_traitement: &shared_gdpr
       subject: &gdpr_subject Vous avez été désigné %{authorization_request_contact_kind} pour la démarche « %{authorization_request_name} ».
