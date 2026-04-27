@@ -78,7 +78,22 @@ RSpec.describe BaseNotifier, type: :notifier do
     end
   end
 
+  describe '#submit to applicant (AuthorizationRequestMailer)' do
+    it 'enqueues the submit email to applicant without reopening' do
+      expect {
+        notifier.submit({})
+      }.to have_enqueued_mail(AuthorizationRequestMailer, :submit)
+    end
+
+    it 'enqueues the reopening_submit email to applicant when reopening' do
+      expect {
+        notifier.submit({ within_reopening: true })
+      }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_submit)
+    end
+  end
+
   describe '#submit email in case of changes requested' do
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, last_submitted_at: 1.day.ago) }
     let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: ['api_entreprise'], instruction_submit_notifications_for_api_entreprise: true) }
 
     before do
@@ -95,10 +110,10 @@ RSpec.describe BaseNotifier, type: :notifier do
       it 'delivers an email that contains the modification sentence' do
         expect {
           notifier.submit({})
-        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        }.to change { ActionMailer::Base.deliveries.count }.by(2)
 
-        last_mail = ActionMailer::Base.deliveries.last
-        expect(last_mail.body.encoded).to include('Cette demande fait suite à une demande de modification.')
+        instruction_mail = ActionMailer::Base.deliveries[-2]
+        expect(instruction_mail.body.encoded).to include('Cette demande fait suite à une demande de modification.')
       end
     end
 
@@ -106,10 +121,10 @@ RSpec.describe BaseNotifier, type: :notifier do
       it 'delivers an email that does not contain the modification sentence' do
         expect {
           notifier.submit({})
-        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        }.to change { ActionMailer::Base.deliveries.count }.by(2)
 
-        last_mail = ActionMailer::Base.deliveries.last
-        expect(last_mail.body.encoded).not_to include('Cette demande fait suite à une demande de modification.')
+        instruction_mail = ActionMailer::Base.deliveries[-2]
+        expect(instruction_mail.body.encoded).not_to include('Cette demande fait suite à une demande de modification.')
       end
     end
   end

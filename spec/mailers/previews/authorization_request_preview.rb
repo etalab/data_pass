@@ -14,6 +14,18 @@ class AuthorizationRequestPreview < ActionMailer::Preview
     end
   end
 
+  def submit
+    AuthorizationRequestMailer.with(
+      authorization_request: AuthorizationRequest.where(state: :submitted).first
+    ).submit
+  end
+
+  def reopening_submit
+    AuthorizationRequestMailer.with(
+      authorization_request: AuthorizationRequest.where(state: :submitted).where.not(reopened_at: nil).first
+    ).reopening_submit
+  end
+
   def approve_dgfip_sandbox
     AuthorizationRequestMailer.with(
       authorization_request: AuthorizationRequest::APIImpotParticulierSandbox.where(state: :validated).first
