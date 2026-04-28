@@ -94,11 +94,20 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         it { is_expected.to eq('submit_with_changes') }
       end
 
-      context 'when legacy is true on an old changelog' do
+      context 'when legacy is true on a previous changelog but not the current one' do
         let(:legacy) { true }
-        let(:diff) { {} }
 
-        it { is_expected.to eq('legacy_submit_without_changes') }
+        context 'when there is no diff' do
+          let(:diff) { {} }
+
+          it { is_expected.to eq('submit_without_changes') }
+        end
+
+        context 'when there is diff' do
+          let(:diff) { { 'attr1' => %w[value1 value2] } }
+
+          it { is_expected.to eq('submit_with_changes') }
+        end
       end
     end
   end

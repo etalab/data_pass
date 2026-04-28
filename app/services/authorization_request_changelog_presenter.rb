@@ -9,7 +9,7 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def event_name
-    return legacy_changelog_name if any_changelog_legacy?
+    return legacy_changelog_name if changelog.legacy?
 
     if first_changelog?
       if !prefilled_data?
@@ -75,11 +75,6 @@ class AuthorizationRequestChangelogPresenter
 
   def no_change?
     changelog.diff.empty?
-  end
-
-  def any_changelog_legacy?
-    changelog.legacy? ||
-      authorization_request.changelogs.where(legacy: true).any?
   end
 
   def authorization_request
