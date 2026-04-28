@@ -8,17 +8,6 @@ fr:
         title: Voir un aperçu de l'email
     dashboard:
       authorization_requests:
-        tabs:
-          demandes:
-            title:
-              zero: Liste des demandes
-              one: Liste des demandes
-              other: Liste des demandes (%{count})
-          habilitations:
-            title:
-              zero: Liste des habilitations
-              one: Liste des habilitations
-              other: Liste des habilitations (%{count})
         search:
           main_input:
             label: Rechercher dans toutes les demandes
@@ -79,15 +68,9 @@ fr:
         title: Liste des demandes et habilitations
         tabs:
           demandes:
-            title:
-              zero: Liste des demandes
-              one: Liste des demandes
-              other: Liste des demandes (%{count})
+            title: Liste des demandes
           habilitations:
-            title:
-              zero: Liste des habilitations
-              one: Liste des habilitations
-              other: Liste des habilitations (%{count})
+            title: Liste des habilitations
     authorization_requests:
       moderation_buttons:
         title: Instruire la demande
