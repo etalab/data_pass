@@ -28,3 +28,20 @@ Fonctionnalité: Instruction — Gestion des droits — lister les utilisateurs 
     Étant donné que je suis un rapporteur "API Entreprise"
     Quand je me rends sur le chemin "/instruction/gestion-des-droits"
     Alors la page ne contient pas "Gestion des droits"
+
+  Scénario: Je peux filtrer la liste avec une recherche
+    Quand il y a l'utilisateur "alice@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
+    Et qu'il y a l'utilisateur "bob@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"
+    Et que je me rends sur la page de gestion des droits
+    Et que je remplis "Rechercher un utilisateur" avec "alice"
+    Et que je clique sur "Rechercher"
+    Alors la page contient "alice@gouv.fr"
+    Et la page ne contient pas "bob@gouv.fr"
+
+  Scénario: Empty state lorsque la recherche ne renvoie aucun résultat
+    Quand il y a l'utilisateur "alice@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
+    Et que je me rends sur la page de gestion des droits
+    Et que je remplis "Rechercher un utilisateur" avec "introuvable"
+    Et que je clique sur "Rechercher"
+    Alors la page contient "Aucun utilisateur ne correspond à votre recherche"
+    Et la page ne contient pas "alice@gouv.fr"
