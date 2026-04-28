@@ -47,7 +47,7 @@ If the user is NOT using Docker, you can use these commands directly:
     find actual objects within seeds.
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
-- Use apostrophe (’) instead of single quote (') within text content
+- Use typographic apostrophe (’) instead of straight single quote (') in all text content, including test files — never normalize ’ to ' when editing or reading tests
 - Use french quotes (« ») instead of double quotes (") within text content
 
 ## Testing Guidelines

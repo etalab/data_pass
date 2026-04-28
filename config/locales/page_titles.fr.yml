@@ -37,6 +37,6 @@ fr:
     instruction_dashboard: Tableau de bord instructeur
     instruction_show: "Instruction %{definition_name} - %{authorization_request_name}"
     instruction_initiated_requests: Demandes initiées par les instructeurs
-    instruction_draft_requests_new: Choix du type d’habilitation
+    instruction_draft_requests_new: Initier une demande d’habilitation
     instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
     admin_habilitation_types: "Types d’habilitation"

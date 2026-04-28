@@ -4,7 +4,7 @@
   <%= t('.title') %>
 </h2>
 
-<%= link_to t('.new'), new_instruction_instructor_draft_request_path %>
+<%= link_to t('.new'), new_instruction_instructor_draft_request_path, class: 'fr-btn' %>
 
 <turbo-frame id="instructor_draft_requests_table">
   <div class="fr-table fr-table--bordered">
@@ -19,6 +19,7 @@
               applicant_email
               organization
               instructor_email
+              claimed
               actions
             ].each do |attr|
           %>
@@ -58,6 +59,12 @@
 
             <td class="instructor-draft-request--instructor_email">
               <%= instructor_draft_request.instructor.email %>
+            </td>
+
+            <td class="instructor-draft-request--claimed">
+              <%= content_tag :span, class: class_names('fr-badge fr-badge--sm', 'fr-badge--success' => instructor_draft_request.claimed?) do %>
+                <%= t(instructor_draft_request.claimed?, scope: 'instruction.instructor_draft_requests.claimed') %>
+              <% end %>
             </td>
 
             <td class="instructor-draft-request--actions">

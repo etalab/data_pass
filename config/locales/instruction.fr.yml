@@ -458,9 +458,12 @@ fr:
             L'utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
 
     instructor_draft_requests:
+      claimed:
+        yes: Demande créée
+        no: Demande non créée
       index:
         title: Demandes initiées par des instructeurs
-        new: Initier une nouvelle demande d'habilitation
+        new: Initier une demande d'habilitation
         table:
           header:
             id: N°
@@ -469,6 +472,7 @@ fr:
             applicant_email: Email du demandeur
             organization: Organisation associée
             instructor_email: Email de l'instructeur
+            claimed: Statut
             actions: Actions
           actions:
             edit: Modifier
@@ -477,10 +481,11 @@ fr:
             delete: Supprimer
             confirm_delete: Confirmer la suppression ? Cela supprimera cette demande et l'invitation associée.
       new:
-        title: Choix du type d'habilitation
+        title: Initier une demande d'habilitation
+        back: Toutes les demandes initiées par des instructeurs
         description: |
           Vous allez initier une nouvelle demande d'habilitation.
-          Veuillez choisir le type d'habilitation et son formulaire que vous souhaitez initier.
+          Veuillez choisir le type d'habilitation et le formulaire via lequel souhaitez initier la demande.
       form_selector:
         form_label: Sélectionner un formulaire
         form_description_label: Description du formulaire
@@ -497,9 +502,9 @@ fr:
         success: La demande d'habilitation a bien été supprimé
       invite:
         new:
-          title: Inviter un usager à finaliser la demande
+          title: Inviter un usager à créer la demande
           description: |
-            Vous allez inviter un usager à finaliser cette demande d'habilitation en renseignant son adresse email et le numéro SIRET de son organisation.
+            Vous allez inviter un usager à créer cette demande d'habilitation en renseignant son adresse email et le numéro SIRET de son organisation.
           invite: Envoyer l'invitation
           cancel: Annuler
           applicant_email:
@@ -507,7 +512,7 @@ fr:
           organization_siret:
             placeholder: '13002526500013'
           comment:
-            placeholder: Merci de finaliser votre demande
+            placeholder: Merci de créer votre demande
           error:
             title: Erreur lors de l'envoi de l'invitation
         create:

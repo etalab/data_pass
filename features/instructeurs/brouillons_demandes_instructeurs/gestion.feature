@@ -22,7 +22,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux créer une demande d'habilitation d'instructeur
     Quand je clique sur "Demandes initiées par des instructeurs"
-    Et que je clique sur "Initier une nouvelle demande d'habilitation"
+    Et que je clique sur "Initier une demande d'habilitation"
     Et que je clique sur "Démarrer le brouillon"
     Et que je remplis "Nom du projet" avec "Conquérir le monde"
     Et que je remplis "Description du projet" avec "Comment chaque soir"
@@ -35,14 +35,14 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
   Scénario: Si je suis instructeur de plusieurs type de demande, je peux choisir le type de demande que je veux
     Sachant que je suis un instructeur "API Particulier"
     Quand je clique sur "Demandes initiées par des instructeurs"
-    Et que je clique sur "Initier une nouvelle demande d'habilitation"
+    Et que je clique sur "Initier une demande d'habilitation"
     Alors la page contient "API Entreprise"
     Et la page contient "API Particulier"
 
   @javascript
   Scénario: Je peux choisir un formulaire spécifique lors de la création d'une demande d'habilitation d'instructeur
     Quand je clique sur "Demandes initiées par des instructeurs"
-    Et que je clique sur "Initier une nouvelle demande d'habilitation"
+    Et que je clique sur "Initier une demande d'habilitation"
     Et que je sélectionne "Marchés publics" pour "Sélectionner un formulaire"
     Alors la page contient "Simplifier le dépôt des candidatures"
     Quand je clique sur "Démarrer le brouillon"
@@ -79,3 +79,14 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
     Alors il y a un message de succès contenant "La demande d'habilitation a bien été supprimé"
     Et la page ne contient pas "Super secret"
     Et je suis sur la page "Demandes initiées par des instructeurs"
+
+  Scénario: Je peux voir le statut "Demande non créée" pour une demande non encore récupérée
+    Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
+    Et que je clique sur "Demandes initiées par des instructeurs"
+    Alors la page contient "Demande non créée"
+
+  Scénario: Je peux voir le statut "Demande créée" pour une demande déjà récupérée
+    Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
+    Et que ce brouillon de demande d'habilitation a déjà été créée
+    Et que je clique sur "Demandes initiées par des instructeurs"
+    Alors la page contient "Demande créée"
