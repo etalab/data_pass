@@ -40,10 +40,22 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
 
   def reified_data_as_array
     authorization_request_data_keys.map do |key|
-      newest_diff = previous_changelog_diffs.find { |diff| diff[key].present? }
+      changelog_diff = previous_changelog_diffs.find { |diff| diff[key].present? }
 
-      [key, newest_diff[key].last] if newest_diff
+      if changelog_diff
+        [key, changelog_diff[key].last]
+      elsif (previous_value = previous_value_from_last_authorization(key))
+        [key, previous_value]
+      end
     end
+  end
+
+  def latest_authorization_data
+    @latest_authorization_data ||= authorization_request.authorizations.order(:created_at).last&.data
+  end
+
+  def previous_value_from_last_authorization(key)
+    latest_authorization_data&.[](key)
   end
 
   def initial_diff_with_prefilled_form
