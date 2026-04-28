@@ -160,6 +160,8 @@ fr:
           verified: "Vérifié"
           reason: "Justification"
           actions: "Actions"
+        verified_yes: "Vérifié"
+        verified_no: "Non vérifié"
         mark_as_verified: "Marquer comme vérifié"
         edit_reason: "Modifier"
         unmark_as_verified: "Marquer comme non-vérifié"
