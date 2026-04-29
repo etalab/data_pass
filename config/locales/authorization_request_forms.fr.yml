@@ -1154,6 +1154,7 @@ fr:
         hint: "Volumétrie prévue d'appels à l'API par minute (si connue)"
 
     services_cisirh:
+      scopes:
         groups:
           'Autres services RH': |
             Information :  il n'est pas obligatoire d'adhérer à RenoiRH pour adhérer à d'autres services (ex : ESTEVE)
