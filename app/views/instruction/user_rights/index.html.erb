@@ -44,7 +44,7 @@
   <turbo-frame id="user_rights_table">
     <% if @users.empty? %>
       <div class="fr-py-6w fr-text--center" id="user-rights-empty-state">
-        <% if params[:search_query].present? %>
+        <% if @search_term.present? %>
           <p class="fr-text--lg fr-mb-0"><%= t('instruction.user_rights.index.no_results') %></p>
         <% else %>
           <p class="fr-text--lg fr-mb-4w"><%= t('instruction.user_rights.index.empty_state') %></p>

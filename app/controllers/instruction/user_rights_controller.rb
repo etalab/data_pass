@@ -7,6 +7,7 @@ class Instruction::UserRightsController < InstructionController
     @managed_definitions = current_user.authorization_definition_roles_as(:manager)
     scope = User.with_any_role_on(@managed_definitions.map(&:id))
       .where.not(id: current_user.id)
+    @search_term = params.dig(:search_query, :email_or_given_name_or_family_name_cont)
     @search_engine = scope.ransack(params[:search_query])
     @users = @search_engine.result(distinct: true).order(:email)
   end
