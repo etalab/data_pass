@@ -51,7 +51,7 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def latest_authorization_data
-    @latest_authorization_data ||= authorization_request.authorizations.order(:created_at).last&.data
+    @latest_authorization_data ||= authorization_request.latest_authorization&.data
   end
 
   def previous_value_from_last_authorization(key)
