@@ -51,7 +51,7 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
 
     expect(page).to have_select(
       'instruction_user_right_form[rights][][role_type]',
-      with_options: %w[Reporter Instructeur Manager]
+      with_options: %w[Observateur Instructeur Manager]
     )
     expect(page).to have_no_select(
       'instruction_user_right_form[rights][][role_type]',

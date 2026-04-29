@@ -15,7 +15,7 @@ Fonctionnalité: Instruction — Gestion des droits — portée FD (wildcard)
     Et que je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "nouveau@gouv.fr"
     Et que je sélectionne "Tous les services DINUM" pour "Portée des droits"
-    Et que je sélectionne "Reporter" pour "Rôle"
+    Et que je sélectionne "Observateur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
     Et l'utilisateur "nouveau@gouv.fr" a les rôles "dinum:*:reporter"

@@ -70,7 +70,8 @@ class Instruction::UserRightsController < InstructionController
   end
 
   def render_failure(view)
-    error_message(title: t('instruction.user_rights.create.error')) if @form.organizer_failed?
+    error_key = view == :edit ? 'instruction.user_rights.update.error' : 'instruction.user_rights.create.error'
+    error_message(title: t(error_key)) if @form.organizer_failed?
     render view, status: :unprocessable_content
   end
 

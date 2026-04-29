@@ -33,6 +33,6 @@ class Molecules::Instruction::UserRights::RightFieldComponentPreview < ViewCompo
   end
 
   def fd_manager_permissions
-    Instruction::ManagerScopeOptions.new(User.find_by!(email: 'datapass@yopmail.com'))
+    Instruction::ManagerScopeOptions.new(User.find_by!(email: 'dgfip@yopmail.com'))
   end
 end

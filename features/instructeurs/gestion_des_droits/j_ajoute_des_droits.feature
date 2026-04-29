@@ -15,7 +15,7 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Et que je clique sur le premier "Ajouter des droits à un utilisateur sans droits"
     Et que je remplis "Email de l’utilisateur" avec "nouveau@gouv.fr"
     Et que je sélectionne "API Entreprise" pour "Portée des droits"
-    Et que je sélectionne "Reporter" pour "Rôle"
+    Et que je sélectionne "Observateur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
     Et la page contient "nouveau@gouv.fr"
@@ -25,7 +25,7 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Quand je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "inconnu@gouv.fr"
     Et que je sélectionne "API Entreprise" pour "Portée des droits"
-    Et que je sélectionne "Reporter" pour "Rôle"
+    Et que je sélectionne "Observateur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors la page contient "ne correspond à aucun utilisateur existant"
 
@@ -42,13 +42,13 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Quand je me rends sur la page d'ajout de droits
     Alors la page contient l'accordéon "En savoir plus sur les droits" replié par défaut
     Et la page contient "Un service précis"
-    Et la page contient "Accès en consultation"
-    Et la page contient "peut instruire"
+    Et la page contient "Peut consulter les demandes et habilitations"
+    Et la page contient "Peut instruire les demandes"
     Et la page contient "peut attribuer ou retirer des droits"
 
   Scénario: La liste des rôles ne contient ni admin ni développeur
     Quand je me rends sur la page d'ajout de droits
-    Alors le select "Rôle" contient "Reporter"
+    Alors le select "Rôle" contient "Observateur"
     Et le select "Rôle" contient "Instructeur"
     Et le select "Rôle" contient "Manager"
     Et le select "Rôle" ne contient pas "Développeur"

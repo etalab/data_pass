@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Instruction::UpdateUserRights, type: :organizer do
+  include ActiveJob::TestHelper
+
   describe '.call' do
     subject(:update_user_rights) do
       described_class.call(manager:, user:, new_roles:)
@@ -11,8 +13,6 @@ RSpec.describe Instruction::UpdateUserRights, type: :organizer do
     let(:user) { create(:user, roles: initial_roles) }
     let(:initial_roles) { [] }
     let(:new_roles) { %w[dinum:api_entreprise:reporter] }
-
-    before { ActiveJob::Base.queue_adapter = :inline }
 
     it { is_expected.to be_success }
 
@@ -34,7 +34,9 @@ RSpec.describe Instruction::UpdateUserRights, type: :organizer do
     end
 
     it 'notifies admins with the previous roles snapshot' do
-      expect { update_user_rights }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      expect {
+        perform_enqueued_jobs { update_user_rights }
+      }.to change(ActionMailer::Base.deliveries, :count).by(1)
     end
 
     context 'when the user already has roles outside the manager scope' do

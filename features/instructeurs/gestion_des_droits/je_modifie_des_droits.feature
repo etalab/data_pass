@@ -13,7 +13,7 @@ Fonctionnalité: Instruction — Gestion des droits — modifier les droits d’
     Quand il y a l'utilisateur "eva@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
     Et que je me rends sur la page de gestion des droits
     Et que je clique sur "Modifier les droits de eva@gouv.fr"
-    Alors le select "Rôle" est positionné sur "Reporter"
+    Alors le select "Rôle" est positionné sur "Observateur"
     Quand je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"

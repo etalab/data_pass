@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe Instruction::UserRightsHelper do
   describe '#role_badge' do
     subject(:rendered) { helper.role_badge(role_type) }
@@ -20,7 +22,7 @@ RSpec.describe Instruction::UserRightsHelper do
       let(:role_type) { 'reporter' }
 
       it { is_expected.to include('fr-badge--yellow-tournesol') }
-      it { is_expected.to include('Reporter') }
+      it { is_expected.to include('Observateur') }
     end
 
     context 'with a developer role' do

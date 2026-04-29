@@ -553,7 +553,7 @@ fr:
       roles:
         manager: Manager
         instructor: Instructeur
-        reporter: Reporter
+        reporter: Observateur
         developer: Développeur
       new:
         title: Ajouter des droits à un utilisateur sans droits
@@ -565,9 +565,10 @@ fr:
           scope_section: Portée
           scope_description: Un service précis (ex. API Entreprise) ou, si vous êtes manager d’un fournisseur de données, « Tous les services X » pour couvrir l’ensemble de ses services.
           roles_section: Niveaux de droits
-          reporter: Accès en consultation des demandes d’habilitation et de leurs informations.
-          instructor: Comme un reporter, et peut instruire (valider, refuser, demander des modifications) les demandes dans son périmètre.
-          manager: Comme un instructeur, et peut attribuer ou retirer des droits aux autres utilisateurs dans son périmètre.
+          reporter: Peut consulter les demandes et habilitations (accès en consultation des demandes d’habilitation et de leurs informations).
+          instructor: Peut instruire les demandes (comme un observateur, et peut valider, refuser ou demander des modifications dans son périmètre).
+          manager: Peut gérer les droits des autres utilisateurs et instruire les demandes (comme un instructeur, et peut attribuer ou retirer des droits aux autres utilisateurs dans son périmètre).
+          developer: Peut consulter les demandes et habilitations via l’API, et recevoir des événements par webhook.
         right_legend: "Droit %{position}"
         right_legend_new: Nouveau droit
         scope_label: Portée des droits
@@ -592,6 +593,7 @@ fr:
         destroy_cta: Supprimer tous les droits
       update:
         success: Les droits de %{email} ont été mis à jour
+        error: Impossible de mettre à jour les droits
       confirm_destroy:
         title: "Supprimer tous les droits de %{email} ?"
         warning: "Les droits suivants seront retirés :"
