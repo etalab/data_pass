@@ -10,7 +10,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Services et application
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je coche "GA (Gestion administrative)"
+    * je coche "Gestion administrative (GA)"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
