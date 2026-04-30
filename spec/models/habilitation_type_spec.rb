@@ -38,14 +38,11 @@ RSpec.describe HabilitationType do
       habilitation_type.blocks = [{ 'name' => 'basic_infos' }]
       expect(habilitation_type.ordered_steps).to eq(%w[basic_infos])
     end
+  end
 
-    it 'positions cnous_data_extraction_criteria between scopes and contacts' do
-      habilitation_type.blocks = [
-        { 'name' => 'contacts' },
-        { 'name' => 'cnous_data_extraction_criteria' },
-        { 'name' => 'scopes' },
-      ]
-      expect(habilitation_type.ordered_steps).to eq(%w[scopes cnous_data_extraction_criteria contacts])
+  describe 'BLOCK_ORDER' do
+    it 'does not yet expose cnous_data_extraction_criteria' do
+      expect(described_class::BLOCK_ORDER).not_to include('cnous_data_extraction_criteria')
     end
   end
 
