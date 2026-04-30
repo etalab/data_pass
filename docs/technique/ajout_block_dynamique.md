@@ -54,7 +54,7 @@ Règles :
 
 ### B. Enregistrer dans le registrar
 
-Modifier [`app/services/dynamic_authorization_request_registrar.rb`](../app/services/dynamic_authorization_request_registrar.rb).
+Modifier [`app/services/dynamic_authorization_request_registrar.rb`](.../../app/services/dynamic_authorization_request_registrar.rb).
 
 Block simple → ajouter une entrée dans `BLOCK_MODULES` :
 
@@ -81,7 +81,7 @@ Block dynamique → ajouter une lambda dans `BLOCK_PROCS` :
 
 ### C. `BLOCK_ORDER` (ou gating volontaire)
 
-Modifier [`app/models/habilitation_type.rb`](../app/models/habilitation_type.rb) :
+Modifier [`app/models/habilitation_type.rb`](.../../app/models/habilitation_type.rb) :
 
 ```ruby
 BLOCK_ORDER = %w[basic_infos legal personal_data scopes contacts].freeze
@@ -128,7 +128,7 @@ Trois fichiers à mettre à jour :
 
 ### F. Tests
 
-Spec du registrar (obligatoire) — [`spec/services/dynamic_authorization_request_registrar_spec.rb`](../spec/services/dynamic_authorization_request_registrar_spec.rb).
+Spec du registrar (obligatoire) — [`spec/services/dynamic_authorization_request_registrar_spec.rb`](../../spec/services/dynamic_authorization_request_registrar_spec.rb).
 Ajouter un `context 'with <name> block'` qui :
 
 1. vérifie que `extra_attributes` contient les bons attributs ;
@@ -137,7 +137,7 @@ Ajouter un `context 'with <name> block'` qui :
 
 Template à copier : le bloc `'with cnous_data_extraction_criteria block'` du même spec.
 
-Factory — [`spec/factories/habilitation_types.rb`](../spec/factories/habilitation_types.rb) :
+Factory — [`spec/factories/habilitation_types.rb`](../../spec/factories/habilitation_types.rb) :
 ajouter un trait `with_<name>` si le block doit être testé dans plusieurs
 specs.
 

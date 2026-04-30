@@ -39,7 +39,7 @@ D'un point de vue de la couche modèle il y a :
 
 #### Configuration du `AuthorizationDefinition`
 
-Pour la configuration de la [définition (1.)](../config/authorization_definitions/):
+Pour la configuration de la [définition (1.)](../../config/authorization_definitions/):
 
 ```yaml
   # Il s'agit du nom de la classe en underscore. Ici `MonAPI`
@@ -145,7 +145,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
 
 #### Configuration du `AuthorizationRequestForm`
 
-Pour la configuration d'un [formulaire (2.)](../config/authorization_request_forms/):
+Pour la configuration d'un [formulaire (2.)](../../config/authorization_request_forms/):
 
 ```yaml
   # Identifiant unique qui sera utilisé dans les URLs
@@ -249,7 +249,7 @@ Cette documentation couvre :
 
 ### 1.2 Ajout d'un Service Provider (éditeur/SaaS)
 
-Les Service Providers (éditeurs et SaaS) sont configurés dans le fichier [`config/service_providers.yml`](../config/service_providers.yml).
+Les Service Providers (éditeurs et SaaS) sont configurés dans le fichier [`config/service_providers.yml`](../../config/service_providers.yml).
 
 ```yaml
   # Identifiant unique du service provider (utilisé dans service_provider_id des formulaires)
@@ -285,7 +285,7 @@ end
 
 Certains formulaires possèdent des blocs communs, certains de ces blocs ont été
 identifiés et placés dans le dossier
-[`app/models/concerns/authorization_extensions`](../app/models/concerns/authorization_extensions).
+[`app/models/concerns/authorization_extensions`](.../../app/models/concerns/authorization_extensions).
 
 De manière plus bas niveau, une liste de méthode disponibles pour ajouter des attributs au formulaire :
 
@@ -319,12 +319,12 @@ end
 ```
 
 Vis-à-vis de la factory, il faut se rendre dans le fichier
-[`spec/factories/authorization_requests.rb`](../spec/factories/authorization_requests.rb) et compléter avec le nom de la classe en underscore.
+[`spec/factories/authorization_requests.rb`](../../spec/factories/authorization_requests.rb) et compléter avec le nom de la classe en underscore.
 
 ## 3. Configurer les formulations via l'I18n
 
 Il faut à minima définir les noms des attributs définis dans le modèle. Cela se
-passe dans le fichier de locale [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml)).
+passe dans le fichier de locale [`activerecord.fr.yml`](../../config/locales/activerecord.fr.yml)).
 Ceux-ci servent quand il y a des problèmes de validation sur les attributs.
 
 Concernant les formulaires, l'affichage tire les valeurs dans cet ordre :
@@ -335,7 +335,7 @@ Concernant les formulaires, l'affichage tire les valeurs dans cet ordre :
    clé correspondant au type d'habilitation (exemple: `mon_api`) ;
 1. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
    clé `default`
-1. Attributs (dans [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml))
+1. Attributs (dans [`activerecord.fr.yml`](../../config/locales/activerecord.fr.yml))
 
 Ce qui est exploité ici (liste non-exhaustive):
 
@@ -378,7 +378,7 @@ S'il n'y a qu'un seul formulaire associé à la définition, alors on redirige d
 
 S'il y a plusieurs formulaires il y a par défaut la liste de formulaires générique de `authorization_requests/new/default.html.erb`. Il est possible de personnaliser cette page afin par exemple d'effectuer de l'aiguillage.
 
-C'est le cas pour API Entreprise, dont le fichier est présent [ici](../app/views/authorization_requests/new/api_entreprise.html.erb)
+C'est le cas pour API Entreprise, dont le fichier est présent [ici](.../../app/views/authorization_requests/new/api_entreprise.html.erb)
 
 Si vous avez besoin de faire la même chose pour un autre type d'habilitation, il
 suffit de créer une vue dans le dossier
@@ -389,7 +389,7 @@ Pour API Entreprise => `api_entreprise.html.erb`
 ### 4.1 Cas du multi étapes
 
 Il faut s'assurer que pour chaque étape définie dans le fichier en 1. Une vue
-existe dans le dossier [`app/views/authorization_request_forms/build/`](../app/views/authorization_request_forms/build/).
+existe dans le dossier [`app/views/authorization_request_forms/build/`](.../../app/views/authorization_request_forms/build/).
 
 Si ce n'est pas le cas, il faut ajouter, pour une étape ayant pour nom
 `mon_etape`, le fichier `mon_etape.html.erb`. Inspirez-vous des fichiers
@@ -401,7 +401,7 @@ simplifier la génération des formulaires.
 ### 4.2 Cas du formulaire sur une page
 
 Il faut créer le fichier `mon_api.html.erb` dans le dossier
-[`app/views/authorization_request_forms/`](../app/views/authorization_request_forms/) avec le markup minimal :
+[`app/views/authorization_request_forms/`](.../../app/views/authorization_request_forms/) avec le markup minimal :
 
 ```erb
 <%= authorization_request_form(@authorization_request) do |f| %>
@@ -426,4 +426,4 @@ déjà avant.
 ## 6. Importer les données existantes
 
 S'il s'agit d'un nouveau formulaire sans donnée, il n'y a rien à faire.
-Sinon, vous pouvez vous référer au [README](../app/migration/README.md) associé.
+Sinon, vous pouvez vous référer au [README](.../../app/migration/README.md) associé.

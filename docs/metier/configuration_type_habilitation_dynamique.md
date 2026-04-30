@@ -3,7 +3,7 @@
 Ce document est à destination des utilisateurs qui créent ou modifient
 des types d'habilitation depuis l'interface d'administration de DataPass.
 
-Pour la documentation technique, voir [Système `HabilitationType` dynamique](./habilitation_type_dynamique.md).
+Pour la documentation technique, voir [Système `HabilitationType` dynamique](../technique/habilitation_type_dynamique.md).
 
 ## Pourquoi un système dynamique ?
 
@@ -101,7 +101,7 @@ sur les demandes.
   fonctionnalité, toute évolution passe par une nouvelle demande.
 - **Templates de messages** : met à disposition des instructeurs des modèles de
   réponses standardisées (refus, demande de modification, validation) qu'ils
-  peuvent réutiliser et personnaliser. Voir [docs/templates_messages.md](./templates_messages.md).
+  peuvent réutiliser et personnaliser. Voir [doc../technique/templates_messages.md](../technique/templates_messages.md).
 
 ## Ce qui nécessite encore un développeur
 
@@ -112,7 +112,7 @@ d'administration et passent par un dev :
   le catalogue (par exemple un block « volumétrie » ou « certification de
   sécurité ») doit être implémenté côté code (concern, vues, libellés
   internationalisés). La procédure est documentée dans
-  [ajout_block_dynamique.md](./ajout_block_dynamique.md).
+  [ajout_block_dynamique.md](../technique/ajout_block_dynamique.md).
 - **Modifier les libellés par défaut des champs** : les noms et textes d'aide
   des champs des blocks suivent une formulation par défaut. Pour la
   personnaliser sur un type donné, il faut passer par les fichiers de
@@ -142,11 +142,11 @@ d'administration et passent par un dev :
 
 ## Pour aller plus loin
 
-- [habilitation_type_dynamique.md](./habilitation_type_dynamique.md) —
+- [habilitation_type_dynamique.md](../technique/habilitation_type_dynamique.md) —
   architecture technique du système dynamique (pour les développeurs).
-- [ajout_block_dynamique.md](./ajout_block_dynamique.md) — procédure pour
+- [ajout_block_dynamique.md](../technique/ajout_block_dynamique.md) — procédure pour
   ajouter un nouveau block au catalogue (dev).
-- [templates_messages.md](./templates_messages.md) — fonctionnalité de
+- [templates_messages.md](../technique/templates_messages.md) — fonctionnalité de
   templates de messages côté instructeur.
-- [nouveau_type_d_habilitation.md](./nouveau_type_d_habilitation.md) — ajout
+- [nouveau_type_d_habilitation.md](../technique/nouveau_type_d_habilitation.md) — ajout
   d'un type d'habilitation YAML historique (legacy).

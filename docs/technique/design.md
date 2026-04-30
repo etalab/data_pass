@@ -10,10 +10,10 @@ fonctionne assez bien (grid, button etc etc .. tout ça fonctionne)
 
 ## Extensions
 
-* [`DsfrFormBuilder`](../app/form_builders/dsfr_form_builder.rb) : custom form
+* [`DsfrFormBuilder`](.../../app/form_builders/dsfr_form_builder.rb) : custom form
     builder ;
-* [Helpers `Dsfr`](../app/helpers/dsfr/) : composants
-* [Feuille de style d'extensions](../app/assets/stylesheets/dsfr-extensions.css)
+* [Helpers `Dsfr`](.../../app/helpers/dsfr/) : composants
+* [Feuille de style d'extensions](.../../app/assets/stylesheets/dsfr-extensions.css)
 
 ## Installation de la dernière version du DSFR
 
