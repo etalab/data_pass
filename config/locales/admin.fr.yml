@@ -246,6 +246,7 @@ fr:
           personal_data: Données personnelles
           contacts: Contacts
           scopes: Données (scopes)
+          cnous_data_extraction_criteria: Conditions d’extraction CNOUS
         contact_types:
           contact_technique: Contact technique
           contact_metier: Contact métier

@@ -40,6 +40,12 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'BLOCK_ORDER' do
+    it 'does not yet expose cnous_data_extraction_criteria' do
+      expect(described_class::BLOCK_ORDER).not_to include('cnous_data_extraction_criteria')
+    end
+  end
+
   describe '#public, #unique, #startable_by_applicant' do
     it 'returns fixed values' do
       expect(habilitation_type.public).to be(true)

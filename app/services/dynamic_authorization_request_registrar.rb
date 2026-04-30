@@ -5,6 +5,7 @@ class DynamicAuthorizationRequestRegistrar
     'basic_infos' => AuthorizationExtensions::BasicInfos,
     'legal' => AuthorizationExtensions::CadreJuridique,
     'personal_data' => AuthorizationExtensions::PersonalData,
+    'cnous_data_extraction_criteria' => AuthorizationExtensions::CnousDataExtractionCriteria,
   }.freeze
 
   BLOCK_PROCS = {

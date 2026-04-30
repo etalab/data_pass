@@ -13,6 +13,7 @@ fr:
     legal: cadre-juridique
     modalities: modalites-d-appel
     scopes: donnees
+    cnous_data_extraction_criteria: criteres-extraction-cnous
     contacts: contacts
     safety_certification: homologation-de-securite
     operational_acceptance: recette-fonctionnelle
