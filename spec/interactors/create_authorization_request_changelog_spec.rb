@@ -140,6 +140,51 @@ RSpec.describe CreateAuthorizationRequestChangelog, type: :interactor do
             end
           end
         end
+
+        describe 'when first changelog is legacy with incomplete diff but there is an authorization snapshot' do
+          before do
+            invalid_changelog = described_class.call(authorization_request:).changelog
+            create(:authorization, request: authorization_request)
+            invalid_changelog.update!(
+              legacy: true,
+              diff: invalid_changelog.diff.except('intitule')
+            )
+          end
+
+          context 'when there is an update on a key missing from the legacy diff' do
+            before do
+              authorization_request.intitule = 'New intitule'
+              authorization_request.description = 'New description'
+            end
+
+            it 'recovers the missing key from the authorization snapshot' do
+              expect(changelog.diff).to include(
+                'intitule' => [old_intitule, 'New intitule'],
+                'description' => [old_description, authorization_request.description]
+              )
+            end
+          end
+        end
+
+        describe 'when first changelog is legacy with complete diff and there is an authorization snapshot' do
+          let(:legacy_intitule) { 'Legacy intitule value' }
+
+          before do
+            legacy_changelog = described_class.call(authorization_request:).changelog
+            legacy_changelog.update!(
+              legacy: true,
+              diff: legacy_changelog.diff.merge('intitule' => [old_intitule, legacy_intitule])
+            )
+            create(:authorization, request: authorization_request)
+            authorization_request.intitule = 'New intitule'
+          end
+
+          context 'when there is an update on a key present in the legacy diff' do
+            it 'uses the legacy diff last value as previous, not the authorization snapshot' do
+              expect(changelog.diff['intitule']).to eq([legacy_intitule, 'New intitule'])
+            end
+          end
+        end
       end
     end
 

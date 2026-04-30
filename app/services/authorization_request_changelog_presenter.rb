@@ -9,21 +9,11 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def event_name
-    return legacy_changelog_name if any_changelog_legacy?
+    return legacy_changelog_name if changelog.legacy?
+    return legacy_changelog_name if previous_legacy_without_snapshot?
+    return initial_submit_event_name if first_changelog?
 
-    if first_changelog?
-      if !prefilled_data?
-        'initial_submit_without_prefilled_data'
-      elsif prefilled_changed?
-        'initial_submit_with_changes_on_prefilled_data'
-      else
-        'initial_submit_without_changes_on_prefilled_data'
-      end
-    elsif no_change?
-      'submit_without_changes'
-    else
-      'submit_with_changes'
-    end
+    no_change? ? 'submit_without_changes' : 'submit_with_changes'
   end
 
   def consolidated_changelog_entries
@@ -53,6 +43,16 @@ class AuthorizationRequestChangelogPresenter
     DiffPresenter.new(changed_prefilled_diff, authorization_request)
   end
 
+  def initial_submit_event_name
+    if !prefilled_data?
+      'initial_submit_without_prefilled_data'
+    elsif prefilled_changed?
+      'initial_submit_with_changes_on_prefilled_data'
+    else
+      'initial_submit_without_changes_on_prefilled_data'
+    end
+  end
+
   def legacy_changelog_name
     if no_change?
       'legacy_submit_without_changes'
@@ -77,9 +77,9 @@ class AuthorizationRequestChangelogPresenter
     changelog.diff.empty?
   end
 
-  def any_changelog_legacy?
-    changelog.legacy? ||
-      authorization_request.changelogs.where(legacy: true).any?
+  def previous_legacy_without_snapshot?
+    authorization_request.changelogs.where(legacy: true).any? &&
+      authorization_request.latest_authorization.nil?
   end
 
   def authorization_request
