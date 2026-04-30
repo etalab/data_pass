@@ -7,6 +7,10 @@ module AuthorizationCore::Attributes
         @extra_attributes ||= []
       end
 
+      def self.extra_array_attributes
+        @extra_array_attributes ||= []
+      end
+
       def self.add_attributes(*names)
         names.each do |name|
           add_attribute(name)
@@ -20,6 +24,7 @@ module AuthorizationCore::Attributes
 
           if options[:type] == :array
             override_array_accessor(name)
+            extra_array_attributes.push(name)
           elsif options[:type] == :boolean
             override_boolean_reader(name)
           else
