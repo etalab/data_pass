@@ -49,3 +49,12 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Alors il y a un message d'erreur contenant "Nom du projet doit être"
     Et la page contient "Nom du projet"
 
+  Scénario: Le bouton précédent s'affiche sur l'étape "traitement des données personnelles" quand l'étape précédente est "données"
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Socle de base DLNUF"
+    Et que je clique sur "Débuter ma demande"
+    Et que je renseigne les infos de bases du projet
+    Et que je clique sur "Suivant"
+    Et que je clique sur "Suivant"
+    Alors la page contient "Le traitement des données personnelles"
+    Et la page contient "Précédent"
+
