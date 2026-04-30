@@ -116,6 +116,67 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       end
     end
 
+    context 'with cnous_data_extraction_criteria block' do
+      let(:record) { record_class.new(uid, [{ 'name' => 'cnous_data_extraction_criteria' }], []) }
+
+      it 'adds cnous_data_extraction_criteria attributes' do
+        register
+        klass = AuthorizationRequest.const_get(uid.classify)
+        expect(klass.extra_attributes).to include(
+          :communes_codes_insee,
+          :echelon_bourse,
+          :premiere_date_transmission,
+          :recurrence,
+        )
+      end
+
+      context 'when submitted' do
+        subject(:valid?) { demande.valid?(:submit) }
+
+        let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'cnous_data_extraction_criteria' }]) }
+        let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+        let(:demande) { klass.new(**params) }
+        let(:params) { {} }
+
+        before { valid? }
+
+        context 'without any field' do
+          it { expect(demande.errors[:communes_codes_insee]).to be_present }
+          it { expect(demande.errors[:echelon_bourse]).to be_present }
+          it { expect(demande.errors[:premiere_date_transmission]).to be_present }
+          it { expect(demande.errors[:recurrence]).to be_present }
+        end
+
+        context 'with all fields filled correctly' do
+          let(:params) do
+            {
+              communes_codes_insee: %w[75056 69123],
+              echelon_bourse: '5',
+              premiere_date_transmission: '2026-09-01',
+              recurrence: 'annually',
+            }
+          end
+
+          it { expect(demande.errors[:communes_codes_insee]).to be_empty }
+          it { expect(demande.errors[:echelon_bourse]).to be_empty }
+          it { expect(demande.errors[:premiere_date_transmission]).to be_empty }
+          it { expect(demande.errors[:recurrence]).to be_empty }
+        end
+
+        context 'with an invalid recurrence value' do
+          let(:params) { { recurrence: 'monthly' } }
+
+          it { expect(demande.errors[:recurrence]).to be_present }
+        end
+
+        context 'with biannually recurrence' do
+          let(:params) { { recurrence: 'biannually' } }
+
+          it { expect(demande.errors[:recurrence]).to be_empty }
+        end
+      end
+    end
+
     context 'with scopes block' do
       let(:record) { record_class.new(uid, [{ 'name' => 'scopes' }], []) }
 
