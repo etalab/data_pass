@@ -1709,8 +1709,63 @@ api-particulier-mgdis-tarification-cantines-lycees:
       - params
       - france_connect
 
-# ------------------------------- #
-# ------------------------------- #
+api-particulier-mgdis-aides-facultatives-departementales:
+  name: Aides facultatives départementales
+  description: Département, simplifiez l’attribution de vos aides facultatives.
+  authorization_request: APIParticulier
+  use_case: aides_facultatives
+  service_provider_id: mgdis
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l’attribution des <strong>« Aides facultatives départementales »</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d’usage</a>.
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - pole_emploi_identite
+      - pole_emploi_contact
+      - pole_emploi_adresse
+      - pole_emploi_paiements
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
+      - cnous_echelon_bourse
+      - cnous_identite
+      - cnous_email
+      - cnous_periode_versement
+      - cnous_statut_bourse
+      - cnous_ville_etudes
+      - allocation_adulte_handicape
+      - revenu_solidarite_active
+      - revenu_solidarite_active_majoration
+      - cnav_allocation_enfant_handicape
+
+  initialize_with:
+    intitule: Aides facultatives départementales
+    description: TODO
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_email || 'tech-mgdis@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Responsable produit
+    modalities:
+      - params
+
 # ------------------------------- #
 
 # Editeur single page (cas 1)
