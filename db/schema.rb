@@ -515,6 +515,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.text "description", comment: "Optional description"
     t.integer "failures_count", default: 0, null: false, comment: "Cache of failed runs"
     t.string "name", null: false, comment: "Job class name"
+    t.decimal "p95_duration", precision: 15, scale: 6, comment: "95th percentile duration in milliseconds"
+    t.decimal "p99_duration", precision: 15, scale: 6, comment: "99th percentile duration in milliseconds"
     t.string "queue_name", comment: "Default queue"
     t.integer "retries_count", default: 0, null: false, comment: "Cache of retried runs"
     t.integer "runs_count", default: 0, null: false, comment: "Cache of total runs"
@@ -526,6 +528,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
   end
 
   create_table "rails_pulse_operations", force: :cascade do |t|
+    t.boolean "cache_hit", default: false, null: false
     t.string "codebase_location", comment: "File and line number (e.g., app/models/user.rb:25)"
     t.datetime "created_at", null: false
     t.decimal "duration", precision: 15, scale: 6, null: false, comment: "Operation duration in milliseconds"
@@ -534,7 +537,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.datetime "occurred_at", precision: nil, null: false, comment: "When the request started"
     t.string "operation_type", null: false, comment: "Type of operation (e.g., database, view, gem_call)"
     t.bigint "query_id", comment: "Link to the normalized SQL query"
+    t.text "repeated_query_group"
+    t.integer "repetition_count"
     t.bigint "request_id", comment: "Link to the request"
+    t.integer "row_count"
     t.float "start_time", default: 0.0, null: false, comment: "Operation start time in milliseconds"
     t.datetime "updated_at", null: false
     t.index ["created_at", "query_id"], name: "idx_operations_for_aggregation"
@@ -572,6 +578,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.boolean "is_error", default: false, null: false, comment: "True if status >= 500"
     t.datetime "occurred_at", precision: nil, null: false, comment: "When the request started"
     t.string "request_uuid", null: false, comment: "Unique identifier for the request (e.g., UUID)"
+    t.integer "response_size_bytes"
     t.bigint "route_id", null: false, comment: "Link to the route"
     t.integer "status", null: false, comment: "HTTP status code (e.g., 200, 500)"
     t.text "tags", comment: "JSON array of tags for filtering and categorization"
