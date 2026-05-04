@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -633,6 +633,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.index ["authorization_request_id"], name: "index_revocation_of_authorizations_on_authorization_request_id"
   end
 
+  create_table "user_roles", force: :cascade do |t|
+    t.string "authorization_definition_id"
+    t.datetime "created_at", null: false
+    t.bigint "data_provider_id"
+    t.string "data_provider_slug"
+    t.string "role", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["data_provider_id"], name: "index_user_roles_on_data_provider_id"
+    t.index ["role", "authorization_definition_id"], name: "index_user_roles_on_role_and_authorization_definition_id"
+    t.index ["role", "data_provider_slug"], name: "index_user_roles_on_role_and_data_provider_slug"
+    t.index ["user_id", "role", "data_provider_id", "authorization_definition_id"], name: "idx_user_roles_unique", unique: true, nulls_not_distinct: true
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "ban_reason"
     t.datetime "banned_at"
@@ -746,6 +761,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
   add_foreign_key "rails_pulse_requests", "rails_pulse_routes", column: "route_id"
   add_foreign_key "revocation_of_authorizations", "authorization_requests"
   add_foreign_key "revocation_of_authorizations", "authorizations"
+  add_foreign_key "user_roles", "data_providers"
+  add_foreign_key "user_roles", "users"
   add_foreign_key "webhook_attempts", "authorization_requests"
   add_foreign_key "webhook_attempts", "webhooks"
 end

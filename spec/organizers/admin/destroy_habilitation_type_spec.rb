@@ -19,13 +19,17 @@ RSpec.describe Admin::DestroyHabilitationType, type: :organizer do
     end
 
     context 'when users have roles linked to the habilitation type' do
-      let(:fd_slug) { habilitation_type.data_provider.slug }
-      let!(:instructor) { create(:user, roles: ["#{fd_slug}:#{habilitation_type.uid}:instructor", 'dinum:api_entreprise:manager']) }
+      let!(:instructor) do
+        create(:user).tap do |user|
+          UserRole.create!(user: user, role: 'instructor', data_provider: habilitation_type.data_provider, authorization_definition_id: habilitation_type.uid)
+          user.grant_role(:manager, 'api_entreprise')
+        end
+      end
 
       it 'removes roles linked to the habilitation type' do
         organizer
 
-        expect(instructor.reload.roles).to eq(['dinum:api_entreprise:manager'])
+        expect(instructor.reload.user_roles.pluck(:authorization_definition_id)).to eq(['api_entreprise'])
       end
     end
 

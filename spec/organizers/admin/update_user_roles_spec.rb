@@ -3,7 +3,7 @@ RSpec.describe Admin::UpdateUserRoles, type: :organizer do
     subject(:update_user_roles) { described_class.call(admin:, user:, roles:) }
 
     let(:admin) { create(:user, :admin) }
-    let(:user) { create(:user, roles: %w[dinum:api_entreprise:reporter]) }
+    let(:user) { create(:user, :reporter, authorization_request_types: %w[api_entreprise]) }
     let(:roles) { %w[dinum:api_particulier:instructor admin] }
 
     before do
@@ -33,7 +33,7 @@ RSpec.describe Admin::UpdateUserRoles, type: :organizer do
     it 'updates the user roles' do
       expect {
         update_user_roles
-      }.to change { user.reload.roles }.from(%w[dinum:api_entreprise:reporter]).to(%w[dinum:api_particulier:instructor admin])
+      }.to change { user.reload.roles }.from(%w[dinum:api_entreprise:reporter]).to(match_array(%w[dinum:api_particulier:instructor admin]))
     end
 
     it 'notifies admins for roles update' do

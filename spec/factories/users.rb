@@ -28,17 +28,17 @@ FactoryBot.define do
 
     %i[reporter instructor developer manager].each do |role|
       trait role do
-        after(:build) do |user, evaluator|
+        after(:create) do |user, evaluator|
           evaluator.authorization_request_types.each do |art|
             user.grant_role(role, art.to_s)
           rescue ParsedRole::UnknownDefinitionError
-            user.roles << "unknown:#{art}:#{role}"
+            UserRole.create!(user: user, role: role.to_s, data_provider_slug: 'unknown', authorization_definition_id: art.to_s)
           end
         end
       end
 
       trait :"fd_#{role}" do
-        after(:build) do |user, evaluator|
+        after(:create) do |user, evaluator|
           evaluator.data_provider_slugs.each do |slug|
             user.grant_fd_role(role, slug)
           end
@@ -47,7 +47,7 @@ FactoryBot.define do
     end
 
     trait :admin do
-      after(:build, &:grant_admin_role)
+      after(:create, &:grant_admin_role)
     end
   end
 end

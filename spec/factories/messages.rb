@@ -11,7 +11,7 @@ FactoryBot.define do
     trait :from_applicant
 
     trait :from_instructor do
-      from { build(:user, :instructor) }
+      from { create(:user, :instructor) }
     end
   end
 end

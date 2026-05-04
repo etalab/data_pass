@@ -1,7 +1,7 @@
 RSpec.describe User do
   it 'has valid factories' do
     expect(build(:user)).to be_valid
-    expect(build(:user, :instructor)).to be_valid
+    expect(create(:user, :instructor)).to be_valid
   end
 
   describe 'validation ban_reason' do
@@ -108,7 +108,7 @@ RSpec.describe User do
     end
 
     context 'when user is a reporter' do
-      let(:user) { build(:user, :reporter, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :reporter, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -132,7 +132,7 @@ RSpec.describe User do
     end
 
     context 'when user is an instructor' do
-      let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -156,7 +156,7 @@ RSpec.describe User do
     end
 
     context 'when user is a manager' do
-      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :manager, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -200,7 +200,7 @@ RSpec.describe User do
     end
 
     context 'when user is an instructor' do
-      let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -224,7 +224,7 @@ RSpec.describe User do
     end
 
     context 'when user is a manager' do
-      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :manager, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -268,7 +268,7 @@ RSpec.describe User do
     end
 
     context 'when user is a manager' do
-      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :manager, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -304,7 +304,7 @@ RSpec.describe User do
     end
 
     context 'when user is an instructor' do
-      let(:user) { build(:user, :instructor, authorization_request_types:) }
+      let(:user) { create(:user, :instructor, authorization_request_types:) }
       let(:authorization_request_types) { %w[api_entreprise api_particulier] }
 
       let(:api_entreprise_definition) { AuthorizationDefinition.find('api_entreprise') }
@@ -316,7 +316,7 @@ RSpec.describe User do
     context 'when the user is reporter and developer for the same authorization definition' do
       let(:kind) { 'reporter' }
 
-      let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+      let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
       before do
         user.grant_role(:developer, 'api_entreprise')
