@@ -47,8 +47,9 @@ class Molecules::Instruction::UserRights::RightFieldComponent < ApplicationCompo
   end
 
   def provider_name(slug)
-    DataProvider.friendly.find(slug).name
+    @provider_names ||= {}
+    @provider_names[slug] ||= DataProvider.friendly.find(slug).name
   rescue ActiveRecord::RecordNotFound
-    slug.upcase
+    @provider_names[slug] = slug.upcase
   end
 end

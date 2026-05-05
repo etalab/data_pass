@@ -175,6 +175,10 @@ class User < ApplicationRecord
     end
   end
 
+  def managed_by?(other_user)
+    roles.any? { |role| other_user.manages_role?(role) }
+  end
+
   def authorization_request_types_for(kind)
     roles_for(kind).authorization_request_types
   end

@@ -16,7 +16,7 @@ class Instruction::UserRightPolicy < ApplicationPolicy
   end
 
   def edit?
-    enabled? && record != user && can_manage_any_role?(record)
+    enabled? && record != user && record.managed_by?(user)
   end
 
   def update?
@@ -29,11 +29,5 @@ class Instruction::UserRightPolicy < ApplicationPolicy
 
   def confirm_destroy?
     destroy?
-  end
-
-  private
-
-  def can_manage_any_role?(target_user)
-    target_user.roles.any? { |role| user.manages_role?(role) }
   end
 end

@@ -9,7 +9,10 @@
         <li>
           <span class="fr-text--bold"><%= entry[:label] %></span>
           <% entry[:role_types].each do |role_type| %>
-            <%= helpers.role_badge(role_type) %>
+            <%= render Atoms::ColorBadgeComponent.new(
+                  label: t("instruction.user_rights.roles.#{role_type}"),
+                  color: Instruction::UserRightsHelper::ROLE_BADGE_COLORS.fetch(role_type)
+                ) %>
           <% end %>
         </li>
       <% end %>

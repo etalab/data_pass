@@ -1,11 +1,5 @@
 <% set_title! t('instruction.user_rights.new.title') %>
 
-<% content_for :skip_links do %>
-  <%= skip_link(t('instruction.user_rights.index.skip_links.content'), 'content') %>
-  <%= skip_link(t('instruction.user_rights.index.skip_links.menu'), 'header') %>
-  <%= skip_link(t('instruction.user_rights.index.skip_links.footer'), 'footer') %>
-<% end %>
-
 <div class="fr-bg-grey fr-py-5w fr-mb-3w">
   <div class="fr-container">
     <%= dsfr_breadcrumbs do |b|

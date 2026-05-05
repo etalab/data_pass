@@ -10,8 +10,10 @@
         <% @modifiable_rights.each do |right| %>
           <li>
             <strong><%= Instruction::Scope.new(right[:scope]).label %></strong>
-            —
-            <%= t("instruction.user_rights.roles.#{right[:role_type]}") %>
+            <%= render Atoms::ColorBadgeComponent.new(
+                  label: t("instruction.user_rights.roles.#{right[:role_type]}"),
+                  color: Instruction::UserRightsHelper::ROLE_BADGE_COLORS.fetch(right[:role_type])
+                ) %>
           </li>
         <% end %>
       </ul>

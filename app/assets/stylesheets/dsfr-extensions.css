@@ -134,10 +134,6 @@
   mask-image: url("icons/others/recycle-fill.svg");
 }
 
-.fr-badge--no-icon::before {
-  content: none;
-}
-
 .fr-badge.fr-badge--secondary::before,
 .fr-badge--sm.fr-badge--secondary::before {
   -webkit-mask-image: url("icons/business/archive-fill.svg");

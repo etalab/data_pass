@@ -190,6 +190,30 @@ RSpec.describe User do
     end
   end
 
+  describe '#managed_by?' do
+    subject(:result) { target.managed_by?(manager) }
+
+    let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+
+    context 'when the target has at least one role within the manager scope' do
+      let(:target) { create(:user, roles: %w[dinum:api_entreprise:reporter dinum:api_particulier:instructor]) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when the target has no role within the manager scope' do
+      let(:target) { create(:user, roles: %w[dinum:api_particulier:instructor]) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the target has no roles at all' do
+      let(:target) { create(:user, roles: []) }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#reporter?' do
     subject { user.reporter?(authorization_request_type) }
 

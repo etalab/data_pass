@@ -28,7 +28,10 @@ class Instruction::UserRightForm
   end
 
   def rights=(raw)
-    list = raw.is_a?(Hash) || raw.is_a?(ActionController::Parameters) ? raw.values : Array(raw)
+    list = case raw
+           when Hash, ActionController::Parameters then raw.values
+           else Array(raw)
+           end
     @rights = list.map { |entry| normalize_right(entry) }.uniq
   end
 

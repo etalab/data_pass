@@ -530,10 +530,6 @@ fr:
         given_name: Prénom
         family_name: Nom
       index:
-        skip_links:
-          content: Gestion des droits
-          menu: Menu
-          footer: Pied de page
         title: Gestion des droits
         empty_state: Aucun utilisateur ne possède de droits pour l’instant
         add_cta: Ajouter des droits à un utilisateur sans droits
