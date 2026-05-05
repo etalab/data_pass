@@ -65,3 +65,19 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et la demande contient les codes communes INSEE "2A004" et "01001"
+
+  Scénario: Le focus est géré au clavier dans la liste des communes
+    Sachant que je suis un demandeur
+    Et que je me connecte
+    Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
+
+    Quand je démarre une nouvelle demande d'habilitation "Boursiers"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    Quand je clique sur "Ajouter une commune"
+    Alors le focus est sur le dernier champ commune INSEE
+
+    Quand je clique sur le bouton de suppression du dernier champ ajouté
+    Alors le focus est sur le bouton "Ajouter une commune"

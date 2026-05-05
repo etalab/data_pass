@@ -30,3 +30,18 @@ end
 Alors('la demande contient les codes communes INSEE {string} et {string}') do |code1, code2|
   expect(AuthorizationRequest.last.communes_codes_insee).to match_array([code1, code2])
 end
+
+Alors('le focus est sur le dernier champ commune INSEE') do
+  expect(page).to have_css('input:focus[name$="[communes_codes_insee][]"]', visible: :all)
+  inputs = page.all('input[name$="[communes_codes_insee][]"]', visible: :all)
+  focused_label = page.evaluate_script('document.activeElement.getAttribute("aria-label")')
+  expect(focused_label).to eq(inputs.last['aria-label'])
+end
+
+Quand('je clique sur le bouton de suppression du dernier champ ajouté') do
+  page.all('button', text: 'Retirer', visible: :all).last.click
+end
+
+Alors('le focus est sur le bouton {string}') do |label|
+  expect(page).to have_css('button:focus', text: label, visible: :all)
+end
