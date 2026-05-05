@@ -850,6 +850,20 @@ fr:
         <<: *authorization_request_forms_default_steps
         legal: Cadre juridique relatif à la demande
         scopes: Les données d'entreprise
+      legal:
+        justificatif:
+          title: Le justificatif de votre mission de service public
+          description: >
+            Joignez le décret ou la délibération justifiant que votre organisation
+            ou votre service est habilité à consulter les données d'entreprise.
+            Le document doit concerner votre organisation ou un service de celle-ci,
+            et non un individu.
+      cadre_juridique_nature:
+        label: Précisez la nature et les références du texte justifiant la mission de service public de votre organisation et le cas d'usage autorisant votre service à consulter les données
+        hint: Si vous joignez un décret, précisez le numéro et l'article concerné.
+      cadre_juridique_document:
+        label: Ajoutez le décret ou la délibération
+        hint: *pdf_input_hint
       scopes:
         info:
           title: À propos des données d'entreprise
