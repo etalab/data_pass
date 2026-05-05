@@ -24,10 +24,13 @@ module AuthorizationCore::Documents
         @documents ||= []
       end
 
+      MAX_FILES_PER_DOCUMENT = 6
+
       def self.add_documents(name, validation_options = {})
+        merged_options = { limit: { max: MAX_FILES_PER_DOCUMENT } }.merge(validation_options)
         class_eval do
           has_many_attached name
-          validates name, validation_options unless ENV['SKIP_DOCUMENT_VALIDATION']
+          validates name, merged_options unless ENV['SKIP_DOCUMENT_VALIDATION']
 
           documents << DocumentType.new(name:, multiple: true)
         end
