@@ -13,35 +13,34 @@
     </div>
   </div>
 
-  <div class="fr-grid-row fr-mb-3w">
-    <div class="fr-col-12 fr-col-md-6">
-      <%= search_form_for @search_engine,
-                          url: instruction_user_rights_path,
-                          html: {
-                            method: :get,
-                            data: {
-                              controller: 'auto-submit-form',
-                              'auto-submit-form-debounce-interval-value' => 500,
-                              'auto-submit-form-event-mode-value' => 'input',
-                              turbo_frame: 'user_rights_table'
-                            }
-                          } do |f| %>
-        <div class="fr-search-bar" role="search">
-          <%= f.label :email_or_given_name_or_family_name_cont,
-                      t('instruction.user_rights.index.search.label'),
-                      class: 'fr-label fr-sr-only' %>
-          <%= f.search_field :email_or_given_name_or_family_name_cont,
-                             class: 'fr-input',
-                             placeholder: t('instruction.user_rights.index.search.placeholder') %>
-          <button type="submit" class="fr-btn" title="<%= t('instruction.user_rights.index.search.submit') %>">
-            <%= t('instruction.user_rights.index.search.submit') %>
-          </button>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
   <turbo-frame id="user_rights_table">
+    <div class="fr-grid-row fr-mb-3w">
+      <div class="fr-col-12 fr-col-md-6">
+        <%= search_form_for @search_engine,
+                            url: instruction_user_rights_path,
+                            html: {
+                              method: :get,
+                              data: {
+                                controller: 'auto-submit-form',
+                                'auto-submit-form-debounce-interval-value' => 500,
+                                'auto-submit-form-event-mode-value' => 'input'
+                              }
+                            } do |f| %>
+          <div class="fr-search-bar" role="search">
+            <%= f.label :email_or_given_name_or_family_name_cont,
+                        t('instruction.user_rights.index.search.label'),
+                        class: 'fr-label fr-sr-only' %>
+            <%= f.search_field :email_or_given_name_or_family_name_cont,
+                               class: 'fr-input',
+                               placeholder: t('instruction.user_rights.index.search.placeholder') %>
+            <button type="submit" class="fr-btn" title="<%= t('instruction.user_rights.index.search.submit') %>">
+              <%= t('instruction.user_rights.index.search.submit') %>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
     <% if @users.empty? %>
       <div class="fr-py-6w fr-text--center" id="user-rights-empty-state">
         <% if @search_term.present? %>
@@ -55,6 +54,7 @@
       </div>
     <% else %>
       <%= render Organisms::Instruction::UserRights::TableComponent.new(users: @users, actor: current_user) %>
+      <%= paginate @users %>
     <% end %>
   </turbo-frame>
 </div>

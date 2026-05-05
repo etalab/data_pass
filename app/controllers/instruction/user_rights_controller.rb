@@ -5,11 +5,9 @@ class Instruction::UserRightsController < InstructionController
 
   def index
     @managed_definitions = current_user.authorization_definition_roles_as(:manager)
-    scope = User.with_any_role_on(@managed_definitions.map(&:id))
-      .where.not(id: current_user.id)
     @search_term = params.dig(:search_query, :email_or_given_name_or_family_name_cont)
-    @search_engine = scope.ransack(params[:search_query])
-    @users = @search_engine.result(distinct: true).order(:email)
+    @search_engine = managed_users_scope.ransack(params[:search_query])
+    @users = @search_engine.result.order(:email).page(params[:page]).per(50)
   end
 
   def new
@@ -59,6 +57,11 @@ class Instruction::UserRightsController < InstructionController
 
   def build_permissions
     @permissions = Instruction::ManagerScopeOptions.new(current_user)
+  end
+
+  def managed_users_scope
+    User.with_any_role_on(@managed_definitions.map(&:id))
+      .where.not(id: current_user.id)
   end
 
   def authorize_user_rights!
