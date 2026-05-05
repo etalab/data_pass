@@ -30,7 +30,7 @@ fonctionne indistinctement sur YAML et DB.
 
 ## Modèle DB
 
-Fichier : [`app/models/habilitation_type.rb`](../app/models/habilitation_type.rb).
+Fichier : [`app/models/habilitation_type.rb`](.../../app/models/habilitation_type.rb).
 Migration : [`db/migrate/20260225111739_create_habilitation_types.rb`](../db/migrate/20260225111739_create_habilitation_types.rb).
 
 Constantes structurantes :
@@ -79,7 +79,7 @@ Versioning via `paper_trail` (versioning des **types** ; à distinguer du
 
 ## Registrar dynamique
 
-Fichier : [`app/services/dynamic_authorization_request_registrar.rb`](../app/services/dynamic_authorization_request_registrar.rb).
+Fichier : [`app/services/dynamic_authorization_request_registrar.rb`](.../../app/services/dynamic_authorization_request_registrar.rb).
 
 Deux familles de blocks :
 
@@ -117,7 +117,7 @@ end
 
 Block inconnu → `Sentry.capture_message(level: :warning)`, pas de crash.
 
-Initializer Rails — [`config/initializers/dynamic_authorization_types.rb`](../config/initializers/dynamic_authorization_types.rb) :
+Initializer Rails — [`config/initializers/dynamic_authorization_types.rb`](../../config/initializers/dynamic_authorization_types.rb) :
 
 ```ruby
 Rails.application.config.to_prepare do
@@ -136,8 +136,8 @@ worker boot). Le rescue couvre `db:create` / `db:drop` / première migration.
 
 ## Concerns blocks
 
-Fichiers : [`app/models/concerns/authorization_extensions/*.rb`](../app/models/concerns/authorization_extensions/).
-DSL réutilisable : [`app/models/concerns/authorization_core/`](../app/models/concerns/authorization_core/).
+Fichiers : [`app/models/concerns/authorization_extensions/*.rb`](.../../app/models/concerns/authorization_extensions/).
+DSL réutilisable : [`app/models/concerns/authorization_core/`](.../../app/models/concerns/authorization_core/).
 
 DSL principal — `add_attribute` :
 
@@ -171,9 +171,9 @@ Catalogue des blocks exposés au registrar :
 
 ## Pont YAML/DB
 
-Fichiers : [`app/models/authorization_definition.rb`](../app/models/authorization_definition.rb),
-[`app/models/authorization_request_form.rb`](../app/models/authorization_request_form.rb),
-[`app/models/static_application_record.rb`](../app/models/static_application_record.rb).
+Fichiers : [`app/models/authorization_definition.rb`](.../../app/models/authorization_definition.rb),
+[`app/models/authorization_request_form.rb`](.../../app/models/authorization_request_form.rb),
+[`app/models/static_application_record.rb`](.../../app/models/static_application_record.rb).
 
 Pattern `backend = yaml_records + db_records` :
 
@@ -220,21 +220,21 @@ le find aboutit indistinctement côté YAML ou DB.
 
 | Sujet | Fichier |
 | --- | --- |
-| Modèle DB | [`app/models/habilitation_type.rb`](../app/models/habilitation_type.rb) |
+| Modèle DB | [`app/models/habilitation_type.rb`](.../../app/models/habilitation_type.rb) |
 | Migration création | [`db/migrate/20260225111739_create_habilitation_types.rb`](../db/migrate/20260225111739_create_habilitation_types.rb) |
 | Migration suffixe `-dyn` | [`db/migrate/20260401152848_add_dyn_suffix_to_habilitation_type_slugs.rb`](../db/migrate/20260401152848_add_dyn_suffix_to_habilitation_type_slugs.rb) |
-| Registrar | [`app/services/dynamic_authorization_request_registrar.rb`](../app/services/dynamic_authorization_request_registrar.rb) |
-| Initializer Rails | [`config/initializers/dynamic_authorization_types.rb`](../config/initializers/dynamic_authorization_types.rb) |
-| Concerns blocks | [`app/models/concerns/authorization_extensions/`](../app/models/concerns/authorization_extensions/) |
-| DSL réutilisable | [`app/models/concerns/authorization_core/`](../app/models/concerns/authorization_core/) |
-| Cache / invalidation Redis | [`app/models/static_application_record.rb`](../app/models/static_application_record.rb) |
-| Pont YAML/DB définitions | [`app/models/authorization_definition.rb`](../app/models/authorization_definition.rb) |
-| Pont YAML/DB forms | [`app/models/authorization_request_form.rb`](../app/models/authorization_request_form.rb) |
-| Consommateur STI | [`app/models/authorization_request.rb`](../app/models/authorization_request.rb) (`definition`, `need_complete_validation?`) |
-| Notifications utilisateur | [`app/models/concerns/notifications_settings.rb`](../app/models/concerns/notifications_settings.rb) |
-| Templates de messages | [`app/models/message_template.rb`](../app/models/message_template.rb) |
-| Spec modèle | [`spec/models/habilitation_type_spec.rb`](../spec/models/habilitation_type_spec.rb) |
-| Spec registrar | [`spec/services/dynamic_authorization_request_registrar_spec.rb`](../spec/services/dynamic_authorization_request_registrar_spec.rb) |
+| Registrar | [`app/services/dynamic_authorization_request_registrar.rb`](.../../app/services/dynamic_authorization_request_registrar.rb) |
+| Initializer Rails | [`config/initializers/dynamic_authorization_types.rb`](../../config/initializers/dynamic_authorization_types.rb) |
+| Concerns blocks | [`app/models/concerns/authorization_extensions/`](.../../app/models/concerns/authorization_extensions/) |
+| DSL réutilisable | [`app/models/concerns/authorization_core/`](.../../app/models/concerns/authorization_core/) |
+| Cache / invalidation Redis | [`app/models/static_application_record.rb`](.../../app/models/static_application_record.rb) |
+| Pont YAML/DB définitions | [`app/models/authorization_definition.rb`](.../../app/models/authorization_definition.rb) |
+| Pont YAML/DB forms | [`app/models/authorization_request_form.rb`](.../../app/models/authorization_request_form.rb) |
+| Consommateur STI | [`app/models/authorization_request.rb`](.../../app/models/authorization_request.rb) (`definition`, `need_complete_validation?`) |
+| Notifications utilisateur | [`app/models/concerns/notifications_settings.rb`](.../../app/models/concerns/notifications_settings.rb) |
+| Templates de messages | [`app/models/message_template.rb`](.../../app/models/message_template.rb) |
+| Spec modèle | [`spec/models/habilitation_type_spec.rb`](../../spec/models/habilitation_type_spec.rb) |
+| Spec registrar | [`spec/services/dynamic_authorization_request_registrar_spec.rb`](../../spec/services/dynamic_authorization_request_registrar_spec.rb) |
 
 ## Points d'attention
 
