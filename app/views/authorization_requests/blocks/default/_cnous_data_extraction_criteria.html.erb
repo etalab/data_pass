@@ -1,0 +1,41 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.cnous_data_extraction_criteria'), block_id: :cnous_data_extraction_criteria, f:, editable: } do %>
+  <p>
+    <strong><%= f.label_value(:communes_codes_insee) %></strong>
+  </p>
+
+  <% if authorization_request.communes_codes_insee.present? %>
+    <p><%= authorization_request.communes_codes_insee.join(', ') %></p>
+  <% else %>
+    <p><%= t('authorization_requests.shared.not_filled') %></p>
+  <% end %>
+
+  <p>
+    <strong><%= f.label_value(:echelon_bourse) %></strong>
+  </p>
+
+  <% if authorization_request.echelon_bourse.present? %>
+    <p><%= t("authorization_request_forms.default.cnous_data_extraction_criteria.echelons.#{authorization_request.echelon_bourse}", default: authorization_request.echelon_bourse) %></p>
+  <% else %>
+    <p><%= t('authorization_requests.shared.not_filled') %></p>
+  <% end %>
+
+  <p>
+    <strong><%= f.label_value(:premiere_date_transmission) %></strong>
+  </p>
+
+  <% if authorization_request.premiere_date_transmission.present? %>
+    <p><%= l(authorization_request.premiere_date_transmission.to_date, format: :long) %></p>
+  <% else %>
+    <p><%= t('authorization_requests.shared.not_filled') %></p>
+  <% end %>
+
+  <p>
+    <strong><%= f.label_value(:recurrence) %></strong>
+  </p>
+
+  <% if authorization_request.recurrence.present? %>
+    <p><%= t("authorization_request_forms.default.cnous_data_extraction_criteria.recurrences.#{authorization_request.recurrence}", default: authorization_request.recurrence) %></p>
+  <% else %>
+    <p><%= t('authorization_requests.shared.not_filled') %></p>
+  <% end %>
+<% end %>

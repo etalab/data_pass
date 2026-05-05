@@ -28,6 +28,8 @@ ActionController::Base.allow_rescue = false
 DatabaseCleaner.allow_remote_database_url = true
 DatabaseCleaner.strategy = :transaction
 
+Capybara.enable_aria_label = true
+
 Cucumber::Rails::Database.javascript_strategy = :truncation
 Cucumber::Rails::Database.autorun_database_cleaner = false
 

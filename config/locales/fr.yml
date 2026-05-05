@@ -496,6 +496,7 @@ fr:
         title: Cette demande ou cette habilitation comporte des erreurs
         description: Cette demande d’habilitation a été importée d’une ancienne version de Datapass, celle-ci présente des données incomplètes ou manquantes. Par conséquent, certaines actions (transfert, mise à jour) ne sont pas disponibles, si vous voulez effectuer des actions sur cette demande, merci de contacter le support à l’adresse datapass@api.gouv.fr.
     shared:
+      not_filled: Non renseigné
       title:
         update: Demande de mise à jour des informations
       service_provider:
