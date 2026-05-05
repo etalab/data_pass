@@ -75,24 +75,6 @@
   color: var(--text-default-warning);
 }
 
-/* Bouton destructif (suppression / révocation). DSFR n'a pas de variante
-   officielle ; on utilise les couleurs sémantiques `error` (rouge). */
-.fr-btn.fr-btn--warning {
-  --idle: var(--background-action-high-error);
-  --hover: var(--background-action-high-error-hover);
-  --active: var(--background-action-high-error-active);
-  background-color: var(--background-action-high-error);
-  color: var(--text-inverted-error);
-}
-
-.fr-btn.fr-btn--warning:hover {
-  background-color: var(--background-action-high-error-hover);
-}
-
-.fr-btn.fr-btn--warning:active {
-  background-color: var(--background-action-high-error-active);
-}
-
 .fr-text-grey {
   color: var(--grey-625-425);
 }
