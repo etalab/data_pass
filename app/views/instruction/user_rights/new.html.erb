@@ -1,15 +1,15 @@
 <% set_title! t('instruction.user_rights.new.title') %>
 
-<%= render 'page_header',
+<%= render 'instruction/user_rights/page_header',
   breadcrumb_label: t('instruction.user_rights.new.breadcrumb'),
   heading: t('instruction.user_rights.new.title') %>
 
 <div class="fr-my-5w">
-  <%= render 'form',
+  <%= render 'instruction/user_rights/form',
     form: @form,
     target_user: nil,
-    permissions: @permissions,
-    url: instruction_user_rights_path,
+    permissions: @authority,
+    url: user_rights_index_path,
     method: :post,
     show_email_field: true,
     readonly_rights: [],

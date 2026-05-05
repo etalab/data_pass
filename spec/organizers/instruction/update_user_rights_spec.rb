@@ -5,7 +5,7 @@ RSpec.describe Instruction::UpdateUserRights, type: :organizer do
 
   describe '.call' do
     subject(:update_user_rights) do
-      described_class.call(manager:, user:, new_roles:)
+      described_class.call(authority: Rights::ManagerAuthority.new(manager), actor: manager, user:, new_roles:)
     end
 
     let!(:admin_recipient) { create(:user, roles: ['admin']) }

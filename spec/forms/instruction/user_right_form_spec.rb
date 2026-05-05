@@ -11,7 +11,7 @@ RSpec.describe Instruction::UserRightForm do
   end
 
   describe 'validations' do
-    subject(:form) { described_class.new(manager:, **attrs) }
+    subject(:form) { described_class.new(authority: Rights::ManagerAuthority.new(manager), **attrs) }
 
     context 'when email and a valid right are provided' do
       let(:attrs) { { email: 'user@gouv.fr', rights: [valid_right] } }
@@ -111,7 +111,7 @@ RSpec.describe Instruction::UserRightForm do
   describe '#to_roles' do
     it 'returns 3-part role strings for each right' do
       form = described_class.new(
-        manager:,
+        authority: Rights::ManagerAuthority.new(manager),
         email: 'user@gouv.fr',
         rights: [
           valid_right(role_type: 'reporter'),
@@ -127,7 +127,7 @@ RSpec.describe Instruction::UserRightForm do
     it 'supports FD-wildcard scopes' do
       fd_manager = create(:user, roles: ['dinum:*:manager'])
       form = described_class.new(
-        manager: fd_manager,
+        authority: Rights::ManagerAuthority.new(fd_manager),
         email: 'user@gouv.fr',
         rights: [{ scope: 'dinum:*', role_type: 'reporter' }]
       )
@@ -139,7 +139,7 @@ RSpec.describe Instruction::UserRightForm do
   describe 'rights normalization' do
     it 'accepts hashes with string keys' do
       form = described_class.new(
-        manager:,
+        authority: Rights::ManagerAuthority.new(manager),
         email: 'user@gouv.fr',
         rights: [{ 'scope' => api_entreprise_scope, 'role_type' => 'reporter' }]
       )
@@ -152,14 +152,14 @@ RSpec.describe Instruction::UserRightForm do
         .new(email: 'user@gouv.fr', rights: [valid_right])
         .permit(:email, rights: %i[scope role_type])
 
-      form = described_class.new(manager:, **params.to_h.symbolize_keys)
+      form = described_class.new(authority: Rights::ManagerAuthority.new(manager), **params.to_h.symbolize_keys)
 
       expect(form).to be_valid
     end
 
     it 'deduplicates identical rights' do
       form = described_class.new(
-        manager:,
+        authority: Rights::ManagerAuthority.new(manager),
         email: 'user@gouv.fr',
         rights: [valid_right, valid_right]
       )
