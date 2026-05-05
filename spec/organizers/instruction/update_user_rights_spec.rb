@@ -5,7 +5,7 @@ RSpec.describe Instruction::UpdateUserRights, type: :organizer do
 
   describe '.call' do
     subject(:update_user_rights) do
-      described_class.call(manager:, user:, new_roles:)
+      described_class.call(authority: Rights::ManagerAuthority.new(manager), actor: manager, user:, new_roles:)
     end
 
     let!(:admin_recipient) { create(:user, roles: ['admin']) }
@@ -56,6 +56,40 @@ RSpec.describe Instruction::UpdateUserRights, type: :organizer do
         update_user_rights
 
         expect(user.reload.roles).to eq([])
+      end
+    end
+
+    context 'when called with an AdminAuthority' do
+      subject(:update_user_rights) do
+        described_class.call(authority: Rights::AdminAuthority.new(admin), actor: admin, user:, new_roles:)
+      end
+
+      let(:admin) { create(:user, roles: ['admin']) }
+
+      it 'tags the admin event with user_rights_changed_by_admin' do
+        update_user_rights
+
+        expect(AdminEvent.last.name).to eq('user_rights_changed_by_admin')
+        expect(AdminEvent.last.admin).to eq(admin)
+      end
+
+      it 'persists the new role on the user' do
+        update_user_rights
+
+        expect(user.reload.roles).to eq(new_roles)
+      end
+
+      context 'when the authority is built with a non-admin user (regression guard for impersonation bug)' do
+        subject(:update_user_rights) do
+          non_admin = create(:user, roles: ['dinum:api_entreprise:reporter'])
+          described_class.call(authority: Rights::AdminAuthority.new(non_admin), actor: admin, user:, new_roles:)
+        end
+
+        it 'still persists the role (AdminAuthority does not depend on its user being admin)' do
+          update_user_rights
+
+          expect(user.reload.roles).to eq(new_roles)
+        end
       end
     end
   end

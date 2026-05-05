@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Instruction::MergeManagedRoles, type: :interactor do
   describe '.call' do
-    subject(:result) { described_class.call(manager:, user:, new_roles:) }
+    subject(:result) { described_class.call(authority: Rights::ManagerAuthority.new(manager), user:, new_roles:) }
 
     let(:manager) { create(:user, roles: ['dinum:api_entreprise:manager']) }
     let(:user) { create(:user, roles: initial_roles) }
@@ -89,7 +89,7 @@ RSpec.describe Instruction::MergeManagedRoles, type: :interactor do
 
     it 'does not persist the user' do
       user = create(:user, roles: [])
-      described_class.call(manager:, user:, new_roles: %w[dinum:api_entreprise:reporter])
+      described_class.call(authority: Rights::ManagerAuthority.new(manager), user:, new_roles: %w[dinum:api_entreprise:reporter])
 
       expect(user.reload.roles).to eq([])
     end

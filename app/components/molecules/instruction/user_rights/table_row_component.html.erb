@@ -16,13 +16,13 @@
   </td>
   <td>
     <div class="fr-btns-group fr-btns-group--inline-sm fr-btns-group--sm">
-      <%= link_to edit_instruction_user_right_path(user),
+      <%= link_to helpers.edit_user_right_path(user),
             class: 'fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-edit-line',
             aria: { label: t('instruction.user_rights.index.table.edit_aria', email: user.email) } do %>
         <span class="fr-sr-only"><%= t('instruction.user_rights.index.table.edit_aria', email: user.email) %></span>
       <% end %>
       <%= dsfr_main_modal_button '',
-            confirm_destroy_instruction_user_right_path(user),
+            helpers.confirm_destroy_user_right_path(user),
             class: 'fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-delete-line',
             'aria-label': t('instruction.user_rights.index.table.destroy_aria', email: user.email) %>
     </div>

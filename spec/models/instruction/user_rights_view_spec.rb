@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Instruction::UserRightsView do
   describe '#grouped_visible' do
-    subject(:result) { described_class.new(manager: manager, user: target).grouped_visible }
+    subject(:result) { described_class.new(authority: Rights::ManagerAuthority.new(manager), user: target).grouped_visible }
 
     context 'when the manager is definition-level only' do
       let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
