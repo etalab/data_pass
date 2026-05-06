@@ -1,0 +1,20 @@
+<div class="fr-bg-grey fr-py-5w fr-mb-3w">
+  <%= dsfr_breadcrumbs do |b|
+        b.with_breadcrumb(label: t('layouts.header.menu.instruction.user_rights'),
+                          href: instruction_user_rights_path)
+        b.with_breadcrumb(label: breadcrumb_label)
+      end %>
+
+  <% if local_assigns[:action_button] %>
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+      <div class="fr-col">
+        <h1 class="fr-mb-0"><%= heading %></h1>
+      </div>
+      <div class="fr-col-auto">
+        <%= action_button %>
+      </div>
+    </div>
+  <% else %>
+    <h1 class="fr-mb-0"><%= heading %></h1>
+  <% end %>
+</div>

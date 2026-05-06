@@ -1,0 +1,22 @@
+<% set_title! t('instruction.user_rights.edit.title', email: @target_user.email) %>
+
+<%= render 'page_header',
+  breadcrumb_label: t('instruction.user_rights.edit.breadcrumb'),
+  heading: t('instruction.user_rights.edit.heading'),
+  action_button: dsfr_main_modal_button(
+    t('instruction.user_rights.edit.destroy_cta'),
+    confirm_destroy_instruction_user_right_path(@target_user),
+    class: 'fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-delete-line'
+  ) %>
+
+<div class="fr-my-5w">
+  <%= render 'form',
+    form: @form,
+    target_user: @target_user,
+    permissions: @permissions,
+    url: instruction_user_right_path(@target_user),
+    method: :patch,
+    show_email_field: false,
+    readonly_rights: @form.readonly_rights,
+    submit_label: t('instruction.user_rights.edit.submit') %>
+</div>

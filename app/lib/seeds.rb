@@ -203,7 +203,7 @@ class Seeds
   def dgfip_instructor_developer
     @dgfip_instructor_developer ||= User.create!(
       email: 'dgfip@yopmail.com',
-      roles: %w[dgfip:*:instructor dgfip:*:developer]
+      roles: %w[dgfip:*:instructor dgfip:*:developer dgfip:*:manager]
     )
   end
 

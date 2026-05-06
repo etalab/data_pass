@@ -19,3 +19,11 @@
     </a>
   </li>
 <% end %>
+
+<% if show_user_rights %>
+  <li class="fr-nav__item">
+    <a class="fr-nav__link center" href="<%= instruction_user_rights_path %>" target="_self">
+      <%= t('layouts.header.menu.instruction.user_rights') %>
+    </a>
+  </li>
+<% end %>

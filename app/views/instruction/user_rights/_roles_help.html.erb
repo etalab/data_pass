@@ -1,0 +1,10 @@
+<h3 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.new.roles_help.scope_section') %></h3>
+<p class="fr-mb-3w"><%= t('instruction.user_rights.new.roles_help.scope_description') %></p>
+
+<h3 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.new.roles_help.roles_section') %></h3>
+<dl class="fr-mb-0">
+  <% %w[reporter instructor manager developer].each do |role_type| %>
+    <dt class="fr-text--bold"><%= t("instruction.user_rights.roles.#{role_type}") %></dt>
+    <dd class="fr-ml-0 fr-mb-2w"><%= t("instruction.user_rights.new.roles_help.#{role_type}") %></dd>
+  <% end %>
+</dl>

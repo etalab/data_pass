@@ -28,9 +28,11 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
     if javascript?
       find(:link_or_button, label).trigger('click')
     else
-      click_link_or_button label
+      click_link_or_button(label)
     end
   end
+rescue Capybara::ElementNotFound
+  find(:element, 'aria-label': label, visible: true).click
 end
 
 Quand('je clique sur {string} et confirme dans la modale') do |label|

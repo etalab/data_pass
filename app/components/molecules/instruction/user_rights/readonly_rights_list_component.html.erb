@@ -1,0 +1,12 @@
+<div class="fr-panel--soft fr-mb-3w fr-p-3w" id="readonly-rights">
+  <h3 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.edit.readonly_section') %></h3>
+  <p class="fr-hint-text fr-mb-2w"><%= t('instruction.user_rights.edit.readonly_hint') %></p>
+  <ul role="list" class="fr-list--flat-flex">
+    <% rights.each do |right| %>
+      <li>
+        <strong><%= Instruction::Scope.new(right[:scope]).label %></strong>
+        <%= render Atoms::ColorBadgeComponent.for_role(right[:role_type], label: t("instruction.user_rights.roles.#{right[:role_type]}")) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
