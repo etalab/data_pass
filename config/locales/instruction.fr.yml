@@ -532,7 +532,12 @@ fr:
       index:
         title: Gestion des droits
         empty_state: Aucun utilisateur ne possède de droits pour l’instant
+        no_results: Aucun utilisateur ne correspond à votre recherche
         add_cta: Ajouter des droits à un utilisateur sans droits
+        search:
+          label: Rechercher un utilisateur
+          placeholder: Rechercher dans tous les utilisateurs
+          submit: Rechercher
         users_count:
           zero: aucun utilisateur
           one: "%{count} utilisateur"
