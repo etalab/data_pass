@@ -167,6 +167,7 @@ class User < ApplicationRecord
   def manages_role?(role_string)
     parsed = ParsedRole.parse(role_string)
     return false if parsed.admin? || parsed.role.nil?
+    return true if admin?
 
     if parsed.fd_level?
       managed_fd_slugs.include?(parsed.provider_slug)

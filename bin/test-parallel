@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# Run specs and cucumber features in parallel using the parallel_tests gem.
+# Each process gets its own test DB via TEST_ENV_NUMBER (see config/database.yml).
+#
+# Usage:
+#   bin/test-parallel              # rspec + cucumber, auto-detect process count
+#   bin/test-parallel rspec        # rspec only
+#   bin/test-parallel cucumber     # cucumber only
+#   bin/test-parallel rerun        # replays failures from the last cucumber run
+#   bin/test-parallel setup        # create + load schema on all parallel DBs
+#   bin/test-parallel -n 4         # force 4 processes for rspec + cucumber
+#
+# Flakies : --retry 2 auto-retries cucumber failures. Scenarios still
+# failing after retries are written to tmp/cucumber-rerun.txt ; use
+# `bin/test-parallel rerun` to replay only those.
+#
+# First-time setup (once per worktree): bin/test-parallel setup
+
+set -e
+
+count=""
+cmd="all"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n)
+      count=$2
+      shift 2
+      ;;
+    rspec|cucumber|rerun|setup|all)
+      cmd=$1
+      shift
+      ;;
+    *)
+      echo "Unknown arg: $1"
+      echo "Usage: $0 [-n COUNT] [rspec|cucumber|rerun|setup|all]"
+      exit 1
+      ;;
+  esac
+done
+
+count_arg=""
+if [ -n "$count" ]; then
+  count_arg="-n $count"
+fi
+
+run_setup() {
+  echo "=== Creating parallel test databases ==="
+  bundle exec rake "parallel:create[${count:-}]"
+  echo "=== Loading schema into parallel test databases ==="
+  bundle exec rake "parallel:load_schema[${count:-}]"
+}
+
+run_rspec() {
+  echo "=== parallel_rspec $count_arg ==="
+  bundle exec parallel_rspec $count_arg -o '--format progress' spec/
+}
+
+run_cucumber() {
+  echo "=== parallel_cucumber $count_arg ==="
+  mkdir -p tmp/cucumber-rerun
+  rm -f tmp/cucumber-rerun/worker-*.txt tmp/cucumber-rerun.txt
+
+  set +e
+  bundle exec parallel_cucumber $count_arg \
+    -o '--format progress --retry 2 --format rerun --out tmp/cucumber-rerun/worker-TEST_ENV_NUMBER.txt' \
+    features/
+  local exit_code=$?
+  set -e
+
+  if ls tmp/cucumber-rerun/worker-*.txt >/dev/null 2>&1; then
+    cat tmp/cucumber-rerun/worker-*.txt 2>/dev/null | tr ' ' '\n' | grep . > tmp/cucumber-rerun.txt || true
+  fi
+
+  if [ -s tmp/cucumber-rerun.txt ]; then
+    echo ""
+    echo "=== $(wc -l < tmp/cucumber-rerun.txt) scénario(s) failed après retries ==="
+    echo "Détail : tmp/cucumber-rerun.txt"
+    echo "Rejoue : bin/test-parallel rerun"
+  fi
+
+  return $exit_code
+}
+
+run_rerun() {
+  if [ ! -s tmp/cucumber-rerun.txt ]; then
+    echo "Aucun scénario à rejouer (tmp/cucumber-rerun.txt absent ou vide)."
+    exit 0
+  fi
+
+  echo "=== cucumber rerun ($(wc -l < tmp/cucumber-rerun.txt) scénario(s)) ==="
+  xargs -a tmp/cucumber-rerun.txt bundle exec cucumber --format progress --retry 2
+}
+
+case "$cmd" in
+  setup)    run_setup ;;
+  rspec)    run_rspec ;;
+  cucumber) run_cucumber ;;
+  rerun)    run_rerun ;;
+  all)      run_rspec && run_cucumber ;;
+esac

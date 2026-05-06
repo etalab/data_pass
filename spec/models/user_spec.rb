@@ -188,6 +188,28 @@ RSpec.describe User do
 
       it { is_expected.to be false }
     end
+
+    context 'when the actor is admin' do
+      let(:manager) { create(:user, :admin) }
+
+      context 'with a regular role on any definition' do
+        let(:role) { 'dgfip:api_ficoba:developer' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'with the admin role itself' do
+        let(:role) { 'admin' }
+
+        it { is_expected.to be false }
+      end
+
+      context 'with a malformed role string' do
+        let(:role) { 'not-a-valid-role' }
+
+        it { is_expected.to be false }
+      end
+    end
   end
 
   describe '#managed_by?' do

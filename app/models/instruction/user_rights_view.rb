@@ -1,6 +1,6 @@
 class Instruction::UserRightsView
-  def initialize(manager:, user:)
-    @manager = manager
+  def initialize(authority:, user:)
+    @authority = authority
     @user = user
   end
 
@@ -31,7 +31,7 @@ class Instruction::UserRightsView
 
   def covered_rights
     @covered_rights ||= @user.roles.filter_map do |role_string|
-      next unless @manager.manages_role?(role_string)
+      next unless @authority.user.manages_role?(role_string)
 
       parsed = ParsedRole.parse(role_string)
       { scope: "#{parsed.provider_slug}:#{parsed.definition_id}", role_type: parsed.role }
@@ -39,6 +39,6 @@ class Instruction::UserRightsView
   end
 
   def allowed_role_type?(role_type)
-    Instruction::ManagerScopeOptions::ALLOWED_ROLE_TYPES.include?(role_type)
+    @authority.allowed_role_types.include?(role_type)
   end
 end

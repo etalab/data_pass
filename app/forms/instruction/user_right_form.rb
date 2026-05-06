@@ -4,25 +4,27 @@ class Instruction::UserRightForm
 
   attribute :email, :string
 
-  attr_reader :rights
+  attr_reader :rights, :authority
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }, if: :email_required?
   validate :rights_are_valid
 
-  def self.for_edit(manager:, user:)
-    rights = Instruction::UserRightsView.new(manager: manager, user: user).modifiable
-    new(manager: manager, user: user, email: user.email, rights: rights)
+  delegate :authorized_scopes, :managed_definitions, to: :authority
+
+  def self.for_edit(authority:, user:)
+    rights = Instruction::UserRightsView.new(authority: authority, user: user).modifiable
+    new(authority: authority, user: user, email: user.email, rights: rights)
   end
 
-  def initialize(manager:, user: nil, **attrs)
-    @manager = manager
+  def initialize(authority:, user: nil, **attrs)
+    @authority = authority
     @user = user
     super(**attrs.except(:rights))
     self.rights = attrs[:rights]
   end
 
   def readonly_rights
-    @readonly_rights ||= user ? Instruction::UserRightsView.new(manager: manager, user: user).readonly : []
+    @readonly_rights ||= user ? Instruction::UserRightsView.new(authority: authority, user: user).readonly : []
   end
 
   def rights=(raw)
@@ -40,7 +42,7 @@ class Instruction::UserRightForm
   def save_for(target, actor:)
     return false unless valid?
 
-    @organizer_result = Instruction::UpdateUserRights.call(manager: actor, user: target, new_roles: to_roles)
+    @organizer_result = Instruction::UpdateUserRights.call(authority: authority, actor: actor, user: target, new_roles: to_roles)
     @organizer_result.success?
   end
 
@@ -50,11 +52,7 @@ class Instruction::UserRightForm
 
   private
 
-  attr_reader :manager, :user
-
-  def permissions
-    @permissions ||= Instruction::ManagerScopeOptions.new(manager)
-  end
+  attr_reader :user
 
   def email_required?
     user.nil?
@@ -70,7 +68,7 @@ class Instruction::UserRightForm
 
   def rights_are_valid
     Instruction::RightValidator
-      .new(rights, permissions)
+      .new(rights, authority)
       .errors
       .each { |attr, code| errors.add(attr, code) }
   end

@@ -1,14 +1,14 @@
 class Molecules::Instruction::UserRights::TableRowComponent < ApplicationComponent
-  def initialize(user:, actor:)
+  def initialize(user:, authority:)
     @user = user
-    @actor = actor
+    @authority = authority
   end
 
   private
 
-  attr_reader :user, :actor
+  attr_reader :user, :authority
 
   def visible_rights
-    Instruction::UserRightsView.new(manager: actor, user: user).grouped_visible
+    Instruction::UserRightsView.new(authority: authority, user: user).grouped_visible
   end
 end

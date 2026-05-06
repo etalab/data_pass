@@ -1,4 +1,4 @@
-class Instruction::UserRightsController < InstructionController
+class Admin::UserRightsController < AdminController
   before_action :build_authority
   before_action :authorize_user_rights!, only: %i[index new create]
   before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
@@ -7,10 +7,12 @@ class Instruction::UserRightsController < InstructionController
     @search_term = params.dig(:search_query, :email_or_given_name_or_family_name_cont)
     @search_engine = managed_users_scope.ransack(params[:search_query])
     @users = @search_engine.result.order(:email).page(params[:page]).per(50)
+    render template: 'instruction/user_rights/index'
   end
 
   def new
     @form = Instruction::UserRightForm.new(authority: @authority, rights: [blank_right])
+    render template: 'instruction/user_rights/new'
   end
 
   def create
@@ -20,11 +22,12 @@ class Instruction::UserRightsController < InstructionController
     return render_failure(:new) unless @form.save_for(@target_user, actor: current_user)
 
     success_message(title: t('instruction.user_rights.create.success', email: @target_user.email))
-    redirect_to instruction_user_rights_path
+    redirect_to admin_user_rights_path
   end
 
   def edit
     @form = Instruction::UserRightForm.for_edit(authority: @authority, user: @target_user)
+    render template: 'instruction/user_rights/edit'
   end
 
   def update
@@ -32,12 +35,12 @@ class Instruction::UserRightsController < InstructionController
     return render_failure(:edit) unless @form.save_for(@target_user, actor: current_user)
 
     success_message(title: t('instruction.user_rights.update.success', email: @target_user.email))
-    redirect_to instruction_user_rights_path
+    redirect_to admin_user_rights_path
   end
 
   def confirm_destroy
     @modifiable_rights = Instruction::UserRightsView.new(authority: @authority, user: @target_user).modifiable
-    render partial: 'confirm_destroy', layout: false
+    render partial: 'instruction/user_rights/confirm_destroy', layout: false
   end
 
   def destroy
@@ -49,13 +52,17 @@ class Instruction::UserRightsController < InstructionController
       error_message(title: t('instruction.user_rights.destroy.error'))
     end
 
-    redirect_to instruction_user_rights_path
+    redirect_to admin_user_rights_path
   end
 
   private
 
+  def layout_name
+    'container'
+  end
+
   def build_authority
-    @authority = Rights::ManagerAuthority.new(current_user)
+    @authority = Rights::AdminAuthority.new(current_user)
   end
 
   def managed_users_scope
@@ -64,23 +71,22 @@ class Instruction::UserRightsController < InstructionController
   end
 
   def authorize_user_rights!
-    authorize %i[instruction user_right]
+    authorize %i[admin user_right]
   end
 
   def set_target_user
     @target_user = User.find(params[:id])
-    authorize @target_user, :"#{action_name}?", policy_class: Instruction::UserRightPolicy
+    authorize @target_user, :"#{action_name}?", policy_class: Admin::UserRightPolicy
   end
 
   def render_email_not_found
     @form.errors.add(:email, :not_found)
-    render :new, status: :unprocessable_content
+    render template: 'instruction/user_rights/new', status: :unprocessable_content
   end
 
   def render_failure(view)
-    error_key = view == :edit ? 'instruction.user_rights.update.error' : 'instruction.user_rights.create.error'
-    error_message(title: t(error_key)) if @form.organizer_failed?
-    render view, status: :unprocessable_content
+    error_message(title: t('instruction.user_rights.create.error')) if @form.organizer_failed?
+    render template: "instruction/user_rights/#{view}", status: :unprocessable_content
   end
 
   def form_params

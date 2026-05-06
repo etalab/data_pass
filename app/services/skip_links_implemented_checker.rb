@@ -85,6 +85,11 @@ class SkipLinksImplementedChecker
     instruction/user_rights#update
 
     admin#index
+    admin/user_rights#index
+    admin/user_rights#new
+    admin/user_rights#create
+    admin/user_rights#edit
+    admin/user_rights#update
     admin/users_with_roles#index
     admin/whitelisted_verified_emails#index
     admin/impersonate#new

@@ -1,9 +1,25 @@
 Quand('je me rends sur la page de gestion des droits') do
-  visit instruction_user_rights_path
+  visit user_rights_index_path_for(current_user!)
 end
 
 Quand("je me rends sur la page d'ajout de droits") do
-  visit new_instruction_user_right_path
+  visit new_user_right_path_for(current_user!)
+end
+
+def user_rights_index_path_for(user)
+  user.admin? ? admin_user_rights_path : instruction_user_rights_path
+end
+
+def new_user_right_path_for(user)
+  user.admin? ? new_admin_user_right_path : new_instruction_user_right_path
+end
+
+def edit_user_right_path_for(user, target)
+  user.admin? ? edit_admin_user_right_path(target) : edit_instruction_user_right_path(target)
+end
+
+def confirm_destroy_user_right_path_for(user, target)
+  user.admin? ? confirm_destroy_admin_user_right_path(target) : confirm_destroy_instruction_user_right_path(target)
 end
 
 Alors('la page ne contient pas mon email') do
@@ -32,16 +48,16 @@ Alors('le champ {string} est en lecture seule') do |label|
 end
 
 Quand('je tente de modifier mes propres droits via URL') do
-  visit edit_instruction_user_right_path(current_user!)
+  visit edit_user_right_path_for(current_user!, current_user!)
 end
 
 Quand('je tente de modifier les droits de {string} via URL') do |email|
   user = User.find_by!(email:)
-  visit edit_instruction_user_right_path(user)
+  visit edit_user_right_path_for(current_user!, user)
 end
 
 Quand('je tente d’accéder à la confirmation de suppression de mes propres droits via URL') do
-  visit confirm_destroy_instruction_user_right_path(current_user!)
+  visit confirm_destroy_user_right_path_for(current_user!, current_user!)
 end
 
 Sachantque('je suis un manager de tout {string}') do |provider_slug|

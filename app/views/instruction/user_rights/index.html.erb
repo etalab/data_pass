@@ -7,7 +7,7 @@
     </div>
     <div class="fr-col-auto">
       <%= link_to t('instruction.user_rights.index.add_cta'),
-        new_instruction_user_right_path,
+        new_user_right_path,
         class: 'fr-btn fr-btn--icon-left fr-icon-user-add-line',
         id: 'add-user-rights-button' %>
     </div>
@@ -48,12 +48,12 @@
         <% else %>
           <p class="fr-text--lg fr-mb-4w"><%= t('instruction.user_rights.index.empty_state') %></p>
           <%= link_to t('instruction.user_rights.index.add_cta'),
-            new_instruction_user_right_path,
+            new_user_right_path,
             class: 'fr-btn fr-btn--icon-left fr-icon-user-add-line' %>
         <% end %>
       </div>
     <% else %>
-      <%= render Organisms::Instruction::UserRights::TableComponent.new(users: @users, actor: current_user) %>
+      <%= render Organisms::Instruction::UserRights::TableComponent.new(users: @users, authority: @authority) %>
       <%= paginate @users %>
     <% end %>
   </turbo-frame>
