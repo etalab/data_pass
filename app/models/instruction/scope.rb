@@ -7,10 +7,7 @@ class Instruction::Scope
   attr_reader :provider_slug, :definition_id
 
   def label
-    return @string if blank?
-    return I18n.t('instruction.user_rights.scope.fd_wildcard', provider: provider_name) if fd_wildcard?
-
-    AuthorizationDefinition.find(@definition_id).name
+    @label ||= compute_label
   end
 
   def provider_name
@@ -24,6 +21,13 @@ class Instruction::Scope
   end
 
   private
+
+  def compute_label
+    return @string if blank?
+    return I18n.t('instruction.user_rights.scope.fd_wildcard', provider: provider_name) if fd_wildcard?
+
+    AuthorizationDefinition.find(@definition_id).name
+  end
 
   def blank?
     @provider_slug.blank? || @definition_id.blank?

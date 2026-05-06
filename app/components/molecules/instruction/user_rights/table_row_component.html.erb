@@ -3,16 +3,12 @@
   <td><%= user.family_name %></td>
   <td><%= user.given_name %></td>
   <td>
-    <%# role="list" : restaure le rôle implicite que VoiceOver retire quand list-style:none est appliqué (DSFR fr-list--flat-flex) %>
     <ul role="list" class="fr-list--flat-flex">
       <% visible_rights.each do |entry| %>
         <li>
           <span class="fr-text--bold"><%= entry[:label] %></span>
           <% entry[:role_types].each do |role_type| %>
-            <%= render Atoms::ColorBadgeComponent.new(
-                  label: t("instruction.user_rights.roles.#{role_type}"),
-                  color: Instruction::UserRightsHelper::ROLE_BADGE_COLORS.fetch(role_type)
-                ) %>
+            <%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %>
           <% end %>
         </li>
       <% end %>

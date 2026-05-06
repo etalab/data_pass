@@ -1,4 +1,5 @@
 class Instruction::UserRightsController < InstructionController
+  before_action :build_permissions, only: %i[new create edit update]
   before_action :authorize_user_rights!, only: %i[index new create]
   before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
 
@@ -54,6 +55,10 @@ class Instruction::UserRightsController < InstructionController
   end
 
   private
+
+  def build_permissions
+    @permissions = Instruction::ManagerScopeOptions.new(current_user)
+  end
 
   def authorize_user_rights!
     authorize %i[instruction user_right]

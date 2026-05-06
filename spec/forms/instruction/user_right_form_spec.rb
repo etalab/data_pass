@@ -167,32 +167,4 @@ RSpec.describe Instruction::UserRightForm do
       expect(form.to_roles).to eq(%w[dinum:api_entreprise:reporter])
     end
   end
-
-  describe '#managed_definitions' do
-    it 'returns the authorization definitions the manager manages' do
-      form = described_class.new(manager:)
-
-      expect(form.managed_definitions.map(&:id)).to eq(['api_entreprise'])
-    end
-  end
-
-  describe '#authorized_scopes' do
-    context 'when the manager is definition-level' do
-      it 'lists only definition scopes' do
-        form = described_class.new(manager:)
-
-        expect(form.authorized_scopes).to contain_exactly('dinum:api_entreprise')
-      end
-    end
-
-    context 'when the manager is FD-level' do
-      let(:manager) { create(:user, roles: ['dinum:*:manager']) }
-
-      it 'lists both the FD-wildcard scope and each definition scope' do
-        form = described_class.new(manager:)
-
-        expect(form.authorized_scopes).to include('dinum:*', 'dinum:api_entreprise')
-      end
-    end
-  end
 end

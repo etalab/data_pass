@@ -1,22 +1,14 @@
 <% set_title! t('instruction.user_rights.new.title') %>
 
-<div class="fr-bg-grey fr-py-5w fr-mb-3w">
-  <div class="fr-container">
-    <%= dsfr_breadcrumbs do |b|
-          b.with_breadcrumb(label: t('layouts.header.menu.instruction.user_rights'),
-                            href: instruction_user_rights_path)
-          b.with_breadcrumb(label: t('instruction.user_rights.new.breadcrumb'))
-        end %>
+<%= render 'page_header',
+  breadcrumb_label: t('instruction.user_rights.new.breadcrumb'),
+  heading: t('instruction.user_rights.new.title') %>
 
-    <h1 class="fr-mb-0"><%= t('instruction.user_rights.new.title') %></h1>
-  </div>
-</div>
-
-<div class="fr-container fr-my-5w">
+<div class="fr-my-5w">
   <%= render 'form',
     form: @form,
     target_user: nil,
-    permissions: @form.permissions,
+    permissions: @permissions,
     url: instruction_user_rights_path,
     method: :post,
     show_email_field: true,

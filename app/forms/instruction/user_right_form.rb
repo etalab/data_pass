@@ -9,8 +9,6 @@ class Instruction::UserRightForm
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }, if: :email_required?
   validate :rights_are_valid
 
-  delegate :authorized_scopes, :managed_definitions, to: :permissions
-
   def self.for_edit(manager:, user:)
     rights = Instruction::UserRightsView.new(manager: manager, user: user).modifiable
     new(manager: manager, user: user, email: user.email, rights: rights)
@@ -50,13 +48,13 @@ class Instruction::UserRightForm
     @organizer_result && !@organizer_result.success?
   end
 
-  def permissions
-    @permissions ||= Instruction::ManagerScopeOptions.new(manager)
-  end
-
   private
 
   attr_reader :manager, :user
+
+  def permissions
+    @permissions ||= Instruction::ManagerScopeOptions.new(manager)
+  end
 
   def email_required?
     user.nil?

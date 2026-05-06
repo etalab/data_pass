@@ -45,9 +45,6 @@
         <% end %>
       </div>
 
-      <%# Template HTML cloné par le contrôleur Stimulus `nested-form` quand
-          l'utilisateur clique sur « Ajouter un droit ». L'index 'NEW' est
-          remplacé par un index numérique unique au moment de l'insertion. %>
       <script type="text/x-template" data-nested-form-target="template">
         <%= render Molecules::Instruction::UserRights::RightFieldComponent.new(
           index: 'NEW',
