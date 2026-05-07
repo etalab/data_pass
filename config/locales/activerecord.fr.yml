@@ -117,6 +117,11 @@ fr:
 
         dpd_homologation_checkbox: Attestation de déclaration d'un dpd et d'accomplissement de formalité d'homologation.
 
+        communes_codes_insee: Communes (codes INSEE)
+        echelon_bourse: Échelon de bourse minimum
+        premiere_date_transmission: Première date de transmission
+        recurrence: Récurrence
+
         france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
 
@@ -183,6 +188,10 @@ fr:
         fc_cadre_juridique_document: Si vous ne disposez pas d'une URL, vous pouvez joindre le document PDF du cadre juridique
         fc_scopes: Sélectionnez les données FranceConnect nécessaires à votre service
         fc_alternative_connexion: Cochez si vous proposez une alternative à FranceConnect
+        communes_codes_insee: "Saisissez un code INSEE par commune (ex : 75056 pour Paris). Cliquez sur « Ajouter une commune » pour en ajouter plusieurs."
+        echelon_bourse: "L’extraction inclura tous les boursiers d’échelon supérieur ou égal à la valeur sélectionnée."
+        premiere_date_transmission: "Date à laquelle vous souhaitez recevoir la première extraction CNOUS."
+        recurrence: "Fréquence des extractions CNOUS suivantes."
       message_template:
         title: "Privilégiez un titre court et explicite"
         content: "Variables disponibles : %{demande_url}, %{demande_intitule}, %{demande_id}"

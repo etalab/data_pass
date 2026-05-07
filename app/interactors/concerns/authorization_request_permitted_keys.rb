@@ -13,7 +13,10 @@ module AuthorizationRequestPermittedKeys
   end
 
   def permitted_extra_attributes
-    authorization_request_class.extra_attributes.map(&:to_sym)
+    array_attributes = authorization_request_class.extra_array_attributes.map(&:to_sym)
+    scalar_attributes = (authorization_request_class.extra_attributes - authorization_request_class.extra_array_attributes).map(&:to_sym)
+
+    scalar_attributes + array_attributes.map { |name| { name => [] } }
   end
 
   def permitted_documents

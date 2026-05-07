@@ -174,6 +174,18 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
 
           it { expect(demande.errors[:recurrence]).to be_empty }
         end
+
+        context 'with an invalid echelon_bourse value' do
+          let(:params) { { echelon_bourse: 'XX' } }
+
+          it { expect(demande.errors[:echelon_bourse]).to be_present }
+        end
+
+        context 'with the 0Bis echelon_bourse value (CNOUS API casing)' do
+          let(:params) { { echelon_bourse: '0Bis' } }
+
+          it { expect(demande.errors[:echelon_bourse]).to be_empty }
+        end
       end
     end
 
