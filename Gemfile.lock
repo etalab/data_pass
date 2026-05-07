@@ -635,7 +635,7 @@ GEM
       actionview (> 3.1)
       activesupport (> 3.1)
       railties (> 3.1)
-    rails_pulse (0.3.0.pre.2)
+    rails_pulse (0.3.1)
       async (~> 2.0)
       rails (>= 7.1.0, < 9.0.0)
       ransack (~> 4.0)
@@ -909,7 +909,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rails_autolink
-  rails_pulse (= 0.3.0.pre.2)
+  rails_pulse (= 0.3.1)
   ransack
   redcarpet
   redis (>= 4.0.1)
