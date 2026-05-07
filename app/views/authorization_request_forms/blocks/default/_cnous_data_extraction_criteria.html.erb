@@ -1,0 +1,79 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[communes_codes_insee echelon_bourse premiere_date_transmission recurrence]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:cnous_data_extraction_criteria) %>
+
+<fieldset class="fr-fieldset" aria-label="<%= t('authorization_request_forms.default.cnous_data_extraction_criteria.title') %>">
+  <fieldset class="fr-fieldset__element fr-input-group"
+            data-controller="nested-form nested-form-focus"
+            data-nested-form-focus-input-selector-value='input[name$="[communes_codes_insee][]"]'
+            data-nested-form-focus-aria-label-template-value="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°NEW_RECORD">
+    <legend class="fr-fieldset__legend">
+      <%= t('activerecord.attributes.authorization_request.communes_codes_insee') %>
+      <span class="fr-hint-text">
+        <%= t('activerecord.hints.authorization_request.communes_codes_insee') %>
+      </span>
+    </legend>
+
+    <script type="text/x-template" data-nested-form-target="template">
+      <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true" data-record-id="NEW_RECORD">
+        <div class="fr-col-8">
+          <input type="text" inputmode="numeric" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[communes_codes_insee][]" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %>">
+        </div>
+        <div class="fr-col-4">
+          <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form-focus#focusAfterRemove click->nested-form#remove" aria-label="<%= t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria_blank') %>">
+            <%= t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove') %>
+          </button>
+        </div>
+      </div>
+    </script>
+
+    <div data-nested-form-target="target" data-nested-form-focus-target="target">
+      <% (@authorization_request.communes_codes_insee.presence || ['']).each_with_index do |code, index| %>
+        <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
+          <div class="fr-col-8">
+            <input type="text" inputmode="numeric" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[communes_codes_insee][]" value="<%= code %>" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°<%= index + 1 %>">
+          </div>
+          <div class="fr-col-4">
+            <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form-focus#focusAfterRemove click->nested-form#remove" aria-label="<%= code.present? ? t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria', code: code) : t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria_blank') %>">
+              <%= t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove') %>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-nested-form-focus-target="addButton" data-action="click->nested-form#add click->nested-form-focus#focusNew">
+      <%= t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.add') %>
+    </button>
+  </fieldset>
+
+  <div class="fr-fieldset__element">
+    <%=
+      f.dsfr_select :echelon_bourse,
+        options_for_select(
+          @authorization_request.available_echelons.map { |value| [t("authorization_request_forms.default.cnous_data_extraction_criteria.echelons.#{value}"), value] },
+          selected: @authorization_request.echelon_bourse
+        ),
+        required: true,
+        include_blank: 'Veuillez choisir un échelon'
+    %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_date_field :premiere_date_transmission, required: true %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%=
+      f.dsfr_select :recurrence,
+        options_for_select(
+          @authorization_request.available_recurrences.map { |value| [t("authorization_request_forms.default.cnous_data_extraction_criteria.recurrences.#{value}"), value] },
+          selected: @authorization_request.recurrence
+        ),
+        required: true,
+        include_blank: 'Veuillez choisir une récurrence'
+    %>
+  </div>
+</fieldset>

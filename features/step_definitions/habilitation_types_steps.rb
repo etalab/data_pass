@@ -12,6 +12,22 @@ Sachantque("un type d'habilitation {string} avec des demandes liées existe") do
   )
 end
 
+Sachantque("un type d'habilitation {string} expose le bloc {string}") do |name, block_name|
+  data_provider = DataProvider.first || FactoryBot.create(:data_provider)
+  FactoryBot.create(
+    :habilitation_type,
+    name:,
+    data_provider:,
+    cgu_link: 'https://example.org/cgu',
+    blocks: [
+      { 'name' => 'basic_infos' },
+      { 'name' => block_name },
+      { 'name' => 'contacts' },
+    ],
+    contact_types: ['contact_technique'],
+  )
+end
+
 Sachantque("un type d'habilitation {string} avec des demandes liées et des scopes existe") do |name|
   data_provider = DataProvider.first || FactoryBot.create(:data_provider)
   habilitation_type = FactoryBot.create(

@@ -22,6 +22,7 @@ fr:
         france_connect_eidas: "Le niveau de garantie"
         supporting_documents: "Les pièces justificatives"
         france_connect: "L'habilitation FranceConnect"
+        cnous_data_extraction_criteria: "Les conditions d’extraction CNOUS"
         finish: "La synthèse"
       terms_of_service_accepted:
         label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation</a>&nbsp;et je les valide.
@@ -126,6 +127,27 @@ fr:
       personal_data:
         title: Comment seront traitées ces données personnelles ?
         subtitle: "Les données personnelles ne peuvent être conservées indéfiniment : une durée de conservation doit être déterminée en fonction de l’objectif ayant conduit à la collecte de ces données."
+
+      cnous_data_extraction_criteria:
+        title: Quelles données souhaitez-vous extraire de la base CNOUS ?
+        subtitle: Précisez les communes concernées, le seuil d’échelon de bourse, et la fréquence d’extraction souhaitée.
+        communes_codes_insee:
+          add: Ajouter une commune
+          remove: Retirer
+          remove_aria: Retirer la commune %{code}
+          remove_aria_blank: Retirer cette commune
+        recurrences:
+          annually: Annuelle
+          biannually: Semestrielle
+        echelons:
+          "0Bis": Échelon 0bis et au-dessus
+          "1": Échelon 1 et au-dessus
+          "2": Échelon 2 et au-dessus
+          "3": Échelon 3 et au-dessus
+          "4": Échelon 4 et au-dessus
+          "5": Échelon 5 et au-dessus
+          "6": Échelon 6 et au-dessus
+          "7": Échelon 7 et au-dessus
 
       legal:
         title: Quel est le cadre juridique qui encadre votre projet ?
