@@ -110,6 +110,7 @@ fr:
           instructor_authorization_requests: Demandes initiées par des instructeurs
           authorizations_and_requests: Demandes / habilitations
           message_templates: Modèles de message
+          user_rights: Gestion des droits
     footer:
       tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
       external_links:

@@ -523,5 +523,80 @@ fr:
                 Le numéro de SIRET est invalide.
               user_invalid: |
                 L'adresse email est invalide.
-
+    user_rights:
+      scope:
+        fd_wildcard: Tous les services %{provider}
+      identity:
+        given_name: Prénom
+        family_name: Nom
+      index:
+        title: Gestion des droits
+        empty_state: Aucun utilisateur ne possède de droits pour l’instant
+        add_cta: Ajouter des droits à un utilisateur sans droits
+        users_count:
+          zero: aucun utilisateur
+          one: "%{count} utilisateur"
+          other: "%{count} utilisateurs"
+        table:
+          header:
+            email: Email
+            family_name: Nom
+            given_name: Prénom
+            rights: Droits
+            actions: Actions
+          edit_aria: Modifier les droits de %{email}
+          destroy_aria: Supprimer tous les droits de %{email}
+      roles:
+        manager: Manager
+        instructor: Instructeur
+        reporter: Observateur
+        developer: Développeur
+      new:
+        title: Ajouter des droits à un utilisateur sans droits
+        breadcrumb: Ajouter des droits
+        identity_section: Informations d’identité
+        rights_section: Les droits
+        roles_help:
+          title: En savoir plus sur les droits
+          scope_section: Portée
+          scope_description: Un service précis (ex. API Entreprise) ou, si vous êtes manager d’un fournisseur de données, « Tous les services X » pour couvrir l’ensemble de ses services.
+          roles_section: Niveaux de droits
+          reporter: Peut consulter les demandes et habilitations (accès en consultation des demandes d’habilitation et de leurs informations).
+          instructor: Peut instruire les demandes (comme un observateur, et peut valider, refuser ou demander des modifications dans son périmètre).
+          manager: Peut gérer les droits des autres utilisateurs et instruire les demandes (comme un instructeur, et peut attribuer ou retirer des droits aux autres utilisateurs dans son périmètre).
+          developer: Peut consulter les demandes et habilitations via l’API, et recevoir des événements par webhook.
+        right_legend: "Droit %{position}"
+        right_legend_new: Nouveau droit
+        scope_label: Portée des droits
+        scope_placeholder: Sélectionnez une portée
+        scope_fd_option: Tous les services %{provider}
+        role_label: Rôle
+        role_placeholder: Sélectionnez un rôle
+        add_right: Ajouter un droit
+        remove_right: Supprimer ce droit
+        cancel: Annuler
+        submit: Valider les modifications
+      create:
+        success: Les droits de %{email} ont été mis à jour
+        error: Impossible d’enregistrer les droits
+      edit:
+        title: "Modifier les droits de %{email}"
+        heading: Modifier des droits
+        breadcrumb: Modifier un utilisateur
+        submit: Valider les modifications
+        readonly_section: Droits non modifiables depuis cette interface
+        readonly_hint: Les droits ci-dessous sont conservés tels quels car ils ne sont pas gérés par les managers.
+        destroy_cta: Supprimer tous les droits
+      update:
+        success: Les droits de %{email} ont été mis à jour
+        error: Impossible de mettre à jour les droits
+      confirm_destroy:
+        title: "Supprimer tous les droits de %{email} ?"
+        warning: "Les droits suivants seront retirés :"
+        no_modifiable_rights: Cet utilisateur n’a aucun droit modifiable dans votre périmètre.
+        cancel: Annuler
+        submit: Supprimer tous les droits de l’utilisateur
+      destroy:
+        success: Tous les droits de %{email} ont été supprimés
+        error: Impossible de supprimer les droits
 

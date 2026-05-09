@@ -144,6 +144,12 @@ Rails.application.routes.draw do
 
       resources :invite, only: %i[new create], controller: 'instructor_draft_requests/invite'
     end
+
+    resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
+      member do
+        get :confirm_destroy, path: 'confirmer-suppression'
+      end
+    end
   end
 
   get '/admin', to: 'admin#index', as: :admin

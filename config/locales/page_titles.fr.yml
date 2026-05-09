@@ -39,4 +39,5 @@ fr:
     instruction_initiated_requests: Demandes initiées par les instructeurs
     instruction_draft_requests_new: Initier une demande d’habilitation
     instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
+    instruction_user_rights: Gestion des droits
     admin_habilitation_types: "Types d’habilitation"
