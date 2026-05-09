@@ -72,6 +72,148 @@ RSpec.describe User do
     it { is_expected.to contain_exactly(valid_manager, valid_manager_with_multiple_authorization_type) }
   end
 
+  describe '.with_any_role_on' do
+    subject { described_class.with_any_role_on(definition_ids) }
+
+    let!(:api_entreprise_reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+    let!(:api_entreprise_manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+    let!(:api_particulier_reporter) { create(:user, :reporter, authorization_request_types: %i[api_particulier]) }
+    let!(:no_role_user) { create(:user) }
+    let!(:admin_only) { create(:user, :admin) }
+
+    context 'when definition_ids contains a single id' do
+      let(:definition_ids) { ['api_entreprise'] }
+
+      it { is_expected.to contain_exactly(api_entreprise_reporter, api_entreprise_manager) }
+    end
+
+    context 'when definition_ids contains several ids' do
+      let(:definition_ids) { %w[api_entreprise api_particulier] }
+
+      it { is_expected.to contain_exactly(api_entreprise_reporter, api_entreprise_manager, api_particulier_reporter) }
+    end
+
+    context 'when definition_ids is empty' do
+      let(:definition_ids) { [] }
+
+      it { is_expected.to eq(described_class.none) }
+    end
+
+    context 'when definition_ids matches no users' do
+      let(:definition_ids) { ['unknown_api'] }
+
+      it { is_expected.to be_empty }
+    end
+  end
+
+  describe '#managed_fd_slugs' do
+    subject { user.managed_fd_slugs }
+
+    context 'when user has no FD-level manager role' do
+      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+
+      it { is_expected.to eq([]) }
+    end
+
+    context 'when user has FD-level manager roles' do
+      let(:user) { build(:user, roles: %w[dinum:*:manager dgfip:*:manager dinum:api_entreprise:instructor]) }
+
+      it { is_expected.to contain_exactly('dinum', 'dgfip') }
+    end
+
+    context 'when user has FD-level non-manager role' do
+      let(:user) { build(:user, roles: %w[dinum:*:reporter]) }
+
+      it { is_expected.to eq([]) }
+    end
+  end
+
+  describe '#manages_role?' do
+    subject(:result) { manager.manages_role?(role) }
+
+    context 'when manager has the manager role on the definition' do
+      let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+
+      context 'when the role is on the same definition' do
+        let(:role) { 'dinum:api_entreprise:reporter' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is on another definition' do
+        let(:role) { 'dinum:api_particulier:reporter' }
+
+        it { is_expected.to be false }
+      end
+
+      context 'when the role is FD-wildcard for the same provider' do
+        let(:role) { 'dinum:*:reporter' }
+
+        it { is_expected.to be false }
+      end
+    end
+
+    context 'when manager has the FD-wildcard manager role' do
+      let(:manager) { create(:user, roles: ['dinum:*:manager']) }
+
+      context 'when the role is FD-wildcard on the same provider' do
+        let(:role) { 'dinum:*:reporter' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is on a definition of the same provider' do
+        let(:role) { 'dinum:api_entreprise:reporter' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is on a definition of another provider' do
+        let(:role) { 'dgfip:api_impot_particulier:reporter' }
+
+        it { is_expected.to be false }
+      end
+    end
+
+    context 'when the role is admin' do
+      let(:manager) { create(:user, roles: ['dinum:*:manager']) }
+      let(:role) { 'admin' }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the role string is malformed' do
+      let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+      let(:role) { 'not-a-valid-role' }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#managed_by?' do
+    subject(:result) { target.managed_by?(manager) }
+
+    let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+
+    context 'when the target has at least one role within the manager scope' do
+      let(:target) { create(:user, roles: %w[dinum:api_entreprise:reporter dinum:api_particulier:instructor]) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when the target has no role within the manager scope' do
+      let(:target) { create(:user, roles: %w[dinum:api_particulier:instructor]) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the target has no roles at all' do
+      let(:target) { create(:user, roles: []) }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#reporter?' do
     subject { user.reporter?(authorization_request_type) }
 

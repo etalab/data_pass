@@ -1,5 +1,9 @@
 fr:
   activemodel:
+    attributes:
+      instruction/user_right_form:
+        email: Email de l’utilisateur
+        rights: Les droits
     errors:
       messages: &active_record_messages_errors
         email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation pour que l'on valide manuellement cette adresse."
@@ -15,6 +19,16 @@ fr:
             to:
               different_user: "doit être différent du demandeur actuel"
               different_organization: "n'appartient pas à la même organisation que le demandeur actuel."
+        instruction/user_right_form:
+          attributes:
+            base:
+              at_least_one_right: Vous devez définir au moins un droit
+            email:
+              not_found: ne correspond à aucun utilisateur existant
+            rights:
+              scope_not_authorized: contiennent une portée qui n’est pas dans votre périmètre
+              incomplete_right: chaque droit doit renseigner une portée et un rôle
+              role_type_not_allowed: contiennent un rôle non autorisé (seuls reporter, instructeur et manager sont autorisés)
   activerecord:
     attributes:
       user:
