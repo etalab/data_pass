@@ -1,34 +1,20 @@
 class RoleSet
-  def initialize(roles_array, kind)
-    qualifying = RoleHierarchy.qualifying_roles(kind)
-    @roles = roles_array.filter_map do |r|
-      parsed = ParsedRole.parse(r)
-      parsed if qualifying.include?(parsed.role)
-    end
+  def initialize(user_roles_relation, kind)
+    @roles = user_roles_relation.effective_for_role(kind)
   end
 
   def covers?(definition_id = nil)
-    return @roles.any? unless definition_id
+    return @roles.exists? unless definition_id
 
-    fd_slug = ParsedRole.resolve_provider_slug(definition_id)
-
-    @roles.any? do |parsed|
-      parsed.definition_id == definition_id || (parsed.fd_level? && parsed.provider_slug == fd_slug)
-    end
+    @roles.effective_for_definition(definition_id).exists?
   end
 
-  delegate :any?, to: :@roles
+  def any?
+    @roles.exists?
+  end
 
   def definition_ids
-    @definition_ids ||= @roles.flat_map { |parsed|
-      if parsed.fd_level?
-        AuthorizationDefinition.all
-          .select { |ad| ad.provider_slug == parsed.provider_slug }
-          .map(&:id)
-      else
-        [parsed.definition_id]
-      end
-    }.uniq
+    @definition_ids ||= @roles.flat_map(&:covered_definition_ids).compact.uniq
   end
 
   def authorization_request_types

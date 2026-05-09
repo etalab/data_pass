@@ -17,6 +17,7 @@ class DataProvider < ApplicationRecord
   validates :link, presence: true, format: { with: URL_REGEX, message: I18n.t('activemodel.errors.messages.url_format') }
   validates :logo, content_type: %w[image/png image/jpeg image/svg+xml], if: -> { logo.attached? }
 
+  before_destroy :cleanup_user_roles
   after_save :reset_static_caches
 
   def linked_habilitation_types?
@@ -66,6 +67,12 @@ class DataProvider < ApplicationRecord
   end
 
   def users_for_roles(roles)
-    User.with_role_for_provider(slug, roles)
+    User.joins(:user_roles).merge(
+      UserRole.for_roles(roles).for_provider(slug)
+    ).distinct
+  end
+
+  def cleanup_user_roles
+    UserRole.where(data_provider_id: id).destroy_all
   end
 end
