@@ -78,6 +78,11 @@ class SkipLinksImplementedChecker
     instruction/message_templates#update
     instruction/message_templates#destroy
     instruction/message_templates#preview
+    instruction/user_rights#index
+    instruction/user_rights#new
+    instruction/user_rights#create
+    instruction/user_rights#edit
+    instruction/user_rights#update
 
     admin#index
     admin/users_with_roles#index

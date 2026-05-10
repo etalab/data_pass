@@ -1,0 +1,30 @@
+<tr id="<%= dom_id(user) %>">
+  <th scope="row"><%= user.email %></th>
+  <td><%= user.family_name %></td>
+  <td><%= user.given_name %></td>
+  <td>
+    <ul role="list" class="fr-list--flat-flex">
+      <% visible_rights.each do |entry| %>
+        <li>
+          <span class="fr-text--bold"><%= entry[:label] %></span>
+          <% entry[:role_types].each do |role_type| %>
+            <%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </td>
+  <td>
+    <div class="fr-btns-group fr-btns-group--inline-sm fr-btns-group--sm">
+      <%= link_to edit_instruction_user_right_path(user),
+            class: 'fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-edit-line',
+            aria: { label: t('instruction.user_rights.index.table.edit_aria', email: user.email) } do %>
+        <span class="fr-sr-only"><%= t('instruction.user_rights.index.table.edit_aria', email: user.email) %></span>
+      <% end %>
+      <%= dsfr_main_modal_button '',
+            confirm_destroy_instruction_user_right_path(user),
+            class: 'fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-delete-line',
+            'aria-label': t('instruction.user_rights.index.table.destroy_aria', email: user.email) %>
+    </div>
+  </td>
+</tr>

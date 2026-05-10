@@ -1,0 +1,24 @@
+<section class="fr-panel fr-mb-3w fr-p-3w" aria-labelledby="user-rights-identity-section">
+  <h2 id="user-rights-identity-section" class="fr-h5 fr-text-title--blue-france fr-mb-3w">
+    <%= t('instruction.user_rights.new.identity_section') %>
+  </h2>
+
+  <% if form_builder %>
+    <%= form_builder.dsfr_email_field :email, required: true, autocomplete: 'off' %>
+  <% else %>
+    <dl class="fr-grid-row fr-grid-row--gutters fr-mb-0">
+      <div class="fr-col-12">
+        <dt class="fr-text--sm fr-mb-1w"><%= t('activemodel.attributes.instruction/user_right_form.email') %></dt>
+        <dd class="fr-input--readonly-display"><%= target_user.email %></dd>
+      </div>
+      <div class="fr-col-12 fr-col-md-6">
+        <dt class="fr-text--sm fr-mb-1w"><%= t('instruction.user_rights.identity.given_name') %></dt>
+        <dd class="fr-input--readonly-display"><%= target_user.given_name.presence || '—' %></dd>
+      </div>
+      <div class="fr-col-12 fr-col-md-6">
+        <dt class="fr-text--sm fr-mb-1w"><%= t('instruction.user_rights.identity.family_name') %></dt>
+        <dd class="fr-input--readonly-display"><%= target_user.family_name.presence || '—' %></dd>
+      </div>
+    </dl>
+  <% end %>
+</section>

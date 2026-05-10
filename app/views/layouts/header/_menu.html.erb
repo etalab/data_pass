@@ -10,7 +10,8 @@
         <% if namespace?(:instruction) %>
           <%= render InstructorMenuComponent.new(
             show_drafts: policy([:instruction, :instructor_draft_request]).enabled?,
-            show_templates: policy([:instruction, :message_template]).index?
+            show_templates: policy([:instruction, :message_template]).index?,
+            show_user_rights: policy([:instruction, :user_right]).index?
           ) %>
         <% end %>
       </ul>
