@@ -152,6 +152,17 @@ COVERAGE=true bundle exec cucumber
 INSPECTOR=true bundle exec cucumber
 ```
 
+#### Suite en parallèle (aligné avec la CI)
+
+Pour exécuter la suite avec `parallel_tests` (comme la CI), utiliser le wrapper `bin/test-parallel`. Setup une seule fois par worktree :
+
+```sh
+bin/test-parallel setup    # crée les bases de tests parallèles
+bin/test-parallel          # rspec + cucumber en parallèle
+```
+
+Voir [`docs/technique/tests_paralleles.md`](docs/technique/tests_paralleles.md) pour le détail (flag retry opt-in, rerun ciblé, etc.).
+
 ## Static security
 
 Through [Brakeman](https://github.com/presidentbeef/brakeman)
