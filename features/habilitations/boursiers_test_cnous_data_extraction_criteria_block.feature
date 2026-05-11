@@ -1,6 +1,6 @@
 # language: fr
 
-@cnous_data_extraction_criteria @javascript
+@javascript
 Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_data_extraction_criteria
 
   Scénario: Je soumets une demande Boursiers CNOUS valide
