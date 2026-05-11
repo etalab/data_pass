@@ -141,6 +141,7 @@ Style/GlobalVars:
   AllowedVariables:
     - $elastic
     - $previous_app_host
+    - $app_host_overridden
 
 Style/MethodCalledOnDoEndBlock:
   Enabled: false

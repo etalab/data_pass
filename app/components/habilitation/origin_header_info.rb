@@ -3,7 +3,7 @@ class Habilitation::OriginHeaderInfo < ApplicationComponent
 
   def initialize(authorization:)
     @authorization = authorization
-    super
+    super()
   end
 
   def call

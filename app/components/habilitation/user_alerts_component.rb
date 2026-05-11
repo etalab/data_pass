@@ -37,7 +37,7 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   def access_callout
     return unless show_access_callout?
 
-    dsfr_callout(
+    helpers.dsfr_callout(
       title: access_callout_title,
       html_attributes: { class: CALLOUT_CLASSES }
     ) do |callout|
