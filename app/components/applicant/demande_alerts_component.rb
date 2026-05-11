@@ -64,7 +64,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
   def dirty_from_v1_alert
     return unless show_dirty_from_v1_alert?
 
-    dsfr_alert(
+    helpers.dsfr_alert(
       type: :warning,
       title: I18n.t('authorization_requests.show.dirty_from_v1.title'),
       html_attributes: { class: ALERT_CLASSES }
