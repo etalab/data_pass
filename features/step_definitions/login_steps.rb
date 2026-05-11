@@ -88,7 +88,8 @@ Sachantque('mon organisation n\'est pas vérifiée') do
 end
 
 Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
-  $previous_app_host = Capybara.app_host.dup
+  $previous_app_host = Capybara.app_host
+  $app_host_overridden = true
   Capybara.app_host = "http://#{subdomain}.localtest.me"
 end
 
