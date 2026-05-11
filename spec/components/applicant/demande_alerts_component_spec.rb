@@ -16,7 +16,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
       end
 
       it 'renders the changes requested title' do
-        expect(page).to have_content(I18n.t('authorization_requests.show.changes_requested.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.changes_requested.title'))
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
       end
 
       it 'renders the refused title' do
-        expect(page).to have_content(I18n.t('authorization_requests.show.refused.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.refused.title'))
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       it 'renders dirty from v1 alert' do
         expect(page).to have_css('.fr-alert.fr-alert--warning')
-        expect(page).to have_content(I18n.t('authorization_requests.show.dirty_from_v1.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.dirty_from_v1.title'))
       end
     end
 
@@ -57,7 +57,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       it 'renders the update in progress notice' do
         expect(page).to have_css('.fr-notice.fr-notice--info.fr-notice--full-width')
-        expect(page).to have_content(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
+        expect(page).to have_text(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
       end
 
       it 'renders the link to the authorization request' do
@@ -100,7 +100,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       it 'renders the reopening changes requested banner' do
         expect(page).to have_css('.fr-notice.fr-notice--warning')
-        expect(page).to have_content(I18n.t('authorization_requests.show.reopening_changes_requested.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.reopening_changes_requested.title'))
       end
     end
 
@@ -118,7 +118,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       it 'renders the reopening refused banner' do
         expect(page).to have_css('.fr-notice.fr-notice--alert')
-        expect(page).to have_content(I18n.t('authorization_requests.show.reopening_refused.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.reopening_refused.title'))
       end
     end
   end

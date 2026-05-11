@@ -45,7 +45,7 @@ Quand('je clique sur {string} et confirme dans la modale') do |label|
 end
 
 Alors('la page contient {string}') do |content|
-  expect(page).to have_content(content, normalize_ws: true)
+  expect(page).to have_text(content, normalize_ws: true)
 end
 
 Alors('la page contient un lien vers {string}') do |domain|
@@ -57,7 +57,7 @@ Alors('la page ne contient aucun lien vers {string}') do |domain|
 end
 
 Alors('la page ne contient pas {string}') do |content|
-  expect(page).to have_no_content(content)
+  expect(page).to have_no_text(content)
 end
 
 Alors('la page contient {string} dans la rangée {string} du tableau {string}') do |content, row, caption|

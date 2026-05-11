@@ -7,7 +7,7 @@ Quand("je me rends sur la page d'ajout de droits") do
 end
 
 Alors('la page ne contient pas mon email') do
-  expect(page).to have_no_content(current_user!.email)
+  expect(page).to have_no_text(current_user!.email)
 end
 
 Alors("l'utilisateur {string} a les rôles {string}") do |email, roles|

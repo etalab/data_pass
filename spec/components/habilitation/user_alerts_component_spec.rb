@@ -12,7 +12,7 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
 
       it 'renders the update in progress notice with title' do
         expect(page).to have_css('.fr-notice.fr-notice--info.fr-notice--full-width')
-        expect(page).to have_content(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
+        expect(page).to have_text(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
       end
 
       it 'renders the link to the authorization request' do
@@ -28,8 +28,8 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
 
       it 'renders the access callout with title and content' do
         expect(page).to have_css('.fr-callout')
-        expect(page).to have_content(I18n.t('authorization_requests.show.access_callout.title'))
-        expect(page).to have_content(authorization_request.name)
+        expect(page).to have_text(I18n.t('authorization_requests.show.access_callout.title'))
+        expect(page).to have_text(authorization_request.name)
       end
 
       it 'renders the access link button with external link icon' do

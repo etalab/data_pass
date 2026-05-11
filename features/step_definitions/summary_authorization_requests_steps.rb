@@ -24,6 +24,6 @@ end
 
 Alors('il y a {string} dans le bloc de résumé {string}') do |text, block_title|
   summary_block_testing(block_title) do
-    expect(page).to have_content(text)
+    expect(page).to have_text(text)
   end
 end

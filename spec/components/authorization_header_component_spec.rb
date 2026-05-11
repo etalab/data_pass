@@ -154,7 +154,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       let(:instruction_authorization_policy) { instance_double(Instruction::AuthorizationPolicy, revoke?: true) }
 
       it 'renders the revoke button' do
-        expect(subject).to have_content('Révoquer')
+        expect(subject).to have_text('Révoquer')
       end
     end
 
@@ -162,7 +162,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       subject { render_inline(component) }
 
       it 'does not render the revoke button' do
-        expect(subject).to have_no_content('Révoquer')
+        expect(subject).to have_no_text('Révoquer')
       end
     end
   end
@@ -192,7 +192,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
       it 'renders the old version message' do
         rendered = render_inline(component)
-        expect(rendered).to have_content('Cette habilitation est obsolète')
+        expect(rendered).to have_text('Cette habilitation est obsolète')
         expect(rendered).to have_css('a', text: /habilitation N°#{new_authorization.id}/)
       end
     end
