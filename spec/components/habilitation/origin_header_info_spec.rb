@@ -9,10 +9,10 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let!(:event) { create(:authorization_request_event, entity: authorization, name: 'approve', authorization_request: authorization_request) }
 
     it 'renders the form name and instructor email' do
-      expect(subject).to have_content('créée par la')
-      expect(subject).to have_content('formulaire')
-      expect(subject).to have_content('validée par')
-      expect(subject).to have_content(event.user.email)
+      expect(subject).to have_text('créée par la')
+      expect(subject).to have_text('formulaire')
+      expect(subject).to have_text('validée par')
+      expect(subject).to have_text(event.user.email)
     end
   end
 
@@ -23,9 +23,9 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let(:component) { described_class.new(authorization: authorization) }
 
     it 'renders the form name without instructor' do
-      expect(subject).to have_content('créée par la')
-      expect(subject).to have_content('formulaire')
-      expect(subject).to have_no_content('validée par')
+      expect(subject).to have_text('créée par la')
+      expect(subject).to have_text('formulaire')
+      expect(subject).to have_no_text('validée par')
     end
   end
 
@@ -37,9 +37,9 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let!(:event) { create(:authorization_request_event, entity: authorization, name: 'approve', authorization_request: authorization_request) }
 
     it 'renders without form name but with instructor' do
-      expect(subject).to have_content('liée à la')
-      expect(subject).to have_content('validée par')
-      expect(subject).to have_no_content('formulaire')
+      expect(subject).to have_text('liée à la')
+      expect(subject).to have_text('validée par')
+      expect(subject).to have_no_text('formulaire')
     end
   end
 
@@ -50,9 +50,9 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let(:component) { described_class.new(authorization: authorization) }
 
     it 'renders without form name and without instructor' do
-      expect(subject).to have_content('liée à la')
-      expect(subject).to have_no_content('validée par')
-      expect(subject).to have_no_content('formulaire')
+      expect(subject).to have_text('liée à la')
+      expect(subject).to have_no_text('validée par')
+      expect(subject).to have_no_text('formulaire')
     end
   end
 
@@ -64,8 +64,8 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let(:component) { described_class.new(authorization: authorization) }
 
     it 'renders auto-generated message with form name' do
-      expect(subject).to have_content('automatiquement délivrée')
-      expect(subject).to have_content('formulaire')
+      expect(subject).to have_text('automatiquement délivrée')
+      expect(subject).to have_text('formulaire')
     end
   end
 
@@ -78,10 +78,10 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let!(:event) { create(:authorization_request_event, entity: parent, name: 'approve', authorization_request: authorization_request) }
 
     it 'renders auto-generated message with form name and parent instructor' do
-      expect(subject).to have_content('automatiquement délivrée')
-      expect(subject).to have_content('formulaire')
-      expect(subject).to have_content('validée par')
-      expect(subject).to have_content(event.user.email)
+      expect(subject).to have_text('automatiquement délivrée')
+      expect(subject).to have_text('formulaire')
+      expect(subject).to have_text('validée par')
+      expect(subject).to have_text(event.user.email)
     end
   end
 
@@ -94,10 +94,10 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let!(:event) { create(:authorization_request_event, entity: parent, name: 'approve', authorization_request: authorization_request) }
 
     it 'renders auto-generated message with parent instructor but without form name' do
-      expect(subject).to have_content('automatiquement délivrée')
-      expect(subject).to have_no_content('formulaire')
-      expect(subject).to have_content('validée par')
-      expect(subject).to have_content(event.user.email)
+      expect(subject).to have_text('automatiquement délivrée')
+      expect(subject).to have_no_text('formulaire')
+      expect(subject).to have_text('validée par')
+      expect(subject).to have_text(event.user.email)
     end
   end
 
@@ -109,8 +109,8 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     let(:component) { described_class.new(authorization: authorization) }
 
     it 'renders auto-generated message without form name' do
-      expect(subject).to have_content('automatiquement délivrée')
-      expect(subject).to have_no_content('formulaire')
+      expect(subject).to have_text('automatiquement délivrée')
+      expect(subject).to have_no_text('formulaire')
     end
   end
 end

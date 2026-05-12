@@ -134,6 +134,10 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
 
+Rails/Exit:
+  Exclude:
+    - "spec/**/*"
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 

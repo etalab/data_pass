@@ -76,5 +76,5 @@ Alors('je vois un secret de {int} caractères') do |length|
 end
 
 Alors('la page ne contient pas le secret affiché précédemment') do
-  expect(page).to have_no_content(@displayed_secret)
+  expect(page).to have_no_text(@displayed_secret)
 end

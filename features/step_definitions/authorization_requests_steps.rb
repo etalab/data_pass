@@ -112,7 +112,7 @@ end
 
 Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, habilitation_name|
   within(css_id(find_authorization_definition_from_name(habilitation_name))) do
-    expect(page).to have_no_content(text)
+    expect(page).to have_no_text(text)
   end
 end
 

@@ -13,7 +13,7 @@ RSpec.describe 'Authorization with legacy scopes' do
 
   it 'displays legacy scopes' do
     legacy_scopes.each do |scope|
-      expect(page).to have_content(scope)
+      expect(page).to have_text(scope)
     end
   end
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
-abort('The Rails environment is running in production mode!') if Rails.env.production? # rubocop:disable Rails/Exit
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
 require 'capybara/rails'
@@ -35,7 +35,7 @@ Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
-  abort e.to_s.strip # rubocop:disable Rails/Exit
+  abort e.to_s.strip
 end
 
 Faker::Config.locale = 'fr'
