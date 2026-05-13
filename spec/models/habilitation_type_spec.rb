@@ -192,7 +192,8 @@ RSpec.describe HabilitationType do
 
     it 'creates a version on destroy' do
       habilitation_type.save!
-      expect { habilitation_type.destroy! }.to change(PaperTrail::Version, :count).by(1)
+      expect { habilitation_type.destroy! }
+        .to change { PaperTrail::Version.where(item_type: 'HabilitationType').count }.by(1)
     end
 
     it 'tracks attribute changes as a Hash in object_changes' do
@@ -236,6 +237,28 @@ RSpec.describe HabilitationType do
       user = build(:user)
       expect(user).to respond_to(:"instruction_submit_notifications_for_#{habilitation_type.uid}")
     end
+
+    it 'auto-creates a default FormTemplate' do
+      habilitation_type.blocks = [{ 'name' => 'basic_infos' }, { 'name' => 'legal' }]
+      habilitation_type.form_introduction = 'Introduction du formulaire'
+      habilitation_type.save!
+
+      default_template = habilitation_type.form_templates.find_by(default: true)
+      expect(default_template).to be_present
+      expect(default_template.name).to eq(habilitation_type.name)
+      expect(default_template.slug).to eq("#{habilitation_type.slug}-default")
+      expect(default_template.introduction).to eq('Introduction du formulaire')
+      expect(default_template.steps).to eq([{ 'name' => 'basic_infos' }, { 'name' => 'legal' }])
+    end
+  end
+
+  describe '#ensure_default_form_template!' do
+    it 'is idempotent: does not create a second default' do
+      habilitation_type.save!
+
+      expect { habilitation_type.ensure_default_form_template! }
+        .not_to change { habilitation_type.form_templates.where(default: true).count }
+    end
   end
 
   describe 'validation on destroy' do
@@ -272,7 +295,7 @@ RSpec.describe HabilitationType do
     end
 
     it 'resets AuthorizationRequestForm cache' do
-      expect(AuthorizationRequestForm).to receive(:reset!)
+      expect(AuthorizationRequestForm).to receive(:reset!).at_least(:once)
       habilitation_type.destroy!
     end
 

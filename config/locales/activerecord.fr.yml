@@ -182,6 +182,16 @@ fr:
       habilitation_type/kind/values:
         api: API
         service: Service
+      form_template:
+        name: Nom du template
+        description: Description
+        introduction: Introduction
+        use_case: Cas d’usage
+        default: Template par défaut
+        public: Public
+        startable_by_applicant: Démarrable par le demandeur
+        single_page_view: Vue en une seule page
+        service_provider_id: Fournisseur de service
       instructor_draft_request:
         applicant_email: Adresse email du demandeur
         organization_siret: Numéro de SIRET de l'organisation
@@ -268,6 +278,14 @@ fr:
               unreachable_uid: "génère un identifiant technique inaccessible (le nom doit commencer par une lettre, ex: « Espace agent de l'Annuaire des Entreprises »)"
             slug:
               taken_by_yaml_type: "est déjà utilisé"
+        form_template:
+          attributes:
+            base:
+              last_default_form_template: "ne peut pas être supprimé : il doit rester au moins un template par défaut pour ce type d’habilitation"
+            slug:
+              taken_by_yaml_form: "est déjà utilisé par un formulaire YAML"
+            default:
+              last_default_form_template: "ne peut pas être désactivé : il doit rester au moins un template par défaut pour ce type d’habilitation"
             contact_types:
               blank: "doit contenir au moins un type de contact lorsque le bloc « Contacts » est sélectionné"
             scopes:
