@@ -3,7 +3,7 @@ namespace :form_templates do
   task backfill_defaults: :environment do
     created = 0
     HabilitationType.find_each do |habilitation_type|
-      next if habilitation_type.form_templates.where(default: true).exists?
+      next if habilitation_type.form_templates.exists?(default: true)
 
       habilitation_type.ensure_default_form_template!
       created += 1

@@ -115,4 +115,28 @@ RSpec.describe FormTemplate do
         .to change { template.versions.count }.by(1)
     end
   end
+
+  describe 'AuthorizationRequestForm cache invalidation' do
+    before { AuthorizationRequestForm.reset! }
+
+    after { AuthorizationRequestForm.reset! }
+
+    it 'exposes a freshly created FormTemplate to the façade without manual reset' do
+      AuthorizationRequestForm.all
+
+      template = described_class.create!(habilitation_type:, name: 'Frais')
+
+      expect(AuthorizationRequestForm.all.map(&:uid)).to include(template.slug)
+    end
+
+    it 'removes a destroyed FormTemplate from the façade without manual reset' do
+      described_class.create!(habilitation_type:, name: 'Default conservé', default: true)
+      removable = described_class.create!(habilitation_type:, name: 'À jeter', default: false)
+      AuthorizationRequestForm.all
+
+      removable.destroy!
+
+      expect(AuthorizationRequestForm.all.map(&:uid)).not_to include(removable.slug)
+    end
+  end
 end
