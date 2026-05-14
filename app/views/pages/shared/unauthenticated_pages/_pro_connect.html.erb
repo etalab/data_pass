@@ -20,4 +20,6 @@
       </a>
     </p>
   <% end %>
+
+  <%= render partial: 'pages/shared/unauthenticated_pages/bypass_login_info' unless Rails.env.production? %>
 </div>
