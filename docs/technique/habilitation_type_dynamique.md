@@ -182,13 +182,28 @@ def self.backend
   yaml_records + db_records
 end
 
+# Côté AuthorizationDefinition : 1 HabilitationType ──► 1 AuthorizationDefinition
 def self.db_records
   return [] unless HabilitationType.table_exists?
   HabilitationType.includes(:data_provider).map { |record| build_from_db_record(record) }
 rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
   []
 end
+
+# Côté AuthorizationRequestForm : 1 HabilitationType ──has_many──► N FormTemplate ──► N forms
+def self.db_records
+  return [] unless FormTemplate.table_exists?
+  FormTemplate.includes(habilitation_type: :data_provider).filter_map { |t| build_form_from_template(t) }
+rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+  []
+end
 ```
+
+`FormTemplate` (table `form_templates`, FK `habilitation_type_id`) intercale entre
+`HabilitationType` et `AuthorizationRequestForm` : un HT a 1+ FormTemplate dont
+≥1 marqué `default: true` (invariant garanti par les validations + le callback
+`HabilitationType#after_create :ensure_default_form_template!`). Le slug du
+FormTemplate sert d'`uid` côté façade ARF. Cf. [DP-1718](https://linear.app/pole-api/issue/DP-1718).
 
 `StaticApplicationRecord` mémorise le backend dans `@all` et invalide via un
 compteur Redis (`Kredis.counter(redis_cache_key).increment`). Coordination
@@ -202,9 +217,6 @@ le find aboutit indistinctement côté YAML ou DB.
 
 ## Limitations connues
 
-- **`use_case` et `initialize_with` non disponibles côté DB** :
-  `build_form_from_habilitation_type` passe `use_case: nil` et n'expose pas
-  `initialize_with`. Le préremplissage par cas d'usage reste YAML-only.
 - **`custom_labels` (jsonb)** : présent en DB et factory, aucune lecture
   dans le code à ce jour. Surface réservée pour personnalisation éditoriale.
 - **Concerns existants non exposés au registrar** (présents dans
@@ -213,16 +225,19 @@ le find aboutit indistinctement côté YAML ou DB.
   `gdpr_contacts`, `modalities`, `operational_acceptance`,
   `safety_certification`, `technical_team`, `volumetrie`. Procédure
   d'exposition → [ajout_block_dynamique.md](./ajout_block_dynamique.md).
-- **`static_blocks` non porté côté DB** : `build_form_from_habilitation_type`
-  passe `static_blocks: []`.
+- **CRUD admin de `FormTemplate`** : pas encore exposée en UI (DP-1718 PR 1).
+  La création/édition se fait en `rails c` ; le default est auto-créé à la
+  création d'un `HabilitationType` (callback `ensure_default_form_template!`).
 
 ## Tableau récap « où vit quoi »
 
 | Sujet | Fichier |
 | --- | --- |
 | Modèle DB | [`app/models/habilitation_type.rb`](.../../app/models/habilitation_type.rb) |
+| Modèle DB templates de form | [`app/models/form_template.rb`](.../../app/models/form_template.rb) |
 | Migration création | [`db/migrate/20260225111739_create_habilitation_types.rb`](../db/migrate/20260225111739_create_habilitation_types.rb) |
 | Migration suffixe `-dyn` | [`db/migrate/20260401152848_add_dyn_suffix_to_habilitation_type_slugs.rb`](../db/migrate/20260401152848_add_dyn_suffix_to_habilitation_type_slugs.rb) |
+| Migration form_templates | [`db/migrate/20260513000001_create_form_templates.rb`](../db/migrate/20260513000001_create_form_templates.rb) |
 | Registrar | [`app/services/dynamic_authorization_request_registrar.rb`](.../../app/services/dynamic_authorization_request_registrar.rb) |
 | Initializer Rails | [`config/initializers/dynamic_authorization_types.rb`](../../config/initializers/dynamic_authorization_types.rb) |
 | Concerns blocks | [`app/models/concerns/authorization_extensions/`](.../../app/models/concerns/authorization_extensions/) |
@@ -255,4 +270,6 @@ le find aboutit indistinctement côté YAML ou DB.
   inactif côté wizard). Pattern `cnous_data_extraction_criteria` — voir
   [ajout_block_dynamique.md](./ajout_block_dynamique.md).
 - **Couplage `data_provider` (FK SQL)** : un type DB appartient toujours à
-  un `DataProvider`. Aucun couplage à un `ServiceProvider` côté DB.
+  un `DataProvider`. Le couplage à un `ServiceProvider` (YAML-backed
+  `StaticApplicationRecord`) se fait au niveau du `FormTemplate` via la
+  colonne string `service_provider_id`, résolue côté façade.

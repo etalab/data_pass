@@ -28,32 +28,39 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def self.db_records
-    return [] unless HabilitationType.table_exists?
+    return [] unless FormTemplate.table_exists?
 
-    HabilitationType.includes(:data_provider).filter_map do |record|
-      build_form_from_habilitation_type(record)
+    FormTemplate.includes(habilitation_type: :data_provider).filter_map do |template|
+      build_form_from_template(template)
     end
   rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
     []
   end
 
-  def self.build_form_from_habilitation_type(record)
-    klass = authorization_request_class_for(record)
+  # rubocop:disable Metrics/AbcSize
+  def self.build_form_from_template(template)
+    klass = authorization_request_class_for(template.habilitation_type)
     return unless klass
 
     new(
-      uid: record.slug,
-      default: true,
-      introduction: record.form_introduction,
+      uid: template.slug,
+      default: template.default,
+      name: template.name,
+      description: template.description,
+      introduction: template.introduction,
+      public: template.public,
+      startable_by_applicant: template.startable_by_applicant,
+      use_case: template.use_case,
+      single_page_view: template.single_page_view,
+      service_provider: template.service_provider,
       authorization_request_class: klass,
-      steps: record.ordered_steps.map { |name| { name: name } },
-      static_blocks: [],
-      service_provider: nil,
-      use_case: nil,
-      single_page_view: nil,
-      scopes_config: {},
+      steps: template.steps.map(&:deep_symbolize_keys),
+      static_blocks: template.static_blocks.map(&:deep_symbolize_keys),
+      scopes_config: template.scopes_config.deep_symbolize_keys,
+      initialize_with: template.initialize_with.deep_symbolize_keys,
     )
   end
+  # rubocop:enable Metrics/AbcSize
 
   def self.authorization_request_class_for(record)
     AuthorizationRequest.const_get(record.uid.classify)
@@ -61,7 +68,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     nil
   end
 
-  private_class_method :yaml_records, :db_records, :build_form_from_habilitation_type, :authorization_request_class_for
+  private_class_method :yaml_records, :db_records, :build_form_from_template, :authorization_request_class_for
 
   # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)

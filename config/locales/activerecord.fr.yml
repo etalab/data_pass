@@ -278,6 +278,13 @@ fr:
               unreachable_uid: "génère un identifiant technique inaccessible (le nom doit commencer par une lettre, ex: « Espace agent de l'Annuaire des Entreprises »)"
             slug:
               taken_by_yaml_type: "est déjà utilisé"
+            contact_types:
+              blank: "doit contenir au moins un type de contact lorsque le bloc « Contacts » est sélectionné"
+            scopes:
+              blank: "doit contenir au moins un scope lorsque le bloc « Données (scopes) » est sélectionné"
+              scope_name_blank: "ne peut pas être vide"
+              scope_value_blank: "ne peut pas être vide"
+              scope_value_duplicate: "est déjà utilisée par un autre scope"
         form_template:
           attributes:
             base:
@@ -286,13 +293,6 @@ fr:
               taken_by_yaml_form: "est déjà utilisé par un formulaire YAML"
             default:
               last_default_form_template: "ne peut pas être désactivé : il doit rester au moins un template par défaut pour ce type d’habilitation"
-            contact_types:
-              blank: "doit contenir au moins un type de contact lorsque le bloc « Contacts » est sélectionné"
-            scopes:
-              blank: "doit contenir au moins un scope lorsque le bloc « Données (scopes) » est sélectionné"
-              scope_name_blank: "ne peut pas être vide"
-              scope_value_blank: "ne peut pas être vide"
-              scope_value_duplicate: "est déjà utilisée par un autre scope"
         impersonation:
           attributes:
             user:

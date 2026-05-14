@@ -5,49 +5,66 @@ RSpec.describe AuthorizationRequestForm do
     end
 
     context 'with DB records' do
-      before do
-        stub_const('AuthorizationRequest::MonAPI', Class.new(AuthorizationRequest))
-        allow(described_class).to receive(:db_records).and_return([db_form])
-        described_class.reset!
-      end
+      let!(:habilitation_type) { create(:habilitation_type, name: 'Mon API') }
+      let(:default_template) { habilitation_type.form_templates.find_by(default: true) }
+
+      before { described_class.reset! }
 
       after { described_class.reset! }
-
-      let(:db_form) do
-        described_class.new(
-          uid: 'mon-api',
-          default: true,
-          introduction: 'Mon introduction',
-          authorization_request_class: AuthorizationRequest::MonAPI,
-          steps: [{ name: 'basic_infos' }],
-          static_blocks: [],
-          service_provider: nil,
-          use_case: nil,
-          single_page_view: nil,
-          scopes_config: {},
-        )
-      end
 
       it 'includes YAML forms' do
         expect(described_class.all.map(&:uid)).to include('api-entreprise')
       end
 
-      it 'includes DB forms' do
-        expect(described_class.all.map(&:uid)).to include('mon-api')
+      it 'includes the auto-created default FormTemplate' do
+        expect(described_class.all.map(&:uid)).to include(default_template.slug)
       end
 
       it 'returns AuthorizationRequestForm instances for DB records' do
-        expect(described_class.all.find { |f| f.uid == 'mon-api' }).to be_a(described_class)
+        expect(described_class.all.find { |f| f.uid == default_template.slug }).to be_a(described_class)
       end
 
-      it 'has default: true for DB forms' do
-        form = described_class.all.find { |f| f.uid == 'mon-api' }
+      it 'reflects FormTemplate.default on the ARF' do
+        form = described_class.all.find { |f| f.uid == default_template.slug }
         expect(form.default).to be(true)
       end
 
-      it 'has the correct authorization_request_class' do
-        form = described_class.all.find { |f| f.uid == 'mon-api' }
-        expect(form.authorization_request_class).to eq(AuthorizationRequest::MonAPI)
+      it 'binds the correct authorization_request_class via the habilitation_type' do
+        form = described_class.all.find { |f| f.uid == default_template.slug }
+        expected_class = AuthorizationRequest.const_get(habilitation_type.uid.classify)
+        expect(form.authorization_request_class).to eq(expected_class)
+      end
+
+      it 'exposes N templates as N forms for a single habilitation_type' do
+        habilitation_type.form_templates.create!(name: 'Second cas', default: false)
+        habilitation_type.form_templates.create!(name: 'Troisième cas', default: false)
+        described_class.reset!
+
+        forms = described_class.all.select { |f| f.authorization_request_class.to_s == habilitation_type.authorization_request_type }
+        expect(forms.size).to eq(3)
+        expect(forms.count(&:default)).to eq(1)
+      end
+
+      it 'resolves the service_provider from FormTemplate.service_provider_id' do
+        sp_id = ServiceProvider.all.first.id
+        default_template.update!(service_provider_id: sp_id)
+        described_class.reset!
+
+        form = described_class.all.find { |f| f.uid == default_template.slug }
+        expect(form.service_provider).to eq(ServiceProvider.find(sp_id))
+      end
+
+      it 'deep-symbolizes jsonb fields consumed by views' do
+        default_template.update!(
+          steps: [{ 'name' => 'basic_infos' }],
+          scopes_config: { 'hide' => ['scope_a'] },
+          initialize_with: { 'scopes' => ['scope_b'] },
+        )
+        described_class.reset!
+
+        form = described_class.all.find { |f| f.uid == default_template.slug }
+        expect(form.steps).to eq([{ name: 'basic_infos' }])
+        expect(form.scopes_config).to eq(hide: ['scope_a'])
       end
     end
   end
