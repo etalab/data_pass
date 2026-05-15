@@ -15,6 +15,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   before_action :extract_authorization_request_form
   before_action :extract_authorization_request, only: %i[show summary update]
   before_action :extract_potential_bulk_update_notification, only: %i[summary]
+  before_action :capture_prefill_data, only: %i[new]
 
   def new
     authorize @authorization_request_form, :new?
@@ -33,6 +34,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = BuildAuthorizationRequest.call(
       authorization_request_form: @authorization_request_form,
       applicant: current_user,
+      prefill_data: peek_prefill_data,
     ).authorization_request.decorate
 
     render view_path
@@ -103,6 +105,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success?
+      clear_prefill_data
       success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create', tiny: true) unless next_submit?
 
       redirect_to authorization_request_form_build_path(
@@ -164,6 +167,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success?
+      clear_prefill_data
       success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create', tiny: true)
 
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
@@ -180,6 +184,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success? && review_authorization_request.success?
+      clear_prefill_data
       redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
@@ -199,6 +204,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       user: current_user,
       authorization_request_form: @authorization_request_form,
       authorization_request_params: authorization_request_create_params,
+      prefill_data: peek_prefill_data,
     )
   end
 
@@ -349,6 +355,31 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def model_to_track_for_impersonation
     @authorization_request
+  end
+
+  def peek_prefill_data
+    prefill = session[:authorization_request_prefill]
+    return nil if prefill.blank?
+    return nil if prefill['form_uid'] != @authorization_request_form.id
+
+    prefill['data']
+  end
+
+  def capture_prefill_data
+    allowed = @authorization_request_form.authorization_request_class.prefillable_attribute_names
+    filtered = request.query_parameters.to_h.slice(*allowed)
+
+    if filtered.present?
+      session[:authorization_request_prefill] = { 'form_uid' => @authorization_request_form.id, 'data' => filtered }
+    else
+      clear_prefill_data
+    end
+  end
+
+  def clear_prefill_data
+    return unless peek_prefill_data
+
+    session.delete(:authorization_request_prefill)
   end
 end
 # rubocop:enable Metrics/ClassLength

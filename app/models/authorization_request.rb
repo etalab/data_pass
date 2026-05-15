@@ -308,6 +308,12 @@ class AuthorizationRequest < ApplicationRecord
     AuthorizationRequestPolicy
   end
 
+  def self.prefillable_attribute_names
+    names = extra_attributes.map(&:to_s)
+    names << 'scopes' if respond_to?(:scopes_enabled?) && scopes_enabled?
+    names
+  end
+
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
     return false if already_been_refused_or_approved?

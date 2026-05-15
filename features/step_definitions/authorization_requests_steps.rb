@@ -73,6 +73,10 @@ Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramèt
   visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(string).id, key => value)
 end
 
+Quand('je visite le formulaire {string} avec le paramètre {string} égal à {string}') do |form_uid, key, value|
+  visit new_authorization_request_form_path(form_uid:, key => value)
+end
+
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
   contact_title_node = find('.contact-form-card__title', text: string)
   contact_node = contact_title_node.find(:xpath, '../../..')
