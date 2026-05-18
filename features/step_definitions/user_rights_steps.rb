@@ -55,13 +55,13 @@ end
 
 Alors('le tableau des utilisateurs contient {string}') do |email|
   within('#user-rights-table') do
-    expect(page).to have_content(email)
+    expect(page).to have_text(email)
   end
 end
 
 Alors('le tableau des utilisateurs ne contient pas {string}') do |email|
   within('#user-rights-table') do
-    expect(page).to have_no_content(email)
+    expect(page).to have_no_text(email)
   end
 end
 
