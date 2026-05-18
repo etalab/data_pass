@@ -1,14 +1,20 @@
-<div class="fr-alert fr-alert--info fr-alert--sm fr-mt-3w" style="text-align: left;">
-  <p class="fr-alert__title">Connexion rapide</p>
-  <p>Vous êtes en environnement de test, vous pouvez vous connecter rapidement en cliquant sur l’un des comptes prédéfinis ci-dessous :</p>
-  <% if Rails.env.staging? %>
-    <div class="fr-btns-group fr-btns-group--sm fr-btns-group--inline fr-mb-0">
-      <%= link_to 'user@yopmail.com', '/local-sign-in?email=user@yopmail.com', class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
-    </div>
-  <% else %>
-    <div class="fr-btns-group fr-btns-group--sm fr-btns-group--inline fr-mb-0">
-      <%= link_to 'Utilisateur de base (demandeur)', '/local-sign-in?email=user@yopmail.com', class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
-      <%= link_to 'Admin / instructeur', '/local-sign-in?email=datapass@yopmail.com', class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
-    </div>
-  <% end %>
+<% accounts = if Rails.env.staging?
+    [{ label: 'user@yopmail.com', email: 'user@yopmail.com' }]
+else
+    [
+      { label: 'Utilisateur de base (demandeur)', email: 'user@yopmail.com' },
+      { label: 'Admin / instructeur', email: 'datapass@yopmail.com' }
+    ]
+end %>
+
+<div class="fr-alert fr-alert--info fr-mt-3w">
+  <h3 class="fr-alert__title">Connexion rapide</h3>
+  <p>Environnement de test : connectez-vous sans passer par ProConnect via l’un des comptes prédéfinis ci-dessous :</p>
+  <div class="fr-btns-group fr-btns-group--sm fr-btns-group--inline fr-mb-0 fr-mt-4v">
+    <% accounts.each do |account| %>
+      <%= link_to account[:label], "/local-sign-in?email=#{account[:email]}",
+        class: 'fr-btn fr-btn--secondary',
+        data: { turbo_prefetch: false } %>
+    <% end %>
+  </div>
 </div>
