@@ -10,7 +10,7 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
         index:,
         scope:,
         role_type:,
-        permissions: Instruction::ManagerScopeOptions.new(actor)
+        permissions: Rights::ManagerAuthority.new(actor)
       )
     )
   end

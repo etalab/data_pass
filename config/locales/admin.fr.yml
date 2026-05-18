@@ -4,6 +4,7 @@ fr:
       title: Espace administrateur
       whitelisted_emails: Emails en liste blanche
       users_with_roles: Utilisateurs avec des rôles
+      user_rights: Gestion des droits
       impersonate: Impersonner un utilisateur
       transfer_authorization_request: Transférer une demande vers une autre organisation
       user_organization_verification: "Vérification lien utilisateur / organisation"

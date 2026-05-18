@@ -4,6 +4,7 @@ module ApplicationHelper
   include Dsfr::Modal
   include Dsfr::Pictogram
   include SkipLinks
+  include UserRightsPathsHelper
 
   def obfuscate(text)
     stars = '*' * (text.length - 5)

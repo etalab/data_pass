@@ -27,7 +27,7 @@
         <%= t('instruction.user_rights.confirm_destroy.cancel') %>
       </button>
       <%= button_to t('instruction.user_rights.confirm_destroy.submit'),
-            instruction_user_right_path(@target_user),
+            user_right_path(@target_user),
             method: :delete,
             class: 'fr-btn fr-btn--warning fr-btn--icon-left fr-icon-delete-line',
             disabled: @modifiable_rights.empty?,

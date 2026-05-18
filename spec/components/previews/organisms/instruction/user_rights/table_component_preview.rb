@@ -3,6 +3,6 @@ class Organisms::Instruction::UserRights::TableComponentPreview < ViewComponent:
     actor = User.find_by!(email: 'datapass@yopmail.com')
     users = User.with_roles.where.not(id: actor.id).limit(5)
 
-    render Organisms::Instruction::UserRights::TableComponent.new(users: users, actor: actor)
+    render Organisms::Instruction::UserRights::TableComponent.new(users: users, authority: Rights::ManagerAuthority.new(actor))
   end
 end

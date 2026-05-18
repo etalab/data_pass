@@ -173,6 +173,11 @@ Rails.application.routes.draw do
         get :confirm_destroy
       end
     end
+    resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
+      member do
+        get :confirm_destroy, path: 'confirmer-suppression'
+      end
+    end
   end
 
   %w[/api/oauth /api/v1/oauth].each do |path|
