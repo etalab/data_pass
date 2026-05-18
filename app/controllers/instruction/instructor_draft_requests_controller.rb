@@ -103,7 +103,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
   end
 
   def instructor_draft_request_params
-    authorization_request_form = AuthorizationRequestForm.find(params.expect(:authorization_request)[:form_uid])
+    authorization_request_form = AuthorizationRequestForm.find(params[:authorization_request][:form_uid]) # rubocop:disable Rails/StrongParametersExpect
 
     {
       authorization_request_class: authorization_request_form.authorization_request_class.to_s,
