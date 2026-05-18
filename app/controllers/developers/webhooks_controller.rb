@@ -107,7 +107,7 @@ class Developers::WebhooksController < DevelopersController
   private
 
   def set_webhook
-    @webhook = policy_scope([:developer, Webhook]).find(params[:id])
+    @webhook = policy_scope([:developer, Webhook]).find(params.expect(:id))
   end
 
   def webhook_params

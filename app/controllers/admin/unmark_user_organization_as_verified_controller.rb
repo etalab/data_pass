@@ -15,7 +15,7 @@ class Admin::UnmarkUserOrganizationAsVerifiedController < AdminController
   private
 
   def find_organizations_user
-    user_id, organization_id = params[:id].split('-').map(&:to_i)
+    user_id, organization_id = params.expect(:id).split('-').map(&:to_i)
     OrganizationsUser.find_by!(user_id:, organization_id:)
   end
 end

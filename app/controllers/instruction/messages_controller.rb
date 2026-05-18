@@ -44,7 +44,7 @@ class Instruction::MessagesController < InstructionController
   end
 
   def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id]).decorate
+    @authorization_request = AuthorizationRequest.find(params.expect(:authorization_request_id)).decorate
   end
 
   def mark_messages_as_read!

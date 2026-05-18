@@ -304,7 +304,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def extract_authorization_request
     @authorization_request = authorization_request_class
       .includes(:organization, authorizations: %i[organization])
-      .find(params[:id])
+      .find(params.expect(:id))
       .decorate
   end
 
@@ -313,7 +313,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def extract_authorization_request_form
-    @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid]).decorate
+    @authorization_request_form = AuthorizationRequestForm.find(params.expect(:form_uid)).decorate
   end
 
   def review_authorization_request

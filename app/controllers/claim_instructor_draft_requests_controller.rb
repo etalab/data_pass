@@ -75,7 +75,7 @@ class ClaimInstructorDraftRequestsController < AuthenticatedUserController
   end
 
   def extract_instructor_draft_request
-    @instructor_draft_request = InstructorDraftRequest.find_by!(public_id: params[:id]).decorate
+    @instructor_draft_request = InstructorDraftRequest.find_by!(public_id: params.expect(:id)).decorate
   end
 
   def change_current_organization(organization)

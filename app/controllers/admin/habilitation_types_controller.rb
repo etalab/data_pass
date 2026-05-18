@@ -79,7 +79,7 @@ class Admin::HabilitationTypesController < AdminController
   end
 
   def set_habilitation_type
-    @habilitation_type = HabilitationType.friendly.find(params[:id])
+    @habilitation_type = HabilitationType.friendly.find(params.expect(:id))
   end
 
   def habilitation_type_params

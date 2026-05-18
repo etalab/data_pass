@@ -1,9 +1,9 @@
 class RedirectFromV1Controller < ApplicationController
   def show
-    redirect_to authorization_path(Authorization.find(params[:id])),
+    redirect_to authorization_path(Authorization.find(params.expect(:id))),
       status: :moved_permanently
   rescue ActiveRecord::RecordNotFound
-    redirect_to authorization_request_path(AuthorizationRequest.find(params[:id])),
+    redirect_to authorization_request_path(AuthorizationRequest.find(params.expect(:id))),
       status: :moved_permanently
   end
 end

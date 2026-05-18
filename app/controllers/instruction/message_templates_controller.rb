@@ -53,7 +53,7 @@ class Instruction::MessageTemplatesController < InstructionController
   private
 
   def set_message_template
-    @message_template = MessageTemplate.find(params[:id])
+    @message_template = MessageTemplate.find(params.expect(:id))
   end
 
   def extract_managed_authorization_definitions

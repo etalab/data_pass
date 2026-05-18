@@ -59,7 +59,7 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
   end
 
   def save_search_params
-    cookies[search_key] = { value: params[:search_query].to_json, expires: 1.month.from_now } if params[:search_query].present?
+    cookies[search_key] = { value: params.expect(:search_query).to_json, expires: 1.month.from_now } if params[:search_query].present?
   end
 
   def search_key

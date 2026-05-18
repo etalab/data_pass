@@ -8,6 +8,6 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   private
 
   def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:id]).decorate
+    @authorization_request = AuthorizationRequest.find(params.expect(:id)).decorate
   end
 end
