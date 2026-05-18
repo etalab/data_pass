@@ -180,6 +180,85 @@ Chaque type d'habilitation possède un jeu d'attributs métier qui vivent sous l
 
 **Avant toute intégration en écriture, récupérez dynamiquement ce tableau** pour construire votre payload : il peut évoluer (ajout d'un champ, dépréciation d'un scope). Voir le tutoriel [Exploiter l'API en écriture](/developpeurs/tutoriels/ecriture) pour l'usage complet.
 
+## Lire les scopes d'une demande
+
+Deux notions distinctes portent le mot « scope » dans l'API. Ne pas les confondre :
+
+| Notion | Où | Format |
+| --- | --- | --- |
+| **Scope OAuth2** (`read_authorizations`, `write_authorizations`, `read_webhooks`, `public`) | Paramètre `scope` de `POST /oauth/token` | Chaîne unique ou liste séparée par des espaces (`'read_authorizations write_authorizations'`) |
+| **Scope métier** (les périmètres de données demandés à un fournisseur) | Clé `data.scopes` d'une demande, et `scopes[]` d'une définition | Voir ci-dessous |
+
+### Format dans la réponse `GET /demandes/{id}`
+
+Sur une demande, `data.scopes` est **un tableau de chaînes**, contenant uniquement les `value` techniques cochées par le demandeur :
+
+```json
+{
+  "id": 4242,
+  "type": "api_entreprise",
+  "state": "validated",
+  "data": {
+    "intitule": "Raccordement INSEE",
+    "scopes": [
+      "unites_legales_etablissements_insee",
+      "associations_djepva"
+    ]
+  }
+}
+```
+
+Aucun libellé, groupe, ni lien n'est inclus à ce niveau : c'est une liste plate de valeurs techniques.
+
+### Résoudre libellé et groupe via `GET /definitions/{id}`
+
+Pour afficher un libellé humain, un groupe ou un lien documentation, il faut joindre `data.scopes` avec `scopes[]` de la définition correspondante (clé pivot : `value`) :
+
+```json
+{
+  "id": "api_entreprise",
+  "scopes": [
+    {
+      "name": "Données unités légales et établissements - Insee",
+      "value": "unites_legales_etablissements_insee",
+      "group": "Informations générales",
+      "link": "https://entreprise.api.gouv.fr/catalogue?...",
+      "included": false,
+      "disabled": false,
+      "deprecated": false,
+      "deprecated_date": null
+    }
+  ]
+}
+```
+
+Détail des champs renvoyés pour chaque scope :
+
+- **`value`** — identifiant technique, utilisé dans `data.scopes` d'une demande.
+- **`name`** / **`group`** / **`link`** — libellé humain, regroupement métier et lien documentation pour l'affichage.
+- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation validée, faites l'union de `data.scopes` et des `value` `included: true`.
+- **`deprecated`** (+ **`deprecated_date`**) — scope conservé pour l'historique des anciennes demandes mais à exclure d'une UI de création.
+- **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une demande validée peut tout de même en contenir.
+
+> **Note** — une `value` présente dans `data.scopes` mais absente de la définition correspond à une suppression côté config : à conserver pour l'historique, à ne plus proposer à la modification.
+
+```python
+definition = requests.get(
+    f'https://datapass.api.gouv.fr/api/v1/definitions/{demande["type"]}',
+    headers={'Authorization': f'Bearer {access_token}'},
+).json()
+
+scopes_by_value = {s['value']: s for s in definition['scopes']}
+
+for value in demande['data'].get('scopes', []):
+    scope = scopes_by_value.get(value)
+    if scope is None:
+        continue
+    print(f"[{scope['group']}] {scope['name']}")
+```
+
+Mettez la définition en cache (elle change rarement) plutôt que de la re-télécharger pour chaque demande.
+
 ## Aller plus loin
 
 - [Documentation OpenAPI complète](/developpeurs/documentation)
