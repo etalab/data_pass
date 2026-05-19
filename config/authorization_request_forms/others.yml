@@ -19,8 +19,6 @@ hubee-dila:
     <br />
     ● RCO - Recensement Citoyen Obligatoire
     <br />
-    ● DHTOUR - Déclaration d’hébergement touristique
-    <br />
     ● JCC - Déclaration de Changement de Coordonnées
   authorization_request: "HubEEDila"
   service_provider_id: hubee

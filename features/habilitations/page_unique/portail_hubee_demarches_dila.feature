@@ -5,12 +5,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je soumets une demande d'habilitation valide
-    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
+  Scénario: Je soumets une demande d’habilitation valide
+    Quand je démarre une nouvelle demande d’habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
-    * je coche "DHTOUR - Déclaration d’hébergement touristique"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
 
     * je remplis les informations du contact "Administrateur local" avec :
@@ -33,12 +32,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Et il y a un message d'erreur contenant "Les données ne sont pas cochées"
     Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
 
-  Scénario: Je remplis une demande d'habilitation avec un champ du contact manquant
-    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
+  Scénario: Je remplis une demande d’habilitation avec un champ du contact manquant
+    Quand je démarre une nouvelle demande d’habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
-    * je coche "DHTOUR - Déclaration d’hébergement touristique"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
 
     * je remplis les informations du contact "Administrateur local" avec :

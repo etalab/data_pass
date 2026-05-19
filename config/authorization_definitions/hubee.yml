@@ -37,6 +37,8 @@ hubee_dila:
     - name: "DHTOUR - Déclaration d’hébergement touristique"
       value: "hebergement_tourisme"
       group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+      deprecated:
+        since: '2026-05-20'
     - name: "JCC - Déclaration de Changement de Coordonnées"
       value: "je_change_de_coordonnees"
       group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
