@@ -4,6 +4,6 @@ class Admin::UserRightPolicy < Instruction::UserRightPolicy
   end
 
   def edit?
-    enabled? && record != user
+    enabled?
   end
 end

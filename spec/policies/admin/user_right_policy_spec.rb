@@ -54,7 +54,7 @@ RSpec.describe Admin::UserRightPolicy do
       let(:user) { create(:user, :admin) }
       let(:target) { user }
 
-      it { is_expected.to be false }
+      it { is_expected.to be true }
     end
 
     context 'when user is admin and target has only roles under another provider' do
@@ -84,7 +84,7 @@ RSpec.describe Admin::UserRightPolicy do
       let(:user) { create(:user, :admin) }
       let(:target) { user }
 
-      it { is_expected.to be false }
+      it { is_expected.to be true }
     end
   end
 end
