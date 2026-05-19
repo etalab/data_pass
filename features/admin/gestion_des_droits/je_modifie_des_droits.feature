@@ -43,7 +43,8 @@ Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un uti
     Quand il y a l'utilisateur "admin@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
     Et que je me rends sur la page de gestion des droits
     Et que je clique sur "Modifier les droits de admin@gouv.fr"
-    Alors la section des droits non modifiables contient le badge "Admin"
+    Alors le fil d’Ariane contient un lien "Gestion des droits" vers la page de gestion des droits admin
+    Et la section des droits non modifiables contient le badge "Admin"
     Quand je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"

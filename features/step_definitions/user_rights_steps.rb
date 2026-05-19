@@ -77,6 +77,12 @@ Alors('la section des droits non modifiables contient le badge {string}') do |la
   end
 end
 
+Alors('le fil d’Ariane contient un lien {string} vers la page de gestion des droits admin') do |label|
+  within('.fr-breadcrumb') do
+    expect(page).to have_link(label, href: admin_user_rights_path)
+  end
+end
+
 Quand('je tente de modifier mes propres droits via URL') do
   visit edit_user_right_path_for(current_user!, current_user!)
 end
