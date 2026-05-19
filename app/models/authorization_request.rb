@@ -310,7 +310,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def self.prefillable_attribute_names
     names = extra_attributes.map(&:to_s)
-    names << 'scopes' if respond_to?(:scopes_enabled?) && scopes_enabled?
+    names << 'scopes' if scopes_enabled?
     names
   end
 
