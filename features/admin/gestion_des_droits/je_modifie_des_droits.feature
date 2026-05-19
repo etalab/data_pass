@@ -39,11 +39,12 @@ Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un uti
     Alors il y a un message de succès contenant "mis à jour"
     Et l'utilisateur "mixte@gouv.fr" a les rôles "dinum:api_particulier:manager,dinum:api_entreprise:instructor"
 
-  Scénario: Je peux modifier mes propres droits
+  Scénario: Je peux modifier mes propres droits, mon rôle admin reste affiché en lecture seule
     Quand il y a l'utilisateur "admin@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
     Et que je me rends sur la page de gestion des droits
     Et que je clique sur "Modifier les droits de admin@gouv.fr"
-    Et que je sélectionne "Instructeur" pour "Rôle"
+    Alors la section des droits non modifiables contient le badge "Admin"
+    Quand je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
     Et l'utilisateur "admin@gouv.fr" a les rôles "admin,dinum:api_entreprise:instructor"
@@ -54,7 +55,7 @@ Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un uti
     Et que j'impersonne l'utilisateur "user-x@gouv.fr"
     Et que je me rends sur la page de gestion des droits
     Alors le tableau des utilisateurs contient "user-x@gouv.fr"
-    Et le tableau des utilisateurs ne contient pas "admin@gouv.fr"
+    Et le tableau des utilisateurs contient "admin@gouv.fr"
     Quand je clique sur "Modifier les droits de cible@gouv.fr"
     Et que je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"

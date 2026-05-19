@@ -11,6 +11,7 @@ class Molecules::Instruction::UserRights::ReadonlyRightsListComponentPreview < V
 
   def sample_rights
     [
+      { scope: nil, role_type: 'admin' },
       { scope: 'dinum:api_entreprise', role_type: 'developer' },
       { scope: 'dinum:api_particulier', role_type: 'developer' }
     ]

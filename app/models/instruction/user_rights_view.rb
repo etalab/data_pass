@@ -34,6 +34,8 @@ class Instruction::UserRightsView
       next unless @authority.covers_role?(role_string)
 
       parsed = ParsedRole.parse(role_string)
+      next { scope: nil, role_type: parsed.role } if parsed.admin?
+
       { scope: "#{parsed.provider_slug}:#{parsed.definition_id}", role_type: parsed.role }
     end
   end

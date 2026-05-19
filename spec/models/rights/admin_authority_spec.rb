@@ -63,8 +63,8 @@ RSpec.describe Rights::AdminAuthority do
   end
 
   describe '#covers_role?' do
-    it 'returns false for the admin role' do
-      expect(authority.covers_role?('admin')).to be false
+    it 'returns true for the admin role (visible but non-manageable)' do
+      expect(authority.covers_role?('admin')).to be true
     end
 
     it 'returns true for any non-admin role (regardless of role_type)' do

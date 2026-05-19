@@ -6,7 +6,9 @@
     <ul role="list" class="fr-list--flat-flex">
       <% visible_rights.each do |entry| %>
         <li>
-          <span class="fr-text--bold"><%= entry[:label] %></span>
+          <% if entry[:scope].present? %>
+            <span class="fr-text--bold"><%= entry[:label] %></span>
+          <% end %>
           <% entry[:role_types].each do |role_type| %>
             <%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %>
           <% end %>
