@@ -30,9 +30,11 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
   def find_searched_record
     case params[:id]
     when 'demandes'
-      AuthorizationRequest.find_by(id: params[:search_query][Instruction::Search::DashboardSearch.key])
+      extracted_id = Instruction::Search::DashboardSearch.extract_id_from_search_terms(params, expected_prefix: 'D')
+      AuthorizationRequest.find_by(id: extracted_id) if extracted_id
     when 'habilitations'
-      Authorization.find_by(id: params[:search_query][Instruction::Search::DashboardSearch.key])
+      extracted_id = Instruction::Search::DashboardSearch.extract_id_from_search_terms(params, expected_prefix: 'H')
+      Authorization.find_by(id: extracted_id) if extracted_id
     end
   end
 

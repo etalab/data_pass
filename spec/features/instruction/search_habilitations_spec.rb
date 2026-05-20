@@ -222,6 +222,44 @@ RSpec.describe 'Instruction: habilitations search' do
         expect(page).to have_css('.authorization', count: 0)
       end
     end
+
+    context 'when we use the formatted_id (H-prefixed)' do
+      let!(:valid_request) { create(:authorization_request, :api_entreprise, :submitted, intitule: intitule, organization: organization) }
+      let!(:valid_searched_authorization) { create(:authorization, request: valid_request, state: :active) }
+      let(:search_text) { valid_searched_authorization.formatted_id }
+
+      it 'redirects to the authorization' do
+        search
+
+        expect(page).to have_current_path(authorization_path(valid_searched_authorization))
+      end
+    end
+
+    context 'when we use a D-prefixed id in the habilitations tab' do
+      let!(:valid_request) { create(:authorization_request, :api_entreprise, :submitted, intitule: intitule, organization: organization) }
+      let!(:valid_searched_authorization) { create(:authorization, request: valid_request, state: :active) }
+      let(:search_text) { "D#{valid_searched_authorization.id}" }
+
+      it 'does not redirect and renders nothing' do
+        search
+
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
+        expect(page).to have_css('.authorization', count: 0)
+      end
+    end
+
+    context 'when we use the formatted_id of an unauthorized authorization' do
+      let!(:foreign_request) { create(:authorization_request, :hubee_dila, :submitted) }
+      let!(:foreign_authorization) { create(:authorization, request: foreign_request, state: :active) }
+      let(:search_text) { foreign_authorization.formatted_id }
+
+      it 'does not redirect and renders nothing' do
+        search
+
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
+        expect(page).to have_css('.authorization', count: 0)
+      end
+    end
   end
 
   context 'when we search with multiple states' do

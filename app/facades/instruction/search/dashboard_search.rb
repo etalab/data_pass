@@ -24,6 +24,16 @@ class Instruction::Search::DashboardSearch
     /^\s*[DH]?\d{1,10}\s*$/i.match?(main_search_input)
   end
 
+  def self.extract_id_from_search_terms(params, expected_prefix:)
+    return nil unless search_terms_is_a_possible_id?(params)
+
+    input = params[:search_query][key].to_s.strip
+    return input.to_i if input.match?(/^\d+$/)
+
+    match = input.match(/^#{Regexp.escape(expected_prefix)}(\d+)$/i)
+    match[1].to_i if match
+  end
+
   def self.key
     'within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont'
   end
