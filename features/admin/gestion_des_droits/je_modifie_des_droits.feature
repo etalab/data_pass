@@ -2,8 +2,8 @@
 
 Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un utilisateur
   En tant qu’administrateur, je peux modifier les droits de n’importe quel
-  utilisateur sur n’importe quelle définition, y compris le rôle développeur,
-  mais je ne peux pas modifier mes propres droits.
+  utilisateur sur n’importe quelle définition, y compris le rôle développeur
+  et y compris mes propres droits.
 
   Contexte:
     Sachant que je suis un administrateur
@@ -39,9 +39,16 @@ Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un uti
     Alors il y a un message de succès contenant "mis à jour"
     Et l'utilisateur "mixte@gouv.fr" a les rôles "dinum:api_particulier:manager,dinum:api_entreprise:instructor"
 
-  Scénario: Je ne peux pas modifier mes propres droits via URL forgée
-    Quand je tente de modifier mes propres droits via URL
-    Alors il y a un message d'erreur contenant "Vous n'avez pas le droit d'accéder à cette page"
+  Scénario: Je peux modifier mes propres droits, mon rôle admin reste affiché en lecture seule
+    Quand il y a l'utilisateur "admin@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
+    Et que je me rends sur la page de gestion des droits
+    Et que je clique sur "Modifier les droits de admin@gouv.fr"
+    Alors le fil d’Ariane contient un lien "Gestion des droits" vers la page de gestion des droits admin
+    Et la section des droits non modifiables contient le badge "Admin"
+    Quand je sélectionne "Instructeur" pour "Rôle"
+    Et que je clique sur "Valider les modifications"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et l'utilisateur "admin@gouv.fr" a les rôles "admin,dinum:api_entreprise:instructor"
 
   Scénario: Pendant une impersonation, mes actions admin restent attribuées à mon vrai compte
     Quand il y a l'utilisateur "user-x@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
@@ -49,7 +56,7 @@ Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un uti
     Et que j'impersonne l'utilisateur "user-x@gouv.fr"
     Et que je me rends sur la page de gestion des droits
     Alors le tableau des utilisateurs contient "user-x@gouv.fr"
-    Et le tableau des utilisateurs ne contient pas "admin@gouv.fr"
+    Et le tableau des utilisateurs contient "admin@gouv.fr"
     Quand je clique sur "Modifier les droits de cible@gouv.fr"
     Et que je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"

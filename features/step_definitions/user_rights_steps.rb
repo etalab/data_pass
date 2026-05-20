@@ -65,6 +65,24 @@ Alors('le tableau des utilisateurs ne contient pas {string}') do |email|
   end
 end
 
+Alors('le tableau des utilisateurs contient le badge {string}') do |label|
+  within('#user-rights-table') do
+    expect(page).to have_css('p.fr-badge', text: label)
+  end
+end
+
+Alors('la section des droits non modifiables contient le badge {string}') do |label|
+  within('#readonly-rights') do
+    expect(page).to have_css('p.fr-badge', text: label)
+  end
+end
+
+Alors('le fil d’Ariane contient un lien {string} vers la page de gestion des droits admin') do |label|
+  within('.fr-breadcrumb') do
+    expect(page).to have_link(label, href: admin_user_rights_path)
+  end
+end
+
 Quand('je tente de modifier mes propres droits via URL') do
   visit edit_user_right_path_for(current_user!, current_user!)
 end

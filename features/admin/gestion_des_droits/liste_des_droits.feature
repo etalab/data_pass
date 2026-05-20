@@ -15,9 +15,17 @@ Fonctionnalité: Admin — Gestion des droits — lister les utilisateurs avec d
     Alors la page contient "user1@gouv.fr"
     Et la page contient "user2@gouv.fr"
 
-  Scénario: Je ne me vois pas dans ma propre liste
+  Scénario: Je me vois dans ma propre liste avec mon badge d’admin
     Quand je me rends sur la page de gestion des droits
-    Alors la page ne contient pas mon email
+    Alors le tableau des utilisateurs contient "admin@gouv.fr"
+    Et le tableau des utilisateurs contient le badge "Admin"
+
+  Scénario: Je me vois dans ma propre liste avec mes autres rôles
+    Quand il y a l'utilisateur "admin@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
+    Et que je me rends sur la page de gestion des droits
+    Alors le tableau des utilisateurs contient "admin@gouv.fr"
+    Et le tableau des utilisateurs contient le badge "Admin"
+    Et le tableau des utilisateurs contient le badge "Observateur"
 
   Scénario: Le menu admin contient un lien vers la gestion des droits
     Quand je me rends sur le chemin "/admin"

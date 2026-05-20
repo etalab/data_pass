@@ -4,7 +4,9 @@
   <ul role="list" class="fr-list--flat-flex">
     <% rights.each do |right| %>
       <li>
-        <strong><%= Instruction::Scope.new(right[:scope]).label %></strong>
+        <% if right[:scope].present? %>
+          <strong><%= Instruction::Scope.new(right[:scope]).label %></strong>
+        <% end %>
         <%= render Atoms::ColorBadgeComponent.for_role(right[:role_type], label: t("instruction.user_rights.roles.#{right[:role_type]}")) %>
       </li>
     <% end %>

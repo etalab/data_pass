@@ -556,6 +556,7 @@ fr:
         instructor: Instructeur
         reporter: Observateur
         developer: Développeur
+        admin: Admin
       new:
         title: Ajouter des droits à un utilisateur sans droits
         breadcrumb: Ajouter des droits

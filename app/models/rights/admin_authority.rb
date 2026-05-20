@@ -21,8 +21,7 @@ class Rights::AdminAuthority < Rights::Authority
   end
 
   def covers_role?(role_string)
-    parsed = ParsedRole.parse(role_string)
-    !parsed.admin? && !parsed.role.nil?
+    !ParsedRole.parse(role_string).role.nil?
   end
 
   def audit_event_name

@@ -38,4 +38,42 @@ RSpec.describe Instruction::UserRightsView do
       end
     end
   end
+
+  describe '#grouped_visible (admin authority)' do
+    subject(:result) { described_class.new(authority: Rights::AdminAuthority.new(admin), user: target).grouped_visible }
+
+    let(:admin) { create(:user, :admin) }
+
+    context 'when target has only the admin role' do
+      let(:target) { create(:user, :admin) }
+
+      it 'returns a single entry with nil scope and admin role_type' do
+        expect(result.size).to eq(1)
+        expect(result.first[:scope]).to be_nil
+        expect(result.first[:role_types]).to eq(['admin'])
+      end
+    end
+
+    context 'when target has both admin and a non-admin role' do
+      let(:target) { create(:user, roles: %w[admin dinum:api_entreprise:reporter]) }
+
+      it 'returns one entry per scope (including the nil scope for admin)' do
+        expect(result.pluck(:scope)).to contain_exactly(nil, 'dinum:api_entreprise')
+      end
+    end
+  end
+
+  describe '#readonly (admin authority)' do
+    subject(:result) { described_class.new(authority: Rights::AdminAuthority.new(admin), user: target).readonly }
+
+    let(:admin) { create(:user, :admin) }
+
+    context 'when target has the admin role' do
+      let(:target) { create(:user, roles: %w[admin dinum:api_entreprise:reporter]) }
+
+      it 'contains the admin role as readonly (nil scope)' do
+        expect(result).to contain_exactly(scope: nil, role_type: 'admin')
+      end
+    end
+  end
 end

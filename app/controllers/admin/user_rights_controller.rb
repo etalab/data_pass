@@ -71,7 +71,7 @@ class Admin::UserRightsController < AdminController
 
   def managed_users_scope
     User.with_any_role_on(@authority.managed_definitions.map(&:id))
-      .where.not(id: true_user.id)
+      .or(User.with_role_matching(['admin']))
   end
 
   def authorize_user_rights!

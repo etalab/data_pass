@@ -38,4 +38,13 @@ RSpec.describe Atoms::ColorBadgeComponent, type: :component do
       end
     end
   end
+
+  describe '.for_role' do
+    it 'returns a pink-macaron badge for admin' do
+      component = described_class.for_role('admin', label: 'Admin')
+      rendered = render_inline(component)
+
+      expect(rendered).to have_css('p.fr-badge.fr-badge--pink-macaron', text: 'Admin')
+    end
+  end
 end
