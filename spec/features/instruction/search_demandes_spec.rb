@@ -173,6 +173,39 @@ RSpec.describe 'Instruction: demandes search' do
         expect(page).to have_css('.authorization-request', count: 0)
       end
     end
+
+    context 'when we use the formatted_id (D-prefixed)' do
+      let(:search_text) { valid_searched_authorization_request.formatted_id }
+
+      it 'redirects to the authorization request' do
+        search
+
+        expect(page).to have_current_path(instruction_authorization_request_path(valid_searched_authorization_request))
+      end
+    end
+
+    context 'when we use an H-prefixed id in the demandes tab' do
+      let(:search_text) { "H#{valid_searched_authorization_request.id}" }
+
+      it 'does not redirect and renders nothing' do
+        search
+
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
+        expect(page).to have_css('.authorization-request', count: 0)
+      end
+    end
+
+    context 'when we use the formatted_id of an unauthorized authorization request' do
+      let(:foreign_authorization_request) { create(:authorization_request, :hubee_dila, state: :validated) }
+      let(:search_text) { foreign_authorization_request.formatted_id }
+
+      it 'does not redirect and renders nothing' do
+        search
+
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
+        expect(page).to have_css('.authorization-request', count: 0)
+      end
+    end
   end
 
   context 'when we search with multiple states' do

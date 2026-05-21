@@ -62,4 +62,52 @@ RSpec.describe Instruction::Search::DashboardSearch do
       expect(described_class.key).to eq expected_key
     end
   end
+
+  describe '.extract_id_from_search_terms' do
+    context 'when search input is a raw numeric ID' do
+      let(:params) { { search_query: { described_class.key => '123' } } }
+
+      it 'returns the integer for the demandes prefix' do
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'D')).to eq 123
+      end
+
+      it 'returns the integer for the habilitations prefix' do
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'H')).to eq 123
+      end
+    end
+
+    context 'when search input matches the expected prefix' do
+      let(:params) { { search_query: { described_class.key => 'D456' } } }
+
+      it 'returns the integer' do
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'D')).to eq 456
+      end
+
+      it 'accepts the lowercase prefix' do
+        params = { search_query: { described_class.key => 'd789' } }
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'D')).to eq 789
+      end
+
+      it 'accepts whitespace around the input' do
+        params = { search_query: { described_class.key => '  H42  ' } }
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'H')).to eq 42
+      end
+    end
+
+    context 'when search input has a non-matching prefix' do
+      let(:params) { { search_query: { described_class.key => 'H456' } } }
+
+      it 'returns nil' do
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'D')).to be_nil
+      end
+    end
+
+    context 'when search input is not a possible ID' do
+      let(:params) { { search_query: { described_class.key => 'some text' } } }
+
+      it 'returns nil' do
+        expect(described_class.extract_id_from_search_terms(params, expected_prefix: 'D')).to be_nil
+      end
+    end
+  end
 end
