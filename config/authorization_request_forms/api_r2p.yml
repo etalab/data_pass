@@ -1,5 +1,6 @@
 api-r2p-sandbox: &api-r2p-sandbox
   name: Demande libre (Bac à sable)
+  default: true
   public: true
   description: Pour les utilisateurs ayant besoin de réaliser une recette fonctionnelle en environnement de bac à sable.
   introduction: |
@@ -40,6 +41,7 @@ api-r2p-sandbox: &api-r2p-sandbox
 
 api-r2p-production: &api-r2p-production
   name: Demande libre (Production)
+  default: true
   public: false
   startable_by_applicant: false
   description: Pour les utilisateurs ayant déjà réalisé une recette fonctionnelle en bac à sable et souhaitant obtenir des accès en production.
@@ -126,6 +128,7 @@ api-r2p-appel-spi-production: &api-r2p-appel-spi-production
 
 api-r2p-production-editeur: &api-r2p-production-editeur
   name: Demande libre avec éditeur
+  default: true
   public: true
   description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
   introduction: |

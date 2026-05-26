@@ -141,6 +141,25 @@ RSpec.describe AuthorizationDefinition do
           form.authorization_request_class == AuthorizationRequest::APIEntreprise
       end
     end
+
+    it 'returns the « Demande libre » forms last' do
+      default_forms, others = available_forms.partition(&:default)
+
+      expect(default_forms).not_to be_empty, 'fixture sans formulaire « default » — test tautologique'
+      expect(others).not_to be_empty, 'fixture sans formulaire non-default — test tautologique'
+      expect(available_forms).to eq(others + default_forms)
+    end
+
+    context 'with api_ficoba (multiple « Demande libre » variants)' do
+      let(:instance) { described_class.find('api_ficoba') }
+
+      it 'pushes all « Demande libre » variants to the end' do
+        forms = instance.available_forms
+        default_forms = forms.select(&:default)
+        expect(default_forms).not_to be_empty
+        expect(forms.last(default_forms.count).map(&:name)).to all(start_with('Demande libre'))
+      end
+    end
   end
 
   describe '#support_email' do
@@ -223,6 +242,22 @@ RSpec.describe AuthorizationDefinition do
 
       it 'takes the first one' do
         expect(subject).to eq(AuthorizationRequestForm.find('api-sfip-sandbox'))
+      end
+    end
+  end
+
+  describe '#default_form returns a « Demande libre » for the 7 APIs previously broken' do
+    %w[
+      api_ficoba
+      api_r2p
+      api_indemnites_journalieres_cnam
+      france_connect
+      api_impot_particulier
+      api_infinoe
+      api_sfip
+    ].each do |defn_id|
+      it "#{defn_id} has a « Demande libre » as default_form" do
+        expect(described_class.find(defn_id).default_form.name).to start_with('Demande libre')
       end
     end
   end

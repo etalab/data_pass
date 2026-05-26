@@ -40,6 +40,7 @@ api-infinoe-sandbox:
 
 api-infinoe-production:
   name: Demande libre (Production)
+  default: true
   startable_by_applicant: false
   description: *api_infinoe_description
   introduction: &api_infinoe_production_form_introduction |

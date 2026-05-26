@@ -1,17 +1,20 @@
-api-droits-cnam: &api_droit_cnam_form_attributes
+api-droits-cnam:
   name: Demande libre
   default: true
   authorization_request: APIDroitsCNAM
-  steps:
+  steps: &api_droit_cnam_shared_steps
     - name: basic_infos
     - name: personal_data
     - name: legal
     - name: france_connect
     - name: contacts
-api-droits-cnam-etablissement-de-soin:
-  <<: *api_droit_cnam_form_attributes
-  name: Établissement de soin
-api-droits-cnam-organisme-complementaire:
-  <<: *api_droit_cnam_form_attributes
-  name: Organisme complémentaire
 
+api-droits-cnam-etablissement-de-soin:
+  name: Établissement de soin
+  authorization_request: APIDroitsCNAM
+  steps: *api_droit_cnam_shared_steps
+
+api-droits-cnam-organisme-complementaire:
+  name: Organisme complémentaire
+  authorization_request: APIDroitsCNAM
+  steps: *api_droit_cnam_shared_steps
