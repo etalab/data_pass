@@ -133,9 +133,10 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def available_forms
-    AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
-      form.default ? 1 : 0
-    end
+    AuthorizationRequestForm
+      .where(authorization_request_class:)
+      .partition { |form| !form.default }
+      .flatten
   end
 
   def public

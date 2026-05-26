@@ -45,6 +45,7 @@ api-impot-particulier-sandbox:
 
 api-impot-particulier-production:
   name: Demande libre (Production)
+  default: true
   public: false
   startable_by_applicant: false
   stage:

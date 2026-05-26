@@ -1,5 +1,6 @@
 france-connect:
   name: Demande libre
+  default: true
   description: Demande libre
   introduction: |
     Ce formulaire est destiné aux administrations, collectivités et entreprises (sous réserve d'éligibilité) souhaitant intégrer FranceConnect à leur service en ligne.
