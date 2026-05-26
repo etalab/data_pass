@@ -49,6 +49,10 @@ shared:
     siret: "39825361700045"
     fc_certified: true
     apipfc_enabled: true
+  andyvie:
+    type: editor
+    name: Andyvie Association
+    siret: "38418745600023"
   familea:
     type: editor
     name: Familea

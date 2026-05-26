@@ -503,6 +503,7 @@ FactoryBot.define do
       api-particulier-abelium-petite-enfance
       api-particulier-familea
       api-particulier-familea-petite-enfance
+      api-particulier-andyvie
       api-particulier-polycea
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
