@@ -68,7 +68,7 @@ class Instruction::UserRightsController < InstructionController
   end
 
   def set_target_user
-    @target_user = User.find(params[:id])
+    @target_user = User.find(params.expect(:id))
     authorize @target_user, :"#{action_name}?", policy_class: Instruction::UserRightPolicy
   end
 

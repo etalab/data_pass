@@ -26,7 +26,7 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "329812c90640cfdf81c57455692dba02b14050db2493b17b2532101455515ed8",
+      "fingerprint": "a67dae0345964ed4ce7e4aa02d9cb5d95714ee66c6eb7d1930008ffc26f169c7",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/instruction/transfer_authorization_requests/new.html.erb",
@@ -83,7 +83,7 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "424755e6046fe8b54f5ce1c9c28354c9ceb037aed641f9d30d703ed385d80237",
+      "fingerprint": "e23838f5bbe8c6b3322d3c05c6b0a20bba3539ddaf345a56e818ba612ff0cacc",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/instruction/instructor_draft_requests/invite/new.html.erb",
@@ -117,7 +117,7 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "43e26c8de6c71caaf57e8200034bf70ee5254f6c275349f0e4771c069687ad8d",
+      "fingerprint": "b3f6e91df355b71152655766bfa9927f4485f54181d1d2a168755bf3204412ba",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/layouts/claim_instructor_draft_request.html.erb",
@@ -174,7 +174,7 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "6eea6349edf46d25cbb506142e0107e750167dcc48ed157a568068cd98768a24",
+      "fingerprint": "264ddae494bb3407b2328ece1ea42ec404a4c97a325442c44afa2db69fa27379",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/authorization_request_forms/new.html.erb",
@@ -231,7 +231,7 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "8cc63b2aec121ed7f45c7ec76737bedfa7dff8eee97c70cb7edce800ca1acd8b",
+      "fingerprint": "5927d9a57ea9fbaf43e5f7b2c94679b90792257789f30aa302c0d589953d8fc4",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/authorization_requests/unauthenticated_start.html.erb",
@@ -265,7 +265,7 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "afa531efdbf676d4fbdac13fcd1922436b2539f0ee077fd0c901e244347f7173",
+      "fingerprint": "009c0f328955288376afcf8fe77bf0884699ed907684cb49e96d81b4e0d02a69",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/instruction/transfer_authorization_requests/new.html.erb",

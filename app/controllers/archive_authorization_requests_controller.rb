@@ -20,7 +20,7 @@ class ArchiveAuthorizationRequestsController < AuthenticatedUserController
   private
 
   def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id]).decorate
+    @authorization_request = AuthorizationRequest.find(params.expect(:authorization_request_id)).decorate
   end
 
   def authorize_authorization_request_archive

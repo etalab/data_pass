@@ -23,11 +23,11 @@ class Admin::BansController < AdminController
   end
 
   def confirm_destroy
-    @user = User.banned.find(params[:id])
+    @user = User.banned.find(params.expect(:id))
   end
 
   def destroy
-    target_user = User.banned.find(params[:id])
+    target_user = User.banned.find(params.expect(:id))
 
     Admin::UnbanUser.call(
       target_user:,

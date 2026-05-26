@@ -11,7 +11,7 @@ class AuthenticatedUserController < ApplicationController
   def bypass_login
     return if Rails.env.production?
 
-    user = User.find_by!(email: params[:email])
+    user = User.find_by!(email: params.expect(:email))
 
     raise ApplicationController::BannedUserError if user.banned?
 

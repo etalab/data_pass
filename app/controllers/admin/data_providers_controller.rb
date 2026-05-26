@@ -93,7 +93,7 @@ class Admin::DataProvidersController < AdminController
   end
 
   def set_data_provider
-    @data_provider = DataProvider.friendly.find(params[:id])
+    @data_provider = DataProvider.friendly.find(params.expect(:id))
   end
 
   def data_provider_params

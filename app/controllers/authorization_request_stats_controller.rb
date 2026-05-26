@@ -1,6 +1,6 @@
 class AuthorizationRequestStatsController < ApplicationController
   def processing_time
-    authorization_request_class = AuthorizationDefinition.find(params[:definition]).authorization_request_class.to_s
+    authorization_request_class = AuthorizationDefinition.find(params.expect(:definition)).authorization_request_class.to_s
 
     processing_days = fetch_processing_days_from_db_or_cache(authorization_request_class)
 

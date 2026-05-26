@@ -12,10 +12,10 @@ module AuthorizationOrRequestContext
 
   def extract_authorization_or_request
     if params[:authorization_id].present?
-      @authorization = Authorization.find(params[:authorization_id])
+      @authorization = Authorization.find(params.expect(:authorization_id))
       @authorization_request = @authorization.request
     else
-      @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+      @authorization_request = AuthorizationRequest.find(params.expect(:authorization_request_id))
     end
   end
 

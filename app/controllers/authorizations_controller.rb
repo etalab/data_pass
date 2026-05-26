@@ -24,15 +24,15 @@ class AuthorizationsController < AuthenticatedUserController
 
   def set_context
     if params[:authorization_id].present?
-      @authorization = Authorization.find(params[:authorization_id])
+      @authorization = Authorization.find(params.expect(:authorization_id))
       @authorization_request = @authorization.request
     else
-      @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+      @authorization_request = AuthorizationRequest.find(params.expect(:authorization_request_id))
     end
   end
 
   def set_authorization
-    @authorization = Authorization.find(params[:id])
+    @authorization = Authorization.find(params.expect(:id))
   end
 
   def redirect_to_canonical
