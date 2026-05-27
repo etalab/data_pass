@@ -28,14 +28,4 @@
   <% else %>
     <p><%= t('authorization_requests.shared.not_filled') %></p>
   <% end %>
-
-  <p>
-    <strong><%= f.label_value(:recurrence) %></strong>
-  </p>
-
-  <% if authorization_request.recurrence.present? %>
-    <p><%= t("authorization_request_forms.default.cnous_data_extraction_criteria.recurrences.#{authorization_request.recurrence}", default: authorization_request.recurrence) %></p>
-  <% else %>
-    <p><%= t('authorization_requests.shared.not_filled') %></p>
-  <% end %>
 <% end %>

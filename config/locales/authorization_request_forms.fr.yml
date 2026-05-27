@@ -130,15 +130,12 @@ fr:
 
       cnous_data_extraction_criteria:
         title: Quelles données souhaitez-vous extraire de la base CNOUS ?
-        subtitle: Précisez les communes concernées, le seuil d’échelon de bourse, et la fréquence d’extraction souhaitée.
+        subtitle: Précisez les communes concernées et le seuil d’échelon de bourse.
         communes_codes_insee:
           add: Ajouter une commune
           remove: Retirer
           remove_aria: Retirer la commune %{code}
           remove_aria_blank: Retirer cette commune
-        recurrences:
-          annually: Annuelle
-          biannually: Semestrielle
         echelons:
           "0Bis": Échelon 0bis et au-dessus
           "1": Échelon 1 et au-dessus
