@@ -17,7 +17,6 @@ Alors("la demande contient les conditions d'extraction CNOUS attendues") do
   expect(authorization_request.communes_codes_insee).to match_array(%w[75056 69123])
   expect(authorization_request.echelon_bourse).to eq('5')
   expect(authorization_request.premiere_date_transmission).to eq('2026-09-01')
-  expect(authorization_request.recurrence).to eq('annually')
 end
 
 Alors('les champs de codes INSEE acceptent les caractères alphanumériques de longueur 5') do

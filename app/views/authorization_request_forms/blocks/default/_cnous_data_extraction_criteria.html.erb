@@ -1,4 +1,4 @@
-<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[communes_codes_insee echelon_bourse premiere_date_transmission recurrence]) %>
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[communes_codes_insee echelon_bourse premiere_date_transmission]) %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 
@@ -63,17 +63,5 @@
 
   <div class="fr-fieldset__element">
     <%= f.dsfr_date_field :premiere_date_transmission, required: true %>
-  </div>
-
-  <div class="fr-fieldset__element">
-    <%=
-      f.dsfr_select :recurrence,
-        options_for_select(
-          @authorization_request.available_recurrences.map { |value| [t("authorization_request_forms.default.cnous_data_extraction_criteria.recurrences.#{value}"), value] },
-          selected: @authorization_request.recurrence
-        ),
-        required: true,
-        include_blank: 'Veuillez choisir une récurrence'
-    %>
   </div>
 </fieldset>

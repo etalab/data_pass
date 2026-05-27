@@ -126,7 +126,6 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
           :communes_codes_insee,
           :echelon_bourse,
           :premiere_date_transmission,
-          :recurrence,
         )
       end
 
@@ -144,7 +143,6 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
           it { expect(demande.errors[:communes_codes_insee]).to be_present }
           it { expect(demande.errors[:echelon_bourse]).to be_present }
           it { expect(demande.errors[:premiere_date_transmission]).to be_present }
-          it { expect(demande.errors[:recurrence]).to be_present }
         end
 
         context 'with all fields filled correctly' do
@@ -153,26 +151,12 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
               communes_codes_insee: %w[75056 69123],
               echelon_bourse: '5',
               premiere_date_transmission: '2026-09-01',
-              recurrence: 'annually',
             }
           end
 
           it { expect(demande.errors[:communes_codes_insee]).to be_empty }
           it { expect(demande.errors[:echelon_bourse]).to be_empty }
           it { expect(demande.errors[:premiere_date_transmission]).to be_empty }
-          it { expect(demande.errors[:recurrence]).to be_empty }
-        end
-
-        context 'with an invalid recurrence value' do
-          let(:params) { { recurrence: 'monthly' } }
-
-          it { expect(demande.errors[:recurrence]).to be_present }
-        end
-
-        context 'with biannually recurrence' do
-          let(:params) { { recurrence: 'biannually' } }
-
-          it { expect(demande.errors[:recurrence]).to be_empty }
         end
 
         context 'with an invalid echelon_bourse value' do

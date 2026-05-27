@@ -18,7 +18,6 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     * je remplis "Communes (codes INSEE) n°2" avec "69123"
     * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
     * je remplis "Première date de transmission" avec "2026-09-01"
-    * je sélectionne "Annuelle" pour "Récurrence"
     * je clique sur "Suivant"
 
     * je clique sur "Précédent"
@@ -54,7 +53,6 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Et je remplis "Communes (codes INSEE) n°2" avec "01001"
     Et je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
     Et je remplis "Première date de transmission" avec "2026-09-01"
-    Et je sélectionne "Annuelle" pour "Récurrence"
     Et je clique sur "Suivant"
 
     * je renseigne les informations du contact technique
