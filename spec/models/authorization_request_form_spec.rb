@@ -45,6 +45,40 @@ RSpec.describe AuthorizationRequestForm do
         expect(forms.count(&:default)).to eq(1)
       end
 
+      context 'when FormTemplate fields are blank (cascade from HabilitationType)' do
+        it 'cascades name from HT.name' do
+          form = described_class.all.find { |f| f.uid == default_template.slug }
+
+          expect(default_template.name).to be_blank
+          expect(form.name).to eq(habilitation_type.name)
+        end
+
+        it 'cascades introduction from HT.form_introduction' do
+          habilitation_type.update!(form_introduction: 'Bienvenue v1')
+          described_class.reset!
+
+          form = described_class.all.find { |f| f.uid == default_template.slug }
+          expect(form.introduction).to eq('Bienvenue v1')
+        end
+
+        it 'cascades steps from HT.ordered_steps when template.steps is empty' do
+          habilitation_type.update!(blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'legal' }])
+          described_class.reset!
+
+          form = described_class.all.find { |f| f.uid == default_template.slug }
+          expect(form.steps).to eq([{ name: 'basic_infos' }, { name: 'legal' }])
+        end
+
+        it 'lets a non-blank template override take precedence over HT' do
+          habilitation_type.update!(form_introduction: 'Hérité du HT')
+          default_template.update!(introduction: 'Override template')
+          described_class.reset!
+
+          form = described_class.all.find { |f| f.uid == default_template.slug }
+          expect(form.introduction).to eq('Override template')
+        end
+      end
+
       it 'resolves the service_provider from FormTemplate.service_provider_id' do
         sp_id = ServiceProvider.all.first.id
         default_template.update!(service_provider_id: sp_id)
@@ -54,17 +88,20 @@ RSpec.describe AuthorizationRequestForm do
         expect(form.service_provider).to eq(ServiceProvider.find(sp_id))
       end
 
-      it 'deep-symbolizes jsonb fields consumed by views' do
+      it 'deep-symbolizes all jsonb overrides consumed by views' do
         default_template.update!(
-          steps: [{ 'name' => 'basic_infos' }],
+          steps: [{ 'name' => 'basic_infos', 'options' => { 'optional' => true } }],
+          static_blocks: [{ 'name' => 'specific_requirements' }],
           scopes_config: { 'hide' => ['scope_a'] },
           initialize_with: { 'scopes' => ['scope_b'] },
         )
         described_class.reset!
 
         form = described_class.all.find { |f| f.uid == default_template.slug }
-        expect(form.steps).to eq([{ name: 'basic_infos' }])
+        expect(form.steps).to eq([{ name: 'basic_infos', options: { optional: true } }])
+        expect(form.static_blocks).to eq([{ name: 'specific_requirements' }])
         expect(form.scopes_config).to eq(hide: ['scope_a'])
+        expect(form.initialize_with[:scopes]).to include('scope_b')
       end
     end
   end

@@ -30,7 +30,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   def self.db_records
     return [] unless FormTemplate.table_exists?
 
-    FormTemplate.includes(habilitation_type: :data_provider).filter_map do |template|
+    FormTemplate.includes(:habilitation_type).filter_map do |template|
       build_form_from_template(template)
     end
   rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
@@ -42,19 +42,20 @@ class AuthorizationRequestForm < StaticApplicationRecord
     klass = authorization_request_class_for(template.habilitation_type)
     return unless klass
 
+    ht = template.habilitation_type
     new(
       uid: template.slug,
       default: template.default,
-      name: template.name,
-      description: template.description,
-      introduction: template.introduction,
+      name: template.name.presence || ht.name,
+      description: template.description.presence || ht.description,
+      introduction: template.introduction.presence || ht.form_introduction,
       public: template.public,
       startable_by_applicant: template.startable_by_applicant,
       use_case: template.use_case,
       single_page_view: template.single_page_view,
       service_provider: template.service_provider,
       authorization_request_class: klass,
-      steps: template.steps.map(&:deep_symbolize_keys),
+      steps: cascaded_steps(template, ht),
       static_blocks: template.static_blocks.map(&:deep_symbolize_keys),
       scopes_config: template.scopes_config.deep_symbolize_keys,
       initialize_with: template.initialize_with.deep_symbolize_keys,
@@ -62,13 +63,18 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  def self.cascaded_steps(template, habilitation_type)
+    template.steps.presence&.map(&:deep_symbolize_keys) ||
+      habilitation_type.ordered_steps.map { |step_name| { name: step_name } }
+  end
+
   def self.authorization_request_class_for(record)
     AuthorizationRequest.const_get(record.uid.classify)
   rescue NameError
     nil
   end
 
-  private_class_method :yaml_records, :db_records, :build_form_from_template, :authorization_request_class_for
+  private_class_method :yaml_records, :db_records, :build_form_from_template, :cascaded_steps, :authorization_request_class_for
 
   # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)

@@ -28,9 +28,8 @@ class HabilitationType < ApplicationRecord
   after_create :ensure_default_form_template!
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
-  after_destroy :reset_static_caches
   after_save :register_dynamic_class
-  after_save :reset_static_caches
+  after_commit :reset_static_caches, on: %i[create update destroy]
 
   def public
     true
@@ -68,13 +67,7 @@ class HabilitationType < ApplicationRecord
   def ensure_default_form_template!
     return if form_templates.exists?(default: true)
 
-    form_templates.create!(
-      name:,
-      slug: "#{slug}-default",
-      default: true,
-      introduction: form_introduction,
-      steps: ordered_steps.map { |step_name| { name: step_name } },
-    )
+    form_templates.create!(slug: "#{slug}-default", default: true)
   end
 
   def self.preload_requests_counts!(habilitation_types)

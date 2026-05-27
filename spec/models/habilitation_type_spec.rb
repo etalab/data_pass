@@ -238,17 +238,17 @@ RSpec.describe HabilitationType do
       expect(user).to respond_to(:"instruction_submit_notifications_for_#{habilitation_type.uid}")
     end
 
-    it 'auto-creates a default FormTemplate' do
+    it 'auto-creates a default FormTemplate carrying only slug + default (editorial fields cascade from HT)' do
       habilitation_type.blocks = [{ 'name' => 'basic_infos' }, { 'name' => 'legal' }]
       habilitation_type.form_introduction = 'Introduction du formulaire'
       habilitation_type.save!
 
       default_template = habilitation_type.form_templates.find_by(default: true)
       expect(default_template).to be_present
-      expect(default_template.name).to eq(habilitation_type.name)
       expect(default_template.slug).to eq("#{habilitation_type.slug}-default")
-      expect(default_template.introduction).to eq('Introduction du formulaire')
-      expect(default_template.steps).to eq([{ 'name' => 'basic_infos' }, { 'name' => 'legal' }])
+      expect(default_template.name).to be_blank
+      expect(default_template.introduction).to be_blank
+      expect(default_template.steps).to eq([])
     end
   end
 

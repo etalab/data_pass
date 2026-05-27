@@ -293,6 +293,9 @@ fr:
               taken_by_yaml_form: "est déjà utilisé par un formulaire YAML"
             default:
               last_default_form_template: "ne peut pas être désactivé : il doit rester au moins un template par défaut pour ce type d’habilitation"
+              already_taken: "un autre template par défaut existe déjà pour ce type d’habilitation"
+            service_provider_id:
+              inclusion: "n’existe pas dans la liste des fournisseurs de service"
         impersonation:
           attributes:
             user:

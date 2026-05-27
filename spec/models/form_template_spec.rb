@@ -51,13 +51,12 @@ RSpec.describe FormTemplate do
       expect(default_template.errors[:default]).to be_present
     end
 
-    it 'can be flipped to false when another default exists' do
-      default_a = described_class.create!(habilitation_type:, name: 'A', default: true)
-      described_class.create!(habilitation_type:, name: 'B', default: true)
+    it 'refuses a second default for the same habilitation_type' do
+      described_class.create!(habilitation_type:, name: 'A', default: true)
+      duplicate_default = described_class.new(habilitation_type:, name: 'B', default: true)
 
-      default_a.default = false
-
-      expect(default_a.save).to be(true)
+      expect(duplicate_default).not_to be_valid
+      expect(duplicate_default.errors[:default]).to be_present
     end
   end
 
@@ -77,13 +76,6 @@ RSpec.describe FormTemplate do
 
       expect { other.destroy }.to change(described_class, :count).by(-1)
     end
-
-    it 'is allowed for a default template when another default exists' do
-      default_a = described_class.create!(habilitation_type:, name: 'A', default: true)
-      described_class.create!(habilitation_type:, name: 'B', default: true)
-
-      expect { default_a.destroy }.to change(described_class, :count).by(-1)
-    end
   end
 
   describe '#service_provider' do
@@ -100,10 +92,11 @@ RSpec.describe FormTemplate do
       expect(template.service_provider).to eq(ServiceProvider.find(sp_id))
     end
 
-    it 'returns nil when the service_provider_id does not match any YAML entry' do
-      template = described_class.create!(habilitation_type:, name: 'Bad SP', service_provider_id: 'inexistant')
+    it 'rejects an invalid service_provider_id at save time' do
+      template = described_class.new(habilitation_type:, name: 'Bad SP', service_provider_id: 'inexistant')
 
-      expect(template.service_provider).to be_nil
+      expect(template).not_to be_valid
+      expect(template.errors[:service_provider_id]).to be_present
     end
   end
 

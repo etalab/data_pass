@@ -8,12 +8,15 @@ class FormTemplate < ApplicationRecord
   belongs_to :habilitation_type
 
   validates :slug, presence: true, uniqueness: true
+  validates :service_provider_id,
+    inclusion: { in: -> { ServiceProvider.all.map(&:id) } },
+    allow_blank: true
   validate :slug_not_taken_by_yaml
   validate :ht_keeps_at_least_one_default, on: :update
+  validate :only_one_default_per_habilitation_type, if: :default?
   before_destroy :ensure_not_last_default
 
-  after_destroy :reset_arf_cache
-  after_save :reset_arf_cache
+  after_commit :reset_arf_cache, on: %i[create update destroy]
 
   def service_provider
     return nil if service_provider_id.blank?
@@ -41,6 +44,14 @@ class FormTemplate < ApplicationRecord
     return if habilitation_type.form_templates.where(default: true).where.not(id: id).exists?
 
     errors.add(:default, :last_default_form_template)
+  end
+
+  def only_one_default_per_habilitation_type
+    scope = habilitation_type.form_templates.where(default: true)
+    scope = scope.where.not(id: id) if persisted?
+    return unless scope.exists?
+
+    errors.add(:default, :already_taken)
   end
 
   def ensure_not_last_default

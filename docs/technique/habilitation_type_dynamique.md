@@ -193,7 +193,7 @@ end
 # Côté AuthorizationRequestForm : 1 HabilitationType ──has_many──► N FormTemplate ──► N forms
 def self.db_records
   return [] unless FormTemplate.table_exists?
-  FormTemplate.includes(habilitation_type: :data_provider).filter_map { |t| build_form_from_template(t) }
+  FormTemplate.includes(:habilitation_type).filter_map { |t| build_form_from_template(t) }
 rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
   []
 end
@@ -201,9 +201,26 @@ end
 
 `FormTemplate` (table `form_templates`, FK `habilitation_type_id`) intercale entre
 `HabilitationType` et `AuthorizationRequestForm` : un HT a 1+ FormTemplate dont
-≥1 marqué `default: true` (invariant garanti par les validations + le callback
+**exactement 1** marqué `default: true` (invariant garanti par les validations
+`only_one_default_per_habilitation_type` + `ht_keeps_at_least_one_default` +
+`ensure_not_last_default`, plus le callback
 `HabilitationType#after_create :ensure_default_form_template!`). Le slug du
 FormTemplate sert d'`uid` côté façade ARF. Cf. [DP-1718](https://linear.app/pole-api/issue/DP-1718).
+
+**Cascade éditoriale HT → FT default**. Le FormTemplate auto-créé ne porte que
+`slug` + `default: true` ; les champs éditoriaux (`name`, `description`,
+`introduction`, `steps`) restent **vides** côté template et sont résolus à la
+volée dans `build_form_from_template` via `template.<champ>.presence || ht.<champ>`.
+Conséquence : éditer le HT propage automatiquement aux ARF qui en dépendent,
+tant qu'aucun override explicite n'est posé sur le template. Quand l'UI admin
+FormTemplate arrivera (DP-1718 PR2/PR3), renseigner un champ sur le template le
+fera prendre le pas sur le HT.
+
+**Invalidation du cache ARF**. `FormTemplate.after_commit :reset_arf_cache` et
+`HabilitationType.after_commit :reset_static_caches` (post-commit, pas
+`after_save`) bumpent le compteur Redis **après** que la transaction soit
+committée — autrement, un autre process pourrait reconstruire `@all` depuis
+une vue pré-commit (race).
 
 `StaticApplicationRecord` mémorise le backend dans `@all` et invalide via un
 compteur Redis (`Kredis.counter(redis_cache_key).increment`). Coordination
