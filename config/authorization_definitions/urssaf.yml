@@ -4,7 +4,7 @@ api_declaration_auto_entrepreneur:
   provider: "urssaf"
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-declaration-auto-entrepreneur"
-  cgu_link: "https://portailapi.urssaf.fr/images/Documentation/CGU_TDAE_V1.pdf"
+  cgu_link: "https://portailapi.urssaf.fr/fr/catalogue-api/prd/td-ae/conditions-generales-utilisation"
   access_link: "https://api-declaration-auto-entrepreneur.gouv.fr/tokens/%{external_provider_id}"
   support_email: "contact.tiercedeclaration@urssaf.fr"
   public: true
