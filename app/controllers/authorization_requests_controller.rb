@@ -31,7 +31,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def show
-    @authorization_request = AuthorizationRequest.find(params[:id])
+    @authorization_request = AuthorizationRequest.find(params.expect(:id))
 
     if user_signed_in?
       show_as_authenticated_user
@@ -89,7 +89,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def id_sanitized
-    params[:definition_id].underscore
+    params.expect(:definition_id).underscore
   end
 
   def find_eligibility_rule

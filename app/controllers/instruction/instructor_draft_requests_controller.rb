@@ -17,7 +17,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
   end
 
   def start
-    authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
+    authorization_request_form = AuthorizationRequestForm.find(params.expect(:form_uid))
     @instructor_draft_request = InstructorDraftRequest.new(
       authorization_request_class: authorization_request_form.authorization_request_class.to_s,
       form_uid: authorization_request_form.uid,
@@ -54,14 +54,14 @@ class Instruction::InstructorDraftRequestsController < InstructionController
   end
 
   def edit
-    @instructor_draft_request = InstructorDraftRequest.find(params[:id])
+    @instructor_draft_request = InstructorDraftRequest.find(params.expect(:id))
     authorize [:instruction, @instructor_draft_request]
 
     prepare_request
   end
 
   def update
-    @instructor_draft_request = InstructorDraftRequest.find(params[:id])
+    @instructor_draft_request = InstructorDraftRequest.find(params.expect(:id))
     authorize [:instruction, @instructor_draft_request]
 
     organizer = UpdateInstructorDraftRequest.call(
@@ -84,7 +84,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
   end
 
   def destroy
-    @instructor_draft_request = InstructorDraftRequest.find(params[:id])
+    @instructor_draft_request = InstructorDraftRequest.find(params.expect(:id))
     authorize [:instruction, @instructor_draft_request]
 
     @instructor_draft_request.destroy
@@ -103,7 +103,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
   end
 
   def instructor_draft_request_params
-    authorization_request_form = AuthorizationRequestForm.find(params[:authorization_request][:form_uid])
+    authorization_request_form = AuthorizationRequestForm.find(params[:authorization_request][:form_uid]) # rubocop:disable Rails/StrongParametersExpect
 
     {
       authorization_request_class: authorization_request_form.authorization_request_class.to_s,

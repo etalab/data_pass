@@ -25,7 +25,7 @@ class ExternalReopenAuthorizationRequestsController < AuthenticatedUserControlle
   end
 
   def extract_authorization
-    @authorization_request = AuthorizationRequest.find(params[:id])
+    @authorization_request = AuthorizationRequest.find(params.expect(:id))
     @authorization = @authorization_request.latest_authorization
   end
 

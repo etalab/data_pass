@@ -32,11 +32,11 @@ class Developers::WebhookAttemptsController < DevelopersController
   private
 
   def set_webhook
-    @webhook = policy_scope([:developer, Webhook]).find(params[:webhook_id])
+    @webhook = policy_scope([:developer, Webhook]).find(params.expect(:webhook_id))
   end
 
   def set_webhook_attempt
-    @webhook_attempt = policy_scope([:developer, WebhookAttempt]).find(params[:id])
+    @webhook_attempt = policy_scope([:developer, WebhookAttempt]).find(params.expect(:id))
   end
 
   def model_to_track_for_impersonation

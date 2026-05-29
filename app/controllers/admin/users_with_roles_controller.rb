@@ -11,7 +11,7 @@ class Admin::UsersWithRolesController < AdminController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params.expect(:id))
 
     render 'new'
   end
@@ -29,7 +29,7 @@ class Admin::UsersWithRolesController < AdminController
   end
 
   def update
-    @user ||= User.find(params[:id])
+    @user ||= User.find(params.expect(:id))
 
     organizer = Admin::UpdateUserRoles.call(admin: current_user, user: @user, roles: user_roles_param)
 

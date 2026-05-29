@@ -5,7 +5,7 @@ class Instruction::AuthorizationsController < Instruction::AbstractAuthorization
     authorize [:instruction, @authorization_request], :show?
 
     @authorizations = AuthorizationRequest
-      .find(params[:authorization_request_id])
+      .find(params.expect(:authorization_request_id))
       .authorizations
       .includes(:approving_instructor)
       .order(created_at: :desc)

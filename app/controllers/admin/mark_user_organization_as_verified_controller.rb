@@ -50,7 +50,7 @@ class Admin::MarkUserOrganizationAsVerifiedController < AdminController
 
   def extract_ids
     if params[:id]
-      params[:id].split('-').map(&:to_i)
+      params.expect(:id).split('-').map(&:to_i)
     else
       [params[:user_id], params[:organization_id]]
     end

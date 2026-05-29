@@ -38,7 +38,7 @@ class Instruction::InstructorDraftRequests::InviteController < InstructionContro
   end
 
   def find_instructor_draft_request
-    @instructor_draft_request = InstructorDraftRequest.find(params[:instructor_draft_request_id])
+    @instructor_draft_request = InstructorDraftRequest.find(params.expect(:instructor_draft_request_id))
   end
 
   def instructor_draft_request_params
