@@ -46,6 +46,10 @@ RSpec.describe AuthorizationRequestMailer do
       expect(decoded_text_body(mail)).to match('a été validée')
     end
 
+    it 'does not include the unsubscribe footer' do
+      expect(decoded_text_body(mail)).not_to match('/compte#notifications-section')
+    end
+
     describe 'custom emails' do
       describe 'HubEE CertDC' do
         let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }

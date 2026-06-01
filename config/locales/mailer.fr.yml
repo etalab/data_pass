@@ -17,6 +17,13 @@ fr:
       instruction:
         footer:
           text: L'équipe DataPass
+        unsubscribe_link:
+          text: |-
+            ---
+            Vous recevez cet email car vous avez des droits relatifs à « %{authorization_definition_name} » sur DataPass.
+
+            Pour modifier vos préférences ou ne plus recevoir ces notifications, rendez-vous sur votre compte :
+            %{preferences_url}
 
   auto_generated_france_connect_mailer:
     approve:

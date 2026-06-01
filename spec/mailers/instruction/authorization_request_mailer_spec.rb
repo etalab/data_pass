@@ -40,6 +40,20 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
           expect(mail.body.encoded).not_to match('Cette demande fait suite à une demande de modification.')
         end
       end
+
+      context 'with the unsubscribe footer' do
+        it 'inclut le lien vers la page de préférences' do
+          expect(mail.body.encoded).to include('/compte#notifications-section')
+        end
+
+        it 'mentionne le nom de l’API' do
+          expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
+        end
+
+        it 'mentionne le texte de gestion des préférences' do
+          expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+        end
+      end
     end
 
     context 'when there is no instructor nor reporter to notify' do
@@ -70,6 +84,20 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
         expect(mail.body.encoded).to match('demande de réouverture')
         expect(mail.body.encoded).to match('a soumis')
         expect(mail.body.encoded).to match(authorization_request.applicant.email)
+      end
+
+      context 'with the unsubscribe footer' do
+        it 'inclut le lien vers la page de préférences' do
+          expect(mail.body.encoded).to include('/compte#notifications-section')
+        end
+
+        it 'mentionne le nom de l’API' do
+          expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
+        end
+
+        it 'mentionne le texte de gestion des préférences' do
+          expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+        end
       end
     end
 

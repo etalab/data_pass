@@ -47,6 +47,20 @@ RSpec.describe MessageMailer do
       expect(mail.body.encoded).to match('un nouveau message')
       expect(mail.body.encoded).to match('demande d\'habilitation')
     end
+
+    context 'with the unsubscribe footer' do
+      it 'inclut le lien vers la page de préférences' do
+        expect(mail.body.encoded).to include('/compte#notifications-section')
+      end
+
+      it 'mentionne le nom de l’API' do
+        expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
+      end
+
+      it 'mentionne le texte de gestion des préférences' do
+        expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+      end
+    end
   end
 
   describe '#reopening_to_instructors' do
@@ -64,6 +78,20 @@ RSpec.describe MessageMailer do
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
       expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+    end
+
+    context 'with the unsubscribe footer' do
+      it 'inclut le lien vers la page de préférences' do
+        expect(mail.body.encoded).to include('/compte#notifications-section')
+      end
+
+      it 'mentionne le nom de l’API' do
+        expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
+      end
+
+      it 'mentionne le texte de gestion des préférences' do
+        expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+      end
     end
   end
 end
