@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plusiuers étapes)
+Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plusieurs étapes)
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -576,8 +576,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
-
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
