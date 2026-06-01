@@ -9,6 +9,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       .where(type: current_user_authorization_request_types)
       .merge(state_filter)
       .merge(siret_filter)
+      .order(created_at: :desc)
       .offset(params[:offset])
       .limit(maxed_limit(params[:limit]))
 
