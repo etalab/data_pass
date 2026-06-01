@@ -183,13 +183,13 @@ fr:
         api: API
         service: Service
       form_template:
-        name: Nom du template
+        name: Nom du cas d’usage
         description: Description
         introduction: Introduction
-        use_case: Cas d’usage
-        default: Template par défaut
+        use_case: Identifiant du cas d’usage
+        default: Cas d’usage par défaut
         public: Public
-        startable_by_applicant: Démarrable par le demandeur
+        startable_by_applicant: Demande initiable par le demandeur
         single_page_view: Vue en une seule page
         service_provider_id: Fournisseur de service
       instructor_draft_request:

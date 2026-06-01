@@ -8,9 +8,7 @@ class FormTemplate < ApplicationRecord
   belongs_to :habilitation_type
 
   validates :slug, presence: true, uniqueness: true
-  validates :service_provider_id,
-    inclusion: { in: -> { ServiceProvider.all.map(&:id) } },
-    allow_blank: true
+  validate :service_provider_must_exist, if: -> { service_provider_id.present? }
   validate :slug_not_taken_by_yaml
   validate :ht_keeps_at_least_one_default, on: :update
   validate :only_one_default_per_habilitation_type, if: :default?
@@ -32,6 +30,12 @@ class FormTemplate < ApplicationRecord
     AuthorizationRequestForm.reset!
   end
 
+  def service_provider_must_exist
+    return if ServiceProvider.exists?(id: service_provider_id)
+
+    errors.add(:service_provider_id, :inclusion)
+  end
+
   def slug_not_taken_by_yaml
     return if slug.blank?
     return unless AuthorizationRequestFormConfigurations.instance.all.key?(slug.to_sym)
@@ -39,25 +43,24 @@ class FormTemplate < ApplicationRecord
     errors.add(:slug, :taken_by_yaml_form)
   end
 
+  def other_defaults
+    habilitation_type.form_templates.where(default: true).where.not(id: id)
+  end
+
   def ht_keeps_at_least_one_default
     return unless default_was && !default
-    return if habilitation_type.form_templates.where(default: true).where.not(id: id).exists?
 
-    errors.add(:default, :last_default_form_template)
+    errors.add(:default, :last_default_form_template) unless other_defaults.exists?
   end
 
   def only_one_default_per_habilitation_type
-    scope = habilitation_type.form_templates.where(default: true)
-    scope = scope.where.not(id: id) if persisted?
-    return unless scope.exists?
-
-    errors.add(:default, :already_taken)
+    errors.add(:default, :already_taken) if other_defaults.exists?
   end
 
   def ensure_not_last_default
     return if destroyed_by_association
     return unless default?
-    return unless habilitation_type.form_templates.where(default: true).one?
+    return if other_defaults.exists?
 
     errors.add(:base, :last_default_form_template)
     throw :abort
