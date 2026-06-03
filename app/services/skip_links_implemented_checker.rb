@@ -120,6 +120,11 @@ class SkipLinksImplementedChecker
     admin/bans#destroy
     admin/bans#confirm_destroy
 
+    instruction/data_providers#index
+    instruction/formulaires#index
+    instruction/formulaires#show
+    instruction/cas_usages#show
+
     developers/open_api#show
     developers/oauth_applications#index
     developers/tutorials#index

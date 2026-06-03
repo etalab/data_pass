@@ -1,0 +1,129 @@
+fr:
+  instruction:
+    data_providers:
+      title: Espace fournisseur de données
+      index:
+        title: Fournisseurs de données
+        subtitle: Sélectionnez un fournisseur pour consulter ses formulaires et cas d’usage.
+        empty: Aucun fournisseur de données disponible.
+        formulaires_count:
+          zero: Aucun formulaire
+          one: 1 formulaire
+          other: "%{count} formulaires"
+    formulaires:
+      index:
+        title: Formulaires
+        subtitle: Les formulaires proposés par %{provider_name}.
+        cas_usages_count:
+          one: 1 cas d’usage
+          other: "%{count} cas d’usage"
+        empty: Aucun formulaire associé à ce fournisseur.
+      show:
+        title: Formulaire
+        back: Retour aux formulaires
+        sections:
+          identification: Identification
+          identity: Identité
+          description: Description
+          scopes: Périmètres de données
+          blocks: Structure du formulaire
+          cas_usages: Cas d’usage
+          flags: Propriétés
+          features: Fonctionnalités
+        fields:
+          label: Champ
+          value: Valeur
+          kind: Type
+          link: Lien public
+          access_link: Lien d’accès
+          cgu_link: CGU
+          support_email: Email de support
+        flags:
+          public: Public
+          startable_by_applicant: Démarrable par le demandeur
+          unique: Unique
+        empty_value: Non renseigné
+        empty_scopes: Aucun périmètre déclaré.
+        empty_blocks: Aucun bloc déclaré.
+        empty_cas_usages: Aucun cas d’usage associé à ce formulaire.
+        default_badge: Par défaut
+        "true": Oui
+        "false": Non
+        stats:
+          demandes:
+            zero: Aucune demande
+            one: 1 demande
+            other: "%{count} demandes"
+          habilitations:
+            zero: Aucune habilitation
+            one: 1 habilitation
+            other: "%{count} habilitations"
+    cas_usages:
+      show:
+        back: Retour au formulaire
+        inherited_badge: Hérité du formulaire
+        sections:
+          identification: Identification
+          description: Description
+          introduction: Introduction
+          flags: Propriétés
+          flow: Parcours et blocs statiques
+          scopes_config: Configuration des périmètres
+          initial_data: Données initiales
+          service_provider: Service utilisateur
+        flags:
+          public: Public
+          startable_by_applicant: Démarrable par le demandeur
+          single_page_view: Template single-page
+          single_page_view_hint: "Nom optionnel du template ERB utilisé quand le formulaire est en mode single-page (steps vide). Sinon, fallback sur l’uid du cas d’usage."
+          single_page_view_default: "(template par défaut)"
+        empty_description: Aucune description.
+        empty_introduction: Aucune introduction.
+        html_tabs:
+          aria_label: Vue rendue ou source HTML
+          rendered: Rendu
+          html: HTML
+        flow:
+          mode:
+            multi_step_intro: "Blocs du formulaire dans l’ordre officiel (catalogue de la définition parente) — les blocs marqués sont statiques (pré-remplis, non éditables) :"
+            single_page_intro: "Pas d’étape déclarée — le formulaire est rendu en page unique."
+          single_page_badge: Page unique
+          out_of_catalog: Hors catalogue
+          out_of_catalog_hint: Ce bloc est référencé par le cas d’usage mais n’est pas déclaré dans la définition parente.
+          empty_catalog: La définition parente ne déclare aucun bloc.
+          tabs:
+            aria_label: Vue ou détail des colonnes
+            view: Vue
+            data: Colonnes
+            data_column: Champ
+            data_value: Valeur
+            empty_array: "[ ]"
+            catalog_hint: "Source de l’ordre officiel : blocs déclarés sur l’AuthorizationDefinition parente."
+        empty_scopes_config: Aucun périmètre déclaré sur le formulaire parent.
+        scopes_config_intro: "État de chaque périmètre du formulaire dans ce cas d’usage :"
+        scopes_config_tabs:
+          aria_label: Rendu des périmètres ou code de configuration
+          view: Rendu
+          code: Code
+        formulaire_scopes_intro: "Hérité du formulaire — périmètres déclarés sur la définition parente (catalogue complet) :"
+        scope_states:
+          displayed: Affiché
+          disabled: Désactivé
+          hidden: Masqué
+          preset: Préconfiguré
+        empty_initial_data: Aucune donnée initiale.
+        initial_data_tabs:
+          aria_label: Rendu formulaire ou données
+          form: Rendu
+          data: Données
+          form_intro: "Aperçu du formulaire pré-rempli pour le demandeur (champs en lecture seule) :"
+        no_service_provider: Pas de service utilisateur rattaché.
+        default_badge: Par défaut
+        "true": Oui
+        "false": Non
+  page_titles:
+    instruction:
+      data_providers_index: Fournisseurs de données
+      formulaires_index: "%{provider_name} — Formulaires"
+      formulaires_show: "%{formulaire_name} — %{provider_name}"
+      cas_usages_show: "%{cas_usage_name} — %{provider_name}"

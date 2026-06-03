@@ -150,6 +150,13 @@ Rails.application.routes.draw do
         get :confirm_destroy, path: 'confirmer-suppression'
       end
     end
+
+    get '/fournisseurs-donnees', to: 'data_providers#index', as: :data_providers
+    scope '/fournisseurs-donnees/:provider_slug' do
+      resources :formulaires, only: %i[index show] do
+        resources :cas_usages, only: :show, path: 'cas-usage', param: :uid
+      end
+    end
   end
 
   get '/admin', to: 'admin#index', as: :admin

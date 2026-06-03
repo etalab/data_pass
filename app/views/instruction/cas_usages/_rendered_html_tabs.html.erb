@@ -1,0 +1,20 @@
+<div class="fr-tabs">
+  <ul class="fr-tabs__list" role="tablist" aria-label="<%= t('instruction.cas_usages.show.html_tabs.aria_label') %>">
+    <li role="presentation">
+      <button type="button" id="<%= id_prefix %>-tab-rendered" class="fr-tabs__tab fr-icon-eye-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="<%= id_prefix %>-panel-rendered">
+        <%= t('instruction.cas_usages.show.html_tabs.rendered') %>
+      </button>
+    </li>
+    <li role="presentation">
+      <button type="button" id="<%= id_prefix %>-tab-html" class="fr-tabs__tab fr-icon-code-s-slash-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="<%= id_prefix %>-panel-html">
+        <%= t('instruction.cas_usages.show.html_tabs.html') %>
+      </button>
+    </li>
+  </ul>
+  <div id="<%= id_prefix %>-panel-rendered" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="<%= id_prefix %>-tab-rendered" tabindex="0">
+    <%= rendered %>
+  </div>
+  <div id="<%= id_prefix %>-panel-html" class="fr-tabs__panel" role="tabpanel" aria-labelledby="<%= id_prefix %>-tab-html" tabindex="0">
+    <pre class="dp-code-block"><code><%= source %></code></pre>
+  </div>
+</div>

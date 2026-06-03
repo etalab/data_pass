@@ -1,3 +1,37 @@
+/* DSFR scope les variantes de couleur des tags aux <a>/<button> uniquement.
+   On élargit aux tags non-cliquables (<p>, <span>) utilisés en informationnel. */
+.fr-tag.fr-tag--brown-cafe-creme {
+  color: var(--text-action-high-brown-cafe-creme);
+  background-color: var(--background-action-low-brown-cafe-creme);
+}
+
+/* Liste ordonnée des étapes d'un cas d'usage : chip numéroté + nom de step,
+   un item par ligne. */
+.dp-flow-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dp-flow-steps > li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+/* Bloc de code (YAML, JSON, etc.). Reprend le style scopé existant
+   sur .markdown-content pre pour la cohérence visuelle. */
+.dp-code-block {
+  background-color: var(--background-contrast-grey);
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.dp-code-block:last-child {
+  margin-bottom: 0;
+}
+
 /* small fieldset elements are inline and have the same width */
 .fr-fieldset__element.small {
   flex-basis: 0px;
