@@ -7,6 +7,8 @@ france_connect:
   cgu_link: "https://partenaires.franceconnect.gouv.fr/cgu"
   support_email: "support.partenaires@franceconnect.gouv.fr"
   public: true
+  features:
+    instructor_drafts: true
   blocks:
     - name: "basic_infos"
     - name: "personal_data"
