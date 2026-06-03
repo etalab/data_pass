@@ -37,7 +37,7 @@ RSpec.describe 'API: Authorization requests' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(2)
-        expect(response.parsed_body[0]['id']).to eq(valid_draft_authorization_request.id)
+        expect(response.parsed_body.pluck('id')).to include(valid_draft_authorization_request.id)
 
         validate_request_and_response!
       end
@@ -98,8 +98,9 @@ RSpec.describe 'API: Authorization requests' do
           get_index
 
           expect(response).to have_http_status(:ok)
-          expect(response.parsed_body[0]['habilitations']).to be_present
-          expect(response.parsed_body[0]['habilitations'].first['id']).to eq(authorization.id)
+          request_data = response.parsed_body.find { |r| r['id'] == valid_draft_authorization_request.id }
+          expect(request_data['habilitations']).to be_present
+          expect(request_data['habilitations'].first['id']).to eq(authorization.id)
 
           validate_request_and_response!
         end
@@ -109,7 +110,21 @@ RSpec.describe 'API: Authorization requests' do
         it 'returns an empty habilitations array' do
           get_index
 
-          expect(response.parsed_body[0]['habilitations']).to eq([])
+          request_data = response.parsed_body.find { |r| r['id'] == valid_draft_authorization_request.id }
+          expect(request_data['habilitations']).to eq([])
+        end
+      end
+
+      context 'when ordering results' do
+        let!(:older_request) { create(:authorization_request, :api_entreprise, created_at: 2.days.ago) }
+        let!(:newer_request) { create(:authorization_request, :api_entreprise, created_at: 1.day.ago) }
+
+        it 'returns results ordered by creation date descending' do
+          get_index
+
+          returned_ids = response.parsed_body.pluck('id')
+          expect(returned_ids & [older_request.id, newer_request.id])
+            .to eq([newer_request.id, older_request.id])
         end
       end
 
@@ -120,8 +135,9 @@ RSpec.describe 'API: Authorization requests' do
           get_index
 
           expect(response).to have_http_status(:ok)
-          expect(response.parsed_body[0]['events']).to be_present
-          expect(response.parsed_body[0]['events'].first['id']).to eq(event.id)
+          request_data = response.parsed_body.find { |r| r['id'] == valid_draft_authorization_request.id }
+          expect(request_data['events']).to be_present
+          expect(request_data['events'].first['id']).to eq(event.id)
 
           validate_request_and_response!
         end

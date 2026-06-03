@@ -698,7 +698,7 @@ paths:
   /demandes:
     get:
       summary: Liste des demandes d'habilitations
-      description: Récupère la liste des demandes d'habilitations associées aux droits développeur de l'utilisateur. La réponse inclut les habilitations, l'organisation et les événements associés à chaque demande.
+      description: Récupère la liste des demandes d'habilitations associées aux droits développeur de l'utilisateur. La réponse inclut les habilitations, l'organisation et les événements associés à chaque demande. Les résultats sont triés par date de création décroissante (les plus récentes en premier).
       tags:
         - Demandes d'habilitations
       parameters:
@@ -954,7 +954,7 @@ paths:
   /habilitations:
     get:
       summary: Liste des habilitations
-      description: Récupère la liste des habilitations auxquelles l'utilisateur a accès.
+      description: Récupère la liste des habilitations auxquelles l'utilisateur a accès. Les résultats sont triés par date de création décroissante (les plus récentes en premier).
       tags:
         - Habilitations
       parameters:

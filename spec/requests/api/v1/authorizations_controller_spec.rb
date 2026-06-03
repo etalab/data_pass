@@ -155,6 +155,18 @@ RSpec.describe 'API: Authorizations' do
       end
     end
 
+    context 'when ordering results' do
+      let!(:older_authorization) { create(:authorization, request: authorization_request, created_at: 2.days.ago) }
+      let!(:newer_authorization) { create(:authorization, request: authorization_request, created_at: 1.day.ago) }
+
+      it 'returns results ordered by creation date descending' do
+        get_index
+
+        ids = response.parsed_body.pluck('id')
+        expect(ids).to eq([newer_authorization.id, older_authorization.id])
+      end
+    end
+
     context 'when user has no access to any authorization' do
       let(:user) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
 
