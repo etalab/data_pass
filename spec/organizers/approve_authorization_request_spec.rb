@@ -1,4 +1,6 @@
 RSpec.describe ApproveAuthorizationRequest do
+  include ActiveJob::TestHelper
+
   describe '.call' do
     subject(:approve_authorization_request) { described_class.call(authorization_request:, user:) }
 
@@ -117,6 +119,36 @@ RSpec.describe ApproveAuthorizationRequest do
           auto_generate_event = AuthorizationRequestEvent.find_by(name: 'auto_generate')
 
           expect(auto_generate_event.entity).to eq(fc_authorization)
+        end
+      end
+
+      context 'when authorization request has a custom text-only mailer view (FranceConnect)' do
+        subject(:approve_authorization_request) do
+          described_class.call(
+            authorization_request:,
+            user:,
+            authorization_message: 'Habilitation validée par l’instructeur.'
+          )
+        end
+
+        let(:user) { create(:user, :instructor, authorization_request_types: %w[france_connect]) }
+        let(:authorization_request) { create(:authorization_request, :france_connect, :submitted) }
+
+        let(:delivered_mail) do
+          ActionMailer::Base.deliveries.find { |m| m.to.include?(authorization_request.applicant.email) }
+        end
+
+        before do
+          perform_enqueued_jobs { approve_authorization_request }
+        end
+
+        it 'delivers the custom FranceConnect text view' do
+          text_body = delivered_mail.text_part&.body&.decoded || delivered_mail.body.decoded
+          expect(text_body).to match('espace.partenaires.franceconnect.gouv.fr')
+        end
+
+        it 'does not deliver an HTML part when only the text view is customised' do
+          expect(delivered_mail.html_part).to be_nil
         end
       end
     end
