@@ -1,7 +1,7 @@
 api-gfe-echange-collectivites:
-  description: TODO
+  description: Permet aux collectivités de récupérer les élèves d'un établissement puis de transmettre leur flux XML contenant les tranches des élèves.
   introduction: |
-    Ceci est une introduction à remplir
+    Cette API permet aux collectivités de récupérer les élèves d'un établissement puis de transmettre leur flux XML contenant les tranches des élèves.
   authorization_request: APIGFEEchangeCollectivites
   steps:
     - name: basic_infos

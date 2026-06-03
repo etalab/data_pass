@@ -1,7 +1,7 @@
 api-gfe-echange-editeurs-restauration:
-  description: TODO
+  description: Permet aux éditeurs de transmettre leur flux XML quotidien contenant les repas consommés ou réservés des élèves.
   introduction: |
-    Ceci est une introduction à remplir
+    Cette API permet aux éditeurs de transmettre leur flux XML quotidien contenant les repas consommés ou réservés des élèves.
   authorization_request: APIGFEEchangeEditeursRestauration
   steps:
     - name: basic_infos

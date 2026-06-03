@@ -1,5 +1,5 @@
 services-cisirh:
-  description: TODO
+  description: Recueil des différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CSIRH et ses partenaires
   introduction: |
     Le présent formulaire a pour objectif de recueillir les différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CSIRH et ses partenaires.
   authorization_request: ServicesCisirh
