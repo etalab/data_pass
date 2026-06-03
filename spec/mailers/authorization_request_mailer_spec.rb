@@ -17,8 +17,16 @@ RSpec.describe AuthorizationRequestMailer do
       end
     end
 
-    context 'when there is no custom HTML template for the kind' do
+    context 'when there is a custom text template but no custom HTML template' do
       let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
+
+      it 'does not render an HTML part so the custom text is not shadowed by a generic HTML body' do
+        expect(mail.html_part).to be_nil
+      end
+    end
+
+    context 'when there is neither a custom text nor a custom HTML template' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
 
       it 'renders the generic HTML template' do
         html = decoded_html_body(mail)

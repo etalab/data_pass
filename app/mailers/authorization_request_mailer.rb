@@ -41,6 +41,7 @@ class AuthorizationRequestMailer < ApplicationMailer
 
   def html_template_path_for(kind, action)
     return "authorization_request_mailer/#{kind}/#{action}" if html_template_exists?(kind, action)
+    return nil if text_template_exists?(kind, action)
     return "authorization_request_mailer/#{action}" if generic_html_template_exists?(action)
 
     nil
