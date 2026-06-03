@@ -20,13 +20,15 @@ Ces conditions ne préjugent pas des obligations complémentaires auxquelles vou
 
 Au regard des délais d’instruction de ces pré-requis, nous vous invitons donc à déposer dès à présent votre demande de souscription à l’environnement de production : <%= next_authorization_request_stage_url(@authorization_request) %>
 
-Cordialement
-
-Le pôle données de la DGFiP
-Contact : dtnum.donnees.demande-acces@dgfip.finances.gouv.fr
 
 <% if @authorization_request.latest_authorization&.message.present? %>
 Message associé à la validation de votre habilitation :
 <%= @authorization_request.latest_authorization.message %>
 <% end %>
+
 Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>
+
+Cordialement
+
+Le pôle données de la DGFiP
+Contact : dtnum.donnees.demande-acces@dgfip.finances.gouv.fr
