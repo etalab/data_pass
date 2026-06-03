@@ -85,7 +85,7 @@ Il y a 6 types d'utilisateur `User`, distingués via le tableau `roles`
    `mon_api:instructor`)
 3. Les rapporteurs: consultent les demandes, mais ne peuvent pas les instruire (possèdent des rôles de type
    `mon_api:reporter`)
-4. Les managers : peuvent gérer les modèles de messages envoyés aux demandeurs, `NYI` et gérer les rôles instructeurs/rapporteurs liés à leurs habilitations (possèdent des rôles de type `mon_api:manager`)
+4. Les managers : peuvent gérer les modèles de messages envoyés aux demandeurs, et gérer les rôles instructeurs/rapporteurs liés à leurs habilitations (possèdent des rôles de type `mon_api:manager`)
 5. Les développeurs : accèdent à l'espace développeur, et donc à la documentation de l'API DataPass, à la gestion des applications OAuth et des webhooks (possèdent des rôles de type `mon_api:developer`)
 6. Les administrateurs: peuvent modifier les rôles de tous les utilisateurs (possède le rôle
    `admin`)
