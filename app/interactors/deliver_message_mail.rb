@@ -1,9 +1,19 @@
 class DeliverMessageMail < ApplicationInteractor
   def call
-    MessageMailer.with(message:).public_send(mailer_method).deliver_later
+    recipients.each do |user|
+      MessageMailer.with(message:, user:).public_send(mailer_method).deliver_later
+    end
   end
 
   private
+
+  def recipients
+    if mailer_method.start_with?('to_applicant', 'reopening_to_applicant')
+      [authorization_request.applicant]
+    else
+      Instruction::NotificationRecipients.messages(authorization_request)
+    end
+  end
 
   def message
     context.message
