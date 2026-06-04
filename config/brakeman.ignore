@@ -375,6 +375,72 @@
         77
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "ed6016dbadb7d19f8beaf38d41e372bcac56d61ce4db2889a8cff7af9581b5c1",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/instruction/formulaires/show.html.erb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(AuthorizationDefinition.find(params.expect(:id)).link, AuthorizationDefinition.find(params.expect(:id)).link, :class => \"fr-link\", :target => \"_blank\", :rel => \"noopener\")",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "instruction/formulaires/show"
+      },
+      "user_input": "AuthorizationDefinition.find(params.expect(:id)).link",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "URL admin-controlled (YAML-defined), model-validated"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "0d0bf8febd436e250d1f4dea47e04fd3663cd6be5e8140b77f89051661a4a801",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/instruction/formulaires/show.html.erb",
+      "line": 64,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(AuthorizationDefinition.find(params.expect(:id)).cgu_link, AuthorizationDefinition.find(params.expect(:id)).cgu_link, :class => \"fr-link\", :target => \"_blank\", :rel => \"noopener\")",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "instruction/formulaires/show"
+      },
+      "user_input": "AuthorizationDefinition.find(params.expect(:id)).cgu_link",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "URL admin-controlled (YAML-defined), model-validated"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "89409e5c92e382dad896ef2282fcc8e80035b732567281f4e882b890a03640f7",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/instruction/data_providers/_header.html.erb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(DataProvider.friendly.find(params.expect(:provider_slug)).link, DataProvider.friendly.find(params.expect(:provider_slug)).link, :target => \"_blank\", :rel => \"noopener external\", :class => \"fr-link\", :title => (\"#{DataProvider.friendly.find(params.expect(:provider_slug)).name} - #{t(\"shared.new_window\")}\"))",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "instruction/data_providers/_header"
+      },
+      "user_input": "DataProvider.friendly.find(params.expect(:provider_slug)).link",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "URL admin-controlled (YAML-defined), model-validated"
     }
   ],
   "brakeman_version": "7.1.1"

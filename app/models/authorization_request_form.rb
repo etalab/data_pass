@@ -7,7 +7,8 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :authorization_request_class,
     :single_page_view,
     :steps,
-    :static_blocks
+    :static_blocks,
+    :form_template
 
   attr_writer :name,
     :description,
@@ -59,6 +60,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
       static_blocks: template.static_blocks.map(&:deep_symbolize_keys),
       scopes_config: template.scopes_config.deep_symbolize_keys,
       initialize_with: template.initialize_with.deep_symbolize_keys,
+      form_template: template,
     )
   end
   # rubocop:enable Metrics/AbcSize
@@ -159,6 +161,26 @@ class AuthorizationRequestForm < StaticApplicationRecord
 
   def public
     value_or_default(@public, true)
+  end
+
+  CASCADED_FIELDS = {
+    name: :name,
+    description: :description,
+    introduction: :introduction,
+    steps: :steps,
+  }.freeze
+
+  def inherited?(field)
+    return false unless form_template
+
+    column = CASCADED_FIELDS[field]
+    return false unless column
+
+    form_template.read_attribute(column).blank?
+  end
+
+  def from_database?
+    form_template.present?
   end
 
   def prefilled?

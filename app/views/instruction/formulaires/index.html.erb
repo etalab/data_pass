@@ -1,0 +1,39 @@
+<% set_title! t('page_titles.instruction.formulaires_index', provider_name: @data_provider.name) %>
+
+<%= render 'instruction/data_providers/header' %>
+
+<div class="fr-container">
+  <h2><%= t('.title') %></h2>
+  <p class="fr-text--lead fr-mb-4w">
+    <%= t('.subtitle', provider_name: @data_provider.name) %>
+  </p>
+
+  <% if @formulaires.empty? %>
+    <p class="fr-text--lg"><%= t('.empty') %></p>
+  <% else %>
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <% @formulaires.each do |formulaire| %>
+        <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-card fr-enlarge-link">
+            <div class="fr-card__body">
+              <div class="fr-card__content">
+                <h3 class="fr-card__title">
+                  <%= link_to formulaire.name_with_stage,
+                        instruction_formulaire_path(provider_slug: @data_provider.slug, id: formulaire.id) %>
+                </h3>
+                <p class="fr-card__desc">
+                  <%= truncate(formulaire.description.to_s, length: 200) %>
+                </p>
+                <div class="fr-card__end">
+                  <p class="fr-card__detail fr-icon-file-text-line">
+                    <%= t('.cas_usages_count', count: formulaire.available_forms.size) %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
