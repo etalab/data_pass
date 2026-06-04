@@ -2,6 +2,14 @@
 
 <%= render 'instruction/cas_usages/header' %>
 
+
+<div class="fr-container">
+  <h2>Aperçu dans la liste des cas d'usages</h2>
+  <div style="max-width: 468px;">
+    <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @cas_usage %>
+  </div>
+</div>
+
 <div class="fr-container">
 
   <section class="fr-mt-4w">
