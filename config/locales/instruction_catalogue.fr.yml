@@ -112,7 +112,7 @@ fr:
           form: Rendu
           data: Données
           form_intro: "Aperçu du formulaire pré-rempli pour le demandeur (champs en lecture seule) :"
-        no_service_provider: Pas de service utilisateur rattaché.
+        no_service_provider: Pas de fournisseur de service rattaché.
         "true": Oui
         "false": Non
   page_titles:

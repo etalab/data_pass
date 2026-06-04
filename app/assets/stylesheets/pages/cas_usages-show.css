@@ -31,3 +31,15 @@
 .title-with-modify-button .title {
   flex-grow: 1;
 }
+
+.cas-usage-properties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cas-usage-property {
+  border: 1px lightgray solid;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}

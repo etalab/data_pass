@@ -9,43 +9,46 @@
       <h2>Propriétés</h2>
     <% end %>
 
-    <!-- ce truc de service_provider n'a aucun sens lol -->
-    <% if @cas_usage.service_provider %>
-    <p>
-      <% if @cas_usage.service_provider.try(:editor?) %>
-        Editeur : 
-      <% elsif @cas_usage.service_provider.try(:saas?) %>
-        Saas :
-      <% else %>
-        Fournisseur de service intermédiaire : 
-      <% end %>
-      <strong><%= @cas_usage.service_provider.name %></strong>
-    </p>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.no_service_provider') %></p>
-    <% end %>
+    <div class="cas-usage-properties">
 
-    <p>
-      Visible dans la liste des cas d'usages : 
-      <code><%= t(".#{@cas_usage.public}") %></code>
-    </p>
-
-    <p>
-      <%= t('.flags.startable_by_applicant') %> : 
-      <code><%= t(".#{@cas_usage.startable_by_applicant}") %></code>
-    </p>
-
-    <p>
-      <%= t('.flags.single_page_view') %> : 
-
-      <code>
-        <% if @cas_usage.single_page_view.present? %>
-          Oui (<%= @cas_usage.single_page_view %>)
+      <!-- ce truc de service_provider n'a aucun sens lol -->
+      <% if @cas_usage.service_provider %>
+      <div class="cas-usage-property">
+        <% if @cas_usage.service_provider.try(:editor?) %>
+          Editeur : 
+        <% elsif @cas_usage.service_provider.try(:saas?) %>
+          Saas :
         <% else %>
-          <%= t('.flags.single_page_view_default') %>
+          Fournisseur de service : 
         <% end %>
-      </code>
-    </p>
+        <strong><%= @cas_usage.service_provider.name %></strong>
+      </div>
+      <% else %>
+        <div class="fr-text-mention--grey"><%= t('.no_service_provider') %></div>
+      <% end %>
+
+      <div class="cas-usage-property">
+        Visible dans la liste des cas d'usages : 
+        <code><%= t(".#{@cas_usage.public}") %></code>
+      </div>
+
+      <div class="cas-usage-property">
+        <%= t('.flags.startable_by_applicant') %> : 
+        <code><%= t(".#{@cas_usage.startable_by_applicant}") %></code>
+      </div>
+
+      <div class="cas-usage-property">
+        <%= t('.flags.single_page_view') %> : 
+
+        <code>
+          <% if @cas_usage.single_page_view.present? %>
+            Oui (<%= @cas_usage.single_page_view %>)
+          <% else %>
+            <%= t('.flags.single_page_view_default') %>
+          <% end %>
+        </code>
+      </div>
+    </div>
 
   </div>
 </section>
