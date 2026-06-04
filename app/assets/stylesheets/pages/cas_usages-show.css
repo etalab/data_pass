@@ -6,6 +6,10 @@
   background-color: var(--background-alt-grey);
 }
 
+.cas-usage-section:first-of-type {
+  padding: 0 0 3rem 0;
+}
+
 .viewer-of-content {
   border: 1px solid lightgray;
   border-radius: 1rem;
