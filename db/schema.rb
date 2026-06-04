@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_03_133342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -406,6 +406,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.index ["from_id"], name: "index_messages_on_from_id"
   end
 
+  create_table "notification_preference_changes", force: :cascade do |t|
+    t.string "authorization_definition_id", null: false
+    t.datetime "created_at", null: false
+    t.boolean "enabled", null: false
+    t.string "kind", null: false
+    t.string "source", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_notification_preference_changes_on_user_id"
+  end
+
   create_table "oauth_access_grants", force: :cascade do |t|
     t.bigint "application_id", null: false
     t.datetime "created_at", null: false
@@ -742,6 +753,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
   add_foreign_key "instructor_modification_requests", "authorization_requests"
   add_foreign_key "messages", "authorization_requests"
   add_foreign_key "messages", "users", column: "from_id"
+  add_foreign_key "notification_preference_changes", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
