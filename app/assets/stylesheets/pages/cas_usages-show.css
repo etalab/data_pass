@@ -1,0 +1,14 @@
+.cas-usage-section {
+  padding: 3rem 0;
+}
+
+.cas-usage-section:nth-child(odd) {
+  background-color: var(--background-alt-grey);
+}
+
+.viewer-of-content {
+  border: 1px solid lightgray;
+  border-radius: 1rem;
+  padding: 2rem;
+  background-color: white;
+}
