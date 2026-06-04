@@ -37,10 +37,6 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
     end
 
     context 'with the unsubscribe footer' do
-      it 'inclut le lien vers la page de préférences' do
-        expect(mail.body.encoded).to include('/compte#notifications-section')
-      end
-
       it "mentionne le nom de l'API" do
         expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
       end
@@ -77,10 +73,6 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
     end
 
     context 'with the unsubscribe footer' do
-      it 'inclut le lien vers la page de préférences' do
-        expect(mail.body.encoded).to include('/compte#notifications-section')
-      end
-
       it "mentionne le nom de l'API" do
         expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
       end

@@ -25,9 +25,6 @@ fr:
             Pour ne plus recevoir ces notifications, désinscrivez-vous en un clic :
             %{unsubscribe_url}
 
-            Pour gérer toutes vos préférences, rendez-vous sur votre compte :
-            %{preferences_url}
-
   auto_generated_france_connect_mailer:
     approve:
       subject: Votre habilitation FranceConnect associée à la demande numéro %{authorization_request_id} a été créée
