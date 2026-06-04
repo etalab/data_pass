@@ -29,12 +29,19 @@
 </div>
 
 <%= form_with model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder do |f| %>
+  <% static_block_names = @cas_usage.static_blocks.map { |b| b[:name] || b['name'] }.to_set %>
   <% @formulaire.blocks.each do |block| %>
     <section class="cas-usage-section">
-
       <div class="fr-container">
         <h3>
           <%= f.wording_for("steps.#{block[:name]}") %>
+
+          <!-- this needs to be a method of a block, but flemme -->
+          <% if static_block_names.include?(block[:name].to_s) %>
+            <span class="fr-tag fr-tag--brown-cafe-creme fr-icon-lock-line fr-tag--icon-left fr-tag--sm fr-ml-1w">
+              Cette étape ne sera pas montrée à l'utilisateur
+            </span>
+          <% end %>
         </h3>
         <div class="viewer-of-content fr-mb-3w">
           <%= render_custom_form_or_default(@authorization_request, block[:name], { f: }) %>
