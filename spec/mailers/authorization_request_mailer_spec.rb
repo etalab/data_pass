@@ -97,7 +97,7 @@ RSpec.describe AuthorizationRequestMailer do
         it 'renders valid custom template for new habilitation' do
           text = decoded_text_body(mail)
           expect(text).to match('Votre habilitation a été validée')
-          expect(text).to match('demander la création de votre fournisseur de service')
+          expect(text).to match('Le demandeur et le responsable technique ont accès à un service dédié sur l\'espace partenaires FranceConnect')
           expect(text).to match('espace.partenaires.franceconnect.gouv.fr')
         end
       end
