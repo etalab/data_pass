@@ -6,6 +6,10 @@ class Instruction::CasUsagesController < Instruction::AbstractCatalogueControlle
     raise ActiveRecord::RecordNotFound unless @cas_usage
 
     authorize [:instruction, @cas_usage], :show?
+
+    @authorization_request = @cas_usage.authorization_request_class.new(form_uid: @cas_usage.uid).tap do |ar|
+      ar.assign_attributes(@cas_usage.initialize_with)
+    end.decorate
   end
 
   private
