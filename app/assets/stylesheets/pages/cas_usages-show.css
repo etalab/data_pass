@@ -20,3 +20,14 @@
   padding: 2rem;
   background-color: white;
 }
+
+.title-with-modify-button {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: right;
+}
+
+.title-with-modify-button .title {
+  flex-grow: 1;
+}

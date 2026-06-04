@@ -5,7 +5,9 @@
 
 <section class="cas-usage-section even">
   <div class="fr-container">
-    <h2>Propriétés</h2>
+    <%= render 'title_with_modify_button' do %>
+      <h2>Propriétés</h2>
+    <% end %>
 
     <!-- ce truc de service_provider n'a aucun sens lol -->
     <% if @cas_usage.service_provider %>
@@ -50,7 +52,9 @@
 
 <section class="cas-usage-section even">
   <div class="fr-container">
-    <h2>Aperçu dans la liste des cas d'usages</h2>
+    <%= render 'title_with_modify_button' do %>
+      <h2>Aperçu dans la liste des cas d'usages</h2>
+    <% end %>
 
     <div style="max-width: 468px;">
       <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @cas_usage %>
@@ -60,7 +64,9 @@
 
 <section class="cas-usage-section even">
   <div class="fr-container">
-    <h2>Introduction du formulaire</h2>
+    <%= render 'title_with_modify_button' do %>
+      <h2>Introduction du formulaire</h2>
+    <% end %>
 
     <div class="viewer-of-content">
       <%= render 'authorization_request_forms/new', authorization_request_form: @cas_usage %>
@@ -81,16 +87,19 @@
       <% end %>
       
       <div class="fr-container">
-        <h3>
-          <%= f.wording_for("steps.#{block[:name]}") %>
+        <%= render 'title_with_modify_button' do %>
+          <h3>
+            <%= f.wording_for("steps.#{block[:name]}") %>
 
-          <!-- this needs to be a method of a block, but flemme -->
-          <% if static_block_names.include?(block[:name].to_s) %>
-            <span class="fr-tag fr-tag--brown-cafe-creme fr-icon-lock-line fr-tag--icon-left fr-tag--sm fr-ml-1w">
-              Cette étape ne sera pas montrée à l'utilisateur
-            </span>
-          <% end %>
-        </h3>
+            <!-- this needs to be a method of a block, but flemme -->
+            <% if static_block_names.include?(block[:name].to_s) %>
+              <span class="fr-tag fr-tag--brown-cafe-creme fr-icon-lock-line fr-tag--icon-left fr-tag--sm fr-ml-1w">
+                Cette étape ne sera pas montrée à l'utilisateur
+              </span>
+            <% end %>
+          </h3>
+        <% end %>
+
         <div class="viewer-of-content fr-mb-3w">
           <%= render_custom_form_or_default(@authorization_request, block[:name], { f: }) %>
         </div>
@@ -100,7 +109,9 @@
 
   <section class="cas-usage-section odd">
     <div class="fr-container">
-      <h2>Avant de soumettre la demande</h2>
+      <%= render 'title_with_modify_button' do %>
+        <h2>Avant de soumettre la demande</h2>
+      <% end %>
 
       <div class="viewer-of-content">
         <%= render 'authorization_request_forms/shared/tos_checkboxes', f: f %>
