@@ -9,6 +9,8 @@ class NotificationUnsubscribeToken
   end
 
   def self.decode(token)
+    return if token.blank?
+
     encryptor.decrypt_and_verify(token)&.symbolize_keys
   rescue ActiveSupport::MessageEncryptor::InvalidMessage
     nil
