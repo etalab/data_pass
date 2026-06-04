@@ -853,14 +853,18 @@ fr:
       cta: Créer cette demande
 
   notification_unsubscriptions:
+    kinds:
+      submit: les nouvelles demandes à instruire
+      messages: les nouveaux messages
     show:
       title: Désinscription des notifications
-      description: "Vous allez désactiver les notifications pour cette API. Cliquez sur le bouton ci-dessous pour confirmer."
+      description: "Vous êtes sur le point de ne plus recevoir les emails concernant %{kind_label} pour « %{api_name} ». Vos autres notifications ne sont pas affectées."
       cta: Confirmer la désinscription
       manage_preferences: Gérer toutes mes préférences de notification
     success:
       title: Préférence enregistrée
-      description: Vous ne recevrez plus ces notifications.
+      description: "Vous ne recevrez plus d’email concernant %{kind_label} pour « %{api_name} »."
+      already_description: "Vous ne receviez déjà plus d’email concernant %{kind_label} pour « %{api_name} »."
       manage_preferences: Gérer toutes mes préférences de notification
     invalid:
       title: Lien invalide ou expiré

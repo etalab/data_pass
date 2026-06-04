@@ -1,7 +1,15 @@
 class Notifications::Unsubscribe < ApplicationInteractor
   def call
-    context.user.update!(setting_key => '0')
+    context.already_unsubscribed = !context.user.public_send(setting_key)
+    return if context.already_unsubscribed
 
+    context.user.update!(setting_key => '0')
+    log_preference_change
+  end
+
+  private
+
+  def log_preference_change
     NotificationPreferenceChange.create!(
       user: context.user,
       authorization_definition_id: context.definition_id,
@@ -10,8 +18,6 @@ class Notifications::Unsubscribe < ApplicationInteractor
       source: 'email_token',
     )
   end
-
-  private
 
   def setting_key
     "instruction_#{toggle}_for_#{context.definition_id.underscore}"

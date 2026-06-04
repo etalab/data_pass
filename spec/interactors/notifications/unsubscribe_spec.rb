@@ -54,4 +54,16 @@ RSpec.describe Notifications::Unsubscribe do
       expect(change.source).to eq('email_token')
     end
   end
+
+  describe 'when the user is already unsubscribed' do
+    before { user.update!('instruction_submit_notifications_for_api_entreprise' => '0') }
+
+    it 'flags already_unsubscribed' do
+      expect(organizer.already_unsubscribed).to be(true)
+    end
+
+    it 'does not create a duplicate audit record' do
+      expect { organizer }.not_to change(NotificationPreferenceChange, :count)
+    end
+  end
 end

@@ -23,7 +23,7 @@ Fonctionnalité: Désinscription des notifications en 1 clic depuis l’email
     Quand je me rends sur la page de désinscription avec ce token
     Et que je clique sur "Confirmer la désinscription"
     Alors je suis sur la page "Préférence enregistrée"
-    Et la page contient "Vous ne recevrez plus ces notifications."
+    Et la page contient "Vous ne recevrez plus d’email concernant"
     Et la notification de soumission est désactivée pour cet instructeur
 
   Scénario: La désactivation est idempotente

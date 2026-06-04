@@ -4,6 +4,8 @@ class NotificationUnsubscriptionsController < AuthenticatedUserController
 
   before_action :decode_token
 
+  helper_method :authorization_definition, :kind_label
+
   def show
     render 'invalid' unless valid_request?
   end
@@ -11,11 +13,20 @@ class NotificationUnsubscriptionsController < AuthenticatedUserController
   def create
     return render 'invalid' unless valid_request?
 
-    Notifications::Unsubscribe.call(user: @user, definition_id: @definition_id, kind: @kind)
+    result = Notifications::Unsubscribe.call(user: @user, definition_id: @definition_id, kind: @kind)
+    @already_unsubscribed = result.already_unsubscribed
     render 'success'
   end
 
   private
+
+  def authorization_definition
+    @authorization_definition ||= AuthorizationDefinition.find(@definition_id)
+  end
+
+  def kind_label
+    t("notification_unsubscriptions.kinds.#{@kind}")
+  end
 
   def decode_token
     payload = NotificationUnsubscribeToken.decode(params[:token])

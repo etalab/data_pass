@@ -1,10 +1,10 @@
 <% set_title! t('page_titles.notification_unsubscription_show') %>
 
-<h1 class="fr-h2"><%= t('.title') %></h1>
+<h1 class="fr-h2 fr-my-5w"><%= t('.title') %></h1>
 
-<p><%= t('.description') %></p>
+<p><%= t('.description', kind_label:, api_name: authorization_definition.name_with_stage) %></p>
 
-<%= form_with url: notification_unsubscriptions_path(token: params[:token]), method: :post do |f| %>
+<%= form_with url: notification_unsubscriptions_path(token: params[:token]), method: :post, data: { turbo: false } do |f| %>
   <%= f.button t('.cta'), type: 'submit', class: 'fr-btn' %>
 <% end %>
 
