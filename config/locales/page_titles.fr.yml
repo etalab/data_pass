@@ -41,3 +41,7 @@ fr:
     instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
     instruction_user_rights: Gestion des droits
     admin_habilitation_types: "Types d’habilitation"
+
+    notification_unsubscription_show: Désinscription des notifications
+    notification_unsubscription_success: Préférence enregistrée
+    notification_unsubscription_invalid: Lien invalide ou expiré

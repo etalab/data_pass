@@ -1,0 +1,11 @@
+<% set_title! t('page_titles.notification_unsubscription_invalid') %>
+
+<h1 class="fr-h2"><%= t('.title') %></h1>
+
+<%= dsfr_alert(type: :error) do %>
+  <p><%= t('.description') %></p>
+<% end %>
+
+<p class="fr-mt-4w">
+  <%= link_to t('.manage_preferences'), profile_path(anchor: 'notifications-section'), class: 'fr-link' %>
+</p>

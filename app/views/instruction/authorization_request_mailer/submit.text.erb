@@ -15,6 +15,6 @@
   )
 %>
 
-<%= render 'mailer/shared/instruction/unsubscribe_link', authorization_definition: @authorization_request.definition %>
+<%= render 'mailer/shared/instruction/unsubscribe_link', authorization_definition: @authorization_request.definition, user: @user, kind: 'submit' %>
 
 <%= t('mailer.shared.instruction.footer.text') %>

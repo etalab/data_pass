@@ -1,0 +1,13 @@
+<% set_title! t('page_titles.notification_unsubscription_show') %>
+
+<h1 class="fr-h2"><%= t('.title') %></h1>
+
+<p><%= t('.description') %></p>
+
+<%= form_with url: notification_unsubscriptions_path(token: params[:token]), method: :post do |f| %>
+  <%= f.button t('.cta'), type: 'submit', class: 'fr-btn' %>
+<% end %>
+
+<p class="fr-mt-4w">
+  <%= link_to t('.manage_preferences'), profile_path(anchor: 'notifications-section'), class: 'fr-link' %>
+</p>

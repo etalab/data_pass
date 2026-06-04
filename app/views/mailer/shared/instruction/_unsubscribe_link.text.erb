@@ -2,6 +2,11 @@
   t(
     'mailer.shared.instruction.unsubscribe_link.text',
     authorization_definition_name: authorization_definition.name_with_stage,
+    unsubscribe_url: notification_unsubscriptions_url(
+      token: NotificationUnsubscribeToken.generate(
+        user:, definition_id: authorization_definition.id, kind:,
+      ),
+    ),
     preferences_url: profile_url(anchor: 'notifications-section'),
   )
 %>
