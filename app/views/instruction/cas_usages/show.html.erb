@@ -5,10 +5,21 @@
 
 <div class="fr-container">
   <h2>Aperçu dans la liste des cas d'usages</h2>
-  <div style="max-width: 468px;">
-    <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @cas_usage %>
+  <div style="border: 1px solid gray" class="fr-p-4w">
+    <div style="max-width: 468px;">
+      <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @cas_usage %>
+    </div>
   </div>
 </div>
+
+<div class="fr-container fr-mt-5w">
+  <h2>Introduction du formulaire</h2>
+  <div style="border: 1px solid gray" class="fr-p-4w">
+    <%= render 'authorization_request_forms/new', authorization_request_form: @cas_usage %>
+  </div>
+</div>
+
+
 
 <div class="fr-container">
 
