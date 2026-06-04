@@ -250,12 +250,7 @@ api-particulier-amiciel-malice:
       Récupération des données de la famille pour l'inscription et la facturation
       en crèche, cantine, périscolaire, extrascolaire, transports scolaires
     description: Récupération du quotient familial par les usagers depuis le portail famille
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf_avec_delib
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -728,7 +723,7 @@ api-particulier-jcdeveloppement-familyclic:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       FamilyClic est destiné aux citoyens et aux agents des mairies pour la gestion de la tarification des cantines. La partie API est réservée aux agents et permet de vérifier le QF des familles.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -982,7 +977,7 @@ api-particulier-monkey-factory-maasify:
     intitule: Tarification des transports
     description: |
       A travers nos médias digitaux (application mobile et/ou site web), un usager peut se créer un compte dans le but de consommer toutes les mobilités présentes sur le territoire.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_tarification_transports l’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
     scopes:
       - pole_emploi_identite
       - pole_emploi_contact
@@ -1015,7 +1010,7 @@ api-particulier-esabora-pourmesdossiers:
     intitule: Tarification des transports
     description: |
       Logiciel de gestion de la tarification sociale et solidaire des transports en backoffice.
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_tarification_transports l’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_transports
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -2494,7 +2489,7 @@ api-particulier-tarification-eaje:
     - name: contacts
   initialize_with:
     intitule: Tarification sociale des établissements d'accueil du jeune enfant
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_eaje
     scopes: *tarification_eaje_fixed_scopes
 
 
