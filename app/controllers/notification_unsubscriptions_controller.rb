@@ -44,4 +44,8 @@ class NotificationUnsubscriptionsController < AuthenticatedUserController
   def still_has_role?
     @kind == 'submit' ? @user.reporter?(@definition_id) : @user.instructor?(@definition_id)
   end
+
+  def model_to_track_for_impersonation
+    @user
+  end
 end
