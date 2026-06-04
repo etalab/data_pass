@@ -99,6 +99,7 @@ class Seeds
 
     france_connect_authorization_request_for_dgfip = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect ImpotPart', applicant: demandeur })
     create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { modalities: ['with_france_connect'], france_connect_authorization_id: france_connect_authorization_request_for_dgfip.latest_authorization.id, intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
+    create_reopened_api_impot_particulier_sandbox_with_france_connect
 
     create_api_particulier_with_france_connect_embedded_fields
 
@@ -349,6 +350,20 @@ class Seeds
       comment: "Comme discuté au téléphone, je vous envoie cette ébauche de demande d'habilitation.",
       public_id: '00000000-0000-0000-0000-000000000000',
       data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
+    )
+  end
+
+  def create_reopened_api_impot_particulier_sandbox_with_france_connect
+    france_connect_authorization_request = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect mise à jour', applicant: demandeur })
+
+    create_reopened_and_submitted_authorization_request(
+      :api_impot_particulier_sandbox,
+      attributes: {
+        modalities: ['with_france_connect'],
+        france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id,
+        intitule: 'Demande de retraite progressive en ligne (mise à jour des scopes)',
+        applicant: demandeur
+      }
     )
   end
 
