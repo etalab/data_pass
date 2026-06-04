@@ -74,7 +74,7 @@
   </div>
 </section>
 
-<%= form_with model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder do |f| %>
+<%= form_with model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder, html: { inert: '' } do |f| %>
   <% static_block_names = @cas_usage.static_blocks.map { |b| b[:name] || b['name'] }.to_set %>
   <% @formulaire.blocks.each_with_index do |block, index| %>
 
