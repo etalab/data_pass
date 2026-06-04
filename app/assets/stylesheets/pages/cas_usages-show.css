@@ -2,7 +2,11 @@
   padding: 3rem 0;
 }
 
-.cas-usage-section:nth-child(odd) {
+.cas-usage-section.even:nth-of-type(even) {
+  background-color: var(--background-alt-grey);
+}
+
+.cas-usage-section.odd:nth-of-type(odd) {
   background-color: var(--background-alt-grey);
 }
 

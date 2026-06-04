@@ -69,9 +69,9 @@ fr:
         flags:
           public: Public
           startable_by_applicant: Démarrable par le demandeur
-          single_page_view: Template single-page
+          single_page_view: Formulaire en une seule page
           single_page_view_hint: "Nom optionnel du template ERB utilisé quand le formulaire est en mode single-page (steps vide). Sinon, fallback sur l’uid du cas d’usage."
-          single_page_view_default: "(template par défaut)"
+          single_page_view_default: "Non"
         empty_description: Aucune description.
         empty_introduction: Aucune introduction.
         html_tabs:

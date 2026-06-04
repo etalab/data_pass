@@ -3,7 +3,52 @@
 <%= render 'instruction/cas_usages/header' %>
 
 
-<section class="cas-usage-section">
+<section class="cas-usage-section even">
+  <div class="fr-container">
+    <h2>Propriétés</h2>
+
+    <!-- ce truc de service_provider n'a aucun sens lol -->
+    <% if @cas_usage.service_provider %>
+    <p>
+      <% if @cas_usage.service_provider.try(:editor?) %>
+        Editeur : 
+      <% elsif @cas_usage.service_provider.try(:saas?) %>
+        Saas :
+      <% else %>
+        Fournisseur de service intermédiaire : 
+      <% end %>
+      <strong><%= @cas_usage.service_provider.name %></strong>
+    </p>
+    <% else %>
+      <p class="fr-text-mention--grey"><%= t('.no_service_provider') %></p>
+    <% end %>
+
+    <p>
+      Visible dans la liste des cas d'usages : 
+      <code><%= t(".#{@cas_usage.public}") %></code>
+    </p>
+
+    <p>
+      <%= t('.flags.startable_by_applicant') %> : 
+      <code><%= t(".#{@cas_usage.startable_by_applicant}") %></code>
+    </p>
+
+    <p>
+      <%= t('.flags.single_page_view') %> : 
+
+      <code>
+        <% if @cas_usage.single_page_view.present? %>
+          Oui (<%= @cas_usage.single_page_view %>)
+        <% else %>
+          <%= t('.flags.single_page_view_default') %>
+        <% end %>
+      </code>
+    </p>
+
+  </div>
+</section>
+
+<section class="cas-usage-section even">
   <div class="fr-container">
     <h2>Aperçu dans la liste des cas d'usages</h2>
 
@@ -13,7 +58,7 @@
   </div>
 </section>
 
-<section class="cas-usage-section">
+<section class="cas-usage-section even">
   <div class="fr-container">
     <h2>Introduction du formulaire</h2>
 
@@ -23,15 +68,18 @@
   </div>
 </section>
 
-
-<div class="fr-container fr-mt-5w">
-  <h2>Contenu du formulaire</h2>
-</div>
-
 <%= form_with model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder do |f| %>
   <% static_block_names = @cas_usage.static_blocks.map { |b| b[:name] || b['name'] }.to_set %>
-  <% @formulaire.blocks.each do |block| %>
-    <section class="cas-usage-section">
+  <% @formulaire.blocks.each_with_index do |block, index| %>
+
+    <section class="cas-usage-section odd">
+
+      <% if index == 0 %>
+        <div class="fr-container fr-pt-5w">
+          <h2>Contenu du formulaire</h2>
+        </div>
+      <% end %>
+      
       <div class="fr-container">
         <h3>
           <%= f.wording_for("steps.#{block[:name]}") %>
@@ -50,361 +98,3 @@
     </section>
   <% end %>
 <% end %>
-
-
-
-<div class="fr-container">
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.flags') %></h3>
-    <div class="fr-table">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Propriété</th>
-            <th scope="col">Valeur</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= t('.flags.public') %></td>
-            <td><%= t(".#{@cas_usage.public}") %></td>
-          </tr>
-          <tr>
-            <td><%= t('.flags.startable_by_applicant') %></td>
-            <td><%= t(".#{@cas_usage.startable_by_applicant}") %></td>
-          </tr>
-          <tr>
-            <td>
-              <%= t('.flags.single_page_view') %>
-              <span class="fr-text--xs fr-text-mention--grey fr-ml-1v" title="<%= t('.flags.single_page_view_hint') %>">
-                <span class="fr-icon-information-line" aria-hidden="true"></span>
-              </span>
-            </td>
-            <td>
-              <% if @cas_usage.single_page_view.present? %>
-                <code><%= @cas_usage.single_page_view %></code>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.flags.single_page_view_default') %></span>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4">
-      <%= t('.sections.flow') %>
-      <% if @cas_usage.inherited?(:steps) %>
-        <span class="fr-badge fr-badge--no-icon fr-badge--sm fr-ml-1w"><%= t('.inherited_badge') %></span>
-      <% end %>
-    </h3>
-
-    <div class="fr-tabs">
-      <ul class="fr-tabs__list" role="tablist" aria-label="<%= t('.flow.tabs.aria_label') %>">
-        <li role="presentation">
-          <button type="button" id="flow-tab-view" class="fr-tabs__tab fr-icon-road-map-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="flow-panel-view">
-            <%= t('.flow.tabs.view') %>
-          </button>
-        </li>
-        <li role="presentation">
-          <button type="button" id="flow-tab-data" class="fr-tabs__tab fr-icon-database-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="flow-panel-data">
-            <%= t('.flow.tabs.data') %>
-          </button>
-        </li>
-      </ul>
-
-      <div id="flow-panel-view" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="flow-tab-view" tabindex="0">
-        <% catalog_names = @formulaire.blocks.map { |b| b[:name] || b['name'] } %>
-        <% static_names = @cas_usage.static_blocks.map { |b| b[:name] || b['name'] }.to_set %>
-        <% step_names = @cas_usage.steps.map { |s| s[:name] || s['name'] }.to_set %>
-        <% catalog_items = catalog_names.map { |n| [n, static_names.include?(n) ? :static : :editable, false] } %>
-        <% extras = ((static_names | step_names) - catalog_names.to_set).map { |n| [n, static_names.include?(n) ? :static : :editable, true] } %>
-        <% ordered_items = catalog_items + extras.to_a %>
-
-        <% mode_label = @cas_usage.steps.empty? ? :single_page : :multi_step %>
-        <p class="fr-text--sm fr-text-mention--grey fr-mb-1w">
-          <%= t(".flow.mode.#{mode_label}_intro") %>
-          <% if mode_label == :single_page %>
-            <span class="fr-tag fr-tag--sm fr-icon-file-text-line fr-tag--icon-left fr-ml-1w"><%= t('.flow.single_page_badge') %></span>
-            <code class="fr-ml-1v"><%= @cas_usage.single_page_view.presence || @cas_usage.uid.underscore %></code>
-          <% end %>
-        </p>
-
-        <% if ordered_items.any? %>
-          <ol class="dp-flow-steps">
-            <% ordered_items.each_with_index do |(name, state, out_of_catalog), idx| %>
-              <li>
-                <span class="fr-tag fr-tag--sm"><%= idx + 1 %></span>
-                <% if state == :static %>
-                  <span class="fr-tag fr-tag--brown-cafe-creme fr-icon-lock-line fr-tag--icon-left">
-                    <%= name %>
-                  </span>
-                <% else %>
-                  <code><%= name %></code>
-                <% end %>
-                <% if out_of_catalog %>
-                  <span class="fr-badge fr-badge--warning fr-badge--no-icon fr-badge--sm fr-ml-1v" title="<%= t('.flow.out_of_catalog_hint') %>">
-                    <%= t('.flow.out_of_catalog') %>
-                  </span>
-                <% end %>
-              </li>
-            <% end %>
-          </ol>
-        <% else %>
-          <p class="fr-text-mention--grey"><%= t('.flow.empty_catalog') %></p>
-        <% end %>
-      </div>
-
-      <div id="flow-panel-data" class="fr-tabs__panel" role="tabpanel" aria-labelledby="flow-tab-data" tabindex="0">
-        <div class="fr-table">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col"><%= t('.flow.tabs.data_column') %></th>
-                <th scope="col"><%= t('.flow.tabs.data_value') %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <code>formulaire.blocks</code>
-                  <span class="fr-text--xs fr-text-mention--grey" title="<%= t('.flow.tabs.catalog_hint') %>">
-                    <span class="fr-icon-information-line" aria-hidden="true"></span>
-                  </span>
-                </td>
-                <td>
-                  <% catalog = @formulaire.blocks.map { |b| b[:name] || b['name'] } %>
-                  <% if catalog.any? %>
-                    <ol class="fr-mb-0">
-                      <% catalog.each do |name| %>
-                        <li><code><%= name %></code></li>
-                      <% end %>
-                    </ol>
-                  <% else %>
-                    <span class="fr-text-mention--grey"><%= t('.flow.tabs.empty_array') %></span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td><code>steps</code></td>
-                <td>
-                  <% step_names = @cas_usage.steps.map { |s| s[:name] || s['name'] } %>
-                  <% if step_names.any? %>
-                    <ol class="fr-mb-0">
-                      <% step_names.each do |name| %>
-                        <li><code><%= name %></code></li>
-                      <% end %>
-                    </ol>
-                  <% else %>
-                    <span class="fr-text-mention--grey"><%= t('.flow.tabs.empty_array') %></span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td><code>static_blocks</code></td>
-                <td>
-                  <% block_names = @cas_usage.static_blocks.map { |b| b[:name] || b['name'] } %>
-                  <% if block_names.any? %>
-                    <ul class="fr-mb-0">
-                      <% block_names.each do |name| %>
-                        <li><code><%= name %></code></li>
-                      <% end %>
-                    </ul>
-                  <% else %>
-                    <span class="fr-text-mention--grey"><%= t('.flow.tabs.empty_array') %></span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td><code>single_page_view</code></td>
-                <td>
-                  <% if @cas_usage.single_page_view.present? %>
-                    <code><%= @cas_usage.single_page_view %></code>
-                  <% else %>
-                    <span class="fr-text-mention--grey">nil</span>
-                  <% end %>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.scopes_config') %></h3>
-    <% if @formulaire.scopes.blank? %>
-      <p class="fr-text-mention--grey"><%= t('.empty_scopes_config') %></p>
-    <% else %>
-      <% disabled_set = (@cas_usage.scopes_config[:disabled] || []).to_set %>
-      <% hidden_set = (@cas_usage.scopes_config[:hide] || []).to_set %>
-      <% displayed_whitelist = @cas_usage.scopes_config[:displayed].presence %>
-      <% preset_set = (@cas_usage.initialize_with[:scopes] || []).to_set %>
-
-      <div class="fr-tabs">
-        <ul class="fr-tabs__list" role="tablist" aria-label="<%= t('.scopes_config_tabs.aria_label') %>">
-          <li role="presentation">
-            <button type="button" id="scopes-config-tab-view" class="fr-tabs__tab fr-icon-list-unordered fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="scopes-config-panel-view">
-              <%= t('.scopes_config_tabs.view') %>
-            </button>
-          </li>
-          <li role="presentation">
-            <button type="button" id="scopes-config-tab-code" class="fr-tabs__tab fr-icon-code-s-slash-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="scopes-config-panel-code">
-              <%= t('.scopes_config_tabs.code') %>
-            </button>
-          </li>
-        </ul>
-
-        <div id="scopes-config-panel-view" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="scopes-config-tab-view" tabindex="0">
-          <p class="fr-text--sm fr-text-mention--grey fr-mb-1w"><%= t('.scopes_config_intro') %></p>
-          <ul class="fr-tags-group fr-tags-group--sm fr-mb-3w">
-            <li><span class="fr-tag fr-tag--sm fr-icon-eye-line fr-tag--icon-left"><%= t('.scope_states.displayed') %></span></li>
-            <li><span class="fr-tag fr-tag--sm fr-tag--brown-cafe-creme fr-icon-lock-line fr-tag--icon-left"><%= t('.scope_states.disabled') %></span></li>
-            <li><span class="fr-tag fr-tag--sm fr-icon-eye-off-line fr-tag--icon-left" style="opacity: 0.55;"><%= t('.scope_states.hidden') %></span></li>
-            <li>
-              <span class="fr-tag fr-tag--sm">
-                <span class="fr-icon-checkbox-circle-line fr-icon--xs" aria-hidden="true" style="color: var(--text-default-success);"></span>
-                <%= t('.scope_states.preset') %>
-              </span>
-            </li>
-          </ul>
-
-          <% @formulaire.scopes.group_by(&:group).each do |group_name, group_scopes| %>
-            <div class="fr-mb-3w">
-              <% if group_name.present? %>
-                <p class="fr-text--bold fr-mb-1w fr-text-mention--grey"><%= group_name %></p>
-              <% end %>
-              <ul class="fr-tags-group">
-                <% group_scopes.each do |scope| %>
-                  <% state = if hidden_set.include?(scope.value) || (displayed_whitelist && !displayed_whitelist.include?(scope.value))
-                              :hidden
-                            elsif disabled_set.include?(scope.value)
-                              :disabled
-                            else
-                              :displayed
-                            end %>
-                  <% classes, style = case state
-                                      when :displayed then ['fr-tag fr-icon-eye-line fr-tag--icon-left', nil]
-                                      when :disabled then ['fr-tag fr-tag--brown-cafe-creme fr-icon-lock-line fr-tag--icon-left', nil]
-                                      when :hidden then ['fr-tag fr-icon-eye-off-line fr-tag--icon-left', 'opacity: 0.55;']
-                                      end %>
-                  <li>
-                    <span class="<%= classes %>" style="<%= style %>" title="<%= scope.value %>">
-                      <% if preset_set.include?(scope.value) %>
-                        <span class="fr-icon-checkbox-circle-line fr-icon--sm" aria-hidden="true" style="color: var(--text-default-success);" title="<%= t('.scope_states.preset') %>"></span>
-                      <% end %>
-                      <%= scope.name.presence || scope.value %>
-                    </span>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-        </div>
-
-        <div id="scopes-config-panel-code" class="fr-tabs__panel" role="tabpanel" aria-labelledby="scopes-config-tab-code" tabindex="0">
-          <% code_data = {
-            'scopes_config' => @cas_usage.scopes_config.deep_stringify_keys,
-            'preselected_scopes' => (@cas_usage.initialize_with[:scopes] || []),
-          } %>
-          <pre class="dp-code-block"><code><%= code_data.to_yaml(line_width: -1).sub(/\A---\n/, '') %></code></pre>
-
-          <p class="fr-text--sm fr-text-mention--grey fr-mt-3w fr-mb-1w"><%= t('.formulaire_scopes_intro') %></p>
-          <% formulaire_scopes_dump = {
-            'formulaire_scopes' => @formulaire.scopes.map { |s|
-              {
-                'name' => s.name,
-                'value' => s.value,
-                'group' => s.group,
-                'link' => s.link,
-                'included' => s.included? || nil,
-                'disabled' => s.disabled? || nil,
-                'deprecated' => (s.deprecated_date if s.deprecated?),
-              }.compact
-            },
-          } %>
-          <pre class="dp-code-block"><code><%= formulaire_scopes_dump.to_yaml(line_width: -1).sub(/\A---\n/, '') %></code></pre>
-        </div>
-      </div>
-    <% end %>
-  </section>
-
-  <% initial_data = @cas_usage.initialize_with.except(:scopes) %>
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.initial_data') %></h3>
-    <% if initial_data.blank? %>
-      <p class="fr-text-mention--grey"><%= t('.empty_initial_data') %></p>
-    <% else %>
-      <div class="fr-tabs">
-        <ul class="fr-tabs__list" role="tablist" aria-label="<%= t('.initial_data_tabs.aria_label') %>">
-          <li role="presentation">
-            <button type="button" id="initial-data-tab-form" class="fr-tabs__tab fr-icon-edit-box-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="initial-data-panel-form">
-              <%= t('.initial_data_tabs.form') %>
-            </button>
-          </li>
-          <li role="presentation">
-            <button type="button" id="initial-data-tab-data" class="fr-tabs__tab fr-icon-database-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="initial-data-panel-data">
-              <%= t('.initial_data_tabs.data') %>
-            </button>
-          </li>
-        </ul>
-
-        <div id="initial-data-panel-form" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="initial-data-tab-form" tabindex="0">
-          <p class="fr-text--sm fr-text-mention--grey fr-mb-2w"><%= t('.initial_data_tabs.form_intro') %></p>
-          <% initial_data.each do |key, value| %>
-            <% label = t("activerecord.attributes.authorization_request.#{key}", default: key.to_s.humanize) %>
-            <% input_id = "initial-#{@cas_usage.uid}-#{key}".parameterize %>
-            <div class="fr-input-group fr-mb-3w">
-              <label class="fr-label" for="<%= input_id %>"><%= label %></label>
-              <% if key.to_s == 'modalities' && value.is_a?(Array) %>
-                <ul class="fr-tags-group" id="<%= input_id %>">
-                  <% value.each do |modality| %>
-                    <li><span class="fr-tag"><%= modality %></span></li>
-                  <% end %>
-                </ul>
-              <% else %>
-                <% case value
-                   when String %>
-                  <% if value.match?(%r{\Ahttps?://}) %>
-                    <input class="fr-input" type="url" id="<%= input_id %>" value="<%= value %>" readonly>
-                  <% elsif value.include?("\n") || value.length > 80 %>
-                    <textarea class="fr-input" id="<%= input_id %>" rows="<%= [value.lines.size + 1, 3].max %>" readonly><%= value %></textarea>
-                  <% else %>
-                    <input class="fr-input" type="text" id="<%= input_id %>" value="<%= value %>" readonly>
-                  <% end %>
-                <% when TrueClass, FalseClass %>
-                  <input class="fr-input" type="text" id="<%= input_id %>" value="<%= t(".#{value}") %>" readonly>
-                <% when Numeric %>
-                  <input class="fr-input" type="number" id="<%= input_id %>" value="<%= value %>" readonly>
-                <% else %>
-                  <pre class="dp-code-block"><code><%= JSON.pretty_generate(value) %></code></pre>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-
-        <div id="initial-data-panel-data" class="fr-tabs__panel" role="tabpanel" aria-labelledby="initial-data-tab-data" tabindex="0">
-          <pre class="dp-code-block"><code><%= initial_data.deep_stringify_keys.to_yaml(line_width: -1).sub(/\A---\n/, '') %></code></pre>
-        </div>
-      </div>
-    <% end %>
-  </section>
-
-  <section class="fr-mt-4w fr-mb-6w">
-    <h3 class="fr-h4"><%= t('.sections.service_provider') %></h3>
-    <% if @cas_usage.service_provider %>
-      <p>
-        <strong><%= @cas_usage.service_provider.name %></strong>
-        <% if @cas_usage.service_provider.try(:editor?) %>
-          <span class="fr-badge fr-badge--green-emeraude fr-badge--no-icon fr-badge--sm fr-ml-1w">éditeur</span>
-        <% end %>
-      </p>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.no_service_provider') %></p>
-    <% end %>
-  </section>
-</div>
