@@ -1,51 +1,42 @@
 <% set_title! t('page_titles.instruction.data_providers_index') %>
 
-<div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
-  <div class="fr-container">
-    <p class="fr-text--sm fr-mb-1v fr-text-mention--grey"><%= t('instruction.data_providers.title') %></p>
-    <h1 class="fr-mb-0"><%= t('.title') %></h1>
-  </div>
-</div>
+<h1 class="fr-my-5w"><%= t('.title') %></h1>
 
-<div class="fr-container">
-  <p class="fr-text--lead fr-mb-4w"><%= t('.subtitle') %></p>
-
-  <% if @data_providers.empty? %>
-    <p class="fr-text--lg"><%= t('.empty') %></p>
-  <% else %>
-    <div class="fr-grid-row fr-grid-row--gutters">
-      <% @data_providers.each do |data_provider| %>
-        <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
-          <div class="fr-card fr-enlarge-link">
-            <div class="fr-card__body">
-              <div class="fr-card__content">
-                <h3 class="fr-card__title">
-                  <%= link_to data_provider.name,
-                        instruction_formulaires_path(provider_slug: data_provider.slug) %>
-                </h3>
-                <p class="fr-card__desc fr-text--xs">
-                  <code><%= data_provider.slug %></code>
+<% if @data_providers.empty? %>
+  <p class="fr-text--lg"><%= t('.empty') %></p>
+<% else %>
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <% @data_providers.each do |data_provider| %>
+      <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+        <div class="fr-card fr-enlarge-link">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <h3 class="fr-card__title">
+                <%= link_to data_provider.name,
+                      instruction_formulaires_path(provider_slug: data_provider.slug) %>
+              </h3>
+              <p class="fr-card__desc fr-text--xs">
+                <code><%= data_provider.slug %></code>
+              </p>
+              <% accessible_count = data_provider.authorization_definitions.count { |ad| current_user.reporter?(ad.id) } %>
+              <div class="fr-card__end">
+                <p class="fr-card__detail fr-icon-file-text-line">
+                  <%= t('.formulaires_count', count: accessible_count) %>
                 </p>
-                <% accessible_count = data_provider.authorization_definitions.count { |ad| current_user.reporter?(ad.id) } %>
-                <div class="fr-card__end">
-                  <p class="fr-card__detail fr-icon-file-text-line">
-                    <%= t('.formulaires_count', count: accessible_count) %>
-                  </p>
-                </div>
               </div>
             </div>
-            <% if data_provider.logo.attached? %>
-              <div class="fr-card__header">
-                <div class="fr-card__img" style="background: white; display: flex; align-items: center; justify-content: center; padding: 1.5rem; min-height: 140px;">
-                  <%= image_tag data_provider.logo,
-                        alt: '',
-                        style: 'max-height: 100px; max-width: 80%; object-fit: contain;' %>
-                </div>
-              </div>
-            <% end %>
           </div>
+          <% if data_provider.logo.attached? %>
+            <div class="fr-card__header">
+              <div class="fr-card__img" style="background: white; display: flex; align-items: center; justify-content: center; padding: 1.5rem; min-height: 140px;">
+                <%= image_tag data_provider.logo,
+                      alt: '',
+                      style: 'max-height: 100px; max-width: 80%; object-fit: contain;' %>
+              </div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -10,6 +10,10 @@ class Instruction::CasUsagesController < Instruction::AbstractCatalogueControlle
 
   private
 
+  def layout_name
+    'wide_container'
+  end
+
   def set_formulaire
     @formulaire = AuthorizationDefinition.find(params.expect(:formulaire_id))
     raise ActiveRecord::RecordNotFound unless @formulaire.provider_slug == @data_provider.slug

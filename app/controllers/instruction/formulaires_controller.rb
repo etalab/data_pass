@@ -19,6 +19,10 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
 
   private
 
+  def layout_name
+    'wide_container'
+  end
+
   def permitted_definition?(definition)
     Instruction::AuthorizationDefinitionPolicy.new(pundit_user, definition).show?
   end

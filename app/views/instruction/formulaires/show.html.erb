@@ -1,20 +1,8 @@
 <% set_title! t('page_titles.instruction.formulaires_show', formulaire_name: @formulaire.name, provider_name: @data_provider.name) %>
 
-<%= render 'instruction/data_providers/header' %>
+<%= render 'instruction/formulaires/header' %>
 
 <div class="fr-container">
-  <p class="fr-mb-2w">
-    <%= link_to t('.back'),
-          instruction_formulaires_path(provider_slug: @data_provider.slug),
-          class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
-  </p>
-
-  <h2><%= @formulaire.name_with_stage %></h2>
-  <p class="fr-text-mention--grey">
-    <%= t('.sections.identification') %> :
-    <code><%= @formulaire.id %></code>
-  </p>
-
   <% if @formulaire.description.present? %>
     <section class="fr-mt-4w">
       <h3 class="fr-h4"><%= t('.sections.description') %></h3>

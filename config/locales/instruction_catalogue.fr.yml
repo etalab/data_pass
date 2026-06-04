@@ -1,10 +1,8 @@
 fr:
   instruction:
     data_providers:
-      title: Espace fournisseur de données
       index:
         title: Fournisseurs de données
-        subtitle: Sélectionnez un fournisseur pour consulter ses formulaires et cas d’usage.
         empty: Aucun fournisseur de données disponible.
         formulaires_count:
           zero: Aucun formulaire
@@ -19,10 +17,8 @@ fr:
           other: "%{count} cas d’usage"
         empty: Aucun formulaire associé à ce fournisseur.
       show:
-        title: Formulaire
-        back: Retour aux formulaires
+        identification: Identifiant du formulaire
         sections:
-          identification: Identification
           identity: Identité
           description: Description
           scopes: Périmètres de données
@@ -60,10 +56,9 @@ fr:
             other: "%{count} habilitations"
     cas_usages:
       show:
-        back: Retour au formulaire
+        identification: Identifiant du cas d’usage
         inherited_badge: Hérité du formulaire
         sections:
-          identification: Identification
           description: Description
           introduction: Introduction
           flags: Propriétés
@@ -118,7 +113,6 @@ fr:
           data: Données
           form_intro: "Aperçu du formulaire pré-rempli pour le demandeur (champs en lecture seule) :"
         no_service_provider: Pas de service utilisateur rattaché.
-        default_badge: Par défaut
         "true": Oui
         "false": Non
   page_titles:

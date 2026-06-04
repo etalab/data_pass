@@ -1,35 +1,8 @@
 <% set_title! t('page_titles.instruction.cas_usages_show', cas_usage_name: @cas_usage.name_with_service_provider, provider_name: @data_provider.name) %>
 
-<%= render 'instruction/data_providers/header' %>
+<%= render 'instruction/cas_usages/header' %>
 
 <div class="fr-container">
-  <p class="fr-mb-2w">
-    <%= link_to t('.back'),
-          instruction_formulaire_path(provider_slug: @data_provider.slug, id: @formulaire.id),
-          class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
-  </p>
-
-  <h2>
-    <%= @cas_usage.name_with_service_provider %>
-    <% if @cas_usage.default %>
-      <span class="fr-badge fr-badge--info fr-badge--no-icon fr-ml-1w">
-        <%= t('.default_badge') %>
-      </span>
-    <% end %>
-    <% if @cas_usage.inherited?(:name) %>
-      <span class="fr-badge fr-badge--no-icon fr-badge--sm fr-ml-1w">
-        <%= t('.inherited_badge') %>
-      </span>
-    <% end %>
-  </h2>
-  <p class="fr-text-mention--grey">
-    <%= t('.sections.identification') %> :
-    <code><%= @cas_usage.uid %></code>
-    — <%= t('instruction.formulaires.show.title') %> :
-    <%= link_to @formulaire.name_with_stage,
-          instruction_formulaire_path(provider_slug: @data_provider.slug, id: @formulaire.id),
-          class: 'fr-link' %>
-  </p>
 
   <section class="fr-mt-4w">
     <h3 class="fr-h4">
