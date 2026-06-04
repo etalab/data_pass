@@ -203,10 +203,11 @@ RSpec.describe 'Instruction: habilitations search' do
       let!(:valid_searched_authorization) { create(:authorization, request: valid_request, state: :active) }
       let(:search_text) { valid_searched_authorization.id.to_s }
 
-      it 'redirects to the authorization' do
+      it 'shows the authorization in the list' do
         search
 
-        expect(page).to have_current_path(authorization_path(valid_searched_authorization))
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
+        expect(page).to have_css(css_id(valid_searched_authorization))
       end
     end
 
@@ -215,7 +216,7 @@ RSpec.describe 'Instruction: habilitations search' do
       let!(:foreign_authorization) { create(:authorization, request: foreign_request, state: :active) }
       let(:search_text) { foreign_authorization.id.to_s }
 
-      it 'does not redirect to the authorization, and renders nothing' do
+      it 'renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
@@ -228,10 +229,11 @@ RSpec.describe 'Instruction: habilitations search' do
       let!(:valid_searched_authorization) { create(:authorization, request: valid_request, state: :active) }
       let(:search_text) { valid_searched_authorization.formatted_id }
 
-      it 'redirects to the authorization' do
+      it 'shows the authorization in the list' do
         search
 
-        expect(page).to have_current_path(authorization_path(valid_searched_authorization))
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
+        expect(page).to have_css(css_id(valid_searched_authorization))
       end
     end
 
@@ -240,7 +242,7 @@ RSpec.describe 'Instruction: habilitations search' do
       let!(:valid_searched_authorization) { create(:authorization, request: valid_request, state: :active) }
       let(:search_text) { "D#{valid_searched_authorization.id}" }
 
-      it 'does not redirect and renders nothing' do
+      it 'renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
@@ -253,7 +255,7 @@ RSpec.describe 'Instruction: habilitations search' do
       let!(:foreign_authorization) { create(:authorization, request: foreign_request, state: :active) }
       let(:search_text) { foreign_authorization.formatted_id }
 
-      it 'does not redirect and renders nothing' do
+      it 'renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)

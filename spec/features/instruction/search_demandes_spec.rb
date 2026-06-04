@@ -155,10 +155,11 @@ RSpec.describe 'Instruction: demandes search' do
     context 'when we can see this authorization request' do
       let(:search_text) { valid_searched_authorization_request.id.to_s }
 
-      it 'redirects to the authorization request' do
+      it 'shows the authorization request in the list' do
         search
 
-        expect(page).to have_current_path(instruction_authorization_request_path(valid_searched_authorization_request))
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
+        expect(page).to have_css(css_id(valid_searched_authorization_request))
       end
     end
 
@@ -166,7 +167,7 @@ RSpec.describe 'Instruction: demandes search' do
       let(:foreign_authorization_request) { create(:authorization_request, :hubee_dila, state: :validated) }
       let(:search_text) { foreign_authorization_request.id.to_s }
 
-      it 'does not redirects to the authorization request, and renders nothing' do
+      it 'renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
@@ -177,17 +178,18 @@ RSpec.describe 'Instruction: demandes search' do
     context 'when we use the formatted_id (D-prefixed)' do
       let(:search_text) { valid_searched_authorization_request.formatted_id }
 
-      it 'redirects to the authorization request' do
+      it 'shows the authorization request in the list' do
         search
 
-        expect(page).to have_current_path(instruction_authorization_request_path(valid_searched_authorization_request))
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
+        expect(page).to have_css(css_id(valid_searched_authorization_request))
       end
     end
 
     context 'when we use an H-prefixed id in the demandes tab' do
       let(:search_text) { "H#{valid_searched_authorization_request.id}" }
 
-      it 'does not redirect and renders nothing' do
+      it 'renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
@@ -199,7 +201,7 @@ RSpec.describe 'Instruction: demandes search' do
       let(:foreign_authorization_request) { create(:authorization_request, :hubee_dila, state: :validated) }
       let(:search_text) { foreign_authorization_request.formatted_id }
 
-      it 'does not redirect and renders nothing' do
+      it 'renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
