@@ -55,9 +55,12 @@ fr:
         empty_scopes: Aucun périmètre déclaré.
         empty_blocks: Aucun bloc déclaré.
         empty_cas_usages: Aucun cas d’usage associé à ce formulaire.
-        default_badge: Par défaut
         "true": Oui
         "false": Non
+    cas_usages:
+      index:
+        title: Cas d'usages
+        default_badge: Par défaut
         stats:
           demandes:
             zero: Aucune demande
@@ -67,9 +70,6 @@ fr:
             zero: Aucune habilitation
             one: 1 habilitation
             other: "%{count} habilitations"
-    cas_usages:
-      index:
-        title: Cas d'usages
       show:
         identification: Identifiant du cas d’usage
         inherited_badge: Hérité du formulaire
