@@ -60,46 +60,6 @@
 
 
 <div class="fr-container">
-  <% if @formulaire.features.present? %>
-    <section class="fr-mt-4w">
-      <h3 class="fr-h4"><%= t('.sections.features') %></h3>
-      <ul class="fr-mb-0">
-        <% @formulaire.features.each do |name, value| %>
-          <li>
-            <code><%= name %></code> : <%= t(".#{value}", default: value.to_s) %>
-          </li>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.scopes') %></h3>
-    <% if @formulaire.scopes.any? %>
-      <ul class="fr-tags-group">
-        <% @formulaire.scopes.each do |scope| %>
-          <li>
-            <span class="fr-tag"><%= scope.name.presence || scope.value %></span>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.empty_scopes') %></p>
-    <% end %>
-  </section>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.blocks') %></h3>
-    <% if @formulaire.blocks.any? %>
-      <ol class="fr-mb-0">
-        <% @formulaire.blocks.each do |block| %>
-          <li><code><%= block[:name] || block['name'] %></code></li>
-        <% end %>
-      </ol>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.empty_blocks') %></p>
-    <% end %>
-  </section>
 
   <section class="fr-mt-4w fr-mb-6w">
     <h3 class="fr-h4"><%= t('.sections.cas_usages') %></h3>
