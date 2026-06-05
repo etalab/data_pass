@@ -20,6 +20,9 @@ class Instruction::CasUsagesController < Instruction::AbstractCatalogueControlle
     @authorization_request = @cas_usage.authorization_request_class.new(form_uid: @cas_usage.uid).tap do |ar|
       ar.assign_attributes(@cas_usage.initialize_with)
     end.decorate
+
+    @cas_usage_demandes_count = AuthorizationRequest.where(state: :submitted).where(form_uid: @cas_usage.uid).count
+    @cas_usage_habilitations_count = Authorization.where(state: :active).where(form_uid: @cas_usage.uid).count
   end
 
   private

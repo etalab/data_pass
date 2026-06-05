@@ -20,6 +20,10 @@
           <code><%= @cas_usage.uid %></code>
         </p>
       </div>
+      
+      <div class="header-count-badges">
+        <%= render 'instruction/shared/stats_badges', habilitations_count: @cas_usage_habilitations_count || 0, demandes_count: @cas_usage_demandes_count || 0 %>
+      </div>
     </div>
   </div>
 </div>
