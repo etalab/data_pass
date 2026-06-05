@@ -2,8 +2,12 @@
 
 <%= render 'shared/dashboard_skip_links' %>
 
-<div class="fr-grid-row fr-grid-row--gutters">
-  <h1 class="fr-h2 fr-mt-5w"><%= t('.title') %></h1>
+<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+  
+  <h1 class="fr-h2 fr-mt-5w fr-col"><%= t('.title') %></h1>
+
+  <%= link_to "Gérer mes formulaires", instruction_data_providers_path, class: "fr-btn fr-btn--secondary fr-mt-5w fr-mb-3w fr-mr-2w" %>
+
 
   <turbo-frame id="tabs">
     <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
