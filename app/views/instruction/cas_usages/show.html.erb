@@ -53,26 +53,14 @@
   </div>
 </section>
 
-<section class="cas-usage-section even">
+<section class="fr-mb-3w">
   <div class="fr-container">
     <%= render 'instruction/shared/title_with_modify_button' do %>
-      <h2>Aperçu dans la liste des cas d'usages</h2>
+      <h3>Aperçu dans la liste des cas d'usages</h2>
     <% end %>
 
     <div style="max-width: 468px;">
       <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @cas_usage %>
-    </div>
-  </div>
-</section>
-
-<section class="cas-usage-section even">
-  <div class="fr-container">
-    <%= render 'instruction/shared/title_with_modify_button' do %>
-      <h2>Introduction du formulaire</h2>
-    <% end %>
-
-    <div class="viewer-of-content">
-      <%= render 'authorization_request_forms/new', authorization_request_form: @cas_usage %>
     </div>
   </div>
 </section>

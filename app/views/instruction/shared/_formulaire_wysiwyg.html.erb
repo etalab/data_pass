@@ -1,9 +1,21 @@
 
+<section class="cas-usage-section odd">
+  <div class="fr-container">
+    <%= render 'instruction/shared/title_with_modify_button' do %>
+      <h2>Introduction du formulaire</h2>
+    <% end %>
+
+    <div class="viewer-of-content">
+      <%= render 'authorization_request_forms/new', authorization_request_form: @cas_usage %>
+    </div>
+  </div>
+</section>
+
 <%= form_with model: authorization_request, url: '#', builder: AuthorizationRequestFormBuilder, html: { inert: '' } do |f| %>
   <% static_block_names = @cas_usage.static_blocks.map { |b| b[:name] || b['name'] }.to_set %>
   <% @formulaire.blocks.each_with_index do |block, index| %>
 
-    <section class="cas-usage-section odd">
+    <section class="cas-usage-section even">
 
       <% if index == 0 %>
         <div class="fr-container fr-pt-5w">
@@ -32,7 +44,7 @@
     </section>
   <% end %>
 
-  <section class="cas-usage-section odd">
+  <section class="cas-usage-section even">
     <div class="fr-container">
       <%= render 'instruction/shared/title_with_modify_button' do %>
         <h2>Avant de soumettre la demande</h2>
