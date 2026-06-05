@@ -46,7 +46,7 @@
       </div>
 
       <div class="cas-usage-property">
-        <%= t('.fields.support_email') %>
+        <%= t('.fields.support_email') %> : 
         <% if @formulaire.support_email.present? %>
           <%= mail_to @formulaire.support_email, @formulaire.support_email, class: 'fr-link' %>
         <% else %>
