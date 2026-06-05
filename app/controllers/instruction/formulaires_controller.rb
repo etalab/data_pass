@@ -8,6 +8,12 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
     @formulaire = AuthorizationDefinition.find(params.expect(:id))
     raise ActiveRecord::RecordNotFound unless @formulaire.provider_slug == @data_provider.slug
 
+    # on utilise la demande libre pour montrer le formulaire
+    @cas_usage = @formulaire.default_form
+    @authorization_request = @formulaire.authorization_request_class.new(form_uid: @cas_usage.uid).tap do |ar|
+      ar.assign_attributes(@cas_usage.initialize_with)
+    end.decorate
+
     authorize [:instruction, @formulaire], :show?
 
     @cas_usages = @formulaire.available_forms

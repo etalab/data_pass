@@ -58,9 +58,10 @@
   </div>
 </section>
 
+<%= render 'instruction/shared/formulaire_wysiwyg', authorization_request: @authorization_request %>
+
 
 <div class="fr-container">
-
   <section class="fr-mt-4w fr-mb-6w">
     <h3 class="fr-h4"><%= t('.sections.cas_usages') %></h3>
     <% if @cas_usages.any? %>
