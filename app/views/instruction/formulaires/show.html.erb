@@ -26,60 +26,30 @@
         <%= t('.flags.unique') %> :
         <code><%= t(".#{@formulaire.unique}") %></code>
       </div>
+
+      <div class="cas-usage-property">
+        <%= t('.fields.access_link') %> : 
+        <% if @formulaire.access_link.present? %>
+          <%= link_to @formulaire.access_link, @formulaire.access_link, class: 'fr-link' %>
+        <% else %>
+          <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
+        <% end %>
+      </div>
+
+      <div class="cas-usage-property">
+        <%= t('.fields.support_email') %>
+        <% if @formulaire.support_email.present? %>
+          <%= mail_to @formulaire.support_email, @formulaire.support_email, class: 'fr-link' %>
+        <% else %>
+          <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
 
 
-
 <div class="fr-container">
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.identity') %></h3>
-    <div class="fr-table">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('.fields.label') %></th>
-            <th scope="col"><%= t('.fields.value') %></th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr>
-            <td><%= t('.fields.access_link') %></td>
-            <td>
-              <% if @formulaire.access_link.present? %>
-                <code><%= @formulaire.access_link %></code>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.cgu_link') %></td>
-            <td>
-              <% if @formulaire.cgu_link.present? %>
-                <%= link_to @formulaire.cgu_link, @formulaire.cgu_link, class: 'fr-link', target: '_blank', rel: 'noopener' %>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.support_email') %></td>
-            <td>
-              <% if @formulaire.support_email.present? %>
-                <%= mail_to @formulaire.support_email, @formulaire.support_email, class: 'fr-link' %>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
   <% if @formulaire.features.present? %>
     <section class="fr-mt-4w">
       <h3 class="fr-h4"><%= t('.sections.features') %></h3>
