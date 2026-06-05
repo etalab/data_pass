@@ -4,6 +4,23 @@
 
 
 <section class="cas-usage-section even">
+
+  <div class="fr-container fr-mb-5w">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <div class="fr-col-auto">
+        <%= link_to "Initier une demande pour autrui", start_instruction_instructor_draft_requests_path(form_uid: @cas_usage.uid), class: "fr-btn fr-btn-primary" %>
+      </div>
+      <div class="fr-col-auto">
+        <div class="fr-grid-row fr-grid-row--middle">
+          <%= link_to "Démarrer une nouvelle demande", new_authorization_request_form_path(form_uid: @cas_usage.uid), class: "fr-btn fr-btn--secondary"%>
+          <button class="fr-btn fr-icon fr-icon-clipboard-line">
+            Copier
+          <button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="fr-container">
     <%= render 'instruction/shared/title_with_modify_button' do %>
       <h2>Configuration</h2>
