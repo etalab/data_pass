@@ -28,20 +28,7 @@
                 <p class="fr-card__desc">
                   <%#= truncate(formulaire.description.to_s, length: 200) %>
                 </p>
-                <div class="fr-card__end">
-                  <div>
-                    <span class="fr-mr-1w"><%= habilitations_count %></span>
-                    <span class="fr-badge fr-badge--success fr-badge--no-icon fr-badge--sm">
-                      <%= t('authorization_request.status.validated') %>
-                    </span>
-                  </div>
-                  <div>
-                    <span class="fr-mr-1w"><%= demandes_count %></span>
-                    <span class="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
-                      <%= t('authorization_request.status.submitted') %>
-                    </span>
-                  </div>
-                </div>
+                <%= render 'instruction/shared/stats_badges', habilitations_count:, demandes_count: %>
               </div>
             </div>
           </div>
