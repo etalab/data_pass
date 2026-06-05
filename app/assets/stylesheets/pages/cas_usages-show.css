@@ -49,3 +49,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.bordered-link-box {
+  border: 1px solid #000091;
+}
