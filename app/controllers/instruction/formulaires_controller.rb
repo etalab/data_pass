@@ -2,6 +2,10 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
   def index
     @formulaires = @data_provider.authorization_definitions
       .select { |definition| permitted_definition?(definition) }
+
+    classes = @formulaires.map(&:authorization_request_class).map(&:to_s)
+    @demandes_counts = AuthorizationRequest.where(state: :submitted).where(type: classes).group(:type).count
+    @habilitations_counts = Authorization.where(state: :active).where(authorization_request_class: classes).group(:authorization_request_class).count
   end
 
   def show
@@ -25,6 +29,11 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
 
   def layout_name
     'wide_container'
+  end
+
+  def counts_by_definition(model)
+    
+    model.where(type: classes).group(:type).count
   end
 
   def permitted_definition?(definition)
