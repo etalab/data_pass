@@ -28,7 +28,9 @@
                 <p class="fr-card__desc">
                   <%#= truncate(formulaire.description.to_s, length: 200) %>
                 </p>
-                <%= render 'instruction/shared/stats_badges', habilitations_count:, demandes_count: %>
+                <div class="fr-card__end">
+                  <%= render 'instruction/shared/stats_badges', habilitations_count:, demandes_count: %>
+                </div>
               </div>
             </div>
           </div>
