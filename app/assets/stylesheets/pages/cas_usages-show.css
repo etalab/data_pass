@@ -43,3 +43,9 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
 }
+
+.header-count-badges {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

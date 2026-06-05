@@ -31,7 +31,9 @@
         </div>
       </div>
 
-      <%= render 'instruction/shared/stats_badges', habilitations_count: @formulaire_habilitations_count || 0, demandes_count: @formulaire_demandes_count || 0 %>
+      <div class="header-count-badges">
+        <%= render 'instruction/shared/stats_badges', habilitations_count: @formulaire_habilitations_count || 0, demandes_count: @formulaire_demandes_count || 0 %>
+      </div>
     </div>
   </div>
 </div>
