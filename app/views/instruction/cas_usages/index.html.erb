@@ -17,28 +17,29 @@
                           instruction_formulaire_cas_usage_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id, uid: cas_usage.uid) %>
                   </h4>
                   <p class="fr-card__desc fr-text--xs">
+                    <% if cas_usage.default %>
+                      <span class="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm fr-mr-1w">
+                        <%= t('.default_badge') %>
+                      </span>
+                    <% end %>
                     <code><%= cas_usage.uid %></code>
+
                   </p>
                   <div class="fr-card__end">
-                    <ul class="fr-badges-group">
-                      <% if cas_usage.default %>
-                        <li>
-                          <span class="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
-                            <%= t('.default_badge') %>
-                          </span>
-                        </li>
-                      <% end %>
-                      <li>
-                        <span class="fr-badge fr-badge--no-icon fr-badge--sm">
-                          <%= t('.stats.demandes', count: demandes_count) %>
+                    <div class="">
+                      <div>
+                        <span class="fr-mr-1w"><%= habilitations_count %></span>
+                        <span class="fr-badge fr-badge--success fr-badge--no-icon fr-badge--sm">
+                          <%= t('authorization_request.status.validated') %>
                         </span>
-                      </li>
-                      <li>
-                        <span class="fr-badge fr-badge--green-emeraude fr-badge--no-icon fr-badge--sm">
-                          <%= t('.stats.habilitations', count: habilitations_count) %>
+                      </div>
+                      <div>
+                        <span class="fr-mr-1w"><%= demandes_count %></span>
+                        <span class="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
+                          <%= t('authorization_request.status.submitted') %>
                         </span>
-                      </li>
-                    </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
