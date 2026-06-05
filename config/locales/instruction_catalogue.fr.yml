@@ -37,7 +37,7 @@ fr:
         flags:
           public: Public
           startable_by_applicant: Démarrable par le demandeur
-          unique: Unique
+          unique: Habilitation unique par orgnanisation
         empty_value: Non renseigné
         empty_scopes: Aucun périmètre déclaré.
         empty_blocks: Aucun bloc déclaré.

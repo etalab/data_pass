@@ -2,6 +2,32 @@
 
 <%= render 'instruction/formulaires/header' %>
 
+
+<section class="cas-usage-section even">
+  <!-- useless properties : @formulaire.description, @formulaire.public -->
+
+  <div class="fr-container">
+    <%= render 'instruction/shared/title_with_modify_button' do %>
+      <h2>Propriétés</h2>
+    <% end %>
+
+    <div class="cas-usage-properties">
+      <div class="cas-usage-property">
+        <%= t('.flags.startable_by_applicant') %> : 
+        <code><%= t(".#{@formulaire.startable_by_applicant}") %></code>
+      </div>
+
+      <div class="cas-usage-property">
+        <%= t('.flags.unique') %> :
+        <code><%= t(".#{@formulaire.unique}") %></code>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
 <div class="fr-container">
   <section class="fr-mt-4w">
     <h3 class="fr-h4"><%= t('.sections.identity') %></h3>
@@ -57,34 +83,6 @@
                 <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
               <% end %>
             </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.flags') %></h3>
-    <div class="fr-table">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('.fields.label') %></th>
-            <th scope="col"><%= t('.fields.value') %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= t('.flags.public') %></td>
-            <td><%= t(".#{@formulaire.public}") %></td>
-          </tr>
-          <tr>
-            <td><%= t('.flags.startable_by_applicant') %></td>
-            <td><%= t(".#{@formulaire.startable_by_applicant}") %></td>
-          </tr>
-          <tr>
-            <td><%= t('.flags.unique') %></td>
-            <td><%= t(".#{@formulaire.unique}") %></td>
           </tr>
         </tbody>
       </table>
