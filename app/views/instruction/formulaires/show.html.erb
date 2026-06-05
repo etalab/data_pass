@@ -3,13 +3,6 @@
 <%= render 'instruction/formulaires/header' %>
 
 <div class="fr-container">
-  <% if @formulaire.description.present? %>
-    <section class="fr-mt-4w">
-      <h3 class="fr-h4"><%= t('.sections.description') %></h3>
-      <p><%= @formulaire.description %></p>
-    </section>
-  <% end %>
-
   <section class="fr-mt-4w">
     <h3 class="fr-h4"><%= t('.sections.identity') %></h3>
     <div class="fr-table">
