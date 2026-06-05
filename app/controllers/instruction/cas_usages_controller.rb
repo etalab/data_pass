@@ -5,6 +5,10 @@ class Instruction::CasUsagesController < Instruction::AbstractCatalogueControlle
     @cas_usages = @formulaire.available_forms
     @demandes_counts = counts_by_form_uid(AuthorizationRequest.where(state: :submitted))
     @habilitations_counts = counts_by_form_uid(Authorization.where(state: :active))
+
+
+    @formulaire_demandes_count = @formulaire.authorization_request_class.where(state: :submitted).count
+    @formulaire_habilitations_counts = Authorization.where(authorization_request_class: @formulaire.authorization_request_class.to_s).where(state: :active).count
   end
 
   def show

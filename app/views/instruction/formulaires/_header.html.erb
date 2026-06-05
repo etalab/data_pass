@@ -13,21 +13,25 @@
               class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
       <% end %>
     </div>
-    <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
-      <% if @data_provider.logo.attached? %>
-        <div class="fr-col-auto">
-          <%= image_tag @data_provider.logo, alt: "#{@data_provider.name}, fournisseur de données", style: 'max-height: 80px; max-width: 160px;' %>
+    <div class="fr-grid-row">
+      <div class="fr-col fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
+        <% if @data_provider.logo.attached? %>
+          <div class="fr-col-auto">
+            <%= image_tag @data_provider.logo, alt: "#{@data_provider.name}, fournisseur de données", style: 'max-height: 80px; max-width: 160px;' %>
+          </div>
+        <% end %>
+        <div class="fr-col">
+          <h1 class="fr-mb-1v">
+            <%= @formulaire.name_with_stage %>
+          </h1>
+          <p class="fr-text-mention--grey fr-mb-0">
+            <%= t('instruction.formulaires.show.identification') %> :
+            <code><%= @formulaire.id %></code>
+          </p>
         </div>
-      <% end %>
-      <div class="fr-col">
-        <h1 class="fr-mb-1v">
-          <%= @formulaire.name_with_stage %>
-        </h1>
-        <p class="fr-text-mention--grey fr-mb-0">
-          <%= t('instruction.formulaires.show.identification') %> :
-          <code><%= @formulaire.id %></code>
-        </p>
       </div>
+
+      <%= render 'instruction/shared/stats_badges', habilitations_count: @formulaire_habilitations_count || 0, demandes_count: @formulaire_demandes_count || 0 %>
     </div>
   </div>
 </div>
