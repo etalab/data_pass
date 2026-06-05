@@ -7,6 +7,7 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
   Tab = Data.define(:id, :path, :count)
 
   def show
+    @fomulaires_management_path = fomulaires_management_path
     case params[:id]
     when 'habilitations'
       search_object = Instruction::Search::DashboardHabilitationsSearch.new(
@@ -79,5 +80,15 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
 
   def search_terms_is_a_possible_id?
     Instruction::Search::DashboardSearch.search_terms_is_a_possible_id?(params)
+  end
+
+  def fomulaires_management_path
+    data_providers = policy_scope([:instruction, DataProvider]).to_a
+
+    if data_providers.count == 1
+       instruction_formulaires_path(provider_slug: data_providers.first)
+    else
+      instruction_data_providers_path
+    end
   end
 end
