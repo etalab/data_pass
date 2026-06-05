@@ -20,7 +20,7 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
 
     authorize [:instruction, @formulaire], :show?
 
-    @cas_usages_count = @formulaire.available_forms.
+    @cas_usages_count = @formulaire.available_forms.count
     @demandes_count = @formulaire.authorization_request_class.where(state: :submitted).count
     @habilitations_counts = Authorization.where(authorization_request_class: @formulaire.authorization_request_class.to_s).where(state: :active).count
   rescue StaticApplicationRecord::EntryNotFound
