@@ -60,21 +60,43 @@
 <% if @cas_usages_count > 1 %>
   <section class="fr-mb-5w">
     <div class="fr-container">
-      <div class="fr-col-12 fr-col-md-6">
-        <div class="fr-card fr-enlarge-link">
-          <div class="fr-card__body">
-            <div class="fr-card__content">
-              <h3 class="fr-card__title">
-                <%= link_to "Cas d'usages",
-                      instruction_formulaire_cas_usages_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id) %>
-              </h3>
-              <p class="fr-card__desc">
-                Facilitez votre instruction ainsi que les demandes en préremplissant votre formulaire <strong><%=@formulaire.name %></strong> avec des cas d'usages
-              </p>
-              <div class="fr-card__end">
-                <p class="fr-card__detail fr-icon-file-text-line">
-                  <%= t('instruction.formulaires.index.cas_usages_count', count: @formulaire.available_forms.size) %>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-card fr-enlarge-link">
+            <div class="fr-card__body">
+              <div class="fr-card__content">
+                <h3 class="fr-card__title">
+                  <%= link_to "Cas d'usages",
+                        instruction_formulaire_cas_usages_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id) %>
+                </h3>
+                <p class="fr-card__desc">
+                  Facilitez votre instruction ainsi que les demandes en préremplissant votre formulaire <strong><%=@formulaire.name %></strong> avec des cas d'usages
                 </p>
+                <div class="fr-card__end">
+                  <p class="fr-card__detail fr-icon-file-text-line">
+                    <%= t('instruction.formulaires.index.cas_usages_count', count: @formulaire.available_forms.size) %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-card fr-enlarge-link">
+            <div class="fr-card__body">
+              <div class="fr-card__content">
+                <h3 class="fr-card__title">
+                  <%= link_to "Emails automatiques", "#", disabled: true %>
+                </h3>
+                <p class="fr-card__desc">
+                  Configurez le contenu et les destinataires des emails automatiques envoyés durant tout le cycle de vie d'une demande
+                </p>
+                <div class="fr-card__end">
+                  <p class="fr-card__detail fr-icon-file-text-line">
+                    8 emails automatiques
+                  </p>
+                </div>
               </div>
             </div>
           </div>
