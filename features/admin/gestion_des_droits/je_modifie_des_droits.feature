@@ -44,7 +44,7 @@ Fonctionnalité: Admin — Gestion des droits — modifier les droits d’un uti
     Et que je me rends sur la page de gestion des droits
     Et que je clique sur "Modifier les droits de admin@gouv.fr"
     Alors le fil d’Ariane contient un lien "Gestion des droits" vers la page de gestion des droits admin
-    Et la section des droits non modifiables contient le badge "Admin"
+    Et la section des droits non modifiables indique "Contactez un tech de l’équipe pour modifier un droit admin."
     Quand je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"

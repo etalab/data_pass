@@ -73,6 +73,12 @@ RSpec.describe Rights::AdminAuthority do
     end
   end
 
+  describe '#can_self_edit?' do
+    it 'returns true (an admin can edit their own rights)' do
+      expect(authority.can_self_edit?).to be true
+    end
+  end
+
   describe '#authorized_scopes' do
     it 'includes a fd-wildcard scope for every provider' do
       provider_slugs = AuthorizationDefinition.all.filter_map(&:provider_slug).uniq

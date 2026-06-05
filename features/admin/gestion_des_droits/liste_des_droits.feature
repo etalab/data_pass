@@ -27,6 +27,28 @@ Fonctionnalité: Admin — Gestion des droits — lister les utilisateurs avec d
     Et le tableau des utilisateurs contient le badge "Admin"
     Et le tableau des utilisateurs contient le badge "Observateur"
 
+  Scénario: Je peux filtrer la liste avec une recherche
+    Quand il y a l'utilisateur "alice@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
+    Et qu'il y a l'utilisateur "bob@gouv.fr" avec le rôle "Instructeur" pour "API Particulier"
+    Et que je me rends sur la page de gestion des droits
+    Et que je remplis "Rechercher un utilisateur" avec "alice"
+    Et que je clique sur "Rechercher"
+    Alors la page contient "alice@gouv.fr"
+    Et la page ne contient pas "bob@gouv.fr"
+
+  Scénario: Une recherche vide affiche tous les utilisateurs
+    Quand il y a l'utilisateur "user1@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"
+    Et qu'il y a l'utilisateur "user2@gouv.fr" avec le rôle "Rapporteur" pour "API Particulier"
+    Et que je me rends sur la page de gestion des droits
+    Et que je remplis "Rechercher un utilisateur" avec ""
+    Et que je clique sur "Rechercher"
+    Alors la page contient "user1@gouv.fr"
+    Et la page contient "user2@gouv.fr"
+
+  Scénario: Je peux éditer mes propres droits depuis ma ligne
+    Quand je me rends sur la page de gestion des droits
+    Alors ma ligne affiche un bouton de modification
+
   Scénario: Le menu admin contient un lien vers la gestion des droits
     Quand je me rends sur le chemin "/admin"
     Alors la page contient "Gestion des droits"

@@ -3,6 +3,21 @@ class Organisms::Instruction::UserRights::TableComponentPreview < ViewComponent:
     actor = User.find_by!(email: 'datapass@yopmail.com')
     users = User.with_roles.where.not(id: actor.id).limit(5)
 
-    render Organisms::Instruction::UserRights::TableComponent.new(users: users, authority: Rights::ManagerAuthority.new(actor))
+    render Organisms::Instruction::UserRights::TableComponent.new(
+      users: users,
+      authority: Rights::ManagerAuthority.new(actor),
+      current_user: actor
+    )
+  end
+
+  def with_own_row_non_editable_as_manager
+    actor = User.find_by!(email: 'datapass@yopmail.com')
+    others = User.with_roles.where.not(id: actor.id).limit(4).to_a
+
+    render Organisms::Instruction::UserRights::TableComponent.new(
+      users: [actor, *others],
+      authority: Rights::ManagerAuthority.new(actor),
+      current_user: actor
+    )
   end
 end

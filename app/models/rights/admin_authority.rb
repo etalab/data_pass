@@ -24,6 +24,10 @@ class Rights::AdminAuthority < Rights::Authority
     !ParsedRole.parse(role_string).role.nil?
   end
 
+  def can_self_edit?
+    true
+  end
+
   def audit_event_name
     'user_rights_changed_by_admin'
   end

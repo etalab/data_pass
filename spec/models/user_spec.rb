@@ -104,6 +104,15 @@ RSpec.describe User do
 
       it { is_expected.to be_empty }
     end
+
+    context 'when a user holds an FD-wildcard role for the provider' do
+      let(:definition_ids) { ['api_entreprise'] }
+      let!(:fd_wildcard_manager) { create(:user, roles: ['dinum:*:manager']) }
+
+      it 'includes the FD-wildcard role holder, so an FD-manager sees their own row' do
+        expect(subject).to include(fd_wildcard_manager)
+      end
+    end
   end
 
   describe '#managed_fd_slugs' do
