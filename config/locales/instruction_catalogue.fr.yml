@@ -23,7 +23,6 @@ fr:
           description: Description
           scopes: Périmètres de données
           blocks: Structure du formulaire
-          cas_usages: Cas d’usage
           flags: Propriétés
           features:
             instructor_drafts: 
@@ -69,6 +68,8 @@ fr:
             one: 1 habilitation
             other: "%{count} habilitations"
     cas_usages:
+      index:
+        title: Cas d'usages
       show:
         identification: Identifiant du cas d’usage
         inherited_badge: Hérité du formulaire
