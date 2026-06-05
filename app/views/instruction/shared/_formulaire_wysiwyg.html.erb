@@ -1,3 +1,4 @@
+<% with_cgus ||= false %>
 
 <section class="cas-usage-section odd">
   <div class="fr-container">
@@ -44,15 +45,17 @@
     </section>
   <% end %>
 
-  <section class="cas-usage-section even">
-    <div class="fr-container">
-      <%= render 'instruction/shared/title_with_modify_button' do %>
-        <h2>Avant de soumettre la demande</h2>
-      <% end %>
+  <% if with_cgus %>
+    <section class="cas-usage-section even">
+      <div class="fr-container">
+        <%= render 'instruction/shared/title_with_modify_button' do %>
+          <h2>Avant de soumettre la demande</h2>
+        <% end %>
 
-      <div class="viewer-of-content">
-        <%= render 'authorization_request_forms/shared/tos_checkboxes', f: f %>
+        <div class="viewer-of-content">
+          <%= render 'authorization_request_forms/shared/tos_checkboxes', f: f %>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <% end %>
 <% end %>
