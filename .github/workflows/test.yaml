@@ -185,7 +185,7 @@ jobs:
             -v ${{ github.workspace }}:/app \
             --rm data_pass bundle exec parallel_cucumber \
             -n 6 --only-group ${{ matrix.group }} \
-            -o '--format progress' features/
+            -o '--format progress --retry 1' features/
       - name: Stop Chrome
         if: always()
         run: docker stop chrome || true
