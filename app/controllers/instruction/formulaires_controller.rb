@@ -16,9 +16,7 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
 
     authorize [:instruction, @formulaire], :show?
 
-    @cas_usages = @formulaire.available_forms
-    @demandes_counts = counts_by_form_uid(AuthorizationRequest)
-    @habilitations_counts = counts_by_form_uid(Authorization)
+    @cas_usages_count = @formulaire.available_forms.count
   rescue StaticApplicationRecord::EntryNotFound
     raise ActiveRecord::RecordNotFound
   end
@@ -31,9 +29,5 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
 
   def permitted_definition?(definition)
     Instruction::AuthorizationDefinitionPolicy.new(pundit_user, definition).show?
-  end
-
-  def counts_by_form_uid(model)
-    model.where(form_uid: @cas_usages.map(&:uid)).group(:form_uid).count
   end
 end

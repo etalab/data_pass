@@ -1,8 +1,8 @@
 <div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
   <div class="fr-container">
     <div class="fr-text--sm fr-mb-2w fr-text-mention--grey">
-      <%= link_to @formulaire.name_with_stage,
-            instruction_formulaire_path(provider_slug: @data_provider.slug, id: @formulaire.id),
+      <%= link_to "Cas d'usages de #{@formulaire.name_with_stage}",
+            instruction_formulaire_cas_usages_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id),
             class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
     </div>
     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">

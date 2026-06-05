@@ -1,9 +1,17 @@
+<% formulaire_back_link ||= false %>
+
 <div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
   <div class="fr-container">
     <div class="fr-text--sm fr-mb-2w fr-text-mention--grey">
-      <%= link_to @data_provider.name,
-            instruction_formulaires_path(provider_slug: @data_provider.slug),
-            class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+      <% if formulaire_back_link %>
+        <%= link_to @formulaire.name_with_stage,
+              instruction_formulaire_path(provider_slug: @data_provider.slug, id: @formulaire.id),
+              class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+      <% else %>
+        <%= link_to @data_provider.name,
+              instruction_formulaires_path(provider_slug: @data_provider.slug),
+              class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+      <% end %>
     </div>
     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
       <% if @data_provider.logo.attached? %>

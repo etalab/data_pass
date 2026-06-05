@@ -1,6 +1,12 @@
 class Instruction::CasUsagesController < Instruction::AbstractCatalogueController
   before_action :set_formulaire
 
+  def index
+    @cas_usages = @formulaire.available_forms
+    @demandes_counts = counts_by_form_uid(AuthorizationRequest)
+    @habilitations_counts = counts_by_form_uid(Authorization)
+  end
+
   def show
     @cas_usage = @formulaire.available_forms.find { |form| form.uid == params[:uid] }
     raise ActiveRecord::RecordNotFound unless @cas_usage
@@ -16,6 +22,10 @@ class Instruction::CasUsagesController < Instruction::AbstractCatalogueControlle
 
   def layout_name
     'wide_container'
+  end
+
+  def counts_by_form_uid(model)
+    model.where(form_uid: @cas_usages.map(&:uid)).group(:form_uid).count
   end
 
   def set_formulaire
