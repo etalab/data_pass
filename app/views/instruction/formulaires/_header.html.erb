@@ -35,5 +35,21 @@
         <%= render 'instruction/shared/stats_badges', habilitations_count: @formulaire_habilitations_count || 0, demandes_count: @formulaire_demandes_count || 0 %>
       </div>
     </div>
+
+    <% if action_name == 'show' %>
+      <div class="fr-grid-row fr-grid-row--gutters fr-mt-2w">
+        <div class="fr-col-auto">
+          <%= link_to "Initier une demande pour autrui", start_instruction_instructor_draft_requests_path(form_uid: @formulaire.default_form.uid), class: "fr-btn fr-btn-primary" %>
+        </div>
+        <div class="fr-col-auto">
+          <div class="fr-grid-row fr-grid-row--middle">
+            <%= link_to "Démarrer une nouvelle demande", new_authorization_request_path(definition_id: @formulaire.id), class: "fr-btn fr-btn--secondary"%>
+            <button class="fr-btn fr-icon fr-icon-clipboard-line">
+              Copier
+            <button>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
