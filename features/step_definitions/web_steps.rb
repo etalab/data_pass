@@ -36,12 +36,17 @@ rescue Capybara::ElementNotFound
 end
 
 Quand('je clique sur {string} et confirme dans la modale') do |label|
-  click_link_or_button label
-  within('turbo-frame#main-modal-content', wait: 5) do
-    find(:link_or_button, label, wait: 5)
+  modal_content = 'turbo-frame#main-modal-content'
+  3.times do
+    break if has_css?(modal_content, visible: true, wait: false)
+
+    find('a[aria-controls="main-modal"]', text: label).click
+    break if has_css?(modal_content, visible: true, wait: 2)
+  end
+  within(modal_content) do
     click_link_or_button label
   end
-  expect(page).to have_no_css('turbo-frame#main-modal-content', wait: 5)
+  expect(page).to have_no_css(modal_content, wait: 5)
 end
 
 Alors('la page contient {string}') do |content|
