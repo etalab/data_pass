@@ -4,7 +4,7 @@
 
 
 <section class="cas-usage-section even">
-  <!-- useless properties : @formulaire.description, @formulaire.public -->
+  <!-- useless properties : @formulaire.description, @formulaire.public, @formulaire.link -->
 
   <div class="fr-container">
     <%= render 'instruction/shared/title_with_modify_button' do %>
@@ -12,6 +12,11 @@
     <% end %>
 
     <div class="cas-usage-properties">
+      <div class="cas-usage-property">
+        <%= t('.fields.kind') %> : 
+        <code><%= @formulaire.kind.presence || content_tag(:span, t('.empty_value'), class: 'fr-text-mention--grey') %></code>
+      </div>
+
       <div class="cas-usage-property">
         <%= t('.flags.startable_by_applicant') %> : 
         <code><%= t(".#{@formulaire.startable_by_applicant}") %></code>
@@ -22,7 +27,6 @@
         <code><%= t(".#{@formulaire.unique}") %></code>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -40,20 +44,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><%= t('.fields.kind') %></td>
-            <td><%= @formulaire.kind.presence || content_tag(:span, t('.empty_value'), class: 'fr-text-mention--grey') %></td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.link') %></td>
-            <td>
-              <% if @formulaire.link.present? %>
-                <%= link_to @formulaire.link, @formulaire.link, class: 'fr-link', target: '_blank', rel: 'noopener' %>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
+
           <tr>
             <td><%= t('.fields.access_link') %></td>
             <td>
