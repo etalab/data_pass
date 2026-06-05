@@ -19,6 +19,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
     * je remplis "Première date de transmission" avec "2026-09-01"
     * je clique sur "Suivant"
+    * la page contient "Contact technique"
 
     * je clique sur "Précédent"
     * le bouton de suppression de la commune "75056" est annoncé par son code aux lecteurs d’écran
