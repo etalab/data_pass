@@ -12,21 +12,21 @@
     <div class="cas-usage-properties">
 
       <!-- ce truc de service_provider n'a aucun sens lol -->
-      <% if @cas_usage.service_provider %>
       <div class="cas-usage-property">
-        <% if @cas_usage.service_provider.try(:editor?) %>
-          Editeur : 
-        <% elsif @cas_usage.service_provider.try(:saas?) %>
-          Saas :
+        <% if @cas_usage.service_provider %>
+          <% if @cas_usage.service_provider.try(:editor?) %>
+            Editeur : 
+          <% elsif @cas_usage.service_provider.try(:saas?) %>
+            Saas :
+          <% else %>
+            Fournisseur de service : 
+          <% end %>
+          <strong><%= @cas_usage.service_provider.name %></strong>
         <% else %>
-          Fournisseur de service : 
+          <div class="fr-text-mention--grey"><%= t('.no_service_provider') %></div>
         <% end %>
-        <strong><%= @cas_usage.service_provider.name %></strong>
       </div>
-      <% else %>
-        <div class="fr-text-mention--grey"><%= t('.no_service_provider') %></div>
-      <% end %>
-
+      
       <div class="cas-usage-property">
         Visible dans la liste des cas d'usages : 
         <code><%= t(".#{@cas_usage.public}") %></code>
