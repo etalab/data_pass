@@ -6,8 +6,14 @@
   
   <h1 class="fr-h2 fr-mt-5w fr-col"><%= t('.title') %></h1>
 
-  <%= link_to "Gérer mes formulaires", instruction_data_providers_path, class: "fr-btn fr-btn--secondary fr-mt-5w fr-mb-3w fr-mr-2w" %>
-
+  <div class="fr-grid-row fr-grid-row--gutters fr-mt-5w fr-mb-3w fr-mr-2w">
+    <div class="fr-col-auto">
+      <%= link_to "Gérer mes formulaires", instruction_data_providers_path, class: "fr-btn fr-btn--secondary" %>
+    </div>
+    <div class="fr-col-auto">
+      <%= link_to "Initier une demande pour autrui", instruction_instructor_draft_requests_path, class: "fr-btn fr-btn-primary" %>
+    </div>
+  </div>
 
   <turbo-frame id="tabs">
     <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
