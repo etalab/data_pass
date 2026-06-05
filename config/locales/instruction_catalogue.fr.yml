@@ -63,13 +63,13 @@ fr:
         default_badge: Par défaut
         stats:
           demandes:
-            zero: Aucune demande
-            one: 1 demande
-            other: "%{count} demandes"
+            zero: Aucune demande en attente
+            one: 1 demande en attente
+            other: "%{count} demandes en attente"
           habilitations:
-            zero: Aucune habilitation
-            one: 1 habilitation
-            other: "%{count} habilitations"
+            zero: Aucune habilitation active
+            one: 1 habilitation active
+            other: "%{count} habilitations actives"
       show:
         identification: Identifiant du cas d’usage
         inherited_badge: Hérité du formulaire

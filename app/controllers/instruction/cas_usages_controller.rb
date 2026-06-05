@@ -3,8 +3,8 @@ class Instruction::CasUsagesController < Instruction::AbstractCatalogueControlle
 
   def index
     @cas_usages = @formulaire.available_forms
-    @demandes_counts = counts_by_form_uid(AuthorizationRequest)
-    @habilitations_counts = counts_by_form_uid(Authorization)
+    @demandes_counts = counts_by_form_uid(AuthorizationRequest.where(state: :changes_requested))
+    @habilitations_counts = counts_by_form_uid(Authorization.where(state: :active))
   end
 
   def show
