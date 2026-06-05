@@ -25,7 +25,21 @@ fr:
           blocks: Structure du formulaire
           cas_usages: Cas d’usage
           flags: Propriétés
-          features: Fonctionnalités
+          features:
+            instructor_drafts: 
+              name: "Initiable par un instructeur"
+              default: false
+            messaging:
+              name: "Messagerie via datapass active"
+              default: true
+            reopening:
+              name: "Demande de modification possible"
+              default: true
+            transfer:
+              name: "Transfert de demandeur possible"
+              default: true
+
+
         fields:
           label: Champ
           value: Valeur

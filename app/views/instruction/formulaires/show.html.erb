@@ -27,6 +27,16 @@
         <code><%= t(".#{@formulaire.unique}") %></code>
       </div>
 
+      <!-- J'ai dû ajouter de la config dans les locales pour avoir les valeurs par défaut -->
+      <% t(".sections.features").each do |feature, name_and_default| %>
+        <% value = @formulaire.features[feature] || name_and_default[:default]%>
+        <div class="cas-usage-property">
+          <%= name_and_default[:name] %> :
+          <code><%= t(".#{value}", default: 'Non') %></code>
+        </div>
+      <% end %>
+
+
       <div class="cas-usage-property">
         <%= t('.fields.access_link') %> : 
         <% if @formulaire.access_link.present? %>
