@@ -26,6 +26,7 @@ api-declaration-cesu:
     </ul>
     Le recours à l'API TD Cesu implique l'utilisation d'un logiciel compatible.</p>
     <p>Bon à savoir : pour savoir auprès de quelle API votre structure doit procéder à sa demande d’habilitation, consultez la documentation <a href="/doc/infographie_api_urssaf.pdf">ci-jointe</a>.</p>
+    <p>⚠️ Si vous souhaitez mettre en place l'avance de crédit d'impôt pour vos clients, vous n'êtes pas au bon endroit : <a href="https://portailapi.urssaf.fr/fr/catalogue-api/prd/tiers-prestations/souscription-api">l' API Tiers de Prestations</a> est l'API que vous cherchez.</p>
   steps:
     - name: basic_infos
     - name: personal_data
