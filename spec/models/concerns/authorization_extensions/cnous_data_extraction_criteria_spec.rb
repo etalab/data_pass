@@ -45,7 +45,32 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
     end
   end
 
-  describe 'populate codes insee and entity on create (after_commit)' do
+  describe '#geographic_perimeter_present (validation)' do
+    def manual_communes_errors(request)
+      request.valid?(:submit)
+      request.errors[:manual_code_insee_communes]
+    end
+
+    it 'is satisfied by an automatic kind, without any manual commune' do
+      request = build_request(organization: organization_with(categorie: '7210', commune: '92023'))
+
+      expect(manual_communes_errors(request)).to be_empty
+    end
+
+    it 'is satisfied by manually entered communes' do
+      request = build_request(organization: organization_with(categorie: '7340'), manual_code_insee_communes: %w[92023])
+
+      expect(manual_communes_errors(request)).to be_empty
+    end
+
+    it 'fails without an automatic kind nor manual communes' do
+      request = build_request(organization: organization_with(categorie: '7340'))
+
+      expect(manual_communes_errors(request)).to be_present
+    end
+  end
+
+  describe 'populate codes insee and entity on create (before_create)' do
     it 'stores a commune entity without a geo lookup' do
       request = build_request(organization: organization_with(categorie: '7210', commune: '92023'))
       request.save(validate: false)

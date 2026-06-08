@@ -5,45 +5,37 @@ require 'rails_helper'
 RSpec.describe GeoAPIGouvClient do
   subject(:client) { described_class.new }
 
-  let(:base_url) { 'https://geo.api.gouv.fr' }
+  let(:url) { 'https://geo.api.gouv.fr/communes/69123?fields=codeDepartement,codeRegion' }
 
-  describe '#commune' do
-    let(:url) { "#{base_url}/communes/69123?fields=nom,codeDepartement,codeRegion" }
-
-    it 'returns the commune with its name, department and region codes' do
+  describe '#get' do
+    it 'returns the parsed body on success' do
       stub_request(:get, url).to_return(
         status: 200,
-        body: { 'code' => '69123', 'nom' => 'Lyon', 'codeDepartement' => '69', 'codeRegion' => '84' }.to_json,
+        body: { 'codeDepartement' => '69', 'codeRegion' => '84' }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
 
-      expect(client.commune('69123')).to eq(
-        code: '69123', nom: 'Lyon', code_departement: '69', code_region: '84'
+      expect(client.get('/communes/69123', fields: 'codeDepartement,codeRegion')).to eq(
+        'codeDepartement' => '69', 'codeRegion' => '84'
       )
     end
 
-    it 'returns nil for an unknown commune (404)' do
+    it 'returns nil on a not found response' do
       stub_request(:get, url).to_return(status: 404, body: '')
 
-      expect(client.commune('69123')).to be_nil
+      expect(client.get('/communes/69123', fields: 'codeDepartement,codeRegion')).to be_nil
     end
 
-    it 'raises ServerError on 5xx' do
+    it 'returns nil on a server error' do
       stub_request(:get, url).to_return(status: 502, body: '')
 
-      expect { client.commune('69123') }.to raise_error(GeoAPIGouvClient::ServerError)
+      expect(client.get('/communes/69123', fields: 'codeDepartement,codeRegion')).to be_nil
     end
 
-    it 'caches the result for 24h (single HTTP call)' do
-      stub = stub_request(:get, url).to_return(
-        status: 200,
-        body: { 'code' => '69123', 'nom' => 'Lyon', 'codeDepartement' => '69', 'codeRegion' => '84' }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
+    it 'returns nil when the connection fails' do
+      stub_request(:get, url).to_timeout
 
-      2.times { client.commune('69123') }
-
-      expect(stub).to have_been_requested.once
+      expect(client.get('/communes/69123', fields: 'codeDepartement,codeRegion')).to be_nil
     end
   end
 end

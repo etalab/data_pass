@@ -14,7 +14,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     add_attribute :echelon_bourse
     add_attribute :premiere_date_transmission
 
-    after_commit :populate_codes_insee_and_entity, on: :create
+    before_create :populate_codes_insee_and_entity
 
     with_options if: -> { need_complete_validation?(:cnous_data_extraction_criteria) } do
       validate :geographic_perimeter_present
@@ -34,22 +34,18 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
   private
 
   def populate_codes_insee_and_entity
-    return if data['entity_type'].present?
-    return unless organization
-
     kind = geographic_kind
     return if kind.nil?
 
     code = code_insee_entity_for(kind)
     return if code.nil?
 
-    update_columns(data: data.merge('entity_type' => kind, 'code_insee_entity' => code)) # rubocop:disable Rails/SkipsModelValidations
-  rescue GeoAPIGouvClient::ServerError, Faraday::Error
-    nil
+    data['entity_type'] = kind
+    data['code_insee_entity'] = code
   end
 
   def geographic_kind
-    GEOGRAPHIC_KINDS[organization.insee_payload.dig('etablissement', 'uniteLegale', 'categorieJuridiqueUniteLegale')]
+    GEOGRAPHIC_KINDS[organization&.insee_payload&.dig('etablissement', 'uniteLegale', 'categorieJuridiqueUniteLegale')]
   end
 
   def code_insee_entity_for(kind)
@@ -57,14 +53,15 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     return code_commune if kind == 'commune'
     return if code_commune.nil?
 
-    commune = GeoAPIGouvClient.new.commune(code_commune)
+    commune = GeoAPIGouvClient.new.get("/communes/#{code_commune}", fields: 'nom,codeDepartement,codeRegion')
     return if commune.nil?
 
-    kind == 'departement' ? commune[:code_departement] : commune[:code_region]
+    kind == 'departement' ? commune['codeDepartement'] : commune['codeRegion']
   end
 
   def geographic_perimeter_present
-    return if data['entity_type'].present? || manual_code_insee_communes.present?
+    return if geographic_kind.present?
+    return if manual_code_insee_communes.present?
 
     errors.add(:manual_code_insee_communes, :blank)
   end

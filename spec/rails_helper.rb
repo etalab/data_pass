@@ -88,11 +88,11 @@ RSpec.configure do |config|
 
   config.before(:all) do
     ActiveJob::Base.queue_adapter = :test
+    Rails.cache.clear
   end
 
   config.before do
     StaticApplicationRecord.descendants.each(&:reset!)
-    Rails.cache.clear
   end
 
   # Filter lines from Rails gems in backtraces.
