@@ -92,6 +92,7 @@ RSpec.configure do |config|
 
   config.before do
     StaticApplicationRecord.descendants.each(&:reset!)
+    Rails.cache.clear
   end
 
   # Filter lines from Rails gems in backtraces.
