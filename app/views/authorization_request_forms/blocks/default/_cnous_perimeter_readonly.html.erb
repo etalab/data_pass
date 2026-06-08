@@ -1,10 +1,9 @@
-<% declaration = @authorization_request.geographic_perimeter_declaration %>
 <% scope = 'authorization_request_forms.default.cnous_data_extraction_criteria.perimeter' %>
 <div class="fr-fieldset__element"
      data-test="geographic-perimeter"
      data-controller="cnous-perimeter"
-     data-cnous-perimeter-type-value="<%= declaration[:type] %>"
-     data-cnous-perimeter-code-value="<%= declaration[:code] %>"
+     data-cnous-perimeter-type-value="<%= @authorization_request.data['entity_type'] %>"
+     data-cnous-perimeter-code-value="<%= @authorization_request.data['code_insee_entity'] %>"
      data-cnous-perimeter-commune-template-value="<%= t("#{scope}.summary.commune") %>"
      data-cnous-perimeter-departement-template-value="<%= t("#{scope}.summary.departement") %>"
      data-cnous-perimeter-region-template-value="<%= t("#{scope}.summary.region") %>"

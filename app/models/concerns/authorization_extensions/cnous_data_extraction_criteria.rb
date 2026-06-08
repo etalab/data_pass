@@ -3,12 +3,18 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
 
   ECHELONS = %w[0Bis 1 2 3 4 5 6 7].freeze
 
+  GEOGRAPHIC_KINDS = {
+    '7210' => 'commune',
+    '7220' => 'departement',
+    '7230' => 'region',
+  }.freeze
+
   included do
     add_attribute :manual_code_insee_communes, type: :array
     add_attribute :echelon_bourse
     add_attribute :premiere_date_transmission
 
-    after_commit :prefill_geographic_perimeter, on: :create
+    after_commit :populate_codes_insee_and_entity, on: :create
 
     with_options if: -> { need_complete_validation?(:cnous_data_extraction_criteria) } do
       validate :geographic_perimeter_present
@@ -21,39 +27,44 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     self.class::ECHELONS
   end
 
-  # Geographic identity (commune/dept/region) derived once from the org's INSEE
-  # identity at creation and persisted: trusted server-side data, never user-set
-  # (kept out of extra_attributes so it cannot be mass-assigned from form params).
-  def entity_type
-    data['entity_type'].presence
-  end
-
-  def code_insee_entity
-    data['code_insee_entity'].presence
-  end
-
-  def geographic_perimeter
-    [code_insee_entity].compact + manual_code_insee_communes
-  end
-
   def geographic_perimeter_automatic?
-    entity_type.present?
-  end
-
-  def geographic_perimeter_declaration
-    return if entity_type.blank? || code_insee_entity.blank?
-
-    { type: entity_type, code: code_insee_entity }
+    data['entity_type'].present?
   end
 
   private
 
-  def prefill_geographic_perimeter
-    PrefillGeographicPerimeter.new(self).call
+  def populate_codes_insee_and_entity
+    return if data['entity_type'].present?
+    return unless organization
+
+    kind = geographic_kind
+    return if kind.nil?
+
+    code = code_insee_entity_for(kind)
+    return if code.nil?
+
+    update_columns(data: data.merge('entity_type' => kind, 'code_insee_entity' => code)) # rubocop:disable Rails/SkipsModelValidations
+  rescue GeoAPIGouvClient::ServerError, Faraday::Error
+    nil
+  end
+
+  def geographic_kind
+    GEOGRAPHIC_KINDS[organization.insee_payload.dig('etablissement', 'uniteLegale', 'categorieJuridiqueUniteLegale')]
+  end
+
+  def code_insee_entity_for(kind)
+    code_commune = organization.insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
+    return code_commune if kind == 'commune'
+    return if code_commune.nil?
+
+    commune = GeoAPIGouvClient.new.commune(code_commune)
+    return if commune.nil?
+
+    kind == 'departement' ? commune[:code_departement] : commune[:code_region]
   end
 
   def geographic_perimeter_present
-    return if geographic_perimeter.present?
+    return if data['entity_type'].present? || manual_code_insee_communes.present?
 
     errors.add(:manual_code_insee_communes, :blank)
   end

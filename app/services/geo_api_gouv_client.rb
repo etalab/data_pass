@@ -18,10 +18,6 @@ class GeoAPIGouvClient
     end
   end
 
-  def commune_exists?(code)
-    commune(code).present?
-  end
-
   private
 
   def get(path, params = {})

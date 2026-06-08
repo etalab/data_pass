@@ -20,7 +20,7 @@ Alors('le périmètre indique que les informations ne sont pas modifiables') do
 end
 
 Alors('la demande contient le code commune INSEE {string}') do |code|
-  expect(AuthorizationRequest.last.code_insee_entity).to eq(code)
+  expect(AuthorizationRequest.last.data['code_insee_entity']).to eq(code)
 end
 
 Alors('le bouton de suppression de la commune {string} est annoncé par son code aux lecteurs d’écran') do |code|

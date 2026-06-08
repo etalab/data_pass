@@ -25,35 +25,9 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
       )
   end
 
-  describe '#entity_type / #code_insee_entity (read from stored data, no geo call)' do
-    it 'reads the persisted declaration without any geo lookup' do
-      request = build_request(data: { 'entity_type' => 'departement', 'code_insee_entity' => '69' })
-
-      expect(request.entity_type).to eq('departement')
-      expect(request.code_insee_entity).to eq('69')
-      expect(a_request(:get, /geo\.api\.gouv\.fr/)).not_to have_been_made
-    end
-
-    it 'is nil when nothing has been derived (manual mode)' do
-      request = build_request
-
-      expect(request.entity_type).to be_nil
-      expect(request.code_insee_entity).to be_nil
-    end
-  end
-
   describe 'mass-assignment safety' do
     it 'does not expose entity_type / code_insee_entity as permitted extra attributes' do
       expect(klass.extra_attributes).not_to include(:entity_type, :code_insee_entity)
-    end
-  end
-
-  describe '#geographic_perimeter' do
-    it 'unions the stored entity with the manually added communes' do
-      request = build_request(manual_code_insee_communes: %w[75056])
-      request.data.merge!('entity_type' => 'departement', 'code_insee_entity' => '69')
-
-      expect(request.geographic_perimeter).to contain_exactly('69', '75056')
     end
   end
 
@@ -71,26 +45,12 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
     end
   end
 
-  describe '#geographic_perimeter_declaration' do
-    it 'exposes the stored level and code' do
-      request = build_request(data: { 'entity_type' => 'commune', 'code_insee_entity' => '92023' })
-
-      expect(request.geographic_perimeter_declaration).to eq(type: 'commune', code: '92023')
-    end
-
-    it 'is nil when no entity is stored' do
-      request = build_request(manual_code_insee_communes: %w[92023])
-
-      expect(request.geographic_perimeter_declaration).to be_nil
-    end
-  end
-
-  describe 'prefill on create (after_commit)' do
+  describe 'populate codes insee and entity on create (after_commit)' do
     it 'stores a commune entity without a geo lookup' do
       request = build_request(organization: organization_with(categorie: '7210', commune: '92023'))
       request.save(validate: false)
 
-      expect(request.reload.geographic_perimeter_declaration).to eq(type: 'commune', code: '92023')
+      expect(request.reload.data).to include('entity_type' => 'commune', 'code_insee_entity' => '92023')
       expect(a_request(:get, /geo\.api\.gouv\.fr/)).not_to have_been_made
     end
 
@@ -99,7 +59,15 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
       request = build_request(organization: organization_with(categorie: '7220', commune: '69123'))
       request.save(validate: false)
 
-      expect(request.reload.geographic_perimeter_declaration).to eq(type: 'departement', code: '69')
+      expect(request.reload.data).to include('entity_type' => 'departement', 'code_insee_entity' => '69')
+    end
+
+    it 'stores a region entity derived via geo' do
+      stub_geo_commune('69123', departement: '69', region: '84')
+      request = build_request(organization: organization_with(categorie: '7230', commune: '69123'))
+      request.save(validate: false)
+
+      expect(request.reload.data).to include('entity_type' => 'region', 'code_insee_entity' => '84')
     end
 
     it 'stays in manual mode for an other-category organization' do
