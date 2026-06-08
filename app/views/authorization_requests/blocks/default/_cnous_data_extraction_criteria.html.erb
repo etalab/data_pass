@@ -1,10 +1,15 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.cnous_data_extraction_criteria'), block_id: :cnous_data_extraction_criteria, f:, editable: } do %>
   <p>
-    <strong><%= f.label_value(:communes_codes_insee) %></strong>
+    <strong><%= t('authorization_request_forms.default.cnous_data_extraction_criteria.perimeter.title') %></strong>
   </p>
 
-  <% if authorization_request.communes_codes_insee.present? %>
-    <p><%= authorization_request.communes_codes_insee.join(', ') %></p>
+  <% if authorization_request.geographic_perimeter.present? %>
+    <% if authorization_request.entity_type.present? %>
+      <p><%= "#{authorization_request.entity_type} : #{authorization_request.code_insee_entity}" %></p>
+    <% end %>
+    <% if authorization_request.manual_code_insee_communes.present? %>
+      <p><%= authorization_request.manual_code_insee_communes.join(', ') %></p>
+    <% end %>
   <% else %>
     <p><%= t('authorization_requests.shared.not_filled') %></p>
   <% end %>
