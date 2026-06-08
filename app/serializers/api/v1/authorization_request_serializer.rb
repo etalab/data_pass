@@ -24,16 +24,4 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
   def definition_id
     object.definition.id
   end
-
-  # Expose the geographic entity (inferred from the org, not stored) alongside
-  # the stored data so downstream consumers (relais) can resolve the perimeter
-  # without access to the organisation's INSEE payload.
-  def data
-    return object.data unless object.respond_to?(:geographic_perimeter_declaration)
-
-    declaration = object.geographic_perimeter_declaration
-    return object.data if declaration.nil?
-
-    object.data.merge('entity_type' => declaration[:type], 'code_insee_entity' => declaration[:code])
-  end
 end

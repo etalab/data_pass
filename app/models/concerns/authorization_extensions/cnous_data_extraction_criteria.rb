@@ -8,6 +8,8 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     add_attribute :echelon_bourse
     add_attribute :premiere_date_transmission
 
+    after_commit :prefill_geographic_perimeter, on: :create
+
     with_options if: -> { need_complete_validation?(:cnous_data_extraction_criteria) } do
       validate :geographic_perimeter_present
       validates :echelon_bourse, presence: true, inclusion: { in: ECHELONS }
@@ -15,28 +17,19 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     end
   end
 
-  AUTOMATIC_LEGAL_CATEGORIES = %i[commune dept region].freeze
-
   def available_echelons
     self.class::ECHELONS
   end
 
-  # The org's own geographic identity (commune/dept/region), inferred from its
-  # INSEE identity rather than stored — so it can never drift from the org.
-  def geographic_entity
-    return @geographic_entity if defined?(@geographic_entity)
-
-    @geographic_entity = (organization && OrganizationPerimeterDeriver.new(organization).call) || {}
-  rescue GeoAPIGouvClient::ServerError
-    @geographic_entity = {}
-  end
-
+  # Geographic identity (commune/dept/region) derived once from the org's INSEE
+  # identity at creation and persisted: trusted server-side data, never user-set
+  # (kept out of extra_attributes so it cannot be mass-assigned from form params).
   def entity_type
-    geographic_entity[:entity_type]
+    data['entity_type'].presence
   end
 
   def code_insee_entity
-    geographic_entity[:code_insee_entity]
+    data['code_insee_entity'].presence
   end
 
   def geographic_perimeter
@@ -44,7 +37,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
   end
 
   def geographic_perimeter_automatic?
-    organization.legal_category.in?(AUTOMATIC_LEGAL_CATEGORIES) && geographic_perimeter.present?
+    entity_type.present?
   end
 
   def geographic_perimeter_declaration
@@ -54,6 +47,10 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
   end
 
   private
+
+  def prefill_geographic_perimeter
+    PrefillGeographicPerimeter.new(self).call
+  end
 
   def geographic_perimeter_present
     return if geographic_perimeter.present?

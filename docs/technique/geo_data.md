@@ -25,17 +25,18 @@ La liste des communes d’un département/région (pour l’affichage) n’est *
 
 ## Mode automatique vs manuel
 
-À l’arrivée sur le bloc, `Organization#legal_category` (cf API-6829) décide :
+À la création de la demande, `Organization#legal_category` (cf API-6829) décide. Le périmètre est **dérivé une fois et persisté** dans `data` sous forme de déclaration `{entity_type, code_insee_entity}` (jamais relue/recalculée à l’affichage ni à la sérialisation) :
 
-| legal_category | mode | stockage |
-|----------------|------|----------|
-| `:commune` | auto | `communes_codes_insee` = [code de l’établissement] |
-| `:dept` | auto | `departements_codes_insee` = [dept dérivé via geo] |
-| `:region` | auto | `regions_codes_insee` = [région dérivée via geo] |
-| `:other` ou INSEE incomplet | manuel | `communes_codes_insee` saisis à la main |
+| legal_category | mode | `entity_type` | `code_insee_entity` |
+|----------------|------|---------------|---------------------|
+| `:commune` | auto | `commune` | code commune de l’établissement |
+| `:dept` | auto | `departement` | dept dérivé via geo |
+| `:region` | auto | `region` | région dérivée via geo |
+| `:other` ou INSEE incomplet | manuel | `nil` | `nil` (communes saisies dans `manual_code_insee_communes`) |
 
 - **Dérivation** : `OrganizationPerimeterDeriver` lit le `codeCommuneEtablissement` local et, pour dept/région, appelle `GeoAPIGouvClient#commune`.
-- **Pré-remplissage** : `PrefillGeographicPerimeter` est déclenché par un `after_commit on: :create` (sur les demandes portant le bloc) ; idempotent (ne réécrit pas une saisie existante) ; un geo en échec est avalé (la demande reste créée, périmètre vide → mode manuel).
+- **Pré-remplissage** : `PrefillGeographicPerimeter` est déclenché par un `after_commit on: :create` (sur les demandes portant le bloc) ; il persiste `entity_type`/`code_insee_entity` dans `data` (via `update_columns`). Idempotent (ne réécrit pas un `entity_type` déjà présent) ; un geo en échec (`ServerError` 5xx **ou** `Faraday::Error` timeout/connexion) est avalé (la demande reste créée, périmètre vide → mode manuel). `entity_type`/`code_insee_entity` ne sont **pas** des `add_attribute` : valeurs serveur de confiance, non modifiables au form (pas de mass-assignment).
+- **Lecture** : les readers du modèle (`entity_type`, `code_insee_entity`, `geographic_perimeter_automatic?`) et le serializer ne font **aucun** appel geo — ils lisent `data`.
 - **Affichage** : la vue rend un conteneur (`data-cnous-perimeter-type/code`) sans déclencher d’appel serveur. Le contrôleur Stimulus `cnous-perimeter` interroge directement `geo.api.gouv.fr` selon le type :
   - `commune` → `/communes/{code}?fields=nom` (libellé seul) ;
   - `departement` → `/departements/{code}?fields=nom` (libellé) + `/departements/{code}/communes?fields=nom` (liste + compte) ;
@@ -45,4 +46,4 @@ La liste des communes d’un département/région (pour l’affichage) n’est *
 
   > Tests : faute de mock HTTP navigateur (WebMock n’intercepte que le Ruby), les scénarios cucumber `@javascript` qui affichent le périmètre tapent la **vraie** geo.api. Le pré-remplissage (serveur) reste stubbé via WebMock.
 
-DataPass **collecte** la déclaration de périmètre (les trois clés `*_codes_insee` dans `data`) et l’expose telle quelle dans l’API. La résolution canonique dept/région → liste de communes pour le consumer est faite **en aval** (relais, cf API-6835).
+DataPass **collecte** la déclaration de périmètre (`entity_type` + `code_insee_entity` dérivés, `manual_code_insee_communes` saisis) dans `data` et l’expose telle quelle dans l’API (attribut `data` du serializer, sans traitement). La résolution canonique dept/région → liste de communes pour le consumer est faite **en aval** (relais, cf API-6835).
