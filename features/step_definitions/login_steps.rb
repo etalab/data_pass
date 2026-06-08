@@ -64,6 +64,30 @@ Sachantque('je suis un demandeur d\'une organisation fermée') do
   mock_identity_federators(user)
 end
 
+Sachantque('je suis un demandeur de la commune de Clamart') do
+  @current_user_email = 'demandeur@gouv.fr'
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+
+  commune_organization = Organization.find_by(siret: '21920023500014') || FactoryBot.create(:organization, siret: '21920023500014')
+
+  add_current_organization_to_user(user, commune_organization)
+  user.save!
+
+  mock_identity_federators(user)
+end
+
+Sachantque('je suis un demandeur du département du Rhône') do
+  @current_user_email = 'demandeur@gouv.fr'
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+
+  departement_organization = Organization.find_by(siret: '22690001700014') || FactoryBot.create(:organization, siret: '22690001700014')
+
+  add_current_organization_to_user(user, departement_organization)
+  user.save!
+
+  mock_identity_federators(user)
+end
+
 Sachantque("je suis un demandeur pour l'organisation {string}") do |organization_name|
   @current_user_email = 'demandeur@gouv.fr'
   organization = find_or_create_organization_by_name(organization_name)
