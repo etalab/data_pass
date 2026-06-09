@@ -16,3 +16,13 @@ end
 Alors("l'application n'a pas été supprimée") do
   expect(Doorkeeper::Application.exists?(@other_application.id)).to be true
 end
+
+Sachantque('il existe une application OAuth appartenant à {string}') do |email|
+  user = User.find_by!(email:)
+  FactoryBot.create(:oauth_application, owner: user)
+end
+
+Alors("l'utilisateur {string} n'a plus de clefs API") do |email|
+  user = User.find_by!(email:)
+  expect(Doorkeeper::Application.where(owner: user)).to be_empty
+end

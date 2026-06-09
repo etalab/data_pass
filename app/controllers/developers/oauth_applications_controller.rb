@@ -45,4 +45,8 @@ class Developers::OauthApplicationsController < DevelopersController
   def read_only_scopes
     Doorkeeper.configuration.default_scopes.to_s
   end
+
+  def model_to_track_for_impersonation
+    @application
+  end
 end

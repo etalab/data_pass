@@ -7,6 +7,7 @@ class Instruction::UpdateUserRights < ApplicationOrganizer
   end
 
   organize Instruction::MergeManagedRoles,
+    Instruction::RevokeOauthApplicationsIfNoDeveloperRole,
     Admin::TrackEvent,
     Admin::NotifyAdminsForRolesUpdate
 
