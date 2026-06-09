@@ -5,6 +5,7 @@ RSpec.describe Instruction::Search::DashboardDemandesSearch do
   let(:params) { { search_query: {} } }
   let!(:authorization_request) { create(:authorization_request) }
   let(:scope) { AuthorizationRequest.all }
+  let(:search_key) { described_class.key }
 
   describe '#initialize' do
     it 'creates a search object successfully' do
@@ -23,8 +24,6 @@ RSpec.describe Instruction::Search::DashboardDemandesSearch do
   end
 
   describe 'ID search' do
-    let(:search_key) { described_class.key }
-
     context 'with an exact numeric ID' do
       let(:params) { { search_query: { search_key => authorization_request.id.to_s } } }
 
@@ -69,6 +68,38 @@ RSpec.describe Instruction::Search::DashboardDemandesSearch do
       it 'returns no results' do
         search = described_class.new(params: params, scope: scope)
         expect(search.results).to be_empty
+      end
+    end
+
+    context 'with a validated demande' do
+      let!(:validated_request) { create(:authorization_request, :validated) }
+      let(:params) { { search_query: { search_key => validated_request.id.to_s } } }
+
+      it 'returns the validated request' do
+        search = described_class.new(params: params, scope: scope)
+        expect(search.results).to include(validated_request)
+      end
+    end
+
+    context 'with an archived demande' do
+      let!(:archived_request) { create(:authorization_request, :archived) }
+      let(:params) { { search_query: { search_key => archived_request.id.to_s } } }
+
+      it 'returns the archived request' do
+        search = described_class.new(params: params, scope: scope)
+        expect(search.results).to include(archived_request)
+      end
+    end
+  end
+
+  describe 'non-ID search' do
+    context 'with a validated demande' do
+      let!(:validated_request) { create(:authorization_request, :validated) }
+      let(:params) { { search_query: { search_key => validated_request.organization.siret } } }
+
+      it 'does not return the validated request' do
+        search = described_class.new(params: params, scope: scope)
+        expect(search.results).not_to include(validated_request)
       end
     end
   end
