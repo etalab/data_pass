@@ -182,6 +182,16 @@ fr:
       habilitation_type/kind/values:
         api: API
         service: Service
+      form_template:
+        name: Nom du cas d’usage
+        description: Description
+        introduction: Introduction
+        use_case: Identifiant du cas d’usage
+        default: Cas d’usage par défaut
+        public: Public
+        startable_by_applicant: Demande initiable par le demandeur
+        single_page_view: Vue en une seule page
+        service_provider_id: Fournisseur de service
       instructor_draft_request:
         applicant_email: Adresse email du demandeur
         organization_siret: Numéro de SIRET de l'organisation
@@ -275,6 +285,17 @@ fr:
               scope_name_blank: "ne peut pas être vide"
               scope_value_blank: "ne peut pas être vide"
               scope_value_duplicate: "est déjà utilisée par un autre scope"
+        form_template:
+          attributes:
+            base:
+              last_default_form_template: "ne peut pas être supprimé : il doit rester au moins un template par défaut pour ce type d’habilitation"
+            slug:
+              taken_by_yaml_form: "est déjà utilisé par un formulaire YAML"
+            default:
+              last_default_form_template: "ne peut pas être désactivé : il doit rester au moins un template par défaut pour ce type d’habilitation"
+              already_taken: "un autre template par défaut existe déjà pour ce type d’habilitation"
+            service_provider_id:
+              inclusion: "n’existe pas dans la liste des fournisseurs de service"
         impersonation:
           attributes:
             user:
