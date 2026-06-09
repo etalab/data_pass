@@ -13,6 +13,7 @@ fr:
     developers_home: Espace développeur
     developers_tutorials: Tutoriels développeurs
     developers_tutorial: "Tutoriel : %{title}"
+    new_oauth_application: Nouvelle clef API
 
     dashboard: Tableau de bord
     profile: Votre compte utilisateur

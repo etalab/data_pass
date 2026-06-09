@@ -47,6 +47,8 @@ fr:
       webhook:
         url: URL de destination
         authorization_definition_id: Service
+      doorkeeper/application:
+        name: "Nom de l'application"
         events: Événements à écouter
       authorization_request:
         terms_of_service_accepted: J’ai pris connaissance des conditions générales d’utilisation et je les valide.

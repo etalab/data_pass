@@ -1,0 +1,43 @@
+<% set_title! t('page_titles.new_oauth_application') %>
+
+<% content_for :content_skip_link_text do %>
+  Nouvelle clef API
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Formulaire", "oauth-application-form") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<div class="sub-header fr-mt-4w fr-mb-2w">
+  <div class="sub-header-content">
+    <h1>
+      <%= t('.title') %>
+    </h1>
+  </div>
+</div>
+
+<div class="fr-grid-row" id="oauth-application-form">
+  <div class="fr-col-12 fr-col-md-6">
+    <%= form_with(model: @application, url: developers_oauth_applications_path, builder: DsfrFormBuilder) do |f| %>
+      <% if @application.errors.any? %>
+        <div class="fr-alert fr-alert--error fr-mb-4w">
+          <h3 class="fr-alert__title"><%= t('errors.messages.form_errors', count: @application.errors.count) %></h3>
+          <ul>
+            <% @application.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.dsfr_text_field :name, required: true, label: t('.name_label') %>
+
+      <div class="fr-mt-4w">
+        <%= f.submit t('.submit'), class: %w[fr-btn] %>
+        <%= link_to t('.cancel'), developers_oauth_applications_path, class: %w[fr-btn fr-btn--secondary] %>
+      </div>
+    <% end %>
+  </div>
+</div>
