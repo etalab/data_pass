@@ -56,9 +56,30 @@ class Instruction::Search::DashboardSearch
   end
 
   def build_search_engine
-    search = base_relation.ransack(params[:search_query])
-    search.sorts = default_sort if search.sorts.empty?
+    if search_terms_is_a_possible_id?
+      build_id_search_engine
+    else
+      search = base_relation.ransack(params[:search_query])
+      search.sorts = default_sort if search.sorts.empty?
+      search
+    end
+  end
+
+  def build_id_search_engine
+    search = id_matching_relation.ransack(nil)
+    search.sorts = default_sort
     search
+  end
+
+  def id_matching_relation
+    extracted_id = self.class.extract_id_from_search_terms(params, expected_prefix: id_search_prefix)
+    return base_relation.none unless extracted_id
+
+    base_relation.where('CAST(id AS TEXT) LIKE ?', "#{extracted_id}%")
+  end
+
+  def id_search_prefix
+    raise NotImplementedError, 'Subclasses must implement #id_search_prefix'
   end
 
   def build_search_results

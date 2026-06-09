@@ -1,5 +1,4 @@
 class Instruction::DashboardController < Instruction::AbstractAuthorizationRequestsController
-  before_action :redirect_to_searched_record
   before_action :save_or_load_search_params
 
   skip_before_action :extract_authorization_request
@@ -27,32 +26,8 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
 
   private
 
-  def find_searched_record
-    case params[:id]
-    when 'demandes'
-      extracted_id = Instruction::Search::DashboardSearch.extract_id_from_search_terms(params, expected_prefix: 'D')
-      AuthorizationRequest.find_by(id: extracted_id) if extracted_id
-    when 'habilitations'
-      extracted_id = Instruction::Search::DashboardSearch.extract_id_from_search_terms(params, expected_prefix: 'H')
-      Authorization.find_by(id: extracted_id) if extracted_id
-    end
-  end
-
   def load_search_params
     params[:search_query] = JSON.parse(cookies[search_key] || '{}') if params[:search_query].blank?
-  end
-
-  def redirect_to_searched_record
-    return unless search_terms_is_a_possible_id?
-
-    candidate = find_searched_record
-    return unless candidate
-
-    authorize [:instruction, candidate], :show?
-
-    redirect_to search_record_path(candidate)
-  rescue Pundit::NotAuthorizedError
-    nil
   end
 
   def save_or_load_search_params
@@ -66,18 +41,5 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
 
   def search_key
     :"#{controller_name}_#{action_name}_#{params[:id]}_search"
-  end
-
-  def search_record_path(record)
-    case params[:id]
-    when 'demandes'
-      instruction_authorization_request_path(record)
-    when 'habilitations'
-      authorization_path(record)
-    end
-  end
-
-  def search_terms_is_a_possible_id?
-    Instruction::Search::DashboardSearch.search_terms_is_a_possible_id?(params)
   end
 end
