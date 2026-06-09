@@ -12,6 +12,7 @@ class HabilitationType < ApplicationRecord
   friendly_id :name, use: :slugged
 
   belongs_to :data_provider
+  has_many :form_templates, dependent: :destroy
 
   enum :kind, { api: 'api', service: 'service' }, validate: true
 
@@ -24,11 +25,11 @@ class HabilitationType < ApplicationRecord
   validates :scopes, presence: true, if: :scopes_block_selected?
   validate :validate_each_scope, if: :scopes_block_selected?
 
+  after_create :ensure_default_form_template!
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
-  after_destroy :reset_static_caches
   after_save :register_dynamic_class
-  after_save :reset_static_caches
+  after_commit :reset_static_caches, on: %i[create update destroy]
 
   def public
     true
@@ -61,6 +62,12 @@ class HabilitationType < ApplicationRecord
   def ordered_steps
     block_names = block_name_list
     BLOCK_ORDER.select { |name| block_names.include?(name) }
+  end
+
+  def ensure_default_form_template!
+    return if form_templates.exists?(default: true)
+
+    form_templates.create!(slug:, default: true)
   end
 
   def self.preload_requests_counts!(habilitation_types)

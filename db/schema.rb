@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_08_193914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -208,6 +208,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.string "reason", null: false
     t.datetime "updated_at", null: false
     t.index ["authorization_request_id"], name: "index_denial_of_authorizations_on_authorization_request_id"
+  end
+
+  create_table "form_templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "default", default: false, null: false
+    t.text "description"
+    t.bigint "habilitation_type_id", null: false
+    t.jsonb "initialize_with", default: {}, null: false
+    t.text "introduction"
+    t.string "name"
+    t.boolean "public", default: true, null: false
+    t.jsonb "scopes_config", default: {}, null: false
+    t.string "service_provider_id"
+    t.boolean "single_page_view", default: false, null: false
+    t.string "slug", null: false
+    t.boolean "startable_by_applicant", default: true, null: false
+    t.jsonb "static_blocks", default: [], null: false
+    t.jsonb "steps", default: [], null: false
+    t.datetime "updated_at", null: false
+    t.string "use_case"
+    t.index ["habilitation_type_id"], name: "index_form_templates_on_habilitation_type_id"
+    t.index ["habilitation_type_id"], name: "index_one_default_form_template_per_habilitation_type", unique: true, where: "\"default\""
+    t.index ["slug"], name: "index_form_templates_on_slug", unique: true
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -731,6 +754,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
   add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
   add_foreign_key "bulk_authorization_request_update_notification_reads", "users"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
+  add_foreign_key "form_templates", "habilitation_types"
   add_foreign_key "habilitation_types", "data_providers"
   add_foreign_key "impersonation_actions", "impersonations"
   add_foreign_key "impersonations", "users"
