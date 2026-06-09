@@ -598,6 +598,18 @@ RSpec.describe User do
     end
   end
 
+  describe '#roles=' do
+    it 'clears memoized role sets so role checks reflect the new roles' do
+      user = build(:user, roles: ['dinum:api_entreprise:developer'])
+
+      expect(user.developer?).to be true
+
+      user.roles = ['dinum:api_entreprise:reporter']
+
+      expect(user.developer?).to be false
+    end
+  end
+
   describe '.banned' do
     subject { described_class.banned }
 

@@ -9,13 +9,17 @@ Fonctionnalité: Développeurs: gestion des clefs API
     Sachant que je suis un développeur "API Entreprise"
     Et que je me connecte
 
-  Scénario: Je peux créer une clef API
+  Scénario: Je peux créer une clef API et voir les identifiants une seule fois
     Quand je me rends sur le chemin "/developpeurs/applications"
     Et que je clique sur "Nouvelle clef API"
     Et que je remplis "Nom de l'application" avec "Mon application"
     Et que je clique sur "Créer la clef API"
+    Alors la page contient "Identifiants de votre nouvelle clef API"
+    Et la page contient "Attention"
+    Et la page contient "Identifiant client"
+    Et la page contient "Secret client"
+    Quand je clique sur "Retour aux clefs API"
     Alors la page contient "Mes clefs d'accès API"
-    Et il y a un message de succès contenant "Clef API créée avec succès"
     Et la page contient "Mon application"
 
   Scénario: Je ne peux pas créer une clef API sans nom

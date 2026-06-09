@@ -1,0 +1,27 @@
+<div class="fr-input-group fr-mb-4w" data-controller="clipboard" data-clipboard-content-value="<%= value %>">
+  <label class="fr-label fr-mb-1w" for="<%= label.parameterize %>">
+    <strong><%= label %></strong>
+  </label>
+  <div class="fr-grid-row fr-grid-row--middle">
+    <div class="fr-col-auto">
+      <input
+        id="<%= label.parameterize %>"
+        type="text"
+        class="fr-input copiable-field__input"
+        value="<%= value %>"
+        size="<%= value.length %>"
+        readonly
+      >
+    </div>
+    <div class="fr-col-auto fr-ml-1w">
+      <button
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-clipboard-line"
+        type="button"
+        data-action="click->clipboard#copy"
+        aria-label="<%= copy_aria_label %>"
+      >
+        <%= t('developers.oauth_applications.show_credentials.copy_button') %>
+      </button>
+    </div>
+  </div>
+</div>

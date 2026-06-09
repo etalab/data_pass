@@ -45,14 +45,21 @@ Fonctionnalité: Instruction — Gestion des droits — modifier les droits d’
     Et que je tente de modifier les droits de "externe@gouv.fr" via URL
     Alors il y a un message d'erreur contenant "Vous n'avez pas le droit d'accéder à cette page"
 
-  Scénario: Un rôle développeur est affiché en lecture seule et préservé lors d’une modification
+  Scénario: Je peux attribuer le rôle développeur lors d'une modification
     Quand il y a l'utilisateur "dev@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
-    Et qu'il y a l'utilisateur "dev@gouv.fr" avec le rôle "Développeur" pour "API Entreprise"
     Et que je me rends sur la page de gestion des droits
     Et que je clique sur "Modifier les droits de dev@gouv.fr"
-    Alors la page contient "Droits non modifiables depuis cette interface"
-    Et la section des droits non modifiables indique "Contactez l’équipe DataPass pour modifier le droit développeur."
-    Quand je sélectionne "Instructeur" pour "Rôle"
+    Quand je sélectionne "Développeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
-    Et l'utilisateur "dev@gouv.fr" a les rôles "dinum:api_entreprise:developer,dinum:api_entreprise:instructor"
+    Et l'utilisateur "dev@gouv.fr" a les rôles "dinum:api_entreprise:developer"
+
+  Scénario: Révoquer le rôle développeur supprime les clefs API de l'utilisateur
+    Quand il y a l'utilisateur "dev@gouv.fr" avec le rôle "Développeur" pour "API Entreprise"
+    Et qu'il existe une application OAuth appartenant à "dev@gouv.fr"
+    Et que je me rends sur la page de gestion des droits
+    Et que je clique sur "Modifier les droits de dev@gouv.fr"
+    Et que je sélectionne "Observateur" pour "Rôle"
+    Et que je clique sur "Valider les modifications"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et l'utilisateur "dev@gouv.fr" n'a plus de clefs API

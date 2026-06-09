@@ -23,7 +23,7 @@
     <%= form_with(model: @application, url: developers_oauth_applications_path, builder: DsfrFormBuilder) do |f| %>
       <% if @application.errors.any? %>
         <div class="fr-alert fr-alert--error fr-mb-4w">
-          <h3 class="fr-alert__title"><%= t('errors.messages.form_errors', count: @application.errors.count) %></h3>
+          <h2 class="fr-alert__title"><%= t('errors.messages.form_errors', count: @application.errors.count) %></h2>
           <ul>
             <% @application.errors.full_messages.each do |message| %>
               <li><%= message %></li>

@@ -191,7 +191,11 @@ Rails.application.routes.draw do
   get '/developpeurs', to: 'developers#index', as: :developers_root
 
   namespace :developers, path: 'developpeurs' do
-    resources :oauth_applications, only: %i[index new create destroy], path: 'applications'
+    resources :oauth_applications, only: %i[index new create destroy], path: 'applications' do
+      member do
+        get :show_credentials
+      end
+    end
     get 'documentation', to: 'open_api#show'
 
     get 'tutoriels', to: 'tutorials#index', as: :tutorials

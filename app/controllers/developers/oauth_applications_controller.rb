@@ -1,5 +1,5 @@
 class Developers::OauthApplicationsController < DevelopersController
-  before_action :set_application, only: :destroy
+  before_action :set_application, only: %i[destroy show_credentials]
 
   def index
     authorize Doorkeeper::Application, policy_class: Developer::OauthApplicationPolicy
@@ -18,11 +18,17 @@ class Developers::OauthApplicationsController < DevelopersController
     )
 
     if @application.save
-      success_message(title: t('.success'))
-      redirect_to developers_oauth_applications_path
+      flash[:show_credentials] = true
+      redirect_to show_credentials_developers_oauth_application_path(@application)
     else
       render :new, status: :unprocessable_content
     end
+  end
+
+  def show_credentials
+    authorize @application, policy_class: Developer::OauthApplicationPolicy
+
+    redirect_to developers_oauth_applications_path unless flash[:show_credentials]
   end
 
   def destroy
@@ -44,5 +50,9 @@ class Developers::OauthApplicationsController < DevelopersController
 
   def read_only_scopes
     Doorkeeper.configuration.default_scopes.to_s
+  end
+
+  def model_to_track_for_impersonation
+    @application
   end
 end

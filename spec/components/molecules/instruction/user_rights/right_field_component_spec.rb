@@ -46,16 +46,12 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
     )
   end
 
-  it 'lists only reporter, instructor and manager as role options' do
+  it 'lists reporter, instructor, manager and developer as role options' do
     render_component(index: 0)
 
     expect(page).to have_select(
       'instruction_user_right_form[rights][][role_type]',
-      with_options: %w[Observateur Instructeur Manager]
-    )
-    expect(page).to have_no_select(
-      'instruction_user_right_form[rights][][role_type]',
-      with_options: %w[Développeur]
+      with_options: %w[Observateur Instructeur Manager Développeur]
     )
   end
 

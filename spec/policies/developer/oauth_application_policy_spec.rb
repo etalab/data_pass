@@ -36,6 +36,30 @@ RSpec.describe Developer::OauthApplicationPolicy do
     end
   end
 
+  describe '#show_credentials?' do
+    subject { policy.show_credentials? }
+
+    context 'when user owns the application' do
+      let(:user) { owner }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user does not own the application' do
+      let(:user) { create(:user, :developer) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when user owns the application but is not a developer' do
+      let(:non_developer_owner) { create(:user) }
+      let(:application) { create(:oauth_application, owner: non_developer_owner) }
+      let(:user) { non_developer_owner }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#destroy?' do
     subject { policy.destroy? }
 
@@ -47,6 +71,14 @@ RSpec.describe Developer::OauthApplicationPolicy do
 
     context 'when user does not own the application' do
       let(:user) { create(:user, :developer) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when user owns the application but is not a developer' do
+      let(:non_developer_owner) { create(:user) }
+      let(:application) { create(:oauth_application, owner: non_developer_owner) }
+      let(:user) { non_developer_owner }
 
       it { is_expected.to be false }
     end

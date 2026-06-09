@@ -95,17 +95,6 @@ RSpec.describe Instruction::UserRightForm do
         expect(form.errors.details[:rights]).to include(hash_including(error: :role_type_not_allowed))
       end
     end
-
-    context 'when a role_type is not in the allowed list' do
-      let(:attrs) do
-        { email: 'user@gouv.fr', rights: [valid_right(role_type: 'developer')] }
-      end
-
-      it 'is invalid with role_type_not_allowed on :rights' do
-        expect(form).not_to be_valid
-        expect(form.errors.details[:rights]).to include(hash_including(error: :role_type_not_allowed))
-      end
-    end
   end
 
   describe '#to_roles' do

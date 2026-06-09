@@ -2,7 +2,8 @@
               url: url,
               method: method,
               scope: :instruction_user_right_form,
-              builder: DsfrFormBuilder do |f| %>
+              builder: DsfrFormBuilder,
+              data: oauth_applications_count.positive? ? { controller: 'oauth-revocation-warning', action: 'change->oauth-revocation-warning#update click->oauth-revocation-warning#update', oauth_revocation_warning_message_value: t('instruction.user_rights.edit.oauth_revocation_warning', count: oauth_applications_count) } : {} do |f| %>
 
   <% if form.errors.any? %>
     <%= dsfr_alert type: :error,
@@ -72,7 +73,10 @@
             class: %w[fr-btn fr-btn--secondary] %>
     </li>
     <li>
-      <%= f.button submit_label, type: :submit, class: %w[fr-btn fr-btn--primary fr-icon-check-line fr-btn--icon-left] %>
+      <%= f.button submit_label,
+            type: :submit,
+            class: %w[fr-btn fr-btn--primary fr-icon-check-line fr-btn--icon-left],
+            data: oauth_applications_count.positive? ? { oauth_revocation_warning_target: 'submit' } : {} %>
     </li>
   </ul>
 <% end %>
