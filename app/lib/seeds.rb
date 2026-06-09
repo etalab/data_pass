@@ -2,6 +2,7 @@ class Seeds
   def perform
     create_data_providers
     create_entities
+    create_cnous_habilitation_type
     create_oauth_app
     create_all_verified_emails
 
@@ -58,6 +59,7 @@ class Seeds
     }
 
     demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
+    departement_demandeur.add_to_organization(rhone_departement_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
 
@@ -68,6 +70,26 @@ class Seeds
     dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
   end
   # rubocop:enable Metrics/AbcSize
+
+  def create_cnous_habilitation_type
+    HabilitationType.create!(
+      name: 'Boursiers',
+      description: 'Extraction des données des boursiers CNOUS (périmètre géographique dérivé de l’identité INSEE).',
+      kind: 'api',
+      data_provider: DataProvider.find_by!(slug: 'menj'),
+      cgu_link: 'https://example.org/cgu',
+      support_email: 'support@yopmail.com',
+      blocks: [
+        { 'name' => 'basic_infos' },
+        { 'name' => 'cnous_data_extraction_criteria' },
+        { 'name' => 'contacts' },
+      ],
+      contact_types: ['contact_technique'],
+      features: { 'messaging' => true, 'transfer' => true, 'reopening' => true },
+      scopes: [],
+      custom_labels: {}
+    )
+  end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create_authorization_requests_for_clamart
@@ -159,6 +181,17 @@ class Seeds
     )
   end
 
+  def departement_demandeur
+    @departement_demandeur ||= User.create!(
+      given_name: 'Camille',
+      family_name: 'Bernard',
+      email: 'departement@yopmail.com',
+      external_id: '20',
+      job_title: 'Responsable des bourses',
+      phone_number: '0423456789'
+    )
+  end
+
   def foreign_demandeur
     @foreign_demandeur ||= User.create!(
       given_name: 'Pierre',
@@ -222,6 +255,10 @@ class Seeds
 
   def dinum_organization
     @dinum_organization ||= create_organization(siret: '13002526500013', name: 'DINUM')
+  end
+
+  def rhone_departement_organization
+    @rhone_departement_organization ||= create_organization(siret: '22690001700014', name: 'Département du Rhône')
   end
 
   def create_organization(siret:, name:)
