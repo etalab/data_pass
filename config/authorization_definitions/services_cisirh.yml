@@ -3,9 +3,9 @@ services_cisirh:
   description: Le CISIRH contribue à la modernisation de la fonction "ressources humaines" de l’État dans les domaines métiers et applicatifs.
   provider: "cisirh"
   kind: 'service'
-  link: "https://services-cisirh.gouv.fr/feedme-with-valid-url"
-  cgu_link: "https://services-cisirh.gouv.fr/cgu"
-  access_link: "https://services-cisirh.gouv.fr/tokens/%{external_provider_id}"
+  link: " https://cisirh.github.io/"
+  cgu_link: " https://cisirh.github.io/cgacgu"
+  access_link: "https://cisirh.github.io/tokens/%{external_provider_id}"
   public: true
   support_email: "api.cisirh@finances.gouv.fr"
   blocks:
