@@ -34,6 +34,49 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Alors il y a un message de succès contenant "soumise avec succès"
     Et la demande contient les conditions d'extraction CNOUS attendues
 
+  Scénario: Une collectivité identifiée comme commune voit son périmètre pré-rempli en lecture seule
+    Sachant que je suis un demandeur de la commune de Clamart
+    Et que je me connecte
+    Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
+
+    Quand je démarre une nouvelle demande d'habilitation "Boursiers"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    Alors je vois le périmètre géographique en lecture seule contenant "Clamart"
+    Et le périmètre indique que les informations ne sont pas modifiables
+
+    Quand je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
+    Et je remplis "Première date de transmission" avec "2026-09-01"
+    Et je clique sur "Suivant"
+
+    * je renseigne les informations du contact technique
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et la demande contient le code commune INSEE "92023"
+
+  Scénario: Une collectivité identifiée comme département voit ses communes à la demande
+    Sachant que je suis un demandeur du département du Rhône
+    Et que l’API géo connaît la commune "69123" nommée "Lyon"
+    Et que je me connecte
+    Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
+
+    Quand je démarre une nouvelle demande d'habilitation "Boursiers"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    Alors je vois le périmètre géographique en lecture seule contenant "Rhône"
+    Et le périmètre indique que les informations ne sont pas modifiables
+
+    Quand je clique sur "Voir toutes les communes"
+    Alors je vois le périmètre géographique en lecture seule contenant "Villeurbanne"
+
   Scénario: Le formulaire accepte les codes INSEE Corse et à zéro de tête
     Sachant que je suis un demandeur
     Et que je me connecte

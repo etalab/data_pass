@@ -123,7 +123,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         register
         klass = AuthorizationRequest.const_get(uid.classify)
         expect(klass.extra_attributes).to include(
-          :communes_codes_insee,
+          :manual_code_insee_communes,
           :echelon_bourse,
           :premiere_date_transmission,
         )
@@ -140,7 +140,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         before { valid? }
 
         context 'without any field' do
-          it { expect(demande.errors[:communes_codes_insee]).to be_present }
+          it { expect(demande.errors[:manual_code_insee_communes]).to be_present }
           it { expect(demande.errors[:echelon_bourse]).to be_present }
           it { expect(demande.errors[:premiere_date_transmission]).to be_present }
         end
@@ -148,13 +148,13 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         context 'with all fields filled correctly' do
           let(:params) do
             {
-              communes_codes_insee: %w[75056 69123],
+              manual_code_insee_communes: %w[75056 69123],
               echelon_bourse: '5',
               premiere_date_transmission: '2026-09-01',
             }
           end
 
-          it { expect(demande.errors[:communes_codes_insee]).to be_empty }
+          it { expect(demande.errors[:manual_code_insee_communes]).to be_empty }
           it { expect(demande.errors[:echelon_bourse]).to be_empty }
           it { expect(demande.errors[:premiere_date_transmission]).to be_empty }
         end

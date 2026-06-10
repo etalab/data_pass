@@ -1,13 +1,6 @@
 class Organization < ApplicationRecord
   self.ignored_columns += %w[siret]
 
-  LEGAL_CATEGORY_MAP = {
-    '7210' => :commune,
-    '7220' => :dept,
-    '7230' => :region,
-  }.freeze
-  private_constant :LEGAL_CATEGORY_MAP
-
   validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
   validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
 
@@ -50,10 +43,6 @@ class Organization < ApplicationRecord
 
   def personne_physique?
     unite_legale['categorieJuridiqueUniteLegale'] == '1000'
-  end
-
-  def legal_category
-    LEGAL_CATEGORY_MAP.fetch(unite_legale['categorieJuridiqueUniteLegale'], :other)
   end
 
   def insee_payload

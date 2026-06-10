@@ -88,6 +88,7 @@ RSpec.configure do |config|
 
   config.before(:all) do
     ActiveJob::Base.queue_adapter = :test
+    Rails.cache.clear
   end
 
   config.before do
