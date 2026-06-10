@@ -67,6 +67,31 @@ RSpec.describe Organization do
     end
   end
 
+  describe '#code_commune_etablissement' do
+    subject { organization.code_commune_etablissement }
+
+    context 'when the etablissement has an address' do
+      let(:organization) do
+        build(:organization,
+          legal_entity_registry: 'insee_sirene',
+          legal_entity_id: '12345678900010',
+          insee_payload: {
+            'etablissement' => {
+              'adresseEtablissement' => { 'codeCommuneEtablissement' => '69123' },
+            },
+          })
+      end
+
+      it { is_expected.to eq('69123') }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#legal_category' do
     subject { organization.legal_category }
 

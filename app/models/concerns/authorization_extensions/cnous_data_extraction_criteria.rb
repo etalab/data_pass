@@ -46,7 +46,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
   end
 
   def code_insee_entity_for(kind)
-    code_commune = organization.insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
+    code_commune = organization.code_commune_etablissement
     return code_commune if kind == 'commune'
     return if code_commune.nil?
 

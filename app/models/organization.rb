@@ -60,6 +60,10 @@ class Organization < ApplicationRecord
     self[:insee_payload] || {}
   end
 
+  def code_commune_etablissement
+    insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
+  end
+
   def last_insee_update_within_24h?
     return false if last_insee_payload_updated_at.blank?
 
