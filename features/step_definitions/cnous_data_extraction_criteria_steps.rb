@@ -65,7 +65,7 @@ end
 
 Alors('les champs de codes INSEE acceptent les caractères alphanumériques de longueur 5') do
   expect(page).to have_css(
-    'input[name$="[manual_code_insee_communes][]"][type="text"][inputmode="numeric"][pattern="[0-9AB]{5}"][maxlength="5"]',
+    'input[name$="[manual_code_insee_communes][]"][type="text"][inputmode="text"][pattern="[0-9AB]{5}"][maxlength="5"]',
     visible: :all
   )
 end

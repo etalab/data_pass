@@ -12,7 +12,7 @@
   <script type="text/x-template" data-nested-form-target="template">
     <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true" data-record-id="NEW_RECORD">
       <div class="fr-col-8">
-        <input type="text" inputmode="numeric" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[manual_code_insee_communes][]" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %>">
+        <input type="text" inputmode="text" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[manual_code_insee_communes][]" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %>">
       </div>
       <div class="fr-col-4">
         <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form-focus#focusAfterRemove click->nested-form#remove" aria-label="<%= t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria_blank') %>">
@@ -26,7 +26,7 @@
     <% (@authorization_request.manual_code_insee_communes.presence || ['']).each_with_index do |code, index| %>
       <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
         <div class="fr-col-8">
-          <input type="text" inputmode="numeric" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[manual_code_insee_communes][]" value="<%= code %>" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°<%= index + 1 %>">
+          <input type="text" inputmode="text" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[manual_code_insee_communes][]" value="<%= code %>" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°<%= index + 1 %>">
         </div>
         <div class="fr-col-4">
           <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form-focus#focusAfterRemove click->nested-form#remove" aria-label="<%= code.present? ? t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria', code: code) : t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria_blank') %>">
