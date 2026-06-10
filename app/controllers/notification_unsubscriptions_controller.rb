@@ -45,6 +45,12 @@ class NotificationUnsubscriptionsController < AuthenticatedUserController
     @kind == 'submit' ? @user.reporter?(@definition_id) : @user.instructor?(@definition_id)
   end
 
+  def track_impersonation_action
+    return if @user.nil?
+
+    super
+  end
+
   def model_to_track_for_impersonation
     @user
   end
