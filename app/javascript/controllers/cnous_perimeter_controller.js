@@ -66,17 +66,17 @@ export default class extends Controller {
   }
 
   showCommunes () {
-    this.listTarget.innerHTML = ''
-    this.communes.forEach((commune) => {
-      const item = document.createElement('li')
-      item.classList.add('fr-col-12', 'fr-col-md-6')
-      item.textContent = commune.nom
-      this.listTarget.appendChild(item)
-    })
-
+    this.listTarget.replaceChildren(...this.communes.map((commune) => this.communeItem(commune)))
     this.listTarget.classList.remove('fr-hidden')
     this.showAllTarget.classList.add('fr-hidden')
     this.listTarget.focus()
+  }
+
+  communeItem (commune) {
+    const item = document.createElement('li')
+    item.classList.add('fr-col-12', 'fr-col-md-6')
+    item.textContent = commune.nom
+    return item
   }
 
   templateFor (type) {
