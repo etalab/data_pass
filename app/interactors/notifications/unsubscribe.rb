@@ -1,13 +1,17 @@
 class Notifications::Unsubscribe < ApplicationInteractor
   def call
+    context.user.with_lock { unsubscribe }
+  end
+
+  private
+
+  def unsubscribe
     context.already_unsubscribed = !context.user.public_send(setting_key)
     return if context.already_unsubscribed
 
     context.user.update!(setting_key => '0')
     log_preference_change
   end
-
-  private
 
   def log_preference_change
     NotificationPreferenceChange.create!(

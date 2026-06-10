@@ -55,6 +55,17 @@ RSpec.describe Notifications::Unsubscribe do
     end
   end
 
+  describe 'when the audit log creation fails' do
+    before do
+      allow(NotificationPreferenceChange).to receive(:create!).and_raise(ActiveRecord::RecordInvalid)
+    end
+
+    it 'rolls back the preference change' do
+      expect { organizer }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(user.reload.instruction_submit_notifications_for_api_entreprise).to be_truthy
+    end
+  end
+
   describe 'when the user is already unsubscribed' do
     before { user.update!('instruction_submit_notifications_for_api_entreprise' => '0') }
 
