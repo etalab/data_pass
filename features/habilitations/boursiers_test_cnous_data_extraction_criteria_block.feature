@@ -74,9 +74,12 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
 
     Alors je vois le périmètre géographique en lecture seule contenant "Rhône"
     Et le périmètre indique que les informations ne sont pas modifiables
+    Et le résumé du périmètre est annoncé aux lecteurs d’écran
 
     Quand je clique sur "Voir toutes les communes"
     Alors je vois le périmètre géographique en lecture seule contenant "Villeurbanne"
+    Et la liste des communes est annoncée par son libellé aux lecteurs d’écran
+    Et le focus est sur la liste des communes du périmètre
 
   Scénario: Le formulaire accepte les codes INSEE Corse et à zéro de tête
     Sachant que je suis un demandeur

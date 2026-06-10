@@ -25,6 +25,19 @@ Alors('le périmètre ne propose pas de voir toutes les communes') do
   end
 end
 
+Alors('le résumé du périmètre est annoncé aux lecteurs d’écran') do
+  expect(page).to have_css('[data-test="geographic-perimeter"] p[role="status"]')
+end
+
+Alors('la liste des communes est annoncée par son libellé aux lecteurs d’écran') do
+  labels = page.all('[data-test="geographic-perimeter"] ul', visible: :all).map { |list| list['aria-label'] }
+  expect(labels).to include('Communes incluses dans le périmètre')
+end
+
+Alors('le focus est sur la liste des communes du périmètre') do
+  expect(page).to have_css('[data-test="geographic-perimeter"] ul:focus')
+end
+
 Alors('la demande contient le code commune INSEE {string}') do |code|
   expect(AuthorizationRequest.last.data['code_insee_entity']).to eq(code)
 end

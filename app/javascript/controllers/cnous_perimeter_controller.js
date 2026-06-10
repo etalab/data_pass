@@ -76,6 +76,7 @@ export default class extends Controller {
 
     this.listTarget.classList.remove('fr-hidden')
     this.showAllTarget.classList.add('fr-hidden')
+    this.listTarget.focus()
   }
 
   templateFor (type) {

@@ -142,6 +142,7 @@ fr:
           loading: Chargement du périmètre…
           unavailable: Le périmètre n’a pas pu être chargé pour le moment.
           show_all: Voir toutes les communes
+          list_aria_label: Communes incluses dans le périmètre
           summary:
             commune: "Vous allez obtenir un fichier comportant les données des allocataires de la commune de « %{name} »."
             departement: "Vous allez obtenir un fichier comportant les données des allocataires des communes du département « %{name} » (%{count} communes)."
