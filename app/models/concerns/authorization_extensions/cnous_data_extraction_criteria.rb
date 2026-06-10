@@ -36,9 +36,6 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
 
   private
 
-  # Geographic identity (commune/departement/region) derived once from the org's
-  # INSEE identity at creation and persisted in data: trusted server-side data,
-  # never user-set (kept out of extra_attributes so it cannot be mass-assigned).
   def populate_codes_insee_and_entity
     return if geographic_perimeter_automatic?
 

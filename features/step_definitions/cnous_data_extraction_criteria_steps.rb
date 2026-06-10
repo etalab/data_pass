@@ -30,7 +30,7 @@ Alors('le résumé du périmètre est annoncé aux lecteurs d’écran') do
 end
 
 Alors('la liste des communes est annoncée par son libellé aux lecteurs d’écran') do
-  labels = page.all('[data-test="geographic-perimeter"] ul', visible: :all).map { |list| list['aria-label'] }
+  labels = page.all('[data-test="geographic-perimeter"] ul', visible: :all).pluck('aria-label')
   expect(labels).to include('Communes incluses dans le périmètre')
 end
 
