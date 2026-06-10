@@ -3,8 +3,8 @@
     <strong><%= t('authorization_request_forms.default.cnous_data_extraction_criteria.perimeter.title') %></strong>
   </p>
 
-  <% if authorization_request.data['entity_type'].present? %>
-    <p><%= "#{authorization_request.data['entity_type']} : #{authorization_request.data['code_insee_entity']}" %></p>
+  <% if authorization_request.geographic_perimeter_automatic? %>
+    <p><%= "#{authorization_request.entity_type} : #{authorization_request.code_insee_entity}" %></p>
   <% elsif authorization_request.manual_code_insee_communes.present? %>
     <p><%= authorization_request.manual_code_insee_communes.join(', ') %></p>
   <% else %>

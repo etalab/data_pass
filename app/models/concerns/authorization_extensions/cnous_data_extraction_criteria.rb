@@ -22,8 +22,16 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     self.class::ECHELONS
   end
 
+  def entity_type
+    data['entity_type']
+  end
+
+  def code_insee_entity
+    data['code_insee_entity']
+  end
+
   def geographic_perimeter_automatic?
-    data['entity_type'].present?
+    entity_type.present?
   end
 
   private
@@ -32,7 +40,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
   # INSEE identity at creation and persisted in data: trusted server-side data,
   # never user-set (kept out of extra_attributes so it cannot be mass-assigned).
   def populate_codes_insee_and_entity
-    return if data['entity_type'].present?
+    return if geographic_perimeter_automatic?
 
     kind = GEOGRAPHIC_KINDS[organization&.legal_category]
     return if kind.nil?
@@ -57,7 +65,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
   end
 
   def geographic_perimeter_present
-    return if data['entity_type'].present? || manual_code_insee_communes.present?
+    return if geographic_perimeter_automatic? || manual_code_insee_communes.present?
 
     errors.add(:manual_code_insee_communes, :blank)
   end

@@ -31,6 +31,22 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
     end
   end
 
+  describe '#entity_type / #code_insee_entity' do
+    it 'reads the stored geographic identity' do
+      request = build_request(data: { 'entity_type' => 'commune', 'code_insee_entity' => '92023' })
+
+      expect(request.entity_type).to eq('commune')
+      expect(request.code_insee_entity).to eq('92023')
+    end
+
+    it 'is nil when no entity has been stored' do
+      request = build_request
+
+      expect(request.entity_type).to be_nil
+      expect(request.code_insee_entity).to be_nil
+    end
+  end
+
   describe '#geographic_perimeter_automatic?' do
     it 'is true once an entity has been stored' do
       request = build_request(data: { 'entity_type' => 'commune', 'code_insee_entity' => '92023' })
