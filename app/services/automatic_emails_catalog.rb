@@ -236,6 +236,7 @@ class AutomaticEmailsCatalog
     def delegue_protection_donnees_given_name = '[Prénom DPD]'
     def administrateur_metier_given_name = '[Prénom Admin]'
     def administrateur_metier_family_name = '[Nom Admin]'
+    def administrateur_metier_email = '[Email Admin]'
     def scopes = []
   end
 end
