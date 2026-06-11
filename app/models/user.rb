@@ -105,7 +105,7 @@ class User < ApplicationRecord
   has_many :oauth_applications,
     class_name: 'Doorkeeper::Application',
     as: :owner,
-    dependent: :restrict_with_exception
+    dependent: :destroy
 
   has_many :access_grants,
     class_name: 'Doorkeeper::AccessGrant',

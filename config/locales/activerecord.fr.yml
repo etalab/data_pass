@@ -28,7 +28,7 @@ fr:
             rights:
               scope_not_authorized: contiennent une portée qui n’est pas dans votre périmètre
               incomplete_right: chaque droit doit renseigner une portée et un rôle
-              role_type_not_allowed: contiennent un rôle non autorisé (seuls reporter, instructeur et manager sont autorisés)
+              role_type_not_allowed: contiennent un rôle non autorisé (seuls reporter, instructeur, manager et développeur sont autorisés)
   activerecord:
     attributes:
       user:
@@ -48,6 +48,8 @@ fr:
         url: URL de destination
         authorization_definition_id: Service
         events: Événements à écouter
+      doorkeeper/application:
+        name: "Nom de l'application"
       authorization_request:
         terms_of_service_accepted: J’ai pris connaissance des conditions générales d’utilisation et je les valide.
         data_protection_officer_informed: Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande.

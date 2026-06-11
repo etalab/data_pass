@@ -46,13 +46,23 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Et la page contient "Peut instruire les demandes"
     Et la page contient "peut attribuer ou retirer des droits"
 
-  Scénario: La liste des rôles ne contient ni admin ni développeur
+  Scénario: La liste des rôles contient les quatre rôles gérables mais pas admin
     Quand je me rends sur la page d'ajout de droits
     Alors le select "Rôle" contient "Observateur"
     Et le select "Rôle" contient "Instructeur"
     Et le select "Rôle" contient "Manager"
-    Et le select "Rôle" ne contient pas "Développeur"
+    Et le select "Rôle" contient "Développeur"
     Et le select "Rôle" ne contient pas "Admin"
+
+  Scénario: J'ajoute le rôle développeur à un utilisateur
+    Quand il y a l'utilisateur "dev@gouv.fr" sans rôle
+    Et que je me rends sur la page d'ajout de droits
+    Et que je remplis "Email de l’utilisateur" avec "dev@gouv.fr"
+    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "Développeur" pour "Rôle"
+    Et que je clique sur "Valider les modifications"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et l'utilisateur "dev@gouv.fr" a les rôles "dinum:api_entreprise:developer"
 
   Scénario: Je préserve les rôles existants hors de mon périmètre
     Quand il y a l'utilisateur "existant@gouv.fr" avec le rôle "Rapporteur" pour "API Particulier"

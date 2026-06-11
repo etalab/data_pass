@@ -1,5 +1,5 @@
 class Rights::ManagerAuthority < Rights::Authority
-  ALLOWED_ROLE_TYPES = %w[reporter instructor manager].freeze
+  ALLOWED_ROLE_TYPES = %w[reporter instructor manager developer].freeze
 
   def allowed_role_types
     ALLOWED_ROLE_TYPES
