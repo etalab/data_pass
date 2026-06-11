@@ -10,7 +10,7 @@ class AutomaticEmailsCatalog
 
   GDPR_CONTACTS = %i[responsable_traitement delegue_protection_donnees].freeze
 
-  AutomaticEmailEntry = Struct.new(:event_name, :recipient_type, :subject, :body_text, keyword_init: true)
+  AutomaticEmailEntry = Struct.new(:event_name, :recipient_type, :subject, :body_text, :recipient_emails, keyword_init: true)
   PreviewAuthorization = Struct.new(:formatted_id)
 
   def initialize(definition)
@@ -38,6 +38,7 @@ class AutomaticEmailsCatalog
     AutomaticEmailEntry.new(
       event_name:,
       recipient_type: capture[:recipient_type],
+      recipient_emails: capture[:recipient_emails],
       subject:,
       body_text: render_body(template, extra_assigns: capture.fetch(:extra_assigns, {})),
     )
@@ -154,6 +155,7 @@ class AutomaticEmailsCatalog
       def notify_france_connect
         @captures << {
           recipient_type: :france_connect,
+          recipient_emails: ['support.partenaires@franceconnect.gouv.fr'],
           subject: "[DataPass] nouveaux scopes pour « #{AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:organization_name]} - #{AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:authorization_request_id]} »",
           template_path: 'france_connect_mailer/new_scopes',
           extra_assigns: { france_connect_authorization_request: AutomaticEmailsCatalog::PreviewAuthorizationRequest.new(definition) },
@@ -161,8 +163,12 @@ class AutomaticEmailsCatalog
       end
 
       def notify_dgfip_apim(_params)
+        apim_emails = Rails.application.credentials.dgfip_apim_emails || []
+        api_emails = (Rails.application.credentials.dgfip_api_specific_emails || {})[definition.id.to_sym] || []
+
         @captures << {
           recipient_type: :dgfip_apim,
+          recipient_emails: apim_emails + api_emails,
           subject: I18n.t('dgfip_apim_mailer.approve.subject', authorization_request_id: AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:authorization_request_id]),
           template_path: 'dgfip/apim_mailer/approve',
           extra_assigns: {

@@ -143,6 +143,7 @@ fr:
           france_connect: Support FranceConnect
           dgfip_apim: DGFIP APIM
           hubee_administrateur_metier: Administrateur métier HubEE
+          from_credentials: Emails configurés dans les credentials pour %{definition_name}
   page_titles:
     instruction:
       data_providers_index: Fournisseurs de données

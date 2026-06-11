@@ -14,9 +14,13 @@
         </div>
         <div>
           <strong>Destinataires : </strong>
-          <p class="fr-badge fr-badge--green-emeraude fr-badge--no-icon">
+          <% if email.recipient_emails.nil? %>
             <%= t(".recipients.#{email.recipient_type}") %>
-          </p>
+          <% elsif email.recipient_emails.any? %>
+            <%= email.recipient_emails.join(', ') %>
+          <% else %>
+            <%= t('.recipients.from_credentials', definition_name: @formulaire.name) %>
+          <% end %>
         </div>
 
         <div class="fr-text--md fr-mb-1w">
