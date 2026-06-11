@@ -54,14 +54,14 @@ class AutomaticEmailsCatalog
   end
 
   def render_body(mailer_class, mailer_action)
-    return nil unless @preview_ar
-
     template = resolve_template_path(mailer_class, mailer_action)
     return nil unless template
 
+    ar = @preview_ar || PreviewAuthorizationRequest.new(@definition)
+
     ApplicationController.render(
       template:,
-      assigns: { authorization_request: @preview_ar },
+      assigns: { authorization_request: ar },
       formats: [:text],
     )
   rescue StandardError
@@ -131,5 +131,34 @@ class AutomaticEmailsCatalog
     "#{@definition.authorization_request_class.to_s.demodulize}Notifier".constantize
   rescue NameError
     BaseNotifier
+  end
+
+  class PreviewAuthorizationRequest
+    Applicant = Struct.new(:full_name, :email)
+    Organization = Struct.new(:name)
+    Reason = Struct.new(:reason, :present?)
+
+    def initialize(definition)
+      @definition = definition
+    end
+
+    attr_reader :definition
+
+    delegate :name, to: :definition
+
+    def id = 0
+    def to_param = '0'
+    def model_name = ActiveModel::Name.new(AuthorizationRequest)
+    def formatted_id = 'N°0001'
+    def reopening? = false
+    def latest_authorization = nil
+    def last_submitted_at = Time.current
+    def applicant = Applicant.new('[Nom du demandeur]', 'demandeur@example.org')
+    def organization = Organization.new('[Organisation]')
+    def denial = Reason.new('[Motif de refus]')
+    def revocation = Reason.new('[Motif de révocation]')
+    def modification_request = Reason.new('[Demande de modification]', false)
+    def authorization_request_revocation_reason = '[Motif de révocation]'
+    def with_france_connect? = false
   end
 end

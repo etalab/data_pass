@@ -29,8 +29,6 @@
 
             <% if email.body_text.present? %>
               <pre class="fr-text--sm fr-mt-2w" style="white-space: pre-wrap; background: var(--background-alt-grey); padding: 1rem; border-radius: 4px; overflow-x: auto;"><%= email.body_text %></pre>
-            <% else %>
-              <p class="fr-text-mention--grey fr-mt-2w"><%= t('.no_preview') %></p>
             <% end %>
           </div>
         </div>
