@@ -3,9 +3,11 @@ RSpec.describe SendMessageToInstructors do
 
   let(:message_params) { attributes_for(:message) }
   let(:user) { create(:user) }
-  let(:authorization_request) { create(:authorization_request) }
+  let(:authorization_request) { create(:authorization_request, :api_entreprise) }
 
   context 'with valid attributes' do
+    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+
     it { is_expected.to be_success }
 
     it 'creates a message for authorization request' do
@@ -26,7 +28,7 @@ RSpec.describe SendMessageToInstructors do
     end
 
     context 'when it is a reopening' do
-      let(:authorization_request) { create(:authorization_request, :reopened) }
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :reopened) }
 
       it 'delivers an email specific to reopening to instructors' do
         expect { send_message_to_instructors }.to have_enqueued_mail(MessageMailer, :reopening_to_instructors)

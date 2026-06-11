@@ -852,6 +852,25 @@ fr:
       description: Pour créer puis compléter cette demande d'habilitation, cliquez sur le bouton ci-dessous
       cta: Créer cette demande
 
+  notification_unsubscriptions:
+    kinds:
+      submit: les nouvelles demandes à instruire
+      messages: les nouveaux messages
+    show:
+      title: Désinscription des notifications
+      description: "Vous êtes sur le point de ne plus recevoir les emails concernant %{kind_label} pour « %{api_name} ». Vos autres notifications ne sont pas affectées."
+      cta: Confirmer la désinscription
+      manage_preferences: Gérer toutes mes préférences de notification
+    success:
+      title: Préférence enregistrée
+      description: "Vous ne recevrez plus d’email concernant %{kind_label} pour « %{api_name} »."
+      already_description: "Vous ne receviez déjà plus d’email concernant %{kind_label} pour « %{api_name} »."
+      manage_preferences: Gérer toutes mes préférences de notification
+    invalid:
+      title: Lien invalide ou expiré
+      description: Ce lien de désinscription n’est plus valide. Il a peut-être expiré ou vous n’avez plus les droits correspondants.
+      manage_preferences: Gérer mes préférences sur mon compte
+
   errors:
     messages:
       form_errors:

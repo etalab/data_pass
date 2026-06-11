@@ -65,16 +65,28 @@ RSpec.describe BaseNotifier, type: :notifier do
   end
 
   describe '#submit to Instruction::AuthorizationRequestMailer' do
-    it 'enqueues the submit email to instruction mailer without reopening' do
-      expect {
-        notifier.submit({})
-      }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
+    context 'without instructors' do
+      it 'does not enqueue the submit email to instruction mailer' do
+        expect {
+          notifier.submit({})
+        }.not_to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
+      end
     end
 
-    it 'enqueues the reopening_submit email to instruction mailer when reopening' do
-      expect {
-        notifier.submit({ within_reopening: true })
-      }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :reopening_submit)
+    context 'with an instructor to notify' do
+      let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+
+      it 'enqueues the submit email to instruction mailer without reopening' do
+        expect {
+          notifier.submit({})
+        }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
+      end
+
+      it 'enqueues the reopening_submit email to instruction mailer when reopening' do
+        expect {
+          notifier.submit({ within_reopening: true })
+        }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :reopening_submit)
+      end
     end
   end
 
@@ -93,8 +105,8 @@ RSpec.describe BaseNotifier, type: :notifier do
   end
 
   describe '#submit email in case of changes requested' do
-    let(:authorization_request) { create(:authorization_request, :api_entreprise, last_submitted_at: 1.day.ago) }
     let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: ['api_entreprise'], instruction_submit_notifications_for_api_entreprise: true) }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, last_submitted_at: 1.day.ago) }
 
     before do
       ActiveJob::Base.queue_adapter = :inline
@@ -107,7 +119,7 @@ RSpec.describe BaseNotifier, type: :notifier do
     context 'when there is a changes requested' do
       before { create(:instructor_modification_request, authorization_request:) }
 
-      it 'delivers an email that contains the modification sentence' do
+      it 'delivers one instruction email and one applicant email' do
         expect {
           notifier.submit({})
         }.to change { ActionMailer::Base.deliveries.count }.by(2)
@@ -118,7 +130,7 @@ RSpec.describe BaseNotifier, type: :notifier do
     end
 
     context 'when there is no changes requested' do
-      it 'delivers an email that does not contain the modification sentence' do
+      it 'delivers one instruction email and one applicant email' do
         expect {
           notifier.submit({})
         }.to change { ActionMailer::Base.deliveries.count }.by(2)

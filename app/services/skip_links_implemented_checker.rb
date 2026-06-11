@@ -24,6 +24,9 @@ class SkipLinksImplementedChecker
     claim_instructor_draft_requests#show
     claim_instructor_draft_requests#create
 
+    notification_unsubscriptions#show
+    notification_unsubscriptions#create
+
     authorization_request_events#index
     messages#index
     profile#edit
