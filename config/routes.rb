@@ -155,6 +155,7 @@ Rails.application.routes.draw do
     scope '/fournisseurs-donnees/:provider_slug' do
       resources :formulaires, only: %i[index show] do
         resources :cas_usages, only: %i[index show], path: 'cas-usage', param: :uid
+        resource :emails_automatiques, only: :show, path: 'emails-automatiques'
       end
     end
   end

@@ -21,6 +21,7 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
     authorize [:instruction, @formulaire], :show?
 
     @cas_usages_count = @formulaire.available_forms.count
+    @emails_automatiques_count = emails_automatiques_count
     @formulaire_demandes_count = @formulaire.authorization_request_class.where(state: :submitted).count
     @formulaire_habilitations_count = Authorization.where(authorization_request_class: @formulaire.authorization_request_class.to_s).where(state: :active).count
   rescue StaticApplicationRecord::EntryNotFound
@@ -36,6 +37,10 @@ class Instruction::FormulairesController < Instruction::AbstractCatalogueControl
   def counts_by_definition(model)
     
     model.where(type: classes).group(:type).count
+  end
+
+  def emails_automatiques_count
+    AutomaticEmailsCatalog.new(@formulaire).build.count
   end
 
   def permitted_definition?(definition)

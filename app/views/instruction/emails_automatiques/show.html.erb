@@ -1,0 +1,40 @@
+<% set_title! t('page_titles.instruction.emails_automatiques_show', formulaire_name: @formulaire.name) %>
+
+<%= render 'instruction/formulaires/header', formulaire_back_link: true %>
+
+<div class="fr-container fr-py-6w">
+  <h2><%= t('.title') %></h2>
+
+  <% @emails.each do |email| %>
+    <div class="fr-mb-4w">
+      <div class="fr-card fr-card--no-arrow">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <div class="fr-grid-row fr-grid-row--gutters fr-mb-2w">
+              <div class="fr-col-auto">
+                <p class="fr-badge fr-badge--blue-cumulus fr-badge--no-icon">
+                  <%= t(".events.#{email.event_name}") %>
+                </p>
+              </div>
+              <div class="fr-col-auto">
+                <p class="fr-badge fr-badge--green-emeraude fr-badge--no-icon">
+                  <%= t(".recipients.#{email.recipient_type}") %>
+                </p>
+              </div>
+            </div>
+
+            <h3 class="fr-card__title fr-text--md fr-mb-1w">
+              <%= email.subject %>
+            </h3>
+
+            <% if email.body_text.present? %>
+              <pre class="fr-text--sm fr-mt-2w" style="white-space: pre-wrap; background: var(--background-alt-grey); padding: 1rem; border-radius: 4px; overflow-x: auto;"><%= email.body_text %></pre>
+            <% else %>
+              <p class="fr-text-mention--grey fr-mt-2w"><%= t('.no_preview') %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

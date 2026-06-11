@@ -15,6 +15,10 @@ fr:
         cas_usages_count:
           one: 1 cas d’usage
           other: "%{count} cas d’usage"
+        emails_automatiques_count:
+          zero: Aucun email automatique
+          one: 1 email automatique
+          other: "%{count} emails automatiques"
         empty: Aucun formulaire associé à ce fournisseur.
       show:
         identification: Identifiant du formulaire
@@ -121,9 +125,23 @@ fr:
         no_service_provider: Pas de fournisseur de service rattaché.
         "true": Oui
         "false": Non
+    emails_automatiques:
+      show:
+        title: Emails automatiques
+        no_preview: Aucun aperçu disponible (aucune demande de ce type en base).
+        events:
+          submit: Soumission d'une demande
+          approve: Validation d'une demande
+          refuse: Refus d'une demande
+          request_changes: Demande de modifications
+          revoke: Révocation d'une habilitation
+        recipients:
+          applicant: Demandeur
+          instructors: Instructeurs
   page_titles:
     instruction:
       data_providers_index: Fournisseurs de données
       formulaires_index: "%{provider_name} — Formulaires"
       formulaires_show: "%{formulaire_name} — %{provider_name}"
       cas_usages_show: "%{cas_usage_name} — %{provider_name}"
+      emails_automatiques_show: "Emails automatiques — %{formulaire_name}"

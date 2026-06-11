@@ -124,6 +124,7 @@ class SkipLinksImplementedChecker
     instruction/formulaires#index
     instruction/formulaires#show
     instruction/cas_usages#show
+    instruction/emails_automatiques#show
 
     developers/open_api#show
     developers/oauth_applications#index
