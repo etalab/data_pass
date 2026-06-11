@@ -138,6 +138,11 @@ fr:
         recipients:
           applicant: Demandeur
           instructors: Instructeurs
+          responsable_traitement: Responsable de traitement
+          delegue_protection_donnees: Délégué à la protection des données
+          france_connect: Support FranceConnect
+          dgfip_apim: DGFIP APIM
+          hubee_administrateur_metier: Administrateur métier HubEE
   page_titles:
     instruction:
       data_providers_index: Fournisseurs de données

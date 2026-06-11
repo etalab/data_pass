@@ -8,7 +8,10 @@ class AutomaticEmailsCatalog
     organization_name: 'Mon organisation',
   }.freeze
 
+  GDPR_CONTACTS = %i[responsable_traitement delegue_protection_donnees].freeze
+
   AutomaticEmailEntry = Struct.new(:event_name, :recipient_type, :subject, :body_text, keyword_init: true)
+  PreviewAuthorization = Struct.new(:formatted_id)
 
   def initialize(definition)
     @definition = definition
@@ -29,11 +32,14 @@ class AutomaticEmailsCatalog
   private
 
   def build_entry(event_name, capture)
+    template = capture[:template_path] || resolve_template_path(capture[:mailer_class], capture[:mailer_action])
+    subject = capture[:subject] || render_subject(capture[:mailer_class], capture[:mailer_action])
+
     AutomaticEmailEntry.new(
       event_name:,
       recipient_type: capture[:recipient_type],
-      subject: render_subject(capture[:mailer_class], capture[:mailer_action]),
-      body_text: render_body(capture[:mailer_class], capture[:mailer_action]),
+      subject:,
+      body_text: render_body(template, extra_assigns: capture.fetch(:extra_assigns, {})),
     )
   end
 
@@ -52,15 +58,14 @@ class AutomaticEmailsCatalog
     end
   end
 
-  def render_body(mailer_class, mailer_action)
-    template = resolve_template_path(mailer_class, mailer_action)
+  def render_body(template, extra_assigns: {})
     return nil unless template
 
     ar = PreviewAuthorizationRequest.new(@definition)
 
     ApplicationController.render(
       template:,
-      assigns: { authorization_request: ar },
+      assigns: { authorization_request: ar }.merge(extra_assigns),
       formats: [:text],
     )
   rescue StandardError
@@ -68,18 +73,23 @@ class AutomaticEmailsCatalog
   end
 
   def resolve_template_path(mailer_class, mailer_action)
-    if mailer_class == Instruction::AuthorizationRequestMailer
-      path = "instruction/authorization_request_mailer/#{mailer_action}"
-      template_exists?(path) ? path : nil
-    else
-      kind_specific = "authorization_request_mailer/#{@definition.id}/#{mailer_action}"
-      generic = "authorization_request_mailer/#{mailer_action}"
+    return nil unless mailer_class && mailer_action
+    return instruction_template_path(mailer_action) if mailer_class == Instruction::AuthorizationRequestMailer
 
-      if template_exists?(kind_specific)
-        kind_specific
-      elsif template_exists?(generic)
-        generic
-      end
+    standard_template_path(mailer_action)
+  end
+
+  def instruction_template_path(mailer_action)
+    path = "instruction/authorization_request_mailer/#{mailer_action}"
+    template_exists?(path) ? path : nil
+  end
+
+  def standard_template_path(mailer_action)
+    kind_specific = "authorization_request_mailer/#{@definition.id}/#{mailer_action}"
+    generic = "authorization_request_mailer/#{mailer_action}"
+
+    if template_exists?(kind_specific) then kind_specific
+    elsif template_exists?(generic) then generic
     end
   end
 
@@ -91,12 +101,21 @@ class AutomaticEmailsCatalog
     notifier_class = resolve_notifier_class
     ar_stub = @definition.authorization_request_class.new
     spy_class = build_spy_class(notifier_class)
-    spy_class.new(ar_stub)
+    spy = spy_class.new(ar_stub)
+    spy.definition = @definition
+    spy
   end
 
-  def build_spy_class(notifier_class) # rubocop:disable Metrics/MethodLength
+  def build_spy_class(notifier_class)
+    spy = build_base_spy_class(notifier_class)
+    add_hubee_spy_overrides(spy) if notifier_class <= HubEENotifier
+    spy
+  end
+
+  def build_base_spy_class(notifier_class) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     Class.new(notifier_class) do
       attr_reader :captures
+      attr_accessor :definition
 
       def initialize(authorization_request)
         super
@@ -118,11 +137,59 @@ class AutomaticEmailsCatalog
         @captures << { recipient_type:, mailer_class: mailer, mailer_action: base_event.to_s }
       end
 
-      def deliver_gdpr_emails; end
+      def deliver_gdpr_emails
+        AutomaticEmailsCatalog::GDPR_CONTACTS.each do |contact|
+          @captures << {
+            recipient_type: contact,
+            subject: I18n.t(
+              "gdpr_contact_mailer.#{contact}.subject",
+              authorization_request_contact_kind: I18n.t("authorization_request.contacts.#{contact}"),
+              authorization_request_name: AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:authorization_request_name],
+            ),
+            template_path: "gdpr_contact_mailer/#{contact}",
+          }
+        end
+      end
 
-      def notify_france_connect; end
+      def notify_france_connect
+        @captures << {
+          recipient_type: :france_connect,
+          subject: "[DataPass] nouveaux scopes pour « #{AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:organization_name]} - #{AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:authorization_request_id]} »",
+          template_path: 'france_connect_mailer/new_scopes',
+          extra_assigns: { france_connect_authorization_request: AutomaticEmailsCatalog::PreviewAuthorizationRequest.new(definition) },
+        }
+      end
 
-      def notify_dgfip_apim(_params); end
+      def notify_dgfip_apim(_params)
+        @captures << {
+          recipient_type: :dgfip_apim,
+          subject: I18n.t('dgfip_apim_mailer.approve.subject', authorization_request_id: AutomaticEmailsCatalog::SUBJECT_DUMMY_VALUES[:authorization_request_id]),
+          template_path: 'dgfip/apim_mailer/approve',
+          extra_assigns: {
+            authorization: AutomaticEmailsCatalog::PreviewAuthorization.new('H-0001'),
+            reopening: false,
+            stage_label: '[BAS ou PROD]',
+          },
+        }
+      end
+    end
+  end
+
+  def add_hubee_spy_overrides(spy)
+    spy.class_eval do
+      private
+
+      def applicant_and_administrateur_metier_are_different?
+        true
+      end
+
+      def notify_administrateur_metier
+        @captures << {
+          recipient_type: :hubee_administrateur_metier,
+          subject: HubEEMailer.new.subject_for(kind),
+          template_path: "hubee_mailer/administrateur_metier_#{kind}",
+        }
+      end
     end
   end
 
@@ -159,5 +226,10 @@ class AutomaticEmailsCatalog
     def modification_request = Reason.new('[Demande de modification]', false)
     def authorization_request_revocation_reason = '[Motif de révocation]'
     def with_france_connect? = false
+    def responsable_traitement_given_name = '[Prénom Resp. Traitement]'
+    def delegue_protection_donnees_given_name = '[Prénom DPD]'
+    def administrateur_metier_given_name = '[Prénom Admin]'
+    def administrateur_metier_family_name = '[Nom Admin]'
+    def scopes = []
   end
 end

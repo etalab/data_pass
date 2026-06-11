@@ -28,7 +28,7 @@ RSpec.describe AutomaticEmailsCatalog do
       end
     end
 
-    context 'with a definition using BaseNotifier' do
+    context 'with a definition using BaseNotifier with GDPR contacts' do
       let(:definition) { AuthorizationDefinition.find('api_scolarite') }
 
       it 'includes the approve email to the applicant' do
@@ -37,6 +37,24 @@ RSpec.describe AutomaticEmailsCatalog do
 
       it 'includes the refuse email to the applicant' do
         expect(emails).to include(have_attributes(event_name: 'refuse', recipient_type: :applicant))
+      end
+
+      it 'includes the GDPR responsable traitement email on approve' do
+        expect(emails).to include(have_attributes(event_name: 'approve', recipient_type: :responsable_traitement))
+      end
+
+      it 'includes the GDPR delegue protection donnees email on approve' do
+        expect(emails).to include(have_attributes(event_name: 'approve', recipient_type: :delegue_protection_donnees))
+      end
+    end
+
+    context 'with a DGFIP definition' do
+      let(:definition) { AuthorizationDefinition.find('api_impot_particulier') }
+
+      before { create(:data_provider, :dgfip) }
+
+      it 'includes the DGFIP APIM email on approve' do
+        expect(emails).to include(have_attributes(event_name: 'approve', recipient_type: :dgfip_apim))
       end
     end
 
