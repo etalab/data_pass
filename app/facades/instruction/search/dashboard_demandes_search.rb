@@ -3,6 +3,8 @@ class Instruction::Search::DashboardDemandesSearch < Instruction::Search::Dashbo
 
   def base_relation
     base_scope = super
+    return base_scope if search_terms_is_a_possible_id?
+
     base_scope = base_scope.not_validated
     base_scope = base_scope.not_archived if state_filter_blank?
     base_scope
