@@ -71,9 +71,9 @@ Alors('le tableau des utilisateurs contient le badge {string}') do |label|
   end
 end
 
-Alors('la section des droits non modifiables contient le badge {string}') do |label|
+Alors('la section des droits non modifiables indique {string}') do |message|
   within('#readonly-rights') do
-    expect(page).to have_css('p.fr-badge', text: label)
+    expect(page).to have_text(message)
   end
 end
 
@@ -125,4 +125,32 @@ end
 Alors("la page contient l'accordéon {string} replié par défaut") do |title|
   button = find('.fr-accordion__btn', text: title)
   expect(button['aria-expanded']).to eq('false')
+end
+
+Alors('le champ de recherche a le focus et déclenche une recherche automatique différée') do
+  expect(page).to have_css('input[type="search"][autofocus]')
+  expect(page).to have_css("form[data-auto-submit-form-debounce-interval-value='800']")
+end
+
+Alors('le tableau des utilisateurs contient mon email') do
+  within('#user-rights-table') do
+    expect(page).to have_text(current_user!.email)
+  end
+end
+
+Alors('la zone de statut de recherche annonce {string}') do |message|
+  expect(page).to have_css('[role="status"]', text: message)
+end
+
+Alors('ma ligne n’affiche aucun bouton de modification ni de suppression') do
+  within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
+    expect(page).to have_no_css('.fr-icon-edit-line')
+    expect(page).to have_no_css('.fr-icon-delete-line')
+  end
+end
+
+Alors('ma ligne affiche un bouton de modification') do
+  within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
+    expect(page).to have_css('.fr-icon-edit-line')
+  end
 end

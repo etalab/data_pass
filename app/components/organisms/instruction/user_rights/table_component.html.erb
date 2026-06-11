@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <% users.each do |user| %>
-            <%= render Molecules::Instruction::UserRights::TableRowComponent.new(user: user, authority: authority) %>
+            <%= render Molecules::Instruction::UserRights::TableRowComponent.new(user: user, authority: authority, current_user: current_user) %>
           <% end %>
         </tbody>
       </table>

@@ -4,9 +4,10 @@ class Admin::UserRightsController < AdminController
   before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
 
   def index
-    @search_term = params.dig(:search_query, :email_or_given_name_or_family_name_cont)
-    @search_engine = managed_users_scope.ransack(params[:search_query])
-    @users = @search_engine.result.order(:email).page(params[:page]).per(50)
+    search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:)
+    @search_engine = search.engine
+    @search_term = search.term
+    @users = search.results.page(params[:page]).per(50)
     render template: 'instruction/user_rights/index'
   end
 
