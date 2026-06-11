@@ -104,22 +104,26 @@ In development, ProConnect authentication can be bypassed by visiting:
 ```
 
 Available test accounts:
-- `user@yopmail.com` — basic user account (demandeur)
+- `user@yopmail.com` — basic user account (demandeur), organisation commune (Ville de Clamart)
 - `datapass@yopmail.com` — admin and instructor on all authorization requests
+- `departement@yopmail.com` — demandeur rattaché à une collectivité département (Département du Rhône). Sert à tester le bloc CNOUS « Boursiers » en mode périmètre automatique avec appel à l’API Géo (dérivation commune → département). Le type d’habilitation `Boursiers` (slug `boursiers-dyn`) est seedé avec le bloc `cnous_data_extraction_criteria` : démarrer une demande via `/demandes/boursiers_dyn/nouveau`.
 
 ### Quick sign-in links
 
 **Local** (http://localhost:3000) (always check the port in your `.env.local`):
 - [user@yopmail.com](http://localhost:3000/local-sign-in?email=user@yopmail.com)
 - [datapass@yopmail.com](http://localhost:3000/local-sign-in?email=datapass@yopmail.com)
+- [departement@yopmail.com](http://localhost:3000/local-sign-in?email=departement@yopmail.com)
 
 **Sandbox** (https://sandbox.datapass.api.gouv.fr):
 - [user@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com)
 - [datapass@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com)
+- [departement@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com)
 
 **Staging** (https://staging.datapass.api.gouv.fr):
 - [user@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com)
 - [datapass@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com)
+- [departement@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com)
 
 ## Git
 

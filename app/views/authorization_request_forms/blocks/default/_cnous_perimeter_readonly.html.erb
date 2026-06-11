@@ -1,0 +1,37 @@
+<% scope = 'authorization_request_forms.default.cnous_data_extraction_criteria.perimeter' %>
+<div class="fr-fieldset__element"
+     data-test="geographic-perimeter"
+     data-controller="cnous-perimeter"
+     data-cnous-perimeter-type-value="<%= @authorization_request.entity_type %>"
+     data-cnous-perimeter-code-value="<%= @authorization_request.code_insee_entity %>"
+     data-cnous-perimeter-commune-template-value="<%= t("#{scope}.summary.commune") %>"
+     data-cnous-perimeter-departement-template-value="<%= t("#{scope}.summary.departement") %>"
+     data-cnous-perimeter-region-template-value="<%= t("#{scope}.summary.region") %>"
+     data-cnous-perimeter-unavailable-value="<%= t("#{scope}.unavailable") %>">
+  <div class="fr-callout">
+    <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
+      <h3 class="fr-col fr-callout__title">
+        <%= t("#{scope}.title") %>
+      </h3>
+      <p class="fr-col-auto fr-badge fr-badge--info fr-badge--no-icon">
+        <%= t("#{scope}.not_editable") %>
+      </p>
+    </div>
+
+    <p class="fr-callout__text" role="status" data-cnous-perimeter-target="summary">
+      <%= t("#{scope}.loading") %>
+    </p>
+
+    <button type="button"
+            class="fr-btn fr-btn--tertiary fr-btn--sm fr-mt-1w fr-hidden"
+            data-cnous-perimeter-target="showAll"
+            data-action="cnous-perimeter#showCommunes">
+      <%= t("#{scope}.show_all") %>
+    </button>
+
+    <ul class="fr-grid-row fr-grid-row--gutters fr-mt-2w fr-hidden"
+        tabindex="-1"
+        aria-label="<%= t("#{scope}.list_aria_label") %>"
+        data-cnous-perimeter-target="list"></ul>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+{
+  "header": {
+    "statut": 200,
+    "message": "ok"
+  },
+  "etablissement": {
+    "siren": "226900017",
+    "nic": "00014",
+    "siret": "22690001700014",
+    "statutDiffusionEtablissement": "O",
+    "dateCreationEtablissement": "1983-03-01",
+    "etablissementSiege": true,
+    "nombrePeriodesEtablissement": 1,
+    "uniteLegale": {
+      "etatAdministratifUniteLegale": "A",
+      "statutDiffusionUniteLegale": "O",
+      "categorieJuridiqueUniteLegale": "7220",
+      "denominationUniteLegale": "DEPARTEMENT DU RHONE",
+      "activitePrincipaleUniteLegale": "84.11Z",
+      "nomenclatureActivitePrincipaleUniteLegale": "NAFRev2",
+      "nicSiegeUniteLegale": "00016"
+    },
+    "adresseEtablissement": {
+      "numeroVoieEtablissement": "29",
+      "typeVoieEtablissement": "CRS",
+      "libelleVoieEtablissement": "DE LA LIBERTE",
+      "codePostalEtablissement": "69003",
+      "libelleCommuneEtablissement": "LYON",
+      "codeCommuneEtablissement": "69123"
+    },
+    "periodesEtablissement": [
+      {
+        "dateFin": null,
+        "dateDebut": "2008-01-01",
+        "etatAdministratifEtablissement": "A",
+        "changementEtatAdministratifEtablissement": false,
+        "enseigne1Etablissement": "DEPARTEMENT DU RHONE",
+        "activitePrincipaleEtablissement": "84.11Z",
+        "nomenclatureActivitePrincipaleEtablissement": "NAFRev2",
+        "caractereEmployeurEtablissement": "O"
+      }
+    ]
+  }
+}
