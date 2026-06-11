@@ -1,0 +1,43 @@
+<div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
+  <div class="fr-container">
+    <div class="fr-text--sm fr-mb-2w fr-text-mention--grey">
+      <%= link_to "Cas d'usages de #{@formulaire.name_with_stage}",
+            instruction_formulaire_cas_usages_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id),
+            class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+    </div>
+    <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
+      <% if @data_provider.logo.attached? %>
+        <div class="fr-col-auto">
+          <%= image_tag @data_provider.logo, alt: "#{@data_provider.name}, fournisseur de données", style: 'max-height: 80px; max-width: 160px;' %>
+        </div>
+      <% end %>
+      <div class="fr-col">
+        <h1 class="fr-mb-1v">
+          <%= @cas_usage.name_with_service_provider %>
+        </h1>
+        <p class="fr-text-mention--grey fr-mb-0">
+          <%= t('instruction.cas_usages.show.identification') %> :
+          <code><%= @cas_usage.uid %></code>
+        </p>
+      </div>
+      
+      <div class="header-count-badges">
+        <%= render 'instruction/shared/stats_badges', habilitations_count: @cas_usage_habilitations_count || 0, demandes_count: @cas_usage_demandes_count || 0 %>
+      </div>
+    </div>
+
+    <div class="fr-grid-row fr-grid-row--gutters fr-mt-2w">
+      <div class="fr-col-auto">
+        <%= link_to "Initier une demande pour autrui", start_instruction_instructor_draft_requests_path(form_uid: @cas_usage.uid), class: "fr-btn fr-btn-primary" %>
+      </div>
+      <div class="fr-col-auto">
+        <div class="fr-grid-row fr-grid-row--middle">
+          <%= link_to "Démarrer une nouvelle demande", new_authorization_request_form_path(form_uid: @cas_usage.uid), class: "fr-btn fr-btn--secondary"%>
+          <button class="fr-btn fr-icon fr-icon-clipboard-line">
+            Copier
+          <button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

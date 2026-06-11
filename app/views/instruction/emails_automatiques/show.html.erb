@@ -1,0 +1,37 @@
+<% set_title! t('page_titles.instruction.emails_automatiques_show', formulaire_name: @formulaire.name) %>
+
+<%= render 'instruction/formulaires/header', formulaire_back_link: true %>
+
+<div class="fr-container">
+  <h2><%= t('.title') %></h2>
+
+  <% @emails.each do |email| %>
+    <div class="fr-mb-4w">
+      <div class="fr-card fr-p-3w">
+
+        <div>
+          <strong>Evènement déclencheur :</strong> <%= t(".events.#{email.event_name}") %>
+        </div>
+        <div>
+          <strong>Destinataires : </strong>
+          <% if email.recipient_emails.nil? %>
+            <%= t(".recipients.#{email.recipient_type}") %>
+          <% elsif email.recipient_emails.any? %>
+            <%= email.recipient_emails.join(', ') %>
+          <% else %>
+            <%= t('.recipients.from_credentials', definition_name: @formulaire.name) %>
+          <% end %>
+        </div>
+
+        <div class="fr-text--md fr-mb-1w">
+          <strong>Titre : </strong><%= email.subject %>
+        </div>
+
+        <% if email.body_text.present? %>
+          <pre class="fr-text--sm fr-mt-2w fr-mb-0" style="white-space: pre-wrap; background: var(--background-alt-grey); padding: 1rem; border-radius: 4px; overflow-x: auto;"><%= email.body_text %></pre>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+</div>

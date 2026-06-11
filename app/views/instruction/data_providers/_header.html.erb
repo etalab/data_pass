@@ -1,5 +1,10 @@
 <div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
   <div class="fr-container">
+    <div class="fr-text--sm fr-mb-2w fr-text-mention--grey">
+      <%= link_to t('instruction.data_providers.index.title'),
+            instruction_data_providers_path,
+            class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+    </div>
     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
       <% if @data_provider.logo.attached? %>
         <div class="fr-col-auto">
@@ -7,15 +12,8 @@
         </div>
       <% end %>
       <div class="fr-col">
-        <p class="fr-text--sm fr-mb-1v fr-text-mention--grey">
-          <%= link_to t('instruction.data_providers.title'),
-                instruction_data_providers_path,
-                class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
-        </p>
         <h1 class="fr-mb-1v">
-          <%= link_to @data_provider.name,
-                instruction_formulaires_path(provider_slug: @data_provider.slug),
-                class: 'fr-link fr-link--lg' %>
+          <%= @data_provider.name %>
         </h1>
         <% if @data_provider.link.present? %>
           <p class="fr-mb-0">

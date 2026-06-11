@@ -1,10 +1,8 @@
 fr:
   instruction:
     data_providers:
-      title: Espace fournisseur de données
       index:
         title: Fournisseurs de données
-        subtitle: Sélectionnez un fournisseur pour consulter ses formulaires et cas d’usage.
         empty: Aucun fournisseur de données disponible.
         formulaires_count:
           zero: Aucun formulaire
@@ -17,19 +15,34 @@ fr:
         cas_usages_count:
           one: 1 cas d’usage
           other: "%{count} cas d’usage"
+        emails_automatiques_count:
+          zero: Aucun email automatique
+          one: 1 email automatique
+          other: "%{count} emails automatiques"
         empty: Aucun formulaire associé à ce fournisseur.
       show:
-        title: Formulaire
-        back: Retour aux formulaires
+        identification: Identifiant du formulaire
         sections:
-          identification: Identification
           identity: Identité
           description: Description
           scopes: Périmètres de données
           blocks: Structure du formulaire
-          cas_usages: Cas d’usage
           flags: Propriétés
-          features: Fonctionnalités
+          features:
+            instructor_drafts: 
+              name: "Initiable par un instructeur"
+              default: false
+            messaging:
+              name: "Messagerie via datapass active"
+              default: true
+            reopening:
+              name: "Demande de modification possible"
+              default: true
+            transfer:
+              name: "Transfert de demandeur possible"
+              default: true
+
+
         fields:
           label: Champ
           value: Valeur
@@ -41,29 +54,21 @@ fr:
         flags:
           public: Public
           startable_by_applicant: Démarrable par le demandeur
-          unique: Unique
+          unique: Habilitation unique par orgnanisation
         empty_value: Non renseigné
         empty_scopes: Aucun périmètre déclaré.
         empty_blocks: Aucun bloc déclaré.
         empty_cas_usages: Aucun cas d’usage associé à ce formulaire.
-        default_badge: Par défaut
         "true": Oui
         "false": Non
-        stats:
-          demandes:
-            zero: Aucune demande
-            one: 1 demande
-            other: "%{count} demandes"
-          habilitations:
-            zero: Aucune habilitation
-            one: 1 habilitation
-            other: "%{count} habilitations"
     cas_usages:
+      index:
+        title: Cas d'usages
+        default_badge: Par défaut
       show:
-        back: Retour au formulaire
+        identification: Identifiant du cas d’usage
         inherited_badge: Hérité du formulaire
         sections:
-          identification: Identification
           description: Description
           introduction: Introduction
           flags: Propriétés
@@ -74,9 +79,9 @@ fr:
         flags:
           public: Public
           startable_by_applicant: Démarrable par le demandeur
-          single_page_view: Template single-page
+          single_page_view: Formulaire en une seule page
           single_page_view_hint: "Nom optionnel du template ERB utilisé quand le formulaire est en mode single-page (steps vide). Sinon, fallback sur l’uid du cas d’usage."
-          single_page_view_default: "(template par défaut)"
+          single_page_view_default: "Non"
         empty_description: Aucune description.
         empty_introduction: Aucune introduction.
         html_tabs:
@@ -117,13 +122,32 @@ fr:
           form: Rendu
           data: Données
           form_intro: "Aperçu du formulaire pré-rempli pour le demandeur (champs en lecture seule) :"
-        no_service_provider: Pas de service utilisateur rattaché.
-        default_badge: Par défaut
+        no_service_provider: Pas de fournisseur de service rattaché.
         "true": Oui
         "false": Non
+    emails_automatiques:
+      show:
+        title: Emails automatiques
+        no_preview: Aucun aperçu disponible (aucune demande de ce type en base).
+        events:
+          submit: Soumission d'une demande
+          approve: Validation d'une demande
+          refuse: Refus d'une demande
+          request_changes: Demande de modifications
+          revoke: Révocation d'une habilitation
+        recipients:
+          applicant: Demandeur
+          instructors: Instructeurs
+          responsable_traitement: Responsable de traitement
+          delegue_protection_donnees: Délégué à la protection des données
+          france_connect: Support FranceConnect
+          dgfip_apim: DGFIP APIM
+          hubee_administrateur_metier: Administrateur métier HubEE
+          from_credentials: Emails configurés dans les credentials pour %{definition_name}
   page_titles:
     instruction:
       data_providers_index: Fournisseurs de données
       formulaires_index: "%{provider_name} — Formulaires"
       formulaires_show: "%{formulaire_name} — %{provider_name}"
       cas_usages_show: "%{cas_usage_name} — %{provider_name}"
+      emails_automatiques_show: "Emails automatiques — %{formulaire_name}"

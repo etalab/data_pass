@@ -12,7 +12,11 @@
     <p class="fr-text--lg"><%= t('.empty') %></p>
   <% else %>
     <div class="fr-grid-row fr-grid-row--gutters">
+      
       <% @formulaires.each do |formulaire| %>
+        <% habilitations_count = @habilitations_counts.fetch(formulaire.authorization_request_class.to_s, 0) %>
+        <% demandes_count = @demandes_counts.fetch(formulaire.authorization_request_class.to_s, 0) %>
+
         <div class="fr-col-12 fr-col-md-6">
           <div class="fr-card fr-enlarge-link">
             <div class="fr-card__body">
@@ -22,12 +26,10 @@
                         instruction_formulaire_path(provider_slug: @data_provider.slug, id: formulaire.id) %>
                 </h3>
                 <p class="fr-card__desc">
-                  <%= truncate(formulaire.description.to_s, length: 200) %>
+                  <%#= truncate(formulaire.description.to_s, length: 200) %>
                 </p>
                 <div class="fr-card__end">
-                  <p class="fr-card__detail fr-icon-file-text-line">
-                    <%= t('.cas_usages_count', count: formulaire.available_forms.size) %>
-                  </p>
+                  <%= render 'instruction/shared/stats_badges', habilitations_count:, demandes_count: %>
                 </div>
               </div>
             </div>

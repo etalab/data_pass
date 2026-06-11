@@ -1,203 +1,110 @@
 <% set_title! t('page_titles.instruction.formulaires_show', formulaire_name: @formulaire.name, provider_name: @data_provider.name) %>
 
-<%= render 'instruction/data_providers/header' %>
+<%= render 'instruction/formulaires/header' %>
 
-<div class="fr-container">
-  <p class="fr-mb-2w">
-    <%= link_to t('.back'),
-          instruction_formulaires_path(provider_slug: @data_provider.slug),
-          class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
-  </p>
-
-  <h2><%= @formulaire.name_with_stage %></h2>
-  <p class="fr-text-mention--grey">
-    <%= t('.sections.identification') %> :
-    <code><%= @formulaire.id %></code>
-  </p>
-
-  <% if @formulaire.description.present? %>
-    <section class="fr-mt-4w">
-      <h3 class="fr-h4"><%= t('.sections.description') %></h3>
-      <p><%= @formulaire.description %></p>
-    </section>
-  <% end %>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.identity') %></h3>
-    <div class="fr-table">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('.fields.label') %></th>
-            <th scope="col"><%= t('.fields.value') %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= t('.fields.kind') %></td>
-            <td><%= @formulaire.kind.presence || content_tag(:span, t('.empty_value'), class: 'fr-text-mention--grey') %></td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.link') %></td>
-            <td>
-              <% if @formulaire.link.present? %>
-                <%= link_to @formulaire.link, @formulaire.link, class: 'fr-link', target: '_blank', rel: 'noopener' %>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.access_link') %></td>
-            <td>
-              <% if @formulaire.access_link.present? %>
-                <code><%= @formulaire.access_link %></code>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.cgu_link') %></td>
-            <td>
-              <% if @formulaire.cgu_link.present? %>
-                <%= link_to @formulaire.cgu_link, @formulaire.cgu_link, class: 'fr-link', target: '_blank', rel: 'noopener' %>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td><%= t('.fields.support_email') %></td>
-            <td>
-              <% if @formulaire.support_email.present? %>
-                <%= mail_to @formulaire.support_email, @formulaire.support_email, class: 'fr-link' %>
-              <% else %>
-                <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.flags') %></h3>
-    <div class="fr-table">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><%= t('.fields.label') %></th>
-            <th scope="col"><%= t('.fields.value') %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= t('.flags.public') %></td>
-            <td><%= t(".#{@formulaire.public}") %></td>
-          </tr>
-          <tr>
-            <td><%= t('.flags.startable_by_applicant') %></td>
-            <td><%= t(".#{@formulaire.startable_by_applicant}") %></td>
-          </tr>
-          <tr>
-            <td><%= t('.flags.unique') %></td>
-            <td><%= t(".#{@formulaire.unique}") %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <% if @formulaire.features.present? %>
-    <section class="fr-mt-4w">
-      <h3 class="fr-h4"><%= t('.sections.features') %></h3>
-      <ul class="fr-mb-0">
-        <% @formulaire.features.each do |name, value| %>
-          <li>
-            <code><%= name %></code> : <%= t(".#{value}", default: value.to_s) %>
-          </li>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.scopes') %></h3>
-    <% if @formulaire.scopes.any? %>
-      <ul class="fr-tags-group">
-        <% @formulaire.scopes.each do |scope| %>
-          <li>
-            <span class="fr-tag"><%= scope.name.presence || scope.value %></span>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.empty_scopes') %></p>
+<section class="cas-usage-section even">
+  <!-- useless properties : @formulaire.description, @formulaire.public, @formulaire.link -->
+  <div class="fr-container">
+    <%= render 'instruction/shared/title_with_modify_button' do %>
+      <h2>Configuration</h2>
     <% end %>
-  </section>
 
-  <section class="fr-mt-4w">
-    <h3 class="fr-h4"><%= t('.sections.blocks') %></h3>
-    <% if @formulaire.blocks.any? %>
-      <ol class="fr-mb-0">
-        <% @formulaire.blocks.each do |block| %>
-          <li><code><%= block[:name] || block['name'] %></code></li>
+    <div class="cas-usage-properties">
+      <div class="cas-usage-property">
+        <%= t('.fields.kind') %> : 
+        <code><%= @formulaire.kind.presence || content_tag(:span, t('.empty_value'), class: 'fr-text-mention--grey') %></code>
+      </div>
+
+      <div class="cas-usage-property">
+        <%= t('.flags.startable_by_applicant') %> : 
+        <code><%= t(".#{@formulaire.startable_by_applicant}") %></code>
+      </div>
+
+      <div class="cas-usage-property">
+        <%= t('.flags.unique') %> :
+        <code><%= t(".#{@formulaire.unique}") %></code>
+      </div>
+
+      <!-- J'ai dû ajouter de la config dans les locales pour avoir les valeurs par défaut -->
+      <% t(".sections.features").each do |feature, name_and_default| %>
+        <% value = @formulaire.features[feature] || name_and_default[:default]%>
+        <div class="cas-usage-property">
+          <%= name_and_default[:name] %> :
+          <code><%= t(".#{value}", default: 'Non') %></code>
+        </div>
+      <% end %>
+
+
+      <div class="cas-usage-property">
+        <%= t('.fields.access_link') %> : 
+        <% if @formulaire.access_link.present? %>
+          <%= link_to @formulaire.access_link, @formulaire.access_link, class: 'fr-link' %>
+        <% else %>
+          <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
         <% end %>
-      </ol>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.empty_blocks') %></p>
-    <% end %>
-  </section>
+      </div>
 
-  <section class="fr-mt-4w fr-mb-6w">
-    <h3 class="fr-h4"><%= t('.sections.cas_usages') %></h3>
-    <% if @cas_usages.any? %>
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <% @cas_usages.each do |cas_usage| %>
-          <% demandes_count = @demandes_counts.fetch(cas_usage.uid, 0) %>
-          <% habilitations_count = @habilitations_counts.fetch(cas_usage.uid, 0) %>
-          <div class="fr-col-12 fr-col-md-6">
-            <div class="fr-card fr-enlarge-link">
-              <div class="fr-card__body">
-                <div class="fr-card__content">
-                  <h4 class="fr-card__title">
-                    <%= link_to cas_usage.name_with_service_provider,
-                          instruction_formulaire_cas_usage_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id, uid: cas_usage.uid) %>
-                  </h4>
-                  <p class="fr-card__desc fr-text--xs">
-                    <code><%= cas_usage.uid %></code>
+      <div class="cas-usage-property">
+        <%= t('.fields.support_email') %> : 
+        <% if @formulaire.support_email.present? %>
+          <%= mail_to @formulaire.support_email, @formulaire.support_email, class: 'fr-link' %>
+        <% else %>
+          <span class="fr-text-mention--grey"><%= t('.empty_value') %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fr-mb-5w">
+  <div class="fr-container">
+    <div class="fr-grid-row fr-grid-row--gutters">
+
+      <% if @cas_usages_count > 1 %>
+        <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-card fr-enlarge-link">
+            <div class="fr-card__body">
+              <div class="fr-card__content">
+                <h3 class="fr-card__title">
+                  <%= link_to "Cas d'usages",
+                        instruction_formulaire_cas_usages_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id) %>
+                </h3>
+                <p class="fr-card__desc">
+                  Facilitez votre instruction ainsi que les demandes en préremplissant votre formulaire <strong><%=@formulaire.name %></strong> avec des cas d'usages
+                </p>
+                <div class="fr-card__end">
+                  <p class="fr-card__detail fr-icon-file-text-line">
+                    <%= t('instruction.formulaires.index.cas_usages_count', count: @formulaire.available_forms.size) %>
                   </p>
-                  <div class="fr-card__end">
-                    <ul class="fr-badges-group">
-                      <% if cas_usage.default %>
-                        <li>
-                          <span class="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
-                            <%= t('.default_badge') %>
-                          </span>
-                        </li>
-                      <% end %>
-                      <li>
-                        <span class="fr-badge fr-badge--no-icon fr-badge--sm">
-                          <%= t('.stats.demandes', count: demandes_count) %>
-                        </span>
-                      </li>
-                      <li>
-                        <span class="fr-badge fr-badge--green-emeraude fr-badge--no-icon fr-badge--sm">
-                          <%= t('.stats.habilitations', count: habilitations_count) %>
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-        <% end %>
+        </div>
+      <% end %>
+
+      <div class="fr-col-12 fr-col-md-6">
+        <div class="fr-card fr-enlarge-link">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <h3 class="fr-card__title">
+                <%= link_to 'Emails automatiques',
+                      instruction_formulaire_emails_automatiques_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id) %>
+              </h3>
+              <p class="fr-card__desc">
+                Consultez le contenu et les destinataires des emails automatiques envoyés durant tout le cycle de vie d'une demande
+              </p>
+              <div class="fr-card__end">
+                <p class="fr-card__detail fr-icon-mail-line">
+                  <%= t('instruction.formulaires.index.emails_automatiques_count', count: @emails_automatiques_count) %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    <% else %>
-      <p class="fr-text-mention--grey"><%= t('.empty_cas_usages') %></p>
-    <% end %>
-  </section>
-</div>
+    </div>
+  </div>
+</section>
+
+<%= render 'instruction/shared/formulaire_wysiwyg', authorization_request: @authorization_request, with_cgus: true %>

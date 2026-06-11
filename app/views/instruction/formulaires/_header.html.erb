@@ -1,0 +1,55 @@
+<% formulaire_back_link ||= false %>
+
+<div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
+  <div class="fr-container">
+    <div class="fr-text--sm fr-mb-2w fr-text-mention--grey">
+      <% if formulaire_back_link %>
+        <%= link_to @formulaire.name_with_stage,
+              instruction_formulaire_path(provider_slug: @data_provider.slug, id: @formulaire.id),
+              class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+      <% else %>
+        <%= link_to @data_provider.name,
+              instruction_formulaires_path(provider_slug: @data_provider.slug),
+              class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+      <% end %>
+    </div>
+    <div class="fr-grid-row">
+      <div class="fr-col fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
+        <% if @data_provider.logo.attached? %>
+          <div class="fr-col-auto">
+            <%= image_tag @data_provider.logo, alt: "#{@data_provider.name}, fournisseur de données", style: 'max-height: 80px; max-width: 160px;' %>
+          </div>
+        <% end %>
+        <div class="fr-col">
+          <h1 class="fr-mb-1v">
+            <%= @formulaire.name_with_stage %>
+          </h1>
+          <p class="fr-text-mention--grey fr-mb-0">
+            <%= t('instruction.formulaires.show.identification') %> :
+            <code><%= @formulaire.id %></code>
+          </p>
+        </div>
+      </div>
+
+      <div class="header-count-badges">
+        <%= render 'instruction/shared/stats_badges', habilitations_count: @formulaire_habilitations_count || 0, demandes_count: @formulaire_demandes_count || 0 %>
+      </div>
+    </div>
+
+    <% if action_name == 'show' %>
+      <div class="fr-grid-row fr-grid-row--gutters fr-mt-2w">
+        <div class="fr-col-auto">
+          <%= link_to "Initier une demande pour autrui", start_instruction_instructor_draft_requests_path(form_uid: @formulaire.default_form.uid), class: "fr-btn fr-btn-primary" %>
+        </div>
+        <div class="fr-col-auto">
+          <div class="fr-grid-row fr-grid-row--middle">
+            <%= link_to "Démarrer une nouvelle demande", new_authorization_request_path(definition_id: @formulaire.id), class: "fr-btn fr-btn--secondary"%>
+            <button class="fr-btn fr-icon fr-icon-clipboard-line">
+              Copier
+            <button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

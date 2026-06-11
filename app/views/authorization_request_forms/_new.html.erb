@@ -1,0 +1,65 @@
+
+<!-- A refacto ! (copié collé de app/views/authorization_request_forms/new.html.erb en retirant les boutons d'actions et le titre) -->
+
+<div class="">
+  <% if @start_next_stage || policy(authorization_request_form).create? %>
+    <div class="border-frame-text fr-mb-6w">
+      <% if authorization_request_form.name.present? %>
+        <%= simple_format t(".organization.start_text_with_form_name",
+          organization_name: current_organization.name,
+          organization_siret: current_organization.siret,
+          authorization_request_form_name: authorization_request_form.name),
+          {}, wrapper_tag: 'div' %>
+      <% else %>
+        <%= simple_format t(".organization.start_text",
+          organization_name: current_organization.name,
+          organization_siret: current_organization.siret),
+          {}, wrapper_tag: 'div' %>
+      <% end %>
+    </div>
+  <% else %>
+    <% authorization_request = authorization_request_form.active_authorization_requests_for(current_organization).first %>
+    <%= render partial: "authorization_request_forms/unicity_callout", locals: { authorization_request: } if authorization_request.present? %>
+  <% end %>
+
+  <% if authorization_request_form.introduction.present? %>
+    <div class="fr-my-16v">
+      <h5>
+        <%= t(".intro.title") %>
+      </h5>
+      <%= authorization_request_form.introduction.html_safe %>
+    </div>
+  <% end %>
+
+  <% if authorization_request_form.multiple_steps? %>
+    <% if @authorization_request.present? || policy(authorization_request_form).new? %>
+      <h5>
+        <%= t('.multiple_steps.title') %>
+      </h5>
+      <p>
+        <%= t('.multiple_steps.description') %>
+      </p>
+      <ol>
+        <% authorization_request_form.steps.each do |step| %>
+          <li>
+            <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
+          </li>
+        <% end %>
+      </ol>
+      <!-- removed actions -->
+    <% else %>
+      <!-- removed actions -->
+    <% end %>
+  <% else %>
+    <div class="fr-my-16v">
+      <h5>
+        <%= t(".single_form.title") %>
+      </h5>
+
+      <p>
+        <%= simple_format t(".single_form.description") %>
+      </p>
+    </div>
+    <!-- removed actions -->
+  <% end %>
+</div>

@@ -1,14 +1,39 @@
 class Instruction::CasUsagesController < Instruction::AbstractCatalogueController
   before_action :set_formulaire
 
+  def index
+    @cas_usages = @formulaire.available_forms
+    @demandes_counts = counts_by_form_uid(AuthorizationRequest.where(state: :submitted))
+    @habilitations_counts = counts_by_form_uid(Authorization.where(state: :active))
+
+
+    @formulaire_demandes_count = @formulaire.authorization_request_class.where(state: :submitted).count
+    @formulaire_habilitations_counts = Authorization.where(authorization_request_class: @formulaire.authorization_request_class.to_s).where(state: :active).count
+  end
+
   def show
     @cas_usage = @formulaire.available_forms.find { |form| form.uid == params[:uid] }
     raise ActiveRecord::RecordNotFound unless @cas_usage
 
     authorize [:instruction, @cas_usage], :show?
+
+    @authorization_request = @cas_usage.authorization_request_class.new(form_uid: @cas_usage.uid).tap do |ar|
+      ar.assign_attributes(@cas_usage.initialize_with)
+    end.decorate
+
+    @cas_usage_demandes_count = AuthorizationRequest.where(state: :submitted).where(form_uid: @cas_usage.uid).count
+    @cas_usage_habilitations_count = Authorization.where(state: :active).where(form_uid: @cas_usage.uid).count
   end
 
   private
+
+  def layout_name
+    'wide_container'
+  end
+
+  def counts_by_form_uid(model)
+    model.where(form_uid: @cas_usages.map(&:uid)).group(:form_uid).count
+  end
 
   def set_formulaire
     @formulaire = AuthorizationDefinition.find(params.expect(:formulaire_id))

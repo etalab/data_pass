@@ -1,0 +1,41 @@
+<%= render 'instruction/formulaires/header', formulaire_back_link: true %>
+
+<div class="fr-container">
+  <section class="fr-mt-4w fr-mb-6w">
+    <h2><%= t('.title') %></h2>
+    <% if @cas_usages.any? %>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <% @cas_usages.each do |cas_usage| %>
+          <% demandes_count = @demandes_counts.fetch(cas_usage.uid, 0) %>
+          <% habilitations_count = @habilitations_counts.fetch(cas_usage.uid, 0) %>
+          <div class="fr-col-12 fr-col-md-6">
+            <div class="fr-card fr-enlarge-link">
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                  <h4 class="fr-card__title">
+                    <%= link_to cas_usage.name_with_service_provider,
+                          instruction_formulaire_cas_usage_path(provider_slug: @data_provider.slug, formulaire_id: @formulaire.id, uid: cas_usage.uid) %>
+                  </h4>
+                  <p class="fr-card__desc fr-text--xs">
+                    <% if cas_usage.default %>
+                      <span class="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm fr-mr-1w">
+                        <%= t('.default_badge') %>
+                      </span>
+                    <% end %>
+                    <code><%= cas_usage.uid %></code>
+
+                  </p>
+                  <div class="fr-card__end">
+                    <%= render 'instruction/shared/stats_badges', habilitations_count:, demandes_count: %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="fr-text-mention--grey"><%= t('.empty_cas_usages') %></p>
+    <% end %>
+  </section>
+</div>
