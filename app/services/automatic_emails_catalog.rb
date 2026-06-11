@@ -10,9 +10,8 @@ class AutomaticEmailsCatalog
 
   AutomaticEmailEntry = Struct.new(:event_name, :recipient_type, :subject, :body_text, keyword_init: true)
 
-  def initialize(definition, preview_ar: nil)
+  def initialize(definition)
     @definition = definition
-    @preview_ar = preview_ar
   end
 
   def build
@@ -57,7 +56,7 @@ class AutomaticEmailsCatalog
     template = resolve_template_path(mailer_class, mailer_action)
     return nil unless template
 
-    ar = @preview_ar || PreviewAuthorizationRequest.new(@definition)
+    ar = PreviewAuthorizationRequest.new(@definition)
 
     ApplicationController.render(
       template:,

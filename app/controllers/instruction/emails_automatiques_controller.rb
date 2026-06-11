@@ -2,8 +2,7 @@ class Instruction::EmailsAutomatiquesController < Instruction::AbstractCatalogue
   before_action :set_formulaire
 
   def show
-    preview_ar = @formulaire.authorization_request_class.order(:id).first
-    @emails = AutomaticEmailsCatalog.new(@formulaire, preview_ar:).build
+    @emails = AutomaticEmailsCatalog.new(@formulaire).build
     @formulaire_demandes_count = @formulaire.authorization_request_class.where(state: :submitted).count
     @formulaire_habilitations_count = Authorization.where(authorization_request_class: @formulaire.authorization_request_class.to_s).where(state: :active).count
   end
