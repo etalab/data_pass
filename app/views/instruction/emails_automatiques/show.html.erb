@@ -9,24 +9,19 @@
     <div class="fr-mb-4w">
       <div class="fr-card fr-p-3w">
 
-        <div class="fr-grid-row fr-grid-row--gutters fr-mb-2w">
-          <div class="fr-col-auto">
-            Evènement déclencheur : 
-            <p class="fr-badge fr-badge--blue-cumulus fr-badge--no-icon">
-              <%= t(".events.#{email.event_name}") %>
-            </p>
-          </div>
-          <div class="fr-col-auto">
-            Destinataires : 
-            <p class="fr-badge fr-badge--green-emeraude fr-badge--no-icon">
-              <%= t(".recipients.#{email.recipient_type}") %>
-            </p>
-          </div>
+        <div>
+          <strong>Evènement déclencheur :</strong> <%= t(".events.#{email.event_name}") %>
+        </div>
+        <div>
+          <strong>Destinataires : </strong>
+          <p class="fr-badge fr-badge--green-emeraude fr-badge--no-icon">
+            <%= t(".recipients.#{email.recipient_type}") %>
+          </p>
         </div>
 
-        <h3 class="fr-text--md fr-mb-1w">
-          <%= email.subject %>
-        </h3>
+        <div class="fr-text--md fr-mb-1w">
+          <strong>Titre : </strong><%= email.subject %>
+        </div>
 
         <% if email.body_text.present? %>
           <pre class="fr-text--sm fr-mt-2w fr-mb-0" style="white-space: pre-wrap; background: var(--background-alt-grey); padding: 1rem; border-radius: 4px; overflow-x: auto;"><%= email.body_text %></pre>
