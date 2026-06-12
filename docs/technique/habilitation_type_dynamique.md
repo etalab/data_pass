@@ -182,13 +182,70 @@ def self.backend
   yaml_records + db_records
 end
 
+# Côté AuthorizationDefinition : 1 HabilitationType ──► 1 AuthorizationDefinition
 def self.db_records
   return [] unless HabilitationType.table_exists?
   HabilitationType.includes(:data_provider).map { |record| build_from_db_record(record) }
 rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
   []
 end
+
+# Côté AuthorizationRequestForm : 1 HabilitationType ──has_many──► N FormTemplate ──► N forms
+def self.db_records
+  return [] unless FormTemplate.table_exists?
+  FormTemplate.includes(:habilitation_type).filter_map { |t| build_form_from_template(t) }
+rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+  []
+end
 ```
+
+`FormTemplate` (table `form_templates`, FK `habilitation_type_id`) intercale entre
+`HabilitationType` et `AuthorizationRequestForm` : un HT a 1+ FormTemplate dont
+**exactement 1** marqué `default: true` (invariant garanti par les validations
+`only_one_default_per_habilitation_type` + `ht_keeps_at_least_one_default` +
+`ensure_not_last_default`, plus le callback
+`HabilitationType#after_create :ensure_default_form_template!`). Le slug du
+FormTemplate sert d'`uid` côté façade ARF. Cf. [DP-1718](https://linear.app/pole-api/issue/DP-1718).
+
+**Filet DB : index partiel unique.** L'unicité du default est aussi gravée dans
+le schéma — `index_one_default_form_template_per_habilitation_type` sur
+`habilitation_type_id` `WHERE "default"` (le mot `default` est réservé, d'où le
+quoting). Les validations donnent les beaux messages ; l'index protège des
+contournements (`update_column`, `insert_all`) et des courses concurrentes.
+⚠️ **PR2/PR3 — opération « changer le default »** : promouvoir un template alors
+qu'un autre est déjà default doit **rétrograder l'ancien avant de promouvoir le
+nouveau**, dans une transaction (sinon deux `default: true` transitoires →
+`RecordNotUnique`). Alternative si l'ordre devient gênant : passer la contrainte
+en `DEFERRABLE INITIALLY DEFERRED` (SQL brut, la vérif se fait au `COMMIT`).
+
+**Slug du template default = slug du HT (pas de suffixe).** Le default auto-créé
+reprend tel quel le slug du `HabilitationType` (`form_templates.create!(slug:,
+default: true)`), il n'encode **pas** son statut (`-default` proscrit). L'uid est
+un identifiant **public, persisté et immuable** : URLs « commencer une demande »
+transmises aux partenaires, `form_uid` POSTé via l'API v1, colonne
+`authorization_request.form_uid`, filtres export DGFIP. Encoder un état mutable
+dans l'uid casserait tout cela le jour où le default change de template (la
+désignation `default` est une **colonne booléenne** — `default_form` la lit via
+`available_forms.find(&:default)`, jamais le slug). Bonus : réutiliser le slug du
+HT préserve l'uid d'avant DP-1718 (`uid: record.slug`), donc les demandes
+existantes continuent de résoudre leur form sans data-migration sur `form_uid`.
+Les templates **non-default** reçoivent des slugs explicites et stables, eux aussi
+immuables une fois diffusés.
+
+**Cascade éditoriale HT → FT default**. Le FormTemplate auto-créé ne porte que
+`slug` + `default: true` ; les champs éditoriaux (`name`, `description`,
+`introduction`, `steps`) restent **vides** côté template et sont résolus à la
+volée dans `build_form_from_template` via `template.<champ>.presence || ht.<champ>`.
+Conséquence : éditer le HT propage automatiquement aux ARF qui en dépendent,
+tant qu'aucun override explicite n'est posé sur le template. Quand l'UI admin
+FormTemplate arrivera (DP-1718 PR2/PR3), renseigner un champ sur le template le
+fera prendre le pas sur le HT.
+
+**Invalidation du cache ARF**. `FormTemplate.after_commit :reset_arf_cache` et
+`HabilitationType.after_commit :reset_static_caches` (post-commit, pas
+`after_save`) bumpent le compteur Redis **après** que la transaction soit
+committée — autrement, un autre process pourrait reconstruire `@all` depuis
+une vue pré-commit (race).
 
 `StaticApplicationRecord` mémorise le backend dans `@all` et invalide via un
 compteur Redis (`Kredis.counter(redis_cache_key).increment`). Coordination
@@ -202,9 +259,6 @@ le find aboutit indistinctement côté YAML ou DB.
 
 ## Limitations connues
 
-- **`use_case` et `initialize_with` non disponibles côté DB** :
-  `build_form_from_habilitation_type` passe `use_case: nil` et n'expose pas
-  `initialize_with`. Le préremplissage par cas d'usage reste YAML-only.
 - **`custom_labels` (jsonb)** : présent en DB et factory, aucune lecture
   dans le code à ce jour. Surface réservée pour personnalisation éditoriale.
 - **Concerns existants non exposés au registrar** (présents dans
@@ -213,16 +267,19 @@ le find aboutit indistinctement côté YAML ou DB.
   `gdpr_contacts`, `modalities`, `operational_acceptance`,
   `safety_certification`, `technical_team`, `volumetrie`. Procédure
   d'exposition → [ajout_block_dynamique.md](./ajout_block_dynamique.md).
-- **`static_blocks` non porté côté DB** : `build_form_from_habilitation_type`
-  passe `static_blocks: []`.
+- **CRUD admin de `FormTemplate`** : pas encore exposée en UI (DP-1718 PR 1).
+  La création/édition se fait en `rails c` ; le default est auto-créé à la
+  création d'un `HabilitationType` (callback `ensure_default_form_template!`).
 
 ## Tableau récap « où vit quoi »
 
 | Sujet | Fichier |
 | --- | --- |
 | Modèle DB | [`app/models/habilitation_type.rb`](.../../app/models/habilitation_type.rb) |
+| Modèle DB templates de form | [`app/models/form_template.rb`](.../../app/models/form_template.rb) |
 | Migration création | [`db/migrate/20260225111739_create_habilitation_types.rb`](../db/migrate/20260225111739_create_habilitation_types.rb) |
 | Migration suffixe `-dyn` | [`db/migrate/20260401152848_add_dyn_suffix_to_habilitation_type_slugs.rb`](../db/migrate/20260401152848_add_dyn_suffix_to_habilitation_type_slugs.rb) |
+| Migration form_templates | [`db/migrate/20260513000001_create_form_templates.rb`](../db/migrate/20260513000001_create_form_templates.rb) |
 | Registrar | [`app/services/dynamic_authorization_request_registrar.rb`](.../../app/services/dynamic_authorization_request_registrar.rb) |
 | Initializer Rails | [`config/initializers/dynamic_authorization_types.rb`](../../config/initializers/dynamic_authorization_types.rb) |
 | Concerns blocks | [`app/models/concerns/authorization_extensions/`](.../../app/models/concerns/authorization_extensions/) |
@@ -255,4 +312,6 @@ le find aboutit indistinctement côté YAML ou DB.
   inactif côté wizard). Pattern `cnous_data_extraction_criteria` — voir
   [ajout_block_dynamique.md](./ajout_block_dynamique.md).
 - **Couplage `data_provider` (FK SQL)** : un type DB appartient toujours à
-  un `DataProvider`. Aucun couplage à un `ServiceProvider` côté DB.
+  un `DataProvider`. Le couplage à un `ServiceProvider` (YAML-backed
+  `StaticApplicationRecord`) se fait au niveau du `FormTemplate` via la
+  colonne string `service_provider_id`, résolue côté façade.

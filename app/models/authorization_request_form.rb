@@ -28,31 +28,48 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def self.db_records
-    return [] unless HabilitationType.table_exists?
+    return [] unless FormTemplate.table_exists?
 
-    HabilitationType.includes(:data_provider).filter_map do |record|
-      build_form_from_habilitation_type(record)
+    FormTemplate.includes(:habilitation_type).filter_map do |template|
+      build_form_from_template(template)
     end
   rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
     []
   end
 
-  def self.build_form_from_habilitation_type(record)
-    klass = authorization_request_class_for(record)
+  # rubocop:disable Metrics/AbcSize
+  def self.build_form_from_template(template)
+    klass = authorization_request_class_for(template.habilitation_type)
     return unless klass
 
+    ht = template.habilitation_type
     new(
-      uid: record.slug,
-      default: true,
-      introduction: record.form_introduction,
+      uid: template.slug,
+      default: template.default,
+      name: cascaded(template.name, ht.name),
+      description: cascaded(template.description, ht.description),
+      introduction: cascaded(template.introduction, ht.form_introduction),
+      public: template.public,
+      startable_by_applicant: template.startable_by_applicant,
+      use_case: template.use_case,
+      single_page_view: template.single_page_view,
+      service_provider: template.service_provider,
       authorization_request_class: klass,
-      steps: record.ordered_steps.map { |name| { name: name } },
-      static_blocks: [],
-      service_provider: nil,
-      use_case: nil,
-      single_page_view: nil,
-      scopes_config: {},
+      steps: cascaded_steps(template, ht),
+      static_blocks: template.static_blocks.map(&:deep_symbolize_keys),
+      scopes_config: template.scopes_config.deep_symbolize_keys,
+      initialize_with: template.initialize_with.deep_symbolize_keys,
     )
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def self.cascaded(template_value, fallback)
+    template_value.presence || fallback
+  end
+
+  def self.cascaded_steps(template, habilitation_type)
+    template.steps.presence&.map(&:deep_symbolize_keys) ||
+      habilitation_type.ordered_steps.map { |step_name| { name: step_name } }
   end
 
   def self.authorization_request_class_for(record)
@@ -61,7 +78,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     nil
   end
 
-  private_class_method :yaml_records, :db_records, :build_form_from_habilitation_type, :authorization_request_class_for
+  private_class_method :yaml_records, :db_records, :build_form_from_template, :cascaded, :cascaded_steps, :authorization_request_class_for
 
   # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)
