@@ -261,4 +261,36 @@ RSpec.describe AuthorizationDefinition do
       end
     end
   end
+
+  describe '#bridge_class_name' do
+    after { described_class.reset! }
+
+    context 'when built from a HabilitationType declaring a bridge' do
+      let!(:habilitation_type) do
+        create(:habilitation_type, bridge_class_name: 'HubEEDilaBridge', bridge_config: { 'process_code' => 'EtatCivil' })
+      end
+
+      it 'exposes the declared bridge class name' do
+        expect(described_class.find(habilitation_type.uid).bridge_class_name).to eq('HubEEDilaBridge')
+      end
+
+      it 'exposes the bridge config' do
+        expect(described_class.find(habilitation_type.uid).bridge_config).to eq('process_code' => 'EtatCivil')
+      end
+    end
+
+    context 'when built from a HabilitationType without declaration' do
+      let!(:habilitation_type) { create(:habilitation_type) }
+
+      it 'exposes no bridge class name' do
+        expect(described_class.find(habilitation_type.uid).bridge_class_name).to be_nil
+      end
+    end
+
+    context 'when built from a YAML definition' do
+      it 'exposes no bridge class name' do
+        expect(described_class.find('hubee_dila').bridge_class_name).to be_nil
+      end
+    end
+  end
 end

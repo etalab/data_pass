@@ -11,7 +11,9 @@ class AuthorizationDefinition < StaticApplicationRecord
     :blocks,
     :features,
     :stage,
-    :provider_slug
+    :provider_slug,
+    :bridge_class_name,
+    :bridge_config
 
   attr_writer :startable_by_applicant,
     :public,
@@ -56,20 +58,24 @@ class AuthorizationDefinition < StaticApplicationRecord
     }.map(&:service_provider).uniq(&:id).sort_by(&:name)
   end
 
+  DIRECT_BUILD_ATTRIBUTES = %i[
+    name
+    description
+    link
+    cgu_link
+    access_link
+    support_email
+    public
+    kind
+    startable_by_applicant
+    unique
+    bridge_class_name
+    bridge_config
+  ].freeze
+
   def self.build(uid, hash)
     new(
-      hash.slice(
-        :name,
-        :description,
-        :link,
-        :cgu_link,
-        :access_link,
-        :support_email,
-        :public,
-        :kind,
-        :startable_by_applicant,
-        :unique,
-      ).merge(
+      hash.slice(*DIRECT_BUILD_ATTRIBUTES).merge(
         id: uid.to_s,
         provider_slug: hash[:provider],
         stage: Stage.new(hash[:stage]),
