@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_12_114219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -301,6 +301,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
   create_table "habilitation_types", force: :cascade do |t|
     t.string "access_link"
     t.jsonb "blocks", default: [], null: false
+    t.string "bridge_class_name"
+    t.jsonb "bridge_config", default: {}, null: false
     t.string "cgu_link"
     t.jsonb "contact_types", default: [], null: false
     t.datetime "created_at", null: false
