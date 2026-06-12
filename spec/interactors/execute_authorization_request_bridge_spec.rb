@@ -1,4 +1,6 @@
 RSpec.describe ExecuteAuthorizationRequestBridge do
+  include ActiveJob::TestHelper
+
   subject(:execute) { described_class.call(authorization_request:, state_machine_event: :approve) }
 
   describe 'static forms resolved by naming convention' do
@@ -93,6 +95,32 @@ RSpec.describe ExecuteAuthorizationRequestBridge do
 
         expect(execute).to be_a_success
       end
+    end
+  end
+
+  describe 'ActiveJob serialization of runtime-defined classes' do
+    before(:all) do
+      class RuntimeRoundTripBridge < ApplicationBridge
+        def self.performed_with(authorization_request); end
+
+        def on_approve
+          self.class.performed_with(authorization_request)
+        end
+      end
+    end
+
+    after { AuthorizationDefinition.reset! }
+
+    let!(:habilitation_type) { create(:habilitation_type, bridge_class_name: 'RuntimeRoundTripBridge') }
+    let(:authorization_request) do
+      create(:authorization_request, type: habilitation_type.authorization_request_type, form_uid: habilitation_type.slug)
+    end
+
+    it 'round-trips the runtime-class record through enqueue and perform' do
+      expect(RuntimeRoundTripBridge).to receive(:performed_with)
+        .with(an_instance_of(authorization_request.class).and(have_attributes(id: authorization_request.id)))
+
+      perform_enqueued_jobs { execute }
     end
   end
 end
