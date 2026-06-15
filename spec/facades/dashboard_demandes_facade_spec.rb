@@ -57,6 +57,25 @@ RSpec.describe DashboardDemandesFacade, type: :facade do
     end
   end
 
+  describe 'query efficiency' do
+    before do
+      create_list(:authorization_request, 3, :api_entreprise, organization:, applicant: current_user, state: :draft)
+    end
+
+    it 'loads the authorization_requests relation once across the reads performed while rendering' do
+      facade
+
+      queries = count_queries(/FROM "authorization_requests"/) do
+        facade.empty?
+        facade.highlighted_categories
+        facade.categories
+        facade.total_count
+      end
+
+      expect(queries).to eq(1)
+    end
+  end
+
   describe 'service integration' do
     it 'uses AuthorizationRequestsSearchEngineBuilder' do
       builder = facade.send(:search_builder)
