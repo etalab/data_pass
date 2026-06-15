@@ -128,6 +128,14 @@ Fonctionnalité: Espace admin: types d'habilitation
     Et la page contient "Modifier"
     Et la page ne contient pas "Supprimer"
 
+  Scénario: Je supprime un type d'habilitation sans demandes liées
+    Sachant que je me connecte
+    Et qu'un type d'habilitation "API Jetable" existe
+    Quand je me rends sur le chemin "/admin/types-habilitation"
+    Et que je clique sur "Supprimer" dans la rangée "API Jetable"
+    Alors il y a un message de succès contenant "supprimé"
+    Et la page contient "Aucun type d’habilitation créé."
+
   Scénario: Un admin peut modifier les champs éditoriaux d'un type avec des demandes liées
     Sachant que je me connecte
     Et qu'un type d'habilitation "API Protégée" avec des demandes liées existe
