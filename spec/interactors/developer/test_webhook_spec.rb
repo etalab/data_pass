@@ -52,7 +52,7 @@ RSpec.describe Developer::TestWebhook, type: :interactor do
       it 'returns failure status with error message in webhook_test hash' do
         expect(result.webhook_test[:success]).to be(false)
         expect(result.webhook_test[:status_code]).to be_nil
-        expect(result.webhook_test[:response_body]).to match(/Connection failed/)
+        expect(result.webhook_test[:response_body]).to include('Connection failed')
       end
     end
   end

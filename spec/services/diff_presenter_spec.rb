@@ -29,7 +29,7 @@ RSpec.describe DiffPresenter do
 
       it 'filters out unchanged entries' do
         expect(entries.count).to eq(1)
-        expect(entries[0]).to match(/Attr1/)
+        expect(entries[0]).to include('Attr1')
       end
     end
 
