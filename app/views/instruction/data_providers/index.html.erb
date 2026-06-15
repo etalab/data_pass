@@ -1,0 +1,15 @@
+<% set_title! t('page_titles.instruction_data_providers') %>
+
+<h1 class="fr-my-5w"><%= t('.title') %></h1>
+
+<% if @data_providers.empty? %>
+  <p class="fr-text--lg"><%= t('.empty') %></p>
+<% else %>
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <% @data_providers.each do |data_provider| %>
+      <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+        <%= render Molecules::Instruction::DataProviders::CardComponent.new(data_provider:, definitions_count: @definitions_counts[data_provider]) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

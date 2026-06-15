@@ -1,0 +1,14 @@
+.data-provider-card-img {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  min-height: 9rem;
+}
+
+.data-provider-card-img img {
+  max-height: 6rem;
+  max-width: 80%;
+  object-fit: contain;
+}

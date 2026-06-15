@@ -42,7 +42,7 @@ class DataProvider < ApplicationRecord
 
   def authorization_definitions
     @authorization_definitions ||= AuthorizationDefinition.all.select do |authorization_definition|
-      authorization_definition.provider&.slug == slug
+      authorization_definition.provider_slug == slug
     end
   end
 

@@ -6,6 +6,15 @@ fr:
         edit_templates_link: modifier les modèles
       email_preview_accordion:
         title: Voir un aperçu de l'email
+    data_providers:
+      index:
+        title: Fournisseurs de données
+        empty: Aucun fournisseur de données disponible.
+      card:
+        formulaires_count:
+          zero: Aucun formulaire
+          one: 1 formulaire
+          other: "%{count} formulaires"
     dashboard:
       authorization_requests:
         search:

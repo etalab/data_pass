@@ -114,6 +114,8 @@ Rails.application.routes.draw do
   namespace :instruction do
     get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
 
+    resources :data_providers, only: [:index], path: 'fournisseurs-donnees'
+
     resources :message_templates, only: %i[index new create edit update destroy], path: 'modeles-messages'
 
     resources :authorization_requests, only: %w[show], path: 'demandes' do
