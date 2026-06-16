@@ -11,8 +11,8 @@ class HubEEBaseBridge < ApplicationBridge
       country: 'France',
       postalCode: organization_code_postal,
       territory: organization_libelle_commune,
-      email: authorization_request.administrateur_metier_email,
-      phoneNumber: authorization_request.administrateur_metier_phone_number.gsub(/[ .-]/, ''),
+      email: local_administrator_data[:email],
+      phoneNumber: local_administrator_data[:phoneNumber],
       status: 'Actif'
     }
   end
@@ -30,7 +30,7 @@ class HubEEBaseBridge < ApplicationBridge
       validateDateTime: authorization_request.last_validated_at.iso8601,
       updateDateTime: authorization_request[:updated_at].iso8601,
       status: 'Inactif',
-      email: authorization_request.administrateur_metier_email,
+      email: local_administrator_data[:email],
       localAdministrator: local_administrator_data
     }
   end
