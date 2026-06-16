@@ -591,7 +591,11 @@ fr:
         breadcrumb: Modifier un utilisateur
         submit: Valider les modifications
         readonly_section: Droits non modifiables depuis cette interface
-        readonly_hint: Les droits ci-dessous sont conservés tels quels car ils ne sont pas gérés par les managers.
+        readonly_alerts:
+          default: Ce droit n’est pas modifiable depuis cette interface.
+          admin: Contactez un tech de l’équipe pour modifier un droit admin.
+          developer: Contactez l’équipe DataPass pour modifier le droit développeur.
+        readonly_scopes: "Concerné : %{scopes}"
         destroy_cta: Supprimer tous les droits
       update:
         success: Les droits de %{email} ont été mis à jour

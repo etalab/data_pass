@@ -4,9 +4,10 @@ class Instruction::UserRightsController < InstructionController
   before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
 
   def index
-    @search_term = params.dig(:search_query, :email_or_given_name_or_family_name_cont)
-    @search_engine = managed_users_scope.ransack(params[:search_query])
-    @users = @search_engine.result.order(:email).page(params[:page]).per(50)
+    search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:)
+    @search_engine = search.engine
+    @search_term = search.term
+    @users = search.results.page(params[:page]).per(50)
   end
 
   def new
@@ -60,7 +61,6 @@ class Instruction::UserRightsController < InstructionController
 
   def managed_users_scope
     User.with_any_role_on(@authority.managed_definitions.map(&:id))
-      .where.not(id: current_user.id)
   end
 
   def authorize_user_rights!

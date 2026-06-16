@@ -16,7 +16,8 @@ Fonctionnalité: Instruction — Gestion des droits — supprimer tous les droit
     Alors la page contient "Supprimer tous les droits de eva@gouv.fr ?"
     Quand je clique sur "Supprimer tous les droits de l’utilisateur"
     Alors il y a un message de succès contenant "ont été supprimés"
-    Et la page contient "Aucun utilisateur ne possède de droits pour l’instant"
+    Et le tableau des utilisateurs ne contient pas "eva@gouv.fr"
+    Et le tableau des utilisateurs contient mon email
 
   Scénario: Les rôles hors de mon périmètre sont préservés lors d’une suppression
     Quand il y a l'utilisateur "mixte@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"

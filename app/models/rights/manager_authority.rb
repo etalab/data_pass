@@ -26,6 +26,10 @@ class Rights::ManagerAuthority < Rights::Authority
     user.manages_role?(role_string)
   end
 
+  def can_self_edit?
+    false
+  end
+
   def audit_event_name
     'user_rights_changed_by_manager'
   end
