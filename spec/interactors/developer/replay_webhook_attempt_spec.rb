@@ -68,7 +68,7 @@ RSpec.describe Developer::ReplayWebhookAttempt, type: :interactor do
 
       it 'fails with error and message' do
         expect(result.error).to eq(:webhook_request_failed)
-        expect(result.message).to match(/Connection refused/)
+        expect(result.message).to include('Connection refused')
       end
 
       it 'does not create a new webhook attempt' do

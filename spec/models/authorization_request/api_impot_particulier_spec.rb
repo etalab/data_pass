@@ -206,7 +206,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier do
 
         it 'does render an error message' do
           authorization_request.valid?
-          expect(authorization_request.errors[:scopes].first).to match(/Des données incompatibles entre elles ont été cochées/)
+          expect(authorization_request.errors[:scopes].first).to include('Des données incompatibles entre elles ont été cochées')
         end
       end
 
