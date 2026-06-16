@@ -51,7 +51,7 @@ Fonctionnalité: Instruction — Gestion des droits — modifier les droits d’
     Et que je me rends sur la page de gestion des droits
     Et que je clique sur "Modifier les droits de dev@gouv.fr"
     Alors la page contient "Droits non modifiables depuis cette interface"
-    Et la page contient "Développeur"
+    Et la section des droits non modifiables indique "Contactez l’équipe DataPass pour modifier le droit développeur."
     Quand je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"

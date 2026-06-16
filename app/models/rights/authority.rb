@@ -17,6 +17,10 @@ class Rights::Authority
     raise NotImplementedError
   end
 
+  def can_self_edit?
+    raise NotImplementedError
+  end
+
   def authorized_scopes
     @authorized_scopes ||= definition_scopes + fd_scopes
   end

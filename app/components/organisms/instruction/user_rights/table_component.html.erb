@@ -3,7 +3,7 @@
     <div class="fr-table__content">
       <table class="fr-table--align-middle" id="user-rights-table">
         <caption class="fr-sr-only">
-          <%= t('instruction.user_rights.index.title') %> — <%= t('instruction.user_rights.index.users_count', count: users.size) %>
+          <%= t('instruction.user_rights.index.title') %> — <%= t('instruction.user_rights.index.users_count', count: total_count) %>
         </caption>
         <thead>
           <tr>
@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <% users.each do |user| %>
-            <%= render Molecules::Instruction::UserRights::TableRowComponent.new(user: user, authority: authority) %>
+            <%= render Molecules::Instruction::UserRights::TableRowComponent.new(user: user, authority: authority, current_user: current_user) %>
           <% end %>
         </tbody>
       </table>

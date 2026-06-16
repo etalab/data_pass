@@ -103,6 +103,14 @@ RSpec.describe Rights::ManagerAuthority do
     end
   end
 
+  describe '#can_self_edit?' do
+    let(:user) { create(:user, roles: ['dinum:api_entreprise:manager']) }
+
+    it 'returns false (a manager cannot edit their own rights)' do
+      expect(authority.can_self_edit?).to be false
+    end
+  end
+
   describe '#authorized_scopes' do
     context 'when the user is FD-manager and definition-manager' do
       let(:user) { create(:user, roles: ['dinum:*:manager', 'dgfip:api_ficoba:manager']) }
