@@ -1,27 +1,40 @@
-<div class="settings-block">
-  <h3 class="settings-block__title">
-    <%= authorization_definition.name_with_stage %>
-  </h3>
+<% legend_id = "notifications-#{authorization_definition.id.underscore}-legend" %>
 
-  <div class="settings-block__container">
-    <%= form_with(model: current_user, url: notifications_settings_path, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 0 }) do |f| %>
-      <% %w[submit_notifications messages_notifications].each do |notification_kind| %>
-        <div class="fr-toggle">
-          <%=
-            f.check_box "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}",
-              class: 'fr-toggle__input'
-          %>
-          <%=
-            f.label "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}",
-              t(".instruction_#{notification_kind}"),
-              class: 'fr-toggle__label',
-              data: {
-                fr_checked_label: 'Activées',
-                fr_unchecked_label: 'Désactivées',
-              }
-          %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
+<div class="settings-block">
+  <%= form_with(model: current_user, url: notifications_settings_path, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 0 }) do |f| %>
+    <fieldset class="fr-fieldset" aria-labelledby="<%= legend_id %>">
+      <legend class="fr-fieldset__legend fr-h6 fr-mb-1w" id="<%= legend_id %>">
+        <%= authorization_definition.name_with_stage %>
+      </legend>
+
+      <div class="fr-fieldset__element">
+        <ul class="fr-toggle__list">
+          <% %w[submit_notifications messages_notifications].each do |notification_kind| %>
+            <% field = "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}" %>
+            <li>
+              <div class="fr-toggle">
+                <%=
+                  f.check_box field,
+                    class: 'fr-toggle__input',
+                    id: field,
+                    aria: { describedby: "#{field}-messages" }
+                %>
+                <%=
+                  f.label field,
+                    t(".instruction_#{notification_kind}"),
+                    class: 'fr-toggle__label',
+                    for: field,
+                    data: {
+                      fr_checked_label: 'Activées',
+                      fr_unchecked_label: 'Désactivées',
+                    }
+                %>
+                <div class="fr-messages-group" id="<%= field %>-messages" aria-live="polite"></div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </fieldset>
+  <% end %>
 </div>

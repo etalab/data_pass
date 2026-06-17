@@ -8,6 +8,7 @@ RSpec.describe SubmitAuthorizationRequest do
       context 'with valid authorization request' do
         let(:authorization_request) { create(:authorization_request, authorization_request_kind, :draft, fill_all_attributes: true) }
         let(:authorization_request_kind) { :api_entreprise }
+        let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
         it { is_expected.to be_success }
 

@@ -1,5 +1,5 @@
 def setting_block_testing(block_title, &)
-  settings_block = find('.settings-block__title', text: block_title).ancestor('.settings-block')
+  settings_block = find('.fr-fieldset__legend', text: block_title).ancestor('.settings-block')
 
   within(settings_block, &)
 end

@@ -38,4 +38,13 @@ class ApplicationNotifier
       ),
     ).public_send(event).deliver_later
   end
+
+  def notify_instructors_individually(base_event, params)
+    event = params[:within_reopening] ? "reopening_#{base_event}" : base_event
+
+    Instruction::NotificationRecipients.submit(authorization_request).each do |user|
+      Instruction::AuthorizationRequestMailer
+        .with(authorization_request:, user:).public_send(event).deliver_later
+    end
+  end
 end

@@ -1,4 +1,4 @@
-<% if Rails.application.config.matomo_id.present? %>
+<% if Rails.application.config.matomo_id.present? && controller_name != 'notification_unsubscriptions' %>
   <script>
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
