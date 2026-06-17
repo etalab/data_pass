@@ -1,0 +1,13 @@
+<% set_title! t('page_titles.notification_unsubscription_success') %>
+
+<h1 class="fr-h2 fr-my-5w"><%= t('.title') %></h1>
+
+<% if @already_unsubscribed %>
+  <%= dsfr_alert(type: :info, title: t('.already_description', kind_label:, api_name: authorization_definition.name_with_stage)) %>
+<% else %>
+  <%= dsfr_alert(type: :success, title: t('.description', kind_label:, api_name: authorization_definition.name_with_stage)) %>
+<% end %>
+
+<p class="fr-mt-4w">
+  <%= link_to t('.manage_preferences'), profile_path(anchor: 'notifications-section'), class: 'fr-link' %>
+</p>
