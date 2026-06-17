@@ -58,13 +58,18 @@ module Authentication
       return
     end
 
-    session[:return_to_after_sign_in] = request.url
-    redirect_to sign_in_path
+    redirect_to_sign_in
   end
 
   def user_signed_in?
     valid_user_session? &&
       current_user.present?
+  end
+
+  def redirect_to_sign_in
+    info_message(title: t('sessions.authenticate_user.session_expired')) if session_expired?
+    save_redirect_path
+    redirect_to sign_in_path
   end
 
   def save_redirect_path

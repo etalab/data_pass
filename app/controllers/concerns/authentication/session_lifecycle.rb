@@ -31,6 +31,10 @@ module Authentication::SessionLifecycle
 
   def valid_user_session? = Authentication::SessionLifecycle.valid_session?(user_id_session)
 
+  def session_expired?
+    user_id_session.present? && !valid_user_session?
+  end
+
   def user_id_session
     session[:user_id]
   end

@@ -195,6 +195,7 @@ fr:
     authenticate_user:
       success:
         title: Vous êtes connecté
+      session_expired: "Votre session a expiré. Veuillez vous reconnecter."
       errors:
         banned: "Votre accès à DataPass a été suspendu. Si vous pensez qu’il s’agit d’une erreur, contactez notre support à l’adresse suivante : datapass@api.gouv.fr"
     change_current_organization:
