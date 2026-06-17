@@ -1,13 +1,13 @@
-RSpec.describe BoursiersDynBridge do
+RSpec.describe HubEEProactiviteBridge do
   subject(:perform) { described_class.new.perform(authorization_request, 'approve') }
 
   include_context 'with mocked hubee API client'
 
   let!(:habilitation_type) do
     create(:habilitation_type,
-      name: 'Boursiers',
+      name: 'Test proactividad',
       contact_types: ['contact_technique'],
-      blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'contacts' }])
+      blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }])
   end
   let(:organization) { create(:organization, siret: '21920023500014') }
   let(:authorization_request) do
@@ -25,7 +25,15 @@ RSpec.describe BoursiersDynBridge do
   let(:subscription_response) { build(:hubee_subscription_response_payload, id: hubee_subscription_id) }
   let(:hubee_subscription_id) { '1234567890' }
 
-  after { AuthorizationDefinition.reset! }
+  before do
+    AuthorizationDefinition.reset!
+    AuthorizationRequestForm.reset!
+  end
+
+  after do
+    AuthorizationDefinition.reset!
+    AuthorizationRequestForm.reset!
+  end
 
   describe '#perform on approve' do
     it_behaves_like 'organization creation in hubee on approve'

@@ -1,4 +1,4 @@
-class BoursiersDynBridge < HubEEBaseBridge
+class HubEEProactiviteBridge < HubEEBaseBridge
   PROCESS_CODE = 'ProactiviteCnousBoursiers'.freeze
 
   def on_approve
