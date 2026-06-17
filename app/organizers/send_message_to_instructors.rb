@@ -5,13 +5,11 @@ class SendMessageToInstructors < ApplicationOrganizer
     context.event_name = :applicant_message
     context.event_entity = :message
 
-    context.mailer_method = :to_instructors
-
     context.unread_counter_target = :applicant
   end
 
   organize CreateMessageModel,
     CreateAuthorizationRequestEventModel,
-    DeliverMessageMail,
+    DeliverMessageMailToInstructors,
     IncrementAuthorizationRequestUnreadCounter
 end

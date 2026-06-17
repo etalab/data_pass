@@ -24,7 +24,7 @@ class BaseNotifier < ApplicationNotifier
   end
 
   def submit(params)
-    email_notification_with_reopening('submit', params, mailer: Instruction::AuthorizationRequestMailer)
+    notify_instructors_individually('submit', params)
     email_notification_with_reopening('submit', params)
   end
 

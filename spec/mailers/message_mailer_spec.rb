@@ -28,19 +28,14 @@ RSpec.describe MessageMailer do
   end
 
   describe '#to_instructors' do
-    let(:mail) { described_class.with(message:).to_instructors }
-    let(:message) { create(:message, authorization_request:) }
     let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+    let(:message) { create(:message, authorization_request:) }
+    let(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
-    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier], instruction_messages_notifications_for_api_particulier: false) }
-    let!(:instructor_without_notification) { create(:user, :instructor, authorization_request_types: %w[api_entreprise], instruction_messages_notifications_for_api_entreprise: false) }
-    let!(:instructor_for_another_authorization) { create(:user, :instructor, authorization_request_types: %w[api_particulier]) }
-    let!(:valid_manager) { create(:user, :manager, authorization_request_types: %w[api_entreprise]) }
-    let!(:manager_without_notification) { create(:user, :manager, authorization_request_types: %w[api_entreprise], instruction_messages_notifications_for_api_entreprise: false) }
-    let!(:manager_for_another_authorization) { create(:user, :manager, authorization_request_types: %w[api_particulier]) }
+    let(:mail) { described_class.with(message:, user: valid_instructor).to_instructors }
 
-    it 'sends the email to instructors and managers with notification on' do
-      expect(mail.to).to contain_exactly(valid_instructor.email, valid_manager.email)
+    it 'sends the email to the given user' do
+      expect(mail.to).to eq([valid_instructor.email])
     end
 
     it 'renders valid template' do
@@ -49,30 +44,29 @@ RSpec.describe MessageMailer do
     end
 
     context 'with the unsubscribe footer' do
-      it 'inclut le lien vers la page de préférences' do
-        expect(mail.body.encoded).to include('/compte#notifications-section')
-      end
-
-      it 'mentionne le nom de l’API' do
+      it "mentionne le nom de l'API" do
         expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
       end
 
       it 'mentionne le texte de gestion des préférences' do
         expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
       end
+
+      it 'inclut le lien de désinscription 1 clic' do
+        expect(mail.body.encoded).to include('/desabonnement-notifications?token=')
+      end
     end
   end
 
   describe '#reopening_to_instructors' do
-    let(:mail) { described_class.with(message:).reopening_to_instructors }
-    let(:message) { create(:message, authorization_request:) }
     let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+    let(:message) { create(:message, authorization_request:) }
+    let(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
-    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier], instruction_messages_notifications_for_api_particulier: false) }
-    let!(:valid_manager) { create(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+    let(:mail) { described_class.with(message:, user: valid_instructor).reopening_to_instructors }
 
-    it 'sends the email to instructors and managers with notification on' do
-      expect(mail.to).to contain_exactly(valid_instructor.email, valid_manager.email)
+    it 'sends the email to the given user' do
+      expect(mail.to).to eq([valid_instructor.email])
     end
 
     it 'renders valid template' do
@@ -81,16 +75,16 @@ RSpec.describe MessageMailer do
     end
 
     context 'with the unsubscribe footer' do
-      it 'inclut le lien vers la page de préférences' do
-        expect(mail.body.encoded).to include('/compte#notifications-section')
-      end
-
-      it 'mentionne le nom de l’API' do
+      it "mentionne le nom de l'API" do
         expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
       end
 
       it 'mentionne le texte de gestion des préférences' do
         expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+      end
+
+      it 'inclut le lien de désinscription 1 clic' do
+        expect(mail.body.encoded).to include('/desabonnement-notifications?token=')
       end
     end
   end
