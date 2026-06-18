@@ -6,8 +6,8 @@ RSpec.describe Rights::ManagerAuthority do
   describe '#allowed_role_types' do
     let(:user) { create(:user) }
 
-    it 'returns reporter, instructor and manager' do
-      expect(authority.allowed_role_types).to eq(%w[reporter instructor manager])
+    it 'returns reporter, instructor, manager and developer' do
+      expect(authority.allowed_role_types).to eq(%w[reporter instructor manager developer])
     end
   end
 
@@ -62,10 +62,6 @@ RSpec.describe Rights::ManagerAuthority do
       expect(authority.can_manage_role?('not-a-role')).to be false
     end
 
-    it 'returns false for the developer role (outside allowed_role_types)' do
-      expect(authority.can_manage_role?('dinum:api_entreprise:developer')).to be false
-    end
-
     it 'returns true for an allowed role on a managed scope' do
       expect(authority.can_manage_role?('dinum:api_entreprise:reporter')).to be true
     end
@@ -92,10 +88,6 @@ RSpec.describe Rights::ManagerAuthority do
 
     it 'returns false for the admin role' do
       expect(authority.covers_role?('admin')).to be false
-    end
-
-    it 'returns true for the developer role on a managed scope (covered but not modifiable)' do
-      expect(authority.covers_role?('dinum:api_entreprise:developer')).to be true
     end
 
     it 'returns false for any role on a scope the user does not manage' do

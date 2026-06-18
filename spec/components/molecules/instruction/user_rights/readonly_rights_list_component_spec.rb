@@ -24,19 +24,24 @@ RSpec.describe Molecules::Instruction::UserRights::ReadonlyRightsListComponent, 
     expect(page).to have_css('h4.fr-alert__title')
   end
 
-  it 'renders an info alert with the developer wording and lists the concerned scopes' do
-    render_component([{ scope: 'dinum:api_entreprise', role_type: 'developer' }])
+  context 'with a role type that has no specific wording' do
+    before { render_component([{ scope: 'dinum:api_entreprise', role_type: 'some_role' }]) }
 
-    expect(page).to have_css('.fr-alert--info')
-    expect(page).to have_text('Contactez l’équipe DataPass pour modifier le droit développeur.')
-    expect(page).to have_text(Instruction::Scope.new('dinum:api_entreprise').label)
+    it 'renders an info alert with the default wording' do
+      expect(page).to have_css('.fr-alert--info')
+      expect(page).to have_text('Ce droit n’est pas modifiable depuis cette interface.')
+    end
+
+    it 'lists the concerned scopes' do
+      expect(page).to have_text(Instruction::Scope.new('dinum:api_entreprise').label)
+    end
   end
 
   it 'groups several readonly rights of the same role into a single alert' do
     render_component(
       [
-        { scope: 'dinum:api_entreprise', role_type: 'developer' },
-        { scope: 'dinum:api_particulier', role_type: 'developer' }
+        { scope: 'dinum:api_entreprise', role_type: 'some_role' },
+        { scope: 'dinum:api_particulier', role_type: 'some_role' }
       ]
     )
 

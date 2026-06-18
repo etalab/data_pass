@@ -142,12 +142,35 @@ fr:
         documentation_url: Voir la documentation API
         description_html: Liste de vos applications OAuth et de leurs credentials API
         list_of_habilitations_description: Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes
-        no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
+        new_key: Nouvelle clef API
         table:
           headers:
             name: Nom de l'application
             credentials: Identifiants
             scopes: Scopes
+            actions: Actions
           row:
             client_id: Id
             client_secret: Secret
+            delete: Supprimer
+            delete_confirm: "Êtes-vous sûr de vouloir supprimer cette clef API ? Les tokens associés seront révoqués."
+      new:
+        title: Nouvelle clef API
+        submit: Créer la clef API
+        cancel: Annuler
+        name_label: Nom de l'application
+      show_credentials:
+        title: Identifiants de votre nouvelle clef API
+        warning_title: Attention – Sauvegardez ces identifiants maintenant
+        warning_message: Ces identifiants ne seront affichés qu'une seule fois. Assurez-vous de les sauvegarder dans un endroit sûr avant de quitter cette page.
+        client_id_label: Identifiant client (Client ID)
+        client_secret_label: Secret client (Client Secret)
+        copy_client_id: Copier l'identifiant client
+        copy_client_secret: Copier le secret client
+        copy_button: Copier
+        best_practices_title: Bonnes pratiques de sécurité
+        best_practice_1: Stockez ces identifiants dans vos variables d'environnement
+        best_practice_2: Ne commitez jamais ces identifiants dans votre système de contrôle de version
+        back_to_applications: Retour aux clefs API
+      destroy:
+        success: Clef API supprimée avec succès

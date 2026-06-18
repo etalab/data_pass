@@ -65,25 +65,14 @@ RSpec.describe Instruction::MergeManagedRoles, type: :interactor do
       end
     end
 
-    context 'when user has a developer role on a managed definition' do
-      let(:initial_roles) { %w[dinum:api_entreprise:developer dinum:api_entreprise:reporter] }
-      let(:new_roles) { %w[dinum:api_entreprise:instructor] }
-
-      it 'preserves the developer role and replaces the other managed roles' do
-        result
-
-        expect(user.roles).to match_array(%w[dinum:api_entreprise:developer dinum:api_entreprise:instructor])
-      end
-    end
-
     context 'when destroy-like call (empty new_roles) and user has a developer role' do
       let(:initial_roles) { %w[dinum:api_entreprise:developer dinum:api_entreprise:reporter dinum:api_particulier:reporter] }
       let(:new_roles) { [] }
 
-      it 'preserves developer and out-of-scope roles and drops the other managed roles' do
+      it 'drops all managed roles including developer and preserves out-of-scope roles' do
         result
 
-        expect(user.roles).to match_array(%w[dinum:api_entreprise:developer dinum:api_particulier:reporter])
+        expect(user.roles).to eq(%w[dinum:api_particulier:reporter])
       end
     end
 

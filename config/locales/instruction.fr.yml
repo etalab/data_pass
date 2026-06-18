@@ -594,9 +594,11 @@ fr:
         readonly_alerts:
           default: Ce droit n’est pas modifiable depuis cette interface.
           admin: Contactez un tech de l’équipe pour modifier un droit admin.
-          developer: Contactez l’équipe DataPass pour modifier le droit développeur.
         readonly_scopes: "Concerné : %{scopes}"
         destroy_cta: Supprimer tous les droits
+        oauth_revocation_warning:
+          one: "Cet utilisateur possède une clef API. Si le rôle développeur est retiré, elle sera définitivement révoquée. Continuer ?"
+          other: "Cet utilisateur possède %{count} clefs API. Si le rôle développeur est retiré, elles seront définitivement révoquées. Continuer ?"
       update:
         success: Les droits de %{email} ont été mis à jour
         error: Impossible de mettre à jour les droits
@@ -606,6 +608,9 @@ fr:
         no_modifiable_rights: Cet utilisateur n’a aucun droit modifiable dans votre périmètre.
         cancel: Annuler
         submit: Supprimer tous les droits de l’utilisateur
+        oauth_revocation_warning:
+          one: "Cet utilisateur possède une clef API qui sera définitivement révoquée."
+          other: "Cet utilisateur possède %{count} clefs API qui seront définitivement révoquées."
       destroy:
         success: Tous les droits de %{email} ont été supprimés
         error: Impossible de supprimer les droits

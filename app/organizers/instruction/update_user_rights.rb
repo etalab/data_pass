@@ -6,9 +6,14 @@ class Instruction::UpdateUserRights < ApplicationOrganizer
     context.admin_before_attributes = { roles: context.user.roles.dup }
   end
 
+  around do |interactor|
+    ActiveRecord::Base.transaction { interactor.call }
+  end
+
   organize Instruction::MergeManagedRoles,
+    Instruction::RevokeOauthApplicationsIfNoDeveloperRole,
     Admin::TrackEvent,
     Admin::NotifyAdminsForRolesUpdate
 
-  after { context.user.save }
+  after { context.user.save! }
 end

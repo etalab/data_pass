@@ -1,3 +1,5 @@
+<% set_title! t('.title') %>
+
 <% content_for :content_skip_link_text do %>
   Mes applications OAuth
 <% end %>
@@ -15,7 +17,10 @@
   </div>
 </div>
 
-<%= link_to t('.documentation_url'), developers_documentation_path, class: 'fr-btn fr-btn--secondary' %>
+<div class="fr-mb-2w">
+  <%= link_to t('.documentation_url'), developers_documentation_path, class: 'fr-btn fr-btn--secondary' %>
+  <%= link_to t('.new_key'), new_developers_oauth_application_path, class: 'fr-btn fr-ml-2w' %>
+</div>
 
 <% if @applications.any? %>
   <div class="fr-mt-2w">
@@ -27,11 +32,13 @@
       <div class="fr-table__container">
         <div class="fr-table__content">
           <table>
+            <caption class="fr-sr-only"><%= t('.title') %></caption>
             <thead>
               <tr>
-                <th><%= t('.table.headers.name') %></th>
-                <th><%= t('.table.headers.credentials') %></th>
-                <th><%= t('.table.headers.scopes') %></th>
+                <th scope="col"><%= t('.table.headers.name') %></th>
+                <th scope="col"><%= t('.table.headers.credentials') %></th>
+                <th scope="col"><%= t('.table.headers.scopes') %></th>
+                <th scope="col"><%= t('.table.headers.actions') %></th>
               </tr>
             </thead>
             <tbody>
@@ -39,17 +46,22 @@
                 <tr>
                   <td><%= app.name %></td>
                   <td>
-                    <span data-controller="clipboard" data-clipboard-content-value="<%= app.uid %>">
+                    <span>
                       <%= t('.table.row.client_id') %>: <%= obfuscate(app.uid) %>
-                      <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
                     </span>
                     <br>
-                    <span data-controller="clipboard" data-clipboard-content-value="<%= app.secret %>">
-                    <%= t('.table.row.client_secret') %>: <%= obfuscate(app.secret) %>
-                      <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
+                    <span>
+                      <%= t('.table.row.client_secret') %>: <%= obfuscate(app.secret) %>
                     </span>
                   </td>
                   <td><%= (Doorkeeper.configuration.default_scopes + app.scopes).to_a.uniq.join(', ') %></td>
+                  <td>
+                    <%= button_to t('.table.row.delete'),
+                      developers_oauth_application_path(app),
+                      method: :delete,
+                      class: 'fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-delete-line',
+                      data: { turbo_confirm: t('.table.row.delete_confirm') } %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
@@ -60,10 +72,9 @@
   </div>
 <% end %>
 
-<% if current_user.developer? %>
-  <div class="fr-mt-2w">
-    <p class="fr-mt-2w fr-mb-1w">
-      <strong><%= t('.list_of_habilitations_description') %></strong>
+<div class="fr-mt-2w">
+  <p class="fr-mt-2w fr-mb-1w">
+    <strong><%= t('.list_of_habilitations_description') %></strong>
   </p>
   <ul>
     <% current_user.definition_ids_for(:developer).each do |authorization_definition_name| %>
@@ -71,12 +82,5 @@
         <%= authorization_definition_name %>
       </li>
     <% end %>
-    </ul>
-  </div>
-<% else %>
-  <div class="fr-mt-2w">
-    <p class="fr-mt-2w fr-mb-1w">
-      <strong><%= t('.no_developer_roles') %></strong>
-    </p>
-  </div>
-<% end %>
+  </ul>
+</div>

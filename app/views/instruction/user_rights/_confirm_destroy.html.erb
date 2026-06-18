@@ -17,6 +17,12 @@
     <% else %>
       <p id="no-modifiable-rights-msg"><%= t('instruction.user_rights.confirm_destroy.no_modifiable_rights') %></p>
     <% end %>
+
+    <% if @target_user.oauth_applications.any? %>
+      <%= dsfr_alert type: :warning,
+                     title: t('instruction.user_rights.confirm_destroy.oauth_revocation_warning', count: @target_user.oauth_applications.count),
+                     html_attributes: { class: 'fr-mt-2w' } %>
+    <% end %>
   </div>
 
   <div class="fr-modal__footer">
