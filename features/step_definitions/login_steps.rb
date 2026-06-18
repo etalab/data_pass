@@ -207,6 +207,14 @@ Sachantque('je suis un administrateur') do
   end
 end
 
+Sachantque('ma session a expiré') do
+  page.set_rack_session(user_id: {
+    'value' => current_user!.id,
+    'expires_at' => 1.hour.ago,
+    'absolute_expires_at' => 1.hour.ago
+  })
+end
+
 Sachantque('je me connecte') do
   steps %(
     Quand je me rends sur la page d'accueil

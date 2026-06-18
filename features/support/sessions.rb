@@ -1,3 +1,5 @@
+require 'rack_session_access/capybara'
+
 OmniAuth.config.test_mode = true
 
 OmniAuth.config.before_callback_phase do |env|

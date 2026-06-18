@@ -226,6 +226,105 @@ RSpec.describe Authentication do
     end
   end
 
+  describe '#session_expired?' do
+    context 'when idle timeout has expired (expires_at in the past)' do
+      before do
+        session[:user_id] = {
+          'value' => user.id,
+          'expires_at' => 1.hour.ago,
+          'absolute_expires_at' => 24.hours.from_now
+        }
+      end
+
+      it 'returns true' do
+        expect(controller.session_expired?).to be true
+      end
+    end
+
+    context 'when absolute timeout has been reached' do
+      before do
+        session[:user_id] = {
+          'value' => user.id,
+          'expires_at' => 12.hours.from_now,
+          'absolute_expires_at' => 1.hour.ago
+        }
+      end
+
+      it 'returns true' do
+        expect(controller.session_expired?).to be true
+      end
+    end
+
+    context 'without absolute_expires_at (legacy cookie)' do
+      before do
+        session[:user_id] = {
+          'value' => user.id,
+          'expires_at' => 30.days.from_now
+        }
+      end
+
+      it 'returns true' do
+        expect(controller.session_expired?).to be true
+      end
+    end
+
+    context 'when session is valid' do
+      before do
+        session[:user_id] = {
+          'value' => user.id,
+          'expires_at' => 6.hours.from_now,
+          'absolute_expires_at' => 24.hours.from_now
+        }
+      end
+
+      it 'returns false' do
+        expect(controller.session_expired?).to be false
+      end
+    end
+
+    context 'when session[:user_id] is absent (anonymous access)' do
+      before do
+        session.delete(:user_id)
+      end
+
+      it 'returns false' do
+        expect(controller.session_expired?).to be false
+      end
+    end
+  end
+
+  describe '#authenticate_user! (non connecté)' do
+    context 'when session has expired (idle timeout)' do
+      before do
+        session[:user_id] = {
+          'value' => user.id,
+          'expires_at' => 1.hour.ago,
+          'absolute_expires_at' => 24.hours.from_now
+        }
+      end
+
+      it 'sets flash[:info] with session expired title and redirects to sign in' do
+        get :show
+
+        expect(flash[:info]).to include('title' => I18n.t('sessions.authenticate_user.session_expired'))
+        expect(response).to redirect_to(controller.sign_in_path)
+      end
+    end
+
+    context 'when no session[:user_id] (anonymous first access)' do
+      before do
+        session.delete(:user_id)
+      end
+
+      it 'does not set flash and redirects to sign in' do
+        get :show
+
+        expect(flash[:info]).to be_nil
+        expect(response).to redirect_to(controller.sign_in_path)
+      end
+    end
+  end
+
   describe '#authenticate_user! session sliding' do
     context 'when session is valid' do
       before do
