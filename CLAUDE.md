@@ -85,6 +85,27 @@ If the user is NOT using Docker, you can use these commands directly:
 - Components are documented here
     https://www.systeme-de-design.gouv.fr/version-courante/fr/composants
 
+## Scope Migrations
+
+When a scope value needs to be renamed (or split into multiple scopes) across `AuthorizationRequest` and `Authorization` records, use `ScopeMigrationService` (`app/services/scope_migration_service.rb`).
+
+```ruby
+# In the migration:
+def service
+  ScopeMigrationService.new(
+    'AuthorizationRequest::MyAPI',
+    'old_scope' => 'new_scope',           # 1-to-1 rename
+    # or:
+    'old_scope' => %w[new_a new_b],       # 1-to-many split
+  )
+end
+
+def up   = service.up
+def down = service.down
+```
+
+The service handles both models, the SQL filtering, and JSON parsing. Specs live in `spec/services/scope_migration_service_spec.rb`.
+
 ## Worktrees
 
 Multiple worktrees can run simultaneously with isolated databases and ports.
