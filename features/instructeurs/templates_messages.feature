@@ -35,7 +35,7 @@ Fonctionnalité: Instruction: templates de messages
     Alors il y a un message de succès contenant "Le modèle a été créé avec succès"
     Et la page contient "Organisation non éligible"
 
-  Scénario: Un manager peut créer un template d'approbation
+  Scénario: Un manager peut créer un template de validation
     Sachant que je suis un manager "FranceConnect"
     Et que je me connecte
     Quand je me rends sur la page des templates de messages pour "FranceConnect"
@@ -108,10 +108,10 @@ Fonctionnalité: Instruction: templates de messages
     Alors le champ "Raison" contient "Vous n'êtes pas éligible"
 
   @javascript
-  Scénario: Un instructeur peut utiliser un template lors d'une approbation
+  Scénario: Un instructeur peut utiliser un template lors d'une validation
     Sachant que je suis un instructeur "FranceConnect"
     Et que je me connecte
-    Sachant qu'il existe un template de message de approbation "eIDAS 2" avec le contenu "Le niveau eIDAS 2 nécessite que vous soyez enregistré auprès de l'ANSSI." pour "FranceConnect"
+    Sachant qu'il existe un template de message de validation "eIDAS 2" avec le contenu "Le niveau eIDAS 2 nécessite que vous soyez enregistré auprès de l'ANSSI." pour "FranceConnect"
     Quand je me rends sur une demande d'habilitation "FranceConnect" à modérer
     Et que je clique sur "Instruire la demande"
     Et que je clique sur "Valider"
