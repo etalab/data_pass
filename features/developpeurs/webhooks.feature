@@ -19,7 +19,7 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Et que je clique sur "Nouveau webhook"
     Et que je sélectionne "API Entreprise" pour "Service"
     Et que je remplis "URL de destination" avec "https://webhook.site/test"
-    Et que je coche "Approbation"
+    Et que je coche "Validation"
     Et que je coche "Soumission"
     Et que je clique sur "Créer le webhook"
     Alors la page contient "Secret du webhook"
@@ -31,7 +31,7 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Et que je clique sur "Nouveau webhook"
     Et que je sélectionne "API Entreprise" pour "Service"
     Et que je remplis "URL de destination" avec "https://webhook.site/test"
-    Et que je coche "Approbation"
+    Et que je coche "Validation"
     Et que je clique sur "Créer le webhook"
     Alors je vois un secret de 64 caractères
     Quand je clique sur "Retour aux webhooks"
@@ -77,7 +77,7 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Alors la page contient "Détails de l'appel"
     Et la page contient "Statut"
     Et la page contient "200"
-    Et la page contient "Approbation"
+    Et la page contient "Validation"
 
   Scénario: Je peux activer un webhook
     Sachant qu'il existe un webhook pour "API Entreprise" avec l'URL "https://webhook.site/test"
