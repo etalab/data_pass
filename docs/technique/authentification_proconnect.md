@@ -27,9 +27,13 @@ Le déroulé est le suivant :
   DataPass échange en arrière-plan contre les informations de l’agent : nom, email, et surtout
   le SIRET de l’organisation où il travaille.
 - DataPass en déduit trois choses : qui est l’agent, dans quelle organisation il travaille, et
-  si ce lien peut être considéré comme vérifié. Il ouvre alors une session valable un mois.
-- Tant que cette session est valide, l’agent navigue dans DataPass sans repasser par
-  ProConnect. À son expiration, ou après une déconnexion, le parcours complet recommence.
+  si ce lien peut être considéré comme vérifié. Il ouvre alors une session applicative courte,
+  alignée sur ProConnect.
+- La session suit un modèle **idle glissant** : chaque requête repousse l’échéance à 12 h
+  d’inactivité, sans jamais dépasser un **plafond absolu de 24 h** depuis la connexion. Au-delà —
+  12 h sans activité ou 24 h au total — ou après une déconnexion, le parcours complet recommence.
+  Cet alignement sur les 12 h de ProConnect réduit la fenêtre d’exposition (poste partagé, cookie
+  volé).
 
 Les sections suivantes détaillent l’implémentation de ce parcours.
 
@@ -121,12 +125,20 @@ Trois objets distincts en sortent : **qui** est l’agent (User, via email), **o
 (Organization, via SIRET enrichi INSEE), et le **lien de confiance** entre les deux (`verified`
 ou non, selon le FI).
 
-Le controller appelle ensuite `sign_in`, qui crée la **session applicative DataPass** :
+Le controller appelle ensuite `sign_in`, qui crée la **session applicative DataPass**. La logique
+de cycle de vie est isolée dans le concern `Authentication::SessionLifecycle` (durées, validation,
+glissement, rotation). Au login, `rotate_session` régénère l’identifiant de session (protection
+contre la *fixation de session*) tout en préservant les tokens ProConnect (`omniauth.pc.*`) et le
+chemin de retour. La session porte deux échéances : `expires_at` (12 h glissantes,
+`SESSION_IDLE_TIMEOUT`) et `absolute_expires_at` (plafond fixe 24 h, `SESSION_ABSOLUTE_TIMEOUT`) :
 
 ```ruby
+rotate_session
+
 session[:user_id] = {
   value: user.id,
-  expires_at: 1.month.from_now,
+  expires_at: SESSION_IDLE_TIMEOUT.from_now,
+  absolute_expires_at: SESSION_ABSOLUTE_TIMEOUT.from_now,
   identity_federator:,
   identity_provider_uid:,
 }
@@ -141,20 +153,24 @@ dashboard.
 ```mermaid
 flowchart TD
     A["Requête de l’agent"] --> B["before_action :authenticate_user!<br/>(concern Authentication)"]
-    B --> C{"session[:user_id] présente<br/>et non expirée (< 1 mois) ?"}
-    C -- Oui --> D["Accès autorisé<br/>ProConnect n’est pas sollicité"]
+    B --> C{"session valide ?<br/>value + expires_at (idle) + absolute_expires_at<br/>tous deux dans le futur"}
+    C -- Oui --> D["Glisse expires_at à +12 h<br/>(plafonné à absolute_expires_at)<br/>puis accès autorisé"]
     C -- Non --> E["Redirige vers la connexion<br/>relance tout le flux ProConnect"]
 ```
 
-Une fois connecté, DataPass vit sur **sa propre session** (cookie, un mois). Il ne rappelle pas
-ProConnect à chaque page. ProConnect ne sert qu’à prouver l’identité au moment du login.
+Une fois connecté, DataPass vit sur **sa propre session** (cookie chiffré, 12 h glissantes
+plafonnées à 24 h). À chaque requête authentifiée, `slide_session_expiry` repousse `expires_at` à
+12 h, borné par `absolute_expires_at`. Un ancien cookie « 1 mois » dépourvu d’`absolute_expires_at`
+est désormais considéré invalide → reconnexion douce (re-clic silencieux si la session ProConnect
+est encore active). DataPass ne rappelle pas ProConnect à chaque page ; ProConnect ne sert qu’à
+prouver l’identité au moment du login.
 
 Il y a donc **deux sessions distinctes** :
 
 - les **tokens ProConnect** (`omniauth.pc.*`) — utilisés au login et conservés surtout pour la
   déconnexion globale ;
 - la **session applicative DataPass** (`session[:user_id]`) — c’est elle qui maintient l’agent
-  connecté pendant un mois.
+  connecté tant qu’il reste actif (≤ 12 h entre deux requêtes, 24 h au total).
 
 ## Mécanismes de sécurité
 
@@ -185,6 +201,21 @@ DataPass. C’est la partie la plus subtile de `config/initializers/omniauth.rb`
 > Repères : `amr` (*Authentication Methods References*) = les méthodes d’authentification
 > employées ; `acr` (*Authentication Context Class Reference*) = le niveau de garantie atteint.
 
+**La rotation de session — empêcher la fixation de session.**
+Au moment du login (`sign_in`), DataPass régénère l’identifiant de session (`rotate_session` →
+`reset_session`) pour qu’un identifiant éventuellement connu d’un attaquant avant authentification
+ne donne aucun accès après. Les clés strictement nécessaires sont préservées : les tokens
+ProConnect (`omniauth.pc.access_token`, `id_token`, `refresh_token`, indispensables au logout
+global) et `return_to_after_sign_in`. La durée de session courte (12 h / 24 h) complète ce
+durcissement en réduisant la fenêtre d’exploitation d’un cookie volé.
+
+**La durée de session courte — réduire la fenêtre d’exposition.**
+L’ordre des contrôles dans `authenticate_user!` est volontaire : validité de session, puis
+bannissement (`BannedUserError`), puis seulement `slide_session_expiry` — pour ne jamais prolonger
+la session d’un agent banni. Limites de ce palier *stateless* (cookie store, sans store serveur) :
+pas de révocation à distance ni de « déconnecter partout », un cookie volé reste valide jusqu’à son
+expiration (12-24 h). Ces points seront traités par **DP-1790** (store serveur révocable).
+
 ## Déconnexion
 
 ```mermaid
@@ -211,7 +242,8 @@ d’organisation courante) et `update_userinfo` (rafraîchir les infos de l’ag
 ## En une phrase
 
 ProConnect prouve l’identité une fois (OIDC code flow) ; DataPass en tire trois objets — agent,
-organisation, lien de confiance — puis vit sur sa propre session d’un mois.
+organisation, lien de confiance — puis vit sur sa propre session courte (idle glissant 12 h,
+plafonné à 24 h).
 
 ## Fichiers de référence
 
@@ -223,6 +255,7 @@ organisation, lien de confiance — puis vit sur sa propre session d’un mois.
 | Bouton de connexion | `app/views/pages/shared/unauthenticated_pages/_pro_connect.html.erb` |
 | Aiguillage du callback, MFA, logout | `app/controllers/sessions_controller.rb` |
 | Session applicative (sign_in/out) | `app/controllers/concerns/authentication.rb` |
+| Cycle de vie de session (durées, glissement, rotation) | `app/controllers/concerns/authentication/session_lifecycle.rb` |
 | Organizer ProConnect | `app/organizers/authenticate_user_through_pro_connect.rb` |
 | Organisation depuis le SIRET | `app/interactors/find_or_create_organization_through_pro_connect.rb` |
 | Enrichissement INSEE | `app/interactors/update_organization_insee_payload.rb` |
@@ -244,7 +277,7 @@ organisation, lien de confiance — puis vit sur sa propre session d’un mois.
 | **Scope** | La liste des informations que DataPass a le droit de demander sur l’agent (nom, email, SIRET…). |
 | **SIRET** | Le numéro qui identifie officiellement l’organisation (l’employeur) de l’agent. DataPass s’en sert pour reconnaître l’organisation. |
 | **INSEE Sirene** | Le registre officiel des entreprises et administrations. DataPass y récupère les informations détaillées d’une organisation à partir de son SIRET. |
-| **Session** | L’état de connexion maintenu par DataPass après authentification, valable un mois, qui évite de repasser par ProConnect à chaque page. |
+| **Session** | L’état de connexion maintenu par DataPass après authentification (idle glissant 12 h, plafonné à 24 h), qui évite de repasser par ProConnect à chaque page. |
 | **MFA (double authentification)** | Une vérification supplémentaire (code sur téléphone, application…) exigée par certains fournisseurs d’identité en plus du mot de passe. |
 | **Back-channel** | Un échange direct de serveur à serveur entre DataPass et ProConnect, sans passer par le navigateur de l’agent — donc non exposé côté client. |
 | **state / nonce** | Deux identifiants aléatoires générés par DataPass pour s’assurer que la réponse reçue de ProConnect est authentique et n’est pas rejouée. |

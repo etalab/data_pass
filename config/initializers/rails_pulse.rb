@@ -50,10 +50,7 @@ RailsPulse.configure do |config|
   config.authentication_redirect_path = '/'
   config.authentication_method = proc {
     user_id_session = session[:user_id]
-    valid_session = user_id_session.present? &&
-                    user_id_session['value'].present? &&
-                    user_id_session['expires_at'].present? &&
-                    user_id_session['expires_at'] > Time.current
+    valid_session = Authentication::SessionLifecycle.valid_session?(user_id_session)
 
     current_user = valid_session ? User.find_by(id: user_id_session['value']) : nil
 

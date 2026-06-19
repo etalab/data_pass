@@ -1,6 +1,7 @@
 module Authentication
   extend ActiveSupport::Concern
   include ImpersonationTrackingManagement
+  include SessionLifecycle
 
   included do
     before_action :authenticate_user!
@@ -23,9 +24,12 @@ module Authentication
   def after_sign_in_path = dashboard_path
 
   def sign_in(user, identity_federator:, identity_provider_uid:)
+    rotate_session
+
     session[:user_id] = {
       value: user.id,
-      expires_at: 1.month.from_now,
+      expires_at: SESSION_IDLE_TIMEOUT.from_now,
+      absolute_expires_at: SESSION_ABSOLUTE_TIMEOUT.from_now,
       identity_federator:,
       identity_provider_uid:,
     }
@@ -50,11 +54,11 @@ module Authentication
     if user_signed_in?
       raise ApplicationController::BannedUserError if current_user.banned?
 
+      slide_session_expiry
       return
     end
 
-    session[:return_to_after_sign_in] = request.url
-    redirect_to sign_in_path
+    redirect_to_sign_in
   end
 
   def user_signed_in?
@@ -62,15 +66,10 @@ module Authentication
       current_user.present?
   end
 
-  def valid_user_session?
-    user_id_session.present? &&
-      user_id_session['value'].present? &&
-      user_id_session['expires_at'].present? &&
-      user_id_session['expires_at'] > Time.current
-  end
-
-  def user_id_session
-    session[:user_id]
+  def redirect_to_sign_in
+    info_message(title: t('sessions.authenticate_user.session_expired')) if session_expired?
+    save_redirect_path
+    redirect_to sign_in_path
   end
 
   def save_redirect_path

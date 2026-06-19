@@ -36,6 +36,9 @@ module DataPass
 
     config.active_support.to_time_preserves_timezone = :zone
 
+    config.action_dispatch.cookies_same_site_protection = :lax
+    config.action_controller.default_protect_from_forgery = true
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
