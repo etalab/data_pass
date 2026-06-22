@@ -1,0 +1,49 @@
+<% if organization.present? %>
+  <div class="border-frame-text fr-mb-6w">
+    <% if authorization_request_form.name.present? %>
+      <%= simple_format t("authorization_request_forms.new.organization.start_text_with_form_name",
+        organization_name: organization.name,
+        organization_siret: organization.siret,
+        authorization_request_form_name: authorization_request_form.name),
+        {}, wrapper_tag: 'div' %>
+    <% else %>
+      <%= simple_format t("authorization_request_forms.new.organization.start_text",
+        organization_name: organization.name,
+        organization_siret: organization.siret),
+        {}, wrapper_tag: 'div' %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if authorization_request_form.introduction.present? %>
+  <div class="fr-my-16v">
+    <h5>
+      <%= t("authorization_request_forms.new.intro.title") %>
+    </h5>
+    <%= authorization_request_form.introduction.html_safe %>
+  </div>
+<% end %>
+<% if authorization_request_form.multiple_steps? %>
+  <h5>
+    <%= t('authorization_request_forms.new.multiple_steps.title') %>
+  </h5>
+  <p>
+    <%= t('authorization_request_forms.new.multiple_steps.description') %>
+  </p>
+  <ol>
+    <% authorization_request_form.steps.each do |step| %>
+      <li>
+        <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+  <div class="fr-my-16v">
+    <h5>
+      <%= t("authorization_request_forms.new.single_form.title") %>
+    </h5>
+    <p>
+      <%= simple_format t("authorization_request_forms.new.single_form.description") %>
+    </p>
+  </div>
+<% end %>

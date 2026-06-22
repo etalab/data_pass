@@ -1,0 +1,10 @@
+<% if organization.present? && (local_assigns.fetch(:start_next_stage, false) || policy(authorization_request_form).create?) %>
+  <%= render 'authorization_request_forms/introduction_text', authorization_request_form:, organization: %>
+<% else %>
+  <% if organization.present? %>
+    <% authorization_request = authorization_request_form.active_authorization_requests_for(organization).first %>
+    <%= render partial: "authorization_request_forms/unicity_callout", locals: { authorization_request: } if authorization_request.present? %>
+  <% end %>
+
+  <%= render 'authorization_request_forms/introduction_text', authorization_request_form:, organization: nil %>
+<% end %>
