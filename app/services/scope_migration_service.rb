@@ -48,19 +48,18 @@ class ScopeMigrationService
     AuthorizationRequest
       .where(type: authorization_request_type)
       .where("data ? 'scopes'")
-      .where(any_scope_present_sql(scope_sets.flatten.uniq))
+      .where(*any_scope_present_sql(scope_sets.flatten.uniq))
   end
 
   def authorization_authorizations_with(scope_sets)
     Authorization
       .where(authorization_request_class: authorization_request_type)
       .where("data ? 'scopes'")
-      .where(any_scope_present_sql(scope_sets.flatten.uniq))
+      .where(*any_scope_present_sql(scope_sets.flatten.uniq))
   end
 
   def any_scope_present_sql(scopes)
-    quoted = scopes.map { |s| "'#{s}'" }.join(', ')
-    "EXISTS (SELECT 1 FROM jsonb_array_elements_text((data->'scopes')::jsonb) AS s WHERE s IN (#{quoted}))"
+    ["EXISTS (SELECT 1 FROM jsonb_array_elements_text((data->'scopes')::jsonb) AS s WHERE s IN (?))", scopes]
   end
 
   def parse_scopes(value)
