@@ -1,7 +1,7 @@
 class Instruction::DataProvidersController < InstructionController
   def index
     authorize %i[instruction data_provider], :index?
-    @data_providers = policy_scope([:instruction, DataProvider]).with_attached_logo
+    @data_providers = policy_scope([:instruction, DataProvider]).with_attached_logo.order(:name)
     @definitions_counts = @data_providers.index_with { |data_provider| reporter_definitions_count(data_provider) }
   end
 
