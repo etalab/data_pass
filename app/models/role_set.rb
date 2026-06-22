@@ -19,6 +19,10 @@ class RoleSet
 
   delegate :any?, to: :@roles
 
+  def provider_slugs
+    @roles.filter_map(&:provider_slug).uniq
+  end
+
   def definition_ids
     @definition_ids ||= @roles.flat_map { |parsed|
       if parsed.fd_level?
