@@ -4,7 +4,7 @@
   </a>
 </li>
 
-<% if show_definitions %>
+<% if show_definitions && helpers.feature_flag_formulaires_management_visible? %>
   <li class="fr-nav__item">
     <a class="fr-nav__link center" href="<%= instruction_data_providers_path %>" target="_self">
       <%= t('layouts.header.menu.instruction.formulaires') %>

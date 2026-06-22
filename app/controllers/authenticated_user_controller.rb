@@ -26,4 +26,10 @@ class AuthenticatedUserController < ApplicationController
 
     UpdateOrganizationINSEEPayloadJob.perform_later(current_organization.id)
   end
+
+  def feature_flag_formulaires_management_visible?
+    current_user.admin? || Rails.env.test?
+  end
+
+  helper_method :feature_flag_formulaires_management_visible?
 end
