@@ -11,7 +11,8 @@
           <%= render InstructorMenuComponent.new(
             show_drafts: policy([:instruction, :instructor_draft_request]).enabled?,
             show_templates: policy([:instruction, :message_template]).index?,
-            show_user_rights: policy([:instruction, :user_right]).index?
+            show_user_rights: policy([:instruction, :user_right]).index?,
+            show_definitions: policy([:instruction, :authorization_definition]).index?
           ) %>
         <% end %>
       </ul>

@@ -1,0 +1,31 @@
+<div class="fr-card fr-enlarge-link">
+  <div class="fr-card__body">
+    <div class="fr-card__content fr-pb-2w">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <% if provider.logo&.attached? %>
+          <div class="data-provider-card-img">
+            <%= image_tag provider.logo, alt: '', class: 'fr-mr-1w' %>
+          </div>
+        <% end %>
+        <div class="fr-col">
+          <h2 class="fr-card__title">
+            <%= link_to name_with_stage, '#' %>
+          </h2>
+          <p class="fr-card__desc"><%= provider.name %></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-card__footer">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-auto">
+          <span><%= validated_count %></span>
+          <span class="fr-badge fr-badge--sm fr-badge--success fr-badge--no-icon"><%= t('authorization_request.status.validated') %></span>
+        </div>
+        <div class="fr-col-auto">
+          <span><%= submitted_count %></span>
+          <span class="fr-badge fr-badge--sm fr-badge--info fr-badge--no-icon"><%= t('authorization_request.status.submitted') %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

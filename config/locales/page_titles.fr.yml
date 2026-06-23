@@ -36,6 +36,7 @@ fr:
     admin_user_organization_verifications: Vérification lien utilisateur / organisation
 
     instruction_dashboard: Tableau de bord instructeur
+    instruction_definitions: Formulaires - Instruction
     instruction_show: "Instruction %{definition_name} - %{authorization_request_name}"
     instruction_initiated_requests: Demandes initiées par les instructeurs
     instruction_draft_requests_new: Initier une demande d’habilitation

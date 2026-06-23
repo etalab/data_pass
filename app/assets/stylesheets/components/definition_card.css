@@ -1,0 +1,16 @@
+.data-provider-card-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.2rem;
+  padding: .2em;
+}
+
+.data-provider-card-img img {
+  max-width: 4rem;
+  max-height: 4rem;
+}
+
+.definitions-search-count {
+  text-align: right;
+}
