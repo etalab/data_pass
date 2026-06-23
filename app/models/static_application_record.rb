@@ -94,6 +94,10 @@ class StaticApplicationRecord
     fail NotImplementedError
   end
 
+  def to_param
+    id&.to_s
+  end
+
   def [](attr)
     public_send(attr)
   end

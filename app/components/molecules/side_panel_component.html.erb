@@ -1,0 +1,32 @@
+<div class="<%= container_classes %>"
+     data-side-panel-target="container"
+     data-action="keydown.esc@document->side-panel#close"
+     aria-hidden="<%= !open? %>"
+     <%= 'inert' unless open? %>>
+  <div class="side-panel__backdrop"
+       data-side-panel-target="backdrop"
+       data-action="click->side-panel#close"></div>
+
+  <aside id="<%= id %>"
+         class="side-panel"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="<%= title_id %>">
+    <div class="side-panel__header">
+      <h1 id="<%= title_id %>" class="side-panel__title" data-side-panel-target="title">
+        <%= title %>
+      </h1>
+      <button type="button"
+              class="fr-btn--close fr-btn"
+              title="<%= t('molecules.side_panel_component.close') %>"
+              data-side-panel-target="closeButton"
+              data-action="side-panel#close">
+        <%= t('molecules.side_panel_component.close') %>
+      </button>
+    </div>
+
+    <div class="side-panel__content">
+      <%= content %>
+    </div>
+  </aside>
+</div>

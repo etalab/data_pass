@@ -246,6 +246,16 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '#blocks_count_with_intro_and_summary' do
+    subject { definition.blocks_count_with_intro_and_summary }
+
+    let(:definition) { described_class.find('api_entreprise') }
+
+    it 'returns the total number of steps including intro and summary' do
+      expect(subject).to eq(7)
+    end
+  end
+
   describe '#default_form returns a « Demande libre » for the 7 APIs previously broken' do
     %w[
       api_ficoba

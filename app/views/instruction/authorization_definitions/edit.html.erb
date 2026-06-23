@@ -1,0 +1,37 @@
+<% action_label = @can_edit ? t('.title') : t('.title_readonly') %>
+<% set_title! t('page_titles.instruction_definition_blocks', definition_name: @authorization_definition.name_with_stage, action: action_label) %>
+
+<%= render Molecules::Instruction::AuthorizationDefinition::EditHeaderComponent.new(
+      authorization_definition: @authorization_definition,
+      title: action_label) %>
+
+<div class="fr-container fr-my-5w" data-controller="side-panel">
+  <p class="fr-text--sm fr-text-mention--grey"><%= t('.description') %></p>
+  <% side_panel_id = 'definition-edit-side-panel' %>
+  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction'), can_edit: @can_edit, side_panel_id:) do %>
+    <%= render 'authorization_request_forms/introduction', authorization_request_form: @default_form, organization: @preview_organization %>
+  <% end %>
+
+  <%= form_with model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder do |f| %>
+    <% @authorization_definition.blocks.each do |block| %>
+      <%= render Atoms::EditDefinitionBlockComponent.new(
+            title: f.wording_for("steps.#{block[:name]}"),
+            static_block: @static_block_names.include?(block[:name].to_s),
+            can_edit: @can_edit,
+            side_panel_id:) do %>
+        <%= render_custom_form_or_default(@authorization_request, block[:name], { f: }) %>
+      <% end %>
+    <% end %>
+
+    <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.before_submit'), can_edit: @can_edit, side_panel_id:) do %>
+      <%= render 'authorization_request_forms/shared/tos_checkboxes', f: f %>
+    <% end %>
+  <% end %>
+
+  <%= render Molecules::SidePanelComponent.new(id: side_panel_id) do %>
+    <div class="fr-alert fr-alert--info fr-col">
+      <h2 class="fr-h4"><%= t('.side_panel.under_development.title') %></h1>
+      <p><%= t('.side_panel.under_development.message_html') %></p>
+    </div>
+  <% end %>
+</div>

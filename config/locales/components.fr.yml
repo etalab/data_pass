@@ -1,4 +1,11 @@
 fr:
+  atoms:
+    edit_definition_block_component:
+      static_block: Étape masquée
+      modify_button_title: "Modifier l'étape « %{title} »"
+  molecules:
+    side_panel_component:
+      close: Fermer
   components:
     historical_events:
       show_message: "voir le message"
