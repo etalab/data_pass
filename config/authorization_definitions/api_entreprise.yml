@@ -36,10 +36,10 @@ api_entreprise:
       value: "open_data_associations_djepva"
       link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/rcs/extrait"
       included: true
-    - name: "N°TVA intracommunautaire français - Commission européenne | Open Data"
-      value: "open_data_numero_tva_commission_europeenne"
+    - name: "N°TVA intracommunautaire français - DGFIP | Open Data"
+      value: "open_data_numero_tva_dgfip"
       group: "Informations générales"
-      link: "https://entreprise.api.gouv.fr/catalogue/commission_europeenne/numero_tva"
+      link: "https://entreprise.api.gouv.fr/catalogue/dgfip/numero_tva"
       included: true
     - name: "Conventions collectives - FabNum | Open Data"
       group: "Informations générales"
