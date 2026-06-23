@@ -150,6 +150,7 @@ ignore_unused:
   - 'authorization_requests.show.{reopening_,}{changes_requested,refused}.*'
   - 'instruction.revoke_authorizations.create.*'
   - 'instruction.user_rights.{create,update}.error'
+  - 'instruction.authorization_definitions.show.config_block.{fields,features}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

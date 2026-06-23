@@ -35,6 +35,10 @@ module UserRoles
     roles_for(:developer).any?
   end
 
+  alias can_read? reporter?
+  alias can_manage? manager?
+  alias can_instruct? instructor?
+
   def definition_ids_for(kind)
     roles_for(kind).definition_ids
   end

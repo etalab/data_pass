@@ -1,0 +1,17 @@
+<div class="fr-card fr-enlarge-link actions-block__card">
+  <div class="fr-card__body">
+    <div class="fr-card__content">
+      <h3 class="fr-card__title">
+        <%= link_to title, link %>
+      </h3>
+      <p class="fr-card__desc"><%= description %></p>
+      <% if detail %>
+        <div class="fr-card__end">
+          <p class="<%= detail_classes %>">
+            <%= detail %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -99,7 +99,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
 
   def extract_available_definitions
     @definitions = current_user.authorization_definition_roles_as(:instructor)
-      .select { |definition| definition.feature?('instructor_drafts', default: false) }
+      .select(&:instructor_drafts_enabled?)
   end
 
   def instructor_draft_request_params

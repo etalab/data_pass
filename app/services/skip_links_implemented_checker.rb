@@ -88,6 +88,7 @@ class SkipLinksImplementedChecker
     instruction/user_rights#update
 
     instruction/authorization_definitions#index
+    instruction/authorization_definitions#show
 
     admin#index
     admin/user_rights#index

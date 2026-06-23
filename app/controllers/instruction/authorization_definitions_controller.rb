@@ -5,6 +5,12 @@ class Instruction::AuthorizationDefinitionsController < Instruction::FormManagem
     @counts_by_definition = preload_counts(@authorization_definitions)
   end
 
+  def show
+    @authorization_definition = AuthorizationDefinition.find(params.expect(:id))
+    authorize [:instruction, @authorization_definition], :show?
+    @counts = preload_counts([@authorization_definition])[@authorization_definition.id]
+  end
+
   private
 
   def accessible_definitions

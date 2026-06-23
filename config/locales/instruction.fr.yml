@@ -20,6 +20,45 @@ fr:
             zero: Aucun formulaire
             one: "%{count} formulaire"
             other: "%{count} formulaires"
+      show:
+        slug_label: Identifiant du formulaire
+        initiate_request: Initier une demande pour autrui
+        copy_request_link: Copier le lien de demande
+        config_block:
+          title: Configuration
+          "true": Oui
+          "false": Non
+          fields:
+            kind: Type
+            startable_by_applicant: Démarrable par le demandeur
+            unique: Habilitation unique par organisation
+            access_link: Lien d'accès après validation
+            support_email: Email de support
+          features:
+            messaging: Messagerie via DataPass active
+            transfer: Transfert de demandeur possible
+            instructor_drafts: Initiable par un instructeur
+            reopening: Demande de modification possible
+        actions_block:
+          title: Que souhaitez-vous configurer ?
+          subtitle: Choisissez la partie du formulaire à configurer. Chaque espace est indépendant.
+          blocks:
+            title: Modifier les étapes du formulaire
+            description: Ajoutez, réorganisez ou supprimez les étapes et les questions présentées au demandeur.
+            count:
+              zero: Aucune étape
+              one: 1 étape
+              other: "%{count} étapes"
+          cas_usages:
+            title: Gérer les cas d'usage
+            description: Facilitez votre instruction ainsi que les demandes en préremplissant votre formulaire avec des cas d'usage.
+            count:
+              zero: Aucun cas d'usage
+              one: 1 cas d'usage
+              other: "%{count} cas d'usage"
+          emails:
+            title: Gérer les emails automatiques
+            description: Consultez le contenu et les destinataires des emails automatiques envoyés durant tout le cycle de vie d'une demande.
     dashboard:
       authorization_requests:
         search:

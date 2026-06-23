@@ -38,9 +38,7 @@ class Instruction::InstructorDraftRequestPolicy < ApplicationPolicy
   private
 
   def authorization_definitions_with_instructor_draft_feature
-    AuthorizationDefinition.all.select do |definition|
-      definition.feature?('instructor_drafts', default: false)
-    end
+    AuthorizationDefinition.all.select(&:instructor_drafts_enabled?)
   end
 
   class Scope < Scope

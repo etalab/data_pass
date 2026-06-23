@@ -9,23 +9,14 @@
         <% end %>
         <div class="fr-col">
           <h2 class="fr-card__title">
-            <%= link_to name_with_stage, '#' %>
+            <%= link_to name_with_stage, instruction_authorization_definition_path(authorization_definition.id) %>
           </h2>
           <p class="fr-card__desc"><%= provider.name %></p>
         </div>
       </div>
     </div>
     <div class="fr-card__footer">
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-auto">
-          <span><%= validated_count %></span>
-          <span class="fr-badge fr-badge--sm fr-badge--success fr-badge--no-icon"><%= t('authorization_request.status.validated') %></span>
-        </div>
-        <div class="fr-col-auto">
-          <span><%= submitted_count %></span>
-          <span class="fr-badge fr-badge--sm fr-badge--info fr-badge--no-icon"><%= t('authorization_request.status.submitted') %></span>
-        </div>
-      </div>
+      <%= render 'instruction/authorization_definitions/counts', validated_count:, submitted_count: %>
     </div>
   </div>
 </div>
