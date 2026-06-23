@@ -1,40 +1,10 @@
 <% set_title! t('page_titles.instruction_definition', definition_name: @authorization_definition.name) %>
 
-<%= render Molecules::Instruction::WideHeader.new(
-      logo_asset: @authorization_definition.provider.logo,
-      title: @authorization_definition.name,
-      back_link: { path: instruction_authorization_definitions_path, text: t('page_titles.instruction_definitions') }) do |component| %>
-
-  <% component.with_subtitle_content do %>
-    <p class="fr-my-1w">
-      <span class="fr-text--sm">
-        <%= t('.slug_label') %>
-        <code class="fr-code-inline"><%= @authorization_definition.id %></code>
-      </span>
-    </p>
-    <%= render 'instruction/authorization_definitions/counts', validated_count: @counts[:validated], submitted_count: @counts[:submitted] %>
-  <% end %>
-
-  <% component.with_right_content do %>
-    <div>
-      <% if policy([:instruction, @authorization_definition]).initiate_request? %>
-        <div class="fr-mb-1w">
-          <%= link_to t('.initiate_request'),
-                start_instruction_instructor_draft_requests_path(form_uid: @authorization_definition.default_form.uid),
-                class: 'fr-btn fr-btn--icon-left fr-icon-draft-line authorization-definition-action-btn' %>
-        </div>
-      <% end %>
-      <div data-controller="clipboard"
-           data-clipboard-content-value="<%= new_authorization_request_url(@authorization_definition.id) %>"
-           data-clipboard-original-message-value="<%= t('.copy_request_link') %>">
-        <button class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-clipboard-line authorization-definition-action-btn"
-                data-action="click->clipboard#copy">
-          <%= t('.copy_request_link') %>
-        </button>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+<%= render Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent.new(
+      authorization_definition: @authorization_definition,
+      validated_count: @counts[:validated],
+      submitted_count: @counts[:submitted],
+      can_initiate_request: policy([:instruction, @authorization_definition]).initiate_request?) %>
 
 <div class="fr-container fr-my-5w">
   <%= render Molecules::Instruction::AuthorizationDefinition::ConfigBlockComponent.new(authorization_definition: @authorization_definition) %>
