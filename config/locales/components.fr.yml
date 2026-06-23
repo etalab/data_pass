@@ -4,6 +4,10 @@ fr:
       static_block: Étape masquée
       modify_button_title: "Modifier l'étape « %{title} »"
   molecules:
+    instruction:
+      authorization_definition:
+        form_card_component:
+          default_badge: Formulaire par défaut
     side_panel_component:
       close: Fermer
   components:

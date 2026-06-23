@@ -75,7 +75,20 @@ fr:
           under_development:
             title: Fonctionnalité en cours de développement.
             message_html: Pour modifier votre formulaire, contactez-nous sur <a class="fr-link" href="mailto:datapass@yopmail.com">datapass@yopmail.com</a>.
-          
+      forms_header_component:
+        title: Cas d'usage
+    forms:
+      index:
+        empty: Aucun cas d'usage disponible.
+        search:
+          label: Rechercher un cas d'usage
+          placeholder: Nom ou identifiant du cas d'usage
+          submit: Rechercher
+          no_results: Aucun cas d'usage ne correspond à votre recherche.
+          results_count:
+            zero: Aucun cas d'usage
+            one: "%{count} cas d'usage"
+            other: "%{count} cas d'usage"
     dashboard:
       authorization_requests:
         search:
