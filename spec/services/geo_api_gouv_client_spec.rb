@@ -46,4 +46,24 @@ RSpec.describe GeoAPIGouvClient do
       expect(stub).to have_been_requested.once
     end
   end
+
+  describe '#commune_exists?' do
+    let(:url) { "#{base_url}/communes/69123?fields=nom,codeDepartement,codeRegion" }
+
+    it 'is true when the commune is known' do
+      stub_request(:get, url).to_return(
+        status: 200,
+        body: { 'code' => '69123', 'nom' => 'Lyon', 'codeDepartement' => '69', 'codeRegion' => '84' }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+
+      expect(client.commune_exists?('69123')).to be(true)
+    end
+
+    it 'is false when the commune is unknown (404)' do
+      stub_request(:get, url).to_return(status: 404, body: '')
+
+      expect(client.commune_exists?('69123')).to be(false)
+    end
+  end
 end

@@ -3,6 +3,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
 
   ECHELONS = %w[0Bis 1 2 3 4 5 6 7].freeze
   GEOGRAPHIC_KINDS = { commune: 'commune', dept: 'departement', region: 'region' }.freeze
+  CODE_INSEE_FORMAT = /\A([013-9]\d|2[AB1-9])\d{3}\z/
 
   included do
     add_attribute :manual_code_insee_communes, type: :array
@@ -13,6 +14,9 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
 
     with_options if: -> { need_complete_validation?(:cnous_data_extraction_criteria) } do
       validate :geographic_perimeter_present
+      validate :manual_communes_codes_insee_format
+      validate :manual_communes_codes_insee_existence
+      validate :premiere_date_transmission_not_in_the_past
       validates :echelon_bourse, presence: true, inclusion: { in: ECHELONS }
       validates :premiere_date_transmission, presence: true
     end
@@ -65,5 +69,39 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     return if geographic_perimeter_automatic? || manual_code_insee_communes.present?
 
     errors.add(:manual_code_insee_communes, :blank)
+  end
+
+  def manual_communes_codes_insee_format
+    return if geographic_perimeter_automatic?
+
+    manual_code_insee_communes.each_with_index do |code, index|
+      next if code.match?(CODE_INSEE_FORMAT)
+
+      errors.add(:manual_code_insee_communes, :invalid_code_insee_format, index:, code:)
+    end
+  end
+
+  def manual_communes_codes_insee_existence
+    return if geographic_perimeter_automatic?
+
+    geo_client = GeoAPIGouvClient.new
+
+    manual_code_insee_communes.each_with_index do |code, index|
+      next unless code.match?(CODE_INSEE_FORMAT)
+      next if geo_client.commune_exists?(code)
+
+      errors.add(:manual_code_insee_communes, :unknown_code_insee, index:, code:)
+    end
+  rescue GeoAPIGouvClient::ServerError, Faraday::Error
+    nil
+  end
+
+  def premiere_date_transmission_not_in_the_past
+    return if premiere_date_transmission.blank?
+
+    date = Date.parse(premiere_date_transmission)
+    errors.add(:premiere_date_transmission, :not_in_the_future) if date < Date.current
+  rescue ArgumentError, TypeError
+    errors.add(:premiere_date_transmission, :invalid_date)
   end
 end

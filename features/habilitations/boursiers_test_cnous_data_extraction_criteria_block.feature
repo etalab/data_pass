@@ -5,6 +5,8 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
 
   Scénario: Je soumets une demande Boursiers CNOUS valide
     Sachant que je suis un demandeur
+    Et que l’API géo connaît la commune "75056" nommée "Paris"
+    Et que l’API géo connaît la commune "69123" nommée "Lyon"
     Et que je me connecte
     Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
 
@@ -84,6 +86,8 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
 
   Scénario: Le formulaire accepte les codes INSEE Corse et à zéro de tête
     Sachant que je suis un demandeur
+    Et que l’API géo connaît la commune "2A004" nommée "Ajaccio"
+    Et que l’API géo connaît la commune "01001" nommée "L’Abergement-Clémenciat"
     Et que je me connecte
     Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
 
