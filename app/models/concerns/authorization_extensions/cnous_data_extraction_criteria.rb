@@ -77,7 +77,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     manual_code_insee_communes.each_with_index do |code, index|
       next if code.match?(CODE_INSEE_FORMAT)
 
-      errors.add(:manual_code_insee_communes, :invalid_code_insee_format, index:, code:)
+      errors.add(:manual_code_insee_communes, :invalid_code_insee_format, index: index + 1, code:)
     end
   end
 
@@ -90,7 +90,7 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
       next unless code.match?(CODE_INSEE_FORMAT)
       next if geo_client.commune_exists?(code)
 
-      errors.add(:manual_code_insee_communes, :unknown_code_insee, index:, code:)
+      errors.add(:manual_code_insee_communes, :unknown_code_insee, index: index + 1, code:)
     end
   rescue GeoAPIGouvClient::ServerError, Faraday::Error
     nil

@@ -187,15 +187,23 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         end
 
         context 'with a malformed code INSEE in the communes list' do
-          let(:params) { { manual_code_insee_communes: %w[ABCDE] } }
+          let(:params) { { manual_code_insee_communes: %w[75056 ABCDE] } }
 
           it { expect(demande.errors[:manual_code_insee_communes]).to be_present }
+
+          it 'identifies the faulty chip by its position' do
+            expect(demande.errors[:manual_code_insee_communes].join).to include('n°2', 'ABCDE')
+          end
         end
 
         context 'with a well-formatted but unknown code INSEE' do
-          let(:params) { { manual_code_insee_communes: %w[99999] } }
+          let(:params) { { manual_code_insee_communes: %w[75056 99999] } }
 
           it { expect(demande.errors[:manual_code_insee_communes]).to be_present }
+
+          it 'identifies the faulty chip by its position' do
+            expect(demande.errors[:manual_code_insee_communes].join).to include('n°2', '99999')
+          end
         end
 
         context 'with duplicate codes INSEE' do
