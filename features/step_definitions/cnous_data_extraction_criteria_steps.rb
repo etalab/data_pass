@@ -60,6 +60,23 @@ Alors('chaque champ commune INSEE est annoncé avec sa position aux lecteurs d�
   expect(page).to have_css('input[name$="[manual_code_insee_communes][]"][aria-label="Communes (codes INSEE) n°2"]', visible: :all)
 end
 
+Alors('l’astérisque signale que les communes sont obligatoires') do
+  expect(page).to have_css('legend.fr-fieldset__legend .fr-text-error', text: '*', visible: :all)
+end
+
+Alors('le champ commune INSEE contenant {string} est signalé en erreur') do |value|
+  field = find(:xpath, "//input[@value='#{value}']", visible: :all)
+  expect(field[:class]).to include('fr-input--error')
+
+  group = field.find(:xpath, "ancestor::div[contains(@class, 'fr-input-group--error')][1]", visible: :all)
+  expect(group).to have_css('.fr-message--error', text: value, visible: :all)
+end
+
+Alors('le champ commune INSEE contenant {string} n’est pas signalé en erreur') do |value|
+  field = find(:xpath, "//input[@value='#{value}']", visible: :all)
+  expect(field[:class]).not_to include('fr-input--error')
+end
+
 Alors('le groupe de codes INSEE utilise la légende DSFR conforme') do
   expect(page).to have_css('legend.fr-fieldset__legend', text: /Communes \(codes INSEE\)/, visible: :all)
 end

@@ -1,9 +1,12 @@
+<% communes_errors = @authorization_request.errors.where(:manual_code_insee_communes) %>
+<% group_errors = communes_errors.reject { |error| error.options.key?(:index) } %>
 <fieldset class="fr-fieldset__element fr-input-group"
           data-controller="nested-form nested-form-focus"
           data-nested-form-focus-input-selector-value='input[name$="[manual_code_insee_communes][]"]'
           data-nested-form-focus-aria-label-template-value="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°NEW_RECORD">
   <legend class="fr-fieldset__legend">
     <%= t('activerecord.attributes.authorization_request.communes_codes_insee') %>
+    <span class="fr-ml-1w fr-text-error">*</span>
     <span class="fr-hint-text">
       <%= t('activerecord.hints.authorization_request.communes_codes_insee') %>
     </span>
@@ -24,9 +27,17 @@
 
   <div data-nested-form-target="target" data-nested-form-focus-target="target">
     <% (@authorization_request.manual_code_insee_communes.presence || ['']).each_with_index do |code, index| %>
+      <% chip_errors = communes_errors.select { |error| error.options[:index] == index + 1 } %>
       <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
-        <div class="fr-col-8">
-          <input type="text" inputmode="text" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[manual_code_insee_communes][]" value="<%= code %>" class="fr-input" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°<%= index + 1 %>">
+        <div class="fr-col-8 <%= 'fr-input-group fr-input-group--error' if chip_errors.any? %>">
+          <input type="text" inputmode="text" pattern="[0-9AB]{5}" maxlength="5" name="<%= f.object_name %>[manual_code_insee_communes][]" value="<%= code %>" class="fr-input <%= 'fr-input--error' if chip_errors.any? %>" placeholder="75056" aria-label="<%= t('activerecord.attributes.authorization_request.communes_codes_insee') %> n°<%= index + 1 %>">
+          <% if chip_errors.any? %>
+            <p class="fr-messages-group">
+              <% chip_errors.each do |error| %>
+                <span class="fr-message fr-message--error"><%= error.message %></span>
+              <% end %>
+            </p>
+          <% end %>
         </div>
         <div class="fr-col-4">
           <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form-focus#focusAfterRemove click->nested-form#remove" aria-label="<%= code.present? ? t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria', code: code) : t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.remove_aria_blank') %>">
@@ -36,6 +47,14 @@
       </div>
     <% end %>
   </div>
+
+  <% if group_errors.any? %>
+    <p class="fr-messages-group">
+      <% group_errors.each do |error| %>
+        <span class="fr-message fr-message--error"><%= error.message %></span>
+      <% end %>
+    </p>
+  <% end %>
 
   <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-nested-form-focus-target="addButton" data-action="click->nested-form#add click->nested-form-focus#focusNew">
     <%= t('authorization_request_forms.default.cnous_data_extraction_criteria.communes_codes_insee.add') %>
