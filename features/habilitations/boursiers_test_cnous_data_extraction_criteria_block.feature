@@ -19,7 +19,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     * je remplis "Communes (codes INSEE) n°1" avec "75056"
     * je remplis "Communes (codes INSEE) n°2" avec "69123"
     * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
-    * je remplis "Première date de transmission" avec "2026-09-01"
+    * je remplis la première date de transmission avec une date future
     * je clique sur "Suivant"
     * la page contient "Contact technique"
 
@@ -52,7 +52,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Et le périmètre ne propose pas de voir toutes les communes
 
     Quand je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
-    Et je remplis "Première date de transmission" avec "2026-09-01"
+    Et je remplis la première date de transmission avec une date future
     Et je clique sur "Suivant"
 
     * je renseigne les informations du contact technique
@@ -104,7 +104,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Quand je remplis "Communes (codes INSEE) n°1" avec "2A004"
     Et je remplis "Communes (codes INSEE) n°2" avec "01001"
     Et je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
-    Et je remplis "Première date de transmission" avec "2026-09-01"
+    Et je remplis la première date de transmission avec une date future
     Et je clique sur "Suivant"
 
     * je renseigne les informations du contact technique

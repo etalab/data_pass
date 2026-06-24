@@ -1,3 +1,11 @@
+def cnous_future_transmission_date
+  2.months.from_now.to_date
+end
+
+Quand('je remplis la première date de transmission avec une date future') do
+  fill_in 'Première date de transmission', with: cnous_future_transmission_date.iso8601, wait: true
+end
+
 Sachantque('l’API géo connaît la commune {string} nommée {string}') do |code, nom|
   stub_request(:get, "https://geo.api.gouv.fr/communes/#{code}?fields=nom,codeDepartement,codeRegion")
     .to_return(
@@ -60,7 +68,7 @@ Alors("la demande contient les conditions d'extraction CNOUS attendues") do
   authorization_request = AuthorizationRequest.last
   expect(authorization_request.manual_code_insee_communes).to match_array(%w[75056 69123])
   expect(authorization_request.echelon_bourse).to eq('5')
-  expect(authorization_request.premiere_date_transmission).to eq('2026-09-01')
+  expect(authorization_request.premiere_date_transmission).to eq(cnous_future_transmission_date.iso8601)
 end
 
 Alors('les champs de codes INSEE acceptent les caractères alphanumériques de longueur 5') do
