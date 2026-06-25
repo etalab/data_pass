@@ -4,9 +4,15 @@ class AuthenticatedUserController < ApplicationController
 
   impersonates :user
 
+  helper_method :authorization_definitions_feature_enabled?
+
   before_action :refresh_current_organization_insee_data
 
   allow_unauthenticated_access only: :bypass_login
+
+  def authorization_definitions_feature_enabled?
+    current_user&.admin? || Rails.env.test?
+  end
 
   def bypass_login
     return if Rails.env.production?
