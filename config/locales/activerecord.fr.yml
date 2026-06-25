@@ -244,6 +244,12 @@ fr:
           attributes:
             scopes:
               blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
+            manual_code_insee_communes:
+              invalid_code_insee_format: "n°%{index} n’est pas un code INSEE valide : « %{code} »."
+              unknown_code_insee: "n°%{index} ne correspond à aucune commune connue : « %{code} »."
+            premiere_date_transmission:
+              not_in_the_future: "ne peut pas être dans le passé."
+              invalid_date: "n’est pas une date valide."
             safety_certification_begin_date:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:

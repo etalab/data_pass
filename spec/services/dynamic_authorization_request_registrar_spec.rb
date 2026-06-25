@@ -137,7 +137,22 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         let(:demande) { klass.new(**params) }
         let(:params) { {} }
 
-        before { valid? }
+        let(:known_communes) { %w[75056 69123] }
+
+        before do
+          known_communes.each do |code|
+            stub_request(:get, "https://geo.api.gouv.fr/communes/#{code}?fields=nom,codeDepartement,codeRegion")
+              .to_return(
+                status: 200,
+                body: { 'code' => code, 'nom' => 'X', 'codeDepartement' => '75', 'codeRegion' => '11' }.to_json,
+                headers: { 'Content-Type' => 'application/json' }
+              )
+          end
+          stub_request(:get, %r{https://geo\.api\.gouv\.fr/communes/(?!(#{known_communes.join('|')})\?)})
+            .to_return(status: 404, body: '')
+
+          valid?
+        end
 
         context 'without any field' do
           it { expect(demande.errors[:manual_code_insee_communes]).to be_present }
@@ -150,7 +165,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
             {
               manual_code_insee_communes: %w[75056 69123],
               echelon_bourse: '5',
-              premiere_date_transmission: '2026-09-01',
+              premiere_date_transmission: 1.month.from_now.to_date.iso8601,
             }
           end
 
@@ -169,6 +184,56 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
           let(:params) { { echelon_bourse: '0Bis' } }
 
           it { expect(demande.errors[:echelon_bourse]).to be_empty }
+        end
+
+        context 'with a malformed code INSEE in the communes list' do
+          let(:params) { { manual_code_insee_communes: %w[75056 ABCDE] } }
+
+          it { expect(demande.errors[:manual_code_insee_communes]).to be_present }
+
+          it 'identifies the faulty chip by its position' do
+            expect(demande.errors[:manual_code_insee_communes].join).to include('n°2', 'ABCDE')
+          end
+        end
+
+        context 'with a well-formatted but unknown code INSEE' do
+          let(:params) { { manual_code_insee_communes: %w[75056 99999] } }
+
+          it { expect(demande.errors[:manual_code_insee_communes]).to be_present }
+
+          it 'identifies the faulty chip by its position' do
+            expect(demande.errors[:manual_code_insee_communes].join).to include('n°2', '99999')
+          end
+        end
+
+        context 'with duplicate codes INSEE' do
+          let(:params) { { manual_code_insee_communes: %w[75056 75056] } }
+
+          it { expect(demande.manual_code_insee_communes).to eq(%w[75056]) }
+        end
+
+        context 'with a premiere_date_transmission in the past' do
+          let(:params) { { premiere_date_transmission: 1.day.ago.to_date.iso8601 } }
+
+          it { expect(demande.errors[:premiere_date_transmission]).to be_present }
+        end
+
+        context 'with premiere_date_transmission set to today' do
+          let(:params) { { premiere_date_transmission: Date.current.iso8601 } }
+
+          it { expect(demande.errors[:premiere_date_transmission]).to be_empty }
+        end
+
+        context 'with a premiere_date_transmission in the future' do
+          let(:params) { { premiere_date_transmission: 1.month.from_now.to_date.iso8601 } }
+
+          it { expect(demande.errors[:premiere_date_transmission]).to be_empty }
+        end
+
+        context 'with a non-parseable premiere_date_transmission' do
+          let(:params) { { premiere_date_transmission: 'pas-une-date' } }
+
+          it { expect(demande.errors[:premiere_date_transmission]).to be_present }
         end
       end
     end

@@ -1,3 +1,11 @@
+def cnous_future_transmission_date
+  2.months.from_now.to_date
+end
+
+Quand('je remplis la première date de transmission avec une date future') do
+  fill_in 'Première date de transmission', with: cnous_future_transmission_date.iso8601, wait: true
+end
+
 Sachantque('l’API géo connaît la commune {string} nommée {string}') do |code, nom|
   stub_request(:get, "https://geo.api.gouv.fr/communes/#{code}?fields=nom,codeDepartement,codeRegion")
     .to_return(
@@ -52,6 +60,23 @@ Alors('chaque champ commune INSEE est annoncé avec sa position aux lecteurs d�
   expect(page).to have_css('input[name$="[manual_code_insee_communes][]"][aria-label="Communes (codes INSEE) n°2"]', visible: :all)
 end
 
+Alors('l’astérisque signale que les communes sont obligatoires') do
+  expect(page).to have_css('legend.fr-fieldset__legend .fr-text-error', text: '*', visible: :all)
+end
+
+Alors('le champ commune INSEE contenant {string} est signalé en erreur') do |value|
+  field = find(:xpath, "//input[@value='#{value}']", visible: :all)
+  expect(field[:class]).to include('fr-input--error')
+
+  group = field.find(:xpath, "ancestor::div[contains(@class, 'fr-input-group--error')][1]", visible: :all)
+  expect(group).to have_css('.fr-message--error', text: value, visible: :all)
+end
+
+Alors('le champ commune INSEE contenant {string} n’est pas signalé en erreur') do |value|
+  field = find(:xpath, "//input[@value='#{value}']", visible: :all)
+  expect(field[:class]).not_to include('fr-input--error')
+end
+
 Alors('le groupe de codes INSEE utilise la légende DSFR conforme') do
   expect(page).to have_css('legend.fr-fieldset__legend', text: /Communes \(codes INSEE\)/, visible: :all)
 end
@@ -60,7 +85,7 @@ Alors("la demande contient les conditions d'extraction CNOUS attendues") do
   authorization_request = AuthorizationRequest.last
   expect(authorization_request.manual_code_insee_communes).to match_array(%w[75056 69123])
   expect(authorization_request.echelon_bourse).to eq('5')
-  expect(authorization_request.premiere_date_transmission).to eq('2026-09-01')
+  expect(authorization_request.premiere_date_transmission).to eq(cnous_future_transmission_date.iso8601)
 end
 
 Alors('les champs de codes INSEE acceptent les caractères alphanumériques de longueur 5') do

@@ -5,6 +5,8 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
 
   Scénario: Je soumets une demande Boursiers CNOUS valide
     Sachant que je suis un demandeur
+    Et que l’API géo connaît la commune "75056" nommée "Paris"
+    Et que l’API géo connaît la commune "69123" nommée "Lyon"
     Et que je me connecte
     Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
 
@@ -17,7 +19,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     * je remplis "Communes (codes INSEE) n°1" avec "75056"
     * je remplis "Communes (codes INSEE) n°2" avec "69123"
     * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
-    * je remplis "Première date de transmission" avec "2026-09-01"
+    * je remplis la première date de transmission avec une date future
     * je clique sur "Suivant"
     * la page contient "Contact technique"
 
@@ -35,6 +37,29 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Alors il y a un message de succès contenant "soumise avec succès"
     Et la demande contient les conditions d'extraction CNOUS attendues
 
+  Scénario: Un code INSEE invalide est signalé visuellement sur le champ concerné
+    Sachant que je suis un demandeur
+    Et que l’API géo connaît la commune "75056" nommée "Paris"
+    Et que je me connecte
+    Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
+
+    Quand je démarre une nouvelle demande d'habilitation "Boursiers"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * l’astérisque signale que les communes sont obligatoires
+
+    * je clique sur "Ajouter une commune"
+    * je remplis "Communes (codes INSEE) n°1" avec "75056"
+    * je remplis "Communes (codes INSEE) n°2" avec "20000"
+    * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
+    * je remplis la première date de transmission avec une date future
+    * je clique sur "Suivant"
+
+    Alors le champ commune INSEE contenant "20000" est signalé en erreur
+    Et le champ commune INSEE contenant "75056" n’est pas signalé en erreur
+
   Scénario: Une collectivité identifiée comme commune voit son périmètre pré-rempli en lecture seule
     Sachant que je suis un demandeur de la commune de Clamart
     Et que je me connecte
@@ -50,7 +75,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Et le périmètre ne propose pas de voir toutes les communes
 
     Quand je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
-    Et je remplis "Première date de transmission" avec "2026-09-01"
+    Et je remplis la première date de transmission avec une date future
     Et je clique sur "Suivant"
 
     * je renseigne les informations du contact technique
@@ -84,6 +109,8 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
 
   Scénario: Le formulaire accepte les codes INSEE Corse et à zéro de tête
     Sachant que je suis un demandeur
+    Et que l’API géo connaît la commune "2A004" nommée "Ajaccio"
+    Et que l’API géo connaît la commune "01001" nommée "L’Abergement-Clémenciat"
     Et que je me connecte
     Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
 
@@ -100,7 +127,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Quand je remplis "Communes (codes INSEE) n°1" avec "2A004"
     Et je remplis "Communes (codes INSEE) n°2" avec "01001"
     Et je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
-    Et je remplis "Première date de transmission" avec "2026-09-01"
+    Et je remplis la première date de transmission avec une date future
     Et je clique sur "Suivant"
 
     * je renseigne les informations du contact technique
