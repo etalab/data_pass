@@ -54,8 +54,8 @@ fr:
           cas_usages:
             title: Gérer les cas d'usage
             title_readonly: Voir les cas d'usage
-            description: Pré-remplissez votre formulaire avec des cas d'usages pour faciliter l'instruction et les demandes.
-            description_readonly: Consultez les cas d'usages pré-remplissant votre formulaire pour faciliter l'instruction et les demandes.
+            description: Pré-remplissez votre formulaire avec des cas d'usage pour faciliter l'instruction et les demandes.
+            description_readonly: Consultez les cas d'usage pré-remplissant votre formulaire pour faciliter l'instruction et les demandes.
             count:
               zero: Aucun cas d'usage
               one: 1 cas d'usage

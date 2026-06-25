@@ -17,7 +17,7 @@ api-entreprise-socle-de-base:
     - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
     <br />
     <i>💡 Votre cas d'usage concerne les marchés publics ? la délivrance d'aides ou de subventions ?</i>
-    Utilisez plutôt les <a href="https://datapass.api.gouv.fr/demandes/api-entreprise/nouveau">formulaires dédiés à ces cas d'usages</a> permettant d'accéder au socle de données de base ainsi qu'à d'autres données protégées.
+    Utilisez plutôt les <a href="https://datapass.api.gouv.fr/demandes/api-entreprise/nouveau">formulaires dédiés à ces cas d'usage</a> permettant d'accéder au socle de données de base ainsi qu'à d'autres données protégées.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"

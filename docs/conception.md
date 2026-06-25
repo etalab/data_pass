@@ -121,7 +121,7 @@ configuration.
    l'entête principale
 
 2. Les habilitations peuvent avoir plusieurs formulaires associés, en fonction
-   de critères tel que les cas d'usages, les éditeurs..
+   de critères tel que les cas d'usage, les éditeurs..
 3. Les habilitations sont beaucoup plus configurables et ne possède plus aucun
    attributs ou blocs communs (seul l'organisation et le demandeur sont des
    attrubuts communs).

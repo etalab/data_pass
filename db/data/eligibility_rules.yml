@@ -17,7 +17,7 @@
       <br />
       <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
       <ul>
-        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href="https://particulier.api.gouv.fr/cas_usages">cas d'usages</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</li>
+        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href="https://particulier.api.gouv.fr/cas_usages">cas d'usage</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</li>
         <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://particulier.api.gouv.fr/catalogue">catalogue des API</a>.</li>
       </ul>
   - type: entreprise_ou_association
@@ -46,7 +46,7 @@
       <br />
       <p><b>Si votre cadre légal le justifie</b>, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.</p>
       <ul>
-        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...)</li>
+        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usage</a> (marchés publics, aides et subventions, portail GRU...)</li>
         <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a>.</li>
       </ul>
   - type: entreprise_ou_association
@@ -56,7 +56,7 @@
       <br />
       <p><b>Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations</b>, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics <b>uniquement</b>. </p>
       <ul>
-        <li>Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...) ;</li>
+        <li>Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usage</a> (marchés publics, aides et subventions, portail GRU...) ;</li>
         <li>Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a> ;</li>
       </ul>
       <br />
