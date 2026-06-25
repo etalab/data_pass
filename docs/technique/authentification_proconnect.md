@@ -216,6 +216,12 @@ la session d’un agent banni. Limites de ce palier *stateless* (cookie store, s
 pas de révocation à distance ni de « déconnecter partout », un cookie volé reste valide jusqu’à son
 expiration (12-24 h). Ces points seront traités par **DP-1790** (store serveur révocable).
 
+## Validation partagée avec Rails Pulse
+
+Le tableau de bord Rails Pulse (`/rails_pulse`) est réservé aux admins. Pour vérifier la
+session, il réutilise le même prédicat que l’app : `Authentication::SessionLifecycle.valid_session?`
+(voir `config/initializers/rails_pulse.rb`). Une seule logique de validation, pas de doublon.
+
 ## Déconnexion
 
 ```mermaid
