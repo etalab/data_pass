@@ -69,7 +69,7 @@ api-particulier-familea: &api_particulier_familea
     intitule: Domino web 2.0 | Gestion des structures de petites enfances, enfance et jeunesse
     description: |
       Gestion des structures de petite enfance, enfance, jeunesse pour la facturation de la cantine le service periscolaire et extrascolaire
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_socle_general "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_socle_general "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers."
     scopes:
       - cnaf_quotient_familial
     <<: &api_particulier_familea_contact_technique
@@ -124,7 +124,7 @@ api-particulier-arpege-concerto:
     description: |
       Le logiciel est utilisé par des agents habilités pour la saisie des QF en masse (enfance, jeunesse et adultes).
       Les citoyens à travers un portail internet peuvent demander la mise à jour de leur QF à travers l'API. La demande est ensuite traitée par un agent.
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_teleservices "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- L’Arrêté du 04/07/13 sur les téléservices"
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_teleservices "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers."
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -287,7 +287,7 @@ api-particulier-ccas-arche-mc2:
   initialize_with:
     intitule: Instructions des dossiers d'aides sociales
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\n- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\n- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives."
     cadre_juridique_url: &api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038833680/'
     scopes:
       - cnaf_quotient_familial
@@ -808,7 +808,7 @@ api-particulier-extenso-partner-extenso-cloud:
     intitule: Tarification du stationnement résidentiel
     description:
       Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_stationnement_residentiel "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- Cadre légal spécifique au stationnement résidentiel : Les articles L2333-87 et L2333-87-3 du Code général des collectivités territoriales."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_stationnement_residentiel "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique au stationnement résidentiel : Les articles L2333-87 et L2333-87-3 du Code général des collectivités territoriales."
     scopes:
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
@@ -896,7 +896,7 @@ api-particulier-capdemat-capdemat-evolution:
   initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
     description: Logiciel de Gestion de la Relation usager à destination des collectivités intégrant un portail pour les citoyens et un back office agent.
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_cantines_collectivites "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- Cadre légal spécifique aux départements : L’article R531-52 du Code de l’éducation qui donne compétence aux collectivités pour fixer les tarifs des cantines."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_cantines_collectivites "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique aux départements : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire."
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_email || 'tech-capdemat@yopmail.com' %>"
@@ -962,7 +962,7 @@ api-particulier-monkey-factory-maasify:
     intitule: Tarification des transports
     description: |
       A travers nos médias digitaux (application mobile et/ou site web), un usager peut se créer un compte dans le but de consommer toutes les mobilités présentes sur le territoire.
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_transport_complet "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES]."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_transport_complet "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES]."
     scopes:
       - pole_emploi_identite
       - pole_emploi_contact
@@ -1666,7 +1666,7 @@ api-particulier-mgdis-tarification-cantines-lycees:
 
   initialize_with:
     intitule: Tarification cantine
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_cantines_lycees "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- Cadre légal spécifique aux régions : L’article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_cantines_lycees "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique aux régions : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire."
     scopes :
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_email || 'tech-mgdis@yopmail.com' %>"
@@ -1725,7 +1725,7 @@ api-particulier-mgdis-aides-facultatives-departementales:
 
   initialize_with:
     intitule: Aides facultatives départementales
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_aides_facultatives "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE]."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_aides_facultatives "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Ces aides sont attribuées sur délibération de la collectivité."
     modalities:
       - params
 
