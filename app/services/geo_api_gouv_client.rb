@@ -4,6 +4,10 @@ class GeoAPIGouvClient
   BASE_URL = 'https://geo.api.gouv.fr'.freeze
   CACHE_TTL = 24.hours
 
+  def commune_exists?(code)
+    commune(code).present?
+  end
+
   def commune(code)
     Rails.cache.fetch("geo:commune:#{code}", expires_in: CACHE_TTL) do
       body = get("/communes/#{code}", fields: 'nom,codeDepartement,codeRegion')
