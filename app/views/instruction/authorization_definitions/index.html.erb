@@ -1,0 +1,50 @@
+<% set_title! t('page_titles.instruction_definitions') %>
+
+<%= render Molecules::Instruction::WideHeader.new(
+      title: t('.title'),
+      dsfr_logo: 'artwork/pictograms/buildings/city-hall.svg') do |component| %>
+  <% component.with_subtitle_content do %>
+    <p class="fr-mb-0"><%= t('.subtitle') %></p>
+  <% end %>
+<% end %>
+
+<div class="fr-container" data-controller="search-list">
+  <label class="fr-label fr-mb-1w" for="definition-search"><%= t('.search.label') %></label>
+
+  <div class="fr-grid-row fr-grid-row--middle fr-mb-3w">
+    <div class="fr-col-12 fr-col-md-6">
+      <div class="fr-search-bar" role="search">
+        <input class="fr-input" type="search" id="definition-search"
+               placeholder="<%= t('.search.placeholder') %>"
+               data-search-list-target="input"
+               data-action="input->search-list#filter">
+        <button class="fr-btn" title="<%= t('.search.submit') %>">
+          <%= t('.search.submit') %>
+        </button>
+      </div>
+    </div>
+    <p class="fr-col fr-mb-0 definitions-search-count" data-search-list-target="count"
+       data-templates="<%= { zero: t('.search.results_count.zero'), one: t('.search.results_count.one', count: 1), other: t('.search.results_count.other', count: '%{count}') }.to_json %>">
+      <%= t('.search.results_count', count: @authorization_definitions.size) %>
+    </p>
+  </div>
+
+  <% if @authorization_definitions.empty? %>
+    <p class="fr-text--lg"><%= t('.empty') %></p>
+  <% else %>
+    <ul class="fr-raw-list fr-grid-row fr-grid-row--gutters">
+      <% @authorization_definitions.each do |definition| %>
+        <li class="fr-col-12 fr-col-md-6" id="<%= dom_id(definition) %>"
+            data-search-list-target="item"
+            data-search-text="<%= definition.search_text %>">
+          <%= render Molecules::Instruction::AuthorizationDefinition::CardComponent.new(
+            authorization_definition: definition,
+            validated_count: @counts_by_definition[definition.id][:validated],
+            submitted_count: @counts_by_definition[definition.id][:submitted]
+          ) %>
+        </li>
+      <% end %>
+    </ul>
+    <p class="fr-text--lg fr-hidden" data-search-list-target="emptyMessage"><%= t('.search.no_results') %></p>
+  <% end %>
+</div>

@@ -6,6 +6,20 @@ fr:
         edit_templates_link: modifier les modèles
       email_preview_accordion:
         title: Voir un aperçu de l'email
+    authorization_definitions:
+      index:
+        title: Formulaires
+        empty: Aucun formulaire disponible.
+        subtitle: Tous les formulaires auxquels vous avez accès en lecture
+        search:
+          label: Rechercher un formulaire
+          placeholder: Nom du formulaire ou du fournisseur de données
+          submit: Rechercher
+          no_results: Aucun formulaire ne correspond à votre recherche.
+          results_count:
+            zero: Aucun formulaire
+            one: "%{count} formulaire"
+            other: "%{count} formulaires"
     dashboard:
       authorization_requests:
         search:

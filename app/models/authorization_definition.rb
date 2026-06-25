@@ -88,6 +88,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
+  def search_text
+    I18n.transliterate([name_with_stage, provider&.name].compact_blank.join(' ')).downcase
+  end
+
   def feature?(name, default: true)
     features.fetch(name.to_sym, default)
   end

@@ -97,6 +97,29 @@ RSpec.describe RoleSet do
     end
   end
 
+  describe '#provider_slugs' do
+    it 'returns unique provider slugs for matching roles' do
+      role_set = described_class.new(
+        %w[dinum:api_entreprise:reporter dinum:api_particulier:reporter dgfip:api_impot_particulier_fc_sandbox:reporter],
+        :reporter,
+      )
+
+      expect(role_set.provider_slugs).to match_array(%w[dinum dgfip])
+    end
+
+    it 'includes FD-level wildcard provider slugs' do
+      role_set = described_class.new(%w[dinum:*:reporter], :reporter)
+
+      expect(role_set.provider_slugs).to eq(%w[dinum])
+    end
+
+    it 'returns empty array when no matching roles' do
+      role_set = described_class.new(%w[], :reporter)
+
+      expect(role_set.provider_slugs).to be_empty
+    end
+  end
+
   describe '#authorization_request_types' do
     it 'returns classified authorization request types' do
       role_set = described_class.new(%w[dinum:api_entreprise:instructor], :instructor)

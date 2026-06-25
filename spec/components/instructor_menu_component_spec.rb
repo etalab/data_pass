@@ -1,4 +1,6 @@
 RSpec.describe InstructorMenuComponent, type: :component do
+  include Rails.application.routes.url_helpers
+
   describe '#render?' do
     context 'when all flags are false' do
       it 'does not render' do
@@ -85,6 +87,17 @@ RSpec.describe InstructorMenuComponent, type: :component do
         render_inline(described_class.new(show_drafts: true, show_templates: false, show_user_rights: false))
 
         expect(page).to have_no_link(I18n.t('layouts.header.menu.instruction.user_rights'))
+      end
+    end
+
+    context 'when show_definitions is true' do
+      it 'links to the definitions list' do
+        component = described_class.new(show_drafts: false, show_templates: false, show_user_rights: false, show_definitions: true)
+
+        render_inline(component)
+
+        expect(page).to have_link(I18n.t('layouts.header.menu.instruction.formulaires'),
+          href: instruction_authorization_definitions_path)
       end
     end
   end

@@ -308,3 +308,10 @@ fr-badge--grey {
 .fr-table--align-middle th {
   vertical-align: middle;
 }
+
+code.code-inline {
+  background: var(--background-contrast-grey);
+  color: var(--text-default-grey);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}

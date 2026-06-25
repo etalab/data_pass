@@ -10,8 +10,7 @@ Always use `make` commands - they handle Docker setup including Chrome for tests
 - Run all tests: **`make tests`**
 - Run specific test: `make tests spec/path/to/file_spec.rb:LINE_NUMBER`
 - Run E2E tests: `make e2e` or `make e2e features/path/to/file.feature:LINE_NUMBER`
-- Run linter: `make lint`
-- Fix linting issues: `make fix-lint`
+- Run linter: `make fix-lint` (this fixes autocorrectable issues right away)
 - JS linting: `make js-lint`
 
 If a Docker command fails with missing dependencies (gems, packages, etc.), run `make build` to rebuild the image, then retry.

@@ -4,6 +4,14 @@
   </a>
 </li>
 
+<% if show_definitions %>
+  <li class="fr-nav__item">
+    <a class="fr-nav__link center" href="<%= instruction_authorization_definitions_path %>" target="_self">
+      <%= t('layouts.header.menu.instruction.formulaires') %>
+    </a>
+  </li>
+<% end %>
+
 <% if show_drafts %>
   <li class="fr-nav__item">
     <a class="fr-nav__link center" href="<%= instruction_instructor_draft_requests_path %>" target="_self">
@@ -27,3 +35,4 @@
     </a>
   </li>
 <% end %>
+
