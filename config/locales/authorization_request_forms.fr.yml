@@ -445,13 +445,20 @@ fr:
     api_particulier_tarification_eaje_cadre_juridique: &api_particulier_tarification_eaje_cadre_juridique
       cadre_juridique:
         justificatif:
-          description: "Veuillez joindre la délibération autorisant le maire à signer la convention d'objectif et de financement ou la convention d'objectif signée. Vous pouvez nous transmettre un document ou nous fournir un lien."
-          document_label: Veuillez joindre la délibération ou la convention d'objectif signée
-          url_label: Veuillez nous indiquer l'url d'accès à votre délibération ou à votre convention d'objectif signée
+          description: |
+            <p>Veuillez joindre :</p>
+            <ul>
+              <li>la convention d'objectif et de financement</li>
+            <p class="fr-m-0">ou</p>
+              <li>la convention d'objectif signée</li>
+            </ul>
+            <p>Vous pouvez nous transmettre un document ou nous fournir un lien.</p>
+          document_label: Veuillez joindre la convention d'objectif signée
+          url_label: Veuillez nous indiquer l'url d'accès à votre convention d'objectif signée
       cadre_juridique_document:
-        label: Ajoutez votre délibération ou votre convention d'objectif signée
+        label: Ajoutez votre convention d'objectif signée
       cadre_juridique_url:
-        title: Veuillez nous indiquer l'url d'accès à votre délibération ou à votre convention d'objectif signée
+        title: Veuillez nous indiquer l'url d'accès à votre convention d'objectif signée
         label: URL
     api_particulier_tarification_eaje_editor: &api_particulier_tarification_eaje_editor_wordings
       <<: [*api_particulier_tarification_eaje_cadre_juridique, *api_particulier_editor_common_wordings]
