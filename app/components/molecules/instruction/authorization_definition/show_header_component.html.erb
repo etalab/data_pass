@@ -6,7 +6,7 @@
   <% component.with_subtitle_content do %>
     <p class="fr-my-1w">
       <span class="fr-text--sm">
-        <%= I18n.t('instruction.authorization_definitions.show.slug_label') %>
+        <%= I18n.t('instruction.authorization_definitions.show.slug_label') %> : 
         <code class="fr-code-inline"><%= authorization_definition.id %></code>
       </span>
     </p>
@@ -14,22 +14,8 @@
   <% end %>
 
   <% component.with_right_content do %>
-    <div>
-      <% if can_initiate_request %>
-        <div class="fr-mb-1w">
-          <%= link_to I18n.t('instruction.authorization_definitions.show.initiate_request'),
-                initiate_request_path,
-                class: 'fr-btn fr-btn--icon-left fr-icon-draft-line authorization-definition-action-btn' %>
-        </div>
-      <% end %>
-      <div data-controller="clipboard"
-           data-clipboard-content-value="<%= request_url %>"
-           data-clipboard-original-message-value="<%= I18n.t('instruction.authorization_definitions.show.copy_request_link') %>">
-        <button class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-clipboard-line authorization-definition-action-btn"
-                data-action="click->clipboard#copy">
-          <%= I18n.t('instruction.authorization_definitions.show.copy_request_link') %>
-        </button>
-      </div>
-    </div>
+    <%= render Atoms::FormButtonsComponent.new(
+          initiate_request_path:,
+          copy_request_url: request_url) %>
   <% end %>
 <% end %>
