@@ -25,28 +25,88 @@
   color: var(--text-action-high-blue-france);
 }
 
-.config-block__body {
-  padding: 1.5rem;
+.config-block__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.config-block__row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  margin: 0 1.5rem;
+  border-bottom: 1px solid var(--border-default-grey);
 }
 
-.config-chip {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.375rem;
-  max-width: 100%;
-  font-size: 0.9375rem;
-  line-height: 1.4;
+.config-block__row:last-child,
+.config-block__row:nth-last-child(2):nth-child(odd) {
+  border-bottom: none;
+}
+
+.config-block__label {
+  font-size: 0.875rem;
   color: var(--text-default-grey);
-  background: var(--background-default-grey);
-  border: 1px solid var(--border-default-grey);
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
+  min-width: 30%;
 }
 
-.config-chip__value {
-  font-weight: 500;
+.config-block__value {
+  min-width: 0;
+  font-size: 0.875rem;
   color: var(--text-title-grey);
+}
+
+.config-block__value a,
+.config-block__value code {
+  word-break: break-all;
+}
+
+.config-block__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  width: 3.8rem;
+}
+
+.config-block__badge::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.config-block__badge--success {
+  background: var(--background-contrast-success);
+}
+
+.config-block__badge--success::before {
+  background: var(--background-flat-success);
+}
+
+.config-block__badge--neutral {
+  background: var(--background-contrast-grey);
+}
+
+.config-block__badge--neutral::before {
+  background: var(--text-mention-grey);
+}
+
+@media (max-width: 48rem) {
+  .config-block__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .config-block__row:nth-last-child(2) {
+    border-bottom: 1px solid var(--border-default-grey);
+  }
+
+  .config-block__row:last-child {
+    border-bottom: none;
+  }
 }
