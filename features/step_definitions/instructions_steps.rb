@@ -15,6 +15,16 @@ Alors('le lien retour mène vers la liste des formulaires') do
   expect(page).to have_link(href: instruction_authorization_definitions_path)
 end
 
+Quand('je me rends sur la page d\'édition du formulaire {string}') do |definition_name|
+  definition = find_authorization_definition_from_name(definition_name)
+  visit edit_instruction_authorization_definition_path(definition.id)
+end
+
+Alors('le lien retour mène vers le formulaire {string}') do |definition_name|
+  definition = find_authorization_definition_from_name(definition_name)
+  expect(page).to have_link(href: instruction_authorization_definition_path(definition.id))
+end
+
 Alors('le formulaire {string} affiche {int} demande(s) validée(s) et {int} demande(s) en cours') do |name, validated_count, submitted_count|
   definition = find_authorization_definition_from_name(name)
 

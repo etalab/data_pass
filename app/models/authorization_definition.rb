@@ -100,6 +100,12 @@ class AuthorizationDefinition < StaticApplicationRecord
     feature?(:instructor_drafts, default: false)
   end
 
+  EXTRA_STEPS = %i[intro before_submit_summary].freeze
+
+  def blocks_count_with_intro_and_summary
+    blocks.size + EXTRA_STEPS.size
+  end
+
   def need_homologation?
     %w[api_entreprise api_particulier].include?(id)
   end

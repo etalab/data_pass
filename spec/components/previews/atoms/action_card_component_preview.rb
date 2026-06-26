@@ -2,7 +2,7 @@ class Atoms::ActionCardComponentPreview < ApplicationPreview
   def with_detail
     render Atoms::ActionCardComponent.new(
       title: 'Modifier les étapes du formulaire',
-      description: 'Ajoutez, réorganisez ou supprimez les étapes et les questions présentées au demandeur.',
+      description: 'Ajoutez, configurez, réorganisez ou supprimez les étapes présentées au demandeur.',
       link: '#',
       detail: '5 étapes',
       icon: 'fr-icon-draft-line'
