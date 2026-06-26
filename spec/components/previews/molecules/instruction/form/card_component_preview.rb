@@ -1,9 +1,9 @@
-class Molecules::Instruction::AuthorizationDefinition::FormCardComponentPreview < ApplicationPreview
+class Molecules::Instruction::Form::CardComponentPreview < ApplicationPreview
   def default
     authorization_request_form = AuthorizationDefinition.find('api_entreprise').available_forms.find do |form|
       form.use_case == 'marches_publics'
     end
-    render Molecules::Instruction::AuthorizationDefinition::FormCardComponent.new(
+    render Molecules::Instruction::Form::CardComponent.new(
       authorization_request_form:,
       validated_count: 12,
       submitted_count: 3

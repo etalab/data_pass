@@ -24,21 +24,6 @@ fr:
         slug_label: Identifiant du formulaire
         initiate_request: Initier une demande pour autrui
         copy_request_link: Copier le lien de demande
-        config_block:
-          title: Configuration
-          "true": Oui
-          "false": Non
-          fields:
-            kind: Type
-            startable_by_applicant: Démarrable par le demandeur
-            unique: Habilitation unique par organisation
-            access_link: Lien d'accès après validation
-            support_email: Email de support
-          features:
-            messaging: Messagerie via DataPass active
-            transfer: Transfert de demandeur possible
-            instructor_drafts: Initiable par un instructeur
-            reopening: Demande de modification possible
         actions_block:
           title: Que souhaitez-vous configurer ?
           subtitle: Choisissez la partie du formulaire à configurer. Chaque espace est indépendant.
@@ -74,7 +59,7 @@ fr:
         side_panel:
           under_development:
             title: Fonctionnalité en cours de développement.
-            message_html: Pour modifier votre formulaire, contactez-nous sur <a class="fr-link" href="mailto:datapass@yopmail.com">datapass@yopmail.com</a>.
+            message_html: Pour modifier votre formulaire, contactez-nous sur <a class="fr-link" href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>.
       forms_header_component:
         title: Cas d'usage
     forms:
@@ -89,6 +74,19 @@ fr:
             zero: Aucun cas d'usage
             one: "%{count} cas d'usage"
             other: "%{count} cas d'usage"
+      show:
+        title: Cas d'usage
+        slug_label: Identifiant du cas d'usage
+        preview_title: Aperçu dans la liste des cas d'usage
+        preview_subtitle: La liste des cas d'usages existants sera présentée sous forme de cartes au demandeur qui pourra choisir le plus approprié avant de démarrer sa demande.
+        card_preview: Carte du cas d'usage
+        prefill_title: Préremplissage du formulaire
+        prefill_subtitle: Pour adapter un formulaire à un cas d'usage et faciliter la demande, pré-remplissez les valeurs et adaptez les textes de ses étapes.
+        introduction: Introduction du formulaire
+        side_panel:
+          under_development:
+            title: Fonctionnalité en cours de développement.
+            message_html: Pour modifier ce cas d'usage, contactez-nous sur <a class="fr-link" href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>.
     dashboard:
       authorization_requests:
         search:

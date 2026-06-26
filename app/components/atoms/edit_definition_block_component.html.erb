@@ -1,13 +1,13 @@
 <section class="definition-block" aria-labelledby="<%= title_id %>">
   <div class="definition-block__header">
-    <h2 class="definition-block__title" id="<%= title_id %>">
+    <%= content_tag(title_tag, class: 'definition-block__title', id: title_id) do %>
       <%= title %>
       <% if static_block? %>
-        <span class="fr-tag fr-icon-eye-off-line fr-tag--icon-left fr-tag--sm fr-ml-2w">
+        <span class="fr-tag fr-icon-eye-off-line fr-tag--icon-left fr-tag--sm fr-ml-2w definition-block__static-tag">
           <%= t('atoms.edit_definition_block_component.static_block') %>
         </span>
       <% end %>
-    </h2>
+    <% end %>
     <% if can_edit? %>
       <button type="button"
               class="fr-btn fr-btn--secondary fr-btn--sm fr-icon-edit-line fr-btn--icon-left"
@@ -17,12 +17,12 @@
               aria-haspopup="dialog"
               data-action="click->side-panel#open"
               data-side-panel-title-param="<%= modify_button_title %>">
-        Modifier
+        <%= t('atoms.edit_definition_block_component.modify_button') %>
       </button>
     <% end %>
   </div>
-  <div class="definition-block__preview" inert>
-    <div class="definition-block__card">
+  <div class="definition-block__preview <%= 'definition-block__static-stripes' if static_block? %>" inert>
+    <div class="definition-block__card <%= block_card_class %>">
       <%= content %>
     </div>
   </div>

@@ -3,8 +3,7 @@
 <%= render Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent.new(
       authorization_definition: @authorization_definition,
       validated_count: @counts[:validated],
-      submitted_count: @counts[:submitted],
-      can_initiate_request: policy([:instruction, @authorization_definition]).initiate_request?) %>
+      submitted_count: @counts[:submitted]) %>
 
 <div class="fr-container fr-my-5w">
   <%= render Molecules::Instruction::AuthorizationDefinition::ConfigBlockComponent.new(authorization_definition: @authorization_definition) %>

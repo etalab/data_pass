@@ -6,12 +6,12 @@
     </div>
   </div>
 
-  <div class="config-block__grid">
+  <dl class="config-block__grid">
     <% rows.each do |row| %>
       <div class="config-block__row">
-        <span class="config-block__label"><%= row[:label] %></span>
-        <span class="config-block__value"><%= row[:value] %></span>
+        <dt class="config-block__label"><%= row[:label] %></dt>
+        <dd class="config-block__value"><%= row[:value] %></dd>
       </div>
     <% end %>
-  </div>
+  </dl>
 </div>

@@ -39,4 +39,4 @@ Fonctionnalité: Édition d'un formulaire
     Quand je me rends sur la page d'édition du formulaire "API Entreprise"
     Et que je clique sur "Modifier l'étape « Introduction du formulaire »"
     Alors la page contient "Fonctionnalité en cours de développement"
-    Et la page contient "datapass@yopmail.com"
+    Et la page contient "datapass@api.gouv.fr"
