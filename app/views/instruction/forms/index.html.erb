@@ -32,7 +32,7 @@
         <li class="fr-col-12 fr-col-md-6" id="<%= dom_id(form) %>"
             data-search-list-target="item"
             data-search-text="<%= I18n.transliterate([form.name, form.uid].compact_blank.join(' ')).downcase %>">
-          <%= render Molecules::Instruction::AuthorizationDefinition::FormCardComponent.new(
+          <%= render Molecules::Instruction::Form::CardComponent.new(
                 authorization_request_form: form,
                 validated_count: @counts_by_form[form.uid][:validated],
                 submitted_count: @counts_by_form[form.uid][:submitted]) %>

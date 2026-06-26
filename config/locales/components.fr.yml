@@ -3,11 +3,39 @@ fr:
     edit_definition_block_component:
       static_block: Étape masquée
       modify_button_title: "Modifier l'étape « %{title} »"
+      modify_button: Modifier
+    config_block_component:
+      title: Configuration
+      "true": Oui
+      "false": Non
   molecules:
     instruction:
       authorization_definition:
-        form_card_component:
+        config_block_component:
+          fields:
+            kind: Type
+            startable_by_applicant: Démarrable par le demandeur
+            unique: Habilitation unique par organisation
+            access_link: Lien d'accès après validation
+            support_email: Email de support
+          features:
+            messaging: Messagerie via DataPass active
+            transfer: Transfert de demandeur possible
+            instructor_drafts: Initiable par un instructeur
+            reopening: Demande de modification possible
+      form:
+        card_component:
           default_badge: Formulaire par défaut
+        config_block_component:
+          no_service_provider: Aucun fournisseur de service
+          fields:
+            service_provider: Fournisseur de service
+            public: Visible dans la liste des cas d'usage
+            startable_by_applicant: Démarrable par le demandeur
+            single_page_view: Formulaire en une seule page
+          service_provider_types:
+            editor: Éditeur
+            saas: SaaS
     side_panel_component:
       close: Fermer
   components:
@@ -22,11 +50,10 @@ fr:
       title: "Habilitation à %{definition_name}"
       authorization_badge: "Habilitation %{formatted_id}"
       reopen_modal_title: "Mettez à jour votre habilitation"
-      transfer_modal_title: "Transférer l’habilitation à un autre utilisateur de votre organisation"
-      start_next_stage_title: "Démarrer une nouvelle demande d’habilitation pour l’environnement de production"
+      transfer_modal_title: "Transférer l'habilitation à un autre utilisateur de votre organisation"
+      start_next_stage_title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production"
       contact_support_subject: "Habilitation %{formatted_id} révoquée"
       old_version: "Cette habilitation est obsolète, elle a été remplacée par %{link}"
-      old_version_link: "l’habilitation N°%{id}"
+      old_version_link: "l'habilitation N°%{id}"
       revoke: "Révoquer"
-      revoke_modal_title: "Révocation de l’habilitation"
-
+      revoke_modal_title: "Révocation de l'habilitation"
