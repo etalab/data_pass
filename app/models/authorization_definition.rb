@@ -96,6 +96,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     features.fetch(name.to_sym, default)
   end
 
+  def instructor_drafts_enabled?
+    feature?(:instructor_drafts, default: false)
+  end
+
   def need_homologation?
     %w[api_entreprise api_particulier].include?(id)
   end
