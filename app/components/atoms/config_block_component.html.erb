@@ -1,0 +1,17 @@
+<div class="config-block">
+  <div class="config-block__header">
+    <div class="config-block__title">
+      <span class="fr-icon-settings-5-line fr-icon--sm" aria-hidden="true"></span>
+      <h2 class="fr-h6 fr-mb-0"><%= title %></h2>
+    </div>
+  </div>
+
+  <div class="config-block__grid">
+    <% rows.each do |row| %>
+      <div class="config-block__row">
+        <span class="config-block__label"><%= row[:label] %></span>
+        <span class="config-block__value"><%= row[:value] %></span>
+      </div>
+    <% end %>
+  </div>
+</div>
