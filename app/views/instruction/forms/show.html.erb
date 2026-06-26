@@ -23,11 +23,22 @@
 
   <%= render Atoms::EditDefinitionBlockComponent.new(
         title: t('.card_preview'),
-        title_tag: :h3,
         can_edit: @can_edit,
         side_panel_id:,
         block_card_class: 'definition-block__card-preview') do %>
     <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @form %>
+  <% end %>
+
+  <h2 class="fr-mb-1w fr-mt-5w">
+    <%= t('.introduction_title') %>
+  </h2>
+
+  <p class="fr-col-md-6 fr-mb-3w">
+    <%= t('.introduction_subtitle') %>
+  </p>
+
+  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction'), can_edit: @can_edit, side_panel_id:) do %>
+    <%= render 'authorization_request_forms/introduction', authorization_request_form: @form, organization: @preview_organization %>
   <% end %>
 
   <h2 class="fr-mb-1w fr-mt-5w">
@@ -38,16 +49,11 @@
     <%= t('.prefill_subtitle') %>
   </p>
 
-  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction'), title_tag: :h3, can_edit: @can_edit, side_panel_id:) do %>
-    <%= render 'authorization_request_forms/introduction', authorization_request_form: @form, organization: @preview_organization %>
-  <% end %>
-
   <% steps = @form.steps.presence || @authorization_definition.blocks %>
   <%= form_with model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder do |f| %>
     <% steps.each do |step| %>
       <%= render Atoms::EditDefinitionBlockComponent.new(
             title: f.wording_for("steps.#{step[:name]}"),
-            title_tag: :h3,
             static_block: @form.static_blocks.any? { |b| b[:name].to_s == step[:name].to_s },
             can_edit: @can_edit,
             side_panel_id:) do %>

@@ -1,6 +1,6 @@
 <section class="definition-block" aria-labelledby="<%= title_id %>">
   <div class="definition-block__header">
-    <%= content_tag(title_tag, class: 'definition-block__title', id: title_id) do %>
+    <%= content_tag(:h3, class: 'definition-block__title', id: title_id) do %>
       <%= title %>
       <% if static_block? %>
         <span class="fr-tag fr-icon-eye-off-line fr-tag--icon-left fr-tag--sm fr-ml-2w definition-block__static-tag">

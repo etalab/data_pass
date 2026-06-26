@@ -53,9 +53,14 @@ fr:
       edit:
         title: Modifier les étapes du formulaire
         title_readonly: Voir les étapes du formulaire
-        description: Le formulaire est présenté bloc par bloc dans l'ordre d'affichage et présente chaque bloc tel qu'il apparaît pour le demandeur.
-        introduction: Introduction du formulaire
-        before_submit: Avant de soumettre la demande
+        introduction_title: Introduction du formulaire
+        introduction_subtitle: Expliquez le contexte de la demande que le demandeur s'apprête à démarrer et informez le des pièces justificatives importantes à avoir.
+        introduction: Introduction
+        blocks_title: Etapes du formulaire
+        blocks_subtitle: Les étapes du formulaire seront présentées au demandeur dans une par une dans l'ordre présenté ici.
+        before_submit_title: Avant de soumettre la demande
+        before_submit_subtitle: A la fin du résumé de la demande, avant de la soumettre, le demandeur s'engage à respecter vos CGUs et prévenir son délégué à la protection des données.
+        before_submit: Checkboxes en fin de résumé
         side_panel:
           under_development:
             title: Fonctionnalité en cours de développement.
@@ -80,9 +85,11 @@ fr:
         preview_title: Aperçu dans la liste des cas d'usage
         preview_subtitle: La liste des cas d'usages existants sera présentée sous forme de cartes au demandeur qui pourra choisir le plus approprié avant de démarrer sa demande.
         card_preview: Carte du cas d'usage
-        prefill_title: Préremplissage du formulaire
+        introduction_title: Introduction du cas d'usage
+        introduction: Introduction
+        introduction_subtitle: Pour adapter l'introduction d'un cas d'usage, précisez au demandeur le contexte du cas d'usage et informez le des pièces justificatives importantes à avoir.
+        prefill_title: Préremplissage du cas d'usage
         prefill_subtitle: Pour adapter un formulaire à un cas d'usage et faciliter la demande, pré-remplissez les valeurs et adaptez les textes de ses étapes.
-        introduction: Introduction du formulaire
         side_panel:
           under_development:
             title: Fonctionnalité en cours de développement.
