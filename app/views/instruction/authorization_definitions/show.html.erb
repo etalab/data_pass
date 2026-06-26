@@ -18,6 +18,7 @@
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-12 fr-col-md-4">
         <% can_edit = policy([:instruction, @authorization_definition]).edit? %>
+
         <%= render Atoms::ActionCardComponent.new(
               title: can_edit ? t('.actions_block.blocks.title') : t('.actions_block.blocks.title_readonly'),
               description: can_edit ? t('.actions_block.blocks.description') : t('.actions_block.blocks.description_readonly'),
@@ -26,16 +27,14 @@
               icon: 'fr-icon-draft-line') %>
       </div>
 
-      <% if @authorization_definition.available_forms.size > 1 %>
-        <div class="fr-col-12 fr-col-md-4">
-          <%= render Atoms::ActionCardComponent.new(
-                title: can_edit ? t('.actions_block.cas_usages.title') : t('.actions_block.cas_usages.title_readonly'),
-                description: can_edit ? t('.actions_block.cas_usages.description') : t('.actions_block.cas_usages.description_readonly'),
-                link: '#',
-                detail: t('.actions_block.cas_usages.count', count: @authorization_definition.available_forms.size),
-                icon: 'fr-icon-file-text-line') %>
-        </div>
-      <% end %>
+      <div class="fr-col-12 fr-col-md-4">
+        <%= render Atoms::ActionCardComponent.new(
+              title: can_edit ? t('.actions_block.cas_usages.title') : t('.actions_block.cas_usages.title_readonly'),
+              description: can_edit ? t('.actions_block.cas_usages.description') : t('.actions_block.cas_usages.description_readonly'),
+              link: instruction_authorization_definition_forms_path(@authorization_definition),
+              detail: t('.actions_block.cas_usages.count', count: @authorization_definition.available_forms.size),
+              icon: 'fr-icon-file-text-line') %>
+      </div>
 
       <div class="fr-col-12 fr-col-md-4">
         <%= render Atoms::ActionCardComponent.new(

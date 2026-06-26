@@ -122,7 +122,7 @@ annuaire-des-entreprises-traitement-aides-financieres:
 annuaire-des-entreprises:
   name: Demande libre
   default: true
-  description: Votre mission ne rentre dans aucun des cas d’usages précédents
+  description: Votre mission ne rentre dans aucun des cas d’usage précédents
   introduction: |
     Ce formulaire vous permet d'effectuer une demande libre
   authorization_request: AnnuaireDesEntreprises

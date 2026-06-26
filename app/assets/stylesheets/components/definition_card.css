@@ -1,14 +1,14 @@
 .data-provider-card-img {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  width: 4.2rem;
-  padding: .2em;
+  padding: 0.75rem;
 }
 
 .data-provider-card-img img {
-  max-width: 4rem;
-  max-height: 4rem;
+  width: 3rem;
+  max-height: 3rem;
+  object-fit: contain;
 }
 
 .definitions-search-count {

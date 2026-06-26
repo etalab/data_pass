@@ -1,0 +1,31 @@
+<div class="fr-card fr-enlarge-link">
+  <div class="fr-card__body">
+    <div class="fr-card__content fr-pb-2w">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <% if use_case_pictogram? %>
+          <div class="data-provider-card-img">
+            <%= dsfr_custom_pictogram(use_case_pictogram_path) %>
+          </div>
+        <% end %>
+        <div class="fr-col">
+          <div class="fr-grid-row fr-grid-row--top">
+            <div class="fr-col">
+              <h2 class="fr-card__title">
+                <%= link_to name, '#' %>
+              </h2>
+            </div>
+            <% if default %>
+              <div class="fr-col-auto">
+                <span class="fr-badge fr-badge--sm"><%= t('.default_badge') %></span>
+              </div>
+            <% end %>
+          </div>
+          <p class="fr-card__desc"><%= uid %></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-card__footer">
+      <%= render 'instruction/authorization_definitions/counts', validated_count:, submitted_count: %>
+    </div>
+  </div>
+</div>
