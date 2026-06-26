@@ -40,6 +40,7 @@ fr:
     instruction_definition: "%{definition_name} - Formulaires - Instruction"
     instruction_definition_blocks: "%{definition_name} - %{action}"
     instruction_definition_forms: "Cas d'usage - %{definition_name} - Formulaires - Instruction"
+    instruction_definition_form_show: "%{form_name} - Cas d'usage - %{definition_name} - Formulaires - Instruction"
     instruction_show: "Instruction %{definition_name} - %{authorization_request_name}"
     instruction_initiated_requests: Demandes initiées par les instructeurs
     instruction_draft_requests_new: Initier une demande d’habilitation

@@ -11,7 +11,7 @@
           <div class="fr-grid-row fr-grid-row--top">
             <div class="fr-col">
               <h2 class="fr-card__title">
-                <%= link_to name, '#' %>
+                <%= link_to name, helpers.instruction_authorization_definition_form_path(authorization_request_form.authorization_definition, authorization_request_form) %>
               </h2>
             </div>
             <% if default %>

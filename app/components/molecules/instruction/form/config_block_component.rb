@@ -32,9 +32,9 @@ class Molecules::Instruction::Form::ConfigBlockComponent < Atoms::ConfigBlockCom
   def service_provider_label
     sp = form.service_provider
 
-    if sp.try(:editor?)
+    if sp.editor?
       "#{t('.service_provider_types.editor')} : #{sp.name}"
-    elsif sp.try(:saas?)
+    elsif sp.saas?
       "#{t('.service_provider_types.saas')} : #{sp.name}"
     else
       sp.name

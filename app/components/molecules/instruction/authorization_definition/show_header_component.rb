@@ -1,13 +1,14 @@
 class Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent < ApplicationComponent
-  def initialize(authorization_definition:, validated_count:, submitted_count:)
+  def initialize(authorization_definition:, validated_count:, submitted_count:, can_initiate_request: false)
     @authorization_definition = authorization_definition
     @validated_count = validated_count
     @submitted_count = submitted_count
+    @can_initiate_request = can_initiate_request
   end
 
   private
 
-  attr_reader :authorization_definition, :validated_count, :submitted_count
+  attr_reader :authorization_definition, :validated_count, :submitted_count, :can_initiate_request
 
   def back_link
     {
@@ -17,7 +18,7 @@ class Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent < App
   end
 
   def initiate_request_path
-    return unless helpers.policy([:instruction, authorization_definition]).initiate_request?
+    return unless can_initiate_request
 
     helpers.start_instruction_instructor_draft_requests_path(
       form_uid: authorization_definition.default_form.uid
