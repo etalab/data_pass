@@ -3,7 +3,7 @@ module ControllersHelpers
     session[:user_id] = {
       'value' => user.id,
       'expires_at' => 1.hour.from_now,
-      'absolute_expires_at' => 1.hour.from_now
+      'max_duration' => 12.hours.to_i
     }
   end
 end

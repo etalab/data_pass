@@ -1,6 +1,5 @@
 module Authentication::SessionLifecycle
-  SESSION_IDLE_TIMEOUT = 12.hours
-  SESSION_ABSOLUTE_TIMEOUT = 24.hours
+  SESSION_MAX_DURATION = 12.hours
 
   ROTATION_PRESERVED_KEYS = %w[
     omniauth.pc.access_token
@@ -13,7 +12,11 @@ module Authentication::SessionLifecycle
     user_id_session.present? &&
       user_id_session['value'].present? &&
       future_timestamp?(user_id_session['expires_at']) &&
-      future_timestamp?(user_id_session['absolute_expires_at'])
+      valid_duration?(user_id_session['max_duration'])
+  end
+
+  def self.valid_duration?(duration)
+    duration.to_i == SESSION_MAX_DURATION.to_i
   end
 
   def self.future_timestamp?(timestamp)
@@ -45,15 +48,5 @@ module Authentication::SessionLifecycle
     preserved = session.to_hash.slice(*ROTATION_PRESERVED_KEYS)
     reset_session
     preserved.each { |key, value| session[key] = value }
-  end
-
-  def slide_session_expiry
-    session[:user_id] = user_id_session.merge(
-      'expires_at' => [SESSION_IDLE_TIMEOUT.from_now, absolute_expires_at_time].min
-    )
-  end
-
-  def absolute_expires_at_time
-    Authentication::SessionLifecycle.normalize_timestamp(user_id_session['absolute_expires_at'])
   end
 end

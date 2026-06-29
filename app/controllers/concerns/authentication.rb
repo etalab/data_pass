@@ -28,8 +28,8 @@ module Authentication
 
     session[:user_id] = {
       value: user.id,
-      expires_at: SESSION_IDLE_TIMEOUT.from_now,
-      absolute_expires_at: SESSION_ABSOLUTE_TIMEOUT.from_now,
+      expires_at: SESSION_MAX_DURATION.from_now,
+      max_duration: SESSION_MAX_DURATION.to_i,
       identity_federator:,
       identity_provider_uid:,
     }
@@ -54,7 +54,6 @@ module Authentication
     if user_signed_in?
       raise ApplicationController::BannedUserError if current_user.banned?
 
-      slide_session_expiry
       return
     end
 
