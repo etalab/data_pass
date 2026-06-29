@@ -37,6 +37,6 @@ Fonctionnalité: Édition d'un formulaire
   Scénario: Un manager ouvre le panneau latéral en cliquant sur « Modifier »
     Sachant que je suis un manager "API Entreprise"
     Quand je me rends sur la page d'édition du formulaire "API Entreprise"
-    Et que je clique sur "Modifier l'étape « Introduction du formulaire »"
+    Et que je clique sur "Modifier l'étape « Introduction »"
     Alors la page contient "Fonctionnalité en cours de développement"
     Et la page contient "datapass@api.gouv.fr"
