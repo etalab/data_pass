@@ -23,8 +23,7 @@ RSpec.describe Authentication do
 
     session[:user_id] = {
       'value' => user.id,
-      'expires_at' => 12.hours.from_now,
-      'absolute_expires_at' => 24.hours.from_now
+      'expires_at' => 12.hours.from_now
     }
 
     session[:impersonated_user_id] = another_user.id
@@ -80,15 +79,6 @@ RSpec.describe Authentication do
       end
     end
 
-    it 'sets absolute_expires_at to approximately 24 hours from now' do
-      freeze_time do
-        do_sign_in
-
-        absolute_expires_at = session[:user_id][:absolute_expires_at] || session[:user_id]['absolute_expires_at']
-        expect(absolute_expires_at).to be_within(1.minute).of(24.hours.from_now)
-      end
-    end
-
     it 'sets identity_federator and identity_provider_uid' do
       do_sign_in
 
@@ -132,8 +122,7 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 1.second.ago,
-          'absolute_expires_at' => 24.hours.from_now
+          'expires_at' => 1.second.ago
         }
       end
 
@@ -142,39 +131,11 @@ RSpec.describe Authentication do
       end
     end
 
-    context 'when absolute timeout has been reached (expires_at still in the future)' do
+    context 'when session is valid (expires_at in the future)' do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 12.hours.from_now,
-          'absolute_expires_at' => 1.second.ago
-        }
-      end
-
-      it 'returns false' do
-        expect(controller.valid_user_session?).to be false
-      end
-    end
-
-    context 'without absolute_expires_at (legacy 30-day cookie)' do
-      before do
-        session[:user_id] = {
-          'value' => user.id,
-          'expires_at' => 30.days.from_now
-        }
-      end
-
-      it 'returns false' do
-        expect(controller.valid_user_session?).to be false
-      end
-    end
-
-    context 'when session is valid (expires_at and absolute_expires_at in the future)' do
-      before do
-        session[:user_id] = {
-          'value' => user.id,
-          'expires_at' => 6.hours.from_now,
-          'absolute_expires_at' => 24.hours.from_now
+          'expires_at' => 6.hours.from_now
         }
       end
 
@@ -187,12 +148,11 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 6.hours.from_now.iso8601(3),
-          'absolute_expires_at' => 24.hours.from_now.iso8601(3)
+          'expires_at' => 6.hours.from_now.iso8601(3)
         }
       end
 
-      it 'returns true when both are in the future' do
+      it 'returns true when expires_at is in the future' do
         expect(controller.valid_user_session?).to be true
       end
     end
@@ -201,8 +161,7 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 1.second.ago.iso8601(3),
-          'absolute_expires_at' => 24.hours.from_now.iso8601(3)
+          'expires_at' => 1.second.ago.iso8601(3)
         }
       end
 
@@ -215,8 +174,7 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 'garbage',
-          'absolute_expires_at' => 24.hours.from_now.iso8601(3)
+          'expires_at' => 'garbage'
         }
       end
 
@@ -231,35 +189,7 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 1.hour.ago,
-          'absolute_expires_at' => 24.hours.from_now
-        }
-      end
-
-      it 'returns true' do
-        expect(controller.session_expired?).to be true
-      end
-    end
-
-    context 'when absolute timeout has been reached' do
-      before do
-        session[:user_id] = {
-          'value' => user.id,
-          'expires_at' => 12.hours.from_now,
-          'absolute_expires_at' => 1.hour.ago
-        }
-      end
-
-      it 'returns true' do
-        expect(controller.session_expired?).to be true
-      end
-    end
-
-    context 'without absolute_expires_at (legacy cookie)' do
-      before do
-        session[:user_id] = {
-          'value' => user.id,
-          'expires_at' => 30.days.from_now
+          'expires_at' => 1.hour.ago
         }
       end
 
@@ -272,8 +202,7 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 6.hours.from_now,
-          'absolute_expires_at' => 24.hours.from_now
+          'expires_at' => 6.hours.from_now
         }
       end
 
@@ -298,8 +227,7 @@ RSpec.describe Authentication do
       before do
         session[:user_id] = {
           'value' => user.id,
-          'expires_at' => 1.hour.ago,
-          'absolute_expires_at' => 24.hours.from_now
+          'expires_at' => 1.hour.ago
         }
       end
 
@@ -325,61 +253,43 @@ RSpec.describe Authentication do
     end
   end
 
-  describe '#authenticate_user! session sliding' do
-    context 'when session is valid' do
+  describe '#authenticate_user! (session 12 h fixe)' do
+    context 'when the session is valid' do
       before do
-        session[:user_id] = {
-          'value' => user.id,
-          'expires_at' => 1.hour.from_now,
-          'absolute_expires_at' => 24.hours.from_now
-        }
+        session[:user_id] = { 'value' => user.id, 'expires_at' => 1.hour.from_now }
       end
 
-      it 'slides expires_at to approximately +12 h without touching absolute_expires_at' do
-        freeze_time do
-          absolute = session[:user_id]['absolute_expires_at']
+      it 'ne prolonge pas expires_at à chaque requête' do
+        original_expires_at = session[:user_id]['expires_at']
 
-          get :show
+        get :show
 
-          expect(session[:user_id]['expires_at']).to be_within(1.minute).of(12.hours.from_now)
-          expect(session[:user_id]['absolute_expires_at']).to eq(absolute)
-        end
+        expect(session[:user_id]['expires_at']).to eq(original_expires_at)
       end
     end
 
-    context 'when expires_at + 12 h would exceed absolute_expires_at' do
+    context 'when the session has exceeded 12 h' do
       before do
-        session[:user_id] = {
-          'value' => user.id,
-          'expires_at' => 1.hour.from_now,
-          'absolute_expires_at' => 3.hours.from_now
-        }
+        session[:user_id] = { 'value' => user.id, 'expires_at' => 1.second.ago }
       end
 
-      it 'caps expires_at at absolute_expires_at' do
-        freeze_time do
-          absolute = session[:user_id]['absolute_expires_at']
+      it 'redirige vers la connexion avec le message d\'expiration' do
+        get :show
 
-          get :show
-
-          expect(session[:user_id]['expires_at']).to eq(absolute)
-        end
+        expect(flash[:info]).to include('title' => I18n.t('sessions.authenticate_user.session_expired'))
+        expect(response).to redirect_to(controller.sign_in_path)
       end
     end
 
-    context 'when user is banned' do
+    context 'when the user is banned' do
       before do
         allow(controller).to receive(:current_user).and_return(
           instance_double(User, banned?: true)
         )
       end
 
-      it 'raises BannedUserError without sliding the session' do
-        original_expires_at = session[:user_id]['expires_at']
-
+      it 'lève BannedUserError' do
         expect { controller.authenticate_user! }.to raise_error(ApplicationController::BannedUserError)
-
-        expect(session[:user_id]['expires_at']).to eq(original_expires_at)
       end
     end
   end

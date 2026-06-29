@@ -210,8 +210,7 @@ end
 Sachantque('ma session a expiré') do
   page.set_rack_session(user_id: {
     'value' => current_user!.id,
-    'expires_at' => 1.hour.ago,
-    'absolute_expires_at' => 1.hour.ago
+    'expires_at' => 1.hour.ago
   })
 end
 
