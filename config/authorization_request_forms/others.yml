@@ -20,6 +20,8 @@ hubee-dila:
     ● RCO - Recensement Citoyen Obligatoire
     <br />
     ● JCC - Déclaration de Changement de Coordonnées
+    <br />
+    ● DDMariage - Pré-dépôt de dossier de mariage
   authorization_request: "HubEEDila"
   service_provider_id: hubee
   scopes:
@@ -28,6 +30,7 @@ hubee-dila:
     - recensement_citoyen
     - hebergement_tourisme
     - je_change_de_coordonnees
+    - depot_dossier_mariage
 
 api-captchetat:
   authorization_request: "APICaptchEtat"
