@@ -3,7 +3,7 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
 
   CALLOUT_CLASSES = 'fr-my-16v'.freeze
 
-  delegate :request, to: :authorization
+  delegate :request, to: :authorization, prefix: true
 
   def initialize(authorization:, current_user:)
     @authorization = authorization
@@ -31,7 +31,7 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   end
 
   def show_update_in_progress_alert?
-    authorization.latest? && request.reopening?
+    authorization.latest? && authorization_request.reopening?
   end
 
   def access_callout
@@ -55,7 +55,7 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   def access_callout_button
     link_to(
       I18n.t('authorization_requests.show.access_callout.button'),
-      request.access_link,
+      authorization_request.access_link,
       class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line',
       target: '_blank',
       rel: 'noopener external',
@@ -64,14 +64,14 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   end
 
   def access_callout_content
-    I18n.t('authorization_requests.show.access_callout.content', access_name: request.name)
+    I18n.t('authorization_requests.show.access_callout.content', access_name: authorization_request.name)
   end
 
   def show_access_callout?
-    request.access_link.present? && request.validated? && current_user_is_applicant?
+    authorization_request.access_link.present? && authorization_request.validated? && current_user_is_applicant?
   end
 
   def current_user_is_applicant?
-    current_user == request.applicant
+    current_user == authorization_request.applicant
   end
 end
