@@ -147,9 +147,9 @@ class Seeds
     end
 
     {
-      'Aide financière — commune (semble valide)' => clamart_organization,
-      'Aide financière — EPIC (zone grise, à confirmer)' => epic_organization,
-      'Aide financière — société privée (semble invalide)' => private_company_organization,
+      'Aide financière — commune (validée automatiquement)' => clamart_organization,
+      'Aide financière — EPIC (zone grise, revue humaine)' => epic_organization,
+      'Aide financière — société privée (refusée automatiquement)' => private_company_organization,
     }.each do |intitule, organization|
       create_submitted_authorization_request(:aide_financiere, attributes: { intitule:, applicant: demandeur, organization: })
     end
