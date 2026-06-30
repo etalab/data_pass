@@ -271,4 +271,22 @@ RSpec.describe AuthorizationDefinition do
       end
     end
   end
+
+  describe '#auto_instruction?' do
+    it 'is false by default' do
+      definition = described_class.build('mon_api', name: 'Mon API', blocks: [], features: {})
+
+      expect(definition.auto_instruction?).to be(false)
+    end
+
+    it 'is true when enabled in the configuration' do
+      definition = described_class.build('mon_api', name: 'Mon API', blocks: [], features: {}, auto_instruction: true)
+
+      expect(definition.auto_instruction?).to be(true)
+    end
+
+    it 'is enabled on the aide_financiere definition' do
+      expect(described_class.find('aide_financiere').auto_instruction?).to be(true)
+    end
+  end
 end
