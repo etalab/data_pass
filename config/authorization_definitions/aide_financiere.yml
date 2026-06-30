@@ -3,6 +3,7 @@ aide_financiere:
   description: "Versement d’aides financières aux organisations éligibles."
   provider: "dinum"
   kind: 'api'
+  auto_instruction: true
   link: "https://aide-financiere.gouv.fr"
   cgu_link: "https://aide-financiere.gouv.fr/cgu"
   access_link: "https://aide-financiere.gouv.fr/tokens/%{external_provider_id}"

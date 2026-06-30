@@ -15,7 +15,8 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   attr_writer :startable_by_applicant,
     :public,
-    :unique
+    :unique,
+    :auto_instruction
 
   def self.backend
     yaml_records + db_records
@@ -69,6 +70,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :kind,
         :startable_by_applicant,
         :unique,
+        :auto_instruction,
       ).merge(
         id: uid.to_s,
         provider_slug: hash[:provider],
@@ -159,6 +161,10 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def unique
     value_or_default(@unique, false)
+  end
+
+  def auto_instruction?
+    value_or_default(@auto_instruction, false)
   end
 
   def startable_by_applicant

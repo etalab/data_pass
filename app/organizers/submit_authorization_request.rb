@@ -17,5 +17,7 @@ class SubmitAuthorizationRequest < ApplicationOrganizer
   after do
     context.authorization_request.save(context: context.save_context) ||
       context.fail!
+
+    AutoInstructAuthorizationRequest.call(authorization_request: context.authorization_request)
   end
 end
