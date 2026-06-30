@@ -14,10 +14,6 @@ class EntityEligibility::Rules::APIEntreprise < EntityEligibility::Rules::Base
   private
 
   def menuiserie?
-    MENUISERIE_NAF_CODES.include?(naf_code)
-  end
-
-  def naf_code
-    organization.insee_payload.dig('etablissement', 'uniteLegale', 'activitePrincipaleUniteLegale')
+    MENUISERIE_NAF_CODES.include?(organization.activite_principale)
   end
 end

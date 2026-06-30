@@ -82,10 +82,12 @@ toutes les règles :
 - builders de verdict générés depuis `Verdict::STATUSES` :
   `eligible(reason)`, `ineligible(reason)`, `likely_eligible(reason)`, etc.
 
-La lecture des données brutes de l’organisation (catégorie juridique, code NAF…)
-et les prédicats **spécifiques à une démarche** (ex. `commune?`, `menuiserie?`)
+Les **attributs nommés** de l’organisation (catégorie juridique, code NAF…) vivent
+sur `Organization` (`legal_category`, `categorie_juridique`, `activite_principale`,
+`code_commune_etablissement`…) : une règle ne replonge jamais dans `insee_payload`.
+Seuls les prédicats **spécifiques à une démarche** (ex. `commune?`, `menuiserie?`)
 vivent dans la règle concernée, pas dans `Base` : l’intelligence métier reste au
-plus près de son usage.
+plus près de son usage, mais elle s’appuie sur ces accesseurs partagés.
 
 ## Ajouter une règle
 
@@ -117,7 +119,7 @@ end
 | Démarche | Règle | Verdict |
 |----------|-------|---------|
 | `HubEECertDC` | commune (`legal_category == :commune`) | `eligible(:commune)`, sinon `ineligible(:not_a_commune)` |
-| `APIEntreprise` | menuiserie (code NAF/APE `activitePrincipaleUniteLegale` ∈ `16.23Z`, `43.32A`, `43.32B`) | `ineligible(:menuiserie)`, sinon `unknown` |
+| `APIEntreprise` | menuiserie (code NAF/APE `organization.activite_principale` ∈ `16.23Z`, `43.32A`, `43.32B`) | `ineligible(:menuiserie)`, sinon `unknown` |
 
 > La règle `APIEntreprise` colle volontairement à la spec (cas 2 : « entreprise de
 > menuiserie → invalide ») : elle ne tranche **que** ce cas précis via le code NAF,
