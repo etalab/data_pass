@@ -163,3 +163,24 @@ l’instructeur.
 Le jeu de seeds crée trois demandes `Aide financière` couvrant les trois verdicts
 (commune → `eligible`, EPIC → `likely_eligible`, société privée → `ineligible`)
 pour observer le badge sans chercher de SIRET réel.
+
+## Auto-instruction
+
+Une démarche peut **déléguer son instruction au moteur** via le flag de définition
+`auto_instruction: true` (défaut : désactivé — les autres démarches ne sont pas
+touchées). À la soumission, `SubmitAuthorizationRequest` appelle
+`AutoInstructAuthorizationRequest` une fois la demande persistée :
+
+```
+verdict eligible    → ApproveAuthorizationRequest (acteur : utilisateur système)
+verdict ineligible  → RefuseAuthorizationRequest  (acteur système, motif automatique)
+verdict likely_* / unknown → aucune action → revue humaine
+```
+
+Seuls les verdicts **certains** déclenchent une action ; la zone grise et
+l’indéterminé restent en revue humaine — c’est le garde-fou qui dispense, pour
+cette première version, d’un score de confiance (API-7000). L’acteur est un
+`User` « système » (les événements `approve`/`refuse` exigent un acteur ; on n’en
+crée pas de bot nommé `system_`). Les seeds `Aide financière` (opt-in) illustrent
+les trois issues : commune **validée**, EPIC en **revue**, société privée
+**refusée** automatiquement.
