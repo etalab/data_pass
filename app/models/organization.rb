@@ -8,6 +8,12 @@ class Organization < ApplicationRecord
   }.freeze
   private_constant :LEGAL_CATEGORY_MAP
 
+  ENTITY_TYPE_MAP = {
+    '7' => :administration,
+    '4' => :gray_zone,
+  }.freeze
+  private_constant :ENTITY_TYPE_MAP
+
   validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
   validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
 
@@ -62,6 +68,10 @@ class Organization < ApplicationRecord
 
   def legal_category
     LEGAL_CATEGORY_MAP.fetch(categorie_juridique, :other)
+  end
+
+  def entity_type
+    ENTITY_TYPE_MAP.fetch(categorie_juridique.to_s[0], :other)
   end
 
   def insee_payload

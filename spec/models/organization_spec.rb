@@ -192,4 +192,43 @@ RSpec.describe Organization do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#entity_type' do
+    subject { organization.entity_type }
+
+    let(:organization) do
+      build(:organization,
+        legal_entity_registry: 'insee_sirene',
+        legal_entity_id: '12345678900010',
+        insee_payload: {
+          'etablissement' => {
+            'uniteLegale' => { 'categorieJuridiqueUniteLegale' => categorie },
+          },
+        })
+    end
+
+    context 'when the catégorie juridique is administrative (7210, commune)' do
+      let(:categorie) { '7210' }
+
+      it { is_expected.to eq(:administration) }
+    end
+
+    context 'when the catégorie juridique is public commercial (4120, EPIC)' do
+      let(:categorie) { '4120' }
+
+      it { is_expected.to eq(:gray_zone) }
+    end
+
+    context 'when the catégorie juridique is a private company (5710, SA)' do
+      let(:categorie) { '5710' }
+
+      it { is_expected.to eq(:other) }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to eq(:other) }
+    end
+  end
 end
