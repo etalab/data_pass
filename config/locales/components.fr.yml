@@ -9,10 +9,10 @@ fr:
         form_card_component:
           default_badge: Formulaire par défaut
       entity_eligibility_verdict_component:
-        eligible: Semble valide
-        likely_eligible: Semble valide (à confirmer)
-        likely_ineligible: Semble invalide (à confirmer)
-        ineligible: Semble invalide
+        eligible: Valide
+        likely_eligible: Valide (à confirmer)
+        likely_ineligible: Invalide (à confirmer)
+        ineligible: Invalide
         unknown: Éligibilité indéterminée
     side_panel_component:
       close: Fermer

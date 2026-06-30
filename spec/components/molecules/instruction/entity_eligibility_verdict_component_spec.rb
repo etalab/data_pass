@@ -8,24 +8,24 @@ RSpec.describe Molecules::Instruction::EntityEligibilityVerdictComponent, type: 
   context 'when the verdict is eligible' do
     let(:status) { :eligible }
 
-    it 'renders a success badge labelled « Semble valide »' do
-      expect(rendered).to have_css('p.fr-badge.fr-badge--success', text: 'Semble valide')
+    it 'renders a success badge labelled « Valide »' do
+      expect(rendered).to have_css('p.fr-badge.fr-badge--success', text: 'Valide')
     end
   end
 
   context 'when the verdict is likely_eligible' do
     let(:status) { :likely_eligible }
 
-    it 'renders an info badge labelled « Semble valide (à confirmer) »' do
-      expect(rendered).to have_css('p.fr-badge.fr-badge--info', text: 'Semble valide (à confirmer)')
+    it 'renders an info badge labelled « Valide (à confirmer) »' do
+      expect(rendered).to have_css('p.fr-badge.fr-badge--info', text: 'Valide (à confirmer)')
     end
   end
 
   context 'when the verdict is ineligible' do
     let(:status) { :ineligible }
 
-    it 'renders an error badge labelled « Semble invalide »' do
-      expect(rendered).to have_css('p.fr-badge.fr-badge--error', text: 'Semble invalide')
+    it 'renders an error badge labelled « Invalide »' do
+      expect(rendered).to have_css('p.fr-badge.fr-badge--error', text: 'Invalide')
     end
   end
 
