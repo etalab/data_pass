@@ -137,14 +137,29 @@ end
 - **Couverture partielle d’`APIEntreprise`** : seule la menuiserie est tranchée.
   La généralisation (qui est éligible / inéligible / `likely_*`) reste à
   construire sur des cas concrets.
-- **`likely_eligible` (zone grise)** désormais exercé par `AideFinanciere` via
-  `entity_type == :gray_zone` (EPIC, public à caractère commercial). La règle est
-  démontrée **par spec** : aucune démarche `AuthorizationRequest::AideFinanciere`
-  n’existe encore, donc l’`Engine` ne la résout pas end-to-end. L’affinage du signal
-  (SA à capitaux publics, tranche d’effectif, INPI… cf. API-7000/7002) reste à venir.
+- **`likely_eligible` (zone grise)** est exercé par `AideFinanciere` via
+  `entity_type == :gray_zone` (EPIC, public à caractère commercial). L’affinage du
+  signal (SA à capitaux publics, tranche d’effectif, INPI… cf. API-7000/7002) reste
+  à venir.
 - **Détection des entités** : signaux disponibles dans le payload INSEE
   (catégorie juridique, code NAF, effectif). Fiabilisation possible via le JDD des
   administrations (API-6998) sans changer l’API du moteur.
-- **Câblage UI / instruction** : le moteur est pour l’instant un service
-  read-only ; le branchement sur l’écran d’instruction (API-7004) et la
-  persistance d’un score (API-7000) restent à faire.
+- **Persistance d’un score** (API-7000) : le verdict est recalculé à la volée, non
+  stocké.
+
+## Câblage de bout en bout
+
+La démarche `AuthorizationRequest::AideFinanciere` (navigable via
+`/demandes/aide_financiere/nouveau`) donne au moteur une démarche réelle à résoudre :
+l’`Engine` la mappe sur `Rules::AideFinanciere` par convention de nom.
+
+Sur l’écran d’instruction d’une demande
+(`instruction/authorization_requests#show`), le contrôleur calcule
+`EntityEligibility::Engine.from_request(@authorization_request).verdict` et la vue
+affiche le verdict via `Molecules::Instruction::EntityEligibilityVerdictComponent`
+— un badge DSFR « Semble valide / invalide » (API-7004), aide à la décision pour
+l’instructeur.
+
+Le jeu de seeds crée trois demandes `Aide financière` couvrant les trois verdicts
+(commune → `eligible`, EPIC → `likely_eligible`, société privée → `ineligible`)
+pour observer le badge sans chercher de SIRET réel.

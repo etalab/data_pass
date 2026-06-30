@@ -9,6 +9,7 @@ class Seeds
     create_stats_data
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
+    create_aide_financiere_eligibility_demo
     create_unread_messages_from_applicant
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
     create_instructor_draft_request(applicant: demandeur)
@@ -139,6 +140,21 @@ class Seeds
     create_authorization_request_with_old_authorization
   end
 
+  def create_aide_financiere_eligibility_demo
+    [epic_organization, private_company_organization].each do |organization|
+      demandeur.add_to_organization(organization, current: false, verified: true,
+        identity_federator: 'pro_connect', identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID)
+    end
+
+    {
+      'Aide financière — commune (semble valide)' => clamart_organization,
+      'Aide financière — EPIC (zone grise, à confirmer)' => epic_organization,
+      'Aide financière — société privée (semble invalide)' => private_company_organization,
+    }.each do |intitule, organization|
+      create_submitted_authorization_request(:aide_financiere, attributes: { intitule:, applicant: demandeur, organization: })
+    end
+  end
+
   def create_dirty_from_v1_authorization_request
     authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'MPS 2014 - Migration v1', applicant: demandeur })
     authorization_request.update!(dirty_from_v1: true)
@@ -259,6 +275,14 @@ class Seeds
 
   def rhone_departement_organization
     @rhone_departement_organization ||= create_organization(siret: '22690001700014', name: 'Département du Rhône')
+  end
+
+  def epic_organization
+    @epic_organization ||= create_organization(siret: '55204944700006', name: 'EPIC de démonstration')
+  end
+
+  def private_company_organization
+    @private_company_organization ||= create_organization(siret: '38012986600006', name: 'Société privée de démonstration')
   end
 
   def create_organization(siret:, name:)

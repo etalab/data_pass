@@ -8,6 +8,20 @@ fr:
       authorization_definition:
         form_card_component:
           default_badge: Formulaire par défaut
+      entity_eligibility_verdict_component:
+        eligible: Valide
+        likely_eligible: Valide (à confirmer)
+        likely_ineligible: Invalide (à confirmer)
+        ineligible: Invalide
+        unknown: Éligibilité indéterminée
+        reasons:
+          administration: "Administration : catégorie juridique de niveau 1 « 7 »."
+          public_commercial: "Entité publique à caractère commercial (type EPIC) : catégorie juridique de niveau 1 « 4 »."
+          not_administration: "Ni administration ni entité publique à caractère commercial."
+          commune: "L’organisation est une commune."
+          not_a_commune: "L’organisation n’est pas une commune."
+          menuiserie: "Activité de menuiserie (code NAF)."
+          none: "Aucune règle d’éligibilité ne tranche ce cas."
     side_panel_component:
       close: Fermer
   components:
