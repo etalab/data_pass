@@ -49,11 +49,19 @@ class Organization < ApplicationRecord
   end
 
   def personne_physique?
-    unite_legale['categorieJuridiqueUniteLegale'] == '1000'
+    categorie_juridique == '1000'
+  end
+
+  def categorie_juridique
+    unite_legale['categorieJuridiqueUniteLegale']
+  end
+
+  def activite_principale
+    unite_legale['activitePrincipaleUniteLegale']
   end
 
   def legal_category
-    LEGAL_CATEGORY_MAP.fetch(unite_legale['categorieJuridiqueUniteLegale'], :other)
+    LEGAL_CATEGORY_MAP.fetch(categorie_juridique, :other)
   end
 
   def insee_payload
