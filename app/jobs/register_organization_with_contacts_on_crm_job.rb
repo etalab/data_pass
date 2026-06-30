@@ -193,7 +193,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
   def organization_categorie_juridique
     return if organization.insee_payload.blank?
 
-    CategorieJuridique.find(organization.insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'])
+    CategorieJuridique.find(organization.categorie_juridique)
   rescue ActiveRecord::RecordNotFound
     nil
   end

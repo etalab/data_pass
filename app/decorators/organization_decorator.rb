@@ -51,13 +51,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def code_naf
-    return unless insee_payload?
-
-    unite_legale_insee_payload['activitePrincipaleUniteLegale']
-  end
-
-  def unite_legale_insee_payload
-    etablissement_insee_payload['uniteLegale']
+    activite_principale
   end
 
   def etablissement_insee_payload
