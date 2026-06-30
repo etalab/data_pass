@@ -82,6 +82,17 @@
               </div>
             </div>
           <% end %>
+
+          <% if @entity_eligibility_verdict %>
+            <div class="contact-card__attribute">
+              <div class="contact-card__attribute-label">
+                Éligibilité estimée
+              </div>
+              <div class="contact-card__attribute-value">
+                <%= render Molecules::Instruction::EntityEligibilityVerdictComponent.new(verdict: @entity_eligibility_verdict) %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
