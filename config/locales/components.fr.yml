@@ -8,6 +8,12 @@ fr:
       authorization_definition:
         form_card_component:
           default_badge: Formulaire par défaut
+      entity_eligibility_verdict_component:
+        eligible: Semble valide
+        likely_eligible: Semble valide (à confirmer)
+        likely_ineligible: Semble invalide (à confirmer)
+        ineligible: Semble invalide
+        unknown: Éligibilité indéterminée
     side_panel_component:
       close: Fermer
   components:
