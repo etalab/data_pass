@@ -24,7 +24,7 @@ RSpec.describe EntityEligibility::Engine do
     end
 
     context 'when no rule is defined for the use case' do
-      let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-socle-de-base') }
+      let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-dila') }
 
       it 'returns an unknown verdict' do
         expect(verdict).to be_unknown

@@ -26,7 +26,7 @@ class EntityEligibility::Engine
   private
 
   def resolve_rule_class
-    "EntityEligibility::Rules::#{authorization_request_form.uid.tr('-', '_').camelize}".constantize
+    "EntityEligibility::Rules::#{authorization_request_form.authorization_request_class.name.demodulize}".constantize
   rescue NameError
     nil
   end

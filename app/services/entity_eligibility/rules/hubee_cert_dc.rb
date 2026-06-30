@@ -1,17 +1,13 @@
-class EntityEligibility::Rules::HubEECertDC
-  def initialize(engine)
-    @engine = engine
-  end
-
+class EntityEligibility::Rules::HubEECertDC < EntityEligibility::Rules::Base
   def verdict
-    if engine.organization.legal_category == :commune
-      EntityEligibility::Verdict.new(status: :eligible, reason: :commune)
-    else
-      EntityEligibility::Verdict.new(status: :ineligible, reason: :not_a_commune)
-    end
+    return eligible(:commune) if commune?
+
+    ineligible(:not_a_commune)
   end
 
   private
 
-  attr_reader :engine
+  def commune?
+    organization.legal_category == :commune
+  end
 end

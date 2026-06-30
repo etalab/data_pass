@@ -21,6 +21,7 @@
 * [Templates de messages pour l'instruction](./technique/templates_messages.md)
 * [Synchronisation DataGouv — habilitations](./technique/datagouv-habilitations-sync.md)
 * [Données géographiques (geo.api.gouv.fr)](./technique/geo_data.md)
+* [Moteur d'éligibilité des entités](./technique/moteur_eligibilite.md)
 * [Utiliser notre API](./technique/api.md)
 * [Pré-remplissage d'une demande via query params](./technique/pre_remplissage_query_params.md)
 * [Migration de l'ancienne stack (v1 -> v2)](./../app/migration/)
