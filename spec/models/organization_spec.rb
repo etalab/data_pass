@@ -142,4 +142,54 @@ RSpec.describe Organization do
       it { is_expected.to eq(:other) }
     end
   end
+
+  describe '#activite_principale' do
+    subject { organization.activite_principale }
+
+    context 'when uniteLegale carries an activitePrincipale' do
+      let(:organization) do
+        build(:organization,
+          legal_entity_registry: 'insee_sirene',
+          legal_entity_id: '12345678900010',
+          insee_payload: {
+            'etablissement' => {
+              'uniteLegale' => { 'activitePrincipaleUniteLegale' => '43.32A' },
+            },
+          })
+      end
+
+      it { is_expected.to eq('43.32A') }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#categorie_juridique' do
+    subject { organization.categorie_juridique }
+
+    context 'when uniteLegale carries a categorieJuridique' do
+      let(:organization) do
+        build(:organization,
+          legal_entity_registry: 'insee_sirene',
+          legal_entity_id: '12345678900010',
+          insee_payload: {
+            'etablissement' => {
+              'uniteLegale' => { 'categorieJuridiqueUniteLegale' => '7210' },
+            },
+          })
+      end
+
+      it { is_expected.to eq('7210') }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
