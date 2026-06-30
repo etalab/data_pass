@@ -84,7 +84,11 @@ toutes les règles :
 
 Les **attributs nommés** de l’organisation (catégorie juridique, code NAF…) vivent
 sur `Organization` (`legal_category`, `categorie_juridique`, `activite_principale`,
-`code_commune_etablissement`…) : une règle ne replonge jamais dans `insee_payload`.
+`code_commune_etablissement`, `entity_type`…) : une règle ne replonge jamais dans
+`insee_payload`. `entity_type` (`:administration | :gray_zone | :other`) dérive la
+typologie d’entité du **niveau 1 de la catégorie juridique** (`7…` administratif →
+`:administration`, `4…` public à caractère commercial type EPIC → `:gray_zone`, sinon
+`:other`) — c’est le signal qui motive un verdict `likely_eligible` pour la zone grise.
 Seuls les prédicats **spécifiques à une démarche** (ex. `commune?`, `menuiserie?`)
 vivent dans la règle concernée, pas dans `Base` : l’intelligence métier reste au
 plus près de son usage, mais elle s’appuie sur ces accesseurs partagés.
@@ -120,6 +124,7 @@ end
 |----------|-------|---------|
 | `HubEECertDC` | commune (`legal_category == :commune`) | `eligible(:commune)`, sinon `ineligible(:not_a_commune)` |
 | `APIEntreprise` | menuiserie (code NAF/APE `organization.activite_principale` ∈ `16.23Z`, `43.32A`, `43.32B`) | `ineligible(:menuiserie)`, sinon `unknown` |
+| `AideFinanciere` | typologie d’entité (`organization.entity_type`) | `:administration` → `eligible(:administration)` ; `:gray_zone` → `likely_eligible(:public_commercial)` ; sinon `ineligible(:not_administration)` |
 
 > La règle `APIEntreprise` colle volontairement à la spec (cas 2 : « entreprise de
 > menuiserie → invalide ») : elle ne tranche **que** ce cas précis via le code NAF,
@@ -132,9 +137,11 @@ end
 - **Couverture partielle d’`APIEntreprise`** : seule la menuiserie est tranchée.
   La généralisation (qui est éligible / inéligible / `likely_*`) reste à
   construire sur des cas concrets.
-- **Cas 3 (SNCF « likely valide »)** non couvert : SA à capitaux publics, c’est la
-  nuance qui motivera l’usage de `likely_eligible`, en croisant d’autres signaux
-  (tranche d’effectif, INPI… cf. API-7000/7002).
+- **`likely_eligible` (zone grise)** désormais exercé par `AideFinanciere` via
+  `entity_type == :gray_zone` (EPIC, public à caractère commercial). La règle est
+  démontrée **par spec** : aucune démarche `AuthorizationRequest::AideFinanciere`
+  n’existe encore, donc l’`Engine` ne la résout pas end-to-end. L’affinage du signal
+  (SA à capitaux publics, tranche d’effectif, INPI… cf. API-7000/7002) reste à venir.
 - **Détection des entités** : signaux disponibles dans le payload INSEE
   (catégorie juridique, code NAF, effectif). Fiabilisation possible via le JDD des
   administrations (API-6998) sans changer l’API du moteur.
