@@ -1,0 +1,20 @@
+aide_financiere:
+  name: Aide financière
+  description: "Versement d’aides financières aux organisations éligibles."
+  provider: "dinum"
+  kind: 'api'
+  link: "https://aide-financiere.gouv.fr"
+  cgu_link: "https://aide-financiere.gouv.fr/cgu"
+  access_link: "https://aide-financiere.gouv.fr/tokens/%{external_provider_id}"
+  public: true
+  support_email: "support@aide-financiere.gouv.fr"
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: "Scope 1"
+      value: "value_1"
+      group: "Groupe"

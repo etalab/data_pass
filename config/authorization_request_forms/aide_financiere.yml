@@ -1,0 +1,13 @@
+aide-financiere:
+  description: Demande d’habilitation pour le versement d’aides financières.
+  introduction: |
+    Cette démarche permet à votre organisation de demander l’accès au
+    dispositif d’aides financières. L’éligibilité de votre entité est
+    évaluée automatiquement à partir de son identité juridique.
+  authorization_request: AideFinanciere
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
