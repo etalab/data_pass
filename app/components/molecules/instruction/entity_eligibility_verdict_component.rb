@@ -11,10 +11,6 @@ class Molecules::Instruction::EntityEligibilityVerdictComponent < ApplicationCom
     @verdict = verdict
   end
 
-  def call
-    content_tag(:p, label, class: classes)
-  end
-
   private
 
   def classes
@@ -25,5 +21,9 @@ class Molecules::Instruction::EntityEligibilityVerdictComponent < ApplicationCom
 
   def label
     t(".#{@verdict.status}")
+  end
+
+  def explanation
+    t(".reasons.#{@verdict.reason || :none}", default: nil)
   end
 end
