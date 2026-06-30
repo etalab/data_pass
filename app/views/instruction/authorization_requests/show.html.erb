@@ -3,6 +3,16 @@
 
   <div class="info-block">
     <h3>
+      Éligibilité estimée de l’organisation
+    </h3>
+    <p>
+      Estimation automatique déduite de l’identité juridique de l’organisation, en aide à l’instruction.
+    </p>
+    <%= render Molecules::Instruction::EntityEligibilityVerdictComponent.new(verdict: @entity_eligibility_verdict) %>
+  </div>
+
+  <div class="info-block">
+    <h3>
       Les informations renseignées par le demandeur
     </h3>
     <p>
