@@ -6,6 +6,12 @@
   <% extra_summary_block_css_classes = '' %>
 <% end %>
 
+<% if @entity_eligibility_auto_instruction&.happened? %>
+  <%= render Molecules::Instruction::EntityEligibilityAutoInstructionComponent.new(status: @entity_eligibility_auto_instruction.status) %>
+<% elsif @entity_eligibility_verdict %>
+  <%= render Molecules::Instruction::EntityEligibilityVerdictComponent.new(verdict: @entity_eligibility_verdict) %>
+<% end %>
+
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: demande, title: "L'organisation", block_id: :organization, editable: false, extra_summary_block_css_classes: } do %>
   <div class="fr-container-fluid organization-and-applicant">
     <% if unverified_organization_affiliation_for_instruction %>
@@ -79,17 +85,6 @@
               </div>
               <div class="contact-card__attribute-value">
                 <%= demande.organization.public_send(organization_attribute) %>
-              </div>
-            </div>
-          <% end %>
-
-          <% if @entity_eligibility_verdict %>
-            <div class="contact-card__attribute">
-              <div class="contact-card__attribute-label">
-                Éligibilité estimée
-              </div>
-              <div class="contact-card__attribute-value">
-                <%= render Molecules::Instruction::EntityEligibilityVerdictComponent.new(verdict: @entity_eligibility_verdict) %>
               </div>
             </div>
           <% end %>

@@ -8,12 +8,18 @@ fr:
       authorization_definition:
         form_card_component:
           default_badge: Formulaire par défaut
+      entity_eligibility_auto_instruction_component:
+        validated:
+          title: Demande validée automatiquement
+          description: La nature juridique de l’organisation la rend éligible à cette démarche.
+        refused:
+          title: Demande refusée automatiquement
+          description: La nature juridique de l’organisation ne la rend pas éligible à cette démarche.
       entity_eligibility_verdict_component:
         eligible: Valide
-        likely_eligible: Valide (à confirmer)
+        likely_eligible: L’organisation semble éligible
         likely_ineligible: Invalide (à confirmer)
         ineligible: Invalide
-        unknown: Éligibilité indéterminée
         reasons:
           administration: "Administration : catégorie juridique de niveau 1 « 7 »."
           public_commercial: "Entité publique à caractère commercial (type EPIC) : catégorie juridique de niveau 1 « 4 »."

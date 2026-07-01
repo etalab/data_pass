@@ -1,0 +1,39 @@
+.eligibility-callout--success {
+  background-color: var(--background-contrast-success);
+  color: var(--text-default-success);
+  background-image: linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success));
+}
+
+.eligibility-callout--success .fr-callout__title {
+  color: var(--text-default-success);
+}
+
+.eligibility-callout--info {
+  background-color: var(--background-contrast-info);
+  color: var(--text-default-info);
+  background-image: linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info));
+}
+
+.eligibility-callout--info .fr-callout__title {
+  color: var(--text-default-info);
+}
+
+.eligibility-callout--warning {
+  background-color: var(--background-contrast-warning);
+  color: var(--text-default-warning);
+  background-image: linear-gradient(0deg, var(--border-plain-warning), var(--border-plain-warning));
+}
+
+.eligibility-callout--warning .fr-callout__title {
+  color: var(--text-default-warning);
+}
+
+.eligibility-callout--error {
+  background-color: var(--background-contrast-error);
+  color: var(--text-default-error);
+  background-image: linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error));
+}
+
+.eligibility-callout--error .fr-callout__title {
+  color: var(--text-default-error);
+}

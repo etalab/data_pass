@@ -4,19 +4,20 @@ class Molecules::Instruction::EntityEligibilityVerdictComponent < ApplicationCom
     likely_eligible: 'info',
     likely_ineligible: 'warning',
     ineligible: 'error',
-    unknown: nil,
   }.freeze
 
   def initialize(verdict:)
     @verdict = verdict
   end
 
+  def render?
+    STATUS_MODIFIERS.key?(@verdict.status)
+  end
+
   private
 
   def classes
-    modifier = STATUS_MODIFIERS.fetch(@verdict.status)
-
-    ['fr-badge', 'fr-badge--sm', ("fr-badge--#{modifier}" if modifier)].compact
+    ['fr-callout', "eligibility-callout--#{STATUS_MODIFIERS.fetch(@verdict.status)}"]
   end
 
   def label

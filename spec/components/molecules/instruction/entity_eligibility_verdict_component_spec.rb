@@ -9,8 +9,8 @@ RSpec.describe Molecules::Instruction::EntityEligibilityVerdictComponent, type: 
     let(:status) { :eligible }
     let(:reason) { :administration }
 
-    it 'renders a success badge labelled « Valide » with the rule explanation' do
-      expect(rendered).to have_css('p.fr-badge.fr-badge--success', text: 'Valide')
+    it 'renders a success callout labelled « Valide » with the rule explanation' do
+      expect(rendered).to have_css('div.fr-callout.eligibility-callout--success .fr-callout__title', text: 'Valide')
       expect(rendered).to have_text('Administration')
     end
   end
@@ -19,9 +19,19 @@ RSpec.describe Molecules::Instruction::EntityEligibilityVerdictComponent, type: 
     let(:status) { :likely_eligible }
     let(:reason) { :public_commercial }
 
-    it 'renders an info badge labelled « Valide (à confirmer) » with the rule explanation' do
-      expect(rendered).to have_css('p.fr-badge.fr-badge--info', text: 'Valide (à confirmer)')
+    it 'renders an info callout labelled « L’organisation semble éligible » with the rule explanation' do
+      expect(rendered).to have_css('div.fr-callout.eligibility-callout--info .fr-callout__title', text: 'L’organisation semble éligible')
       expect(rendered).to have_text('Entité publique à caractère commercial')
+    end
+  end
+
+  context 'when the verdict is likely_ineligible' do
+    let(:status) { :likely_ineligible }
+    let(:reason) { :not_a_commune }
+
+    it 'renders a warning callout labelled « Invalide (à confirmer) » with the rule explanation' do
+      expect(rendered).to have_css('div.fr-callout.eligibility-callout--warning .fr-callout__title', text: 'Invalide (à confirmer)')
+      expect(rendered).to have_text('n’est pas une commune')
     end
   end
 
@@ -29,8 +39,8 @@ RSpec.describe Molecules::Instruction::EntityEligibilityVerdictComponent, type: 
     let(:status) { :ineligible }
     let(:reason) { :not_administration }
 
-    it 'renders an error badge labelled « Invalide » with the rule explanation' do
-      expect(rendered).to have_css('p.fr-badge.fr-badge--error', text: 'Invalide')
+    it 'renders an error callout labelled « Invalide » with the rule explanation' do
+      expect(rendered).to have_css('div.fr-callout.eligibility-callout--error .fr-callout__title', text: 'Invalide')
       expect(rendered).to have_text('Ni administration')
     end
   end
@@ -39,10 +49,8 @@ RSpec.describe Molecules::Instruction::EntityEligibilityVerdictComponent, type: 
     let(:status) { :unknown }
     let(:reason) { nil }
 
-    it 'renders a neutral badge without a semantic modifier' do
-      expect(rendered).to have_css('p.fr-badge', text: 'Éligibilité indéterminée')
-      expect(rendered).to have_no_css('.fr-badge--success, .fr-badge--error, .fr-badge--info, .fr-badge--warning')
-      expect(rendered).to have_text('Aucune règle')
+    it 'renders nothing' do
+      expect(rendered.to_html).to be_blank
     end
   end
 end

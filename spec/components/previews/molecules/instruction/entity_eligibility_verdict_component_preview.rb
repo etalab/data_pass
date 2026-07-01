@@ -15,10 +15,6 @@ class Molecules::Instruction::EntityEligibilityVerdictComponentPreview < ViewCom
     render_verdict(:ineligible, :not_administration)
   end
 
-  def unknown
-    render_verdict(:unknown, nil)
-  end
-
   private
 
   def render_verdict(status, reason)

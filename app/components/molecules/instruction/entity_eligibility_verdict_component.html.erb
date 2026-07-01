@@ -1,4 +1,6 @@
-<%= content_tag(:p, label, class: classes) %>
-<% if explanation %>
-  <p class="fr-hint-text fr-mb-0"><%= explanation %></p>
-<% end %>
+<div class="<%= classes.join(' ') %>">
+  <p class="fr-callout__title"><%= label %></p>
+  <% if explanation %>
+    <p class="fr-callout__text"><%= explanation %></p>
+  <% end %>
+</div>
