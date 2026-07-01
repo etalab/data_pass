@@ -143,7 +143,7 @@
           <thead>
             <tr>
               <th>Verdict</th><th>Motif</th><th>Type</th><th>Formulaire</th><th>État</th>
-              <th>SIRET</th><th>Raison sociale</th><th>Cat. jur.</th><th>NAF</th>
+              <th>ID</th><th>SIRET</th><th>Raison sociale</th><th>Cat. jur.</th><th>NAF</th>
             </tr>
           </thead>
           <tbody id="rows"></tbody>
@@ -294,6 +294,7 @@
           <td>${esc(e.type)}</td>
           <td><code>${esc(e.form_uid) || '—'}</code></td>
           <td>${esc(e.etat)}</td>
+          <td>${e.demande_id ? `<a href="https://datapass.api.gouv.fr/demandes/${e.demande_id}" target="_blank" rel="noopener">${e.demande_id}</a>` : '—'}</td>
           <td>${esc(e.siret) || '—'}</td>
           <td>${esc(e.raison_sociale) || '—'}</td>
           <td><code>${esc(e.categorie_juridique) || '—'}</code></td>
