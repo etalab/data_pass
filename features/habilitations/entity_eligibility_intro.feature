@@ -18,4 +18,4 @@ Fonctionnalité: Bandeau d’éligibilité à l’introduction du formulaire
     Alors la page contient "ne semble pas éligible"
     Et la page contient "Contacter le fournisseur"
     Et la page ne contient pas "Les étapes de votre formulaire"
-    Et la page ne contient pas "Débuter ma demande"
+    Et je peux voir le bouton "Débuter ma demande" grisé et désactivé
