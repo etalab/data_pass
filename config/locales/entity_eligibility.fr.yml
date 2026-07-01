@@ -11,6 +11,7 @@ fr:
         title: "Votre organisation ne semble pas éligible à %{definition}"
         body_html: "%{reason_clause}votre organisation n’entre pas dans le périmètre des bénéficiaires de %{definition}. Déposer cette demande aboutira très probablement à un refus."
       reasons:
+        categorie_juridique: "D’après sa catégorie juridique"
         administration: "D’après sa catégorie juridique"
         public_commercial: "D’après sa catégorie juridique"
         not_administration: "D’après sa catégorie juridique"

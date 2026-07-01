@@ -5,8 +5,17 @@ class Organization < ApplicationRecord
     '7210' => :commune,
     '7220' => :dept,
     '7230' => :region,
+    '7343' => :communaute_urbaine,
+    '7344' => :metropole,
+    '7346' => :communaute_de_communes,
+    '7348' => :communaute_agglomeration,
+    '7361' => :ccas,
+    '7367' => :cias,
   }.freeze
   private_constant :LEGAL_CATEGORY_MAP
+
+  BLOC_COMMUNAL = %i[commune communaute_de_communes communaute_agglomeration].freeze
+  private_constant :BLOC_COMMUNAL
 
   ENTITY_TYPE_MAP = {
     '7' => :administration,
@@ -72,6 +81,18 @@ class Organization < ApplicationRecord
 
   def entity_type
     ENTITY_TYPE_MAP.fetch(categorie_juridique.to_s[0], :other)
+  end
+
+  def bloc_communal?
+    BLOC_COMMUNAL.include?(legal_category)
+  end
+
+  def association?
+    categorie_juridique.to_s.start_with?('92')
+  end
+
+  def ccas_or_cias?
+    %i[ccas cias].include?(legal_category)
   end
 
   def insee_payload

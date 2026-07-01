@@ -26,7 +26,11 @@ class EntityEligibility::Engine
   private
 
   def resolve_rule_class
-    candidate_rule_names.filter_map(&:safe_constantize).first
+    candidate_rule_names.filter_map(&:safe_constantize).find { |const| rule_class?(const) }
+  end
+
+  def rule_class?(const)
+    const.is_a?(Class) && const < EntityEligibility::Rules::Base
   end
 
   def candidate_rule_names
@@ -36,7 +40,7 @@ class EntityEligibility::Engine
   def use_case_rule_name
     return if authorization_request_form.use_case.blank?
 
-    "#{demarche_rule_name}::#{authorization_request_form.use_case.camelize}"
+    "#{demarche_rule_name}::#{authorization_request_form.use_case.to_s.tr('-', '_').camelize}"
   end
 
   def demarche_rule_name

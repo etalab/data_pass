@@ -127,7 +127,7 @@ RSpec.describe Organization do
     context 'when categorieJuridiqueUniteLegale is 7346 (EPCI, communauté de communes)' do
       let(:unite_legale) { { 'categorieJuridiqueUniteLegale' => '7346' } }
 
-      it { is_expected.to eq(:other) }
+      it { is_expected.to eq(:communaute_de_communes) }
     end
 
     context 'when categorieJuridiqueUniteLegale is absent from uniteLegale' do
@@ -140,6 +140,33 @@ RSpec.describe Organization do
       let(:organization) { build(:organization, siret: '41040946000756') }
 
       it { is_expected.to eq(:other) }
+    end
+  end
+
+  describe 'typology predicates' do
+    def org(categorie_juridique)
+      build(:organization,
+        legal_entity_registry: 'insee_sirene',
+        legal_entity_id: '12345678900010',
+        insee_payload: { 'etablissement' => { 'uniteLegale' => { 'categorieJuridiqueUniteLegale' => categorie_juridique } } })
+    end
+
+    it '#bloc_communal? covers commune, communauté de communes and communauté d’agglomération' do
+      expect(org('7210')).to be_bloc_communal
+      expect(org('7346')).to be_bloc_communal
+      expect(org('7348')).to be_bloc_communal
+      expect(org('7230')).not_to be_bloc_communal
+    end
+
+    it '#association? matches the 92xx family' do
+      expect(org('9220')).to be_association
+      expect(org('7210')).not_to be_association
+    end
+
+    it '#ccas_or_cias? matches CCAS (7361) and CIAS (7367)' do
+      expect(org('7361')).to be_ccas_or_cias
+      expect(org('7367')).to be_ccas_or_cias
+      expect(org('7210')).not_to be_ccas_or_cias
     end
   end
 

@@ -4,6 +4,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
+    Et que mon organisation a la catégorie juridique "7210"
 
   Scénario: Je soumets une demande d'habilitation libre valide
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
@@ -37,6 +38,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Et je suis sur la page "Demandes et habilitations"
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, avec le choix de la modalité
+    Sachant que mon organisation a la catégorie juridique "<Catégorie juridique>"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
     Et que je clique sur "Débuter ma demande"
 
@@ -69,12 +71,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Nom du formulaire                                        |
-      | Aides facultatives régionales                            |
-      | Aides facultatives départementales                       |
-      | Tarification cantine collèges                            |
-      | Aides sociales des CCAS dont aides facultatives          |
-      | Tarification des transports                              |
+      | Nom du formulaire                                        | Catégorie juridique |
+      | Aides facultatives régionales                            | 7230                |
+      | Aides facultatives départementales                       | 7220                |
+      | Tarification cantine collèges                            | 7220                |
+      | Aides sociales des CCAS dont aides facultatives          | 7361                |
+      | Tarification des transports                              | 7210                |
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, sans le choix de la modalité
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
@@ -110,6 +112,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Tarification sociale des services municipaux à l’enfance |
 
   Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Tarification cantine lycées"
+    Sachant que mon organisation a la catégorie juridique "7230"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Tarification cantine lycées"
     Et que je clique sur "Débuter ma demande"
 
@@ -141,6 +144,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Aides sociales des CCAS"
+    Sachant que mon organisation a la catégorie juridique "7361"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Aides sociales des CCAS"
     Et que je clique sur "Débuter ma demande"
 
@@ -295,6 +299,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Res'Agenda                | Res'Agenda        |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
+    Sachant que mon organisation a la catégorie juridique "7361"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -323,6 +328,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Millésime Action Sociale  | Arche MC2         |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
+    Sachant que mon organisation a la catégorie juridique "7361"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -506,6 +512,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Airweb              | Airweb                    |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
+    Sachant que mon organisation a la catégorie juridique "7220"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -570,7 +577,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Keolis              | Keolis                    |
 
  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+    Sachant que mon organisation a la catégorie juridique "7230"
+    Et que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -603,6 +611,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Aiden, Tarification cantine | MGDIS           |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié aux aides facultatives
+    Sachant que mon organisation a la catégorie juridique "7220"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -721,6 +730,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
       | Civil Enfance     | Ciril GROUP      |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné, des scopes non modifiables et la modalité en première étape
+    Sachant que mon organisation a la catégorie juridique "<Catégorie juridique>"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -747,10 +757,10 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Nom du formulaire     | Nom de l'éditeur |
-      | MyPérischool          | Waigeo           |
-      | iNoé                  | Aiga             |
-      | CapDemat Evolution    | CapDemat         |
+      | Nom du formulaire     | Nom de l'éditeur | Catégorie juridique |
+      | MyPérischool          | Waigeo           | 7210                |
+      | iNoé                  | Aiga             | 7210                |
+      | CapDemat Evolution    | CapDemat         | 7220                |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné, des scopes modifiables et la modalité en première étape
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"

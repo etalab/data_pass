@@ -53,6 +53,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en une
       | Axel                      | Teamnet               |
 
   Scénario: Je soumets une demande d'habilitation de l'éditeur AFI avec le contact technique déjà renseigné pour un cas d'usage lié au CCAS
+    Sachant que mon organisation a la catégorie juridique "7361"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Mélissandre" de l'éditeur "Agence Française d'Informatique (AFI)"
     Et que je clique sur "Débuter ma demande"
 
