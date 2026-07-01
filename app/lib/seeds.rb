@@ -321,6 +321,8 @@ class Seeds
   def create_validated_authorization_request(kind, attributes: {}, authorization_message: nil)
     authorization_request = create_submitted_authorization_request(kind, attributes:)
 
+    return authorization_request if authorization_request.validated?
+
     organizer = ApproveAuthorizationRequest.call(
       authorization_request:,
       user: api_entreprise_instructor,
