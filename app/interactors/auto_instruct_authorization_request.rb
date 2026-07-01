@@ -4,7 +4,6 @@ class AutoInstructAuthorizationRequest < ApplicationInteractor
 
   def call
     return unless authorization_request.submitted?
-    return unless authorization_request.definition.auto_instruction?
 
     verdict = EntityEligibility::Engine.from_request(authorization_request).verdict
 
