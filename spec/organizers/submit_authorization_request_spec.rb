@@ -32,8 +32,8 @@ RSpec.describe SubmitAuthorizationRequest do
         end
       end
 
-      context 'with an auto-instructed demarche (aide_financiere)' do
-        let(:authorization_request) { create(:authorization_request, :aide_financiere, :draft, fill_all_attributes: true, organization:) }
+      context 'with an auto-instructed use case (API Entreprise — aides financières)' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise_aides_financieres, :draft, fill_all_attributes: true, organization:) }
         let(:organization) { create(:organization, siret:) }
 
         context 'when the organization is eligible' do

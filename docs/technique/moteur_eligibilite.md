@@ -135,8 +135,7 @@ end
 |----------|-------|---------|
 | `HubEECertDC` | commune (`legal_category == :commune`) | `eligible(:commune)`, sinon `ineligible(:not_a_commune)` |
 | `APIEntreprise` | menuiserie (code NAF/APE `organization.activite_principale` ∈ `16.23Z`, `43.32A`, `43.32B`) | `ineligible(:menuiserie)`, sinon `unknown` |
-| `AideFinanciere` | typologie d’entité (`organization.entity_type`) | `:administration` → `eligible(:administration)` ; `:gray_zone` → `likely_eligible(:public_commercial)` ; sinon `ineligible(:not_administration)` |
-| `APIEntreprise` + cas d’usage `aides_financieres` | typologie d’entité (`organization.entity_type`) | idem `AideFinanciere` — règle ciblée sur ce seul cas d’usage d’API Entreprise |
+| `APIEntreprise` + cas d’usage `aides_financieres` (`Rules::APIEntreprise::AidesFinancieres`) | typologie d’entité (`organization.entity_type`) | `:administration` → `eligible(:administration)` ; `:gray_zone` → `likely_eligible(:public_commercial)` ; sinon `ineligible(:not_administration)` |
 
 > La règle `APIEntreprise` colle volontairement à la spec (cas 2 : « entreprise de
 > menuiserie → invalide ») : elle ne tranche **que** ce cas précis via le code NAF,
@@ -149,8 +148,9 @@ end
 - **Couverture partielle d’`APIEntreprise`** : seule la menuiserie est tranchée.
   La généralisation (qui est éligible / inéligible / `likely_*`) reste à
   construire sur des cas concrets.
-- **`likely_eligible` (zone grise)** est exercé par `AideFinanciere` via
-  `entity_type == :gray_zone` (EPIC, public à caractère commercial). L’affinage du
+- **`likely_eligible` (zone grise)** est exercé par le cas d’usage
+  `aides_financieres` d’API Entreprise via `entity_type == :gray_zone` (EPIC, public
+  à caractère commercial). L’affinage du
   signal (SA à capitaux publics, tranche d’effectif, INPI… cf. API-7000/7002) reste
   à venir.
 - **Détection des entités** : signaux disponibles dans le payload INSEE
@@ -161,9 +161,10 @@ end
 
 ## Câblage de bout en bout
 
-La démarche `AuthorizationRequest::AideFinanciere` (navigable via
-`/demandes/aide_financiere/nouveau`) donne au moteur une démarche réelle à résoudre :
-l’`Engine` la mappe sur `Rules::AideFinanciere` par convention de nom.
+Le cas d’usage `aides_financieres` de la démarche `APIEntreprise` (formulaire
+`api-entreprise-aides-financieres`) donne au moteur un cas réel à résoudre :
+l’`Engine` le mappe sur `Rules::APIEntreprise::AidesFinancieres` par convention de
+nom (résolution par cas d’usage, cf. « Résolution de la règle »).
 
 Sur l’écran d’instruction d’une demande
 (`instruction/authorization_requests#show`), le contrôleur calcule
@@ -172,7 +173,7 @@ affiche le verdict via `Molecules::Instruction::EntityEligibilityVerdictComponen
 — un badge DSFR « Semble valide / invalide » (API-7004), aide à la décision pour
 l’instructeur.
 
-Le jeu de seeds crée trois demandes `Aide financière` couvrant les trois verdicts
+Le jeu de seeds crée trois demandes `Aides financières` couvrant les trois verdicts
 (commune → `eligible`, EPIC → `likely_eligible`, société privée → `ineligible`)
 pour observer le badge sans chercher de SIRET réel.
 
@@ -246,6 +247,6 @@ cette première version, d’un score de confiance (API-7000). L’acteur est un
 crée pas de bot nommé `system_`). Comme toute démarche portant une règle est
 désormais auto-instruite, `HubEECertDC` (règle commune) instruit lui aussi
 automatiquement à la soumission — c’est le comportement voulu (cas 1 de la spec :
-commune → valide). Les seeds `Aide financière` illustrent les trois issues :
+commune → valide). Les seeds `Aides financières` illustrent les trois issues :
 commune **validée**, EPIC en **revue**, société privée **refusée**
 automatiquement.
