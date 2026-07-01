@@ -6,10 +6,8 @@
   <% extra_summary_block_css_classes = '' %>
 <% end %>
 
-<% if @entity_eligibility_auto_instruction&.happened? %>
-  <%= render Molecules::Instruction::EntityEligibilityAutoInstructionComponent.new(status: @entity_eligibility_auto_instruction.status) %>
-<% elsif @entity_eligibility_verdict %>
-  <%= render Molecules::Instruction::EntityEligibilityVerdictComponent.new(verdict: @entity_eligibility_verdict) %>
+<% if @entity_eligibility_banner&.visible? %>
+  <%= render Molecules::Instruction::EntityEligibilityBannerComponent.new(status: @entity_eligibility_banner.status) %>
 <% end %>
 
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: demande, title: "L'organisation", block_id: :organization, editable: false, extra_summary_block_css_classes: } do %>

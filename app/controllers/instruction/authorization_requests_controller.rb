@@ -2,8 +2,8 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   def show
     authorize [:instruction, @authorization_request]
 
-    @entity_eligibility_verdict = EntityEligibility::Engine.from_request(@authorization_request).verdict
-    @entity_eligibility_auto_instruction = EntityEligibility::AutoInstruction.new(@authorization_request, @entity_eligibility_verdict)
+    verdict = EntityEligibility::Engine.from_request(@authorization_request).verdict
+    @entity_eligibility_banner = EntityEligibility::EligibilityBanner.new(@authorization_request, verdict)
 
     render 'show', layout: 'instruction/authorization_request'
   end

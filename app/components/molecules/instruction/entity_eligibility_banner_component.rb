@@ -1,7 +1,9 @@
-class Molecules::Instruction::EntityEligibilityAutoInstructionComponent < ApplicationComponent
+class Molecules::Instruction::EntityEligibilityBannerComponent < ApplicationComponent
   MODIFIERS = {
     validated: 'eligibility-notice--success',
     refused: 'fr-notice--alert',
+    likely_eligible: 'fr-notice--info',
+    likely_ineligible: 'fr-notice--warning',
   }.freeze
 
   def initialize(status:)

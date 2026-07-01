@@ -8,26 +8,19 @@ fr:
       authorization_definition:
         form_card_component:
           default_badge: Formulaire par défaut
-      entity_eligibility_auto_instruction_component:
+      entity_eligibility_banner_component:
         validated:
           title: Demande validée automatiquement
           description: La nature juridique de l’organisation la rend éligible à cette démarche.
         refused:
           title: Demande refusée automatiquement
           description: La nature juridique de l’organisation ne la rend pas éligible à cette démarche.
-      entity_eligibility_verdict_component:
-        eligible: Valide
-        likely_eligible: L’organisation semble éligible
-        likely_ineligible: Invalide (à confirmer)
-        ineligible: Invalide
-        reasons:
-          administration: "Administration : catégorie juridique de niveau 1 « 7 »."
-          public_commercial: "Entité publique à caractère commercial (type EPIC) : catégorie juridique de niveau 1 « 4 »."
-          not_administration: "Ni administration ni entité publique à caractère commercial."
-          commune: "L’organisation est une commune."
-          not_a_commune: "L’organisation n’est pas une commune."
-          menuiserie: "Activité de menuiserie (code NAF)."
-          none: "Aucune règle d’éligibilité ne tranche ce cas."
+        likely_eligible:
+          title: L’organisation semble éligible
+          description: "À confirmer manuellement : la nature juridique de l’organisation ne permet pas de trancher automatiquement."
+        likely_ineligible:
+          title: L’organisation semble inéligible
+          description: "À confirmer manuellement : la nature juridique de l’organisation ne permet pas de trancher automatiquement."
     side_panel_component:
       close: Fermer
   components:
