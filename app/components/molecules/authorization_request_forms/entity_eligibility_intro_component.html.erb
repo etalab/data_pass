@@ -1,0 +1,28 @@
+<% if ineligible? %>
+  <div class="entity-eligibility-intro__block fr-mb-6w">
+    <div class="entity-eligibility-intro__head">
+      <span class="fr-icon-error-warning-line" aria-hidden="true"></span>
+      <div>
+        <p class="fr-h5 entity-eligibility-intro__title"><%= title %></p>
+        <p class="fr-mb-0"><%= body %></p>
+      </div>
+    </div>
+    <div class="entity-eligibility-intro__body">
+      <p class="fr-text--bold fr-mb-1w"><%= t('entity_eligibility.base.contact.question') %></p>
+      <p class="fr-text--sm fr-mb-2w"><%= t('entity_eligibility.base.contact.help') %></p>
+      <div class="entity-eligibility-intro__contact">
+        <p>
+          <span class="fr-text--bold"><%= definition_name %></span><br>
+          <%= mail_to support_email, support_email, class: 'fr-link' %>
+        </p>
+        <%= mail_to support_email, t('entity_eligibility.base.contact.cta'),
+            class: 'fr-btn fr-icon-mail-line fr-btn--icon-left' %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="entity-eligibility-intro entity-eligibility-intro--<%= hint[:variant] %> fr-mb-6w">
+    <span class="<%= hint[:icon] %>" aria-hidden="true"></span>
+    <p class="fr-text--sm fr-mb-0"><%= body %></p>
+  </div>
+<% end %>
