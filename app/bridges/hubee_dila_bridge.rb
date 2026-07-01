@@ -4,8 +4,7 @@ class HubEEDilaBridge < HubEEBaseBridge
     depot_dossier_pacs: 'depotDossierPACS',
     recensement_citoyen: 'recensementCitoyen',
     hebergement_tourisme: 'HebergementTourisme',
-    je_change_de_coordonnees: 'JeChangeDeCoordonnees',
-    depot_dossier_mariage: 'DDMariage'
+    je_change_de_coordonnees: 'JeChangeDeCoordonnees'
   }.freeze
 
   def on_approve
