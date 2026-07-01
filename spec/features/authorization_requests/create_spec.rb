@@ -5,11 +5,13 @@ RSpec.describe 'Starting a new authorization request' do
     click_link_or_button dom_id(authorization_request_form, :start_authorization_request)
   end
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, skip_organization_creation: true) }
+  let(:organization) { create(:organization, siret: '21920023500014') }
   let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
   let(:authorization_request_class) { authorization_request_form.authorization_request_class }
 
   before do
+    user.organizations_users.create!(organization:, current: true)
     sign_in(user)
   end
 
