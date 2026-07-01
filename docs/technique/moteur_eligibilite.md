@@ -164,6 +164,51 @@ Le jeu de seeds crée trois demandes `Aide financière` couvrant les trois verdi
 (commune → `eligible`, EPIC → `likely_eligible`, société privée → `ineligible`)
 pour observer le badge sans chercher de SIRET réel.
 
+### Côté demandeur — introduction de formulaire (API-7001)
+
+À l’ouverture d’un formulaire (`authorization_request_forms#new`), le contrôleur
+calcule le verdict **en pré-création** (sans demande) :
+
+```ruby
+EntityEligibility::Engine.new(
+  organization: current_organization,
+  authorization_request_form: @authorization_request_form,
+).verdict
+```
+
+`Molecules::AuthorizationRequestForms::EntityEligibilityIntroComponent` rend le
+bloc, au-dessus des étapes du formulaire :
+
+- `unknown` → `render?` faux : intro inchangée (aucune règle ne tranche) ;
+- `eligible` / `likely_*` → encadré léger coloré (icône + texte), non bloquant ;
+- `ineligible` → prise en charge forte : explication, **masquage des étapes**, et
+  CTA « Débuter ma demande » **grisé/désactivé**. Le repli de contact
+  (`mailto:` vers le `support_email` du fournisseur) reste porté par le bloc
+  d’éligibilité. Le blocage est porté par l’UI : le moteur reste consultatif, mais
+  le parcours de dépôt est volontairement coupé pour une entité jugée inéligible.
+
+### i18n — convention par règle avec repli `base`
+
+Les libellés demandeur vivent sous `entity_eligibility` (`config/locales/
+entity_eligibility.fr.yml`), keyés **par règle** (démarche) avec un `base`
+générique qu’on remonte :
+
+```
+entity_eligibility:
+  base:            { <status>.{title,body_html}, reasons.<reason>, contact.* }
+  api_entreprise:  { reasons.menuiserie: "D’après son activité déclarée (menuiserie)" }
+```
+
+Le composant résout `entity_eligibility.<rule_key>.<path>` avec repli sur
+`entity_eligibility.base.<path>` (`default:`). Par convention tout vient de `base` ;
+on n’écrit dans la branche d’une règle que l’override propre à la démarche. Le
+`rule_key` est dérivé comme la résolution de règle de l’`Engine`
+(`authorization_request_class.name.demodulize.underscore`).
+
+> Le badge d’instruction garde pour l’instant ses propres libellés (formulation
+> orientée instructeur, distincte de l’usager) ; il pourra être rebranché sur cette
+> convention `base` + override ultérieurement.
+
 ## Auto-instruction
 
 Une démarche peut **déléguer son instruction au moteur** via le flag de définition
