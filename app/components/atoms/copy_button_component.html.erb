@@ -1,0 +1,9 @@
+<div data-controller="clipboard"
+     data-clipboard-content-value="<%= text_to_copy %>"
+     data-clipboard-original-message-value="<%= label %>">
+  <button type="button"
+          class="<%= button_classes %>"
+          data-action="click->clipboard#copy">
+    <%= label %>
+  </button>
+</div>
