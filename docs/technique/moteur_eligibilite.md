@@ -235,16 +235,23 @@ poser en configuration.
 `AutoInstructAuthorizationRequest` une fois la demande persistée :
 
 ```
-verdict eligible    → ApproveAuthorizationRequest (acteur : utilisateur système)
-verdict ineligible  → RefuseAuthorizationRequest  (acteur système, motif automatique)
+verdict eligible    → ApproveAuthorizationRequest (acteur : utilisateur système, événement auto_approve)
+verdict ineligible  → RefuseAuthorizationRequest  (acteur système, motif automatique, événement auto_reject)
 verdict likely_* / unknown → aucune action → revue humaine
 ```
+
+L’auto-instruction réutilise les organizers d’instruction manuelle mais horodate
+un événement distinct (`auto_approve` / `auto_reject` au lieu de `approve` /
+`refuse`) via `event_name`, afin de tracer dans l’historique que la décision est
+automatique. La transition d’état et les webhooks restent inchangés : ceux-ci
+s’appuient sur `state_machine_event` (`approve` / `refuse`), donc les intégrateurs
+reçoivent les mêmes événements que pour une instruction humaine.
 
 Seuls les verdicts **certains** déclenchent une action ; la zone grise et
 l’indéterminé restent en revue humaine — c’est le garde-fou qui dispense, pour
 cette première version, d’un score de confiance (API-7000). L’acteur est un
-`User` « système » (les événements `approve`/`refuse` exigent un acteur ; on n’en
-crée pas de bot nommé `system_`). Comme toute démarche portant une règle est
+`User` « système » (les événements `auto_approve`/`auto_reject` exigent un acteur ;
+on n’en crée pas de bot nommé `system_`). Comme toute démarche portant une règle est
 désormais auto-instruite, `HubEECertDC` (règle commune) instruit lui aussi
 automatiquement à la soumission — c’est le comportement voulu (cas 1 de la spec :
 commune → valide). Les seeds `Aides financières` illustrent les trois issues :
