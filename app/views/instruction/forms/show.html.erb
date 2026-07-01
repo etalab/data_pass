@@ -4,7 +4,8 @@
       authorization_definition: @authorization_definition,
       form: @form,
       validated_count: @counts[:validated],
-      submitted_count: @counts[:submitted]) %>
+      submitted_count: @counts[:submitted],
+      can_initiate_request: policy([:instruction, @authorization_definition]).initiate_request?) %>
 
 <div class="fr-container fr-my-5w">
   <%= render Molecules::Instruction::Form::ConfigBlockComponent.new(form: @form) %>

@@ -11,4 +11,18 @@ class Molecules::Instruction::Form::ShowHeaderComponentPreview < ApplicationPrev
       submitted_count: 3
     )
   end
+
+  def with_initiate_request
+    authorization_definition = AuthorizationDefinition.find('api_entreprise')
+    form = authorization_definition.available_forms.find do |f|
+      f.use_case == 'marches_publics'
+    end
+    render Molecules::Instruction::Form::ShowHeaderComponent.new(
+      authorization_definition:,
+      form:,
+      validated_count: 12,
+      submitted_count: 3,
+      can_initiate_request: true
+    )
+  end
 end
