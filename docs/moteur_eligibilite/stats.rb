@@ -21,14 +21,22 @@ require 'json'
 DEFAULT_CSV_URL =
   'https://metabase.entreprise.api.gouv.fr/public/question/46147ea2-7a03-4190-aa80-6f8bc0b3b5cc.csv'.freeze
 
-# Le moteur résout la règle sur la classe de démarche : on lui fournit un
-# formulaire minimal qui n’expose que ce dont il a besoin.
-FormStub = Struct.new(:authorization_request_class)
+# On rejoue le moteur sur le vrai formulaire (résolu depuis le form_uid), pour
+# bénéficier de la résolution de règle par cas d’usage (ex. aides_financieres).
+# Si le form_uid n’existe pas en config locale (formulaire porté en base), on
+# retombe sur un stub minimal ne portant que la démarche.
+FormStub = Struct.new(:authorization_request_class, :use_case)
 
-def verdict_for(organization, type)
+def form_for(form_uid, type)
+  AuthorizationRequestForm.find(form_uid)
+rescue StaticApplicationRecord::EntryNotFound
+  FormStub.new(type.constantize, nil)
+end
+
+def verdict_for(organization, form)
   EntityEligibility::Engine.new(
     organization:,
-    authorization_request_form: FormStub.new(type.constantize),
+    authorization_request_form: form,
   ).verdict
 end
 
@@ -44,7 +52,8 @@ warn "#{csv.size} lignes chargées, exécution du moteur…"
 entities = csv.filter_map do |row|
   insee_payload = JSON.parse(row.fetch('insee_payload'))
   organization = Organization.new(insee_payload:)
-  verdict = verdict_for(organization, row.fetch('type_formulaire'))
+  form = form_for(row.fetch('form_uid'), row.fetch('type_formulaire'))
+  verdict = verdict_for(organization, form)
 
   {
     demande_id: row['demande_id']&.to_i,
