@@ -6,11 +6,27 @@
       title: action_label) %>
 
 <div class="fr-container fr-my-5w" data-controller="side-panel">
-  <p class="fr-text--sm fr-text-mention--grey"><%= t('.description') %></p>
+
+  <h2 class="fr-mb-1w fr-mt-5w">
+    <%= t('.introduction_title') %>
+  </h2>
+
+  <p class="fr-col-md-6 fr-mb-3w">
+    <%= t('.introduction_subtitle') %>
+  </p>
+
   <% side_panel_id = 'definition-edit-side-panel' %>
   <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction'), can_edit: @can_edit, side_panel_id:) do %>
     <%= render 'authorization_request_forms/introduction', authorization_request_form: @default_form, organization: @preview_organization %>
   <% end %>
+
+  <h2 class="fr-mb-1w fr-mt-5w">
+    <%= t('.blocks_title') %>
+  </h2>
+
+  <p class="fr-col-md-6 fr-mb-3w">
+    <%= t('.blocks_subtitle') %>
+  </p>
 
   <%= form_with model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder do |f| %>
     <% @authorization_definition.blocks.each do |block| %>
@@ -22,6 +38,14 @@
         <%= render_custom_form_or_default(@authorization_request, block[:name], { f: }) %>
       <% end %>
     <% end %>
+
+    <h2 class="fr-mb-1w fr-mt-5w">
+      <%= t('.before_submit_title') %>
+    </h2>
+
+    <p class="fr-col-md-6 fr-mb-3w">
+      <%= t('.before_submit_subtitle') %>
+    </p>
 
     <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.before_submit'), can_edit: @can_edit, side_panel_id:) do %>
       <%= render 'authorization_request_forms/shared/tos_checkboxes', f: f %>
