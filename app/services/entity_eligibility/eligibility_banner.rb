@@ -1,4 +1,8 @@
 class EntityEligibility::EligibilityBanner
+  AUTO_INSTRUCTION_STATUSES = {
+    'auto_approve' => :validated,
+    'auto_reject' => :refused,
+  }.freeze
   REVIEW_STATUSES = %i[likely_eligible likely_ineligible].freeze
 
   def initialize(authorization_request, verdict)
@@ -11,20 +15,22 @@ class EntityEligibility::EligibilityBanner
   end
 
   def status
-    return :validated if auto_validated?
-    return :refused if auto_refused?
-
-    review_status
+    auto_instruction_status || review_status
   end
 
   private
 
-  def auto_validated?
-    @authorization_request.validated? && @verdict.eligible?
+  def auto_instruction_status
+    AUTO_INSTRUCTION_STATUSES[latest_auto_instruction_event_name]
   end
 
-  def auto_refused?
-    @authorization_request.refused? && @verdict.ineligible?
+  def latest_auto_instruction_event_name
+    @authorization_request
+      .events_without_bulk_update
+      .where(name: AUTO_INSTRUCTION_STATUSES.keys)
+      .order(:created_at)
+      .last
+      &.name
   end
 
   def review_status
