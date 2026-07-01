@@ -47,7 +47,7 @@ RSpec.describe Molecules::AuthorizationRequestForms::EntityEligibilityIntroCompo
   end
 
   context 'when the reason has no rule-specific override' do
-    let(:authorization_request_form) { AuthorizationRequestForm.find('aide-financiere') }
+    let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-aides-financieres') }
     let(:status) { :ineligible }
     let(:reason) { :not_administration }
 

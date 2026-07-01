@@ -4,7 +4,7 @@ RSpec.describe AutoInstructAuthorizationRequest, type: :interactor do
   subject(:auto_instruct) { described_class.call(authorization_request:) }
 
   let(:authorization_request) do
-    create(:authorization_request, :aide_financiere, :submitted, fill_all_attributes: true, organization:)
+    create(:authorization_request, :api_entreprise_aides_financieres, :submitted, fill_all_attributes: true, organization:)
   end
 
   let(:organization) { create(:organization, siret:) }
@@ -38,9 +38,9 @@ RSpec.describe AutoInstructAuthorizationRequest, type: :interactor do
     end
   end
 
-  context 'when the demarche does not opt into auto-instruction' do
+  context 'when the demarche has no eligibility rule' do
     let(:authorization_request) do
-      create(:authorization_request, :hubee_cert_dc, :submitted, fill_all_attributes: true, organization:)
+      create(:authorization_request, :api_particulier, :submitted, fill_all_attributes: true, organization:)
     end
     let(:siret) { '21920023500014' }
 
@@ -48,6 +48,17 @@ RSpec.describe AutoInstructAuthorizationRequest, type: :interactor do
       auto_instruct
 
       expect(authorization_request.reload.state).to eq('submitted')
+    end
+  end
+
+  context 'when the demarche opts in by convention (HubEE cert DC)' do
+    let(:authorization_request) do
+      create(:authorization_request, :hubee_cert_dc, :submitted, fill_all_attributes: true, organization:)
+    end
+    let(:siret) { '21920023500014' }
+
+    it 'auto-validates a commune' do
+      expect { auto_instruct }.to change { authorization_request.reload.state }.from('submitted').to('validated')
     end
   end
 end

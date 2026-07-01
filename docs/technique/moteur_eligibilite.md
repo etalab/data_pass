@@ -48,15 +48,26 @@ L’engine **est le contexte** : il expose `organization`, `authorization_reques
 et `authorization_request`, et se passe lui-même à la règle. La demande est `nil`
 lors d’un check pré-création, présente en pré-soumission.
 
-**Résolution de la règle** : par convention, sur la **classe de la démarche**
-démodulisée :
+**Résolution de la règle** : par convention, du plus spécifique (le **cas
+d’usage** du formulaire) au plus général (la **classe de la démarche**) :
 
 ```ruby
-"EntityEligibility::Rules::#{authorization_request_form.authorization_request_class.name.demodulize}".constantize
+# 1. règle propre au cas d’usage, si le formulaire en porte un :
+"EntityEligibility::Rules::#{demarche}::#{form.use_case.camelize}"
+# 2. sinon (ou à défaut), règle de la démarche :
+"EntityEligibility::Rules::#{demarche}"
+# avec demarche = form.authorization_request_class.name.demodulize
 ```
 
-`HubEECertDC` → `Rules::HubEECertDC`, `APIEntreprise` → `Rules::APIEntreprise`.
-Si aucune règle n’existe (`NameError`), le verdict est `unknown`.
+`HubEECertDC` → `Rules::HubEECertDC` ; `APIEntreprise` + cas d’usage
+`aides_financieres` → `Rules::APIEntreprise::AidesFinancieres`, avec repli sur
+`Rules::APIEntreprise` (règle menuiserie) pour les autres cas d’usage. La
+première constante qui résout gagne (`safe_constantize`) ; si aucune n’existe, le
+verdict est `unknown`.
+
+C’est ce niveau **cas d’usage** qui permet de cibler une règle sur **un seul
+formulaire** d’une démarche multi-formulaires comme API Entreprise (≈ 20 cas
+d’usage), sans toucher aux autres.
 
 ### `Verdict`
 
@@ -124,7 +135,7 @@ end
 |----------|-------|---------|
 | `HubEECertDC` | commune (`legal_category == :commune`) | `eligible(:commune)`, sinon `ineligible(:not_a_commune)` |
 | `APIEntreprise` | menuiserie (code NAF/APE `organization.activite_principale` ∈ `16.23Z`, `43.32A`, `43.32B`) | `ineligible(:menuiserie)`, sinon `unknown` |
-| `AideFinanciere` | typologie d’entité (`organization.entity_type`) | `:administration` → `eligible(:administration)` ; `:gray_zone` → `likely_eligible(:public_commercial)` ; sinon `ineligible(:not_administration)` |
+| `APIEntreprise` + cas d’usage `aides_financieres` (`Rules::APIEntreprise::AidesFinancieres`) | typologie d’entité (`organization.entity_type`) | `:administration` → `eligible(:administration)` ; `:gray_zone` → `likely_eligible(:public_commercial)` ; sinon `ineligible(:not_administration)` |
 
 > La règle `APIEntreprise` colle volontairement à la spec (cas 2 : « entreprise de
 > menuiserie → invalide ») : elle ne tranche **que** ce cas précis via le code NAF,
@@ -137,8 +148,9 @@ end
 - **Couverture partielle d’`APIEntreprise`** : seule la menuiserie est tranchée.
   La généralisation (qui est éligible / inéligible / `likely_*`) reste à
   construire sur des cas concrets.
-- **`likely_eligible` (zone grise)** est exercé par `AideFinanciere` via
-  `entity_type == :gray_zone` (EPIC, public à caractère commercial). L’affinage du
+- **`likely_eligible` (zone grise)** est exercé par le cas d’usage
+  `aides_financieres` d’API Entreprise via `entity_type == :gray_zone` (EPIC, public
+  à caractère commercial). L’affinage du
   signal (SA à capitaux publics, tranche d’effectif, INPI… cf. API-7000/7002) reste
   à venir.
 - **Détection des entités** : signaux disponibles dans le payload INSEE
@@ -149,9 +161,10 @@ end
 
 ## Câblage de bout en bout
 
-La démarche `AuthorizationRequest::AideFinanciere` (navigable via
-`/demandes/aide_financiere/nouveau`) donne au moteur une démarche réelle à résoudre :
-l’`Engine` la mappe sur `Rules::AideFinanciere` par convention de nom.
+Le cas d’usage `aides_financieres` de la démarche `APIEntreprise` (formulaire
+`api-entreprise-aides-financieres`) donne au moteur un cas réel à résoudre :
+l’`Engine` le mappe sur `Rules::APIEntreprise::AidesFinancieres` par convention de
+nom (résolution par cas d’usage, cf. « Résolution de la règle »).
 
 Sur l’écran d’instruction d’une demande
 (`instruction/authorization_requests#show`), le contrôleur calcule
@@ -160,7 +173,7 @@ affiche le verdict via `Molecules::Instruction::EntityEligibilityVerdictComponen
 — un badge DSFR « Semble valide / invalide » (API-7004), aide à la décision pour
 l’instructeur.
 
-Le jeu de seeds crée trois demandes `Aide financière` couvrant les trois verdicts
+Le jeu de seeds crée trois demandes `Aides financières` couvrant les trois verdicts
 (commune → `eligible`, EPIC → `likely_eligible`, société privée → `ineligible`)
 pour observer le badge sans chercher de SIRET réel.
 
@@ -211,9 +224,14 @@ on n’écrit dans la branche d’une règle que l’override propre à la déma
 
 ## Auto-instruction
 
-Une démarche peut **déléguer son instruction au moteur** via le flag de définition
-`auto_instruction: true` (défaut : désactivé — les autres démarches ne sont pas
-touchées). À la soumission, `SubmitAuthorizationRequest` appelle
+L’auto-instruction est **pilotée par convention, sans flag** : elle s’active dès
+qu’une règle d’éligibilité **résout** pour le formulaire (cf. « Résolution de la
+règle »). Pas de règle → verdict `unknown` → aucune action, la demande suit son
+instruction humaine habituelle. C’est *convention over configuration* : écrire la
+classe de règle **est** l’opt-in ; il n’y a plus de `auto_instruction: true` à
+poser en configuration.
+
+À la soumission, `SubmitAuthorizationRequest` appelle
 `AutoInstructAuthorizationRequest` une fois la demande persistée :
 
 ```
@@ -226,6 +244,9 @@ Seuls les verdicts **certains** déclenchent une action ; la zone grise et
 l’indéterminé restent en revue humaine — c’est le garde-fou qui dispense, pour
 cette première version, d’un score de confiance (API-7000). L’acteur est un
 `User` « système » (les événements `approve`/`refuse` exigent un acteur ; on n’en
-crée pas de bot nommé `system_`). Les seeds `Aide financière` (opt-in) illustrent
-les trois issues : commune **validée**, EPIC en **revue**, société privée
-**refusée** automatiquement.
+crée pas de bot nommé `system_`). Comme toute démarche portant une règle est
+désormais auto-instruite, `HubEECertDC` (règle commune) instruit lui aussi
+automatiquement à la soumission — c’est le comportement voulu (cas 1 de la spec :
+commune → valide). Les seeds `Aides financières` illustrent les trois issues :
+commune **validée**, EPIC en **revue**, société privée **refusée**
+automatiquement.

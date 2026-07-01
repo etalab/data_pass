@@ -130,6 +130,29 @@ api-entreprise-aides-publiques:
       - attestation_sociale_urssaf
       - cotisations_msa
 
+api-entreprise-aides-financieres:
+  name: "Aides financières"
+  description: |
+    Verser des aides financières aux organisations éligibles.
+    <br/>
+    <br/>
+    <i>Socle de base + Données autorisées pour ce cas d'usage.</i>
+  use_case: "aides_financieres"
+  introduction: |
+    Ce formulaire permet de verser des aides financières aux organisations éligibles.
+    <br />
+    L'éligibilité de votre organisation est évaluée automatiquement à partir de son identité juridique.
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+  initialize_with:
+    scopes:
+      - unites_legales_etablissements_insee
+
 api-entreprise-subventions-associations:
   name: "Subventions des associations"
   description: |

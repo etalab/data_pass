@@ -385,6 +385,7 @@ FactoryBot.define do
     %w[
       api-entreprise-marches-publics
       api-entreprise-aides-publiques
+      api-entreprise-aides-financieres
       api-entreprise-subventions-associations
       api-entreprise-portail-gru-preremplissage
       api-entreprise-portail-gru-instruction
@@ -1648,17 +1649,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-    end
-
-    trait :aide_financiere do
-      type { 'AuthorizationRequest::AideFinanciere' }
-
-      form_uid { 'aide-financiere' }
-
-      with_basic_infos
-      with_personal_data
-      with_cadre_juridique
-      with_scopes
     end
   end
 end

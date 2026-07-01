@@ -30,6 +30,24 @@ RSpec.describe EntityEligibility::Engine do
         expect(verdict).to be_unknown
       end
     end
+
+    context 'when a use-case-specific rule targets one form of a multi-form demarche' do
+      context 'when on the targeted use case (API Entreprise — aides financières)' do
+        let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-aides-financieres') }
+
+        it 'resolves the use-case rule' do
+          expect(verdict).to be_eligible
+        end
+      end
+
+      context 'when on another API Entreprise use case' do
+        let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-aides-publiques') }
+
+        it 'falls back to the demarche rule, which does not tranche here' do
+          expect(verdict).to be_unknown
+        end
+      end
+    end
   end
 
   describe '.from_request' do

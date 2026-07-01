@@ -1,4 +1,4 @@
-class EntityEligibility::Rules::AideFinanciere < EntityEligibility::Rules::Base
+class EntityEligibility::Rules::APIEntreprise::AidesFinancieres < EntityEligibility::Rules::Base
   def verdict
     case organization.entity_type
     when :administration then eligible(:administration)
