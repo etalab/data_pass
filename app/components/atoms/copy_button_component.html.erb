@@ -1,9 +1,12 @@
 <div data-controller="clipboard"
      data-clipboard-content-value="<%= text_to_copy %>"
-     data-clipboard-original-message-value="<%= label %>">
+     data-clipboard-original-message-value="<%= label %>"
+     data-clipboard-lock-width-value="true">
   <button type="button"
           class="<%= button_classes %>"
+          aria-label="<%= label %>"
           data-action="click->clipboard#copy">
     <%= label %>
   </button>
+  <p role="status" class="fr-sr-only" data-clipboard-target="status"></p>
 </div>
