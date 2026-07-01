@@ -60,6 +60,7 @@ class Seeds
     }
 
     demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
+    demandeur.add_to_organization(les_lilas_organization, current: false, **verified_params)
     departement_demandeur.add_to_organization(rhone_departement_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
@@ -267,6 +268,10 @@ class Seeds
 
   def clamart_organization
     @clamart_organization ||= create_organization(siret: '21920023500014', name: 'Ville de Clamart')
+  end
+
+  def les_lilas_organization
+    @les_lilas_organization ||= create_organization(siret: '21930045600015', name: 'Les Lilas')
   end
 
   def dinum_organization
