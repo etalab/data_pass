@@ -385,6 +385,7 @@ FactoryBot.define do
     %w[
       api-entreprise-marches-publics
       api-entreprise-aides-publiques
+      api-entreprise-aides-financieres
       api-entreprise-subventions-associations
       api-entreprise-portail-gru-preremplissage
       api-entreprise-portail-gru-instruction

@@ -8,6 +8,19 @@ fr:
       authorization_definition:
         form_card_component:
           default_badge: Formulaire par défaut
+      entity_eligibility_banner_component:
+        validated:
+          title: Demande validée automatiquement
+          description: La nature juridique de l’organisation la rend éligible à cette démarche.
+        refused:
+          title: Demande refusée automatiquement
+          description: La nature juridique de l’organisation ne la rend pas éligible à cette démarche.
+        likely_eligible:
+          title: L’organisation semble éligible
+          description: "À confirmer manuellement : la nature juridique de l’organisation ne permet pas de trancher automatiquement."
+        likely_ineligible:
+          title: L’organisation semble inéligible
+          description: "À confirmer manuellement : la nature juridique de l’organisation ne permet pas de trancher automatiquement."
     side_panel_component:
       close: Fermer
   components:

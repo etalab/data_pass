@@ -9,6 +9,7 @@ class Seeds
     create_stats_data
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
+    create_api_entreprise_eligibility_demo
     create_unread_messages_from_applicant
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
     create_instructor_draft_request(applicant: demandeur)
@@ -59,6 +60,7 @@ class Seeds
     }
 
     demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
+    demandeur.add_to_organization(les_lilas_organization, current: false, **verified_params)
     departement_demandeur.add_to_organization(rhone_departement_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
@@ -137,6 +139,21 @@ class Seeds
     create_dirty_from_v1_authorization_request
     create_authorization_request_with_contact_mention
     create_authorization_request_with_old_authorization
+  end
+
+  def create_api_entreprise_eligibility_demo
+    [epic_organization, private_company_organization].each do |organization|
+      demandeur.add_to_organization(organization, current: false, verified: true,
+        identity_federator: 'pro_connect', identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID)
+    end
+
+    {
+      'Aides financières — commune (validée automatiquement)' => clamart_organization,
+      'Aides financières — EPIC (zone grise, revue humaine)' => epic_organization,
+      'Aides financières — société privée (refusée automatiquement)' => private_company_organization,
+    }.each do |intitule, organization|
+      create_submitted_authorization_request(:api_entreprise_aides_financieres, attributes: { intitule:, applicant: demandeur, organization: })
+    end
   end
 
   def create_dirty_from_v1_authorization_request
@@ -253,12 +270,24 @@ class Seeds
     @clamart_organization ||= create_organization(siret: '21920023500014', name: 'Ville de Clamart')
   end
 
+  def les_lilas_organization
+    @les_lilas_organization ||= create_organization(siret: '21930045600015', name: 'Les Lilas')
+  end
+
   def dinum_organization
     @dinum_organization ||= create_organization(siret: '13002526500013', name: 'DINUM')
   end
 
   def rhone_departement_organization
     @rhone_departement_organization ||= create_organization(siret: '22690001700014', name: 'Département du Rhône')
+  end
+
+  def epic_organization
+    @epic_organization ||= create_organization(siret: '55204944700006', name: 'EPIC de démonstration')
+  end
+
+  def private_company_organization
+    @private_company_organization ||= create_organization(siret: '38012986600006', name: 'Société privée de démonstration')
   end
 
   def create_organization(siret:, name:)
@@ -296,6 +325,8 @@ class Seeds
 
   def create_validated_authorization_request(kind, attributes: {}, authorization_message: nil)
     authorization_request = create_submitted_authorization_request(kind, attributes:)
+
+    return authorization_request if authorization_request.validated?
 
     organizer = ApproveAuthorizationRequest.call(
       authorization_request:,

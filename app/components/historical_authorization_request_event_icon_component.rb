@@ -4,8 +4,10 @@ class HistoricalAuthorizationRequestEventIconComponent < IconComponent
   def available_icons
     {
       'approve' => { icon: 'checkbox-line', color: 'success' },
+      'auto_approve' => { icon: 'checkbox-line', color: 'success' },
       'request_changes' => { icon: 'pencil-line', color: 'warning' },
       'refuse' => { icon: 'close-circle-line', color: 'error' },
+      'auto_reject' => { icon: 'close-circle-line', color: 'error' },
       'revoke' => { icon: 'close-circle-line', color: 'error' },
       'admin_change' => { icon: 'settings-5-line', color: 'info' },
     }.freeze

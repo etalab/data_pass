@@ -21,6 +21,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     authorize @authorization_request_form, :new?
 
     if user_signed_in?
+      @entity_eligibility_verdict = entity_eligibility_verdict
       render 'authorization_request_forms/new', layout: 'form_introduction'
     else
       @authorization_definition = @authorization_request_form.authorization_definition
@@ -85,6 +86,15 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   private
+
+  def entity_eligibility_verdict
+    return unless current_organization
+
+    EntityEligibility::Engine.new(
+      organization: current_organization,
+      authorization_request_form: @authorization_request_form,
+    ).verdict
+  end
 
   def redirect_on_unauthorized_summary
     flash.keep

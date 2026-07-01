@@ -51,6 +51,15 @@ Sachantque('je suis un demandeur') do
   mock_identity_federators(user)
 end
 
+Sachantque('mon organisation a la catégorie juridique {string}') do |categorie_juridique|
+  user = User.find_by!(email: @current_user_email)
+  payload = JSON.parse(Rails.root.join('spec/fixtures/insee/21920023500014.json').read)
+  payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'] = categorie_juridique
+  organization = FactoryBot.create(:organization, insee_payload: payload)
+
+  add_current_organization_to_user(user, organization)
+end
+
 Sachantque('je suis un demandeur d\'une organisation fermée') do
   @current_user_email = 'demandeur@gouv.fr'
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)

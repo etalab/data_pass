@@ -1,0 +1,26 @@
+fr:
+  entity_eligibility:
+    base:
+      eligible:
+        body_html: "Votre organisation est éligible : pour ce formulaire, votre habilitation sera <strong>approuvée automatiquement</strong> dès la soumission. Vous récupérerez votre jeton immédiatement, sans attendre d’instruction."
+      likely_eligible:
+        body_html: "Votre organisation <strong>semble éligible</strong>. Quelques éléments seront confirmés pendant l’instruction, mais vous pouvez démarrer sereinement."
+      likely_ineligible:
+        body_html: "Votre profil <strong>ne correspond pas tout à fait</strong> aux critères habituels. Vous pouvez poursuivre, mais la demande sera examinée attentivement."
+      ineligible:
+        title: "Votre organisation ne semble pas éligible à %{definition}"
+        body_html: "%{reason_clause}votre organisation n’entre pas dans le périmètre des bénéficiaires de %{definition}. Déposer cette demande aboutira très probablement à un refus."
+      reasons:
+        categorie_juridique: "D’après sa catégorie juridique"
+        administration: "D’après sa catégorie juridique"
+        public_commercial: "D’après sa catégorie juridique"
+        not_administration: "D’après sa catégorie juridique"
+        commune: "D’après son statut juridique"
+        not_a_commune: "D’après son statut juridique"
+      contact:
+        question: "Un doute sur ce résultat ?"
+        help: "Si vous estimez que votre organisation est légitime, n’ouvrez pas de demande tout de suite : contactez d’abord le fournisseur, qui pourra vérifier votre situation et vous orienter."
+        cta: "Contacter le fournisseur"
+    api_entreprise:
+      reasons:
+        menuiserie: "D’après son activité déclarée (menuiserie)"

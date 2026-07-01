@@ -18,7 +18,7 @@
     <% if @authorization_request.present? %>
       <%= button_to t('start_next_authorization_request_stage_form.cta'), next_authorization_request_stage_path(@authorization_request), class: %w[fr-btn fr-icon-save-line fr-btn--icon-left] %>
     <% else %>
-      <%= start_authorization_request_form(@authorization_request_form, disabled: !(@start_next_stage || policy(@authorization_request_form).create?)) %>
+      <%= start_authorization_request_form(@authorization_request_form, disabled: @entity_eligibility_verdict&.ineligible? || !(@start_next_stage || policy(@authorization_request_form).create?)) %>
     <% end %>
   </div>
 </div>

@@ -152,6 +152,8 @@ ignore_unused:
   - 'instruction.revoke_authorizations.create.*'
   - 'instruction.user_rights.{create,update}.error'
   - 'instruction.authorization_definitions.show.config_block.{fields,features}.*'
+  - 'molecules.instruction.entity_eligibility_banner_component.*'
+  - 'entity_eligibility.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
