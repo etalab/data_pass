@@ -12,7 +12,7 @@ class Molecules::Instruction::Form::CardComponentPreview < ApplicationPreview
 
   def default_form
     authorization_request_form = AuthorizationDefinition.find('api_entreprise').default_form
-    render Molecules::Instruction::AuthorizationDefinition::FormCardComponent.new(
+    render Molecules::Instruction::Form::CardComponent.new(
       authorization_request_form:,
       validated_count: 5,
       submitted_count: 1
