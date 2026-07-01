@@ -151,10 +151,12 @@ RSpec.describe Organization do
         insee_payload: { 'etablissement' => { 'uniteLegale' => { 'categorieJuridiqueUniteLegale' => categorie_juridique } } })
     end
 
-    it '#bloc_communal? covers commune, communauté de communes and communauté d’agglomération' do
+    it "#bloc_communal? covers commune, communauté de communes, communauté d'agglomération, communauté urbaine and métropole" do
       expect(org('7210')).to be_bloc_communal
       expect(org('7346')).to be_bloc_communal
       expect(org('7348')).to be_bloc_communal
+      expect(org('7343')).to be_bloc_communal
+      expect(org('7344')).to be_bloc_communal
       expect(org('7230')).not_to be_bloc_communal
     end
 

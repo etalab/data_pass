@@ -14,7 +14,7 @@ class Organization < ApplicationRecord
   }.freeze
   private_constant :LEGAL_CATEGORY_MAP
 
-  BLOC_COMMUNAL = %i[commune communaute_de_communes communaute_agglomeration].freeze
+  BLOC_COMMUNAL = %i[commune communaute_de_communes communaute_agglomeration communaute_urbaine metropole].freeze
   private_constant :BLOC_COMMUNAL
 
   ENTITY_TYPE_MAP = {

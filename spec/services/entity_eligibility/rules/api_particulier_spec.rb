@@ -15,13 +15,18 @@ RSpec.describe 'EntityEligibility API Particulier rules' do
   end
 
   describe 'CCAS' do
-    it 'is likely_eligible for a CCAS or CIAS' do
+    it 'is likely_eligible for a CCAS, CIAS or any bloc communal entity' do
       expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7361')).to be_likely_eligible
       expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7367')).to be_likely_eligible
+      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7210')).to be_likely_eligible
+      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7346')).to be_likely_eligible
+      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7348')).to be_likely_eligible
+      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7343')).to be_likely_eligible
+      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7344')).to be_likely_eligible
     end
 
     it 'is ineligible otherwise' do
-      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7210')).to be_ineligible
+      expect(verdict_for('api-particulier-aides-sociales-ccas', categorie_juridique: '7220')).to be_ineligible
     end
   end
 
