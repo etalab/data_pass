@@ -14,13 +14,14 @@ class AutoInstructAuthorizationRequest < ApplicationInteractor
   private
 
   def approve
-    ApproveAuthorizationRequest.call(authorization_request:, user: system_user)
+    ApproveAuthorizationRequest.call(authorization_request:, user: system_user, event_name: :auto_approve)
   end
 
   def refuse
     RefuseAuthorizationRequest.call(
       authorization_request:,
       user: system_user,
+      event_name: :auto_reject,
       denial_of_authorization_params: { reason: REFUSAL_REASON },
     )
   end

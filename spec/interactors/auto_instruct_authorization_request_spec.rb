@@ -15,6 +15,12 @@ RSpec.describe AutoInstructAuthorizationRequest, type: :interactor do
     it 'auto-validates the request' do
       expect { auto_instruct }.to change { authorization_request.reload.state }.from('submitted').to('validated')
     end
+
+    it 'traces the auto-validation with an auto_approve event' do
+      auto_instruct
+
+      expect(AuthorizationRequestEvent.where(name: 'auto_approve').last).to be_present
+    end
   end
 
   context 'when the organization is ineligible' do
@@ -25,6 +31,12 @@ RSpec.describe AutoInstructAuthorizationRequest, type: :interactor do
 
       expect(authorization_request.reload.state).to eq('refused')
       expect(authorization_request.denials.last.reason).to be_present
+    end
+
+    it 'traces the auto-refusal with an auto_reject event' do
+      auto_instruct
+
+      expect(AuthorizationRequestEvent.where(name: 'auto_reject').last).to be_present
     end
   end
 
