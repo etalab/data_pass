@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moteur d’éligibilité — exploration des résultats</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/dsfr/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/utility/icons/icons.min.css">
+  <style>
+    body { background: var(--background-alt-grey); }
+    main { max-width: 78rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    .meta { color: var(--text-mention-grey); font-size: 0.85rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+    @media (max-width: 62rem) { .cards { grid-template-columns: repeat(2, 1fr); } }
+    .card { border-radius: 8px; padding: 1rem 1.25rem; border-left: 5px solid var(--c); background: #fff; }
+    .card__count { font-size: 2rem; font-weight: 700; line-height: 1.1; color: var(--c); }
+    .card__label { font-size: 0.85rem; color: var(--text-mention-grey); }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 62rem) { .grid2 { grid-template-columns: 1fr; } }
+    .panel { background: #fff; border-radius: 8px; padding: 1.25rem 1.5rem; }
+
+    .bar-row { display: grid; grid-template-columns: 11rem 1fr 3rem; align-items: center; gap: 0.5rem; margin: 0.25rem 0; font-size: 0.85rem; }
+    .bar { height: 0.85rem; border-radius: 4px; background: var(--c, var(--background-action-low-blue-france)); }
+    .bar-row code { background: var(--background-alt-grey); padding: 0 0.3rem; border-radius: 3px; }
+    .bar-count { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-mention-grey); }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; margin-bottom: 1rem; }
+    .filters .fr-select-group, .filters .fr-input-group { margin: 0; }
+    table.entities { font-size: 0.82rem; }
+    table.entities td, table.entities th { padding: 0.4rem 0.6rem; }
+    tr.flag-fp td { background: #ffdeda; }
+    tr.flag-fn td { background: #ffe9c7; }
+
+    .c-eligible { --c: #18753c; }
+    .c-likely_eligible { --c: #0063cb; }
+    .c-likely_ineligible { --c: #b34000; }
+    .c-ineligible { --c: #ce0500; }
+    .c-unknown { --c: #666; }
+
+    .loading, .error { background: #fff; border-radius: 8px; padding: 2rem; }
+
+    .matrix-wrap { overflow-x: auto; }
+    table.matrix { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+    table.matrix th, table.matrix td { border: 1px solid var(--border-default-grey); padding: 0.5rem 0.7rem; text-align: center; }
+    table.matrix thead th { background: var(--background-alt-grey); }
+    table.matrix th.rowhead { text-align: left; white-space: nowrap; }
+    table.matrix td.z { color: var(--text-disabled-grey); }
+    table.matrix td.hit { cursor: pointer; font-weight: 700; }
+    table.matrix td.hit:hover { outline: 2px solid var(--text-action-high-blue-france); outline-offset: -2px; }
+    table.matrix td.fp { background: #ffdeda; color: #ce0500; }
+    table.matrix td.fn { background: #ffe9c7; color: #b34000; }
+    table.matrix tfoot td, table.matrix .total { background: var(--background-alt-grey); font-weight: 700; }
+    .chip { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 3px; vertical-align: middle; }
+    .chip--fp { background: #ffdeda; border: 1px solid #ce0500; }
+    .chip--fn { background: #ffe9c7; border: 1px solid #b34000; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 class="fr-h4">Moteur d’éligibilité — exploration des résultats</h1>
+    <p class="meta" id="meta">Chargement…</p>
+
+    <div id="content" hidden>
+      <div class="panel fr-mt-2w">
+        <div class="filters" style="margin:0;">
+          <div class="fr-select-group">
+            <label class="fr-label" for="f-type">Type d’habilitation</label>
+            <select class="fr-select" id="f-type"><option value="">Tous</option></select>
+          </div>
+          <div class="fr-select-group">
+            <label class="fr-label" for="f-form">Formulaire</label>
+            <select class="fr-select" id="f-form"><option value="">Tous</option></select>
+          </div>
+          <p class="meta" id="scope-count" style="align-self:flex-end; padding-bottom:0.6rem;"></p>
+        </div>
+      </div>
+
+      <h2 class="fr-h6 fr-mt-4w">Verdicts</h2>
+      <div class="cards" id="status-cards"></div>
+
+      <div class="panel fr-mt-3w">
+        <h2 class="fr-h6">Matrice — verdict du moteur × décision humaine</h2>
+        <p class="meta fr-mb-2w">
+          Croise ce que le moteur <em>aurait</em> décidé (lignes) avec l’état réel de la demande (colonnes).
+          Les cellules signalées sont des incohérences à investiguer. Cliquez une cellule pour filtrer la table.
+        </p>
+        <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+        <p class="meta fr-mt-1w">
+          <span class="chip chip--fp"></span> faux positif potentiel (le moteur aurait bloqué une demande validée) ·
+          <span class="chip chip--fn"></span> faux négatif potentiel (le moteur aurait laissé passer une demande refusée / révoquée)
+        </p>
+      </div>
+
+      <div class="grid2 fr-mt-3w">
+        <div class="panel">
+          <h2 class="fr-h6">Par démarche</h2>
+          <div id="by-type"></div>
+        </div>
+        <div class="panel">
+          <h2 class="fr-h6">Par motif (reason)</h2>
+          <div id="by-reason"></div>
+        </div>
+      </div>
+
+      <h2 class="fr-h6 fr-mt-4w">Signaux de population (pour concevoir des règles)</h2>
+      <div class="grid2">
+        <div class="panel">
+          <h3 class="fr-text--sm fr-text--bold">Type d’entité (1er chiffre cat. juridique)</h3>
+          <div id="sig-entity-type"></div>
+        </div>
+        <div class="panel">
+          <h3 class="fr-text--sm fr-text--bold">Top catégories juridiques</h3>
+          <div id="sig-cj"></div>
+          <h3 class="fr-text--sm fr-text--bold fr-mt-2w">Top codes NAF</h3>
+          <div id="sig-naf"></div>
+        </div>
+      </div>
+
+      <h2 class="fr-h6 fr-mt-4w">Entités</h2>
+      <div class="filters">
+        <div class="fr-select-group">
+          <label class="fr-label" for="f-status">Verdict</label>
+          <select class="fr-select" id="f-status"><option value="">Tous</option></select>
+        </div>
+        <div class="fr-select-group">
+          <label class="fr-label" for="f-reason">Motif</label>
+          <select class="fr-select" id="f-reason"><option value="">Tous</option></select>
+        </div>
+        <div class="fr-select-group">
+          <label class="fr-label" for="f-etat">État</label>
+          <select class="fr-select" id="f-etat"><option value="">Tous</option></select>
+        </div>
+        <div class="fr-input-group" style="flex:1; min-width:14rem;">
+          <label class="fr-label" for="f-search">Recherche (SIRET, raison sociale)</label>
+          <input class="fr-input" id="f-search" type="search" placeholder="ex. 84.11Z, MENUISERIE, 219200…">
+        </div>
+      </div>
+      <p class="meta" id="table-count"></p>
+      <div class="fr-table fr-table--bordered">
+        <table class="entities">
+          <thead>
+            <tr>
+              <th>Verdict</th><th>Motif</th><th>Type</th><th>Formulaire</th><th>État</th>
+              <th>SIRET</th><th>Raison sociale</th><th>Cat. jur.</th><th>NAF</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="error" id="error" hidden></div>
+  </main>
+
+  <script>
+    const STATUS_LABELS = {
+      eligible: 'Éligible', likely_eligible: 'Probable', likely_ineligible: 'Douteux',
+      ineligible: 'Inéligible', unknown: 'Indéterminé',
+    }
+    const MAX_ROWS = 500
+
+    const el = (id) => document.getElementById(id)
+    const esc = (s) => (s ?? '').toString().replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+
+    function bars(container, entries, { color, code } = {}) {
+      const max = Math.max(1, ...entries.map(([, n]) => n))
+      container.innerHTML = entries.map(([label, n]) => `
+        <div class="bar-row">
+          <span>${code ? `<code>${esc(label ?? '—')}</code>` : esc(label ?? '—')}</span>
+          <span class="bar" style="width:${(n / max * 100).toFixed(1)}%;${color ? `--c:${color(label)}` : ''}"></span>
+          <span class="bar-count">${n}</span>
+        </div>`).join('')
+    }
+
+    const STATUS_BADGE = {
+      eligible: 'fr-badge--success', likely_eligible: 'fr-badge--info',
+      likely_ineligible: 'fr-badge--warning', ineligible: 'fr-badge--error', unknown: '',
+    }
+    const badge = (s) => `<span class="fr-badge fr-badge--sm ${STATUS_BADGE[s] || ''}">${esc(STATUS_LABELS[s] || s)}</span>`
+
+    function cellFlag(status, etat) {
+      if ((status === 'ineligible' || status === 'likely_ineligible') && etat === 'validated') return 'fp'
+      if ((status === 'eligible' || status === 'likely_eligible') && (etat === 'refused' || etat === 'revoked')) return 'fn'
+      return null
+    }
+
+    let FULL = { entities: [], statuses: [], etats: [] }
+    let CURRENT = []
+
+    const countBy = (subset, key) => {
+      const m = new Map()
+      subset.forEach((e) => { const v = e[key]; if (v == null) return; m.set(v, (m.get(v) || 0) + 1) })
+      return [...m.entries()].sort((a, b) => b[1] - a[1])
+    }
+
+    function computeAgg(subset) {
+      const { statuses, etats } = FULL
+      const by_status = Object.fromEntries(statuses.map((s) => [s, subset.filter((e) => e.status === s).length]))
+      const matrix = Object.fromEntries(statuses.map((s) => {
+        const rows = subset.filter((e) => e.status === s)
+        return [s, Object.fromEntries(etats.map((et) => [et, rows.filter((e) => e.etat === et).length]))]
+      }))
+      const by_type = Object.fromEntries([...new Set(subset.map((e) => e.type))].sort().map((type) => {
+        const rows = subset.filter((e) => e.type === type)
+        return [type, { total: rows.length, by_status: Object.fromEntries(statuses.map((s) => [s, rows.filter((e) => e.status === s).length])) }]
+      }))
+      return {
+        total: subset.length,
+        by_status,
+        matrix,
+        by_type,
+        by_reason: countBy(subset, 'reason'),
+        signals: {
+          by_entity_type: countBy(subset, 'entity_type'),
+          top_categorie_juridique: countBy(subset, 'categorie_juridique').slice(0, 25),
+          top_activite_principale: countBy(subset, 'activite_principale').slice(0, 25),
+        },
+      }
+    }
+
+    function renderAgg(agg) {
+      el('status-cards').innerHTML = FULL.statuses.map((s) => `
+        <div class="card c-${s}">
+          <div class="card__count">${agg.by_status[s] ?? 0}</div>
+          <div class="card__label">${badge(s)}</div>
+        </div>`).join('')
+
+      renderMatrix(agg)
+
+      el('by-type').innerHTML = Object.entries(agg.by_type).map(([type, t]) => `
+        <div class="fr-mb-2w">
+          <p class="fr-text--sm fr-text--bold fr-mb-1v">${esc(type)} <span class="meta">(${t.total})</span></p>
+          ${FULL.statuses.filter((s) => t.by_status[s]).map((s) => `
+            <div class="bar-row">
+              <span>${badge(s)}</span>
+              <span class="bar c-${s}"></span>
+              <span class="bar-count">${t.by_status[s]}</span>
+            </div>`).join('')}
+        </div>`).join('') || '<p class="meta">Aucune entité dans ce périmètre.</p>'
+      el('by-type').querySelectorAll('.bar-row').forEach((row) => {
+        const n = Number(row.querySelector('.bar-count').textContent)
+        const siblings = [...row.parentElement.querySelectorAll('.bar-count')].map((x) => Number(x.textContent))
+        row.querySelector('.bar').style.width = `${(n / Math.max(1, ...siblings) * 100).toFixed(1)}%`
+      })
+
+      bars(el('by-reason'), agg.by_reason, { code: true })
+      bars(el('sig-entity-type'), agg.signals.by_entity_type)
+      bars(el('sig-cj'), agg.signals.top_categorie_juridique, { code: true })
+      bars(el('sig-naf'), agg.signals.top_activite_principale, { code: true })
+    }
+
+    function renderMatrix(agg) {
+      const { statuses, etats } = FULL
+      const val = (s, e) => (agg.matrix[s] || {})[e] || 0
+      const head = `<thead><tr><th class="rowhead">verdict \\ état</th>${
+        etats.map((e) => `<th><code>${esc(e)}</code></th>`).join('')}<th class="total">Total</th></tr></thead>`
+      const body = statuses.map((s) => {
+        const rowTotal = etats.reduce((a, e) => a + val(s, e), 0)
+        const cells = etats.map((e) => {
+          const n = val(s, e)
+          const flag = n ? cellFlag(s, e) : null
+          const cls = [n ? 'hit' : 'z', flag].filter(Boolean).join(' ')
+          const attr = n ? ` data-status="${s}" data-etat="${e}" title="Filtrer la table : ${esc(STATUS_LABELS[s])} × ${esc(e)}"` : ''
+          return `<td class="${cls}"${attr}>${n || '·'}</td>`
+        }).join('')
+        return `<tr><th class="rowhead">${badge(s)}</th>${cells}<td class="total">${rowTotal}</td></tr>`
+      }).join('')
+      const foot = `<tfoot><tr><td class="rowhead total">Total</td>${
+        etats.map((e) => `<td class="total">${statuses.reduce((a, s) => a + val(s, e), 0)}</td>`).join('')
+      }<td class="total">${agg.total}</td></tr></tfoot>`
+      el('matrix').innerHTML = head + `<tbody>${body}</tbody>` + foot
+      el('matrix').querySelectorAll('td.hit').forEach((td) =>
+        td.addEventListener('click', () => applyFilter(td.dataset.status, td.dataset.etat)))
+    }
+
+    // Filtres table (drill-down) : opèrent sur le périmètre courant.
+    function drawTable() {
+      const fs = el('f-status').value, fr = el('f-reason').value, fe = el('f-etat').value
+      const q = el('f-search').value.trim().toLowerCase()
+      const filtered = CURRENT.filter((e) =>
+        (!fs || e.status === fs) && (!fr || e.reason === fr) && (!fe || e.etat === fe) &&
+        (!q || `${e.siret} ${e.raison_sociale} ${e.activite_principale} ${e.categorie_juridique}`.toLowerCase().includes(q)))
+
+      el('table-count').textContent = filtered.length > MAX_ROWS
+        ? `${filtered.length.toLocaleString('fr')} entités — affichage des ${MAX_ROWS} premières`
+        : `${filtered.length.toLocaleString('fr')} entités`
+
+      el('rows').innerHTML = filtered.slice(0, MAX_ROWS).map((e) => `
+        <tr class="${cellFlag(e.status, e.etat) ? `flag-${cellFlag(e.status, e.etat)}` : ''}">
+          <td>${badge(e.status)}</td>
+          <td>${e.reason ? `<code>${esc(e.reason)}</code>` : '—'}</td>
+          <td>${esc(e.type)}</td>
+          <td><code>${esc(e.form_uid) || '—'}</code></td>
+          <td>${esc(e.etat)}</td>
+          <td>${esc(e.siret) || '—'}</td>
+          <td>${esc(e.raison_sociale) || '—'}</td>
+          <td><code>${esc(e.categorie_juridique) || '—'}</code></td>
+          <td><code>${esc(e.activite_principale) || '—'}</code></td>
+        </tr>`).join('')
+    }
+
+    function applyFilter(status, etat) {
+      el('f-reason').value = ''; el('f-search').value = ''
+      el('f-status').value = status || ''
+      el('f-etat').value = etat || ''
+      drawTable()
+      el('rows').scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    // Filtres globaux (type / formulaire) : redéfinissent tout le périmètre.
+    function refillForms() {
+      const ft = el('f-type').value
+      const forms = [...new Set(FULL.entities.filter((e) => !ft || e.type === ft).map((e) => e.form_uid).filter(Boolean))].sort()
+      const current = el('f-form').value
+      el('f-form').innerHTML = '<option value="">Tous</option>' +
+        forms.map((v) => `<option value="${esc(v)}"${v === current ? ' selected' : ''}>${esc(v)}</option>`).join('')
+      if (el('f-form').value !== current) el('f-form').value = ''
+    }
+
+    function applyScope() {
+      const ft = el('f-type').value, ff = el('f-form').value
+      CURRENT = FULL.entities.filter((e) => (!ft || e.type === ft) && (!ff || e.form_uid === ff))
+      el('scope-count').textContent = `${CURRENT.length.toLocaleString('fr')} entités dans le périmètre`
+      renderAgg(computeAgg(CURRENT))
+      drawTable()
+    }
+
+    function fillSelect(id, values, labels) {
+      el(id).innerHTML = '<option value="">Tous</option>' +
+        values.map((v) => `<option value="${esc(v)}">${esc(labels ? (labels[v] || v) : v)}</option>`).join('')
+    }
+
+    function render(data) {
+      FULL = { entities: data.entities, statuses: data.statuses, etats: data.etats || [] }
+      el('meta').innerHTML =
+        `${data.total.toLocaleString('fr')} entités · source : ${esc(data.source)} · généré le ${esc(data.generated_at)}`
+
+      fillSelect('f-type', [...new Set(data.entities.map((e) => e.type))].sort())
+      fillSelect('f-status', data.statuses, STATUS_LABELS)
+      fillSelect('f-reason', [...new Set(data.entities.map((e) => e.reason).filter(Boolean))].sort())
+      fillSelect('f-etat', data.etats || [...new Set(data.entities.map((e) => e.etat).filter(Boolean))])
+
+      el('f-type').addEventListener('change', () => { refillForms(); applyScope() })
+      el('f-form').addEventListener('change', applyScope)
+      ;['f-status', 'f-reason', 'f-etat'].forEach((id) => el(id).addEventListener('change', drawTable))
+      el('f-search').addEventListener('input', drawTable)
+
+      refillForms()
+      applyScope()
+      el('content').hidden = false
+    }
+
+    async function load() {
+      const override = new URLSearchParams(location.search).get('data')
+      const candidates = override ? [override] : ['stats.json', 'stats.sample.json']
+      for (const file of candidates) {
+        try {
+          const res = await fetch(file, { cache: 'no-store' })
+          if (res.ok) return render(await res.json())
+        } catch (e) { /* file:// ou 404 : on tente le suivant */ }
+      }
+      el('meta').hidden = true
+      el('error').hidden = false
+      el('error').innerHTML = `
+        <p class="fr-text--bold">Impossible de charger les données (${candidates.map((c) => `<code>${c}</code>`).join(' / ')}).</p>
+        <p>Les navigateurs bloquent <code>fetch</code> en <code>file://</code>. Sers le dossier via un serveur local, puis rouvre cette page :</p>
+        <pre class="fr-mt-1w"><code>cd docs/moteur_eligibilite && python3 -m http.server 8000
+# puis http://localhost:8000/  (ou ?data=stats.sample.json pour l’exemple)</code></pre>`
+    }
+    load()
+  </script>
+</body>
+</html>

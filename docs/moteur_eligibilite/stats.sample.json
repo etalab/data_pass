@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-07-01T09:00:00Z",
+  "source": "dummy — données synthétiques pour prévisualiser la vue (croisements incohérents inclus)",
+  "total": 12,
+  "statuses": ["eligible", "likely_eligible", "likely_ineligible", "ineligible", "unknown"],
+  "etats": ["validated", "submitted", "changes_requested", "revoked", "refused"],
+  "matrix": {
+    "eligible":          {"validated": 1, "submitted": 0, "changes_requested": 0, "revoked": 1, "refused": 0},
+    "likely_eligible":   {"validated": 2, "submitted": 0, "changes_requested": 0, "revoked": 0, "refused": 0},
+    "likely_ineligible": {"validated": 1, "submitted": 0, "changes_requested": 0, "revoked": 0, "refused": 0},
+    "ineligible":        {"validated": 1, "submitted": 0, "changes_requested": 1, "revoked": 0, "refused": 1},
+    "unknown":           {"validated": 2, "submitted": 1, "changes_requested": 1, "revoked": 0, "refused": 0}
+  },
+  "by_status": {
+    "eligible": 2,
+    "likely_eligible": 2,
+    "likely_ineligible": 1,
+    "ineligible": 3,
+    "unknown": 4
+  },
+  "by_type": {
+    "APIEntreprise": {
+      "total": 6,
+      "by_status": {"eligible": 1, "likely_eligible": 1, "likely_ineligible": 0, "ineligible": 2, "unknown": 2},
+      "by_reason": {"menuiserie": 2, "administration": 1, "public_commercial": 1}
+    },
+    "APIParticulier": {
+      "total": 6,
+      "by_status": {"eligible": 1, "likely_eligible": 1, "likely_ineligible": 1, "ineligible": 1, "unknown": 2},
+      "by_reason": {"administration": 1, "public_commercial": 1, "not_a_commune": 1, "not_administration": 1}
+    }
+  },
+  "by_reason": {
+    "administration": 2,
+    "menuiserie": 2,
+    "public_commercial": 2,
+    "not_a_commune": 1,
+    "not_administration": 1
+  },
+  "signals": {
+    "by_entity_type": {"other": 6, "administration": 4, "gray_zone": 2},
+    "top_categorie_juridique": {
+      "5710": 2, "7210": 1, "5599": 1, "1000": 1, "7346": 1, "4120": 1,
+      "7220": 1, "4110": 1, "7150": 1, "9220": 1, "5499": 1
+    },
+    "top_activite_principale": {
+      "84.11Z": 4, "16.23Z": 1, "49.10Z": 1, "43.32A": 1, "35.11Z": 1,
+      "84.13Z": 1, "62.01Z": 1, "94.99Z": 1, "70.10Z": 1
+    }
+  },
+  "entities": [
+    {"demande_id": 1001, "type": "APIEntreprise", "form_uid": "api-entreprise", "etat": "validated", "siret": "21920023500014", "raison_sociale": "COMMUNE DE CLAMART", "categorie_juridique": "7210", "entity_type": "administration", "activite_principale": "84.11Z", "status": "eligible", "reason": "administration"},
+    {"demande_id": 1002, "type": "APIEntreprise", "form_uid": "api-entreprise", "etat": "validated", "siret": "34793920900057", "raison_sociale": "MENUISERIE DUPONT SARL", "categorie_juridique": "5710", "entity_type": "other", "activite_principale": "16.23Z", "status": "ineligible", "reason": "menuiserie"},
+    {"demande_id": 1003, "type": "APIEntreprise", "form_uid": "api-entreprise", "etat": "submitted", "siret": "51903758100014", "raison_sociale": "SNCF VOYAGEURS", "categorie_juridique": "5599", "entity_type": "other", "activite_principale": "49.10Z", "status": "unknown", "reason": null},
+    {"demande_id": 1004, "type": "APIEntreprise", "form_uid": "api-entreprise-socle-de-base", "etat": "changes_requested", "siret": "41258963700022", "raison_sociale": "ATELIER BOIS ET CO", "categorie_juridique": "1000", "entity_type": "other", "activite_principale": "43.32A", "status": "ineligible", "reason": "menuiserie"},
+    {"demande_id": 1005, "type": "APIEntreprise", "form_uid": "api-entreprise", "etat": "validated", "siret": "26750045200011", "raison_sociale": "CCAS DE DEMOVILLE", "categorie_juridique": "7346", "entity_type": "administration", "activite_principale": "84.11Z", "status": "unknown", "reason": null},
+    {"demande_id": 1006, "type": "APIEntreprise", "form_uid": "api-entreprise", "etat": "validated", "siret": "55212345600019", "raison_sociale": "REGIE MUNICIPALE ELECTRICITE", "categorie_juridique": "4120", "entity_type": "gray_zone", "activite_principale": "35.11Z", "status": "likely_eligible", "reason": "public_commercial"},
+    {"demande_id": 2001, "type": "APIParticulier", "form_uid": "api-particulier", "etat": "revoked", "siret": "22690001700014", "raison_sociale": "DEPARTEMENT DU RHONE", "categorie_juridique": "7220", "entity_type": "administration", "activite_principale": "84.11Z", "status": "eligible", "reason": "administration"},
+    {"demande_id": 2002, "type": "APIParticulier", "form_uid": "api-particulier", "etat": "validated", "siret": "55204944700006", "raison_sociale": "EPIC DE DEMONSTRATION", "categorie_juridique": "4110", "entity_type": "gray_zone", "activite_principale": "84.13Z", "status": "likely_eligible", "reason": "public_commercial"},
+    {"demande_id": 2003, "type": "APIParticulier", "form_uid": "api-particulier", "etat": "validated", "siret": "13000548100017", "raison_sociale": "ETABLISSEMENT PUBLIC LOCAL", "categorie_juridique": "7150", "entity_type": "administration", "activite_principale": "84.11Z", "status": "likely_ineligible", "reason": "not_a_commune"},
+    {"demande_id": 2004, "type": "APIParticulier", "form_uid": "api-particulier", "etat": "refused", "siret": "38012986600006", "raison_sociale": "ACME SOFTWARE SAS", "categorie_juridique": "5710", "entity_type": "other", "activite_principale": "62.01Z", "status": "ineligible", "reason": "not_administration"},
+    {"demande_id": 2005, "type": "APIParticulier", "form_uid": "api-particulier", "etat": "validated", "siret": "78495620400013", "raison_sociale": "ASSOCIATION SOLIDARITE", "categorie_juridique": "9220", "entity_type": "other", "activite_principale": "94.99Z", "status": "unknown", "reason": null},
+    {"demande_id": 2006, "type": "APIParticulier", "form_uid": "api-particulier", "etat": "changes_requested", "siret": "89012345600018", "raison_sociale": "HOLDING PRIVEE INVEST", "categorie_juridique": "5499", "entity_type": "other", "activite_principale": "70.10Z", "status": "unknown", "reason": null}
+  ]
+}
