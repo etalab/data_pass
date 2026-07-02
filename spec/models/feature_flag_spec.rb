@@ -6,6 +6,32 @@ RSpec.describe FeatureFlag do
       end
     end
 
+    context 'when the flag is depot_dossier_mariage' do
+      context 'when the environment is production' do
+        it 'returns false' do
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+
+          expect(described_class.enabled?(:depot_dossier_mariage)).to be false
+        end
+      end
+
+      context 'when the environment is not production' do
+        it 'returns true' do
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('staging'))
+
+          expect(described_class.enabled?(:depot_dossier_mariage)).to be true
+        end
+      end
+    end
+
+    context 'when the flag is given as a string' do
+      it 'resolves it as a symbol' do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+
+        expect(described_class.enabled?('depot_dossier_mariage')).to be false
+      end
+    end
+
     context 'when the flag is authorization_definitions' do
       before do
         allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))

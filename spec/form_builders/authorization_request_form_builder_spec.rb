@@ -50,6 +50,28 @@ RSpec.describe AuthorizationRequestFormBuilder, type: :helper do
     end
   end
 
+  describe '#interpolated_wording' do
+    subject { builder.send(:interpolated_wording, 'scopes.info.content') }
+
+    let(:authorization_request) { build(:authorization_request, :hubee_dila) }
+
+    context 'when the depot_dossier_mariage feature flag is enabled' do
+      it 'renders the DDMariage documentation paragraph' do
+        allow(FeatureFlag).to receive(:enabled?).with(:depot_dossier_mariage).and_return(true)
+
+        expect(subject).to include('DDMariage')
+      end
+    end
+
+    context 'when the depot_dossier_mariage feature flag is disabled' do
+      it 'hides the DDMariage documentation paragraph' do
+        allow(FeatureFlag).to receive(:enabled?).with(:depot_dossier_mariage).and_return(false)
+
+        expect(subject).not_to include('DDMariage')
+      end
+    end
+  end
+
   describe '#cgu_label_text' do
     context 'when france_connect cgu is required' do
       let(:authorization_request) do
