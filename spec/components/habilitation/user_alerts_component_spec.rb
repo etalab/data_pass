@@ -45,6 +45,24 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
       end
     end
 
+    context 'when rendered with view file annotations enabled (development setting)' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      around do |example|
+        previous = ActionView::Base.annotate_rendered_view_with_filenames
+        ActionView::Base.annotate_rendered_view_with_filenames = true
+        example.run
+      ensure
+        ActionView::Base.annotate_rendered_view_with_filenames = previous
+      end
+
+      it 'renders without delegating format to the authorization request' do
+        expect { render_inline(component) }.not_to raise_error
+        expect(page).to have_css('.fr-callout')
+      end
+    end
+
     context 'when user is not applicant' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
       let(:authorization) { authorization_request.latest_authorization }
