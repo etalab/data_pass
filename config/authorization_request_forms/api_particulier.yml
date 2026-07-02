@@ -69,11 +69,7 @@ api-particulier-familea: &api_particulier_familea
     intitule: Domino web 2.0 | Gestion des structures de petites enfances, enfance et jeunesse
     description: |
       Gestion des structures de petite enfance, enfance, jeunesse pour la facturation de la cantine le service periscolaire et extrascolaire
-    cadre_juridique_nature:
-      &api_particulier_cadre_juridique_nature_tarification_municipale_enfance |
-      L’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
-
-      L’article R531-52 du Code de l’éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_socle_general "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers."
     scopes:
       - cnaf_quotient_familial
     <<: &api_particulier_familea_contact_technique
@@ -128,11 +124,7 @@ api-particulier-arpege-concerto:
     description: |
       Le logiciel est utilisé par des agents habilités pour la saisie des QF en masse (enfance, jeunesse et adultes).
       Les citoyens à travers un portail internet peuvent demander la mise à jour de leur QF à travers l'API. La demande est ensuite traitée par un agent.
-    cadre_juridique_nature:
-      &api_particulier_cadre_juridique_nature_tarification_qf |
-      L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
-
-      L'Arrêté du 04/07/13 sur les téléservices
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -172,7 +164,7 @@ api-particulier-cantine-de-france:
        - Les nouvelles familles arrivant sur la commune peuvent lors de la création de leurs comptes remonter l'ensemble des informations administratives grâce à API particulier,
        - Avoir la mise à jour des QF afin de mettre à jour les facturations des familles,
        - Dématérialiser les mises à jour de ces informations et de limiter les déplacements en mairie ou échange de courriers.
-    cadre_juridique_nature: L'article L114-8 du code des relations entre le public et l'administration fixe le cadre général des échanges de données au sein de l'administration. En tant que collectivité territoriale, la délibération ci-jointe précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices, et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -211,7 +203,7 @@ api-particulier-agora-plus:
       et adultes)
     description: |
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -250,12 +242,7 @@ api-particulier-amiciel-malice:
       Récupération des données de la famille pour l'inscription et la facturation
       en crèche, cantine, périscolaire, extrascolaire, transports scolaires
     description: Récupération du quotient familial par les usagers depuis le portail famille
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -300,8 +287,7 @@ api-particulier-ccas-arche-mc2:
   initialize_with:
     intitule: Instructions des dossiers d'aides sociales
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
-      Article L. 312-1 et Article R123-5 du code de l'action sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations entre le public et l'administration.
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\n- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives."
     cadre_juridique_url: &api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038833680/'
     scopes:
       - cnaf_quotient_familial
@@ -362,7 +348,7 @@ api-particulier-city-family-mushroom-software:
   initialize_with:
     intitule: Calcul du quotient familial pour la facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire
     description: Gestion des activités enfance, jeunesse, petite enfance (facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire). Portail famille et back-office
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_email || 'tech-mushroom_software@yopmail.com' %>"
@@ -423,7 +409,7 @@ api-particulier-civil-enfance-ciril-group:
     description: |
       L'application Civil Enfance est utilisée par les agents habilités des collectivités locales et notre portail famille en front est utilisé par les parents des enfants scolarisés dans ces communes.
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations. L'application est soit utilisée par les agents habilités des collectivités locales soit utilisée par les parents des enfants scolarisés dans ces communes en front sur le portail famille.
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -451,7 +437,7 @@ api-particulier-cosoluce-fluo:
   initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description: Logiciel utilisé par des agents habilités pour la facturation des cantines
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_cosoluce_contact_technique_email || 'tech-cosoluce@yopmail.com' %>"
@@ -487,7 +473,7 @@ api-particulier-nfi:
       - par les administrés sur leur compte d'inscription
       - en mairie pour le compte d'un administré spécifique dans le cas d'un administré n'ayant pas accès à Internet ou pour le compte de l'ensemble des administrés gérés dans le cadre du service et en cours de validité au moment du traitement
       Cela permet d'actualiser le quotient familial et d'être conforme à la délibération municipale fixant les coût des prestations en fonction du QF.
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_email || 'tech-nfi@yopmail.com' %>"
@@ -521,7 +507,7 @@ api-particulier-technocarte-ile:
     description: |
       Le logiciel ILE permet aux agents en mairie de créer des familles, faire des inscriptions en crèche et inscriptions aux activités périscolaires, centre de loisirs et restauration, saisir les quotients familiaux pour facturer toutes ces activités.
       Le kiosque famille permet aux familles de faire des demandes d'inscriptions en direct et à terme de transmettre le quotient famille en utilisant l'API particulier - Hubee.
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -571,7 +557,7 @@ api-particulier-waigeo-myperischool:
       Calcul de la tarification pour la facturation des services périscolaires,
       restauration scolaire et des accueils de loisirs.
     description: MyPérischool dispose d'un front accessible pour les citoyens et les agents pour la gestion de la petite enfance et des activités periscolaires
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     # contact_technique_editable: false
@@ -610,12 +596,7 @@ api-particulier-3d-ouest:
       administrés afin de faciliter la facturation des services enfance et périscolaire.
       L’utilisation d’API Particulier est un vrai plus pour dématérialiser les mises
       à jour de ces informations
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -651,9 +632,7 @@ api-particulier-agedi-proxima-enf:
     intitule: Tarification service enfance et récupération des quotients familiaux
     description: |
       Le logiciel Proxima.ENF permet la mise à jour des données familles dans le cadre d'un logiciel de gestion de l'accueil de l'enfance
-    cadre_juridique_nature:
-      &api_particulier_cadre_juridique_tarification_municipale_enfance |
-      Cadre légal général : L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -694,7 +673,7 @@ api-particulier-ecorestauration-loyfeey:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       Logiciel utilisé à travers d'un front pour les inscriptions à la restauration scolaire (fournissent leurs information à la collectivité par l'API sans envoyer de document ou se déplacer) et par des agents habilités en back-office (récupèrent les informations familles des parents qui inscrivent leurs enfants à la restauration scolaire et obtiennent le résultat du calcul tarifaire automatique effectué par Loyfeey à partir des revenus de l'API)
-    cadre_juridique_nature: *api_particulier_cadre_juridique_tarification_municipale_enfance
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -733,7 +712,7 @@ api-particulier-jcdeveloppement-familyclic:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       FamilyClic est destiné aux citoyens et aux agents des mairies pour la gestion de la tarification des cantines. La partie API est réservée aux agents et permet de vérifier le QF des familles.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -784,7 +763,7 @@ api-particulier-aiga:
     intitule: Tarification sur Quotient Familial des services municipaux liés à l'enfance
     description: |
       Gestion de la tarification des services scolaires et péri scolaires en backoffice par des agents habilités
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     contact_technique_type: "organization"
@@ -829,10 +808,7 @@ api-particulier-extenso-partner-extenso-cloud:
     intitule: Tarification du stationnement résidentiel
     description:
       Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration.
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_stationnement_residentiel "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique au stationnement résidentiel : Les articles L2333-87 et L2333-87-3 du Code général des collectivités territoriales."
     scopes:
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
@@ -872,8 +848,7 @@ api-particulier-arche-mc2-solis:
   initialize_with:
     intitule: Instructions des dossiers d'aides sociales départementales
     description: Logiciel utilisé par des agents départementaux dans le cadre de l'instruction de dossier de demandes d'aides sociales.
-    cadre_juridique_nature:
-      Article L. 312-1 et Article R123-5 du code de l'action sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations entre le public et l'administration.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
     scopes:
       - cnaf_allocataires
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_arche_mcs_solis_contact_technique_email || 'tech-extenso-partner@yopmail.com' %>"
@@ -922,7 +897,7 @@ api-particulier-capdemat-capdemat-evolution:
   initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
     description: Logiciel de Gestion de la Relation usager à destination des collectivités intégrant un portail pour les citoyens et un back office agent.
-    cadre_juridique_nature: l’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d'un usage. L’article R531-52 du Code de l’éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_cantines "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire."
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_email || 'tech-capdemat@yopmail.com' %>"
@@ -958,7 +933,7 @@ api-particulier-kosmos-education:
     intitule: Portail Tarification et Aide Restauration Scolaire
     description: |
       Logiciel utilisé directement par les citoyens au travers d'un front et par des agents habilités pour faciliter la gestion de la tarification des cantines.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -988,7 +963,7 @@ api-particulier-monkey-factory-maasify:
     intitule: Tarification des transports
     description: |
       A travers nos médias digitaux (application mobile et/ou site web), un usager peut se créer un compte dans le but de consommer toutes les mobilités présentes sur le territoire.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_transport_complet "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES]."
     scopes:
       - pole_emploi_identite
       - pole_emploi_contact
@@ -1021,7 +996,7 @@ api-particulier-esabora-pourmesdossiers:
     intitule: Tarification des transports
     description: |
       Logiciel de gestion de la tarification sociale et solidaire des transports en backoffice.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1073,7 +1048,7 @@ api-particulier-airweb:
     intitule: Tarification des transports
     description: |
       Nos clients sont les Autorités organisatrices de transport. Grâce aux e-boutiques Airweb mobiles, les utilisateurs peuvent acheter et stocker leurs titres de transport sur leur smartphone, et les valider directement dans les véhicules via flash de QRcodes
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
     scopes:
       - cnaf_quotient_familial
       - pole_emploi_identite
@@ -1120,7 +1095,7 @@ api-particulier-bl-enfance-berger-levrault:
     intitule: Tarification sur Quotient Familial des activités scolaires, périscolaires et loisirs
     description: |
       Gestion de la tarification basée sur le quotient familial
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_email || 'tech-bergerlevrault@yopmail.com' %>"
@@ -1156,7 +1131,7 @@ api-particulier-noethys:
       Récupération de quotient familial :
       - par les administrés sur leur compte d'inscription
       - en mairie pour le compte d'un administré spécifique dans le cas d'un administré n'ayant pas accès à Internet ou pour le compte de l'ensemble des administrés gérés dans le cadre du service et en cours de validité au moment du traitement
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1190,7 +1165,7 @@ api-particulier-carte-plus:
       Récupération de quotient familial :
       - par les administrés sur leur compte d'inscription
       - en mairie pour le compte d'un administré spécifique dans le cas d'un administré n'ayant pas accès à Internet ou pour le compte de l'ensemble des administrés gérés dans le cadre du service et en cours de validité au moment du traitement
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1229,7 +1204,7 @@ api-particulier-resagenda:
       Récupération de quotient familial :
       - par les administrés sur leur compte d'inscription
       - en mairie pour le compte d'un administré spécifique dans le cas d'un administré n'ayant pas accès à Internet ou pour le compte de l'ensemble des administrés gérés dans le cadre du service et en cours de validité au moment du traitement
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1310,7 +1285,7 @@ api-particulier-jvs-mairistem:
     intitule: Facturation des familles pour les services périscolaires et loisirs
     description: |
       Récupération de quotient familial par des agents habilités pour le compte d'un administré spécifique.
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1350,9 +1325,8 @@ api-particulier-ccas-paxtel:
   initialize_with:
     intitule: Instructions des dossiers d'aides sociales
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
-      Article L. 312-1 et Article R123-5 du code de l'action sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations entre le public et l'administration.
-    cadre_juridique_url: &api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038833680/'
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
+    cadre_juridique_url: *api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1412,7 +1386,7 @@ api-particulier-ypok-ykidz:
     intitule: Facturation des familles pour les services enfance
     description: |
       Gestion des structures enfance, jeunesse pour la facturation de la cantine, le service periscolaire et extrascolaire
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1475,7 +1449,7 @@ api-particulier-e1os:
     intitule: Facturation des familles pour les services scolaire et cantine
     description: |
       Gestion de la facturation de la cantine et du service periscolaire
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_e1os_contact_technique_email || 'tech-e1os@yopmail.com' %>"
@@ -1505,7 +1479,7 @@ api-particulier-acheteza:
     intitule: Facturation des familles pour les services scolaire et cantine
     description: |
       Gestion de la facturation de la cantine et du service periscolaire
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
     modalities:
@@ -1544,8 +1518,7 @@ api-particulier-dialog:
     intitule: Dématérialisation des dispositifs d'aides et de subventions
     description: |
       Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public et l'administration fixe le cadre général des échanges de données au sein de l'administration. En tant que collectivité territoriale, la délibération ci-jointe précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices, et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1593,10 +1566,7 @@ api-particulier-coexya:
   initialize_with:
     intitule: Tarification sociale et solidaires des transports
     description: Aide à l'accès aux transports
-    cadre_juridique_nature:
-      l'Article L114-8 du Code des relations entre le public
-      et l'administration fixe le cadre général qui oblige l’administration à échanger
-      des données lors d’une démarche d’un usager.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1653,7 +1623,7 @@ api-particulier-keolis:
     intitule: Tarification des transports
     description: |
       Nos clients sont les Autorités organisatrices de transport. Grâce aux e-boutiques, les utilisateurs peuvent acheter et stocker leurs titres de transport sur leur smartphone.
-    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
     scopes:
       - cnaf_quotient_familial
       - pole_emploi_identite
@@ -1698,7 +1668,7 @@ api-particulier-mgdis-tarification-cantines-lycees:
 
   initialize_with:
     intitule: Tarification cantine
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes :
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_email || 'tech-mgdis@yopmail.com' %>"
@@ -1758,7 +1728,7 @@ api-particulier-mgdis-aides-facultatives-departementales:
 
   initialize_with:
     intitule: Aides facultatives départementales
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_aides_facultatives "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Ces aides sont attribuées sur délibération de la collectivité."
     modalities:
       - params
 
@@ -1795,12 +1765,7 @@ api-particulier-docaposte-fast:
       les mises à jours de ces informations et de limiter les déplacements en mairie
       ou échange de courriers\r\n L’Utilisation de l’API Particulier se fait dans
       le cadre de l’utilisation du logiciel FAST-Famille  édité par la société DOCAPOSTE-FAST."
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1830,12 +1795,7 @@ api-particulier-odyssee-informatique-pandore:
       de mettre à jour les facturations des familles\r\n- Dématérialiser les mises
       à jours de ces informations et de limiter les déplacements en mairie ou échange
       de courriers"
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1866,12 +1826,7 @@ api-particulier-qiis-eticket:
       les éléments nécessaires à appliquer pour le calcul des tarifs des différentes
       prestations.\r\n  - Les allocataires\r\n  - Les revenus déclarés aux différents
       organisme\r\n  - Adresse du foyer\r\n "
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1909,9 +1864,7 @@ api-particulier-teamnet-axel:
       facturées.\r\nLes tarifs des prestations sont calculés en fonction des revenus
       de la famille ou de son quotient familial. Le quotient familial est calculé
       avec les revenus du foyer et le nombre de personnes qui composent le foyer."
-    cadre_juridique_nature:
-      Préciser la référence et le texte et de la délibération
-      au format PDF vous autorisant à traiter les données.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1965,7 +1918,7 @@ api-particulier-entrouvert-publik:
       socio-culturelles et sportives pour la facturation des familles qui effectuent
       leurs démarches en ligne via la plateforme de Gestion de la relation usager
       Publik de la collectivité, éditée par la société Entr'ouvert
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -1992,12 +1945,7 @@ api-particulier-ccas-melissandre-afi:
       permet un gain de temps dans le traitement des dossiers par les instructeurs
       et simplifie les démarches des familles. Logiciel utilisé : Melissande, édité
       par la Société A.F.I."
-    cadre_juridique_nature:
-      "Préciser ici les délibérations du conseil d'administration
-      qui détaillent les modalités de calcul du montant des aides et/ou du prix de
-      services.\r\nLorsque le calcul du montant des aides est à la libre appréciation
-      du travailleur social ou de la commission d’attribution, préciser sur quels
-      éléments se basent la décision."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -2039,12 +1987,7 @@ api-particulier-sigec-maelis:
       de mettre à jour les facturations des familles\r\n- Dématérialiser les mises
       à jours de ces informations et de limiter les déplacements en mairie ou échange
       de courriers"
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -2079,7 +2022,7 @@ api-particulier-arpege-concerto-petite-enfance:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
-    cadre_juridique_nature: "\n- Cadre légal général  L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2130,7 +2073,7 @@ api-particulier-aiga-petite-enfance:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d’acceuil du jeune enfant en backoffice par des agents habilités
-    cadre_juridique_nature: "Cadre légal général L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2166,7 +2109,7 @@ api-particulier-teamnet-axel-petite-enfance:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
-    cadre_juridique_nature: "Cadre légal général L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2200,7 +2143,7 @@ api-particulier-tarification-municipale-enfance:
     - name: contacts
   initialize_with:
     intitule: Tarification sociale des services municipaux à l’enfance
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
 
@@ -2220,7 +2163,7 @@ api-particulier-aides-facultatives-regionales:
     - name: contacts
   initialize_with:
     intitule: Aides facultatives régionales
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_aides_facultatives
 
 api-particulier-aides-facultatives-departementales:
   name: Aides facultatives départementales
@@ -2238,7 +2181,7 @@ api-particulier-aides-facultatives-departementales:
     - name: contacts
   initialize_with:
     intitule: Aides facultatives départementales
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_aides_facultatives
 
 api-particulier-tarification-cantines-lycees:
   name: Tarification cantine lycées
@@ -2266,7 +2209,7 @@ api-particulier-tarification-cantines-lycees:
     - name: contacts
   initialize_with:
     intitule: Tarification cantine lycées
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes:
       - cnaf_quotient_familial
 
@@ -2296,7 +2239,7 @@ api-particulier-tarification-cantines-colleges:
     - name: contacts
   initialize_with:
     intitule: Tarification cantine collèges
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux départements : L'article R531-52 du Code de l’éducation qui donne compétence aux collectivités pour fixer les tarifs des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes:
       - cnaf_quotient_familial
 
@@ -2320,7 +2263,7 @@ api-particulier-aides-sociales-ccas:
     - name: legal
   initialize_with:
     intitule: Aides sociales des CCAS
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031106561/"
     scopes:
       - cnaf_quotient_familial
@@ -2344,7 +2287,7 @@ api-particulier-aides-sociales-ccas-dont-facultatives:
     - name: contacts
   initialize_with:
     intitule: Aides sociales des CCAS dont aides facultatives
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\r\n- Cadre légal spécifique pour les aides facultatives des CCAS : L'article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives.\r\n- La délibération du conseil d'administration précisant les données nécessaires à l’attribution des aides facultatives [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
     scopes:
       - cnaf_quotient_familial
 
@@ -2402,7 +2345,7 @@ api-particulier-tarification-transports:
       - revenu_solidarite_active_majoration
   initialize_with:
     intitule: Tarification des transports
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l'article L1113-1 du Code des transports en cas d'utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES].\r\n- La délibération qui spécifie les conditions tarifaires [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
 
 api-particulier-gestion-rh-secteur-public:
   name: Gestion RH du secteur public
@@ -2444,7 +2387,7 @@ api-particulier-gestion-rh-secteur-public:
       - prime_activite_majoration
   initialize_with:
     intitule: Gestion RH du secteur public
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
     scopes:
       - mesri_identite
@@ -2488,7 +2431,7 @@ api-particulier-stationnement-residentiel:
       - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
   initialize_with:
     intitule: Gestion du stationnement résidentiel
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager. Article L2333-87 du Code général des collectivités territoriales. Article L2333-87-3 du Code général des collectivités territoriales "
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_stationnement_residentiel
     scopes:
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
@@ -2523,7 +2466,7 @@ api-particulier-tarification-eaje:
     - name: contacts
   initialize_with:
     intitule: Tarification sociale des établissements d'accueil du jeune enfant
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes: *tarification_eaje_fixed_scopes
 
 
@@ -2551,7 +2494,7 @@ api-particulier-technocarte-babicarte:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
-    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2584,7 +2527,7 @@ api-particulier-sigec-maelis-petite-enfance:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
-    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2617,7 +2560,7 @@ api-particulier-city-family-mushroom-software-petite-enfance:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
-    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2650,7 +2593,7 @@ api-particulier-carte-plus-petite-enfance:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
-    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2683,7 +2626,7 @@ api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
-    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager."
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
@@ -2727,10 +2670,7 @@ api-particulier-polycea:
     intitule: Tarification du stationnement résidentiel
     description:
       Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_stationnement_residentiel
     scopes:
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
@@ -2767,7 +2707,7 @@ api-particulier-andyvie:
     intitule: Tarification des services municipaux à l’enfance
     description: |
       Recreo est une plateforme SaaS destinée aux collectivités territoriales et associations pour la gestion des Accueils Collectifs de Mineurs (centres de loisirs, périscolaire, colonies de vacances, mini-camps, accueils de jeunes). Le logiciel est utilisé directement par les citoyens via un portail famille et par les agents habilités via un backoffice
-    cadre_juridique_nature: *api_particulier_cadre_juridique_tarification_municipale_enfance
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
