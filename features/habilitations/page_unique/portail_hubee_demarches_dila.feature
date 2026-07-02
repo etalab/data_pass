@@ -6,7 +6,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Et que je me connecte
 
   Scénario: Je soumets une demande d’habilitation valide
-    Quand je démarre une nouvelle demande d’habilitation "Démarches du bouquet de services (service-public.fr)"
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
