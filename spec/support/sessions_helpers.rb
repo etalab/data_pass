@@ -3,7 +3,7 @@ module SessionsHelpers
     page.set_rack_session(user_id: {
       'value' => user.id,
       'expires_at' => 9001.hours.from_now,
-      'absolute_expires_at' => 9001.hours.from_now
+      'max_duration' => 12.hours.to_i
     })
   end
 end
