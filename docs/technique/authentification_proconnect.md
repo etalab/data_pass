@@ -137,6 +137,7 @@ rotate_session
 session[:user_id] = {
   value: user.id,
   expires_at: SESSION_MAX_DURATION.from_now,
+  max_duration: SESSION_MAX_DURATION.to_i,
   identity_federator:,
   identity_provider_uid:,
 }
@@ -151,15 +152,16 @@ dashboard.
 ```mermaid
 flowchart TD
     A["Requête de l'agent"] --> B["before_action :authenticate_user!<br/>(concern Authentication)"]
-    B --> C{"session valide ?<br/>value + expires_at dans le futur"}
+    B --> C{"session valide ?<br/>value + expires_at futur + max_duration = 12 h"}
     C -- Oui --> D["Accès autorisé<br/>(expires_at non modifié)"]
     C -- Non --> E["Redirige vers la connexion<br/>relance tout le flux ProConnect"]
 ```
 
 Une fois connecté, DataPass vit sur **sa propre session** (cookie chiffré, plafond absolu de
 12 h). À chaque requête authentifiée, `expires_at` est vérifié mais jamais prolongé : un seul
-timer fixe depuis la connexion. Un ancien cookie sans `expires_at` futur est invalide →
-reconnexion douce (re-clic silencieux si la session ProConnect est encore active). DataPass ne
+timer fixe depuis la connexion. Un ancien cookie sans marqueur `max_duration` valide (cookie
+antérieur à DP-1820) est rejeté → reconnexion douce (re-clic silencieux si la session ProConnect
+est encore active). DataPass ne
 rappelle pas ProConnect à chaque page ; ProConnect ne sert qu'à prouver l'identité au moment du
 login.
 
