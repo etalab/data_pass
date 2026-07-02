@@ -1,0 +1,69 @@
+/* Cas favorables : encadré coloré selon le verdict, icône + texte. */
+.entity-eligibility-intro {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+}
+
+.entity-eligibility-intro span[class*="fr-icon"]::before {
+  --icon-size: 1.25rem;
+}
+
+.entity-eligibility-intro--auto {
+  color: var(--text-default-success);
+}
+
+.entity-eligibility-intro--info {
+  color: var(--text-default-info);
+}
+
+.entity-eligibility-intro--warning {
+  color: var(--text-default-warning);
+}
+
+/* Cas inéligible : prise en charge forte de la zone + repli fournisseur. */
+.entity-eligibility-intro__block {
+  border: 2px solid var(--text-default-error);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.entity-eligibility-intro__head {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 2rem;
+  background: var(--background-contrast-error);
+}
+
+.entity-eligibility-intro__head .fr-icon-error-warning-line::before {
+  --icon-size: 2.5rem;
+  color: var(--text-default-error);
+}
+
+.entity-eligibility-intro__title {
+  margin: 0 0 0.5rem;
+  color: var(--text-default-error);
+}
+
+.entity-eligibility-intro__body {
+  padding: 1.5rem 2rem 2rem;
+  background: var(--background-default-grey);
+}
+
+.entity-eligibility-intro__contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  background: var(--background-alt-grey);
+}
+
+.entity-eligibility-intro__contact p {
+  margin: 0;
+}

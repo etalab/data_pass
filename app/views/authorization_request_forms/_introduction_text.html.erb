@@ -23,7 +23,15 @@
     <%= authorization_request_form.introduction.html_safe %>
   </div>
 <% end %>
-<% if authorization_request_form.multiple_steps? %>
+
+<% if organization.present? && @entity_eligibility_verdict %>
+  <%= render Molecules::AuthorizationRequestForms::EntityEligibilityIntroComponent.new(
+        verdict: @entity_eligibility_verdict,
+        authorization_request_form:) %>
+<% end %>
+
+<% unless @entity_eligibility_verdict&.ineligible? %>
+  <% if authorization_request_form.multiple_steps? %>
   <h5>
     <%= t('authorization_request_forms.new.multiple_steps.title') %>
   </h5>
@@ -46,4 +54,5 @@
       <%= simple_format t("authorization_request_forms.new.single_form.description") %>
     </p>
   </div>
+  <% end %>
 <% end %>

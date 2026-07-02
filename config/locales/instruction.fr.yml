@@ -398,6 +398,10 @@ fr:
               %{message_details_text}
             </blockquote>
           view_authorization: Consulter l'habilitation <strong>%{definition_name} %{formatted_id}</strong>.
+        auto_approve:
+          message_summary: |
+            La demande a été <strong>approuvée automatiquement</strong> au regard de l'éligibilité de l'organisation.
+          view_authorization: Consulter l'habilitation <strong>%{definition_name} %{formatted_id}</strong>.
         auto_generate:
           message_summary: |
             Une habilitation <strong>%{definition_name}</strong> a été automatiquement créée.
@@ -416,6 +420,13 @@ fr:
         refuse:
           message_summary: |
             <strong>%{user_full_name}</strong> a refusé la demande :
+          message_details: |
+            <blockquote>
+              %{message_details_text}
+            </blockquote>
+        auto_reject:
+          message_summary: |
+            La demande a été <strong>refusée automatiquement</strong> au regard de l'éligibilité de l'organisation :
           message_details: |
             <blockquote>
               %{message_details_text}

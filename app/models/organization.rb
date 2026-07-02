@@ -5,8 +5,23 @@ class Organization < ApplicationRecord
     '7210' => :commune,
     '7220' => :dept,
     '7230' => :region,
+    '7343' => :communaute_urbaine,
+    '7344' => :metropole,
+    '7346' => :communaute_de_communes,
+    '7348' => :communaute_agglomeration,
+    '7361' => :ccas,
+    '7367' => :cias,
   }.freeze
   private_constant :LEGAL_CATEGORY_MAP
+
+  BLOC_COMMUNAL = %i[commune communaute_de_communes communaute_agglomeration communaute_urbaine metropole].freeze
+  private_constant :BLOC_COMMUNAL
+
+  ENTITY_TYPE_MAP = {
+    '7' => :administration,
+    '4' => :gray_zone,
+  }.freeze
+  private_constant :ENTITY_TYPE_MAP
 
   validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
   validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
@@ -49,11 +64,35 @@ class Organization < ApplicationRecord
   end
 
   def personne_physique?
-    unite_legale['categorieJuridiqueUniteLegale'] == '1000'
+    categorie_juridique == '1000'
+  end
+
+  def categorie_juridique
+    unite_legale['categorieJuridiqueUniteLegale']
+  end
+
+  def activite_principale
+    unite_legale['activitePrincipaleUniteLegale']
   end
 
   def legal_category
-    LEGAL_CATEGORY_MAP.fetch(unite_legale['categorieJuridiqueUniteLegale'], :other)
+    LEGAL_CATEGORY_MAP.fetch(categorie_juridique, :other)
+  end
+
+  def entity_type
+    ENTITY_TYPE_MAP.fetch(categorie_juridique.to_s[0], :other)
+  end
+
+  def bloc_communal?
+    BLOC_COMMUNAL.include?(legal_category)
+  end
+
+  def association?
+    categorie_juridique.to_s.start_with?('92')
+  end
+
+  def ccas_or_cias?
+    %i[ccas cias].include?(legal_category)
   end
 
   def insee_payload

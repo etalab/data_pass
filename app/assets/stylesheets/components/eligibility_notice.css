@@ -1,0 +1,8 @@
+.eligibility-notice--success {
+  color: var(--text-default-success);
+  background-color: var(--background-contrast-success);
+}
+
+.eligibility-notice--success .fr-notice__title {
+  color: var(--text-default-success);
+}

@@ -291,6 +291,12 @@ fr:
               étudiera la faisabilité juridique (demande réalisée via le portail du
               Hub d’Échange de l’État).
             </p>
+            <p>
+              <strong>DDMariage - Pré-dépôt de dossier de mariage</strong> : Ce service permet à
+              des usagers souhaitant contracter un mariage de compléter en ligne les informations
+              nécessaires à cette union et de télécharger leurs pièces justificatives constituant
+              leur dossier. L’ensemble est envoyé à la commune chargée de célébrer le mariage.
+            </p>
 
     api_pro_sante_connect:
       scopes:

@@ -32,6 +32,27 @@ RSpec.describe SubmitAuthorizationRequest do
         end
       end
 
+      context 'with an auto-instructed use case (API Entreprise — aides financières)' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise_aides_financieres, :draft, fill_all_attributes: true, organization:) }
+        let(:organization) { create(:organization, siret:) }
+
+        context 'when the organization is eligible' do
+          let(:siret) { '21920023500014' }
+
+          it 'auto-validates right after submission' do
+            expect { submit_authorization_request }.to change { authorization_request.reload.state }.from('draft').to('validated')
+          end
+        end
+
+        context 'when the organization is in the gray zone' do
+          let(:siret) { '55204944700006' }
+
+          it 'stays submitted for human review' do
+            expect { submit_authorization_request }.to change { authorization_request.reload.state }.from('draft').to('submitted')
+          end
+        end
+      end
+
       context 'with invalid params' do
         let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
 

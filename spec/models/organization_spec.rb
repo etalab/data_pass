@@ -127,11 +127,129 @@ RSpec.describe Organization do
     context 'when categorieJuridiqueUniteLegale is 7346 (EPCI, communauté de communes)' do
       let(:unite_legale) { { 'categorieJuridiqueUniteLegale' => '7346' } }
 
-      it { is_expected.to eq(:other) }
+      it { is_expected.to eq(:communaute_de_communes) }
     end
 
     context 'when categorieJuridiqueUniteLegale is absent from uniteLegale' do
       let(:unite_legale) { { 'denominationUniteLegale' => 'ACME' } }
+
+      it { is_expected.to eq(:other) }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to eq(:other) }
+    end
+  end
+
+  describe 'typology predicates' do
+    def org(categorie_juridique)
+      build(:organization,
+        legal_entity_registry: 'insee_sirene',
+        legal_entity_id: '12345678900010',
+        insee_payload: { 'etablissement' => { 'uniteLegale' => { 'categorieJuridiqueUniteLegale' => categorie_juridique } } })
+    end
+
+    it "#bloc_communal? covers commune, communauté de communes, communauté d'agglomération, communauté urbaine and métropole" do
+      expect(org('7210')).to be_bloc_communal
+      expect(org('7346')).to be_bloc_communal
+      expect(org('7348')).to be_bloc_communal
+      expect(org('7343')).to be_bloc_communal
+      expect(org('7344')).to be_bloc_communal
+      expect(org('7230')).not_to be_bloc_communal
+    end
+
+    it '#association? matches the 92xx family' do
+      expect(org('9220')).to be_association
+      expect(org('7210')).not_to be_association
+    end
+
+    it '#ccas_or_cias? matches CCAS (7361) and CIAS (7367)' do
+      expect(org('7361')).to be_ccas_or_cias
+      expect(org('7367')).to be_ccas_or_cias
+      expect(org('7210')).not_to be_ccas_or_cias
+    end
+  end
+
+  describe '#activite_principale' do
+    subject { organization.activite_principale }
+
+    context 'when uniteLegale carries an activitePrincipale' do
+      let(:organization) do
+        build(:organization,
+          legal_entity_registry: 'insee_sirene',
+          legal_entity_id: '12345678900010',
+          insee_payload: {
+            'etablissement' => {
+              'uniteLegale' => { 'activitePrincipaleUniteLegale' => '43.32A' },
+            },
+          })
+      end
+
+      it { is_expected.to eq('43.32A') }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#categorie_juridique' do
+    subject { organization.categorie_juridique }
+
+    context 'when uniteLegale carries a categorieJuridique' do
+      let(:organization) do
+        build(:organization,
+          legal_entity_registry: 'insee_sirene',
+          legal_entity_id: '12345678900010',
+          insee_payload: {
+            'etablissement' => {
+              'uniteLegale' => { 'categorieJuridiqueUniteLegale' => '7210' },
+            },
+          })
+      end
+
+      it { is_expected.to eq('7210') }
+    end
+
+    context 'when insee_payload is blank' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#entity_type' do
+    subject { organization.entity_type }
+
+    let(:organization) do
+      build(:organization,
+        legal_entity_registry: 'insee_sirene',
+        legal_entity_id: '12345678900010',
+        insee_payload: {
+          'etablissement' => {
+            'uniteLegale' => { 'categorieJuridiqueUniteLegale' => categorie },
+          },
+        })
+    end
+
+    context 'when the catégorie juridique is administrative (7210, commune)' do
+      let(:categorie) { '7210' }
+
+      it { is_expected.to eq(:administration) }
+    end
+
+    context 'when the catégorie juridique is public commercial (4120, EPIC)' do
+      let(:categorie) { '4120' }
+
+      it { is_expected.to eq(:gray_zone) }
+    end
+
+    context 'when the catégorie juridique is a private company (5710, SA)' do
+      let(:categorie) { '5710' }
 
       it { is_expected.to eq(:other) }
     end

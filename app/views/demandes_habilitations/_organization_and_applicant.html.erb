@@ -6,6 +6,10 @@
   <% extra_summary_block_css_classes = '' %>
 <% end %>
 
+<% if @entity_eligibility_banner&.visible? %>
+  <%= render Molecules::Instruction::EntityEligibilityBannerComponent.new(status: @entity_eligibility_banner.status) %>
+<% end %>
+
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: demande, title: "L'organisation", block_id: :organization, editable: false, extra_summary_block_css_classes: } do %>
   <div class="fr-container-fluid organization-and-applicant">
     <% if unverified_organization_affiliation_for_instruction %>
