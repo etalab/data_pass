@@ -11,7 +11,7 @@ class AuthenticatedUserController < ApplicationController
   allow_unauthenticated_access only: :bypass_login
 
   def authorization_definitions_feature_enabled?
-    current_user&.admin? || Rails.env.test?
+    FeatureFlag.enabled?(:authorization_definitions, user: current_user)
   end
 
   def bypass_login

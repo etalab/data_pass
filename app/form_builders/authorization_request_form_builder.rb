@@ -25,7 +25,7 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
 
     info_wording = {
       title: wording_for("#{block}.info.title"),
-      content: wording_for("#{block}.info.content")&.html_safe,
+      content: interpolated_wording("#{block}.info.content"),
     }
 
     return unless info_wording
@@ -220,6 +220,14 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   private
+
+  def interpolated_wording(key)
+    content = wording_for(key)
+    return content if content.blank?
+
+    content = ERB.new(content).result(binding) if content.include?('<%')
+    content.html_safe
+  end
 
   def cgu_check_box_label(label_opts = {})
     label_text = [
