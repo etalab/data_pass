@@ -18,6 +18,8 @@ class Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent < App
   end
 
   def initiate_request_path
+    return unless can_initiate_request
+
     helpers.start_instruction_instructor_draft_requests_path(
       form_uid: authorization_definition.default_form.uid
     )

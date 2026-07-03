@@ -1,14 +1,11 @@
 <%= render Molecules::Instruction::WideHeader.new(
-      logo_asset: authorization_definition.provider.logo,
-      title: authorization_definition.name_with_stage,
+      logo_asset: authorization_definition.provider&.logo,
+      title: form.name,
       back_link:) do |component| %>
-
   <% component.with_subtitle_content do %>
-    <p class="fr-my-1w">
-      <span class="fr-text--sm">
-        <%= I18n.t('instruction.authorization_definitions.show.slug_label') %> : 
-        <code class="fr-code-inline"><%= authorization_definition.id %></code>
-      </span>
+    <p class="fr-text--sm fr-my-1w">
+      <%= I18n.t('instruction.forms.show.slug_label') %> :
+      <code class="fr-code-inline"><%= form.uid %></code>
     </p>
     <%= render 'instruction/authorization_definitions/counts', validated_count:, submitted_count: %>
   <% end %>

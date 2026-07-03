@@ -20,11 +20,12 @@ import { Controller } from '@hotwired/stimulus'
 //   <button data-action="click->clipboard#copy">Copy to clipboard</button>
 // </div>
 export default class extends Controller {
-  static targets = ['source']
+  static targets = ['source', 'status']
   static values = {
     content: String,
     successMessage: { type: String, default: 'Copié !' },
-    originalMessage: { type: String, default: 'Copier' }
+    originalMessage: { type: String, default: 'Copier' },
+    lockWidth: { type: Boolean, default: false }
   }
 
   copy (event) {
@@ -55,19 +56,39 @@ export default class extends Controller {
 
   showSuccess (element) {
     const originalText = element.textContent
-    element.textContent = this.hasSuccessMessageValue ? this.successMessageValue : 'Copié !'
+    const message = this.hasSuccessMessageValue ? this.successMessageValue : 'Copié !'
+    this.lockWidth(element)
+    element.textContent = message
+    if (this.hasStatusTarget) this.statusTarget.textContent = message
 
     setTimeout(() => {
       element.textContent = this.hasOriginalMessageValue ? this.originalMessageValue : originalText
+      this.unlockWidth(element)
+      if (this.hasStatusTarget) this.statusTarget.textContent = ''
     }, 2000)
   }
 
   showError (element) {
     const originalText = element.textContent
-    element.textContent = 'Echec de la copie !'
+    const message = 'Echec de la copie !'
+    this.lockWidth(element)
+    element.textContent = message
+    if (this.hasStatusTarget) this.statusTarget.textContent = message
 
     setTimeout(() => {
       element.textContent = this.hasOriginalMessageValue ? this.originalMessageValue : originalText
+      this.unlockWidth(element)
+      if (this.hasStatusTarget) this.statusTarget.textContent = ''
     }, 2000)
+  }
+
+  lockWidth (element) {
+    if (!this.lockWidthValue) return
+    element.style.width = `${element.offsetWidth}px`
+  }
+
+  unlockWidth (element) {
+    if (!this.lockWidthValue) return
+    element.style.width = ''
   }
 }

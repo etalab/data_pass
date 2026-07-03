@@ -1,4 +1,4 @@
-class Molecules::Instruction::AuthorizationDefinition::FormCardComponent < ApplicationComponent
+class Molecules::Instruction::Form::CardComponent < ApplicationComponent
   def initialize(authorization_request_form:, validated_count:, submitted_count:)
     @authorization_request_form = authorization_request_form
     @validated_count = validated_count
