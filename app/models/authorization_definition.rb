@@ -15,7 +15,8 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   attr_writer :startable_by_applicant,
     :public,
-    :unique
+    :unique,
+    :automated_email_ids
 
   def self.backend
     yaml_records + db_records
@@ -72,6 +73,7 @@ class AuthorizationDefinition < StaticApplicationRecord
       ).merge(
         id: uid.to_s,
         provider_slug: hash[:provider],
+        automated_email_ids: hash[:automated_emails],
         stage: Stage.new(hash[:stage]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
         blocks: hash[:blocks] || [],
@@ -112,6 +114,14 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def france_connect?
     id == 'france_connect'
+  end
+
+  def automated_emails
+    automated_email_ids.map { |automated_email_id| AutomatedEmail.find(automated_email_id) }
+  end
+
+  def automated_email_ids
+    @automated_email_ids || AutomatedEmail::DEFAULT_IDS
   end
 
   def instructors
