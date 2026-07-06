@@ -18,6 +18,7 @@
 * [Modal dynamique](./technique/modal.md)
 * [Guide sur les scopes](./technique/modification_scopes.md)
 * [Configuration des scopes de formulaire (scopes_config)](./technique/scopes_config.md)
+* [Feature flags](./technique/feature_flags.md)
 * [Templates de messages pour l'instruction](./technique/templates_messages.md)
 * [Synchronisation DataGouv — habilitations](./technique/datagouv-habilitations-sync.md)
 * [Données géographiques (geo.api.gouv.fr)](./technique/geo_data.md)

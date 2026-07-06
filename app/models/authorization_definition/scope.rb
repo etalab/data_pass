@@ -11,6 +11,7 @@ class AuthorizationDefinition::Scope
     @included = properties.fetch(:included, false)
     @disabled = properties.fetch(:disabled, false)
     @deprecated = properties.fetch(:deprecated, {})
+    @feature_flag = properties.fetch(:feature_flag, nil)
   end
 
   def included?
@@ -34,6 +35,7 @@ class AuthorizationDefinition::Scope
   end
 
   def available?(request)
+    return false if behind_disabled_feature_flag?
     return false if entity_created_after_deprecation_date?(request)
     return false if hidden_by_config?(request)
 
@@ -63,6 +65,10 @@ class AuthorizationDefinition::Scope
   end
 
   private
+
+  def behind_disabled_feature_flag?
+    @feature_flag.present? && !FeatureFlag.enabled?(@feature_flag)
+  end
 
   def displayed_by_config?(request)
     display_config = request.form.scopes_config[:displayed]

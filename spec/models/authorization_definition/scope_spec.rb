@@ -228,6 +228,32 @@ RSpec.describe AuthorizationDefinition::Scope do
       end
     end
 
+    context 'when scope is behind a feature flag' do
+      let(:scope) do
+        described_class.new(
+          name: 'Test Scope',
+          value: 'test_scope',
+          feature_flag: 'depot_dossier_mariage'
+        )
+      end
+
+      context 'when the feature flag is enabled' do
+        it 'stays available' do
+          allow(FeatureFlag).to receive(:enabled?).with('depot_dossier_mariage').and_return(true)
+
+          expect(subject).to be true
+        end
+      end
+
+      context 'when the feature flag is disabled' do
+        it 'is not available' do
+          allow(FeatureFlag).to receive(:enabled?).with('depot_dossier_mariage').and_return(false)
+
+          expect(subject).to be false
+        end
+      end
+    end
+
     context 'when hide option is configured' do
       context 'when scope is in hide list' do
         let(:scopes_config) { { hide: %w[test_scope other_scope] } }

@@ -6,11 +6,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Et que je me connecte
 
   Scénario: Je soumets une demande d’habilitation valide
-    Quand je démarre une nouvelle demande d’habilitation "Démarches du bouquet de services (service-public.fr)"
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
+    * je coche "DDMariage - Pré-dépôt de dossier de mariage"
 
     * je remplis les informations du contact "Administrateur local" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction              |
@@ -33,11 +34,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
 
   Scénario: Je remplis une demande d’habilitation avec un champ du contact manquant
-    Quand je démarre une nouvelle demande d’habilitation "Démarches du bouquet de services (service-public.fr)"
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
+    * je coche "DDMariage - Pré-dépôt de dossier de mariage"
 
     * je remplis les informations du contact "Administrateur local" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur local |
