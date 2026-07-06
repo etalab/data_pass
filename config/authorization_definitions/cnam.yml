@@ -2,6 +2,16 @@ api_droits_cnam:
   name: "API de droits à l’Assurance Maladie"
   description: "Accédez aux droits d’un individu ou d’une famille (enfants rattachés), gérés par le régime général de l’Assurance Maladie"
   provider: "cnam"
+  automated_emails: &cnam_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - approve_to_france_connect
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api_ameli_droits_cnam"
   cgu_link: "/cgus/API_Droits_CNAM_CGU_20181210.pdf"
@@ -19,6 +29,7 @@ api_indemnites_journalieres_cnam:
   name: "API Indemnités Journalières de la CNAM"
   description: "Accédez au montant des indemnités journalières de l'Assurance Maladie payé à un assuré sur une période."
   provider: "cnam"
+  automated_emails: *cnam_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-indemnites-journalieres-cnam"
   cgu_link: "/cgus/API_Droits_CNAM_CGU_20181210.pdf"

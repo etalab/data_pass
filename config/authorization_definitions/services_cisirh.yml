@@ -2,6 +2,15 @@ services_cisirh:
   name: Services et applications fournis par le CISIRH
   description: Le CISIRH contribue à la modernisation de la fonction "ressources humaines" de l’État dans les domaines métiers et applicatifs.
   provider: "cisirh"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'service'
   link: " https://cisirh.github.io/"
   cgu_link: " https://cisirh.github.io/cgacgu"

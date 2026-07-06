@@ -2,6 +2,11 @@ api_entreprise:
   name: "API Entreprise"
   description: "Entités administratives, simplifiez les démarches des entreprises et des associations en récupérant pour elles leurs informations administratives."
   provider: "dinum"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-entreprise"
   support_email: "support@entreprise.api.gouv.fr"

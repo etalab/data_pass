@@ -178,6 +178,36 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '#automated_emails' do
+    it 'is explicitly declared with known automated emails on each YAML definition' do
+      AuthorizationDefinitionConfigurations.instance.all.each do |uid, hash|
+        expect(hash[:automated_emails]).to be_present, "#{uid} automated_emails is missing"
+
+        hash[:automated_emails].each do |automated_email_id|
+          expect(AuthorizationDefinition::AutomatedEmail::ALL).to have_key(automated_email_id),
+            "#{uid} declares unknown automated email #{automated_email_id}"
+        end
+      end
+    end
+
+    it 'returns the declared automated emails' do
+      definition = described_class.find('api_entreprise')
+
+      expect(definition.automated_emails).to be_all(AuthorizationDefinition::AutomatedEmail)
+      expect(definition.automated_email_ids).to include('submit_to_applicant')
+    end
+
+    context 'with a definition without declaration (DB-backed)' do
+      let(:db_definition) do
+        described_class.build('mon_api', name: 'Mon API', blocks: [], features: {})
+      end
+
+      it 'falls back to the default automated emails' do
+        expect(db_definition.automated_email_ids).to eq(AuthorizationDefinition::AutomatedEmail::DEFAULT_IDS)
+      end
+    end
+  end
+
   describe '#editors' do
     subject(:editors) { instance.editors }
 

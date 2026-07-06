@@ -6,6 +6,14 @@ hubee_cert_dc:
   support_email: "dgs-certdc@sante.gouv.fr"
   kind: 'service'
   provider: "dgs"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_hubee_administrateur_metier_cert_dc
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   public: true
   unique: true
   blocks:
@@ -18,6 +26,14 @@ hubee_dila:
   access_link: https://portail.hubee.numerique.gouv.fr
   support_email: "support.partenaires@service-public.fr"
   provider: "dila"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_hubee_administrateur_metier_dila
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'service'
   public: true
   unique: true

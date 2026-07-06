@@ -2,6 +2,15 @@ france_connect:
   name: "FranceConnect"
   description: "Identifier les utilisateurs de votre site internet et accéder à certaines données d'identité certifiées."
   provider: "dinum"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'service'
   link: "https://franceconnect.gouv.fr/"
   cgu_link: "https://partenaires.franceconnect.gouv.fr/cgu"

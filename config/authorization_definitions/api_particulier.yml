@@ -3,6 +3,11 @@ api_particulier:
   description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
   cgu_link: "https://particulier.api.gouv.fr/cgu"
   provider: "dinum"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_delegue_protection_donnees
+    - approve_to_france_connect
   link: "https://api.gouv.fr/les-api/api-particulier"
   access_link: https://particulier.api.gouv.fr/compte/jetons/%{external_provider_id}
   kind: 'api'
@@ -220,6 +225,14 @@ formulaire_qf:
   name: Formulaire d'accès au Quotient Familial
   description: "Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du \"formulaire de collecte du quotient familial\" et du portail agent HubEE."
   provider: "dinum"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'service'
   link: "https://quotient-familial.numerique.gouv.fr/"
   cgu_link: "https://quotient-familial.numerique.gouv.fr/cgu_administrations"

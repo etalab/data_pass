@@ -7,6 +7,13 @@ api_captchetat:
   cgu_link: "/cgus/cgu_api_captchetat_v_1_2.pdf"
   support_email: "piste.aife@finances.gouv.fr"
   provider: "aife"
+  automated_emails: &without_gdpr_contacts_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   blocks:
     - name: "basic_infos"
     - name: "contacts"
@@ -20,6 +27,15 @@ api_pro_sante_connect:
   cgu_link: "https://esante.gouv.fr/cgu/pro-sante-connect"
   support_email: "prosanteconnect.editeurs@esante.gouv.fr"
   provider: "ans"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   blocks:
     - name: "basic_infos"
     - name: "legal"
@@ -37,6 +53,7 @@ annuaire_des_entreprises:
   name: "Espace agent de l'Annuaire des Entreprises"
   description: "Permet de consulter des données d'entreprises réservées aux agents de l'administration, certaines de ces données étant sous habilitation."
   provider: "dinum"
+  automated_emails: *without_gdpr_contacts_automated_emails
   kind: 'service'
   link: "https://annuaire-entreprises.data.gouv.fr/"
   cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"

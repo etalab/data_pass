@@ -2,6 +2,15 @@ api_indicateurs_sociaux:
   name: API Indicateurs Sociaux Entreprises
   description: "FEEDME"
   provider: "dinum"
+  automated_emails:
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'api'
   link: "https://api-indicateurs-sociaux.gouv.fr/feedme-with-valid-url"
   cgu_link: "https://api-indicateurs-sociaux.gouv.fr/cgu"

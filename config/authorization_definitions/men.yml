@@ -2,6 +2,15 @@ api_scolarite:
   name: "API scolarité de l’élève"
   description: "Statut scolarisé et statut boursier d’un élève du primaire, collège ou lycée."
   provider: "menj"
+  automated_emails: &standard_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale"
   cgu_link: "/cgus/cgu_api_scolarite.pdf"
@@ -25,6 +34,7 @@ api_gfe_echange_collectivites:
   name: "GFE Échanges Collectivités"
   description: "Permet aux collectivités d’échanger des flux XML avec GFE"
   provider: "menj"
+  automated_emails: *standard_automated_emails
   kind: 'api'
   link: "https://api.education.gouv.fr"
   cgu_link: "https://api.education.gouv.fr/api-gfe-echanges-collectivites"
@@ -40,6 +50,7 @@ api_gfe_echange_editeurs_restauration:
   name: "GFE Échanges Éditeurs Restauration"
   description: "Permet aux éditeurs de transmettre leur flux XML quotidien contenant les repas consommés ou réservés des élèves"
   provider: "menj"
+  automated_emails: *standard_automated_emails
   kind: 'api'
   link: "https://api.education.gouv.fr"
   cgu_link: "https://api.education.gouv.fr/api-gfe-echanges-editeurs-restauration"
@@ -55,6 +66,7 @@ api_inser_jeunes_sup:
     name: "API Exposition InserJeunes InserSup"
     description: "Exposition au grand public et aux futurs élèves des indicateurs clés sur les formations. Ces indicateurs ont vocation à éclairer sur les chances d’employabilité des élèves en sortie de formation, mais aussi sur les possibilités de poursuite d’études. Les données sont exposées sur différentes plateformes partenaires telles que ParcourSup, AFFELNET ou l’ONISEP."
     provider: "menj"
+    automated_emails: *standard_automated_emails
     link: https://documentation-api-exposition-inser-jeunes-sup.phm.education.gouv.fr
     cgu_link: https://api.education.gouv.fr/?api_portal=1&api_portal_id=e7010ade-8abc-3e6c-a0f9-4abc53a19df1
     access_link:

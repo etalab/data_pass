@@ -2,6 +2,15 @@ pro_connect_service_provider:
   name: ProConnect - Fournisseur de services
   description: Le solution officielle qui vous identifie en tant que professionnel.
   provider: "dinum"
+  automated_emails: &standard_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'api'
   link: "https://api.gouv.fr/les-api/agent-connect"
   cgu_link: "/cgus/cgu_agentconnect_fs.pdf"
@@ -32,6 +41,7 @@ pro_connect_identity_provider:
   name: ProConnect - Fournisseur d'identité
   description: Le solution officielle qui vous identifie en tant que professionnel.
   provider: "dinum"
+  automated_emails: *standard_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/les-api/agent-connect"
   cgu_link: "/cgus/cgu_agentconnect_fi.pdf"

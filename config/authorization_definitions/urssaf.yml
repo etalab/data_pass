@@ -2,6 +2,15 @@ api_declaration_auto_entrepreneur:
   name: API Tierce Déclaration auto-entrepreneur
   description: "Connectez-vous directement à l’Urssaf pour déclarer les chiffres d’affaires pour le compte d’un auto-entrepreneur en tant que tiers-déclarant"
   provider: "urssaf"
+  automated_emails: &standard_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-declaration-auto-entrepreneur"
   cgu_link: "https://portailapi.urssaf.fr/fr/catalogue-api/prd/td-ae/conditions-generales-utilisation"
@@ -60,6 +69,7 @@ api_declaration_cesu:
     <p>Bon à savoir : pour savoir auprès de quelle API votre structure doit procéder à sa demande d’habilitation, consultez la documentation <a href="/public/doc/infographie_api_urssaf.pdf">ci-jointe</a>.</p>
     <p>⚠️ Si vous souhaitez mettre en place l'avance de crédit d'impôt pour vos clients, vous n'êtes pas au bon endroit : <a href="https://portailapi.urssaf.fr/fr/catalogue-api/prd/tiers-prestations/souscription-api">l' API Tiers de Prestations</a> est l'API que vous cherchez.</p>
   provider: "urssaf"
+  automated_emails: *standard_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-declaration-cesu"
   cgu_link: "/cgus/cgu_api_declaration_cesu_v1.pdf"

@@ -6,6 +6,17 @@ api_impot_particulier:
   link: "https://api.gouv.fr/les-api/impot-particulier"
   cgu_link: "/cgu_api_impot_particulier_prod"
   provider: "dgfip"
+  automated_emails: &dgfip_france_connect_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - approve_to_france_connect
+    - approve_to_dgfip_apim
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   features: &dgfip_features
     messaging: false
@@ -169,6 +180,7 @@ api_impot_particulier_sandbox:
   name: "API Impôt Particulier"
   description: "Raccordez-vous directement à la DGFiP pour récupérer les éléments fiscaux nécessaires à vos téléservices, éliminez le traitement et le stockage des pièces justificatives"
   provider: "dgfip"
+  automated_emails: *dgfip_france_connect_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/les-api/impot-particulier"
   cgu_link: "/cgu_api_impot_particulier_bas"
@@ -194,6 +206,16 @@ api_sfip:
   name: API Courtier fonctionnel SFiP
   description: &api_sfip_description "Raccordez-vous directement au courtier SFiP pour récupérer les données nécessaires à vos téléservices. Ce nouveau service rassemblera pour vous les données strictement nécessaires issues de différentes API de la DGFiP, en excluant les données intermédiaires."
   provider: "dgfip"
+  automated_emails: &dgfip_automated_emails
+    - submit_to_applicant
+    - submit_to_instructors
+    - approve_to_applicant
+    - approve_to_responsable_traitement
+    - approve_to_delegue_protection_donnees
+    - approve_to_dgfip_apim
+    - refuse_to_applicant
+    - request_changes_to_applicant
+    - revoke_to_applicant
   kind: 'api'
   link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
   cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
@@ -221,6 +243,7 @@ api_sfip_sandbox:
   name: API Courtier fonctionnel SFiP
   description: *api_sfip_description
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
   cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
@@ -245,6 +268,7 @@ api_hermes_sandbox:
   name: API Hermes
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/cgu_bas_hermes_v.2023_11.pdf"
@@ -268,6 +292,7 @@ api_hermes:
   name: API Hermes
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/cgu_prod_hermes_v.2023_11.pdf"
@@ -294,6 +319,7 @@ api_e_contacts_sandbox:
   name: API E-Contacts
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_e_contacts_v.2023_11.pdf"
@@ -317,6 +343,7 @@ api_e_contacts:
   name: API E-Contacts
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_e_contacts_v.2023_11.pdf"
@@ -343,6 +370,7 @@ api_opale_sandbox:
   name: API OPALE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_opale_v.2023_11.pdf"
@@ -366,6 +394,7 @@ api_opale:
   name: API OPALE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_opale_v.2023_11.pdf"
@@ -392,6 +421,7 @@ api_ocfi_sandbox:
   name: API OCFI
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_ocfi_v.2023_11.pdf"
@@ -415,6 +445,7 @@ api_ocfi:
   name: API OCFI
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_ocfi_v.2023_11.pdf"
@@ -441,6 +472,7 @@ api_e_pro_sandbox:
   name: API E-PRO
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_e_pro_v.2023_11.pdf"
@@ -464,6 +496,7 @@ api_e_pro:
   name: API E-PRO
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_e_pro_v.2023_11.pdf"
@@ -490,6 +523,7 @@ api_robf_sandbox:
   name: API ROBF
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_robf_v.2023_11.pdf"
@@ -514,6 +548,7 @@ api_robf:
   name: API ROBF
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_robf_v.2023_11.pdf"
@@ -540,6 +575,7 @@ api_cpr_pro_adelie_sandbox:
   name: API CPR PRO-ADELIE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_cpr_pro_v.2023_11.pdf"
@@ -563,6 +599,7 @@ api_cpr_pro_adelie:
   name: API CPR PRO-ADELIE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_cpr_pro_v.2023_11.pdf"
@@ -589,6 +626,7 @@ api_imprimfip_sandbox:
   name: API IMPRIM’FIP
   description: Utilisez la solution éditique IMPRIM’FIP pour délocaliser le traitement de vos courriers administratifs sortants (impression, mise sous pli, affranchissement et remise à La Poste) vers les centres éditiques industriels de la DGFIP.
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
   cgu_link: "/cgus/dgfip/cgu_bas_imprimfip_v.2023_09.pdf"
@@ -612,6 +650,7 @@ api_imprimfip:
   name: API IMPRIM’FIP
   description: Utilisez la solution éditique IMPRIM’FIP pour délocaliser le traitement de vos courriers administratifs sortants (impression, mise sous pli, affranchissement et remise à La Poste) vers les centres éditiques industriels de la DGFIP.
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
   cgu_link: "/cgus/dgfip/cgu_prod_imprimfip_v.2023_09.pdf"
@@ -637,6 +676,7 @@ api_satelit_sandbox:
   name: API Satelit
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_satelit_v.2022_v1.pdf"
@@ -660,6 +700,7 @@ api_satelit:
   name: API Satelit
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_satelit_v.2022_v1.pdf"
@@ -686,6 +727,7 @@ api_mire_sandbox:
   name: API MIRE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_mire_v.2023_11.pdf"
@@ -709,6 +751,7 @@ api_mire:
   name: API MIRE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_mire_v.2023_11.pdf"
@@ -735,6 +778,7 @@ api_ensu_documents_sandbox:
   name: API ENSU Documents
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_ensu_doc_v.2023_11.pdf"
@@ -758,6 +802,7 @@ api_ensu_documents:
   name: API ENSU Documents
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_ensu_doc_v.2023_11.pdf"
@@ -784,6 +829,7 @@ api_rial_sandbox:
   name: API RIAL (Répertoire Inter-Administratif des Locaux)
   description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété).
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api_rial"
   cgu_link: "/cgus/dgfip/cgu_bas_api_rial_v2024-11.pdf"
@@ -807,6 +853,7 @@ api_rial:
   name: API RIAL (Répertoire Inter-Administratif des Locaux)
   description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété)
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api_rial"
   cgu_link: "/cgus/dgfip/cgu_prod_api_rial_v2024-11.pdf"
@@ -833,6 +880,7 @@ api_infinoe:
   name: API INFINOE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
   cgu_link: "/cgus/dgfip/cgu_infinoe_production_v_2023_10.pdf"
@@ -857,6 +905,7 @@ api_infinoe_sandbox:
   name: API INFINOE
   description: "FEEDME"
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
   cgu_link: "/cgus/dgfip/cgu_infinoe_bac_a_sable_v_2023_10.pdf"
@@ -879,6 +928,7 @@ api_ficoba:
   name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
   description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
   cgu_link: "/cgus/dgfip/cgu_api_ficoba_prod_2025.pdf"
@@ -938,6 +988,7 @@ api_ficoba_sandbox:
   name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
   description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
   cgu_link: "/cgus/dgfip/cgu_api_ficoba_bas_2025.pdf"
@@ -964,6 +1015,7 @@ api_r2p_sandbox: &api_r2p_sandbox
   name: API R2P
   description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
   cgu_link: "/cgus/dgfip/cgu_api_r2p_bac_a_sable_septembre2020_v2.6.pdf"
@@ -988,6 +1040,7 @@ api_r2p: &api_r2p
   name: API R2P
   description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
   provider: "dgfip"
+  automated_emails: *dgfip_automated_emails
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
   cgu_link: "/cgus/dgfip/cgu_api_r2p_production_septembre2020_v2.5.pdf"
