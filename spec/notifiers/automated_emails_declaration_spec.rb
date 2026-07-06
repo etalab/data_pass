@@ -1,76 +1,61 @@
 RSpec.describe 'Automated emails declarations', type: :notifier do
+  include ActiveJob::TestHelper
+
   let!(:dgfip_data_provider) { create(:data_provider, :dgfip) }
+  let(:instructor) { create(:user) }
 
   before do
-    allow(Instruction::NotificationRecipients).to receive(:submit).and_return([instance_double(User)])
-    allow(RegisterOrganizationWithContactsOnCRMJob).to receive(:perform_later)
+    allow(Instruction::NotificationRecipients).to receive(:submit).and_return([instructor])
   end
 
-  it 'declares on each definition exactly the emails triggered by its notifier' do
+  it 'declares on each definition exactly the emails enqueued by its notifier' do
     AuthorizationDefinition.yaml_records.each do |definition|
-      triggered_ids = triggered_automated_email_ids(definition)
+      enqueued_ids = enqueued_automated_email_ids(definition)
 
-      expect(triggered_ids).to match_array(definition.automated_email_ids),
-        "#{definition.id}: declares #{definition.automated_email_ids.sort} but notifier triggers #{triggered_ids.sort}"
+      expect(enqueued_ids).to match_array(definition.automated_email_ids),
+        "#{definition.id}: declares #{definition.automated_email_ids.sort} but notifier enqueues #{enqueued_ids.sort}"
     end
   end
 
   EVENTS = %w[submit approve refuse request_changes revoke].freeze
 
-  MAILER_CAPTURES_TO_IDS = {
-    'AuthorizationRequestMailer' => ->(action, _args) { "#{action}_to_applicant" },
-    'Instruction::AuthorizationRequestMailer' => ->(_action, _args) { 'submit_to_instructors' },
-    'GDPRContactMailer' => ->(action, _args) { "approve_to_#{action}" },
-    'FranceConnectMailer' => ->(_action, _args) { 'approve_to_france_connect' },
-    'DGFIP::APIMMailer' => ->(_action, _args) { 'approve_to_dgfip_apim' },
-    'HubEEMailer' => ->(_action, args) { "approve_to_hubee_administrateur_metier_#{args.first}" },
-  }.freeze
+  def enqueued_automated_email_ids(definition)
+    authorization_request = sample_authorization_request(definition)
+    notifier = notifier_for(definition, authorization_request)
 
-  class MailerSpy
-    attr_reader :mailer_class, :captures
-
-    def initialize(mailer_class, captures)
-      @mailer_class = mailer_class
-      @captures = captures
-    end
-
-    def method_missing(action, *args)
-      captures << [mailer_class, action, args]
-      NullDelivery.new
-    end
-
-    def respond_to_missing?(_method_name, _include_private = false)
-      true
-    end
-
-    class NullDelivery
-      def deliver_later(...) = nil
-      def deliver_now(...) = nil
-    end
-  end
-
-  def triggered_automated_email_ids(definition)
-    captures = []
-    spy_on_mailers(captures)
-    notifier = notifier_for(definition)
-
-    EVENTS.each { |event| notifier.public_send(event, {}) }
-
-    captures.map { |mailer_class, action, args|
-      MAILER_CAPTURES_TO_IDS.fetch(mailer_class.to_s).call(action, args)
+    EVENTS.flat_map { |event|
+      new_mail_jobs { notifier.public_send(event, {}) }.map { |job| automated_email_id_for(job) }
     }.uniq
   end
 
-  def spy_on_mailers(captures)
-    MAILER_CAPTURES_TO_IDS.each_key do |mailer_class_name|
-      mailer_class = mailer_class_name.constantize
+  def new_mail_jobs
+    already_enqueued = enqueued_jobs.size
+    yield
 
-      allow(mailer_class).to receive(:with).and_return(MailerSpy.new(mailer_class, captures))
+    enqueued_jobs[already_enqueued..].select { |job| job['job_class'] == 'ActionMailer::MailDeliveryJob' }
+  end
+
+  def automated_email_id_for(job)
+    mailer, action, _delivery_method, options = job['arguments']
+
+    case mailer
+    when 'AuthorizationRequestMailer' then "#{action}_to_applicant"
+    when 'Instruction::AuthorizationRequestMailer' then 'submit_to_instructors'
+    when 'GDPRContactMailer' then "approve_to_#{action}"
+    when 'FranceConnectMailer' then 'approve_to_france_connect'
+    when 'DGFIP::APIMMailer' then 'approve_to_dgfip_apim'
+    when 'HubEEMailer' then "approve_to_hubee_administrateur_metier_#{hubee_kind_from(options)}"
+    else
+      raise "Unknown mailer #{mailer}##{action}"
     end
   end
 
-  def notifier_for(definition)
-    notifier_class_for(definition).new(sample_authorization_request(definition))
+  def hubee_kind_from(options)
+    options['args'].first['value']
+  end
+
+  def notifier_for(definition, authorization_request)
+    notifier_class_for(definition).new(authorization_request)
   end
 
   def notifier_class_for(definition)
@@ -80,13 +65,16 @@ RSpec.describe 'Automated emails declarations', type: :notifier do
   end
 
   def sample_authorization_request(definition)
-    authorization_request = definition.authorization_request_class.new
-    assign_contact_emails(authorization_request)
-
-    allow(authorization_request).to receive_messages(
-      applicant: instance_double(User, email: 'demandeur@example.org'),
-      with_france_connect?: can_use_france_connect?(definition.authorization_request_class),
+    authorization_request = build(
+      :authorization_request,
+      type: definition.authorization_request_class_as_string,
+      form_uid: definition.default_form.id,
     )
+    assign_contact_emails(authorization_request)
+    authorization_request.save!(validate: false)
+
+    allow(authorization_request).to receive(:with_france_connect?)
+      .and_return(can_use_france_connect?(definition.authorization_request_class))
 
     authorization_request
   end
