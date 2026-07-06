@@ -17,13 +17,11 @@ RSpec.describe 'Automated emails declarations', type: :notifier do
     end
   end
 
-  EVENTS = %w[submit approve refuse request_changes revoke].freeze
-
   def enqueued_automated_email_ids(definition)
     authorization_request = sample_authorization_request(definition)
     notifier = notifier_for(definition, authorization_request)
 
-    EVENTS.flat_map { |event|
+    AuthorizationDefinition::AutomatedEmail::EVENTS.flat_map { |event|
       new_mail_jobs { notifier.public_send(event, {}) }.map { |job| automated_email_id_for(job) }
     }.uniq
   end

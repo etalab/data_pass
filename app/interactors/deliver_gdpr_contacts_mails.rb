@@ -8,7 +8,7 @@ class DeliverGDPRContactsMails < ApplicationInteractor
   private
 
   def gdpr_contacts
-    AuthorizationExtensions::GDPRContacts::NAMES
+    context.contacts || AuthorizationExtensions::GDPRContacts::NAMES
   end
 
   def notify(gdpr_contact)

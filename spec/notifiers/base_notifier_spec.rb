@@ -1,7 +1,7 @@
 RSpec.describe BaseNotifier, type: :notifier do
   subject(:notifier) { described_class.new(authorization_request) }
 
-  let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+  let(:authorization_request) { create(:authorization_request, :api_ingres) }
 
   describe '#approve with reopening flag' do
     it 'enqueues the reopening_approve email via AuthorizationRequestMailer' do
@@ -74,7 +74,7 @@ RSpec.describe BaseNotifier, type: :notifier do
     end
 
     context 'with an instructor to notify' do
-      let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+      let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_ingres]) }
 
       it 'enqueues the submit email to instruction mailer without reopening' do
         expect {
@@ -104,9 +104,38 @@ RSpec.describe BaseNotifier, type: :notifier do
     end
   end
 
+  describe '#approve for HubEE definitions' do
+    let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated, applicant:, administrateur_metier_email:) }
+    let(:applicant) { create(:user) }
+
+    before do
+      ActiveJob::Base.queue_adapter = :inline
+    end
+
+    after do
+      ActiveJob::Base.queue_adapter = :test
+    end
+
+    context 'when applicant email and administrateur_metier_email are different' do
+      let(:administrateur_metier_email) { generate(:email) }
+
+      it 'sends the applicant email and the administrateur métier email' do
+        expect { notifier.approve({}) }.to change { ActionMailer::Base.deliveries.count }.by(2)
+      end
+    end
+
+    context 'when applicant email and administrateur_metier_email are the same' do
+      let(:administrateur_metier_email) { applicant.email }
+
+      it 'sends only the applicant email' do
+        expect { notifier.approve({}) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+    end
+  end
+
   describe '#submit email in case of changes requested' do
-    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: ['api_entreprise'], instruction_submit_notifications_for_api_entreprise: true) }
-    let(:authorization_request) { create(:authorization_request, :api_entreprise, last_submitted_at: 1.day.ago) }
+    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: ['api_ingres'], instruction_submit_notifications_for_api_ingres: true) }
+    let(:authorization_request) { create(:authorization_request, :api_ingres, last_submitted_at: 1.day.ago) }
 
     before do
       ActiveJob::Base.queue_adapter = :inline
@@ -124,7 +153,7 @@ RSpec.describe BaseNotifier, type: :notifier do
           notifier.submit({})
         }.to change { ActionMailer::Base.deliveries.count }.by(2)
 
-        instruction_mail = ActionMailer::Base.deliveries[-2]
+        instruction_mail = ActionMailer::Base.deliveries.find { |mail| mail.to == [valid_instructor.email] }
         expect(instruction_mail.body.encoded).to include('Cette demande fait suite à une demande de modification.')
       end
     end
@@ -135,7 +164,7 @@ RSpec.describe BaseNotifier, type: :notifier do
           notifier.submit({})
         }.to change { ActionMailer::Base.deliveries.count }.by(2)
 
-        instruction_mail = ActionMailer::Base.deliveries[-2]
+        instruction_mail = ActionMailer::Base.deliveries.find { |mail| mail.to == [valid_instructor.email] }
         expect(instruction_mail.body.encoded).not_to include('Cette demande fait suite à une demande de modification.')
       end
     end

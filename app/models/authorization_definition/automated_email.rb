@@ -1,4 +1,6 @@
 class AuthorizationDefinition::AutomatedEmail
+  EVENTS = %w[submit approve refuse request_changes revoke].freeze
+
   ALL = {
     'submit_to_applicant' => { event: 'submit', recipient: 'applicant' },
     'submit_to_instructors' => { event: 'submit', recipient: 'instructors' },

@@ -17,8 +17,8 @@ class ApplicationNotifier
 
   protected
 
-  def deliver_gdpr_emails
-    DeliverGDPRContactsMails.call(authorization_request:)
+  def deliver_gdpr_email(gdpr_contact)
+    DeliverGDPRContactsMails.call(authorization_request:, contacts: [gdpr_contact])
   end
 
   def email_notification(event_name, params)
