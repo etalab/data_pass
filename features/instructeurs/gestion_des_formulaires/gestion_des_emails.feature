@@ -15,11 +15,13 @@ Fonctionnalité: Gestion des emails automatiques d'un formulaire
     Alors la page contient "Voir les emails automatiques"
     Et la page contient "API Entreprise"
 
-  Scénario: La page affiche un message indiquant que la fonctionnalité est en cours de développement
+  Scénario: La page liste les emails automatiques du formulaire
     Quand je me rends sur le formulaire "API Entreprise"
     Et je clique sur "Voir les emails automatiques"
-    Alors la page contient "Fonctionnalité en cours de développement"
-    Et la page contient "datapass@api.gouv.fr"
+    Alors la page contient "Évènement déclencheur"
+    Et la page contient "Soumission d’une demande"
+    Et la page contient "Responsable de traitement"
+    Et la page contient "Nous accusons réception de votre demande d'habilitation"
 
   Scénario: Un manager voit le lien « Gérer les emails automatiques »
     Sachant que je suis un manager "API Entreprise"
