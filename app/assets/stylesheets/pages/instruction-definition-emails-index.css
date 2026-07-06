@@ -1,0 +1,6 @@
+.automated-email-preview-body {
+  white-space: pre-wrap;
+  background: var(--background-alt-grey);
+  border-radius: 4px;
+  overflow-x: auto;
+}

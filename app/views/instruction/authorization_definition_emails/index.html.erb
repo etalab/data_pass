@@ -6,6 +6,34 @@
       title: action_label) %>
 
 <div class="fr-container fr-my-5w">
-  <%= render Atoms::UnderDevelopmentAlertComponent.new(
-        wip_action: t('.under_development.wip_action')) %>
+  <% @automated_email_previews.each do |preview| %>
+    <div class="fr-card fr-p-3w fr-mb-4w">
+      <div>
+        <strong><%= t('.event_label') %> :</strong>
+        <%= t(".events.#{preview.event}") %>
+      </div>
+
+      <div>
+        <strong><%= t('.recipients_label') %> :</strong>
+        <% if preview.recipient_emails.nil? %>
+          <%= t(".recipients.#{preview.recipient}") %>
+        <% elsif preview.recipient_emails.any? %>
+          <%= preview.recipient_emails.join(', ') %>
+        <% else %>
+          <%= t('.recipients.from_credentials', definition_name: @authorization_definition.name) %>
+        <% end %>
+      </div>
+
+      <div class="fr-text--md fr-mb-1w">
+        <strong><%= t('.subject_label') %> :</strong>
+        <%= preview.subject %>
+      </div>
+
+      <% if preview.body.present? %>
+        <pre class="fr-text--sm fr-mt-2w fr-mb-0 fr-p-2w automated-email-preview-body"><%= preview.body %></pre>
+      <% else %>
+        <p class="fr-text--sm fr-mt-2w fr-mb-0"><%= t('.no_preview') %></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>

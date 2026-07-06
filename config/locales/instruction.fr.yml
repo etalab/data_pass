@@ -70,8 +70,25 @@ fr:
       index:
         title: Gérer les emails automatiques
         title_readonly: Voir les emails automatiques
-        under_development:
-          wip_action: modifier les emails automatiques de ce formulaire
+        event_label: Évènement déclencheur
+        recipients_label: Destinataires
+        subject_label: Objet
+        no_preview: Aperçu indisponible pour cet email.
+        events:
+          submit: Soumission d’une demande
+          approve: Validation d’une demande
+          refuse: Refus d’une demande
+          request_changes: Demande de modifications
+          revoke: Révocation d’une habilitation
+        recipients:
+          applicant: Demandeur
+          instructors: Instructeurs
+          responsable_traitement: Responsable de traitement
+          delegue_protection_donnees: Délégué à la protection des données
+          france_connect: Support partenaires FranceConnect
+          dgfip_apim: DGFIP APIM
+          hubee_administrateur_metier: Administrateur métier HubEE
+          from_credentials: Adresses configurées pour « %{definition_name} »
     forms:
       index:
         empty: Aucun cas d'usage disponible.
