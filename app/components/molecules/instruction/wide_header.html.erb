@@ -10,13 +10,15 @@
 
     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">
       <div class="fr-grid-row fr-grid-row--top fr-grid-row--gutters fr-col">
-        <div class="fr-col-auto">
-          <% if logo_asset&.attached? %>
-            <%= image_tag logo_asset, alt: '', class: 'wide-header-logo' %>
-          <% elsif dsfr_logo %>
-            <%= dsfr_pictogram(dsfr_logo) %>
-          <% end %>
-        </div>
+        <% if logo_asset&.attached? || dsfr_logo.present? %>
+          <div class="fr-col-auto">
+            <% if logo_asset&.attached? %>
+              <%= image_tag logo_asset, alt: '', class: 'wide-header-logo' %>
+            <% elsif dsfr_logo.present? %>
+              <%= dsfr_pictogram(dsfr_logo) %>
+            <% end %>
+          </div>
+        <% end %>
         <div class="fr-col">
           <h1 class="fr-mb-1v">
             <%= title %>
