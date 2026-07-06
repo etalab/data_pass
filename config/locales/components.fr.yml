@@ -8,6 +8,9 @@ fr:
       title: Configuration
       "true": Oui
       "false": Non
+    under_development_alert_component:
+      title: Fonctionnalité en cours de développement.
+      message_html: "Pour %{wip_action}, contactez-nous sur %{contact_link}."
   molecules:
     instruction:
       authorization_definition:

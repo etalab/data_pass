@@ -1,5 +1,5 @@
 <%= render Molecules::Instruction::WideHeader.new(
-      logo_asset: authorization_definition.provider.logo,
+      logo_asset: authorization_definition.provider&.logo,
       title:,
       breadcrumbs:) do |component| %>
   <% component.with_subtitle_content do %>

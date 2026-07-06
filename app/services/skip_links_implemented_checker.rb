@@ -92,6 +92,7 @@ class SkipLinksImplementedChecker
     instruction/authorization_definitions#edit
     instruction/forms#index
     instruction/forms#show
+    instruction/authorization_definition_emails#index
 
     admin#index
     admin/user_rights#index
