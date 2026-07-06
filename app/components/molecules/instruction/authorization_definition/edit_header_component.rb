@@ -1,4 +1,6 @@
 class Molecules::Instruction::AuthorizationDefinition::EditHeaderComponent < ApplicationComponent
+  include Molecules::Instruction::Breadcrumb
+
   def initialize(authorization_definition:, title:)
     @authorization_definition = authorization_definition
     @title = title
@@ -8,10 +10,11 @@ class Molecules::Instruction::AuthorizationDefinition::EditHeaderComponent < App
 
   attr_reader :authorization_definition, :title
 
-  def back_link
-    {
-      path: helpers.instruction_authorization_definition_path(authorization_definition),
-      text: authorization_definition.name_with_stage
-    }
+  def breadcrumbs
+    [
+      formulaires_breadcrumb_item,
+      authorization_definition_breadcrumb_item,
+      { label: title }
+    ]
   end
 end

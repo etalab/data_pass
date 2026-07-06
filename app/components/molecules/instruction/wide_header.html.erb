@@ -1,11 +1,11 @@
 <div class="fr-background-alt--blue-france fr-py-4w fr-mb-4w">
   <div class="fr-container">
-    <% if back_link %>
-      <div class="fr-text--sm fr-mb-2w fr-text-mention--grey">
-        <%= link_to back_link[:text],
-              back_link[:path],
-              class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
-      </div>
+    <% if breadcrumbs.present? %>
+      <%= helpers.dsfr_breadcrumbs(html_attributes: { class: 'fr-mt-0 fr-mb-2w' }) do |b|
+            breadcrumbs.each do |crumb|
+              b.with_breadcrumb(label: crumb[:label], href: crumb[:href])
+            end
+          end %>
     <% end %>
 
     <div class="fr-grid-row fr-grid-row--middle fr-grid-row--gutters">

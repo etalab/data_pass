@@ -1,7 +1,7 @@
 <%= render Molecules::Instruction::WideHeader.new(
       logo_asset: authorization_definition.provider.logo,
       title:,
-      back_link:) do |component| %>
+      breadcrumbs:) do |component| %>
   <% component.with_subtitle_content do %>
     <p class="fr-mb-0"><%= authorization_definition.name_with_stage %></p>
   <% end %>
