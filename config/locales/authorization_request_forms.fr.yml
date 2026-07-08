@@ -1228,10 +1228,6 @@ fr:
       responsable_traitement:
         title: Responsable de l’administration
         info: Il décide si l’administration peut accéder aux produits et sera prévenu par email lors de la validation de la demande.
-      responsable_traitement_job_title:
-        label: Fonction du responsable de l’administration
       contact_technique:
         title: Contact référent des outils numériques de l’administration
         info: C’est la personne en charge du choix des outils numériques des agents de l’administration
-      contact_technique_job_title:
-        label: Fonction du contact référent des outils numériques de l’administration

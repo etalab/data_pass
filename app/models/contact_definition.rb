@@ -12,6 +12,10 @@ class ContactDefinition
     options.fetch(:required_personal_email, false)
   end
 
+  def excluded_attributes
+    Array(options.fetch(:except, [])).map(&:to_s)
+  end
+
   def fill_data_with_applicant_data?
     options.fetch(:fillable_with_applicant_data) do
       !type.in?(EXCLUDED_FROM_APPLICANT_DATA_TYPES)

@@ -68,6 +68,9 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
   end
 
   def skip_contact_attribute?(contact_type, contact_attribute)
+    contact_definition = model.contact_definitions.find { |definition| definition.type == contact_type }
+    return true if contact_definition&.excluded_attributes&.include?(contact_attribute)
+
     model.public_send(:"#{contact_type}_type") == 'organization' &&
       %w[family_name given_name job_title].include?(contact_attribute)
   end

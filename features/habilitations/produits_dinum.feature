@@ -8,18 +8,18 @@ Fonctionnalité: Soumission d'une demande d'habilitation Produits DINUM
 
   Scénario: Je soumets une demande valide avec une URL de cadre juridique
     * je remplis "Nature juridique de votre structure" avec "Établissement public administratif"
-    * je remplis "Veuillez nous indiquer l’url du texte vous autorisant à accéder aux produits DINUM" avec "https://exemple.gouv.fr/cadre-juridique"
+    * je remplis "Veuillez nous indiquer l’url du texte justifiant votre appartenance au SI de l’état" avec "https://exemple.gouv.fr/cadre-juridique"
     * je clique sur "Suivant"
 
     * je remplis les informations du contact "Délégué à la protection des données" avec :
-      | Nom    | Prénom  | Email                  | Téléphone   | Fonction |
-      | Dupont | Jacques | dupont.jacques@gouv.fr | 0436656565  | Délégué  |
+      | Nom    | Prénom  | Email                  |
+      | Dupont | Jacques | dupont.jacques@gouv.fr |
     * je remplis les informations du contact "Responsable de l’administration" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction    |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0336656565  | Responsable |
+      | Nom    | Prénom | Email               |
+      | Dupont | Jean   | dupont.jean@gouv.fr |
     * je remplis les informations du contact "Contact référent des outils numériques de l’administration" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction  |
-      | Dupont | Marc   | dupont.marc@gouv.fr | 0136656565  | Technique |
+      | Nom    | Prénom | Email               |
+      | Dupont | Marc   | dupont.marc@gouv.fr |
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -29,18 +29,18 @@ Fonctionnalité: Soumission d'une demande d'habilitation Produits DINUM
 
   Scénario: Je soumets une demande valide avec un document justificatif
     * je remplis "Nature juridique de votre structure" avec "Établissement public administratif"
-    * je remplis "Fournissez un document justifiant que vous pouvez accéder à ces produits" avec le fichier "spec/fixtures/dummy.pdf"
+    * je remplis "Fournissez un document justifiant votre appartenance au SI de l’état" avec le fichier "spec/fixtures/dummy.pdf"
     * je clique sur "Suivant"
 
     * je remplis les informations du contact "Délégué à la protection des données" avec :
-      | Nom    | Prénom  | Email                  | Téléphone   | Fonction |
-      | Dupont | Jacques | dupont.jacques@gouv.fr | 0436656565  | Délégué  |
+      | Nom    | Prénom  | Email                  |
+      | Dupont | Jacques | dupont.jacques@gouv.fr |
     * je remplis les informations du contact "Responsable de l’administration" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction    |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0336656565  | Responsable |
+      | Nom    | Prénom | Email               |
+      | Dupont | Jean   | dupont.jean@gouv.fr |
     * je remplis les informations du contact "Contact référent des outils numériques de l’administration" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction  |
-      | Dupont | Marc   | dupont.marc@gouv.fr | 0136656565  | Technique |
+      | Nom    | Prénom | Email               |
+      | Dupont | Marc   | dupont.marc@gouv.fr |
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
