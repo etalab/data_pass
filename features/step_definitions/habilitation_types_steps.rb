@@ -28,6 +28,21 @@ Sachantque("un type d'habilitation {string} expose le bloc {string}") do |name, 
   )
 end
 
+Sachantque('un type d\'habilitation « Produits DINUM » expose le bloc « legal_dinum »') do
+  data_provider = FactoryBot.create(:data_provider, :dinum)
+  FactoryBot.create(
+    :habilitation_type,
+    name: 'Produits DINUM',
+    data_provider:,
+    cgu_link: 'https://example.org/cgu-produits-dinum',
+    blocks: [
+      { 'name' => 'legal_dinum' },
+      { 'name' => 'contacts' },
+    ],
+    contact_types: %w[delegue_protection_donnees responsable_administration referent_outils_numeriques],
+  )
+end
+
 Sachantque("un type d'habilitation {string} avec des demandes liées et des scopes existe") do |name|
   data_provider = DataProvider.first || FactoryBot.create(:data_provider)
   habilitation_type = FactoryBot.create(
