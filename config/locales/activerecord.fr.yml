@@ -77,6 +77,10 @@ fr:
         cadre_juridique_url: Lien vers le texte relatif au cadre juridique
         cadre_juridique_document: Document associé au cadre juridique
 
+        cadre_juridique_dinum_nature: Nature juridique de votre structure
+        cadre_juridique_dinum_url: Lien vers le texte autorisant l’accès aux produits DINUM
+        cadre_juridique_dinum_document: Document justifiant l’accès aux produits DINUM
+
         safety_certification_document: La décision d’homologation ou le questionnaire de sécurité
         safety_certification_authority_name: Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité
         safety_certification_authority_function: Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité
@@ -122,11 +126,23 @@ fr:
         responsable_traitement_phone_number: Téléphone du responsable de traitement
         responsable_traitement_job_title: Fonction du responsable de traitement
 
+        responsable_administration_family_name: Nom de famille du responsable de l’administration
+        responsable_administration_given_name: Prénom du responsable de l’administration
+        responsable_administration_email: Email du responsable de l’administration
+        responsable_administration_phone_number: Téléphone du responsable de l’administration
+        responsable_administration_job_title: Fonction du responsable de l’administration
+
         delegue_protection_donnees_family_name: Nom de famille du délégué à la protection des données
         delegue_protection_donnees_given_name: Prénom du délégué à la protection des données
         delegue_protection_donnees_email: Email du délégué à la protection des données
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
+
+        referent_outils_numeriques_family_name: Nom de famille du référent des outils numériques
+        referent_outils_numeriques_given_name: Prénom du référent des outils numériques
+        referent_outils_numeriques_email: Email du référent des outils numériques
+        referent_outils_numeriques_phone_number: Téléphone du référent des outils numériques
+        referent_outils_numeriques_job_title: Fonction du référent des outils numériques
 
         extra_organization_contact_name: Nom du contact supplémentaire
         extra_organization_contact_email: Email du contact supplémentaire
@@ -216,6 +232,7 @@ fr:
         communes_codes_insee: "Saisissez un code INSEE par commune (ex : 75056 pour Paris). Cliquez sur « Ajouter une commune » pour en ajouter plusieurs."
         echelon_bourse: "L’extraction inclura tous les boursiers d’échelon supérieur ou égal à la valeur sélectionnée."
         premiere_date_transmission: "Date à laquelle vous souhaitez recevoir la première extraction CNOUS."
+        cadre_juridique_dinum_nature: "Exemple : établissement public administratif, groupement d’intérêt public, etc."
       message_template:
         title: "Privilégiez un titre court et explicite"
         content: "Variables disponibles : %{demande_url}, %{demande_intitule}, %{demande_id}"

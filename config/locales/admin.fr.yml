@@ -244,6 +244,7 @@ fr:
         blocks:
           basic_infos: Informations de base
           legal: Cadre juridique
+          legal_dinum: Cadre juridique (Produits DINUM)
           personal_data: Données personnelles
           contacts: Contacts
           scopes: Données (scopes)
@@ -253,6 +254,8 @@ fr:
           contact_metier: Contact métier
           responsable_traitement: Responsable de traitement
           delegue_protection_donnees: Délégué à la protection des données
+          referent_outils_numeriques: Référent des outils numériques
+          responsable_administration: Responsable de l’administration
         scopes_editor:
           title: Données (scopes)
           name: Nom
