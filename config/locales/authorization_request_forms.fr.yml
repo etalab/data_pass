@@ -1202,7 +1202,14 @@ fr:
     produits_dinum:
       legal_dinum:
         title: Le cadre juridique
-        subtitle: Vous souhaitez accéder aux produits de la DINUM, nous n’avons pas pu identifier automatiquement si votre organisation est une administration de l’État ou sous tutelle de l’État. Nous avons donc besoin de certaines informations d’ordre juridique afin de définir si vous êtes éligible.
+        subtitle: |
+          La DINUM met à disposition ses services aux administrations de l’État et aux organismes placés sous sa tutelle.
+
+          Il apparaît que nous avons besoin d’informations complémentaires pour identifier votre lien avec l’État.
+
+          Ces informations peuvent être trouvées dans les documents qui définissent vos activités (loi, décret, arrêté, convention constitutive, statuts, etc.). En cas de difficultés rapprochez vous de votre service juridique (mais pas trop près, il peut mordre).
+
+          Veillez à fournir toutes les informations qui vous sembleraient utiles à porter à notre connaissance.
       cadre_juridique_dinum:
         nature:
           title: Quelle est la nature juridique de votre structure ?
@@ -1212,15 +1219,19 @@ fr:
             Si vous êtes une <strong>administration de l’État</strong>, veuillez indiquer le texte de création de la structure.<br />
             Si vous êtes un <strong>organisme sous tutelle d’une autre administration</strong>, indiquez le texte législatif ou réglementaire qui le précise, et, le cas échéant, la convention constitutive ou les statuts de votre organisme.
       cadre_juridique_dinum_url:
-        label: '<strong>Veuillez nous indiquer l’url du texte vous autorisant à accéder aux produits DINUM <span class="fr-text-error">*</span></strong>'
+        label: '<strong>Veuillez nous indiquer l’url du texte justifiant votre appartenance au SI de l’état <span class="fr-text-error">*</span></strong>'
       cadre_juridique_dinum_document:
-        label: '<strong>Fournissez un document justifiant que vous pouvez accéder à ces produits <span class="fr-text-error">*</span></strong>'
+        label: '<strong>Fournissez un document justifiant votre appartenance au SI de l’état <span class="fr-text-error">*</span></strong>'
         hint: *pdf_input_hint
       cadre_juridique_dinum_nature:
         hint: "Exemple : établissement public administratif, groupement d’intérêt public, etc."
       responsable_traitement:
         title: Responsable de l’administration
         info: Il décide si l’administration peut accéder aux produits et sera prévenu par email lors de la validation de la demande.
+      responsable_traitement_job_title:
+        label: Fonction du responsable de l’administration
       contact_technique:
         title: Contact référent des outils numériques de l’administration
-        info: Cette personne est le point de contact au sein de votre organisation pour l’utilisation des produits de la Suite numérique.
+        info: C’est la personne en charge du choix des outils numériques des agents de l’administration
+      contact_technique_job_title:
+        label: Fonction du contact référent des outils numériques de l’administration

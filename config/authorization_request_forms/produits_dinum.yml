@@ -1,5 +1,6 @@
 produits_dinum:
   authorization_request: ProduitsDinum
+  name: Accès aux produits DINUM
   introduction: |
     <p>Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM. Ce formulaire vous permet de choisir les produits auxquels vous souhaitez avoir accès parmi les suivants :</p>
     <ul>
