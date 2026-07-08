@@ -1,5 +1,5 @@
 class Molecules::Admin::ContactTypesSelectorComponent < ApplicationComponent
-  CONTACT_TYPES = %w[contact_technique contact_metier responsable_traitement delegue_protection_donnees].freeze
+  CONTACT_TYPES = %w[contact_technique contact_metier responsable_traitement delegue_protection_donnees referent_outils_numeriques responsable_administration].freeze
 
   def initialize(form:, habilitation_type:, title:)
     @form = form

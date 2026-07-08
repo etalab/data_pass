@@ -1,8 +1,21 @@
 class Seeds
+  PRODUITS_DINUM_DESCRIPTION = 'Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM. ' \
+                               'Ce formulaire vous permet de choisir les produits auxquels vous souhaitez avoir accès.'.freeze
+
+  PRODUITS_DINUM_PRODUCTS = [
+    'La Suite numérique (Tchap, Visio, Fichiers, FranceTransfert, Messagerie, Docs, Grist)',
+    'Albert API',
+    'l’Assistant IA',
+    'Transcript',
+    'Rendez-vous Service public',
+    'AudioConf',
+  ].freeze
+
   def perform
     create_data_providers
     create_entities
     create_cnous_habilitation_type
+    create_produits_dinum_habilitation_type
     create_oauth_app
     create_all_verified_emails
 
@@ -89,6 +102,33 @@ class Seeds
       scopes: [],
       custom_labels: {}
     )
+  end
+
+  def create_produits_dinum_habilitation_type
+    HabilitationType.create!(
+      name: 'Produits DINUM',
+      description: PRODUITS_DINUM_DESCRIPTION,
+      form_introduction: produits_dinum_introduction,
+      kind: 'service',
+      data_provider: DataProvider.find_by!(slug: 'dinum'),
+      support_email: 'support@yopmail.com',
+      cgu_link: 'https://example.org/cgu-produits-dinum',
+      blocks: [
+        { 'name' => 'legal_dinum' },
+        { 'name' => 'contacts' },
+      ],
+      contact_types: %w[delegue_protection_donnees responsable_administration referent_outils_numeriques],
+      scopes: [],
+      custom_labels: {}
+    )
+  end
+
+  def produits_dinum_introduction
+    items = PRODUITS_DINUM_PRODUCTS.map { |product| "<li>#{product}</li>" }.join
+    intro = 'Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM. ' \
+            'Ce formulaire vous permet de choisir les produits auxquels vous souhaitez avoir accès parmi les suivants :'
+
+    "<p>#{intro}</p><ul>#{items}</ul>"
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

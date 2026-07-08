@@ -77,6 +77,52 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       end
     end
 
+    context 'with legal_dinum block' do
+      let(:record) { record_class.new(uid, [{ 'name' => 'legal_dinum' }], []) }
+
+      it 'adds cadre_juridique_dinum_url accessor' do
+        register
+        klass = AuthorizationRequest.const_get(uid.classify)
+        expect(klass.extra_attributes).to include(:cadre_juridique_dinum_url)
+      end
+
+      context 'when submitted' do
+        subject(:valid?) { demande.valid?(:submit) }
+
+        let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'legal_dinum' }]) }
+        let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+        let(:demande) { klass.new(**params) }
+        let(:params) { {} }
+
+        before { valid? }
+
+        context 'without document nor url' do
+          it { expect(demande.errors[:cadre_juridique_dinum_document]).to be_present }
+          it { expect(demande.errors[:cadre_juridique_dinum_url]).to be_present }
+        end
+
+        context 'with a document attached' do
+          let(:demande) do
+            klass.new.tap do |d|
+              File.open('spec/fixtures/dummy.pdf') do |file|
+                d.cadre_juridique_dinum_document.attach(io: file, filename: 'dummy.pdf')
+              end
+            end
+          end
+
+          it { expect(demande.errors[:cadre_juridique_dinum_document]).to be_empty }
+          it { expect(demande.errors[:cadre_juridique_dinum_url]).to be_empty }
+        end
+
+        context 'with a url' do
+          let(:params) { { cadre_juridique_dinum_url: 'https://example.gouv.fr/loi' } }
+
+          it { expect(demande.errors[:cadre_juridique_dinum_document]).to be_empty }
+          it { expect(demande.errors[:cadre_juridique_dinum_url]).to be_empty }
+        end
+      end
+    end
+
     context 'with personal_data block' do
       let(:record) { record_class.new(uid, [{ 'name' => 'personal_data' }], []) }
 

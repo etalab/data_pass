@@ -38,6 +38,7 @@ pouvez activer depuis l'interface d'administration :
 | --- | --- | --- |
 | `basic_infos` | Étape « Informations de base » du formulaire | Intitulé de la demande, description |
 | `cadre_juridique` (alias `legal`) | Étape « Cadre juridique » | URL du texte de référence ou document PDF, nature du cadre juridique |
+| `legal_dinum` | Étape « Cadre juridique », variante Produits DINUM | Nature juridique de la structure, URL du texte l’autorisant ou document PDF |
 | `personal_data` | Étape « Données à caractère personnel » | Destinataires des données, durée de conservation, justifications associées |
 | `scopes` | Étape « Données accessibles » | Cases à cocher des scopes définis sur le type |
 | `contacts` | Étape « Contacts » | Pour chaque contact requis : nom, prénom, email, téléphone, fonction |
@@ -78,7 +79,9 @@ Types de contacts couramment utilisés :
 - **Responsable de traitement** : la personne juridiquement responsable des
   données traitées ;
 - **Délégué à la protection des données (DPO)** ;
-- **Responsable métier** ou **chef de projet**.
+- **Responsable métier** ou **chef de projet** ;
+- **Référent des outils numériques** : point de contact pour l’utilisation des
+  produits de la Suite numérique (introduit pour le type « Produits DINUM »).
 
 Pour chaque type de contact ajouté, le formulaire génère automatiquement les
 champs suivants : nom, prénom, email, téléphone et fonction. Le demandeur doit
