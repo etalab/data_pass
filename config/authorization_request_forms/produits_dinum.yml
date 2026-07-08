@@ -1,0 +1,15 @@
+produits_dinum:
+  authorization_request: ProduitsDinum
+  introduction: |
+    <p>Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM. Ce formulaire vous permet de choisir les produits auxquels vous souhaitez avoir accès parmi les suivants :</p>
+    <ul>
+      <li>La Suite numérique (Tchap, Visio, Fichiers, FranceTransfert, Messagerie, Docs, Grist)</li>
+      <li>Albert API</li>
+      <li>l’Assistant IA</li>
+      <li>Transcript</li>
+      <li>Rendez-vous Service public</li>
+      <li>AudioConf</li>
+    </ul>
+  steps:
+    - name: legal_dinum
+    - name: contacts

@@ -134,6 +134,10 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         fc_cadre_juridique_nature
         fc_cadre_juridique_document
       ],
+      'legal_dinum' => %w[
+        cadre_juridique_dinum_url
+        cadre_juridique_dinum_nature
+      ],
       'france_connect_eidas' => %w[france_connect_eidas],
       'technical_team' => %w[
         technical_team_type
