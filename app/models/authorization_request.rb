@@ -288,6 +288,12 @@ class AuthorizationRequest < ApplicationRecord
   end
   # rubocop:enable Metrics/BlockLength
 
+  def self.state_after(event_name)
+    branch = state_machine.events[event_name.to_sym].branches.first
+
+    branch.state_requirements.flat_map { |requirement| requirement[:to].values }.first
+  end
+
   def self.model_specific_ransackable_attributes
     %w[
       type

@@ -118,6 +118,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     AutomatedEmails.new(self).all
   end
 
+  def automated_emails_count
+    AutomatedEmails.new(self).count
+  end
+
   def instructors
     User.instructor_for(id)
   end

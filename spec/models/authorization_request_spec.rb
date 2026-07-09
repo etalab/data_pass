@@ -1,4 +1,14 @@
 RSpec.describe AuthorizationRequest do
+  describe '.state_after' do
+    it 'returns the resulting state of the primary transition of each event' do
+      expect(described_class.state_after('submit')).to eq(:submitted)
+      expect(described_class.state_after('approve')).to eq(:validated)
+      expect(described_class.state_after('request_changes')).to eq(:changes_requested)
+      expect(described_class.state_after('refuse')).to eq(:refused)
+      expect(described_class.state_after('revoke')).to eq(:revoked)
+    end
+  end
+
   describe '#formatted_id' do
     subject { authorization_request.formatted_id }
 

@@ -53,6 +53,14 @@ RSpec.describe AuthorizationDefinition::AutomatedEmails do
     end
   end
 
+  describe '#count' do
+    it 'counts one card per mailer/action pair, merging standard and reopening variants' do
+      definition = AuthorizationDefinition.find('annuaire_des_entreprises')
+
+      expect(described_class.new(definition).count).to eq(6)
+    end
+  end
+
   describe '#all against the definition_automated_emails mapping' do
     config = YAML.load_file(Rails.root.join('spec/notifiers/definition_automated_emails.yaml'), aliases: true)
     events = config['authorization_request_events']
