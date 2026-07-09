@@ -357,7 +357,7 @@ fr:
       cadre_juridique_document:
         label: Ajoutez votre ou vos documents
         hint: *pdf_input_hint
-    api_particulier:
+    api_particulier: &api_particulier_wordings
       steps:
         <<: *authorization_request_forms_default_steps
         modalities: "Les modalités d'appel de l'API"
@@ -436,6 +436,8 @@ fr:
               <br/>
               <br/>
               Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur les délibérations permettant d'accéder à l'API Particulier.</a>
+    api_particulier_demarche_numerique:
+      <<: *api_particulier_wordings
     api_particulier_abelium: &api_particulier_editor_common_wordings
       legal:
         justificatif:

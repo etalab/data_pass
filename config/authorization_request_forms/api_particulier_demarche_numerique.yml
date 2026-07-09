@@ -1,0 +1,17 @@
+api-particulier-demarche-numerique:
+  name: Demande libre
+  default: true
+  description: Pour intégrer API Particulier à votre démarche administrative en ligne réalisée via Démarche numérique et récupérer les données strictement nécessaires, sans les redemander aux usagers
+  introduction: |
+    Ce formulaire vous permet de demander une habilitation à API Particulier pour votre démarche administrative en ligne réalisée via Démarche numérique.
+    <br />
+    En récupérant pour eux leurs informations administratives, vous évitez aux usagers de fournir des justificatifs et vous réalisez leurs démarches en toute simplicité.
+    <br />
+    Précisez l’intitulé, la description et la volumétrie de votre projet, puis sélectionnez les données strictement nécessaires.
+  authorization_request: APIParticulierDemarcheNumerique
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: scopes
+    - name: personal_data
+    - name: contacts

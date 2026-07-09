@@ -433,6 +433,16 @@ FactoryBot.define do
       end
     end
 
+    trait :api_particulier_demarche_numerique do
+      type { 'AuthorizationRequest::APIParticulierDemarcheNumerique' }
+      form_uid { 'api-particulier-demarche-numerique' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
+
     %w[
       api-particulier-aiga
       api-particulier-abelium

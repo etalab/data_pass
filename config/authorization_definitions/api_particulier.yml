@@ -1,6 +1,6 @@
-api_particulier:
-  name: "API Particulier"
-  description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
+api_particulier_demarche_numerique:
+  name: "API Particulier via Démarche numérique"
+  description: "Intégrez API Particulier à votre démarche administrative en ligne réalisée via Démarche numérique pour récupérer, à la place des usagers, leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier) et réaliser leurs démarches en toute simplicité."
   cgu_link: "https://particulier.api.gouv.fr/cgu"
   provider: "dinum"
   link: "https://api.gouv.fr/les-api/api-particulier"
@@ -12,34 +12,11 @@ api_particulier:
     instructor_drafts: true
   blocks:
     - name: "basic_infos"
-    - name: "modalities"
     - name: "personal_data"
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
-  scopes:
-    - name: "Nom de naissance"
-      value: "family_name"
-      group: "FranceConnect"
-    - name: "Prénoms"
-      value: "given_name"
-      group: "FranceConnect"
-    - name: "Date de naissance"
-      value: "birthdate"
-      group: "FranceConnect"
-    - name: "Ville de naissance"
-      value: "birthplace"
-      group: "FranceConnect"
-    - name: "Pays de naissance"
-      value: "birthcountry"
-      group: "FranceConnect"
-    - name: "Sexe"
-      value: "gender"
-      group: "FranceConnect"
-    - name: "Identifiant technique"
-      value: "openid"
-      group: "FranceConnect"
-
+  scopes: &api_particulier_base_scopes
     - name: "Quotient familial CAF & MSA"
       value: "cnaf_quotient_familial"
       group: "API Quotient familial CAF & MSA"
@@ -220,6 +197,50 @@ api_particulier:
       value: "cnav_participation_familiale_eaje_parametres_calcul"
       group: "API Participation familiale EAJE "
 
+api_particulier:
+  name: "API Particulier"
+  description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
+  cgu_link: "https://particulier.api.gouv.fr/cgu"
+  provider: "dinum"
+  link: "https://api.gouv.fr/les-api/api-particulier"
+  access_link: https://particulier.api.gouv.fr/compte/jetons/%{external_provider_id}
+  kind: 'api'
+  public: true
+  support_email: "support@particulier.api.gouv.fr"
+  features:
+    instructor_drafts: true
+  blocks:
+    - name: "basic_infos"
+    - name: "modalities"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - &api_particulier_france_connect_scopes
+      - name: "Nom de naissance"
+        value: "family_name"
+        group: "FranceConnect"
+      - name: "Prénoms"
+        value: "given_name"
+        group: "FranceConnect"
+      - name: "Date de naissance"
+        value: "birthdate"
+        group: "FranceConnect"
+      - name: "Ville de naissance"
+        value: "birthplace"
+        group: "FranceConnect"
+      - name: "Pays de naissance"
+        value: "birthcountry"
+        group: "FranceConnect"
+      - name: "Sexe"
+        value: "gender"
+        group: "FranceConnect"
+      - name: "Identifiant technique"
+        value: "openid"
+        group: "FranceConnect"
+    - *api_particulier_base_scopes
+
 formulaire_qf:
   name: Formulaire d'accès au Quotient Familial
   description: "Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du \"formulaire de collecte du quotient familial\" et du portail agent HubEE."
@@ -233,5 +254,3 @@ formulaire_qf:
   blocks:
     - name: "legal"
     - name: "contacts"
-
-
