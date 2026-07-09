@@ -1,0 +1,55 @@
+<div class="fr-card fr-card--sm fr-p-3w fr-mb-3w">
+  <div class="automated-email-card-content">
+    <%= tag.div data: (reopening? ? { controller: 'reopening-email' } : {}) do %>
+      <% variants.each_with_index do |rendered, index| %>
+        <%= tag.div class: variant_class(index), data: variant_data(index) do %>
+          <div class="fr-mb-2w fr-grid-row fr-grid-row--middle">
+            <div class="fr-col fr-grid-row fr-grid-row--middle">
+              <%= state_badge %>
+
+              <% if condition? %>
+                <span class="fr-tag fr-tag--sm automated-email-condition fr-icon-settings-5-fill fr-tag--icon-left fr-ml-1w">
+                  <%= condition %>
+                </span>
+              <% end %>
+            </div>
+
+            <% if reopening? %>
+              <div class="automated-email-reopening">
+                <div class="toggle-container">
+                  <div class="fr-toggle">
+                    <input type="checkbox" class="fr-toggle__input" id="<%= toggle_input_id(index) %>"
+                          <%= 'checked' if toggle_checked?(index) %>
+                          data-reopening-email-target="checkbox"
+                          data-action="reopening-email#toggle">
+                    <label class="fr-toggle__label" for="<%= toggle_input_id(index) %>">
+                      <span class="fr-sr-only"><%= reopening_toggle_label %></span>
+                    </label>
+                  </div>
+                </div>
+                <%= reopening_badge(index) %>
+              </div>
+            <% end %>
+          </div>
+
+          <div>
+            <% if available?(rendered) %>
+              <%= content_tag heading, rendered.subject, class: 'fr-card__title fr-mb-1w' %>
+              <% if rendered.recipients.present? %>
+                <p class="fr-mb-0">
+                  <span class="fr-text--bold"><%= recipients_label %> :</span> <%= rendered.recipients %>
+                </p>
+              <% end %>
+            <% else %>
+              <p class="fr-text--sm fr-mb-0 <%= 'fr-text-default--error' if error?(rendered) %>"><%= unavailable_message(rendered) %></p>
+            <% end %>
+          </div>
+
+          <% if available?(rendered) %>
+            <pre class="automated-email-body fr-text--sm fr-mt-2w"><%= rendered.body %></pre>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

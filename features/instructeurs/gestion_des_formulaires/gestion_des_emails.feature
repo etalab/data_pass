@@ -15,14 +15,29 @@ Fonctionnalité: Gestion des emails automatiques d'un formulaire
     Alors la page contient "Voir les emails automatiques"
     Et la page contient "API Entreprise"
 
-  Scénario: La page affiche un message indiquant que la fonctionnalité est en cours de développement
+  Scénario: La page liste les emails automatiques regroupés par évènement
     Quand je me rends sur le formulaire "API Entreprise"
     Et je clique sur "Voir les emails automatiques"
-    Alors la page contient "Fonctionnalité en cours de développement"
-    Et la page contient "datapass@api.gouv.fr"
+    Alors la page contient "Soumission de la demande"
+    Et la page contient "Validation de la demande"
+
+  Scénario: Le corps des emails est affiché avec des valeurs d’exemple
+    Quand je me rends sur le formulaire "API Entreprise"
+    Et je clique sur "Voir les emails automatiques"
+    Alors la page contient "[nom du demandeur]"
+    Et la page contient "[email du demandeur]"
+
+  Scénario: La page propose de consulter la variante de réouverture d’un email
+    Quand je me rends sur le formulaire "API Entreprise"
+    Et je clique sur "Voir les emails automatiques"
+    Alors la page contient "Mise à jour"
 
   Scénario: Un manager voit le lien « Gérer les emails automatiques »
     Sachant que je suis un manager "API Entreprise"
     Quand je me rends sur le formulaire "API Entreprise"
     Et je clique sur "Gérer les emails automatiques"
     Alors la page contient "Gérer les emails automatiques"
+
+  Scénario: Le nombre d’emails automatiques est affiché sur le détail du formulaire
+    Quand je me rends sur le formulaire "API Entreprise"
+    Alors la page contient "4 emails automatiques"

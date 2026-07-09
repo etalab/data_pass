@@ -17,7 +17,15 @@ class AuthorizationDefinition::AutomatedEmails
     EVENTS.map { |event| EventEmails.new(event:, emails: emails_for(event)) }
   end
 
+  def count
+    all.sum { |event_emails| card_keys(event_emails.emails).size }
+  end
+
   private
+
+  def card_keys(emails)
+    emails.map { |email| [email.mailer, email.action.delete_prefix('reopening_')] }.uniq
+  end
 
   def emails_for(event)
     case notifier_family
