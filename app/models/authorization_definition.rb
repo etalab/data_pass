@@ -122,6 +122,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     id == 'france_connect'
   end
 
+  def automated_emails
+    AutomatedEmails.new(self).all
+  end
+
   def instructors
     User.instructor_for(id)
   end
