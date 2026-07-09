@@ -73,7 +73,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         id: uid.to_s,
         provider_slug: hash[:provider],
         stage: Stage.new(hash[:stage]),
-        scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
+        scopes: (hash[:scopes] || []).flatten.map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
         blocks: hash[:blocks] || [],
         features: Hash(hash[:features]).transform_keys(&:to_sym),
       )
