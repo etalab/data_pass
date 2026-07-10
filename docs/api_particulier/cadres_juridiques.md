@@ -12,12 +12,12 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 
 | Cadre | Ancre YAML | Formulaires | Texte du cadre juridique |
 |---|---|---:|---|
-| **Socle général** | `socle_general` | 44 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
-| **CCAS** | `ccas` | 7 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.<br>- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives. |
+| **Socle général** | `socle_general` | 46 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
+| **CCAS** | `ccas` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.<br>- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives. |
 | **Cantines** | `cantines` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire. |
-| **Transport** | `transport_complet` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES]. |
+| **Transport** | `transport_complet` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification. |
 | **Stationnement résidentiel** | `stationnement_residentiel` | 3 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique au stationnement résidentiel : Les articles L2333-87 et L2333-87-3 du Code général des collectivités territoriales. |
-| **Aides facultatives** | `aides_facultatives` | 3 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Ces aides sont attribuées sur délibération de la collectivité. |
+| **Aides facultatives** | `aides_facultatives` | 4 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Ces aides sont attribuées sur délibération de la collectivité. |
 
 ## Formulaires par cadre
 
@@ -35,6 +35,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `andyvie` | Recreo | `api-particulier-andyvie` |
 | `arpege` | Concerto | `api-particulier-arpege-concerto` |
 | `arpege` | Concerto Petite enfance | `api-particulier-arpege-concerto-petite-enfance` |
+| `ars-data` | DuoNET | `api-particulier-ars-data` |
 | `berger_levrault` | BL Enfance | `api-particulier-bl-enfance-berger-levrault` |
 | `carte_plus` | Carte Plus | `api-particulier-carte-plus` |
 | `carte_plus` | Carte+ Petite enfance | `api-particulier-carte-plus-petite-enfance` |
@@ -48,6 +49,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `familea` | Domino web 2.0 | `api-particulier-abelium` |
 | `familea` | Domino Web 2.0 Petite enfance | `api-particulier-familea-petite-enfance` |
 | `familea` | Domino Web 2.0 Petite enfance | `api-particulier-abelium-petite-enfance` |
+| `ganesh_education` | Ganesh Education | `api-particulier-ganesh-education` |
 | `jcdeveloppement` | FamilyClic | `api-particulier-jcdeveloppement-familyclic` |
 | `jdealise` | Cantine de France | `api-particulier-cantine-de-france` |
 | `jvs_mairistem` | Mairistem | `api-particulier-jvs-mairistem` |
@@ -70,13 +72,12 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | _demande générique_ | Tarification sociale des services municipaux à la petite enfance | `api-particulier-tarification-eaje` |
 | _demande générique_ | Tarification sociale des services municipaux à l’enfance | `api-particulier-tarification-municipale-enfance` |
 
-### CCAS — 7 formulaire(s)
+### CCAS — 6 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
 | `afi` | Mélissandre | `api-particulier-ccas-melissandre-afi` |
 | `arche_mc2` | Millésime Action Sociale | `api-particulier-ccas-arche-mc2` |
-| `arche_mc2` | Solis | `api-particulier-arche-mc2-solis` |
 | `arpege` | Sonate | `api-particulier-ccas-arpege` |
 | `paxtel` | Paxtel | `api-particulier-ccas-paxtel` |
 | _demande générique_ | Aides sociales des CCAS | `api-particulier-aides-sociales-ccas` |
@@ -112,21 +113,20 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `polycea` | eovia | `api-particulier-polycea` |
 | _demande générique_ | Gestion du stationnement résidentiel | `api-particulier-stationnement-residentiel` |
 
-### Aides facultatives — 3 formulaire(s)
+### Aides facultatives — 4 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
+| `arche_mc2` | Solis | `api-particulier-arche-mc2-solis` |
 | `mgdis` | Aides facultatives départementales | `api-particulier-mgdis-aides-facultatives-departementales` |
 | _demande générique_ | Aides facultatives départementales | `api-particulier-aides-facultatives-departementales` |
 | _demande générique_ | Aides facultatives régionales | `api-particulier-aides-facultatives-regionales` |
 
-### Cadre non renseigné — 3 formulaire(s)
+### Cadre non renseigné — 1 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
-| `ars-data` | DuoNET | `api-particulier-ars-data` |
-| `ganesh_education` | Ganesh Education | `api-particulier-ganesh-education` |
 | _demande générique_ | Demande libre | `api-particulier` |
 
-> **Point d’attention** : les formulaires suivants n’ont pas de `cadre_juridique_nature` pré-rempli dans `initialize_with`, hors la « Demande libre » où c’est attendu. À vérifier côté métier : `api-particulier-ganesh-education`, `api-particulier-ars-data`.
+> **Point d’attention** : seule la « Demande libre » (`api-particulier`) n’a pas de `cadre_juridique_nature` pré-rempli dans `initialize_with`, ce qui est attendu pour ce formulaire libre.
 
