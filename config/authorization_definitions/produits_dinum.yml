@@ -7,5 +7,5 @@ produits_dinum:
   support_email: "support@yopmail.com"
   public: true
   blocks:
-    - name: "legal_dinum"
+    - name: "legal"
     - name: "contacts"

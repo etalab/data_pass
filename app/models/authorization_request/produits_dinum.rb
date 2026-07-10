@@ -1,5 +1,5 @@
 class AuthorizationRequest::ProduitsDinum < AuthorizationRequest
-  include AuthorizationExtensions::CadreJuridiqueDinum
+  include AuthorizationExtensions::CadreJuridique
 
   %i[
     contact_technique

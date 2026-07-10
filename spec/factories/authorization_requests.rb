@@ -241,15 +241,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_cadre_juridique_dinum do
-      after(:build) do |authorization_request, evaluator|
-        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-          authorization_request.cadre_juridique_dinum_nature ||= 'Établissement public administratif'
-          authorization_request.cadre_juridique_dinum_url ||= 'https://exemple.gouv.fr/cadre-juridique'
-        end
-      end
-    end
-
     trait :with_france_connect_eidas do
       after(:build) do |authorization_request, evaluator|
         authorization_request.france_connect_eidas ||= 'eidas_1' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
@@ -1664,7 +1655,7 @@ FactoryBot.define do
 
       form_uid { 'produits_dinum' }
 
-      with_cadre_juridique_dinum
+      with_cadre_juridique
     end
   end
 end

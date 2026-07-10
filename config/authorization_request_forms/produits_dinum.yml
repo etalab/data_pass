@@ -12,5 +12,5 @@ produits_dinum:
       <li>AudioConf</li>
     </ul>
   steps:
-    - name: legal_dinum
+    - name: legal
     - name: contacts
