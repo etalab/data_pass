@@ -170,8 +170,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.7)
-    css_parser (1.22.0)
+    css_parser (3.0.0)
       addressable
+      ssrf_filter (~> 1.5)
     csv (3.3.5)
     cucumber (10.2.0)
       base64 (~> 0.2)
@@ -727,6 +728,7 @@ GEM
     sqlite3 (2.9.5-aarch64-linux-gnu)
     sqlite3 (2.9.5-arm64-darwin)
     sqlite3 (2.9.5-x86_64-linux-gnu)
+    ssrf_filter (1.5.0)
     state_machines (0.201.0)
     state_machines-activemodel (0.200.0)
       activemodel (>= 7.2)
