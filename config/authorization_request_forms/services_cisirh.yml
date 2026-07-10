@@ -1,7 +1,9 @@
 services-cisirh:
-  description: Recueil des différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CSIRH et ses partenaires
+  description: Recueil des différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CISIRH et ses partenaires
   introduction: |
-    Le présent formulaire a pour objectif de recueillir les différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CSIRH et ses partenaires.
+    Le présent formulaire a pour objectif de recueillir les différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CISIRH et ses partenaires.
+
+    Toute utilisation d’un service du CISIRH implique l’acceptation des Conditions générales d’adhésion et des conditions générales d’utilisation des solutions du CISIRH.
   authorization_request: ServicesCisirh
   steps:
     - name: basic_infos
