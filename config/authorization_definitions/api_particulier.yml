@@ -167,6 +167,10 @@ api_particulier:
       value: "cnav_allocation_enfant_handicape"
       group: "API Allocation d'Éducation de l'Enfant Handicapé"
 
+    - name: "Statut allocation de rentrée scolaire"
+      value: "cnav_allocation_rentree_scolaire"
+      group: "API Statut allocation de rentrée scolaire"
+
     - name: "Statut Service National"
       value: "dsnj_statut_service_national"
       group: "API Service National"

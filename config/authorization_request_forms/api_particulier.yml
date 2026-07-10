@@ -866,6 +866,7 @@ api-particulier-arche-mc2-solis:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
+      - cnav_allocation_rentree_scolaire
 
 
   initialize_with:
@@ -1537,6 +1538,7 @@ api-particulier-dialog:
       - men_statut_boursier
       - men_echelon_bourse
       - men_regime_pensionnat
+      - cnav_allocation_rentree_scolaire
 
   initialize_with:
     intitule: Dématérialisation des dispositifs d'aides et de subventions
@@ -1752,6 +1754,7 @@ api-particulier-mgdis-aides-facultatives-departementales:
       - revenu_solidarite_active
       - revenu_solidarite_active_majoration
       - cnav_allocation_enfant_handicape
+      - cnav_allocation_rentree_scolaire
 
   initialize_with:
     intitule: Aides facultatives départementales
