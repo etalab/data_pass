@@ -597,6 +597,16 @@ fr:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_carte_plus_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_agora_baby:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_bl_enfance_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_civil_petite_enfance_ciril_group:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_docaposte_fast_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_entrouvert_publik_famille_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_tarification_eaje:
       <<: *api_particulier_tarification_eaje_cadre_juridique
 
