@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: docker/build-push-action@v7.2.0
         with:
           context: .
@@ -31,7 +31,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: actions/cache@v6.1.0
         with:
           path: |
@@ -47,7 +47,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: actions/cache@v6.1.0
         with:
           path: |
@@ -63,7 +63,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: actions/cache@v6.1.0
         with:
           path: |
@@ -79,7 +79,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: actions/cache@v6.1.0
         with:
           path: |
@@ -120,7 +120,7 @@ jobs:
           - "6379:6379"
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: actions/cache@v6.1.0
         with:
           path: |
@@ -160,7 +160,7 @@ jobs:
           - "6379:6379"
     steps:
       - uses: actions/checkout@v7.0.0
-      - uses: docker/setup-buildx-action@v4.1.0
+      - uses: docker/setup-buildx-action@v4.2.0
       - uses: actions/cache@v6.1.0
         with:
           path: |
