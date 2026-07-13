@@ -501,6 +501,11 @@ FactoryBot.define do
       api-particulier-sigec-maelis-petite-enfance
       api-particulier-city-family-mushroom-software-petite-enfance
       api-particulier-carte-plus-petite-enfance
+      api-particulier-agora-baby
+      api-particulier-bl-enfance-petite-enfance
+      api-particulier-civil-petite-enfance-ciril-group
+      api-particulier-docaposte-fast-petite-enfance
+      api-particulier-entrouvert-publik-famille-petite-enfance
       api-particulier-abelium-petite-enfance
       api-particulier-familea
       api-particulier-familea-petite-enfance

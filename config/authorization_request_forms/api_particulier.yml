@@ -2640,6 +2640,189 @@ api-particulier-abelium-petite-enfance:
   <<: *api_particulier_familea_petite_enfance
   public: false
 
+api-particulier-agora-baby:
+  name: Agora Baby
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: agora_plus
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-bl-enfance-petite-enfance:
+  name: BL Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: berger_levrault
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-civil-petite-enfance-ciril-group:
+  name: Civil petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: ciril_group
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-docaposte-fast-petite-enfance:
+  name: Fast Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: docaposte
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-entrouvert-publik-famille-petite-enfance:
+  name: Publik Famille petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: entrouvert
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
 api-particulier-polycea:
   name: eovia
   authorization_request: APIParticulier
