@@ -13,8 +13,12 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
   end
 
   describe 'modalities' do
-    it 'does not support modalities' do
-      expect(authorization_request).not_to respond_to(:modalities)
+    it 'defaults to the non-modifiable params modality' do
+      expect(authorization_request.modalities).to eq(%w[params])
+    end
+
+    it 'only allows the params modality' do
+      expect(described_class::MODALITIES).to eq(%w[params])
     end
   end
 
@@ -53,8 +57,8 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
       expect(definition.scopes.map(&:group).uniq).not_to include(*groups_unavailable_through_france_connect)
     end
 
-    it 'does not expose the modalities block' do
-      expect(definition.blocks.pluck(:name)).not_to include('modalities')
+    it 'exposes the modalities block' do
+      expect(definition.blocks.pluck(:name)).to include('modalities')
     end
   end
 end

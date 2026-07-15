@@ -15,3 +15,5 @@ api-particulier-demarche-numerique:
     - name: scopes
     - name: personal_data
     - name: contacts
+  static_blocks:
+    - name: modalities
