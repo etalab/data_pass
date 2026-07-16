@@ -1654,5 +1654,13 @@ FactoryBot.define do
       with_personal_data
       with_cadre_juridique
     end
+
+    trait :produits_dinum do
+      type { 'AuthorizationRequest::ProduitsDinum' }
+
+      form_uid { 'produits_dinum' }
+
+      with_cadre_juridique
+    end
   end
 end

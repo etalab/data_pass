@@ -1207,3 +1207,44 @@ fr:
         groups:
           'Autres services RH': |
             Information :  il n'est pas obligatoire d'adhérer à RenoiRH pour adhérer à d'autres services (ex : ESTEVE)
+
+    produits_dinum:
+      legal:
+        title: Le cadre juridique
+        subtitle: |
+          La DINUM met à disposition ses services aux administrations de l’État et aux organismes placés sous sa tutelle.
+
+          Il apparaît que nous avons besoin d’informations complémentaires pour identifier votre lien avec l’État.
+
+          Ces informations peuvent être trouvées dans les documents qui définissent vos activités (loi, décret, arrêté, convention constitutive, statuts, etc.). En cas de difficultés rapprochez vous de votre service juridique.
+
+          Veillez à fournir toutes les informations qui vous sembleraient utiles à porter à notre connaissance.
+        nature:
+          title: Quelle est la nature juridique de votre structure ?
+        justificatif:
+          title: Le cadre juridique de mise à disposition des produits et services opérés par la DINUM
+          description: |
+            Si vous êtes une <strong>administration de l’État</strong>, veuillez indiquer le texte de création de la structure.<br />
+            Si vous êtes un <strong>organisme sous tutelle d’une autre administration</strong>, indiquez le texte législatif ou réglementaire qui le précise, et, le cas échéant, la convention constitutive ou les statuts de votre organisme.
+      cadre_juridique_url:
+        label: '<strong>Veuillez nous indiquer l’URL du texte justificatif <span class="fr-text-error">*</span></strong>'
+      cadre_juridique_document:
+        label: '<strong>Fournissez un document justificatif <span class="fr-text-error">*</span></strong>'
+        hint: *pdf_input_hint
+      cadre_juridique_nature:
+        label: Nature juridique de votre structure
+        hint: "Exemple : établissement public administratif, groupement d’intérêt public, etc."
+      responsable_traitement:
+        title: Responsable de l’administration
+        info: Il décide si l’administration peut accéder aux produits et sera prévenu par email lors de la validation de la demande.
+      responsable_traitement_email:
+        label: Courriel
+      contact_technique:
+        title: Contact référent des outils numériques de l’administration
+        info: C’est la personne en charge du choix des outils numériques des agents de l’administration
+      contact_technique_email:
+        label: Courriel
+      delegue_protection_donnees_email:
+        label: Courriel
+      responsable_traitement_informed:
+        label: Je confirme que le responsable de l’administration de mon organisation est informé de ma demande.

@@ -5,9 +5,9 @@
     </h3>
 
     <% if f.wording_for("#{block_name}.subtitle") %>
-      <p class="fr-col-md-8">
-        <%= f.wording_for("#{block_name}.subtitle") %>
-      </p>
+      <div class="fr-col-md-8">
+        <%= simple_format(f.wording_for("#{block_name}.subtitle")) %>
+      </div>
     <% end %>
   </div>
 <% end %>

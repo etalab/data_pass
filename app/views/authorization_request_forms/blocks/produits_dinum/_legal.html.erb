@@ -1,0 +1,52 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[cadre_juridique_nature cadre_juridique_url]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:legal) %>
+
+<div class="legal-border-card">
+  <% if f.wording_for('legal.nature.title') %>
+    <p class="fr-h5 legal-subtitle">
+      <%= f.wording_for('legal.nature.title') %>
+    </p>
+  <% end %>
+
+  <fieldset class="fr-fieldset" aria-label="<%= f.wording_for('cadre_juridique_nature.label') %>">
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_text_field :cadre_juridique_nature %>
+    </div>
+  </fieldset>
+</div>
+
+<div class="legal-border-card fr-mt-3w">
+  <% if f.wording_for('legal.justificatif.title') %>
+    <p class="fr-h5 legal-subtitle">
+      <%= f.wording_for('legal.justificatif.title') %>
+    </p>
+  <% end %>
+  <% if f.wording_for('legal.justificatif.description') %>
+    <p class="fr-mt-3w">
+      <%= f.wording_for('legal.justificatif.description').html_safe %>
+    </p>
+  <% end %>
+
+  <fieldset class="fr-fieldset">
+    <div class="fr-fieldset__element legal-input__width">
+      <%= f.dsfr_url_field :cadre_juridique_url %>
+    </div>
+  </fieldset>
+
+  <div class="legal-bloc-separation">
+    <div class="legal-line"></div>
+    <div class="legal-centered__element">
+      <p class="fr-h5">OU</p>
+    </div>
+    <div class="legal-line"></div>
+  </div>
+
+  <fieldset class="fr-fieldset">
+    <div class="fr-fieldset__element fr-mt-3w">
+      <%= f.dsfr_file_field :cadre_juridique_document, multiple: true %>
+    </div>
+  </fieldset>
+</div>

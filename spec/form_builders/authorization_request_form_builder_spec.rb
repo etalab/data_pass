@@ -50,6 +50,24 @@ RSpec.describe AuthorizationRequestFormBuilder, type: :helper do
     end
   end
 
+  describe '#wording_for' do
+    context 'when the form does not override the contact title' do
+      let(:authorization_request) { build(:authorization_request, :api_particulier) }
+
+      it 'falls back to the default wording' do
+        expect(builder.wording_for('contact_technique.title')).to eq('Contact technique')
+      end
+    end
+
+    context 'when the form overrides the contact title' do
+      let(:authorization_request) { build(:authorization_request, :produits_dinum) }
+
+      it 'returns the form-specific wording' do
+        expect(builder.wording_for('contact_technique.title')).to eq('Contact référent des outils numériques de l’administration')
+      end
+    end
+  end
+
   describe '#interpolated_wording' do
     subject { builder.send(:interpolated_wording, 'scopes.info.content') }
 

@@ -1,0 +1,10 @@
+produits_dinum:
+  name: "Éligibilité d'accès aux produits et services mis à disposition par la DINUM"
+  description: "Ce formulaire est destiné à constituer la liste des administrations de l’État et des organismes sous sa tutelle auxquels la DINUM peut mettre à disposition les produits et services qu’elle développe et opère."
+  provider: "dinum"
+  kind: 'service'
+  support_email: "support@yopmail.com"
+  public: true
+  blocks:
+    - name: "legal"
+    - name: "contacts"
