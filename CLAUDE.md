@@ -128,6 +128,31 @@ Available test accounts:
 - `datapass@yopmail.com` — admin and instructor on all authorization requests
 - `departement@yopmail.com` — demandeur rattaché à une collectivité département (Département du Rhône). Sert à tester le bloc CNOUS « Boursiers » en mode périmètre automatique avec appel à l’API Géo (dérivation commune → département). Le type d’habilitation `Boursiers` (slug `boursiers-dyn`) est seedé avec le bloc `cnous_data_extraction_criteria` : démarrer une demande via `/demandes/boursiers_dyn/nouveau`.
 
+#### Protection par token (staging & sandbox)
+
+Sur **staging** et **sandbox**, `local-sign-in` est protégé par un token secret (défense contre les abus,
+cf. DP-1855). Il faut ajouter `&token=<secret>` à l’URL. Les tokens vivent dans les credentials chiffrées de
+l’environnement (`config/credentials/#{env}.yml.enc`, clé `local_sign_in_tokens`), sous forme d’un
+**dictionnaire nommé par fournisseur de données** — chaque FD a son propre token, révocable
+individuellement :
+
+```yaml
+local_sign_in_tokens:
+  dgfip: "…"
+  api_entreprise: "…"
+  yeswehack: "…"
+```
+
+N’importe quel token valide déverrouille l’accès ; le fournisseur utilisé est journalisé
+(`[local-sign-in] accès via le token « <fd> » — email=… ip=…`). Le token est ensuite mémorisé dans un
+cookie signé (30 jours) : une fois fourni une première fois, les liens suivants fonctionnent sans le
+repréciser. En **production** l’endpoint n’existe pas ; en **local/dev** l’accès reste ouvert tant
+qu’aucun token n’est présent dans les credentials `development`.
+
+Pour tester la protection en local : `bin/rails credentials:edit --environment development` puis ajouter
+un `local_sign_in_tokens: { test: <valeur> }`. Dès qu’un token est présent, `/local-sign-in?email=…` exige
+`&token=<valeur>` ; retirer la clé rétablit le bypass ouvert.
+
 ### Quick sign-in links
 
 **Local** (http://localhost:3000) (always check the port in your `.env.local`):
@@ -135,15 +160,15 @@ Available test accounts:
 - [datapass@yopmail.com](http://localhost:3000/local-sign-in?email=datapass@yopmail.com)
 - [departement@yopmail.com](http://localhost:3000/local-sign-in?email=departement@yopmail.com)
 
-**Sandbox** (https://sandbox.datapass.api.gouv.fr):
-- [user@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com)
-- [datapass@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com)
-- [departement@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com)
+**Sandbox** (https://sandbox.datapass.api.gouv.fr) — token requis, ajouter `&token=VOTRE_TOKEN` :
+- [user@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com&token=VOTRE_TOKEN)
+- [datapass@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com&token=VOTRE_TOKEN)
+- [departement@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com&token=VOTRE_TOKEN)
 
-**Staging** (https://staging.datapass.api.gouv.fr):
-- [user@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com)
-- [datapass@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com)
-- [departement@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com)
+**Staging** (https://staging.datapass.api.gouv.fr) — token requis, ajouter `&token=VOTRE_TOKEN` :
+- [user@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com&token=VOTRE_TOKEN)
+- [datapass@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com&token=VOTRE_TOKEN)
+- [departement@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com&token=VOTRE_TOKEN)
 
 ## Git
 
