@@ -1,9 +1,8 @@
 produits_dinum:
-  name: "Produits DINUM"
-  description: "Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM. Ce formulaire vous permet de choisir les produits auxquels vous souhaitez avoir accès."
+  name: "Éligibilité d'accès aux produits et services mis à disposition par la DINUM"
+  description: "Ce formulaire est destiné à constituer la liste des administrations de l’État et des organismes sous sa tutelle auxquels la DINUM peut mettre à disposition les produits et services qu’elle développe et opère."
   provider: "dinum"
   kind: 'service'
-  cgu_link: "https://example.org/cgu-produits-dinum"
   support_email: "support@yopmail.com"
   public: true
   blocks:

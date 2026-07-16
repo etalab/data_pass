@@ -10,4 +10,6 @@ class AuthorizationRequest::ProduitsDinum < AuthorizationRequest
       validation_condition: ->(record) { record.need_complete_validation?(:contacts) },
       options: { except: %w[phone_number job_title] }
   end
+
+  add_checkbox :responsable_traitement_informed
 end

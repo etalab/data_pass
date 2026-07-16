@@ -1,12 +1,12 @@
 produits_dinum:
   authorization_request: ProduitsDinum
-  name: Accès aux produits DINUM
+  name: Éligibilité aux produits et services DINUM
   introduction: |
-    <p>Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM. Ce formulaire vous permet de choisir les produits auxquels vous souhaitez avoir accès parmi les suivants :</p>
+    <p>Ce formulaire est destiné à constituer la liste des administrations de l’État et des organismes sous sa tutelle auxquels la DINUM peut mettre à disposition les produits et services qu’elle développe et opère. L’inscription sur cette liste permet aux administrations d’avoir accès notamment aux outils suivants :</p>
     <ul>
-      <li>La Suite numérique (Tchap, Visio, Fichiers, FranceTransfert, Messagerie, Docs, Grist)</li>
+      <li>LaSuite (Tchap, Visio, Fichiers, FranceTransfert, Messagerie, Docs, Grist)</li>
       <li>Albert API</li>
-      <li>l’Assistant IA</li>
+      <li>l’Assistant</li>
       <li>Transcript</li>
       <li>Rendez-vous Service public</li>
       <li>AudioConf</li>
