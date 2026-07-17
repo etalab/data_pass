@@ -3,7 +3,7 @@ produits_dinum:
   description: "Ce formulaire est destiné à constituer la liste des administrations de l’État et des organismes sous sa tutelle auxquels la DINUM peut mettre à disposition les produits et services qu’elle développe et opère."
   provider: "dinum"
   kind: 'service'
-  support_email: "support@yopmail.com"
+  support_email: "juridique@numerique.gouv.fr"
   public: true
   blocks:
     - name: "legal"

@@ -1,0 +1,11 @@
+<%= t('.greeting') %>
+
+<%=
+  t(
+    '.description',
+    authorization_request_name: @authorization_request.name,
+    convention_url: @convention_url,
+  )
+%>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
