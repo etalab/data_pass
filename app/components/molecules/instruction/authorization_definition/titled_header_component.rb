@@ -1,4 +1,4 @@
-class Molecules::Instruction::AuthorizationDefinition::EditHeaderComponent < ApplicationComponent
+class Molecules::Instruction::AuthorizationDefinition::TitledHeaderComponent < ApplicationComponent
   include Molecules::Instruction::Breadcrumb
 
   def initialize(authorization_definition:, title:)

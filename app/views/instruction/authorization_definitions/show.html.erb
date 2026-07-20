@@ -40,8 +40,8 @@
         <%= render Atoms::ActionCardComponent.new(
               title: can_edit ? t('.actions_block.emails.title') : t('.actions_block.emails.title_readonly'),
               description: can_edit ? t('.actions_block.emails.description') : t('.actions_block.emails.description_readonly'),
-              link: '#'
-              ) %>
+              link: instruction_authorization_definition_emails_path(@authorization_definition),
+              icon: 'fr-icon-mail-line') %>
       </div>
     </div>
   </section>

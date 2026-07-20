@@ -1,0 +1,11 @@
+<% action_label = @can_edit ? t('.title') : t('.title_readonly') %>
+<% set_title! t('page_titles.instruction_definition_emails', definition_name: @authorization_definition.name_with_stage, action: action_label) %>
+
+<%= render Molecules::Instruction::AuthorizationDefinition::TitledHeaderComponent.new(
+      authorization_definition: @authorization_definition,
+      title: action_label) %>
+
+<div class="fr-container fr-my-5w">
+  <%= render Atoms::UnderDevelopmentAlertComponent.new(
+        wip_action: t('.under_development.wip_action')) %>
+</div>
