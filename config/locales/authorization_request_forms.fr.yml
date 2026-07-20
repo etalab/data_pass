@@ -1207,3 +1207,13 @@ fr:
         groups:
           'Autres services RH': |
             Information :  il n'est pas obligatoire d'adhérer à RenoiRH pour adhérer à d'autres services (ex : ESTEVE)
+
+    # FormTemplate defined in database
+    proactivite_pour_les_etudiants_boursiers_dyn:
+      contact_metier:
+        title: Contact métier
+        info: |
+          Cette personne sera destinataire du fichier via l’outil de transmission (HubEE) et sera contactée pour toute question métier sur votre service.
+      legal:
+        justificatif:
+          description: Veuillez préciser le fondement juridique qui autorise votre organisme à accéder aux données demandées dans le cadre de ce cas d'usage (loi, décret, arrêté, délibération, etc.).
