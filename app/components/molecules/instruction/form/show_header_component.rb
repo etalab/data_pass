@@ -1,4 +1,6 @@
 class Molecules::Instruction::Form::ShowHeaderComponent < ApplicationComponent
+  include Molecules::Instruction::Breadcrumb
+
   def initialize(authorization_definition:, form:, validated_count:, submitted_count:, can_initiate_request: false)
     @authorization_definition = authorization_definition
     @form = form
@@ -11,11 +13,14 @@ class Molecules::Instruction::Form::ShowHeaderComponent < ApplicationComponent
 
   attr_reader :authorization_definition, :form, :validated_count, :submitted_count, :can_initiate_request
 
-  def back_link
-    {
-      path: helpers.instruction_authorization_definition_forms_path(authorization_definition),
-      text: I18n.t('instruction.forms.show.title')
-    }
+  def breadcrumbs
+    [
+      formulaires_breadcrumb_item,
+      authorization_definition_breadcrumb_item,
+      { label: I18n.t('instruction.forms.show.title'),
+        href: helpers.instruction_authorization_definition_forms_path(authorization_definition) },
+      { label: form.name }
+    ]
   end
 
   def initiate_request_path

@@ -1,4 +1,6 @@
 class Molecules::Instruction::AuthorizationDefinition::FormsHeaderComponent < ApplicationComponent
+  include Molecules::Instruction::Breadcrumb
+
   def initialize(authorization_definition:)
     @authorization_definition = authorization_definition
   end
@@ -11,10 +13,11 @@ class Molecules::Instruction::AuthorizationDefinition::FormsHeaderComponent < Ap
     I18n.t('instruction.authorization_definitions.forms_header_component.title')
   end
 
-  def back_link
-    {
-      path: helpers.instruction_authorization_definition_path(authorization_definition),
-      text: authorization_definition.name_with_stage
-    }
+  def breadcrumbs
+    [
+      formulaires_breadcrumb_item,
+      authorization_definition_breadcrumb_item,
+      { label: title }
+    ]
   end
 end

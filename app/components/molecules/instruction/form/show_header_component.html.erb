@@ -1,7 +1,7 @@
 <%= render Molecules::Instruction::WideHeader.new(
       logo_asset: authorization_definition.provider&.logo,
       title: form.name,
-      back_link:) do |component| %>
+      breadcrumbs:) do |component| %>
   <% component.with_subtitle_content do %>
     <p class="fr-text--sm fr-my-1w">
       <%= I18n.t('instruction.forms.show.slug_label') %> :
