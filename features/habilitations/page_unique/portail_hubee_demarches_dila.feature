@@ -11,7 +11,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
-    * je coche "DDMariage - Pré-dépôt de dossier de mariage"
+    * je coche "DDmariage - Pré-dépôt de dossier de mariage"
 
     * je remplis les informations du contact "Administrateur local" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction              |
@@ -39,7 +39,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
-    * je coche "DDMariage - Pré-dépôt de dossier de mariage"
+    * je coche "DDmariage - Pré-dépôt de dossier de mariage"
 
     * je remplis les informations du contact "Administrateur local" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur local |

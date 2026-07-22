@@ -56,18 +56,18 @@ RSpec.describe AuthorizationRequestFormBuilder, type: :helper do
     let(:authorization_request) { build(:authorization_request, :hubee_dila) }
 
     context 'when the depot_dossier_mariage feature flag is enabled' do
-      it 'renders the DDMariage documentation paragraph' do
+      it 'renders the DDmariage documentation paragraph' do
         allow(FeatureFlag).to receive(:enabled?).with(:depot_dossier_mariage).and_return(true)
 
-        expect(subject).to include('DDMariage')
+        expect(subject).to include('DDmariage')
       end
     end
 
     context 'when the depot_dossier_mariage feature flag is disabled' do
-      it 'hides the DDMariage documentation paragraph' do
+      it 'hides the DDmariage documentation paragraph' do
         allow(FeatureFlag).to receive(:enabled?).with(:depot_dossier_mariage).and_return(false)
 
-        expect(subject).not_to include('DDMariage')
+        expect(subject).not_to include('DDmariage')
       end
     end
   end
