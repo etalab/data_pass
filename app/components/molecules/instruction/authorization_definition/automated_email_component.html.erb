@@ -5,6 +5,7 @@
         <%= tag.div class: variant_class(index), data: variant_data(index) do %>
           <div class="fr-mb-2w fr-grid-row fr-grid-row--middle">
             <div class="fr-col fr-grid-row fr-grid-row--middle">
+              <span class="automated-email-status-label fr-text--xs fr-text-mention--grey fr-mr-1w fr-mb-0"><%= status_label %> :</span>
               <%= state_badge %>
 
               <% if condition? %>

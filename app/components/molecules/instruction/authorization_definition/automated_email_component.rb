@@ -29,6 +29,10 @@ class Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent <
     condition_keys.map { |key| scoped_t("states.#{key}") }.join(' · ')
   end
 
+  def status_label
+    scoped_t('status_label')
+  end
+
   def recipients_label
     scoped_t('recipients_label')
   end

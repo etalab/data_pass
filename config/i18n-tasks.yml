@@ -152,7 +152,7 @@ ignore_unused:
   - 'instruction.revoke_authorizations.create.*'
   - 'instruction.user_rights.{create,update}.error'
   - 'instruction.authorization_definitions.show.config_block.{fields,features}.*'
-  - 'instruction.authorization_definition_emails.{empty,recipients_label,preview_unavailable,preview_error,reopening_toggle,events.*,event_descriptions.*,states.*}'
+  - 'instruction.authorization_definition_emails.{empty,status_label,recipients_label,preview_unavailable,preview_error,reopening_toggle,events.*,event_descriptions.*,states.*}'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
