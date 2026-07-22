@@ -2,11 +2,11 @@ class AutomatedEmailPreviewRenderer
   RenderedEmail = Data.define(:subject, :recipients, :body, :error)
 
   NAME = '[nom du demandeur]'.freeze
-  APPLICANT_EMAIL = '[email du demandeur]'.freeze
-  INSTRUCTOR_EMAIL = '[email de l’instructeur]'.freeze
-  RESPONSABLE_EMAIL = '[email du responsable de traitement]'.freeze
-  DELEGUE_EMAIL = '[email du délégué à la protection des données]'.freeze
-  ADMIN_EMAIL = '[email de l’administrateur métier]'.freeze
+  APPLICANT_EMAIL = '[demandeur]'.freeze
+  INSTRUCTOR_EMAIL = '[instructeurs]'.freeze
+  RESPONSABLE_EMAIL = '[responsable de traitement]'.freeze
+  DELEGUE_EMAIL = '[délégué à la protection des données]'.freeze
+  ADMIN_EMAIL = '[administrateur métier]'.freeze
   ORGANIZATION = '[nom de l’organisation]'.freeze
   REQUEST_ID = '[numéro de la demande]'.freeze
   REQUEST_NAME = '[nom de la démarche]'.freeze

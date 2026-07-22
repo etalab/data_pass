@@ -14,7 +14,7 @@ RSpec.describe Molecules::Instruction::AuthorizationDefinition::AutomatedEmailCo
     ))
 
     expect(page).to have_css('h3', text: 'Votre habilitation numéro [numéro de la demande]')
-    expect(page).to have_text('[email du demandeur]')
+    expect(page).to have_text('[demandeur]')
     expect(page).to have_css('pre.automated-email-body', text: '[nom du demandeur]')
   end
 

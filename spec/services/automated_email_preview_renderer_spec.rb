@@ -15,7 +15,7 @@ RSpec.describe AutomatedEmailPreviewRenderer do
 
       it 'returns the rendered subject, recipients and body' do
         expect(rendered.subject).to include('[numéro de la demande]')
-        expect(rendered.recipients).to eq('[email du demandeur]')
+        expect(rendered.recipients).to eq('[demandeur]')
         expect(rendered.body).to be_present
         expect(rendered.error).to be_nil
       end

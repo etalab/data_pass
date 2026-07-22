@@ -25,7 +25,7 @@ Fonctionnalité: Gestion des emails automatiques d'un formulaire
     Quand je me rends sur le formulaire "API Entreprise"
     Et je clique sur "Voir les emails automatiques"
     Alors la page contient "[nom du demandeur]"
-    Et la page contient "[email du demandeur]"
+    Et la page contient "[demandeur]"
 
   Scénario: La page propose de consulter la variante de réouverture d’un email
     Quand je me rends sur le formulaire "API Entreprise"
