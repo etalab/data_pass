@@ -51,7 +51,7 @@ RSpec.describe Organisms::Instruction::AuthorizationDefinition::AutomatedEmailsC
   it 'renders the HubEE administrateur métier email with its placeholder recipient' do
     render_for('hubee_cert_dc')
 
-    expect(page).to have_text('[email de l’administrateur métier]')
+    expect(page).to have_text('[administrateur métier]')
     expect(page).to have_css('pre.automated-email-body', text: 'administrateur local HubEE')
   end
 end
