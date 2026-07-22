@@ -75,6 +75,7 @@ fr:
         title: Gérer les emails automatiques
         title_readonly: Voir les emails automatiques
       empty: Aucun email automatique n’est envoyé pour ce formulaire.
+      status_label: Statut de la demande
       recipients_label: Envoyé à
       preview_unavailable: Aperçu de l’email indisponible.
       preview_error: "Erreur lors de la génération de l’aperçu : %{message}"

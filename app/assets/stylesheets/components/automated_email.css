@@ -12,6 +12,10 @@
   background-color: var(--background-alt-grey);
 }
 
+.automated-email-status-label {
+  text-transform: uppercase;
+}
+
 .automated-email-condition {
   color: var(--text-action-high-pink-tuile);
   background-color: var(--background-action-low-pink-tuile);
