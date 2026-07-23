@@ -15,7 +15,7 @@ class AuthenticatedUserController < ApplicationController
   end
 
   def bypass_login
-    return if Rails.env.production?
+    return head :not_found unless authorize_local_sign_in
 
     user = User.find_by!(email: params.expect(:email))
 
