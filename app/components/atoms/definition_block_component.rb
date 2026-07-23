@@ -1,4 +1,4 @@
-class Atoms::EditDefinitionBlockComponent < ApplicationComponent
+class Atoms::DefinitionBlockComponent < ApplicationComponent
   def initialize(title:, static_block: false, block_card_class: nil)
     @title = title
     @static_block = static_block

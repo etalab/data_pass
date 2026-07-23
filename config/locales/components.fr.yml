@@ -1,6 +1,6 @@
 fr:
   atoms:
-    edit_definition_block_component:
+    definition_block_component:
       static_block: Étape masquée
     config_block_component:
       title: Configuration
