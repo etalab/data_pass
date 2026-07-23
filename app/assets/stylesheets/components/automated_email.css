@@ -1,0 +1,43 @@
+.automated-email-card-content {
+  align-items: flex-start;
+}
+
+.automated-email-body {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  background-color: var(--background-alt-grey);
+}
+
+.automated-email-status-label {
+  text-transform: uppercase;
+}
+
+.automated-email-condition {
+  color: var(--text-action-high-pink-tuile);
+  background-color: var(--background-action-low-pink-tuile);
+}
+
+.automated-email-reopening {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reopening-badge--muted {
+  background-color: var(--background-contrast-grey);
+  color: var(--text-mention-grey);
+}
+
+/* Fixes weird margin right of toggle */
+.automated-email-reopening .fr-toggle__label::before {
+  margin-right: 0;
+}
+
+/* Fixes weird alignment of toggle*/
+.automated-email-reopening .toggle-container {
+  margin-bottom: -0.2rem;
+}

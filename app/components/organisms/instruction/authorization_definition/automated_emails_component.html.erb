@@ -1,0 +1,20 @@
+<div class="fr-container fr-mb-6w">
+  <% if event_groups.empty? %>
+    <p><%= scoped_t('empty') %></p>
+  <% else %>
+    <% event_groups.each do |group| %>
+      <section class="fr-mb-5w">
+        <h2 class="fr-mb-1w"><%= event_title(group.event) %></h2>
+        <p class="fr-col-md-6 fr-mb-3w"><%= event_subtitle(group.event) %></p>
+
+        <% email_items(group).each do |item| %>
+          <%= render Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent.new(
+                authorization_definition:,
+                standard_email: item.standard,
+                reopening_email: item.reopening,
+                event: group.event) %>
+        <% end %>
+      </section>
+    <% end %>
+  <% end %>
+</div>

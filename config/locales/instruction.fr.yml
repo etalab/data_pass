@@ -50,6 +50,10 @@ fr:
             title_readonly: Voir les emails automatiques
             description: Gérez le contenu et les destinataires des emails automatiques envoyés durant le cycle de vie d'une demande.
             description_readonly: Consultez le contenu et les destinataires des emails automatiques envoyés durant le cycle de vie d'une demande.
+            count:
+              zero: Aucun email automatique
+              one: 1 email automatique
+              other: "%{count} emails automatiques"
       edit:
         title: Modifier les étapes du formulaire
         title_readonly: Voir les étapes du formulaire
@@ -70,8 +74,27 @@ fr:
       index:
         title: Gérer les emails automatiques
         title_readonly: Voir les emails automatiques
-        under_development:
-          wip_action: modifier les emails automatiques de ce formulaire
+      empty: Aucun email automatique n’est envoyé pour ce formulaire.
+      status_label: Statut de la demande
+      recipients_label: Envoyé à
+      preview_unavailable: Aperçu de l’email indisponible.
+      preview_error: "Erreur lors de la génération de l’aperçu : %{message}"
+      reopening_toggle: Afficher l’email de mise à jour
+      events:
+        submit: Soumission de la demande
+        approve: Validation de la demande
+        request_changes: Demande des modifications
+        refuse: Refus de la demande
+        revoke: Révocation de l’habilitation
+      event_descriptions:
+        submit: Ces emails sont envoyés lorsqu’un demandeur soumet une demande complète. La demande passe "En cours d'instruction".
+        approve: Ces emails sont envoyés lorsqu’un instructeur valide une demande et génère ainsi une habilitation. La demande passe en "Validée".
+        request_changes: Ces emails sont envoyés lorsqu’un instructeur demande des modifications au demandeur avant de pouvoir valider une demande. La demande passe en "À modifier".
+        refuse: Ces emails sont envoyés lorsqu’un instructeur refuse une demande. La demande passe en "Refusée".
+        revoke: Ces emails sont envoyés lorsqu’un instructeur révoque une habilitation existante. L'habilitation ainsi que sa demande passent en "Révoquée".
+      states:
+        with_france_connect: Si la demande utilise FranceConnect en modalité d'accès
+        embeds_france_connect_fields: Si une habilitation FranceConnect est générée automatiquement
     forms:
       index:
         empty: Aucun cas d'usage disponible.

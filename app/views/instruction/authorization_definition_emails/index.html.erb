@@ -5,7 +5,5 @@
       authorization_definition: @authorization_definition,
       title: action_label) %>
 
-<div class="fr-container fr-my-5w">
-  <%= render Atoms::UnderDevelopmentAlertComponent.new(
-        wip_action: t('.under_development.wip_action')) %>
-</div>
+<%= render Organisms::Instruction::AuthorizationDefinition::AutomatedEmailsComponent.new(
+      authorization_definition: @authorization_definition) %>
