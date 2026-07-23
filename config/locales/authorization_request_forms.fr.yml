@@ -476,6 +476,10 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_familea_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_hoptis:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_hoptis_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_sigec_maelis:
       <<: *api_particulier_editor_common_wordings
     api_particulier_arpege_concerto:
