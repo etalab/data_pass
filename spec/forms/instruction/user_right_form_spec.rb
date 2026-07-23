@@ -125,6 +125,42 @@ RSpec.describe Instruction::UserRightForm do
     end
   end
 
+  describe '#save_for' do
+    let(:manager) { create(:user, roles: %w[dinum:api_entreprise:manager dinum:api_particulier:manager]) }
+
+    context 'when additive is true and the target already has a managed role out of the submitted set' do
+      it 'preserves the existing managed role and adds the submitted one' do
+        target = create(:user, roles: ['dinum:api_particulier:reporter'])
+        form = described_class.new(
+          authority: Rights::ManagerAuthority.new(manager),
+          email: target.email,
+          rights: [valid_right(role_type: 'instructor')]
+        )
+
+        form.save_for(target, actor: manager, additive: true)
+
+        expect(target.reload.roles).to match_array(
+          %w[dinum:api_particulier:reporter dinum:api_entreprise:instructor]
+        )
+      end
+    end
+
+    context 'when additive is false' do
+      it 'replaces the managed roles with the submitted ones' do
+        target = create(:user, roles: ['dinum:api_particulier:reporter'])
+        form = described_class.new(
+          authority: Rights::ManagerAuthority.new(manager),
+          email: target.email,
+          rights: [valid_right(role_type: 'instructor')]
+        )
+
+        form.save_for(target, actor: manager)
+
+        expect(target.reload.roles).to eq(%w[dinum:api_entreprise:instructor])
+      end
+    end
+  end
+
   describe 'rights normalization' do
     it 'accepts hashes with string keys' do
       form = described_class.new(
