@@ -13,6 +13,8 @@
     </div>
   </div>
 
+  <%= render "instruction/user_rights/roles_help" %>
+
   <% search_status_message = user_rights_search_status_message(@users, @search_term) %>
   <div data-controller="search-status">
     <p role="status" aria-atomic="true" class="fr-sr-only" data-search-status-target="liveRegion"><%= search_status_message %></p>
