@@ -53,11 +53,11 @@ RSpec.describe 'Instruction::Forms' do
 
       before { sign_in(user) }
 
-      it 'renders the modifier buttons' do
+      it 'does not render the modifier buttons' do
         request
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Modifier')
+        expect(response.body).not_to include('Modifier')
       end
     end
 

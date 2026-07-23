@@ -58,9 +58,6 @@ fr:
         before_submit_title: Avant de soumettre la demande
         before_submit_subtitle: A la fin du résumé de la demande, avant de la soumettre, le demandeur s'engage à respecter vos CGUs et prévenir son délégué à la protection des données.
         before_submit: Checkboxes en fin de résumé
-        side_panel:
-          under_development:
-            wip_action: modifier votre formulaire
       forms_header_component:
         title: Cas d'usage
     authorization_definition_emails:
@@ -110,9 +107,6 @@ fr:
         introduction_subtitle: Pour adapter l'introduction d'un cas d'usage, précisez au demandeur le contexte du cas d'usage et informez le des pièces justificatives importantes à avoir.
         prefill_title: Préremplissage du cas d'usage
         prefill_subtitle: Pour adapter un formulaire à un cas d'usage et faciliter la demande, pré-remplissez les valeurs et adaptez les textes de ses étapes.
-        side_panel:
-          under_development:
-            wip_action: modifier ce cas d'usage
     dashboard:
       authorization_requests:
         search:

@@ -8,18 +8,6 @@
         </span>
       <% end %>
     <% end %>
-    <% if can_edit? %>
-      <button type="button"
-              class="fr-btn fr-btn--secondary fr-btn--sm fr-icon-edit-line fr-btn--icon-left"
-              aria-label="<%= modify_button_title %>"
-              aria-controls="<%= side_panel_id %>"
-              aria-expanded="false"
-              aria-haspopup="dialog"
-              data-action="click->side-panel#open"
-              data-side-panel-title-param="<%= modify_button_title %>">
-        <%= t('atoms.edit_definition_block_component.modify_button') %>
-      </button>
-    <% end %>
   </div>
   <div class="definition-block__preview <%= 'definition-block__static-stripes' if static_block? %>" inert>
     <div class="definition-block__card <%= block_card_class %>">
