@@ -45,10 +45,10 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `docaposte` | FAST | `api-particulier-docaposte-fast` |
 | `e1os` | Epéris | `api-particulier-e1os` |
 | `ecorestauration` | Loyfeey | `api-particulier-ecorestauration-loyfeey` |
-| `familea` | Domino web 2.0 | `api-particulier-familea` |
-| `familea` | Domino web 2.0 | `api-particulier-abelium` |
-| `familea` | Domino Web 2.0 Petite enfance | `api-particulier-familea-petite-enfance` |
-| `familea` | Domino Web 2.0 Petite enfance | `api-particulier-abelium-petite-enfance` |
+| `familea` | Diabolo | `api-particulier-familea` |
+| `familea` | Diabolo | `api-particulier-abelium` |
+| `familea` | Mikado | `api-particulier-familea-petite-enfance` |
+| `familea` | Mikado | `api-particulier-abelium-petite-enfance` |
 | `ganesh_education` | Ganesh Education | `api-particulier-ganesh-education` |
 | `jcdeveloppement` | FamilyClic | `api-particulier-jcdeveloppement-familyclic` |
 | `jdealise` | Cantine de France | `api-particulier-cantine-de-france` |
