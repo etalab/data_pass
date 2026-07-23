@@ -25,18 +25,11 @@ Fonctionnalité: Édition d'un formulaire
     Et la page contient "Les personnes impliquées"
     Et la page contient "Avant de soumettre la demande"
 
-  Scénario: Un rapporteur ne voit pas le bouton « Modifier » sur les blocs
+  Scénario: Aucun bouton « Modifier » n'est affiché sur les blocs
     Quand je me rends sur la page d'édition du formulaire "API Entreprise"
     Alors il n'y a pas de bouton "Modifier"
 
-  Scénario: Un manager voit le bouton « Modifier » sur les blocs
+  Scénario: Un manager ne voit pas non plus de bouton « Modifier » sur les blocs
     Sachant que je suis un manager "API Entreprise"
     Quand je me rends sur la page d'édition du formulaire "API Entreprise"
-    Alors il y a un bouton "Modifier"
-
-  Scénario: Un manager ouvre le panneau latéral en cliquant sur « Modifier »
-    Sachant que je suis un manager "API Entreprise"
-    Quand je me rends sur la page d'édition du formulaire "API Entreprise"
-    Et que je clique sur "Modifier l'étape « Introduction »"
-    Alors la page contient "Fonctionnalité en cours de développement"
-    Et la page contient "datapass@api.gouv.fr"
+    Alors il n'y a pas de bouton "Modifier"

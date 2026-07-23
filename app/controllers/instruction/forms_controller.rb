@@ -11,7 +11,6 @@ class Instruction::FormsController < Instruction::FormManagementController
   def show
     authorize [:instruction, @authorization_definition], :show?
 
-    @can_edit = policy([:instruction, @authorization_definition]).edit?
     @authorization_request = build_preview_request(@form)
     @counts = preload_counts_by_form([@form])[@form.uid]
     @preview_organization = preview_organization

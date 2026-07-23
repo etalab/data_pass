@@ -15,7 +15,6 @@ class Instruction::AuthorizationDefinitionsController < Instruction::FormManagem
   def edit
     authorize [:instruction, @authorization_definition], :show?
 
-    @can_edit = policy([:instruction, @authorization_definition]).edit?
     @default_form = @authorization_definition.default_form
     @static_block_names = @default_form.static_blocks.to_set { |b| b[:name].to_s }
     @authorization_request = build_preview_request(@default_form)

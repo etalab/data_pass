@@ -11,7 +11,7 @@
   <%= render Molecules::Instruction::Form::ConfigBlockComponent.new(form: @form) %>
 </div>
 
-<div class="fr-container fr-my-5w" data-controller="side-panel">
+<div class="fr-container fr-my-5w">
   <h2 class="fr-mb-1w">
     <%= t('.preview_title') %>
   </h2>
@@ -20,12 +20,8 @@
     <%= t('.preview_subtitle') %>
   </p>
 
-  <% side_panel_id = 'form-edit-side-panel' %>
-
   <%= render Atoms::EditDefinitionBlockComponent.new(
         title: t('.card_preview'),
-        can_edit: @can_edit,
-        side_panel_id:,
         block_card_class: 'definition-block__card-preview') do %>
     <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @form %>
   <% end %>
@@ -38,7 +34,7 @@
     <%= t('.introduction_subtitle') %>
   </p>
 
-  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction'), can_edit: @can_edit, side_panel_id:) do %>
+  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction')) do %>
     <%= render 'authorization_request_forms/introduction', authorization_request_form: @form, organization: @preview_organization %>
   <% end %>
 
@@ -55,16 +51,9 @@
     <% steps.each do |step| %>
       <%= render Atoms::EditDefinitionBlockComponent.new(
             title: f.wording_for("steps.#{step[:name]}"),
-            static_block: @form.static_blocks.any? { |b| b[:name].to_s == step[:name].to_s },
-            can_edit: @can_edit,
-            side_panel_id:) do %>
+            static_block: @form.static_blocks.any? { |b| b[:name].to_s == step[:name].to_s }) do %>
         <%= render_custom_form_or_default(@authorization_request, step[:name], { f: }) %>
       <% end %>
     <% end %>
-  <% end %>
-
-  <%= render Molecules::SidePanelComponent.new(id: side_panel_id) do %>
-    <%= render Atoms::UnderDevelopmentAlertComponent.new(
-          wip_action: t('.side_panel.under_development.wip_action')) %>
   <% end %>
 </div>
