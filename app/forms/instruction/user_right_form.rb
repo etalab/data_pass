@@ -36,13 +36,14 @@ class Instruction::UserRightForm
   end
 
   def to_roles
-    rights.map { |r| "#{r[:scope]}:#{r[:role_type]}" }
+    rights.map { |r| role_string(r) }
   end
 
-  def save_for(target, actor:)
+  def save_for(target, actor:, additive: false)
     return false unless valid?
 
-    @organizer_result = Instruction::UpdateUserRights.call(authority: authority, actor: actor, user: target, new_roles: to_roles)
+    new_roles = additive ? to_roles | existing_modifiable_roles_for(target) : to_roles
+    @organizer_result = Instruction::UpdateUserRights.call(authority: authority, actor: actor, user: target, new_roles: new_roles)
     @organizer_result.success?
   end
 
@@ -56,6 +57,14 @@ class Instruction::UserRightForm
 
   def email_required?
     user.nil?
+  end
+
+  def existing_modifiable_roles_for(target)
+    Instruction::UserRightsView.new(authority: authority, user: target).modifiable.map { |r| role_string(r) }
+  end
+
+  def role_string(right)
+    "#{right[:scope]}:#{right[:role_type]}"
   end
 
   def normalize_right(entry)
