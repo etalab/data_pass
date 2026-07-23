@@ -20,7 +20,7 @@
     <%= t('.preview_subtitle') %>
   </p>
 
-  <%= render Atoms::EditDefinitionBlockComponent.new(
+  <%= render Atoms::DefinitionBlockComponent.new(
         title: t('.card_preview'),
         block_card_class: 'definition-block__card-preview') do %>
     <%= render 'authorization_request_forms/authorization_request_form_card', authorization_request_form: @form %>
@@ -34,7 +34,7 @@
     <%= t('.introduction_subtitle') %>
   </p>
 
-  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction')) do %>
+  <%= render Atoms::DefinitionBlockComponent.new(title: t('.introduction')) do %>
     <%= render 'authorization_request_forms/introduction', authorization_request_form: @form, organization: @preview_organization %>
   <% end %>
 
@@ -49,7 +49,7 @@
   <% steps = @form.steps.presence || @authorization_definition.blocks %>
   <%= form_with model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder do |f| %>
     <% steps.each do |step| %>
-      <%= render Atoms::EditDefinitionBlockComponent.new(
+      <%= render Atoms::DefinitionBlockComponent.new(
             title: f.wording_for("steps.#{step[:name]}"),
             static_block: @form.static_blocks.any? { |b| b[:name].to_s == step[:name].to_s }) do %>
         <%= render_custom_form_or_default(@authorization_request, step[:name], { f: }) %>

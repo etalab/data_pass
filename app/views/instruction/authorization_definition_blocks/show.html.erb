@@ -15,7 +15,7 @@
     <%= t('.introduction_subtitle') %>
   </p>
 
-  <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.introduction')) do %>
+  <%= render Atoms::DefinitionBlockComponent.new(title: t('.introduction')) do %>
     <%= render 'authorization_request_forms/introduction', authorization_request_form: @default_form, organization: @preview_organization %>
   <% end %>
 
@@ -29,7 +29,7 @@
 
   <%= form_with model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder do |f| %>
     <% @authorization_definition.blocks.each do |block| %>
-      <%= render Atoms::EditDefinitionBlockComponent.new(
+      <%= render Atoms::DefinitionBlockComponent.new(
             title: f.wording_for("steps.#{block[:name]}"),
             static_block: @static_block_names.include?(block[:name].to_s)) do %>
         <%= render_custom_form_or_default(@authorization_request, block[:name], { f: }) %>
@@ -44,7 +44,7 @@
       <%= t('.before_submit_subtitle') %>
     </p>
 
-    <%= render Atoms::EditDefinitionBlockComponent.new(title: t('.before_submit')) do %>
+    <%= render Atoms::DefinitionBlockComponent.new(title: t('.before_submit')) do %>
       <%= render 'authorization_request_forms/shared/tos_checkboxes', f: f %>
     <% end %>
   <% end %>
