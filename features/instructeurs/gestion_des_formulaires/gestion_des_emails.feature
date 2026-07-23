@@ -32,11 +32,11 @@ Fonctionnalité: Gestion des emails automatiques d'un formulaire
     Et je clique sur "Voir les emails automatiques"
     Alors la page contient "Mise à jour"
 
-  Scénario: Un manager voit le lien « Gérer les emails automatiques »
+  Scénario: Un manager voit le lien « Voir les emails automatiques »
     Sachant que je suis un manager "API Entreprise"
     Quand je me rends sur le formulaire "API Entreprise"
-    Et je clique sur "Gérer les emails automatiques"
-    Alors la page contient "Gérer les emails automatiques"
+    Et je clique sur "Voir les emails automatiques"
+    Alors la page contient "Voir les emails automatiques"
 
   Scénario: Le nombre d’emails automatiques est affiché sur le détail du formulaire
     Quand je me rends sur le formulaire "API Entreprise"

@@ -28,35 +28,28 @@ fr:
           title: Que souhaitez-vous configurer ?
           subtitle: Choisissez la partie du formulaire à configurer. Chaque espace est indépendant.
           blocks:
-            title: Modifier les étapes du formulaire
-            title_readonly: Voir les étapes du formulaire
-            description: Ajoutez, configurez, réorganisez ou supprimez les étapes présentées au demandeur dans votre formulaire.
-            description_readonly: Consultez les étapes présentées au demandeur dans votre formulaire.
+            title: Voir les étapes du formulaire
+            description: Consultez les étapes présentées au demandeur dans votre formulaire.
             count:
               zero: Aucune étape
               one: 1 étape
               other: "%{count} étapes"
           cas_usages:
-            title: Gérer les cas d'usage
-            title_readonly: Voir les cas d'usage
-            description: Pré-remplissez votre formulaire avec des cas d'usage pour faciliter l'instruction et les demandes.
-            description_readonly: Consultez les cas d'usage pré-remplissant votre formulaire pour faciliter l'instruction et les demandes.
+            title: Voir les cas d'usage
+            description: Consultez les cas d'usage pré-remplissant votre formulaire pour faciliter l'instruction et les demandes.
             count:
               zero: Aucun cas d'usage
               one: 1 cas d'usage
               other: "%{count} cas d'usage"
           emails:
-            title: Gérer les emails automatiques
-            title_readonly: Voir les emails automatiques
-            description: Gérez le contenu et les destinataires des emails automatiques envoyés durant le cycle de vie d'une demande.
-            description_readonly: Consultez le contenu et les destinataires des emails automatiques envoyés durant le cycle de vie d'une demande.
+            title: Voir les emails automatiques
+            description: Consultez le contenu et les destinataires des emails automatiques envoyés durant le cycle de vie d'une demande.
             count:
               zero: Aucun email automatique
               one: 1 email automatique
               other: "%{count} emails automatiques"
       edit:
-        title: Modifier les étapes du formulaire
-        title_readonly: Voir les étapes du formulaire
+        title: Voir les étapes du formulaire
         introduction_title: Introduction du formulaire
         introduction_subtitle: Expliquez le contexte de la demande que le demandeur s'apprête à démarrer et informez le des pièces justificatives importantes à avoir.
         introduction: Introduction
@@ -72,8 +65,7 @@ fr:
         title: Cas d'usage
     authorization_definition_emails:
       index:
-        title: Gérer les emails automatiques
-        title_readonly: Voir les emails automatiques
+        title: Voir les emails automatiques
       empty: Aucun email automatique n’est envoyé pour ce formulaire.
       status_label: Statut de la demande
       recipients_label: Envoyé à
