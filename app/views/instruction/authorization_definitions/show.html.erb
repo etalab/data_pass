@@ -20,7 +20,7 @@
         <%= render Atoms::ActionCardComponent.new(
               title: t('.actions_block.blocks.title'),
               description: t('.actions_block.blocks.description'),
-              link: edit_instruction_authorization_definition_path(@authorization_definition),
+              link: instruction_authorization_definition_blocks_path(@authorization_definition),
               detail: t('.actions_block.blocks.count', count: @authorization_definition.blocks_count_with_intro_and_summary),
               icon: 'fr-icon-draft-line') %>
       </div>
