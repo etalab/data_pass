@@ -20,9 +20,9 @@ Quand('je me rends sur la liste des cas d\'usage de {string}') do |definition_na
   visit instruction_authorization_definition_forms_path(definition.id)
 end
 
-Quand('je me rends sur la page d\'édition du formulaire {string}') do |definition_name|
+Quand('je me rends sur la page des étapes du formulaire {string}') do |definition_name|
   definition = find_authorization_definition_from_name(definition_name)
-  visit edit_instruction_authorization_definition_path(definition.id)
+  visit instruction_authorization_definition_blocks_path(definition.id)
 end
 
 Alors('le lien retour mène vers le formulaire {string}') do |definition_name|

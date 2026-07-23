@@ -117,7 +117,8 @@ Rails.application.routes.draw do
   namespace :instruction do
     get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
 
-    resources :authorization_definitions, only: %i[index show edit], path: 'formulaires' do
+    resources :authorization_definitions, only: %i[index show], path: 'formulaires' do
+      resource :blocks, only: :show, path: 'etapes', controller: 'authorization_definition_blocks'
       resources :forms, only: %i[index show], path: 'cas_d_usage', controller: 'forms'
       resources :emails, only: :index, path: 'emails_automatiques', controller: 'authorization_definition_emails'
     end

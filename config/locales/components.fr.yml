@@ -1,16 +1,11 @@
 fr:
   atoms:
-    edit_definition_block_component:
+    definition_block_component:
       static_block: Étape masquée
-      modify_button_title: "Modifier l'étape « %{title} »"
-      modify_button: Modifier
     config_block_component:
       title: Configuration
       "true": Oui
       "false": Non
-    under_development_alert_component:
-      title: Fonctionnalité en cours de développement.
-      message_html: "Pour %{wip_action}, contactez-nous sur %{contact_link}."
   molecules:
     instruction:
       authorization_definition:
@@ -39,8 +34,6 @@ fr:
           service_provider_types:
             editor: Éditeur
             saas: SaaS
-    side_panel_component:
-      close: Fermer
   components:
     historical_events:
       show_message: "voir le message"
