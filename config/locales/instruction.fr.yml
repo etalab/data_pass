@@ -48,7 +48,10 @@ fr:
               zero: Aucun email automatique
               one: 1 email automatique
               other: "%{count} emails automatiques"
-      edit:
+      forms_header_component:
+        title: Cas d'usage
+    authorization_definition_blocks:
+      show:
         title: Voir les étapes du formulaire
         introduction_title: Introduction du formulaire
         introduction_subtitle: Expliquez le contexte de la demande que le demandeur s'apprête à démarrer et informez le des pièces justificatives importantes à avoir.
@@ -58,8 +61,6 @@ fr:
         before_submit_title: Avant de soumettre la demande
         before_submit_subtitle: A la fin du résumé de la demande, avant de la soumettre, le demandeur s'engage à respecter vos CGUs et prévenir son délégué à la protection des données.
         before_submit: Checkboxes en fin de résumé
-      forms_header_component:
-        title: Cas d'usage
     authorization_definition_emails:
       index:
         title: Voir les emails automatiques

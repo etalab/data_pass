@@ -3,7 +3,7 @@ class Molecules::Instruction::AuthorizationDefinition::TitledHeaderComponentPrev
     authorization_definition = AuthorizationDefinition.find('api_entreprise')
     render Molecules::Instruction::AuthorizationDefinition::TitledHeaderComponent.new(
       authorization_definition:,
-      title: I18n.t('instruction.authorization_definitions.edit.title')
+      title: I18n.t('instruction.authorization_definition_blocks.show.title')
     )
   end
 
