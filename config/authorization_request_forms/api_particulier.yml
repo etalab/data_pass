@@ -1739,6 +1739,12 @@ api-particulier-ianord-tarification-cantines-lycees:
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes:
       - cnaf_quotient_familial
+    <<: &api_particulier_ianord_contact_technique
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_email || 'tech-ianord@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_given_name || 'Jean' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_family_name || 'Dupont' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Responsable technique
     modalities:
       - params
 
@@ -1766,6 +1772,7 @@ api-particulier-ianord-tarification-cantines-colleges:
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
     scopes:
       - cnaf_quotient_familial
+    <<: *api_particulier_ianord_contact_technique
     modalities:
       - params
 
