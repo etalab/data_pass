@@ -495,6 +495,8 @@ FactoryBot.define do
       api-particulier-arpege-concerto-petite-enfance
       api-particulier-mgdis-tarification-cantines-lycees
       api-particulier-mgdis-aides-facultatives-departementales
+      api-particulier-ianord-tarification-cantines-lycees
+      api-particulier-ianord-tarification-cantines-colleges
       api-particulier-arche-mc2-solis
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales

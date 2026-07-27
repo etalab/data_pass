@@ -32,6 +32,10 @@ shared:
     type: editor
     name: INETUM
     siret: "34054699300668"
+  ianord:
+    type: editor
+    name: Ianord
+    siret: "37989072600043"
   entrouvert:
     type: editor
     name: "Entr'ouvert"
