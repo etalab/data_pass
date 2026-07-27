@@ -1,4 +1,12 @@
 class AuthorizationDefinition < StaticApplicationRecord
+  FEATURES_DEFAULTS = {
+    messaging: true,
+    message_templates: true,
+    reopening: true,
+    transfer: true,
+    instructor_drafts: false,
+  }.freeze
+
   attr_accessor :id,
     :name,
     :description,
@@ -92,12 +100,12 @@ class AuthorizationDefinition < StaticApplicationRecord
     I18n.transliterate([name_with_stage, provider&.name].compact_blank.join(' ')).downcase
   end
 
-  def feature?(name, default: true)
-    features.fetch(name.to_sym, default)
+  def feature?(name)
+    features.fetch(name.to_sym, FEATURES_DEFAULTS.fetch(name.to_sym))
   end
 
   def instructor_drafts_enabled?
-    feature?(:instructor_drafts, default: false)
+    feature?(:instructor_drafts)
   end
 
   EXTRA_STEPS = %i[intro before_submit_summary].freeze
