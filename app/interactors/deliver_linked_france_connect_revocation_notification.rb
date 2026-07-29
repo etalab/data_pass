@@ -12,5 +12,6 @@ class DeliverLinkedFranceConnectRevocationNotification < ApplicationInteractor
   def linked_fc_authorizations
     context.authorization_request.authorizations
       .where(authorization_request_class: 'AuthorizationRequest::FranceConnect')
+      .where.not(parent_authorization_id: nil)
   end
 end
