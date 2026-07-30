@@ -41,6 +41,7 @@
               title: can_edit ? t('.actions_block.emails.title') : t('.actions_block.emails.title_readonly'),
               description: can_edit ? t('.actions_block.emails.description') : t('.actions_block.emails.description_readonly'),
               link: instruction_authorization_definition_emails_path(@authorization_definition),
+              detail: t('.actions_block.emails.count', count: @authorization_definition.automated_emails_count),
               icon: 'fr-icon-mail-line') %>
       </div>
     </div>
