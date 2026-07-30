@@ -7,7 +7,19 @@ class AuthorizationDefinition::AutomatedEmails
 
   EventEmails = Data.define(:event, :emails)
 
-  EVENTS = %w[submit approve request_changes refuse revoke].freeze
+  RESULTING_STATES = {
+    'submit' => :submitted,
+    'approve' => :validated,
+    'request_changes' => :changes_requested,
+    'refuse' => :refused,
+    'revoke' => :revoked,
+  }.freeze
+
+  EVENTS = RESULTING_STATES.keys.freeze
+
+  def self.resulting_state(event)
+    RESULTING_STATES.fetch(event.to_s)
+  end
 
   def initialize(authorization_definition)
     @authorization_definition = authorization_definition

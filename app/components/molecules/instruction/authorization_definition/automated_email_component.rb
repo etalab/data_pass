@@ -95,7 +95,7 @@ class Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent <
   end
 
   def resulting_state
-    AuthorizationRequest.state_after(@event)
+    AuthorizationDefinition::AutomatedEmails.resulting_state(@event)
   end
 
   def render_email(email)

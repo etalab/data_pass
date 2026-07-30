@@ -61,6 +61,17 @@ RSpec.describe AuthorizationDefinition::AutomatedEmails do
     end
   end
 
+  describe '.resulting_state' do
+    it 'returns the request state displayed alongside the emails of an event' do
+      expect(described_class.resulting_state('refuse')).to eq(:refused)
+    end
+
+    it 'covers every event with a state the request can actually reach' do
+      expect(described_class::EVENTS.map { |event| described_class.resulting_state(event) })
+        .to all(be_in(AuthorizationRequest.state_machine.states.map(&:name)))
+    end
+  end
+
   describe '#all against the definition_automated_emails mapping' do
     config = YAML.load_file(Rails.root.join('spec/notifiers/definition_automated_emails.yaml'), aliases: true)
     events = config['authorization_request_events']
