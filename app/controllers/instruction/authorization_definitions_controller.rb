@@ -1,5 +1,5 @@
 class Instruction::AuthorizationDefinitionsController < Instruction::FormManagementController
-  before_action :set_authorization_definition, only: %i[show edit]
+  before_action :set_authorization_definition, only: :show
 
   def index
     authorize %i[instruction authorization_definition], :index?
@@ -10,16 +10,6 @@ class Instruction::AuthorizationDefinitionsController < Instruction::FormManagem
   def show
     authorize [:instruction, @authorization_definition], :show?
     @counts = preload_counts([@authorization_definition])[@authorization_definition.id]
-  end
-
-  def edit
-    authorize [:instruction, @authorization_definition], :show?
-
-    @can_edit = policy([:instruction, @authorization_definition]).edit?
-    @default_form = @authorization_definition.default_form
-    @static_block_names = @default_form.static_blocks.to_set { |b| b[:name].to_s }
-    @authorization_request = build_preview_request(@default_form)
-    @preview_organization = preview_organization
   end
 
   private

@@ -3,7 +3,6 @@ class Instruction::AuthorizationDefinitionEmailsController < Instruction::FormMa
 
   def index
     authorize [:instruction, @authorization_definition], :show?
-    @can_edit = policy([:instruction, @authorization_definition]).edit?
   end
 
   private

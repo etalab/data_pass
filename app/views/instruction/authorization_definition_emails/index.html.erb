@@ -1,4 +1,4 @@
-<% action_label = @can_edit ? t('.title') : t('.title_readonly') %>
+<% action_label = t('.title') %>
 <% set_title! t('page_titles.instruction_definition_emails', definition_name: @authorization_definition.name_with_stage, action: action_label) %>
 
 <%= render Molecules::Instruction::AuthorizationDefinition::TitledHeaderComponent.new(

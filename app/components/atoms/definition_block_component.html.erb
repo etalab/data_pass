@@ -4,21 +4,9 @@
       <%= title %>
       <% if static_block? %>
         <span class="fr-tag fr-icon-eye-off-line fr-tag--icon-left fr-tag--sm fr-ml-2w definition-block__static-tag">
-          <%= t('atoms.edit_definition_block_component.static_block') %>
+          <%= t('atoms.definition_block_component.static_block') %>
         </span>
       <% end %>
-    <% end %>
-    <% if can_edit? %>
-      <button type="button"
-              class="fr-btn fr-btn--secondary fr-btn--sm fr-icon-edit-line fr-btn--icon-left"
-              aria-label="<%= modify_button_title %>"
-              aria-controls="<%= side_panel_id %>"
-              aria-expanded="false"
-              aria-haspopup="dialog"
-              data-action="click->side-panel#open"
-              data-side-panel-title-param="<%= modify_button_title %>">
-        <%= t('atoms.edit_definition_block_component.modify_button') %>
-      </button>
     <% end %>
   </div>
   <div class="definition-block__preview <%= 'definition-block__static-stripes' if static_block? %>" inert>
