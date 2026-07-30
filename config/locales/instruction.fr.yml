@@ -88,11 +88,11 @@ fr:
         refuse: Refus de la demande
         revoke: Révocation de l’habilitation
       event_descriptions:
-        submit: Ces emails sont envoyés lorsqu’un demandeur soumet une demande complète. La demande passe "En cours d'instruction".
-        approve: Ces emails sont envoyés lorsqu’un instructeur valide une demande et génère ainsi une habilitation. La demande passe en "Validée".
-        request_changes: Ces emails sont envoyés lorsqu’un instructeur demande des modifications au demandeur avant de pouvoir valider une demande. La demande passe en "À modifier".
-        refuse: Ces emails sont envoyés lorsqu’un instructeur refuse une demande. La demande passe en "Refusée".
-        revoke: Ces emails sont envoyés lorsqu’un instructeur révoque une habilitation existante. L'habilitation ainsi que sa demande passent en "Révoquée".
+        submit: Ces emails sont envoyés lorsqu’un demandeur soumet une demande complète. La demande passe « En cours d’instruction ».
+        approve: Ces emails sont envoyés lorsqu’un instructeur valide une demande et génère ainsi une habilitation. La demande passe en « Validée ».
+        request_changes: Ces emails sont envoyés lorsqu’un instructeur demande des modifications au demandeur avant de pouvoir valider une demande. La demande passe en « À modifier ».
+        refuse: Ces emails sont envoyés lorsqu’un instructeur refuse une demande. La demande passe en « Refusée ».
+        revoke: Ces emails sont envoyés lorsqu’un instructeur révoque une habilitation existante. L’habilitation ainsi que sa demande passent en « Révoquée ».
       states:
         with_france_connect: Si la demande utilise FranceConnect en modalité d'accès
         embeds_france_connect_fields: Si une habilitation FranceConnect est générée automatiquement
