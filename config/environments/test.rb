@@ -12,6 +12,9 @@ Rails.application.configure do
 
   config.middleware.use RackSessionAccess::Middleware
 
+  config.logstasher.enabled = true
+  config.logstasher.logger = ActiveSupport::Logger.new(File::NULL)
+
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true
