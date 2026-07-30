@@ -27,17 +27,28 @@ RSpec.describe Molecules::Instruction::AuthorizationDefinition::AutomatedEmailCo
     expect(page).to have_css('.fr-badge--success', text: 'Validée')
   end
 
-  it 'renders a reopening toggle, muted by default and coloured for the update variant' do
+  it 'renders a single reopening toggle hiding the update variant of the email' do
     render_inline(described_class.new(
       authorization_definition: definition, event: 'approve',
       standard_email: email('AuthorizationRequestMailer', 'approve', { reopening: false }),
       reopening_email: email('AuthorizationRequestMailer', 'reopening_approve', { reopening: true })
     ))
 
-    expect(page).to have_css('[data-controller="reopening-email"]')
-    expect(page).to have_css('.fr-badge--purple-glycine.reopening-badge--muted', text: 'Mise à jour')
-    expect(page).to have_css('.fr-badge--purple-glycine:not(.reopening-badge--muted)', text: 'Mise à jour')
-    expect(page).to have_css('[data-reopening-email-target="reopening"].fr-hidden', text: 'Votre réouverture')
+    expect(page).to have_css('[data-controller="toggle-class"][data-toggle-class-class-value="fr-hidden"]')
+    expect(page).to have_css('.automated-email-reopening .fr-badge--purple-glycine', count: 1, text: 'Mise à jour')
+    expect(page).to have_css('[data-toggle-class-target="toggle"]:not(.fr-hidden)', text: 'Votre habilitation')
+    expect(page).to have_css('[data-toggle-class-target="toggle"].fr-hidden', text: 'Votre réouverture')
+  end
+
+  it 'keeps the status badge out of the toggled zone' do
+    render_inline(described_class.new(
+      authorization_definition: definition, event: 'approve',
+      standard_email: email('AuthorizationRequestMailer', 'approve', { reopening: false }),
+      reopening_email: email('AuthorizationRequestMailer', 'reopening_approve', { reopening: true })
+    ))
+
+    expect(page).to have_css('.fr-badge--success', count: 1, text: 'Validée')
+    expect(page).to have_no_css('[data-toggle-class-target="toggle"] .fr-badge--success')
   end
 
   it 'does not render a toggle when there is no reopening variant' do

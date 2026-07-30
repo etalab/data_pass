@@ -27,7 +27,7 @@
   gap: 0.5rem;
 }
 
-.reopening-badge--muted {
+.automated-email-reopening:not(:has(.fr-toggle__input:checked)) .fr-badge {
   background-color: var(--background-contrast-grey);
   color: var(--text-mention-grey);
 }

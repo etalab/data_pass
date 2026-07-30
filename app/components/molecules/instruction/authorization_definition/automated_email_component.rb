@@ -1,6 +1,8 @@
 class Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent < ApplicationComponent
   SCOPE = 'instruction.authorization_definition_emails'.freeze
 
+  delegate :reopening_badge, to: :decorated_request
+
   def initialize(authorization_definition:, standard_email:, event:, reopening_email: nil, heading: 'h3')
     @authorization_definition = authorization_definition
     @standard_email = standard_email
@@ -45,14 +47,6 @@ class Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent <
     decorated_request.status_badge
   end
 
-  def reopening_badge(index)
-    decorated_request.reopening_badge(extra_css_class: reopening_badge_muted_class(index).to_s)
-  end
-
-  def reopening_badge_muted_class(index)
-    'reopening-badge--muted' unless toggle_checked?(index)
-  end
-
   def error?(rendered)
     rendered.error.present?
   end
@@ -63,22 +57,24 @@ class Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent <
     scoped_t('preview_unavailable')
   end
 
+  def card_data
+    return {} unless reopening?
+
+    { controller: 'toggle-class', toggle_class_class_value: 'fr-hidden' }
+  end
+
   def variant_class(index)
     'fr-hidden' if reopening? && index == 1
   end
 
-  def variant_data(index)
+  def variant_data
     return {} unless reopening?
 
-    { reopening_email_target: index.zero? ? 'standard' : 'reopening' }
+    { toggle_class_target: 'toggle' }
   end
 
-  def toggle_input_id(index)
-    "reopening-toggle-#{@standard_email.mailer.parameterize}-#{@standard_email.action}-#{index}"
-  end
-
-  def toggle_checked?(index)
-    index == 1
+  def toggle_input_id
+    "reopening-toggle-#{@standard_email.mailer.parameterize}-#{@standard_email.action}"
   end
 
   attr_reader :heading
