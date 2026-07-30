@@ -10,7 +10,7 @@
             class="fr-basic-card contact-card"
           >
             <div class="contact-card__kind" id="<%= contact_label_id %>">
-              <%= t("authorization_request_forms.default.#{contact_type}.title") %>
+              <%= f.wording_for("#{contact_type}.title") %>
             </div>
 
             <% if authorization_request.public_send("#{contact_type}_type") == 'person' %>
@@ -26,7 +26,7 @@
                 phone_number
               ].each do |contact_attribute|
             %>
-              <% next if authorization_request.public_send("#{contact_type}_type") == 'organization' && %w[job_title].include?(contact_attribute) %>
+              <% next if authorization_request.skip_contact_attribute?(contact_type, contact_attribute) %>
 
               <div class="contact-card__attribute">
                 <div class="contact-card__attribute-label">

@@ -24,10 +24,12 @@ module AuthorizationCore::Contacts
       end
 
       def self.contact(kind, validation_condition:, options: {})
+        except = Array(options[:except]).map(&:to_s)
+
         class_eval do
           define_contact_type_methods(kind)
-          define_common_contact_attributes(kind, validation_condition:)
-          define_contact_person_attributes(kind, validation_condition:)
+          define_common_contact_attributes(kind, validation_condition:, except:)
+          define_contact_person_attributes(kind, validation_condition:, except:)
 
           contacts << ContactDefinition.new(kind, options)
         end
@@ -45,10 +47,12 @@ module AuthorizationCore::Contacts
         end
       end
 
-      def self.define_common_contact_attributes(kind, validation_condition:)
+      def self.define_common_contact_attributes(kind, validation_condition:, except: [])
         %w[email phone_number].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
           override_primitive_write("#{kind}_#{attr}", sanitize_options: { downcase: true, strip: true })
+
+          next if except.include?(attr)
 
           validates "#{kind}_#{attr}", presence: true, if: validation_condition
         end
@@ -57,10 +61,12 @@ module AuthorizationCore::Contacts
         validates "#{kind}_email", email_recently_verified: true, if: validation_condition, on: :submit
       end
 
-      def self.define_contact_person_attributes(kind, validation_condition:)
+      def self.define_contact_person_attributes(kind, validation_condition:, except: [])
         %w[family_name given_name job_title].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
           override_primitive_write("#{kind}_#{attr}")
+
+          next if except.include?(attr)
 
           validates "#{kind}_#{attr}", presence: true, if: -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
         end

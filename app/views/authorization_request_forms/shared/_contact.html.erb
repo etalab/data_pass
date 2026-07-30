@@ -10,7 +10,7 @@
 
     <fieldset class="fr-fieldset" <%= "aria-describedby=\"#{info_id}\"" if info_id %>>
       <legend class="fr-fieldset__legend contact-form-card__title" id="<%= legend_id %>">
-        <%= t("authorization_request_forms.default.#{contact_definition.type}.title") %>
+        <%= f.wording_for("#{contact_definition.type}.title") %>
       </legend>
 
       <% if @authorization_request.contact_info(contact_definition.type).present? %>

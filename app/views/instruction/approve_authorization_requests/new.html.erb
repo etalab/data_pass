@@ -28,7 +28,7 @@
 
               <div data-controller="message-template-selector"
                    data-message-template-selector-templates-value="<%= @message_templates.map { |t| { id: t.id, content: t.content } }.to_json %>"
-                   data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.intitule, demande_id: @authorization_request.id }.to_json %>">
+                   data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.name, demande_id: @authorization_request.id }.to_json %>">
                 <%= render 'instruction/shared/message_templates_section',
                            message_templates: @message_templates,
                            authorization_request: @authorization_request %>
