@@ -32,8 +32,8 @@ class Molecules::Instruction::AuthorizationDefinition::ConfigBlockComponent < At
     [
       boolean_row(t('.features.messaging'), feature_enabled?(:messaging)),
       boolean_row(t('.features.transfer'), feature_enabled?(:transfer)),
-      boolean_row(t('.features.instructor_drafts'), feature_enabled?(:instructor_drafts)),
-      boolean_row(t('.features.reopening'), feature_enabled?(:reopening))
+      boolean_row(t('.features.reopening'), feature_enabled?(:reopening)),
+      boolean_row(t('.features.instructor_drafts'), feature_enabled?(:instructor_drafts))
     ]
   end
 

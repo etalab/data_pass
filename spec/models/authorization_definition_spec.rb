@@ -162,6 +162,36 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '#feature?' do
+    let(:instance) { described_class.build('mon_api', name: 'Mon API', blocks: [], features:) }
+
+    context 'when the feature is set within the definition' do
+      let(:features) { { messaging: false, instructor_drafts: true } }
+
+      it 'returns the configured value' do
+        expect(instance.feature?(:messaging)).to be false
+        expect(instance.feature?(:instructor_drafts)).to be true
+      end
+    end
+
+    context 'when the feature is not set within the definition' do
+      let(:features) { {} }
+
+      it 'returns the default of the feature' do
+        expect(instance.feature?(:messaging)).to be true
+        expect(instance.feature?(:instructor_drafts)).to be false
+      end
+    end
+
+    context 'with an unknown feature' do
+      let(:features) { {} }
+
+      it 'raises an error' do
+        expect { instance.feature?(:unknown_feature) }.to raise_error(KeyError)
+      end
+    end
+  end
+
   describe '#support_email' do
     it 'is present on each definition' do
       described_class.all.each do |definition|
