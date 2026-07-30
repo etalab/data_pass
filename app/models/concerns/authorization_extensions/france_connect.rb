@@ -10,7 +10,9 @@ module AuthorizationExtensions::FranceConnect
 
     validates :france_connect_authorization_id,
       inclusion: { in: ->(authorization_request) { authorization_request.organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).pluck(:id).map(&:to_s) } },
-      if: -> { france_connect_authorization_id.present? }
+      if: -> { with_france_connect? && france_connect_authorization_id.present? }
+
+    before_save :remove_france_connect_authorization_id_unless_with_france_connect
   end
 
   def france_connect_authorization
@@ -27,5 +29,9 @@ module AuthorizationExtensions::FranceConnect
 
   def requires_france_connect_authorization?
     need_complete_validation?(:france_connect)
+  end
+
+  def remove_france_connect_authorization_id_unless_with_france_connect
+    self.france_connect_authorization_id = nil unless with_france_connect?
   end
 end

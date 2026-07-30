@@ -2,8 +2,8 @@ def cnous_future_transmission_date
   2.months.from_now.to_date
 end
 
-Quand('je remplis la première date de transmission avec une date future') do
-  fill_in 'Première date de transmission', with: cnous_future_transmission_date.iso8601, wait: true
+Quand('je remplis la date de transmission avec une date future') do
+  fill_in 'Date de transmission', with: cnous_future_transmission_date.iso8601, wait: true
 end
 
 Sachantque('l’API géo connaît la commune {string} nommée {string}') do |code, nom|

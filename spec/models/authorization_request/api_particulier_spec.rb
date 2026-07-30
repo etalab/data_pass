@@ -313,4 +313,40 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       end
     end
   end
+
+  describe 'france_connect_authorization_id cleanup on save' do
+    subject(:authorization_request) { create(:authorization_request, :api_particulier) }
+
+    context 'when the france_connect modality is not selected' do
+      before do
+        authorization_request.modalities = %w[params]
+        authorization_request.france_connect_authorization_id = '999999'
+        authorization_request.save!
+      end
+
+      it 'clears the residual france_connect_authorization_id' do
+        expect(authorization_request.reload.france_connect_authorization_id).to be_nil
+      end
+    end
+
+    context 'when the france_connect modality is selected with a valid authorization' do
+      let(:france_connect_authorization) do
+        create(
+          :authorization_request, :france_connect, :validated,
+          applicant: authorization_request.applicant,
+          organization: authorization_request.organization
+        ).latest_authorization
+      end
+
+      before do
+        authorization_request.modalities = %w[france_connect]
+        authorization_request.france_connect_authorization_id = france_connect_authorization.id.to_s
+        authorization_request.save!
+      end
+
+      it 'keeps the france_connect_authorization_id' do
+        expect(authorization_request.reload.france_connect_authorization_id).to eq(france_connect_authorization.id.to_s)
+      end
+    end
+  end
 end

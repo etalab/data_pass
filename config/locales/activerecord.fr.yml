@@ -135,7 +135,7 @@ fr:
 
         communes_codes_insee: Communes (codes INSEE)
         echelon_bourse: Échelon de bourse minimum
-        premiere_date_transmission: Première date de transmission
+        premiere_date_transmission: Date de transmission
 
         france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
@@ -215,7 +215,7 @@ fr:
         fc_alternative_connexion: Cochez si vous proposez une alternative à FranceConnect
         communes_codes_insee: "Saisissez un code INSEE par commune (ex : 75056 pour Paris). Cliquez sur « Ajouter une commune » pour en ajouter plusieurs."
         echelon_bourse: "L’extraction inclura tous les boursiers d’échelon supérieur ou égal à la valeur sélectionnée."
-        premiere_date_transmission: "Date à laquelle vous souhaitez recevoir la première extraction CNOUS."
+        premiere_date_transmission: "Date à laquelle vous souhaitez recevoir l'extraction CNOUS."
       message_template:
         title: "Privilégiez un titre court et explicite"
         content: "Variables disponibles : %{demande_url}, %{demande_intitule}, %{demande_id}"

@@ -1,4 +1,6 @@
 class Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent < ApplicationComponent
+  include Molecules::Instruction::Breadcrumb
+
   def initialize(authorization_definition:, validated_count:, submitted_count:, can_initiate_request: false)
     @authorization_definition = authorization_definition
     @validated_count = validated_count
@@ -10,11 +12,11 @@ class Molecules::Instruction::AuthorizationDefinition::ShowHeaderComponent < App
 
   attr_reader :authorization_definition, :validated_count, :submitted_count, :can_initiate_request
 
-  def back_link
-    {
-      path: helpers.instruction_authorization_definitions_path,
-      text: I18n.t('page_titles.instruction_definitions')
-    }
+  def breadcrumbs
+    [
+      formulaires_breadcrumb_item,
+      authorization_definition_breadcrumb_item(link: false)
+    ]
   end
 
   def initiate_request_path

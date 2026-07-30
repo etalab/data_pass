@@ -119,6 +119,7 @@ Rails.application.routes.draw do
 
     resources :authorization_definitions, only: %i[index show edit], path: 'formulaires' do
       resources :forms, only: %i[index show], path: 'cas_d_usage', controller: 'forms'
+      resources :emails, only: :index, path: 'emails_automatiques', controller: 'authorization_definition_emails'
     end
 
     resources :message_templates, only: %i[index new create edit update destroy], path: 'modeles-messages'

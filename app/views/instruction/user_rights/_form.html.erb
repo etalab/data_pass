@@ -26,11 +26,7 @@
       <%= t('instruction.user_rights.new.rights_section') %>
     </h2>
 
-    <%= dsfr_accordion t('instruction.user_rights.new.roles_help.title'),
-                       id: 'user-rights-roles-help',
-                       class: ['fr-mb-3w'] do %>
-      <%= render 'instruction/user_rights/roles_help' %>
-    <% end %>
+    <%= render 'instruction/user_rights/roles_help' %>
 
     <%= render Molecules::Instruction::UserRights::ReadonlyRightsListComponent.new(rights: readonly_rights) %>
 

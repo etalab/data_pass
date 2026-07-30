@@ -57,6 +57,10 @@ shared:
     type: editor
     name: Familea
     siret: "42172024400050"
+  hoptis:
+    type: editor
+    name: Hoptis Software
+    siret: "48987179800067"
   agora_plus:
     type: editor
     name: Agora Plus

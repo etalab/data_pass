@@ -433,6 +433,16 @@ FactoryBot.define do
       end
     end
 
+    trait :api_particulier_demarche_numerique do
+      type { 'AuthorizationRequest::APIParticulierDemarcheNumerique' }
+      form_uid { 'api-particulier-demarche-numerique' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
+
     %w[
       api-particulier-aiga
       api-particulier-abelium
@@ -501,9 +511,16 @@ FactoryBot.define do
       api-particulier-sigec-maelis-petite-enfance
       api-particulier-city-family-mushroom-software-petite-enfance
       api-particulier-carte-plus-petite-enfance
+      api-particulier-agora-baby
+      api-particulier-bl-enfance-petite-enfance
+      api-particulier-civil-petite-enfance-ciril-group
+      api-particulier-docaposte-fast-petite-enfance
+      api-particulier-entrouvert-publik-famille-petite-enfance
       api-particulier-abelium-petite-enfance
       api-particulier-familea
       api-particulier-familea-petite-enfance
+      api-particulier-hoptis
+      api-particulier-hoptis-petite-enfance
       api-particulier-andyvie
       api-particulier-polycea
     ].each do |form_uid|

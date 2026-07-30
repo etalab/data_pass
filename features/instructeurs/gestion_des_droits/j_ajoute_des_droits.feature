@@ -73,3 +73,14 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
     Et l'utilisateur "existant@gouv.fr" a les rôles "dinum:api_particulier:reporter,dinum:api_entreprise:instructor"
+
+  Scénario: Je préserve les rôles existants dans mon périmètre en ajoutant un droit
+    Sachant que je suis un manager "API Particulier"
+    Quand il y a l'utilisateur "collegue@gouv.fr" avec le rôle "Rapporteur" pour "API Particulier"
+    Et que je me rends sur la page d'ajout de droits
+    Et que je remplis "Email de l’utilisateur" avec "collegue@gouv.fr"
+    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "Instructeur" pour "Rôle"
+    Et que je clique sur "Valider les modifications"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et l'utilisateur "collegue@gouv.fr" a les rôles "dinum:api_particulier:reporter,dinum:api_entreprise:instructor"

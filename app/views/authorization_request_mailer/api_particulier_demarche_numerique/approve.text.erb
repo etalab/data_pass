@@ -1,0 +1,17 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+Votre habilitation à API Particulier pour la démarche administrative en ligne « <%= @authorization_request.name %> » (<%= @authorization_request.formatted_id %>) réalisée via Démarche numérique a été validée.
+
+Vous pouvez dès à présent récupérer votre jeton d’accès et intégrer les données habilitées au sein de votre démarche depuis votre compte API Particulier : https://particulier.api.gouv.fr/
+
+Nous vous rappelons que vous ne devez collecter que les données strictement nécessaires à votre téléservice.
+
+<% if @authorization_request.latest_authorization&.message.present? %>
+Message associé à la validation de votre habilitation :
+<%= @authorization_request.latest_authorization.message %>
+<% end %>
+Pour consulter cette habilitation, veuillez cliquer sur le lien suivant : <%= authorization_request_url(@authorization_request) %>
+
+Bien cordialement,
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

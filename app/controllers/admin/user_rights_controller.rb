@@ -20,7 +20,7 @@ class Admin::UserRightsController < AdminController
     @form = Instruction::UserRightForm.new(authority: @authority, **form_params)
     @target_user = User.find_by(email: @form.email)
     return render_email_not_found if @target_user.nil?
-    return render_failure(:new) unless @form.save_for(@target_user, actor: true_user)
+    return render_failure(:new) unless @form.save_for(@target_user, actor: true_user, additive: true)
 
     success_message(title: t('instruction.user_rights.create.success', email: @target_user.email))
     redirect_to admin_user_rights_path

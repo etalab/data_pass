@@ -63,10 +63,15 @@ fr:
         before_submit: Checkboxes en fin de résumé
         side_panel:
           under_development:
-            title: Fonctionnalité en cours de développement.
-            message_html: Pour modifier votre formulaire, contactez-nous sur <a class="fr-link" href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>.
+            wip_action: modifier votre formulaire
       forms_header_component:
         title: Cas d'usage
+    authorization_definition_emails:
+      index:
+        title: Gérer les emails automatiques
+        title_readonly: Voir les emails automatiques
+        under_development:
+          wip_action: modifier les emails automatiques de ce formulaire
     forms:
       index:
         empty: Aucun cas d'usage disponible.
@@ -92,8 +97,7 @@ fr:
         prefill_subtitle: Pour adapter un formulaire à un cas d'usage et faciliter la demande, pré-remplissez les valeurs et adaptez les textes de ses étapes.
         side_panel:
           under_development:
-            title: Fonctionnalité en cours de développement.
-            message_html: Pour modifier ce cas d'usage, contactez-nous sur <a class="fr-link" href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>.
+            wip_action: modifier ce cas d'usage
     dashboard:
       authorization_requests:
         search:

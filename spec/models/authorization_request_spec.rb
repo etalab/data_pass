@@ -638,7 +638,7 @@ RSpec.describe AuthorizationRequest do
     end
 
     context 'when linked by france_connect_authorization_id (auto-generated)' do
-      let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, organization:) }
+      let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, modalities: %w[france_connect], organization:) }
       let!(:fc_child_authorization) do
         create(:authorization,
           request: authorization_request,

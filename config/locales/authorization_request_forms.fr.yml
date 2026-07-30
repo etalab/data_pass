@@ -292,7 +292,7 @@ fr:
               Hub d’Échange de l’État).
             </p><% if FeatureFlag.enabled?(:depot_dossier_mariage) %>
             <p>
-              <strong>DDMariage - Pré-dépôt de dossier de mariage</strong> : Ce service permet à
+              <strong>DDmariage - Pré-dépôt de dossier de mariage</strong> : Ce service permet à
               des usagers souhaitant contracter un mariage de compléter en ligne les informations
               nécessaires à cette union et de télécharger leurs pièces justificatives constituant
               leur dossier. L’ensemble est envoyé à la commune chargée de célébrer le mariage.
@@ -357,7 +357,7 @@ fr:
       cadre_juridique_document:
         label: Ajoutez votre ou vos documents
         hint: *pdf_input_hint
-    api_particulier:
+    api_particulier: &api_particulier_wordings
       steps:
         <<: *authorization_request_forms_default_steps
         modalities: "Les modalités d'appel de l'API"
@@ -436,6 +436,8 @@ fr:
               <br/>
               <br/>
               Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur les délibérations permettant d'accéder à l'API Particulier.</a>
+    api_particulier_demarche_numerique:
+      <<: *api_particulier_wordings
     api_particulier_abelium: &api_particulier_editor_common_wordings
       legal:
         justificatif:
@@ -473,6 +475,10 @@ fr:
     api_particulier_familea:
       <<: *api_particulier_editor_common_wordings
     api_particulier_familea_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_hoptis:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_hoptis_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_sigec_maelis:
       <<: *api_particulier_editor_common_wordings
@@ -596,6 +602,16 @@ fr:
     api_particulier_city_family_mushroom_software_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_carte_plus_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_agora_baby:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_bl_enfance_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_civil_petite_enfance_ciril_group:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_docaposte_fast_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_entrouvert_publik_famille_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_tarification_eaje:
       <<: *api_particulier_tarification_eaje_cadre_juridique
@@ -1238,3 +1254,13 @@ fr:
         label: Courriel
       responsable_traitement_informed:
         label: Je confirme que le responsable de l’administration de mon organisation est informé de ma demande.
+
+    # FormTemplate defined in database
+    proactivite_pour_les_etudiants_boursiers_dyn:
+      contact_metier:
+        title: Contact métier
+        info: |
+          Cette personne sera destinataire du fichier via l’outil de transmission (HubEE) et sera contactée pour toute question métier sur votre service.
+      legal:
+        justificatif:
+          description: Veuillez préciser le fondement juridique qui autorise votre organisme à accéder aux données demandées dans le cadre de ce cas d'usage (loi, décret, arrêté, délibération, etc.).

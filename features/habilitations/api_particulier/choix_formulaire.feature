@@ -24,13 +24,13 @@ Fonctionnalité: Choix du type de formulalire pour API Particulier
     Et je vois 1 tuile "Gestion RH du secteur public"
     Et je vois 1 tuile "Demande libre"
 
-  Scénario: Je choisis un éditeur ayant un formulaire
+  Scénario: Je choisis un éditeur ayant des formulaires
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Votre éditeur"
     Et que je clique sur "E"
     Et que je choisis "Entr'ouvert"
-    Alors je vois 1 tuile
-    Et je vois 1 tuile "Publik Famille"
+    Alors je vois 2 tuiles
+    Et je vois 1 tuile "Publik Famille petite enfance"
 
   Scénario: Je choisis un éditeur inconnu de API Particulier
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"

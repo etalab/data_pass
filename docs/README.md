@@ -38,6 +38,7 @@
 
 ## API Particulier
 
+* [Cadres juridiques des formulaires (recensement forms / éditeurs / cadres)](./api_particulier/cadres_juridiques.md)
 * [Éditeurs certifiés FranceConnect](./api_particulier/france_connect/editeurs_certifies.md)
 
 ## Développeurs externes (API consumers)
