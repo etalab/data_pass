@@ -34,7 +34,7 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def messages?
-    feature_enabled?(:messages) &&
+    feature_enabled?(:messaging) &&
       show?
   end
 
