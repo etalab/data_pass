@@ -77,6 +77,7 @@ fr:
       empty: Aucun email automatique n’est envoyé pour ce formulaire.
       status_label: Statut de la demande
       recipients_label: Envoyé à
+      unavailable_title: Email indisponible
       preview_unavailable: Aperçu de l’email indisponible.
       preview_error: "Erreur lors de la génération de l’aperçu : %{message}"
       reopening_toggle: Afficher l’email de mise à jour

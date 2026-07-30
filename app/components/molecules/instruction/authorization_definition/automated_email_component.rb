@@ -23,6 +23,10 @@ class Molecules::Instruction::AuthorizationDefinition::AutomatedEmailComponent <
     rendered.body.present?
   end
 
+  def title(rendered)
+    available?(rendered) ? rendered.subject : scoped_t('unavailable_title')
+  end
+
   def condition?
     condition_keys.any?
   end

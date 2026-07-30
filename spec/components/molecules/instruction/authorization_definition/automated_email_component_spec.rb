@@ -69,6 +69,15 @@ RSpec.describe Molecules::Instruction::AuthorizationDefinition::AutomatedEmailCo
     expect(page).to have_css('.fr-text-default--error', text: 'NoMethodError')
   end
 
+  it 'keeps a heading on the card when the preview is unavailable' do
+    render_inline(described_class.new(
+      authorization_definition: definition, event: 'approve',
+      standard_email: email('UnknownMailer', 'approve', { reopening: false })
+    ))
+
+    expect(page).to have_css('h3', text: 'Email indisponible')
+  end
+
   it 'renders the condition and the actual recipient address of a state-based email' do
     render_inline(described_class.new(
       authorization_definition: AuthorizationDefinition.find('api_particulier'), event: 'approve',

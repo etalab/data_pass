@@ -31,8 +31,9 @@
     <% variants.each_with_index do |rendered, index| %>
       <%= tag.div class: variant_class(index), data: variant_data do %>
         <div>
+          <%= content_tag heading, title(rendered), class: 'fr-card__title fr-mb-1w' %>
+
           <% if available?(rendered) %>
-            <%= content_tag heading, rendered.subject, class: 'fr-card__title fr-mb-1w' %>
             <% if rendered.recipients.present? %>
               <p class="fr-mb-0">
                 <span class="fr-text--bold"><%= recipients_label %> :</span> <%= rendered.recipients %>
