@@ -1,0 +1,10 @@
+<%= t('.greeting') %>
+
+<%=
+  t(
+    '.description',
+    authorization_request_id: @authorization_request.formatted_id,
+    demande_date: @demande_date,
+    convention_url: @convention_url,
+  )
+%>
