@@ -3,7 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
-  let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'cnous_data_extraction_criteria' }]) }
+  let(:habilitation_type) do
+    create(:habilitation_type,
+      blocks: [{ 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }],
+      contact_types: ['contact_metier'])
+  end
   let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
 
   def organization_with(categorie:, commune: '92023')

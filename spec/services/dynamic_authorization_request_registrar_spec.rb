@@ -132,7 +132,11 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       context 'when submitted' do
         subject(:valid?) { demande.valid?(:submit) }
 
-        let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'cnous_data_extraction_criteria' }]) }
+        let(:habilitation_type) do
+          create(:habilitation_type,
+            blocks: [{ 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }],
+            contact_types: ['contact_metier'])
+        end
         let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
         let(:demande) { klass.new(**params) }
         let(:params) { {} }

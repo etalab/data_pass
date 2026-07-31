@@ -24,7 +24,7 @@ Sachantque("un type d'habilitation {string} expose le bloc {string}") do |name, 
       { 'name' => block_name },
       { 'name' => 'contacts' },
     ],
-    contact_types: ['contact_technique'],
+    contact_types: ['contact_metier'],
   )
 end
 

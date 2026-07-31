@@ -116,6 +116,37 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'validation: cnous proactivite block requires contact_metier' do
+    context 'when cnous_data_extraction_criteria block is selected' do
+      it 'is invalid without a contacts block' do
+        habilitation_type.blocks = [{ 'name' => 'cnous_data_extraction_criteria' }]
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors[:base]).to be_present
+      end
+
+      it 'is invalid when contacts block does not include contact_metier' do
+        habilitation_type.blocks = [{ 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }]
+        habilitation_type.contact_types = ['contact_technique']
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors[:base]).to be_present
+      end
+
+      it 'is valid when contacts block includes contact_metier' do
+        habilitation_type.blocks = [{ 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }]
+        habilitation_type.contact_types = ['contact_metier']
+        expect(habilitation_type).to be_valid
+      end
+    end
+
+    context 'when cnous_data_extraction_criteria block is not selected' do
+      it 'is valid without contact_metier' do
+        habilitation_type.blocks = [{ 'name' => 'basic_infos' }]
+        habilitation_type.contact_types = []
+        expect(habilitation_type).to be_valid
+      end
+    end
+  end
+
   describe 'validation: scopes block requires scopes' do
     context 'when scopes block is selected' do
       before { habilitation_type.blocks = [{ 'name' => 'scopes' }] }

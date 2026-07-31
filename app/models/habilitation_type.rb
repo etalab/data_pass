@@ -24,6 +24,7 @@ class HabilitationType < ApplicationRecord
   validates :contact_types, presence: true, if: :contacts_block_selected?
   validates :scopes, presence: true, if: :scopes_block_selected?
   validate :validate_each_scope, if: :scopes_block_selected?
+  validate :cnous_proactivite_requires_contact_metier, if: :cnous_proactivite_block_selected?
 
   after_create :ensure_default_form_template!
   before_destroy :ensure_no_authorization_requests
@@ -105,6 +106,16 @@ class HabilitationType < ApplicationRecord
 
   def contacts_block_selected?
     block_name_list.include?('contacts')
+  end
+
+  def cnous_proactivite_block_selected?
+    block_name_list.include?('cnous_data_extraction_criteria')
+  end
+
+  def cnous_proactivite_requires_contact_metier
+    return if contacts_block_selected? && contact_types.to_a.include?('contact_metier')
+
+    errors.add(:base, :cnous_proactivite_requires_contact_metier)
   end
 
   def validate_each_scope

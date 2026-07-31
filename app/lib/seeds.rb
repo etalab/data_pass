@@ -84,7 +84,7 @@ class Seeds
         { 'name' => 'cnous_data_extraction_criteria' },
         { 'name' => 'contacts' },
       ],
-      contact_types: ['contact_technique'],
+      contact_types: ['contact_metier'],
       features: { 'messaging' => true, 'transfer' => true, 'reopening' => true },
       scopes: [],
       custom_labels: {}
