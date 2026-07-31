@@ -45,7 +45,7 @@ RSpec.describe ExecuteAuthorizationRequestBridge do
         create(:habilitation_type,
           name: 'Test proactividad',
           blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }],
-          contact_types: ['contact_technique'])
+          contact_types: ['contact_metier'])
       end
       let(:authorization_request) { AuthorizationRequest.const_get(habilitation_type.uid.classify).new }
 

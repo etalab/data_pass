@@ -21,14 +21,14 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
     * je remplis la date de transmission avec une date future
     * je clique sur "Suivant"
-    * la page contient "Contact technique"
+    * la page contient "Contact métier"
 
     * je clique sur "Précédent"
     * le bouton de suppression de la commune "75056" est annoncé par son code aux lecteurs d’écran
     * chaque champ commune INSEE est annoncé avec sa position aux lecteurs d’écran
     * je clique sur "Suivant"
 
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -78,7 +78,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Et je remplis la date de transmission avec une date future
     Et je clique sur "Suivant"
 
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -130,7 +130,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Et je remplis la date de transmission avec une date future
     Et je clique sur "Suivant"
 
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales

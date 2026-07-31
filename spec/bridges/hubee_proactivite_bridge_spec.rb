@@ -6,7 +6,7 @@ RSpec.describe HubEEProactiviteBridge do
   let!(:habilitation_type) do
     create(:habilitation_type,
       name: 'Test proactividad',
-      contact_types: ['contact_technique'],
+      contact_types: ['contact_metier'],
       blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }])
   end
   let(:organization) { create(:organization, siret: '21920023500014') }
@@ -19,7 +19,7 @@ RSpec.describe HubEEProactiviteBridge do
   end
   let(:organization_payload) do
     build(:hubee_organization_payload, organization:,
-      email: 'jean.dupont.contact_technique@gouv.fr',
+      email: 'jean.dupont.contact_metier@gouv.fr',
       phoneNumber: '0836656565')
   end
   let(:subscription_response) { build(:hubee_subscription_response_payload, id: hubee_subscription_id) }
@@ -49,14 +49,14 @@ RSpec.describe HubEEProactiviteBridge do
       perform
     end
 
-    it 'sends the contact technique as the HubEE local administrator' do
+    it 'sends the contact metier as the HubEE local administrator' do
       expect(hubee_api_client).to receive(:create_subscription).with(
         hash_including(
           localAdministrator: {
-            email: 'jean.dupont.contact_technique@gouv.fr',
-            firstName: 'Jean Contact technique',
-            lastName: 'Dupont Contact technique',
-            function: 'Agent Contact technique',
+            email: 'jean.dupont.contact_metier@gouv.fr',
+            firstName: 'Jean Contact metier',
+            lastName: 'Dupont Contact metier',
+            function: 'Agent Contact metier',
             phoneNumber: '0836656565',
           }
         )

@@ -20,11 +20,11 @@ class HubEEProactiviteBridge < HubEEBaseBridge
 
   def local_administrator_data
     {
-      email: authorization_request.contact_technique_email,
-      firstName: authorization_request.contact_technique_given_name,
-      lastName: authorization_request.contact_technique_family_name,
-      function: authorization_request.contact_technique_job_title,
-      phoneNumber: authorization_request.contact_technique_phone_number.gsub(/[\s.-]/, ''),
+      email: authorization_request.contact_metier_email,
+      firstName: authorization_request.contact_metier_given_name,
+      lastName: authorization_request.contact_metier_family_name,
+      function: authorization_request.contact_metier_job_title,
+      phoneNumber: authorization_request.contact_metier_phone_number.to_s.gsub(/[\s.-]/, ''),
     }
   end
 end

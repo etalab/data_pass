@@ -282,6 +282,7 @@ fr:
           attributes:
             base:
               has_authorization_requests: "ne peut pas être supprimé car des demandes d’habilitation existent pour ce type"
+              cnous_proactivite_requires_contact_metier: "le bloc « Proactivité CNOUS » nécessite un bloc « Contacts » incluant le contact métier (utilisé comme administrateur local HubEE)"
             name:
               unreachable_uid: "génère un identifiant technique inaccessible (le nom doit commencer par une lettre, ex: « Espace agent de l'Annuaire des Entreprises »)"
             slug:

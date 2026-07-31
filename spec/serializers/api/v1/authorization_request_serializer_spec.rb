@@ -34,7 +34,11 @@ RSpec.describe API::V1::AuthorizationRequestSerializer, type: :serializer do
   describe 'geographic perimeter contract (relais)' do
     subject(:data) { described_class.new(authorization_request).serializable_hash[:data] }
 
-    let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'cnous_data_extraction_criteria' }]) }
+    let(:habilitation_type) do
+      create(:habilitation_type,
+        blocks: [{ 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }],
+        contact_types: ['contact_metier'])
+    end
     let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
     let(:organization) do
       etablissement = {
