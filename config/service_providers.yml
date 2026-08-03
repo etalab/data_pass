@@ -249,6 +249,10 @@ shared:
     type: editor
     name: ICAP
     siret: "48824909500032"
+  osmia_projects:
+    type: editor
+    name: Osmia Projects
+    siret: "48824909500032"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
