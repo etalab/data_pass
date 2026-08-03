@@ -523,6 +523,7 @@ FactoryBot.define do
       api-particulier-hoptis-petite-enfance
       api-particulier-opticreche-petite-enfance
       api-particulier-capcreche-petite-enfance
+      api-particulier-daycare-app-petite-enfance
       api-particulier-andyvie
       api-particulier-polycea
     ].each do |form_uid|

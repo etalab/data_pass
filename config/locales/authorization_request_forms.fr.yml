@@ -617,6 +617,8 @@ fr:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_capcreche_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_daycare_app_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_tarification_eaje:
       <<: *api_particulier_tarification_eaje_cadre_juridique
 
