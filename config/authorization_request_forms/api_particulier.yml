@@ -2891,6 +2891,44 @@ api-particulier-entrouvert-publik-famille-petite-enfance:
     modalities:
       - params
 
+api-particulier-opticreche-petite-enfance:
+  name: optiCreche
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: themisto_conseil
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_email || 'tech-opticreche@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Responsable technique
+    modalities:
+      - params
+
 api-particulier-polycea:
   name: eovia
   authorization_request: APIParticulier

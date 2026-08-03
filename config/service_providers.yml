@@ -233,6 +233,10 @@ shared:
     type: editor
     name: Keolis
     siret: "49432127600045"
+  themisto_conseil:
+    type: editor
+    name: Themisto Conseil
+    siret: "81194509600022"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"

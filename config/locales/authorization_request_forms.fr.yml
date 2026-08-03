@@ -613,6 +613,8 @@ fr:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_entrouvert_publik_famille_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_opticreche_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_tarification_eaje:
       <<: *api_particulier_tarification_eaje_cadre_juridique
 
