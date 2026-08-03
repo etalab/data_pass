@@ -237,6 +237,10 @@ shared:
     type: editor
     name: Themisto Conseil
     siret: "81194509600022"
+  icap:
+    type: editor
+    name: ICAP
+    siret: "48824909500032"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
