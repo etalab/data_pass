@@ -525,6 +525,7 @@ FactoryBot.define do
       api-particulier-familea-petite-enfance
       api-particulier-hoptis
       api-particulier-hoptis-petite-enfance
+      api-particulier-opticreche-petite-enfance
       api-particulier-andyvie
       api-particulier-polycea
       api-particulier-edhec
