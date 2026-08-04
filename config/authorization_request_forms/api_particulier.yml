@@ -1717,6 +1717,67 @@ api-particulier-mgdis-tarification-cantines-lycees:
     modalities:
       - params
 
+api-particulier-ianord-tarification-cantines-lycees:
+  name: WebResto, Tarification cantine lycées
+  description: Régions, calculez automatiquement le tarif de restauration scolaire des lycéens.
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  service_provider_id: ianord
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - men_regime_pensionnat
+  initialize_with:
+    intitule: WebResto | Tarification cantine lycées
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
+    scopes:
+      - cnaf_quotient_familial
+    <<: &api_particulier_ianord_contact_technique
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_email || 'tech-ianord@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_given_name || 'Jean' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_family_name || 'Dupont' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_ianord_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Responsable technique
+    modalities:
+      - params
+
+api-particulier-ianord-tarification-cantines-colleges:
+  name: WebResto, Tarification cantine collèges
+  description: Départements, calculez automatiquement le tarif de restauration scolaire des collégiens.
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  service_provider_id: ianord
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - men_regime_pensionnat
+  initialize_with:
+    intitule: WebResto | Tarification cantine collèges
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_cantines
+    scopes:
+      - cnaf_quotient_familial
+    <<: *api_particulier_ianord_contact_technique
+    modalities:
+      - params
+
 api-particulier-mgdis-aides-facultatives-departementales:
   name: Aides facultatives départementales
   description: Département, simplifiez l’attribution de vos aides facultatives.
