@@ -918,6 +918,8 @@ api-particulier-capdemat-capdemat-evolution:
       - openid
     displayed:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
+      - men_regime_pensionnat
 
       # Scopes FranceConnect
       - family_name
