@@ -53,6 +53,9 @@ api_particulier_demarche_numerique:
       - name: "Ville d‘études et établissement"
         value: "cnous_ville_etudes"
         group: "API Statut étudiant boursier"
+      - name: "Identifiant national étudiant (INE)"
+        value: "cnous_ine"
+        group: "API Statut étudiant boursier"
 
       - name: "Identité de l'étudiant"
         value: "mesri_identite"
