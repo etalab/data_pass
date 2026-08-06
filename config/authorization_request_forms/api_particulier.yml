@@ -1593,7 +1593,7 @@ api-particulier-coexya:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
-      - cnous_statut_bourse
+      - cnous_statut_boursier
       - cnous_echelon_bourse
       - men_statut_scolarite
       - men_statut_boursier
@@ -1609,7 +1609,7 @@ api-particulier-coexya:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
-      - cnous_statut_bourse
+      - cnous_statut_boursier
       - cnous_echelon_bourse
       - men_statut_scolarite
       - complementaire_sante_solidaire
@@ -1817,7 +1817,7 @@ api-particulier-mgdis-aides-facultatives-departementales:
       - cnous_identite
       - cnous_email
       - cnous_periode_versement
-      - cnous_statut_bourse
+      - cnous_statut_boursier
       - cnous_ville_etudes
       - allocation_adulte_handicape
       - revenu_solidarite_active
@@ -2055,7 +2055,7 @@ api-particulier-ccas-melissandre-afi:
       - pole_emploi_adresse
       - pole_emploi_inscription
       - mesri_identite
-      - cnous_statut_bourse
+      - cnous_statut_boursier
       - cnous_identite
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_email || 'tech-afi@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_given_name || 'Jeanne' %>"
@@ -2432,11 +2432,11 @@ api-particulier-tarification-transports:
       - mesri_admission_regime_formation
       - mesri_admission_commune_etudes
       - mesri_admission_etablissement_etudes
+      - cnous_statut_boursier
       - cnous_echelon_bourse
       - cnous_identite
       - cnous_email
       - cnous_periode_versement
-      - cnous_statut_bourse
       - cnous_ville_etudes
       - complementaire_sante_solidaire
       - allocation_adulte_handicape
@@ -2475,7 +2475,7 @@ api-particulier-gestion-rh-secteur-public:
       - cnous_identite
       - cnous_email
       - cnous_periode_versement
-      - cnous_statut_bourse
+      - cnous_statut_boursier
       - cnous_ville_etudes
       - complementaire_sante_solidaire
       - allocation_adulte_handicape
