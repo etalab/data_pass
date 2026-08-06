@@ -30,7 +30,7 @@ class HubEEAPIClient
       req.url hubee_auth_url
       req.headers['Authorization'] = "Basic #{encoded_client_id_and_secret}"
       req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-      req.body = URI.encode_www_form({ grant_type: 'client_credentials', scope: 'DATAPASS' })
+      req.body = URI.encode_www_form({ grant_type: 'client_credentials', scope: 'ADMIN' })
     end
 
     @access_token = response.body['access_token']
