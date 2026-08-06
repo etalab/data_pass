@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include LocalSignInProtection
+
   class BannedUserError < StandardError; end
 
   layout :custom_layout
