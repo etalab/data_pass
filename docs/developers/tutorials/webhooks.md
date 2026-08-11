@@ -166,9 +166,9 @@ L'historique des appels est visible sur [/developpeurs/webhooks](/developpeurs/w
 
 ### Politique de retry
 
-En cas de réponse non-2xx (ou d'absence de réponse), l'appel est rejoué automatiquement selon un back-off exponentiel. Après **5 échecs consécutifs**, le webhook est **automatiquement désactivé** — les événements suivants ne sont plus envoyés tant qu'il n'est pas réactivé manuellement depuis l'interface.
+En cas de réponse non-2xx (ou d'absence de réponse), l'appel est rejoué automatiquement selon un back-off polynomial, **sans limite de tentatives**, jusqu'à obtention d'une réponse 2xx. Après **5 tentatives échouées** sur un même envoi, un **email d'alerte** est envoyé à tous les développeurs du type d'habilitation, mais le webhook **reste actif** et les tentatives se poursuivent. Un webhook n'est désactivé automatiquement que lorsque son URL est modifiée ; vous pouvez aussi le désactiver manuellement depuis l'interface.
 
-Les détails exacts (délais entre tentatives, nombre maximal de tentatives par appel, codes qui déclenchent un retry) sont dans la [documentation webhooks](/developpeurs/webhooks/documentation). Activez une alerte interne sur les codes non-2xx pour ne pas découvrir une désactivation par hasard.
+Les détails exacts (délais entre tentatives, codes qui déclenchent un retry) sont dans la [documentation webhooks](/developpeurs/webhooks/documentation). Activez une alerte interne sur les codes non-2xx pour ne pas découvrir un endpoint cassé par hasard.
 
 ## Événements disponibles
 
