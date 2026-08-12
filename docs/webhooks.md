@@ -27,7 +27,7 @@ DataPass propose un système de webhooks permettant de recevoir des notification
 - **Historique complet** : Consultez tous les appels effectués avec leurs statuts, codes HTTP et réponses
 - **Rejeu manuel** : Rejouez un appel qui a échoué directement depuis l'interface
 - **Test automatique** : Les webhooks sont automatiquement testés lors de leur création
-- **Désactivation automatique** : Les webhooks défaillants sont automatiquement désactivés après 5 échecs consécutifs
+- **Alerte en cas d'échec** : Après 5 tentatives échouées, tous les développeurs du type d'habilitation reçoivent un email d'alerte (les tentatives se poursuivent ensuite selon le back-off)
 - **API de polling** : Interrogez l'historique des appels via l'API REST avec filtres temporels
 
 ---
@@ -531,25 +531,25 @@ En cas d'échec, DataPass utilise un **backoff polynomial** pour réessayer l'en
 
 *(voir la table complète dans la documentation technique)*
 
-### Désactivation automatique après 5 échecs
+### Email d'alerte après 5 échecs
 
-Après **5 tentatives échouées consécutives**, le webhook est automatiquement :
+Après **5 tentatives échouées consécutives** pour un même envoi, un **email d'alerte** est automatiquement envoyé à **tous les développeurs du type d'habilitation**. Il contient :
 
-1. **Désactivé** : Il ne recevra plus de notifications
-2. **Email de notification** : Tous les développeurs du type d'habilitation reçoivent un email contenant :
-   - Le type d'habilitation concerné
-   - L'URL du webhook
-   - Le dernier code d'erreur HTTP
-   - Un lien direct vers la gestion du webhook
+- Le type d'habilitation concerné
+- L'URL du webhook
+- Un lien direct vers l'historique des appels du webhook
 
-### Réactivation après désactivation
+Le webhook **n'est pas désactivé** : les tentatives se poursuivent selon le back-off polynomial (voir ci-dessus), sans limite, jusqu'à obtention d'une réponse 2xx. Cette alerte vous invite à vérifier et corriger votre endpoint au plus vite.
 
-Pour réactiver un webhook désactivé automatiquement :
+> **Désactivation** : la seule désactivation automatique a lieu lorsque vous **modifiez l'URL** d'un webhook — il faut alors le retester puis le réactiver. Vous pouvez également désactiver un webhook manuellement à tout moment depuis l'interface.
+
+### Corriger un webhook défaillant
+
+Si vous recevez un email d'alerte :
 
 1. Vérifiez et corrigez le problème sur votre endpoint
-2. Testez le webhook manuellement depuis l'interface
-3. Si le test réussit, activez le webhook
-4. Les nouvelles notifications seront à nouveau envoyées
+2. Les tentatives en cours reprendront d'elles-mêmes dès que votre endpoint répondra en 2xx
+3. Les appels déjà épuisés peuvent être rejoués manuellement depuis l'historique des appels
 
 ---
 
