@@ -72,4 +72,35 @@ RSpec.describe Instruction::Search::DashboardHabilitationsSearch do
       end
     end
   end
+
+  describe 'sorting' do
+    context 'with a malicious sort injected in the query' do
+      let(:params) { { search_query: { 's' => %q{'"()&%<zzz><ScRiPt asc} } } }
+
+      it 'does not inject raw SQL and returns results ordered safely' do
+        search = described_class.new(params: params, scope: scope)
+        expect { search.results.load }.not_to raise_error
+        expect(search.results).to include(authorization)
+      end
+    end
+
+    context 'with a sort on a non-existent column' do
+      let(:params) { { search_query: { 's' => 'evil_column asc' } } }
+
+      it 'falls back to the default sort without raising' do
+        search = described_class.new(params: params, scope: scope)
+        expect { search.results.load }.not_to raise_error
+      end
+    end
+
+    context 'with a legitimate column sort' do
+      let(:params) { { search_query: { 's' => 'created_at asc' } } }
+
+      it 'orders by the requested column' do
+        search = described_class.new(params: params, scope: scope)
+        expect { search.results.load }.not_to raise_error
+        expect(search.results).to include(authorization)
+      end
+    end
+  end
 end
