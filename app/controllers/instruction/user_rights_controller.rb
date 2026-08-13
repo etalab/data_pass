@@ -7,7 +7,9 @@ class Instruction::UserRightsController < InstructionController
     search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:)
     @search_engine = search.engine
     @search_term = search.term
-    @users = search.results.page(params[:page]).per(50)
+    @role_filter = search.role_type
+    @droit_filter = search.droit
+    @users = search.results.page(params[:page]).per(10)
   end
 
   def new

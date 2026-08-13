@@ -641,6 +641,15 @@ fr:
           label: Rechercher un utilisateur
           placeholder: Rechercher dans tous les utilisateurs
           submit: Rechercher
+        filters:
+          placeholder: Sélectionner une option
+          reset: Réinitialiser
+          role:
+            label: Rôles
+          droit:
+            label: Droits
+            with: Avec droits
+            without: Sans droits
         users_count:
           zero: aucun utilisateur
           one: "%{count} utilisateur"

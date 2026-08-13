@@ -15,44 +15,75 @@
 
   <%= render "instruction/user_rights/roles_help" %>
 
-  <% search_status_message = user_rights_search_status_message(@users, @search_term) %>
+  <% filters_active = @role_filter.present? || @droit_filter.present? %>
+  <% search_status_message = user_rights_search_status_message(@users, @search_term, filtered: filters_active) %>
   <div data-controller="search-status">
     <p role="status" aria-atomic="true" class="fr-sr-only" data-search-status-target="liveRegion"><%= search_status_message %></p>
 
     <turbo-frame id="user_rights_table" data-search-status-target="frame">
       <span hidden data-search-status-target="message"><%= search_status_message %></span>
 
-      <div class="fr-grid-row fr-mb-3w">
-        <div class="fr-col-12 fr-col-md-6">
-          <%= search_form_for @search_engine,
-                              url: user_rights_index_path,
-                              html: {
-                                method: :get,
-                                data: {
-                                  controller: 'auto-submit-form',
-                                  'auto-submit-form-debounce-interval-value' => 800,
-                                  'auto-submit-form-event-mode-value' => 'input'
-                                }
-                              } do |f| %>
-            <div class="fr-search-bar" role="search">
-              <%= f.label :email_or_given_name_or_family_name_cont,
-                          t('instruction.user_rights.index.search.label'),
-                          class: 'fr-label fr-sr-only' %>
-              <%= f.search_field :email_or_given_name_or_family_name_cont,
-                                 class: 'fr-input',
-                                 autofocus: true,
-                                 placeholder: t('instruction.user_rights.index.search.placeholder') %>
-              <button type="submit" class="fr-btn" title="<%= t('instruction.user_rights.index.search.submit') %>">
-                <%= t('instruction.user_rights.index.search.submit') %>
-              </button>
+      <div class="fr-mb-3w">
+        <%= search_form_for @search_engine,
+                            url: user_rights_index_path,
+                            html: {
+                              method: :get,
+                              data: {
+                                controller: 'auto-submit-form',
+                                'auto-submit-form-debounce-interval-value' => 800,
+                                'auto-submit-form-event-mode-value' => 'input'
+                              }
+                            } do |f| %>
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
+            <div class="fr-col-12 fr-col-md">
+              <div class="fr-search-bar" role="search">
+                <%= f.label :email_or_given_name_or_family_name_cont,
+                            t('instruction.user_rights.index.search.label'),
+                            class: 'fr-label fr-sr-only' %>
+                <%= f.search_field :email_or_given_name_or_family_name_cont,
+                                   class: 'fr-input',
+                                   autofocus: true,
+                                   placeholder: t('instruction.user_rights.index.search.placeholder') %>
+                <button type="submit" class="fr-btn" title="<%= t('instruction.user_rights.index.search.submit') %>">
+                  <%= t('instruction.user_rights.index.search.submit') %>
+                </button>
+              </div>
             </div>
-          <% end %>
-        </div>
+
+            <div class="fr-col-12 fr-col-md-3">
+              <div class="fr-select-group">
+                <label class="fr-label" for="user-rights-droit-filter"><%= t('instruction.user_rights.index.filters.droit.label') %></label>
+                <%= select_tag 'filters[droit]',
+                               options_for_select(user_rights_droit_filter_options(@authority), @droit_filter),
+                               prompt: t('instruction.user_rights.index.filters.placeholder'),
+                               id: 'user-rights-droit-filter',
+                               class: 'fr-select' %>
+              </div>
+            </div>
+
+            <div class="fr-col-12 fr-col-md-3">
+              <div class="fr-select-group">
+                <label class="fr-label" for="user-rights-role-filter"><%= t('instruction.user_rights.index.filters.role.label') %></label>
+                <%= select_tag 'filters[role]',
+                               options_for_select(user_rights_role_filter_options, @role_filter),
+                               prompt: t('instruction.user_rights.index.filters.placeholder'),
+                               id: 'user-rights-role-filter',
+                               class: 'fr-select' %>
+              </div>
+            </div>
+
+            <div class="fr-col-12 fr-col-md-auto">
+              <%= link_to t('instruction.user_rights.index.filters.reset'),
+                          user_rights_index_path,
+                          class: 'fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-refresh-line' %>
+            </div>
+          </div>
+        <% end %>
       </div>
 
       <% if @users.empty? %>
         <div class="fr-py-6w fr-text--center" id="user-rights-empty-state">
-          <% if @search_term.present? %>
+          <% if @search_term.present? || filters_active %>
             <p class="fr-text--lg fr-mb-0"><%= t('instruction.user_rights.index.no_results') %></p>
           <% else %>
             <p class="fr-text--lg fr-mb-4w"><%= t('instruction.user_rights.index.empty_state') %></p>
