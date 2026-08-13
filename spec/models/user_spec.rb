@@ -115,6 +115,61 @@ RSpec.describe User do
     end
   end
 
+  describe '.with_role_type' do
+    let!(:manager) { create(:user, roles: %w[dinum:api_entreprise:manager]) }
+    let!(:fd_manager) { create(:user, roles: %w[dinum:*:manager]) }
+    let!(:instructor) { create(:user, roles: %w[dinum:api_entreprise:instructor]) }
+    let!(:developer) { create(:user, roles: %w[dinum:api_entreprise:developer]) }
+    let!(:admin_user) { create(:user, :admin) }
+
+    context 'when filtering on a literal role type' do
+      subject { described_class.with_role_type('manager') }
+
+      it 'matches specific and FD-level holders of that literal role, not implied ones' do
+        expect(subject).to contain_exactly(manager, fd_manager)
+      end
+    end
+
+    context 'when filtering on instructor' do
+      subject { described_class.with_role_type('instructor') }
+
+      it 'does not include a developer even though developer grants API access' do
+        expect(subject).to contain_exactly(instructor)
+      end
+    end
+
+    context 'when filtering on admin' do
+      subject { described_class.with_role_type('admin') }
+
+      it { is_expected.to contain_exactly(admin_user) }
+    end
+  end
+
+  describe '.with_specific_definition' do
+    subject { described_class.with_specific_definition('api_entreprise') }
+
+    let!(:specific_holder) { create(:user, roles: %w[dinum:api_entreprise:instructor]) }
+    let!(:other_definition) { create(:user, roles: %w[dinum:api_particulier:instructor]) }
+    let!(:fd_wildcard) { create(:user, roles: %w[dinum:*:manager]) }
+    let!(:admin_user) { create(:user, :admin) }
+
+    it 'matches only explicit rights on that definition, not implied FD-level or admin' do
+      expect(subject).to contain_exactly(specific_holder)
+    end
+  end
+
+  describe '.with_specific_definition_rights / .without_specific_definition_rights' do
+    let!(:specific_holder) { create(:user, roles: %w[dinum:api_entreprise:instructor]) }
+    let!(:fd_wildcard) { create(:user, roles: %w[dinum:*:manager]) }
+    let!(:admin_user) { create(:user, :admin) }
+    let!(:no_role_user) { create(:user) }
+
+    it 'splits users on whether they hold an explicit specific-definition right' do
+      expect(described_class.with_specific_definition_rights).to contain_exactly(specific_holder)
+      expect(described_class.without_specific_definition_rights).to contain_exactly(fd_wildcard, admin_user, no_role_user)
+    end
+  end
+
   describe '#settings on instruction_submit_notifications' do
     subject { user.instruction_submit_notifications_for_api_entreprise }
 

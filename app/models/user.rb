@@ -101,6 +101,24 @@ class User < ApplicationRecord
     where("'admin' = ANY(roles)")
   }
 
+  scope :with_role_type, lambda { |role_type|
+    next admin if role_type.to_s == 'admin'
+
+    where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 3) = ?)", role_type)
+  }
+
+  scope :with_specific_definition, lambda { |definition_id|
+    where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) = ?)", definition_id)
+  }
+
+  scope :with_specific_definition_rights, lambda {
+    where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) NOT IN ('', '*'))")
+  }
+
+  scope :without_specific_definition_rights, lambda {
+    where("NOT EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) NOT IN ('', '*'))")
+  }
+
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
   has_many :oauth_applications,
