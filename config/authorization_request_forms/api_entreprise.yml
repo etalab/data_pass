@@ -541,6 +541,38 @@ api-entreprise-mgdis:
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
+api-entreprise-mgdis-nexys-relation-usagers:
+  name: "Nexys Relation Usagers"
+  description: "Solution de gestion de la relation usagers fournie par l’éditeur MGDIS."
+  use_case: "portail_gru_instruction"
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
+  introduction: *introduction_api_entreprise_editor
+  service_provider_id: "mgdis"
+  static_blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+  initialize_with:
+    intitule: "Nexys Relation Usagers de l’éditeur MGDIS"
+    description: |
+      Dans un objectif de modernisation de la relation avec les usagers, nous mettons en place un outil, à destination des agents de notre organisme, leur permettant de gérer les tiers (usagers, entreprises, associations) et leurs échanges avec l’administration.
+
+      La demande d’accès à API Entreprise est effectuée dans le but de faciliter l’identification et la mise à jour des tiers moraux (entreprises, entrepreneurs individuels, associations), à partir d’un SIRET ou d’un numéro RNA, sans avoir à demander ces informations aux usagers concernés.
+
+      La plateforme, mise en place pour permettre la gestion de la relation avec les usagers, s’appuie sur la solution « Nexys Relation Usagers » de l’éditeur MGDIS.
+    destinataire_donnees_caractere_personnel: "Agents gestionnaires de la relation usagers de l’organisme"
+    duree_conservation_donnees_caractere_personnel: 36
+    cadre_juridique_nature: "Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance"
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/"
+    contact_technique_type: "organization"
+    contact_technique_email: *api_entreprise_mgdis_contact_email
+    contact_technique_phone_number: *api_entreprise_mgdis_contact_phone_number
+    contact_metier_type: "organization"
+    contact_metier_email: *api_entreprise_mgdis_contact_email
+    contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
+
 api-entreprise-atexo:
   name: "Dématérialisation des marchés publics"
   description: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"

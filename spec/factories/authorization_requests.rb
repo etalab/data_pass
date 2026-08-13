@@ -395,6 +395,7 @@ FactoryBot.define do
       api-entreprise-provigis
       api-entreprise-achat-solution
       api-entreprise-mgdis
+      api-entreprise-mgdis-nexys-relation-usagers
       api-entreprise-atexo
       api-entreprise-setec-atexo
       api-entreprise-inetum

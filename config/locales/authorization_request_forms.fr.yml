@@ -344,6 +344,7 @@ fr:
     api_entreprise_provigis: *api_entreprise_contacts_editeur
     api_entreprise_achat_solution: *api_entreprise_contacts_editeur
     api_entreprise_mgdis: *api_entreprise_contacts_editeur
+    api_entreprise_mgdis_nexys_relation_usagers: *api_entreprise_contacts_editeur
     api_entreprise_atexo: *api_entreprise_contacts_editeur
     api_entreprise_inetum:
       contact_technique:

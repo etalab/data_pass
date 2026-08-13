@@ -23,8 +23,9 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
     Et que je choisis "Votre éditeur"
     Et que je clique sur "M"
     Et que je choisis "MGDIS"
-    Alors je vois 1 tuile
+    Alors je vois 2 tuiles
     Et je vois 1 tuile "Solution Portail des aides"
+    Et je vois 1 tuile "Nexys Relation Usagers"
 
   Scénario: Je choisis un éditeur inconnu de API Entreprise
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
@@ -64,3 +65,11 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
     Et que je choisis "SETEC"
     Alors je vois 1 tuile
     Et je vois 1 tuile "Dématérialisation des marchés publics"
+
+  Scénario: Je choisis un éditeur qui correspond au paramètre de cas d'usage de gestion de la relation usagers
+    Quand je démarre une nouvelle demande d'habilitation "API Entreprise" avec le paramètre "use_case" égal à "portail_gru_instruction"
+    Et que je choisis "Votre éditeur"
+    Et que je clique sur "M"
+    Et que je choisis "MGDIS"
+    Alors je vois 1 tuile
+    Et je vois 1 tuile "Nexys Relation Usagers"
