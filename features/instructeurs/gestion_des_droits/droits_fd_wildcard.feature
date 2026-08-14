@@ -25,6 +25,7 @@ Fonctionnalité: Instruction — Gestion des droits — portée FD (wildcard)
     Et que je me rends sur la page de gestion des droits
     Alors le tableau des utilisateurs contient "fd@gouv.fr"
     Et le tableau des utilisateurs contient le badge "Observateur"
+    Et le tableau des utilisateurs contient "Tous les services DINUM"
 
   Scénario: Un rôle FD-wildcard ne compte pas comme droit API spécifique
     Quand il y a l'utilisateur "mix@gouv.fr" avec le rôle brut "dinum:*:reporter"

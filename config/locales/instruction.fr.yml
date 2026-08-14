@@ -648,8 +648,6 @@ fr:
             label: Rôles
           droit:
             label: Droits
-            with: Avec droits
-            without: Sans droits
         users_count:
           zero: aucun utilisateur
           one: "%{count} utilisateur"
@@ -661,7 +659,8 @@ fr:
             roles: Rôles
             droits: Droits
             actions: Actions
-          no_droits: aucun droit assigné
+          all_services: Tous les services %{provider}
+          all_access: Tous les accès
           pairing_tooltip_aria: Détail des rôles par API pour %{email}
           droits_count:
             zero: aucune API activée

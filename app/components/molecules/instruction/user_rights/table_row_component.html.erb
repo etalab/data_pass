@@ -25,25 +25,36 @@
     </ul>
   </td>
   <td>
-    <% if droits.empty? %>
-      <p class="fr-badge fr-badge--sm fr-badge--no-icon fr-badge--beige-gris-galet"><%= t('instruction.user_rights.index.table.no_droits') %></p>
-    <% elsif aggregate_droits? %>
-      <details class="fr-mb-0">
-        <summary class="fr-text--bold"><%= t('instruction.user_rights.index.table.droits_count', count: droits.size) %></summary>
-        <ul role="list" class="fr-raw-list fr-mt-1w">
-          <% droits.each do |definition| %>
-            <li><%= definition.name_with_stage %></li>
+    <% if all_access? %>
+      <p class="fr-text--bold fr-mb-0"><%= t('instruction.user_rights.index.table.all_access') %></p>
+    <% else %>
+      <% if fd_wildcard_provider_labels.any? %>
+        <ul role="list" class="fr-raw-list">
+          <% fd_wildcard_provider_labels.each do |label| %>
+            <li class="fr-text--bold"><%= label %></li>
           <% end %>
         </ul>
-      </details>
-    <% else %>
-      <ul role="list" class="fr-raw-list">
-        <% droits.each do |definition| %>
-          <li><%= definition.name_with_stage %></li>
+      <% end %>
+      <% if droits.any? %>
+        <% if aggregate_droits? %>
+          <details class="fr-mb-0">
+            <summary class="fr-text--bold"><%= t('instruction.user_rights.index.table.droits_count', count: droits.size) %></summary>
+            <ul role="list" class="fr-raw-list fr-mt-1w">
+              <% droits.each do |definition| %>
+                <li><%= definition.name_with_stage %></li>
+              <% end %>
+            </ul>
+          </details>
+        <% else %>
+          <ul role="list" class="fr-raw-list">
+            <% droits.each do |definition| %>
+              <li><%= definition.name_with_stage %></li>
+            <% end %>
+          </ul>
         <% end %>
-      </ul>
+      <% end %>
     <% end %>
-    <% if ambiguous_pairing? %>
+    <% if !all_access? && ambiguous_pairing? %>
       <button type="button" class="fr-btn--tooltip fr-btn" aria-describedby="<%= tooltip_id %>">
         <%= t('instruction.user_rights.index.table.pairing_tooltip_aria', email: user.email) %>
       </button>

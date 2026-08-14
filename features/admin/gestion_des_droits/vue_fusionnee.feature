@@ -20,19 +20,15 @@ Fonctionnalité: Admin — Gestion des droits — vue fusionnée (colonnes et fi
     Quand je me rends sur le chemin "/admin/gestion-des-droits?page=2"
     Alors le tableau des utilisateurs contient "utilisateur-11@gouv.fr"
 
-  Scénario: Un utilisateur sans droit API spécifique affiche le badge « aucun droit assigné » (CA-2)
+  Scénario: Un utilisateur avec un rôle sur tout un FD affiche « Tous les services … » (RG3)
     Quand il y a l'utilisateur "fd@gouv.fr" avec le rôle brut "dinum:*:manager"
     Et que je me rends sur la page de gestion des droits
-    Alors le tableau des utilisateurs contient le badge "aucun droit assigné"
+    Alors le tableau des utilisateurs contient "Tous les services DINUM"
 
-  Scénario: Le filtre « Sans droits » ne garde que les utilisateurs sans droit spécifique (CA-4)
-    Quand il y a l'utilisateur "specifique@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"
-    Et qu'il y a l'utilisateur "fd@gouv.fr" avec le rôle brut "dinum:*:manager"
+  Scénario: Un administrateur affiche « Tous les accès » (CA-2)
+    Quand il y a l'utilisateur "adminonly@gouv.fr" avec le rôle d'administrateur
     Et que je me rends sur la page de gestion des droits
-    Et que je sélectionne "Sans droits" dans le filtre "Droits"
-    Et que je clique sur "Rechercher"
-    Alors le tableau des utilisateurs contient "fd@gouv.fr"
-    Et le tableau des utilisateurs ne contient pas "specifique@gouv.fr"
+    Alors le tableau des utilisateurs contient "Tous les accès"
 
   Scénario: Le filtre par rôle est littéral, un développeur n’apparaît pas sous « Instructeur » (CA-6)
     Quand il y a l'utilisateur "instructeur@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"

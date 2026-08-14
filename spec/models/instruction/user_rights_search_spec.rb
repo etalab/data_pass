@@ -84,17 +84,6 @@ RSpec.describe Instruction::UserRightsSearch do
       end
     end
 
-    context 'when filtering by rights presence' do
-      it 'keeps only users with an explicit specific-definition right on « with »' do
-        expect(search(filters: { droit: 'with' }).results)
-          .to contain_exactly(manager_entreprise, instructor_particulier, developer_entreprise)
-      end
-
-      it 'keeps only users without any specific right on « without »' do
-        expect(search(filters: { droit: 'without' }).results).to contain_exactly(fd_manager, admin_user)
-      end
-    end
-
     context 'when filtering by a specific API' do
       it 'matches only users with an explicit right on that definition' do
         expect(search(filters: { droit: 'api_entreprise' }).results)
