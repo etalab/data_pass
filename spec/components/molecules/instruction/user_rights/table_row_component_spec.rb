@@ -58,4 +58,29 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
       expect(page).to have_css('p.fr-badge', text: 'aucun droit assigné')
     end
   end
+
+  context 'when the role→API pairing is ambiguous (≥ 2 roles and ≥ 2 APIs)' do
+    let(:ambiguous_user) do
+      create(:user, email: 'ambiguous@gouv.fr', roles: %w[dinum:api_entreprise:manager dinum:api_particulier:instructor])
+    end
+
+    it 'exposes a tooltip detailing which role applies to which API' do
+      render_row(user: ambiguous_user, authority: Rights::AdminAuthority.new(ambiguous_user), current_user: ambiguous_user)
+
+      expect(page).to have_css('.fr-btn--tooltip[aria-describedby]')
+      expect(page).to have_css('[role="tooltip"]', text: 'API Entreprise', visible: :all)
+    end
+  end
+
+  context 'when the pairing is unambiguous (a single role type)' do
+    let(:single_role_user) do
+      create(:user, email: 'single@gouv.fr', roles: %w[dinum:api_entreprise:manager dinum:api_particulier:manager])
+    end
+
+    it 'does not render a tooltip' do
+      render_row(user: single_role_user, authority: Rights::AdminAuthority.new(single_role_user), current_user: single_role_user)
+
+      expect(page).to have_no_css('.fr-btn--tooltip')
+    end
+  end
 end

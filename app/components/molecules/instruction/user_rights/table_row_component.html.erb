@@ -43,6 +43,21 @@
         <% end %>
       </ul>
     <% end %>
+    <% if ambiguous_pairing? %>
+      <button type="button" class="fr-btn--tooltip fr-btn" aria-describedby="<%= tooltip_id %>">
+        <%= t('instruction.user_rights.index.table.pairing_tooltip_aria', email: user.email) %>
+      </button>
+      <span class="fr-tooltip fr-placement" id="<%= tooltip_id %>" role="tooltip" aria-hidden="true">
+        <ul role="list" class="fr-raw-list">
+          <% rights_by_definition.each do |entry| %>
+            <li>
+              <span class="fr-text--bold"><%= entry[:definition].name_with_stage %></span> :
+              <%= entry[:role_types].map { |role_type| t("instruction.user_rights.roles.#{role_type}") }.join(', ') %>
+            </li>
+          <% end %>
+        </ul>
+      </span>
+    <% end %>
   </td>
   <td>
     <% if editable? %>

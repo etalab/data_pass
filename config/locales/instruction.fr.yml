@@ -662,6 +662,7 @@ fr:
             droits: Droits
             actions: Actions
           no_droits: aucun droit assigné
+          pairing_tooltip_aria: Détail des rôles par API pour %{email}
           droits_count:
             zero: aucune API activée
             one: "%{count} API activée"

@@ -24,6 +24,32 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
     droits.size > AGGREGATE_THRESHOLD
   end
 
+  def specific_roles
+    @specific_roles ||= user.roles.filter_map do |role_string|
+      parsed = ParsedRole.parse(role_string)
+      parsed unless parsed.definition_id.nil? || parsed.fd_level?
+    end
+  end
+
+  def ambiguous_pairing?
+    specific_roles.map(&:role).uniq.size > 1 && specific_roles.map(&:definition_id).uniq.size > 1
+  end
+
+  def rights_by_definition
+    grouped = specific_roles.group_by(&:definition_id).filter_map do |definition_id, parsed_roles|
+      definition = AuthorizationDefinition.find_by(id: definition_id)
+      next unless definition
+
+      { definition: definition, role_types: parsed_roles.map(&:role).uniq }
+    end
+
+    grouped.sort_by { |entry| entry[:definition].name_with_stage }
+  end
+
+  def tooltip_id
+    "user-rights-pairing-#{user.id}"
+  end
+
   def own_row?
     user.id == current_user.id
   end
