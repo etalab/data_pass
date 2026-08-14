@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   include NotificationsSettings
   include UserRoles
+  include UserRoleProjections
 
   ROLES = %w[reporter instructor manager developer].freeze
 
