@@ -153,3 +153,23 @@ Alors('ma ligne affiche un bouton de modification') do
     expect(page).to have_link(I18n.t('instruction.user_rights.index.table.manage_cta'))
   end
 end
+
+Alors('le tableau des utilisateurs a les colonnes {string}, {string}, {string}, {string} et {string}') do |c1, c2, c3, c4, c5|
+  within('#user-rights-table thead') do
+    [c1, c2, c3, c4, c5].each { |column| expect(page).to have_css('th', text: column) }
+  end
+end
+
+Quand('je sélectionne {string} dans le filtre {string}') do |option, filter_label|
+  select(option, from: filter_label)
+end
+
+Quand('il y a {int} utilisateurs avec un droit sur {string}') do |count, definition_name|
+  def_id = find_factory_trait_from_name(definition_name)
+
+  count.times do |index|
+    user = FactoryBot.create(:user, email: format('utilisateur-%02d@gouv.fr', index + 1))
+    user.grant_role(:reporter, def_id)
+    user.save!
+  end
+end
