@@ -1,34 +1,55 @@
 <tr id="<%= dom_id(user) %>">
-  <th scope="row"><%= user.email %></th>
-  <td><%= user.family_name %></td>
-  <td><%= user.given_name %></td>
+  <th scope="row">
+    <% if user.family_name.present? && user.given_name.present? %>
+      <span class="fr-text--bold fr-d-block"><%= user.full_name %></span>
+    <% end %>
+    <span class="fr-text--sm"><%= user.email %></span>
+  </th>
   <td>
-    <ul role="list" class="fr-list--flat-flex">
-      <% visible_rights.each do |entry| %>
+    <ul role="list" class="fr-raw-list">
+      <% user.organizations.each do |organization| %>
         <li>
-          <% if entry[:scope].present? %>
-            <span class="fr-text--bold"><%= entry[:label] %></span>
-          <% end %>
-          <% entry[:role_types].each do |role_type| %>
-            <%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %>
+          <%= organization.name %>
+          <% if organization.siret.present? %>
+            (<%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank', rel: 'noopener' %>)
           <% end %>
         </li>
       <% end %>
     </ul>
   </td>
   <td>
-    <% if editable? %>
-      <div class="fr-btns-group fr-btns-group--inline-sm fr-btns-group--sm">
-        <%= link_to helpers.edit_user_right_path(user),
-              class: 'fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-edit-line',
-              aria: { label: t('instruction.user_rights.index.table.edit_aria', email: user.email) } do %>
-          <span class="fr-sr-only"><%= t('instruction.user_rights.index.table.edit_aria', email: user.email) %></span>
+    <ul role="list" class="fr-list--flat-flex">
+      <% role_types.each do |role_type| %>
+        <li><%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %></li>
+      <% end %>
+    </ul>
+  </td>
+  <td>
+    <% if droits.empty? %>
+      <p class="fr-badge fr-badge--sm fr-badge--no-icon fr-badge--beige-gris-galet"><%= t('instruction.user_rights.index.table.no_droits') %></p>
+    <% elsif aggregate_droits? %>
+      <details class="fr-mb-0">
+        <summary class="fr-text--bold"><%= t('instruction.user_rights.index.table.droits_count', count: droits.size) %></summary>
+        <ul role="list" class="fr-raw-list fr-mt-1w">
+          <% droits.each do |definition| %>
+            <li><%= definition.name_with_stage %></li>
+          <% end %>
+        </ul>
+      </details>
+    <% else %>
+      <ul role="list" class="fr-raw-list">
+        <% droits.each do |definition| %>
+          <li><%= definition.name_with_stage %></li>
         <% end %>
-        <%= dsfr_main_modal_button '',
-              helpers.confirm_destroy_user_right_path(user),
-              class: 'fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-delete-line',
-              'aria-label': t('instruction.user_rights.index.table.destroy_aria', email: user.email) %>
-      </div>
+      </ul>
+    <% end %>
+  </td>
+  <td>
+    <% if editable? %>
+      <%= link_to t('instruction.user_rights.index.table.manage_cta'),
+            helpers.edit_user_right_path(user),
+            class: 'fr-btn fr-btn--secondary fr-btn--sm',
+            aria: { label: t('instruction.user_rights.index.table.edit_aria', email: user.email) } %>
     <% end %>
   </td>
 </tr>

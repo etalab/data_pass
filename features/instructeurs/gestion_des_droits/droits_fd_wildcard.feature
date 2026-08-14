@@ -23,14 +23,14 @@ Fonctionnalité: Instruction — Gestion des droits — portée FD (wildcard)
   Scénario: Un utilisateur avec rôle FD-wildcard apparaît dans la liste
     Quand il y a l'utilisateur "fd@gouv.fr" avec le rôle brut "dinum:*:reporter"
     Et que je me rends sur la page de gestion des droits
-    Alors la page contient "fd@gouv.fr"
-    Et la page contient "Tous les services DINUM"
+    Alors le tableau des utilisateurs contient "fd@gouv.fr"
+    Et le tableau des utilisateurs contient le badge "Observateur"
 
-  Scénario: Un utilisateur avec à la fois un rôle FD-wildcard et un rôle précis affiche deux lignes
+  Scénario: Un rôle FD-wildcard ne compte pas comme droit API spécifique
     Quand il y a l'utilisateur "mix@gouv.fr" avec le rôle brut "dinum:*:reporter"
     Et qu'il y a l'utilisateur "mix@gouv.fr" avec le rôle brut "dinum:api_entreprise:instructor"
     Et que je me rends sur la page de gestion des droits
-    Alors la page contient "Tous les services DINUM"
+    Alors le tableau des utilisateurs contient "mix@gouv.fr"
     Et la page contient "API Entreprise"
 
   Scénario: Un manager FD voit bien l’option "Tous les services" pour son FD

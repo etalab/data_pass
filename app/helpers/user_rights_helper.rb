@@ -19,8 +19,8 @@ module UserRightsHelper
     presence = %w[with without].map { |key| [t("instruction.user_rights.index.filters.droit.#{key}"), key] }
     definitions = authority.managed_definitions
       .select(&:name)
-      .sort_by(&:name)
-      .map { |definition| [definition.name, definition.id] }
+      .sort_by(&:name_with_stage)
+      .map { |definition| [definition.name_with_stage, definition.id] }
 
     presence + definitions
   end

@@ -144,13 +144,12 @@ end
 
 Alors('ma ligne n’affiche aucun bouton de modification ni de suppression') do
   within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
-    expect(page).to have_no_css('.fr-icon-edit-line')
-    expect(page).to have_no_css('.fr-icon-delete-line')
+    expect(page).to have_no_link(I18n.t('instruction.user_rights.index.table.manage_cta'))
   end
 end
 
 Alors('ma ligne affiche un bouton de modification') do
   within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
-    expect(page).to have_css('.fr-icon-edit-line')
+    expect(page).to have_link(I18n.t('instruction.user_rights.index.table.manage_cta'))
   end
 end

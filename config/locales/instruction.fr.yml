@@ -656,11 +656,17 @@ fr:
           other: "%{count} utilisateurs"
         table:
           header:
-            email: Email
-            family_name: Nom
-            given_name: Prénom
-            rights: Droits
+            identity: Identité
+            organisation: Organisation
+            roles: Rôles
+            droits: Droits
             actions: Actions
+          no_droits: aucun droit assigné
+          droits_count:
+            zero: aucune API activée
+            one: "%{count} API activée"
+            other: "%{count} API activées"
+          manage_cta: Gérer les droits / modifier
           edit_aria: Modifier les droits de %{email}
           destroy_aria: Supprimer tous les droits de %{email}
       roles:
