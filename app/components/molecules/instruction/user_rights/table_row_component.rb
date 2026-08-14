@@ -24,6 +24,30 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
     droits.size > AGGREGATE_THRESHOLD
   end
 
+  def fd_wildcard_provider_labels
+    @fd_wildcard_provider_labels ||= fd_wildcard_provider_slugs
+      .map { |slug| t('instruction.user_rights.index.table.all_services', provider: provider_label(slug)) }
+      .sort
+  end
+
+  def all_access?
+    user.roles.include?('admin')
+  end
+
+  def fd_wildcard_provider_slugs
+    slugs = user.roles.filter_map do |role_string|
+      parsed = ParsedRole.parse(role_string)
+      parsed.provider_slug if parsed.fd_level?
+    end
+    slugs.uniq
+  end
+
+  def provider_label(slug)
+    DataProvider.friendly.find(slug).name
+  rescue ActiveRecord::RecordNotFound
+    slug.to_s.upcase
+  end
+
   def specific_roles
     @specific_roles ||= user.roles.filter_map do |role_string|
       parsed = ParsedRole.parse(role_string)

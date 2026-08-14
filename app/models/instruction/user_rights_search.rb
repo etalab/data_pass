@@ -1,11 +1,6 @@
 class Instruction::UserRightsSearch
   SEARCH_ATTRIBUTE = :email_or_given_name_or_family_name_cont
 
-  PRESENCE_SCOPES = {
-    'with' => :with_specific_definition_rights,
-    'without' => :without_specific_definition_rights,
-  }.freeze
-
   def initialize(scope:, params:)
     @scope = scope
     @params = params
@@ -49,9 +44,6 @@ class Instruction::UserRightsSearch
 
   def apply_droit(relation)
     return relation if droit.blank?
-
-    presence_scope = PRESENCE_SCOPES[droit]
-    return relation.public_send(presence_scope) if presence_scope
 
     relation.with_specific_definition(droit)
   end

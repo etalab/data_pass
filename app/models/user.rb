@@ -112,14 +112,6 @@ class User < ApplicationRecord
     where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) = ?)", definition_id)
   }
 
-  scope :with_specific_definition_rights, lambda {
-    where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) NOT IN ('', '*'))")
-  }
-
-  scope :without_specific_definition_rights, lambda {
-    where("NOT EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) NOT IN ('', '*'))")
-  }
-
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
   has_many :oauth_applications,

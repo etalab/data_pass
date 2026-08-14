@@ -49,13 +49,25 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
     end
   end
 
-  context 'when the user has no specific API right' do
+  context 'when the user only holds an FD-wildcard role' do
     let(:fd_only_user) { create(:user, email: 'fd@gouv.fr', roles: ['dinum:*:manager']) }
 
-    it 'shows the « aucun droit assigné » badge' do
+    it 'shows « Tous les services … » instead of « aucun droit assigné »' do
       render_row(user: fd_only_user, authority: Rights::AdminAuthority.new(fd_only_user), current_user: fd_only_user)
 
-      expect(page).to have_css('p.fr-badge', text: 'aucun droit assigné')
+      expect(page).to have_text('Tous les services')
+      expect(page).to have_no_css('p.fr-badge', text: 'aucun droit assigné')
+    end
+  end
+
+  context 'when the user is an admin' do
+    let(:admin_user) { create(:user, email: 'adminuser@gouv.fr', roles: %w[admin dinum:api_entreprise:manager]) }
+
+    it 'shows « Tous les accès », which subsumes any specific right' do
+      render_row(user: admin_user, authority: Rights::AdminAuthority.new(admin_user), current_user: admin_user)
+
+      expect(page).to have_text('Tous les accès')
+      expect(page).to have_no_text('API Entreprise')
     end
   end
 

@@ -158,18 +158,6 @@ RSpec.describe User do
     end
   end
 
-  describe '.with_specific_definition_rights / .without_specific_definition_rights' do
-    let!(:specific_holder) { create(:user, roles: %w[dinum:api_entreprise:instructor]) }
-    let!(:fd_wildcard) { create(:user, roles: %w[dinum:*:manager]) }
-    let!(:admin_user) { create(:user, :admin) }
-    let!(:no_role_user) { create(:user) }
-
-    it 'splits users on whether they hold an explicit specific-definition right' do
-      expect(described_class.with_specific_definition_rights).to contain_exactly(specific_holder)
-      expect(described_class.without_specific_definition_rights).to contain_exactly(fd_wildcard, admin_user, no_role_user)
-    end
-  end
-
   describe '#settings on instruction_submit_notifications' do
     subject { user.instruction_submit_notifications_for_api_entreprise }
 

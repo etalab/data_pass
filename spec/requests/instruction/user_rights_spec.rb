@@ -24,13 +24,6 @@ RSpec.describe 'Instruction::UserRights index' do
       expect(response.body).not_to include('developer@gouv.fr')
     end
 
-    it 'filters by absence of specific rights' do
-      get instruction_user_rights_path, params: { filters: { droit: 'without' } }
-
-      expect(response.body).to include('fdreporter@gouv.fr')
-      expect(response.body).not_to include('instructor@gouv.fr')
-    end
-
     it 'filters by a specific API' do
       get instruction_user_rights_path, params: { filters: { droit: 'api_entreprise' } }
 
