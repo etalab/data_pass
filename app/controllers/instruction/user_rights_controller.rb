@@ -62,7 +62,7 @@ class Instruction::UserRightsController < InstructionController
   end
 
   def managed_users_scope
-    User.with_any_role_on(@authority.managed_definitions.map(&:id))
+    User.with_any_role_on(@authority.managed_definitions.map(&:id)).includes(:organizations)
   end
 
   def authorize_user_rights!
