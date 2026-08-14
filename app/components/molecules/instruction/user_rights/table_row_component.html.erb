@@ -1,9 +1,9 @@
 <tr id="<%= dom_id(user) %>">
   <th scope="row">
     <% if user.family_name.present? && user.given_name.present? %>
-      <span class="fr-text--bold fr-d-block"><%= user.full_name %></span>
+      <p class="fr-text--bold fr-mb-0"><%= user.full_name %></p>
     <% end %>
-    <span class="fr-text--sm"><%= user.email %></span>
+    <p class="fr-text--sm fr-mb-0"><%= user.email %></p>
   </th>
   <td>
     <ul role="list" class="fr-raw-list">
