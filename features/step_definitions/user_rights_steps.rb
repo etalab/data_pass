@@ -164,6 +164,16 @@ Quand('je sélectionne {string} dans le filtre {string}') do |option, filter_lab
   select(option, from: filter_label)
 end
 
+Sachantque('je suis aussi administrateur') do
+  user = current_user!
+  user.grant_admin_role
+  user.save!
+end
+
+Quand("je me rends sur la page d'ajout de droits d'instruction") do
+  visit new_instruction_user_right_path
+end
+
 Quand('il y a {int} utilisateurs avec un droit sur {string}') do |count, definition_name|
   def_id = find_factory_trait_from_name(definition_name)
 
