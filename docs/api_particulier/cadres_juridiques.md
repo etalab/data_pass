@@ -4,7 +4,7 @@ Cette page recense les formulaires de demande d’habilitation API Particulier, 
 
 Le cadre juridique (`cadre_juridique_nature`) est le texte de référence pré-rempli dans le formulaire au moment de la demande. Il est stocké en snapshot à la soumission (`data` en hstore) : une modification du cadre n’a aucun effet rétroactif sur les demandes déjà soumises.
 
-Source de vérité : `config/authorization_request_forms/api_particulier.yml`. Cette page en est le reflet documentaire — la régénérer si les cadres ou formulaires évoluent.
+Source de vérité : `config/authorization_request_forms/api_particulier.yml`. Cette page en est le reflet documentaire — la mettre à jour si les cadres ou formulaires évoluent.
 
 ## Les 6 cadres canoniques
 
@@ -12,22 +12,23 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 
 | Cadre | Ancre YAML | Formulaires | Texte du cadre juridique |
 |---|---|---:|---|
-| **Socle général** | `socle_general` | 46 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
+| **Socle général** | `socle_general` | 53 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
 | **CCAS** | `ccas` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.<br>- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives. |
-| **Cantines** | `cantines` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire. |
+| **Cantines** | `cantines` | 8 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire. |
 | **Transport** | `transport_complet` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification. |
 | **Stationnement résidentiel** | `stationnement_residentiel` | 3 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique au stationnement résidentiel : Les articles L2333-87 et L2333-87-3 du Code général des collectivités territoriales. |
 | **Aides facultatives** | `aides_facultatives` | 4 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Ces aides sont attribuées sur délibération de la collectivité. |
 
 ## Formulaires par cadre
 
-### Socle général — 44 formulaire(s)
+### Socle général — 53 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
 | `3d_ouest` | Logiciel Enfance | `api-particulier-3d-ouest` |
 | `acheteza` | AchetezA | `api-particulier-acheteza` |
 | `agedi` | Proxima.ENF | `api-particulier-agedi-proxima-enf` |
+| `agora_plus` | Agora Baby | `api-particulier-agora-baby` |
 | `agora_plus` | Agora Plus | `api-particulier-agora-plus` |
 | `aiga` | iNoé | `api-particulier-aiga` |
 | `aiga` | iNoé \| Malice Petite enfance | `api-particulier-aiga-petite-enfance` |
@@ -37,19 +38,25 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `arpege` | Concerto Petite enfance | `api-particulier-arpege-concerto-petite-enfance` |
 | `ars-data` | DuoNET | `api-particulier-ars-data` |
 | `berger_levrault` | BL Enfance | `api-particulier-bl-enfance-berger-levrault` |
+| `berger_levrault` | BL Petite enfance | `api-particulier-bl-enfance-petite-enfance` |
 | `carte_plus` | Carte Plus | `api-particulier-carte-plus` |
 | `carte_plus` | Carte+ Petite enfance | `api-particulier-carte-plus-petite-enfance` |
 | `ciril_group` | Civil Enfance | `api-particulier-civil-enfance-ciril-group` |
+| `ciril_group` | Civil petite enfance | `api-particulier-civil-petite-enfance-ciril-group` |
 | `cosoluce` | Fluo | `api-particulier-cosoluce-fluo` |
 | `dialog` | Memberz | `api-particulier-dialog` |
 | `docaposte` | FAST | `api-particulier-docaposte-fast` |
+| `docaposte` | Fast Petite enfance | `api-particulier-docaposte-fast-petite-enfance` |
 | `e1os` | Epéris | `api-particulier-e1os` |
 | `ecorestauration` | Loyfeey | `api-particulier-ecorestauration-loyfeey` |
+| `entrouvert` | Publik Famille petite enfance | `api-particulier-entrouvert-publik-famille-petite-enfance` |
 | `familea` | Diabolo | `api-particulier-familea` |
 | `familea` | Diabolo | `api-particulier-abelium` |
 | `familea` | Mikado | `api-particulier-familea-petite-enfance` |
 | `familea` | Mikado | `api-particulier-abelium-petite-enfance` |
 | `ganesh_education` | Ganesh Education | `api-particulier-ganesh-education` |
+| `hoptis` | Hoptis | `api-particulier-hoptis` |
+| `hoptis` | Hoptis Petite enfance | `api-particulier-hoptis-petite-enfance` |
 | `jcdeveloppement` | FamilyClic | `api-particulier-jcdeveloppement-familyclic` |
 | `jdealise` | Cantine de France | `api-particulier-cantine-de-france` |
 | `jvs_mairistem` | Mairistem | `api-particulier-jvs-mairistem` |
@@ -83,12 +90,14 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | _demande générique_ | Aides sociales des CCAS | `api-particulier-aides-sociales-ccas` |
 | _demande générique_ | Aides sociales des CCAS dont aides facultatives | `api-particulier-aides-sociales-ccas-dont-facultatives` |
 
-### Cantines — 6 formulaire(s)
+### Cantines — 8 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
 | `capdemat` | CapDemat Evolution | `api-particulier-capdemat-capdemat-evolution` |
 | `entrouvert` | Publik Famille | `api-particulier-entrouvert-publik` |
+| `ianord` | WebResto, Tarification cantine collèges | `api-particulier-ianord-tarification-cantines-colleges` |
+| `ianord` | WebResto, Tarification cantine lycées | `api-particulier-ianord-tarification-cantines-lycees` |
 | `kosmos` | Kosmos Education | `api-particulier-kosmos-education` |
 | `mgdis` | Aiden, Tarification cantine | `api-particulier-mgdis-tarification-cantines-lycees` |
 | _demande générique_ | Tarification cantine collèges | `api-particulier-tarification-cantines-colleges` |
