@@ -20,5 +20,16 @@ FactoryBot.define do
     trait :with_long_response do
       response_body { 'x' * 15_000 }
     end
+
+    trait :abandoned do
+      status_code { 500 }
+      response_body { '{"error": "Internal Server Error"}' }
+      abandoned_at { Time.current }
+    end
+
+    trait :network_error do
+      status_code { nil }
+      response_body { 'Faraday::ConnectionFailed: Connection refused' }
+    end
   end
 end

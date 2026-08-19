@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_070911) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_18_160000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -707,6 +707,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_19_070911) do
   end
 
   create_table "webhook_attempts", force: :cascade do |t|
+    t.datetime "abandoned_at"
     t.bigint "authorization_request_id", null: false
     t.datetime "created_at", null: false
     t.string "event_name", null: false
