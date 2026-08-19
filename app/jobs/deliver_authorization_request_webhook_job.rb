@@ -1,6 +1,7 @@
 class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   MAX_DELIVERY_ATTEMPTS = 10
-  THRESHOLD_TO_NOTIFY_DATA_PROVIDER = 5
+  EXECUTIONS_BEFORE_NOTIFYING_DATA_PROVIDER = 5
+  FAILURE_ALERT_THROTTLE_WINDOW = 2.hours
 
   class WebhookDeliveryFailedError < StandardError; end
 
@@ -28,6 +29,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     ).webhook_attempt
 
     if success_http_codes.include?(result[:status_code])
+      webhook.reset_failure_alert!
       handle_success(result[:response_body], authorization_request)
     else
       handle_error(result, webhook, payload, authorization_request)
@@ -63,7 +65,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   def handle_error(result, webhook, payload, authorization_request)
     track_error(result, webhook, payload, authorization_request)
-    notify_webhook_fail(webhook, payload, result) if executions == THRESHOLD_TO_NOTIFY_DATA_PROVIDER
+    notify_webhook_fail(webhook) if executions == EXECUTIONS_BEFORE_NOTIFYING_DATA_PROVIDER
     webhook_fail!
   end
 
@@ -97,10 +99,8 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     }
   end
 
-  def notify_webhook_fail(webhook, _payload, _result)
-    WebhookMailer.with(
-      webhook: webhook
-    ).fail.deliver_later
+  def notify_webhook_fail(webhook)
+    Developer::NotifyWebhookFailure.call(webhook: webhook, throttle_window: FAILURE_ALERT_THROTTLE_WINDOW)
   end
 
   def success_http_codes

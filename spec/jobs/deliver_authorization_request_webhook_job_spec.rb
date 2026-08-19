@@ -52,6 +52,20 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     expect(webhook_attempt.payload).to eq(payload)
   end
 
+  context 'when the endpoint recovers after an alert was sent' do
+    let(:webhook) do
+      create(:webhook, url: webhook_url, secret: verify_token, authorization_definition_id: 'api_entreprise', last_failure_alert_sent_at: 10.minutes.ago)
+    end
+
+    it 'rearms the alert so a later outage is notified again' do
+      expect { deliver_authorization_request_webhook }.to change { webhook.reload.last_failure_alert_sent_at }.to(nil)
+    end
+  end
+
+  it 'exposes EXECUTIONS_BEFORE_NOTIFYING_DATA_PROVIDER below MAX_DELIVERY_ATTEMPTS, so the alert can fire' do
+    expect(described_class::EXECUTIONS_BEFORE_NOTIFYING_DATA_PROVIDER).to be < described_class::MAX_DELIVERY_ATTEMPTS
+  end
+
   context 'when endpoint respond with an error (400 to 599 status)' do
     let(:status) { 500 }
     let(:response_body) { 'Internal Server Error' }
@@ -72,7 +86,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
 
     context 'when we reach the threshold to notify data provider' do
       before do
-        job_instance.executions = described_class::THRESHOLD_TO_NOTIFY_DATA_PROVIDER - 1
+        job_instance.executions = described_class::EXECUTIONS_BEFORE_NOTIFYING_DATA_PROVIDER - 1
       end
 
       it 'sends an email through WebhookMailer to developers' do
