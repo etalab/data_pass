@@ -20,7 +20,7 @@ Fonctionnalité: Habilitation avec des cases à cocher supplémentaires
     * je renseigne la catégorie FranceConnect Eidas
     * je clique sur "Suivant"
 
-    * je coche "Nom de naissance"
+    * je coche "Nom de famille"
     * je clique sur "Suivant"
 
 

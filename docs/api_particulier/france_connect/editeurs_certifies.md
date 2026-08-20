@@ -24,7 +24,7 @@ Les éditeurs certifiés FranceConnect peuvent utiliser la modalité `france_con
 
 1. **Création automatique d'une habilitation FranceConnect unifiée** lors de la validation de la demande API Particulier
 2. **Utilisation des scopes FranceConnect** en plus des scopes API Particulier :
-   - `family_name` - Nom de naissance
+   - `family_name` - Nom de famille
    - `given_name` - Prénoms
    - `birthdate` - Date de naissance
    - `birthplace` - Ville de naissance

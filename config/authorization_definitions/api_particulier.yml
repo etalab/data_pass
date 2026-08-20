@@ -162,7 +162,7 @@ api_particulier:
     - name: "contacts"
   scopes:
     - &api_particulier_france_connect_scopes
-      - name: "Nom de naissance"
+      - name: "Nom de famille"
         value: "family_name"
         group: "FranceConnect"
       - name: "Prénoms"
