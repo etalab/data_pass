@@ -17,7 +17,7 @@ france_connect:
     - name: "scopes"
     - name: "contacts"
   scopes:
-    - name: "Nom de naissance"
+    - name: "Nom de famille"
       value: "family_name"
       group: "Identité pivot"
     - name: "Prénoms"

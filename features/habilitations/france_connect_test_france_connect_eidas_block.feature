@@ -18,7 +18,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation FranceConnect
     * je renseigne la catégorie FranceConnect Eidas
     * je clique sur "Suivant"
 
-    * je coche "Nom de naissance"
+    * je coche "Nom de famille"
     * je clique sur "Suivant"
 
 
