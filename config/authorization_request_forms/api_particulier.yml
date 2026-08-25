@@ -2118,7 +2118,7 @@ api-particulier-arpege-concerto-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2169,7 +2169,7 @@ api-particulier-aiga-petite-enfance:
       - gender
       - openid
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d’acceuil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2205,7 +2205,7 @@ api-particulier-teamnet-axel-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2497,7 +2497,7 @@ api-particulier-gestion-rh-secteur-public:
       - mesri_admission_etablissement_etudes
 
 api-particulier-stationnement-residentiel:
-  name: Gestion du stationnement résidentiel
+  name: Tarification du stationnement résidentiel
   description: Collectivités, simplifiez les démarches des résidents en calculant la tarification pour l’abonnement et le droit au stationnement résidentiel à un tarif préférentiel
   authorization_request: APIParticulier
   use_case: stationnement_residentiel
@@ -2529,7 +2529,7 @@ api-particulier-stationnement-residentiel:
       - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
       - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
   initialize_with:
-    intitule: Gestion du stationnement résidentiel
+    intitule: Tarification du stationnement résidentiel
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_stationnement_residentiel
     scopes:
       - ants_extrait_immatriculation_vehicule_identite_particulier
@@ -2542,7 +2542,7 @@ api-particulier-stationnement-residentiel:
       - france_connect
 
 api-particulier-tarification-eaje:
-  name: Tarification sociale des services municipaux à la petite enfance
+  name: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
   description: Communes et établissements d'accueil du jeune enfant, calculez automatiquement la participation familiale dans les établissement d'accueil du jeune enfant (eaje) basée sur la prestation de service unique (PSU)
   authorization_request: APIParticulier
   use_case: tarification_eaje
@@ -2564,7 +2564,7 @@ api-particulier-tarification-eaje:
     - name: personal_data
     - name: contacts
   initialize_with:
-    intitule: Tarification sociale des établissements d'accueil du jeune enfant
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes: *tarification_eaje_fixed_scopes
 
@@ -2590,7 +2590,7 @@ api-particulier-technocarte-babicarte:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2623,7 +2623,7 @@ api-particulier-sigec-maelis-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2656,7 +2656,7 @@ api-particulier-city-family-mushroom-software-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2689,7 +2689,7 @@ api-particulier-carte-plus-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2722,7 +2722,7 @@ api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2758,7 +2758,7 @@ api-particulier-hoptis-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2792,7 +2792,7 @@ api-particulier-agora-baby:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2825,7 +2825,7 @@ api-particulier-bl-enfance-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2876,7 +2876,7 @@ api-particulier-civil-petite-enfance-ciril-group:
       - gender
       - openid
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2909,7 +2909,7 @@ api-particulier-docaposte-fast-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
@@ -2942,7 +2942,7 @@ api-particulier-entrouvert-publik-famille-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification des services municipaux liés à la petite enfance
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general

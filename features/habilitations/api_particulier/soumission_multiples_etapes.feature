@@ -792,8 +792,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     Alors "Via FranceConnect" est coché et non modifiable
 
     Exemples:
-      | Nom du formulaire                    |
-      | Gestion du stationnement résidentiel |
+      | Nom du formulaire                         |
+      | Tarification du stationnement résidentiel |
 
   Plan du scénario: Je ne peux pas soumettre une demande FranceConnect obligatoire si je n'ai pas d'habilitation FranceConnect
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
@@ -803,8 +803,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     Alors il y a un message d'erreur contenant "L'habilitation FranceConnect doit être rempli(e)"
 
     Exemples:
-      | Nom du formulaire                    |
-      | Gestion du stationnement résidentiel |
+      | Nom du formulaire                         |
+      | Tarification du stationnement résidentiel |
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage FranceConnect obligatoire
     Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
@@ -835,5 +835,5 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     Alors il y a un message de succès contenant "soumise avec succès"
 
     Exemples:
-      | Nom du formulaire                    |
-      | Gestion du stationnement résidentiel |
+      | Nom du formulaire                         |
+      | Tarification du stationnement résidentiel |

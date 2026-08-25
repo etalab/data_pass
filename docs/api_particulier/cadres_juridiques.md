@@ -76,7 +76,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `waigeo` | MyPérischool | `api-particulier-waigeo-myperischool` |
 | `ypok` | Ykidz | `api-particulier-ypok-ykidz` |
 | _demande générique_ | Gestion RH du secteur public | `api-particulier-gestion-rh-secteur-public` |
-| _demande générique_ | Tarification sociale des services municipaux à la petite enfance | `api-particulier-tarification-eaje` |
+| _demande générique_ | Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU | `api-particulier-tarification-eaje` |
 | _demande générique_ | Tarification sociale des services municipaux à l’enfance | `api-particulier-tarification-municipale-enfance` |
 
 ### CCAS — 6 formulaire(s)
@@ -120,7 +120,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 |---|---|---|
 | `extenso_partner` | Extenso Cloud | `api-particulier-extenso-partner-extenso-cloud` |
 | `polycea` | eovia | `api-particulier-polycea` |
-| _demande générique_ | Gestion du stationnement résidentiel | `api-particulier-stationnement-residentiel` |
+| _demande générique_ | Tarification du stationnement résidentiel | `api-particulier-stationnement-residentiel` |
 
 ### Aides facultatives — 4 formulaire(s)
 
