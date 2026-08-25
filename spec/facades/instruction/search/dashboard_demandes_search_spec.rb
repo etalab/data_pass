@@ -105,12 +105,16 @@ RSpec.describe Instruction::Search::DashboardDemandesSearch do
   end
 
   describe 'sorting' do
+    let(:default_order_clause) { 'ORDER BY "authorization_requests"."last_submitted_at" DESC NULLS LAST' }
+
     context 'with a malicious sort injected in the query' do
       let(:params) { { search_query: { 's' => %q{'"()&%<zzz><ScRiPt asc} } } }
 
-      it 'does not inject raw SQL and returns results ordered safely' do
+      it 'leaves no injected fragment in the generated SQL and falls back to the default sort' do
         search = described_class.new(params: params, scope: scope)
-        expect { search.results.load }.not_to raise_error
+
+        expect(search.results.to_sql).not_to include('ScRiPt')
+        expect(search.results.to_sql).to include(default_order_clause)
         expect(search.results).to include(authorization_request)
       end
     end
@@ -118,18 +122,21 @@ RSpec.describe Instruction::Search::DashboardDemandesSearch do
     context 'with a sort on a non-existent column' do
       let(:params) { { search_query: { 's' => 'evil_column asc' } } }
 
-      it 'falls back to the default sort without raising' do
+      it 'falls back to the default sort' do
         search = described_class.new(params: params, scope: scope)
-        expect { search.results.load }.not_to raise_error
+
+        expect(search.results.to_sql).not_to include('evil_column')
+        expect(search.results.to_sql).to include(default_order_clause)
       end
     end
 
     context 'with a legitimate column sort' do
       let(:params) { { search_query: { 's' => 'last_submitted_at asc' } } }
 
-      it 'orders by the requested column' do
+      it 'orders by the requested column with a quoted identifier' do
         search = described_class.new(params: params, scope: scope)
-        expect { search.results.load }.not_to raise_error
+
+        expect(search.results.to_sql).to include('ORDER BY "authorization_requests"."last_submitted_at" ASC NULLS LAST')
         expect(search.results).to include(authorization_request)
       end
     end

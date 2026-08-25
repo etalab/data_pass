@@ -95,7 +95,7 @@ class Instruction::Search::DashboardSearch
     sort = search_engine.sorts.first
     return parsed_default_sort unless sort && sortable_column?(sort.name)
 
-    [sort.name, sort.dir == 'desc' ? :desc : :asc]
+    [sort.name, normalized_direction(sort.dir)]
   end
 
   def sortable_column?(name)
@@ -104,7 +104,11 @@ class Instruction::Search::DashboardSearch
 
   def parsed_default_sort
     column, direction = default_sort.split
-    [column, direction == 'desc' ? :desc : :asc]
+    [column, normalized_direction(direction)]
+  end
+
+  def normalized_direction(direction)
+    direction == 'desc' ? :desc : :asc
   end
 
   def default_sort
