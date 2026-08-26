@@ -36,6 +36,10 @@ shared:
     type: editor
     name: Ianord
     siret: "37989072600043"
+  edhec:
+    type: editor
+    name: EDHEC Business School
+    siret: "78370706000068"
   entrouvert:
     type: editor
     name: "Entr'ouvert"

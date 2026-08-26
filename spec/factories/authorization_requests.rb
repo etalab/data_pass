@@ -527,6 +527,7 @@ FactoryBot.define do
       api-particulier-hoptis-petite-enfance
       api-particulier-andyvie
       api-particulier-polycea
+      api-particulier-edhec
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
