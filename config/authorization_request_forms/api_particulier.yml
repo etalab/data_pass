@@ -2568,6 +2568,45 @@ api-particulier-tarification-eaje:
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes: *tarification_eaje_fixed_scopes
 
+api-particulier-inscription-administrative-etudiant:
+  name: Inscription administrative d’un étudiant dans un établissement d’enseignement supérieur
+  description: Établissements d’enseignement supérieur, simplifiez l’inscription administrative de vos étudiants en remplaçant certaines pièces justificatives par de la récupération de données
+  authorization_request: APIParticulier
+  use_case: inscription_administrative_etudiant
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l’<strong>« Inscription administrative d’un étudiant dans un établissement d’enseignement supérieur »</strong>. <a href="https://simplifions.data.gouv.fr/cas-d-usages/inscription-administrative-dun-etudiant-dans-un-etablissement-denseignement-superieur">En savoir plus sur ce cas d’usage</a>.
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+  scopes_config:
+    displayed:
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - cnous_identite
+      - cnous_email
+      - cnous_periode_versement
+      - cnous_ville_etudes
+      - cnous_ine
+      - sdh_statut_sportif_identite
+      - sdh_statut_sportif_est_sportif_de_haut_niveau
+      - sdh_statut_sportif_informations_statut
+      - allocation_adulte_handicape
+      - cnav_allocation_enfant_handicape
+      - dsnj_statut_service_national
+  initialize_with:
+    intitule: Inscription administrative d’un étudiant dans un établissement d’enseignement supérieur
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+
 
 api-particulier-technocarte-babicarte:
   name: Babicarte Petite enfance
