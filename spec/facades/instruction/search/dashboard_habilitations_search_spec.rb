@@ -72,4 +72,42 @@ RSpec.describe Instruction::Search::DashboardHabilitationsSearch do
       end
     end
   end
+
+  describe 'sorting' do
+    let(:default_order_clause) { 'ORDER BY "authorizations"."created_at" DESC NULLS LAST' }
+
+    context 'with a malicious sort injected in the query' do
+      let(:params) { { search_query: { 's' => %q{'"()&%<zzz><ScRiPt asc} } } }
+
+      it 'leaves no injected fragment in the generated SQL and falls back to the default sort' do
+        search = described_class.new(params: params, scope: scope)
+
+        expect(search.results.to_sql).not_to include('ScRiPt')
+        expect(search.results.to_sql).to include(default_order_clause)
+        expect(search.results).to include(authorization)
+      end
+    end
+
+    context 'with a sort on a non-existent column' do
+      let(:params) { { search_query: { 's' => 'evil_column asc' } } }
+
+      it 'falls back to the default sort' do
+        search = described_class.new(params: params, scope: scope)
+
+        expect(search.results.to_sql).not_to include('evil_column')
+        expect(search.results.to_sql).to include(default_order_clause)
+      end
+    end
+
+    context 'with a legitimate column sort' do
+      let(:params) { { search_query: { 's' => 'created_at asc' } } }
+
+      it 'orders by the requested column with a quoted identifier' do
+        search = described_class.new(params: params, scope: scope)
+
+        expect(search.results.to_sql).to include('ORDER BY "authorizations"."created_at" ASC NULLS LAST')
+        expect(search.results).to include(authorization)
+      end
+    end
+  end
 end

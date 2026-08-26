@@ -83,7 +83,32 @@ class Instruction::Search::DashboardSearch
   end
 
   def build_search_results
-    search_engine.result(distinct: true).except(:order).order("#{search_engine.sorts.first.name} #{search_engine.sorts.first.dir} NULLS LAST")
+    search_engine.result(distinct: true).except(:order).order(order_clause)
+  end
+
+  def order_clause
+    column, direction = sanitized_sort
+    search_engine.klass.arel_table[column].public_send(direction).nulls_last
+  end
+
+  def sanitized_sort
+    sort = search_engine.sorts.first
+    return parsed_default_sort unless sort && sortable_column?(sort.name)
+
+    [sort.name, normalized_direction(sort.dir)]
+  end
+
+  def sortable_column?(name)
+    search_engine.klass.column_names.include?(name)
+  end
+
+  def parsed_default_sort
+    column, direction = default_sort.split
+    [column, normalized_direction(direction)]
+  end
+
+  def normalized_direction(direction)
+    direction == 'desc' ? :desc : :asc
   end
 
   def default_sort
