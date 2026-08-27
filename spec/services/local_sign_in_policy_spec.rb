@@ -20,10 +20,24 @@ RSpec.describe LocalSignInPolicy do
     end
 
     context 'when no token is configured' do
-      it 'returns true (bypass stays open)' do
+      it 'returns true on an open environment (bypass stays open)' do
         stub_tokens(nil)
 
         expect(described_class.new.available?).to be true
+      end
+
+      it 'returns false on a sensitive environment' do
+        stub_env('staging')
+        stub_tokens(nil)
+
+        expect(described_class.new.available?).to be false
+      end
+
+      it 'returns false on a sensitive environment when the credentials key is malformed' do
+        stub_env('sandbox')
+        stub_tokens('dgfip: s3cret')
+
+        expect(described_class.new.available?).to be false
       end
     end
 

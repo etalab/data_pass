@@ -146,8 +146,10 @@ local_sign_in_tokens:
 N’importe quel token valide déverrouille l’accès ; le fournisseur utilisé est journalisé
 (`[local-sign-in] accès via le token « <fd> » — email=… ip=…`). Le token est ensuite mémorisé dans un
 cookie signé (30 jours) : une fois fourni une première fois, les liens suivants fonctionnent sans le
-repréciser. En **production** l’endpoint n’existe pas ; en **local/dev** l’accès reste ouvert tant
-qu’aucun token n’est présent dans les credentials `development`.
+repréciser. En **production** l’endpoint n’existe pas ; seuls **`development` et `test`** restent
+ouverts tant qu’aucun token n’est présent dans leurs credentials. Tout autre environnement
+(staging, sandbox, review app…) exige un token valide : si la clé `local_sign_in_tokens` est absente
+ou mal formée, l’accès est **refusé**, jamais réouvert.
 
 Pour tester la protection en local : `bin/rails credentials:edit --environment development` puis ajouter
 un `local_sign_in_tokens: { test: <valeur> }`. Dès qu’un token est présent, `/local-sign-in?email=…` exige

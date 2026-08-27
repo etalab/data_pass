@@ -1,4 +1,6 @@
 class LocalSignInPolicy
+  OPEN_ENVIRONMENTS = %w[development test].freeze
+
   def initialize(submitted_token: nil, unlocked_token: nil)
     @submitted_token = submitted_token
     @unlocked_token = unlocked_token
@@ -6,7 +8,7 @@ class LocalSignInPolicy
 
   def available?
     return false if Rails.env.production?
-    return true unless protected?
+    return true if open_environment? && !protected?
 
     matched_provider.present?
   end
@@ -20,6 +22,10 @@ class LocalSignInPolicy
   end
 
   private
+
+  def open_environment?
+    OPEN_ENVIRONMENTS.include?(Rails.env)
+  end
 
   def protected?
     configured_tokens.any?
