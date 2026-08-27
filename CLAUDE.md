@@ -151,6 +151,9 @@ ouverts tant qu’aucun token n’est présent dans leurs credentials. Tout autr
 (staging, sandbox, review app…) exige un token valide : si la clé `local_sign_in_tokens` est absente
 ou mal formée, l’accès est **refusé**, jamais réouvert.
 
+Mode opératoire ops (ajouter / révoquer un token par FD, vérifier les accès) :
+[`docs/technique/tokens_local_sign_in.md`](docs/technique/tokens_local_sign_in.md).
+
 Pour tester la protection en local : `bin/rails credentials:edit --environment development` puis ajouter
 un `local_sign_in_tokens: { test: <valeur> }`. Dès qu’un token est présent, `/local-sign-in?email=…` exige
 `&token=<valeur>` ; retirer la clé rétablit le bypass ouvert.
