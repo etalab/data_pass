@@ -510,6 +510,7 @@ FactoryBot.define do
       api-particulier-gestion-rh-secteur-public
       api-particulier-stationnement-residentiel
       api-particulier-tarification-eaje
+      api-particulier-inscription-administrative-etudiant
       api-particulier-technocarte-babicarte
       api-particulier-sigec-maelis-petite-enfance
       api-particulier-city-family-mushroom-software-petite-enfance
@@ -526,6 +527,7 @@ FactoryBot.define do
       api-particulier-hoptis-petite-enfance
       api-particulier-andyvie
       api-particulier-polycea
+      api-particulier-edhec
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
