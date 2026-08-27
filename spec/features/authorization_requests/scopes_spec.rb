@@ -54,6 +54,29 @@ RSpec.describe 'Authorization request with scopes' do
     end
   end
 
+  describe 'provider-aware scope headings on the interactive picker' do
+    let(:user) { create(:user) }
+    let(:authorization_request) do
+      authorization_request = create(:authorization_request, :api_particulier, fill_all_attributes: true, applicant: user)
+      authorization_request.current_build_step = 'basic_infos'
+      authorization_request.scopes = nil
+      authorization_request.save!
+      authorization_request
+    end
+    let(:authorization_request_form) { authorization_request.form }
+    let(:scope_step_name) { I18n.t('wicked.scopes') }
+
+    before do
+      sign_in(user)
+
+      visit authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: scope_step_name)
+    end
+
+    it 'shows the combined "provider — group" heading for a scope that has both' do
+      expect(page).to have_text('CNAF & MSA — API Quotient familial')
+    end
+  end
+
   describe 'at the review step, with some scopes defined' do
     let(:user) { create(:user) }
     let(:authorization_request) do
