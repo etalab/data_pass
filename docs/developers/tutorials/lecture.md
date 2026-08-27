@@ -222,6 +222,7 @@ Pour afficher un libellé humain, un groupe ou un lien documentation, il faut jo
       "name": "Données unités légales et établissements - Insee",
       "value": "unites_legales_etablissements_insee",
       "group": "Informations générales",
+      "provider": "INSEE",
       "link": "https://entreprise.api.gouv.fr/catalogue?...",
       "included": false,
       "disabled": false,
@@ -235,7 +236,7 @@ Pour afficher un libellé humain, un groupe ou un lien documentation, il faut jo
 Détail des champs renvoyés pour chaque scope :
 
 - **`value`** — identifiant technique, utilisé dans `data.scopes` d'une demande.
-- **`name`** / **`group`** / **`link`** — libellé humain, regroupement métier et lien documentation pour l'affichage.
+- **`name`** / **`group`** / **`provider`** / **`link`** — libellé humain, regroupement métier, fournisseur de la donnée et lien documentation pour l'affichage. `provider` est `null` pour les APIs qui n'ont pas encore ce niveau de détail.
 - **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation validée, faites l'union de `data.scopes` et des `value` `included: true`.
 - **`deprecated`** (+ **`deprecated_date`**) — scope conservé pour l'historique des anciennes demandes mais à exclure d'une UI de création.
 - **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une demande validée peut tout de même en contenir.
