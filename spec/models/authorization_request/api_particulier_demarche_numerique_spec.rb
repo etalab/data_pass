@@ -34,11 +34,11 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
   describe 'definition' do
     subject(:definition) { described_class.definition }
 
+    let(:providers_unavailable_through_france_connect) { ['FranceConnect'] }
     let(:groups_unavailable_through_france_connect) do
       [
-        'FranceConnect',
         "API Statut demandeur d'emploi",
-        'API Paiements France Travail',
+        'API Paiements',
         'API Statut élève scolarisé et boursier',
         'API Statut Sportif de Haut Niveau'
       ]
@@ -47,7 +47,10 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
     it 'reuses the API Particulier scopes retrievable through a FranceConnect identity' do
       api_particulier_scopes = AuthorizationRequest::APIParticulier.definition.scopes
       expected_values = api_particulier_scopes
-        .reject { |scope| groups_unavailable_through_france_connect.include?(scope.group) }
+        .reject { |scope|
+          groups_unavailable_through_france_connect.include?(scope.group) ||
+            providers_unavailable_through_france_connect.include?(scope.provider)
+        }
         .map(&:value)
 
       expect(definition.scopes.map(&:value)).to eq(expected_values)
@@ -55,6 +58,7 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
 
     it 'does not expose scopes that cannot be retrieved through a FranceConnect identity' do
       expect(definition.scopes.map(&:group).uniq).not_to include(*groups_unavailable_through_france_connect)
+      expect(definition.scopes.map(&:provider).uniq).not_to include(*providers_unavailable_through_france_connect)
     end
 
     it 'exposes the modalities block' do
