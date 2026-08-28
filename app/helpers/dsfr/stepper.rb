@@ -1,5 +1,7 @@
 module Dsfr::Stepper
   def dsfr_stepper(current_step:, steps:)
+    return '' if stepper_step_number(current_step, steps).nil?
+
     content_tag(:div, class: 'fr-stepper') do
       [
         dsfr_stepper_title(current_step, steps),
@@ -46,7 +48,9 @@ module Dsfr::Stepper
   end
 
   def stepper_step_number(current_step, steps)
-    steps.index(current_step) + 1
+    position = steps.index(current_step)
+
+    position&.next
   end
 
   def stepper_next_step(current_step, steps)
