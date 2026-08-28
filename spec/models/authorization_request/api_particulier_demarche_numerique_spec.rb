@@ -49,7 +49,7 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
       expected_values = api_particulier_scopes
         .reject { |scope|
           groups_unavailable_through_france_connect.include?(scope.group) ||
-            providers_unavailable_through_france_connect.include?(scope.provider)
+            providers_unavailable_through_france_connect.include?(scope.provider_label)
         }
         .map(&:value)
 
@@ -58,7 +58,7 @@ RSpec.describe AuthorizationRequest::APIParticulierDemarcheNumerique do
 
     it 'does not expose scopes that cannot be retrieved through a FranceConnect identity' do
       expect(definition.scopes.map(&:group).uniq).not_to include(*groups_unavailable_through_france_connect)
-      expect(definition.scopes.map(&:provider).uniq).not_to include(*providers_unavailable_through_france_connect)
+      expect(definition.scopes.map(&:provider_label).uniq).not_to include(*providers_unavailable_through_france_connect)
     end
 
     it 'exposes the modalities block' do

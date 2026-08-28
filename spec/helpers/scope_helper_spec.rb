@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe ScopeHelper do
   describe '#scope_groups_for_display' do
-    def scope(name:, value:, group: nil, provider: nil)
-      AuthorizationDefinition::Scope.new(name:, value:, group:, provider:)
+    def scope(name:, value:, group: nil, provider_label: nil)
+      AuthorizationDefinition::Scope.new(name:, value:, group:, provider_label:)
     end
 
     it 'groups scopes by the provider+group pair and joins both into the heading' do
       scopes = [
-        scope(name: 'Quotient familial CAF & MSA', value: 'cnaf_quotient_familial', group: 'API Quotient familial', provider: 'CNAF & MSA'),
-        scope(name: 'Identités allocataire et conjoint', value: 'cnaf_allocataires', group: 'API Quotient familial', provider: 'CNAF & MSA'),
+        scope(name: 'Quotient familial CAF & MSA', value: 'cnaf_quotient_familial', group: 'API Quotient familial', provider_label: 'CNAF & MSA'),
+        scope(name: 'Identités allocataire et conjoint', value: 'cnaf_allocataires', group: 'API Quotient familial', provider_label: 'CNAF & MSA'),
       ]
 
       result = helper.scope_groups_for_display(scopes)
@@ -20,7 +20,7 @@ RSpec.describe ScopeHelper do
     end
 
     it 'uses the provider alone as heading when group is absent' do
-      scopes = [scope(name: 'Nom de naissance', value: 'family_name', provider: 'FranceConnect')]
+      scopes = [scope(name: 'Nom de naissance', value: 'family_name', provider_label: 'FranceConnect')]
 
       result = helper.scope_groups_for_display(scopes)
 
@@ -45,8 +45,8 @@ RSpec.describe ScopeHelper do
 
     it 'splits scopes with the same group but different providers into separate display groups' do
       scopes = [
-        scope(name: 'A', value: 'a', group: 'Informations générales', provider: 'INSEE'),
-        scope(name: 'B', value: 'b', group: 'Informations générales', provider: 'Infogreffe'),
+        scope(name: 'A', value: 'a', group: 'Informations générales', provider_label: 'INSEE'),
+        scope(name: 'B', value: 'b', group: 'Informations générales', provider_label: 'Infogreffe'),
       ]
 
       result = helper.scope_groups_for_display(scopes)

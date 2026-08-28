@@ -1,7 +1,7 @@
 module AuthorizationExtensions::FranceConnectEmbeddedFields
   extend ActiveSupport::Concern
 
-  FRANCE_CONNECT_PROVIDER = 'FranceConnect'.freeze
+  FRANCE_CONNECT_PROVIDER_LABEL = 'FranceConnect'.freeze
 
   included do
     add_attribute :fc_cadre_juridique_nature
@@ -26,7 +26,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def available_scopes
-    super.reject { |scope| scope.provider == FRANCE_CONNECT_PROVIDER && !show_france_connect_scopes? }
+    super.reject { |scope| scope.provider_label == FRANCE_CONNECT_PROVIDER_LABEL && !show_france_connect_scopes? }
   end
 
   def show_france_connect_scopes?
@@ -83,7 +83,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
   def france_connect_scope_values
     self.class.definition.scopes
-      .select { |scope| scope.provider == FRANCE_CONNECT_PROVIDER }
+      .select { |scope| scope.provider_label == FRANCE_CONNECT_PROVIDER_LABEL }
       .map(&:value)
   end
 

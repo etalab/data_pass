@@ -12,7 +12,7 @@
   %>
 
   <% grouped_scopes.each do |scope_group| %>
-    <% next if scope_group.provider == 'FranceConnect' && !show_fc_fields %>
+    <% next if scope_group.provider_label == 'FranceConnect' && !show_fc_fields %>
 
     <div class="fr-form-group scopes-group">
       <% if scope_group.heading.present? %>
