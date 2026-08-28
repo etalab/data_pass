@@ -29,6 +29,20 @@ RSpec.describe 'Authorization request with multiple steps' do
     end
   end
 
+  describe 'visiting an unknown wizard step' do
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
+
+    it 'returns a 404 instead of a 500' do
+      visit authorization_request_form_build_path(
+        form_uid: authorization_request_form.uid,
+        authorization_request_id: authorization_request.id,
+        id: 'evil@step',
+      )
+
+      expect(page.status_code).to eq(404)
+    end
+  end
+
   describe 'resume habilitation' do
     subject(:resume_habilitation) do
       visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)

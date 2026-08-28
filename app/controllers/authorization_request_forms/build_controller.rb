@@ -4,6 +4,10 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
   include Wicked::Wizard::Translated
 
+  rescue_from Wicked::Wizard::InvalidStepError do
+    raise ActiveRecord::RecordNotFound
+  end
+
   prepend_before_action :configure_steps
 
   def show
