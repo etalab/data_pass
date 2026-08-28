@@ -1,13 +1,13 @@
 class AuthorizationDefinition::Scope
   include ActiveModel::Serialization
 
-  attr_reader :name, :value, :group, :provider, :link
+  attr_reader :name, :value, :group, :provider_label, :link
 
   def initialize(properties)
     @name = properties.fetch(:name)
     @value = properties.fetch(:value)
     @group = properties.fetch(:group, nil)
-    @provider = properties.fetch(:provider, nil)
+    @provider_label = properties.fetch(:provider_label, nil)
     @link = properties.fetch(:link, nil)
     @included = properties.fetch(:included, false)
     @disabled = properties.fetch(:disabled, false)

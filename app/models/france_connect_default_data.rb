@@ -17,7 +17,7 @@ class FranceConnectDefaultData
 
   def self.scope_values
     @scope_values ||= AuthorizationRequest::APIParticulier.definition.scopes
-      .select { |s| s.provider == 'FranceConnect' }
+      .select { |s| s.provider_label == 'FranceConnect' }
       .map(&:value)
   end
 

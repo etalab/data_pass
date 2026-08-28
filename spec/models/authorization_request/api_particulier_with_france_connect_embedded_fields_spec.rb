@@ -312,7 +312,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       let(:modalities) { %w[france_connect] }
 
       it 'includes FranceConnect scopes' do
-        fc_scopes = authorization_request.available_scopes.select { |s| s.provider == 'FranceConnect' }
+        fc_scopes = authorization_request.available_scopes.select { |s| s.provider_label == 'FranceConnect' }
         expect(fc_scopes.map(&:value)).to match_array(france_connect_scope_values)
       end
     end
@@ -321,12 +321,12 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       let(:modalities) { %w[params] }
 
       it 'excludes FranceConnect scopes' do
-        fc_scopes = authorization_request.available_scopes.select { |s| s.provider == 'FranceConnect' }
+        fc_scopes = authorization_request.available_scopes.select { |s| s.provider_label == 'FranceConnect' }
         expect(fc_scopes).to be_empty
       end
 
       it 'still includes non-FranceConnect scopes' do
-        non_fc_scopes = authorization_request.available_scopes.reject { |s| s.provider == 'FranceConnect' }
+        non_fc_scopes = authorization_request.available_scopes.reject { |s| s.provider_label == 'FranceConnect' }
         expect(non_fc_scopes).not_to be_empty
       end
     end

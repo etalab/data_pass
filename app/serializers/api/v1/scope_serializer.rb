@@ -5,7 +5,7 @@ class API::V1::ScopeSerializer < ActiveModel::Serializer
     :value,
     :group,
     :link,
-    :provider,
+    :provider_label,
     :included,
     :disabled,
     :deprecated,

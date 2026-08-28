@@ -200,7 +200,7 @@ RSpec.describe 'API: Authorization definitions' do
         scopes = response.parsed_body[0]['scopes']
         scope = scopes.find { |s| s['value'] == 'unites_legales_etablissements_insee' }
 
-        expect(scope['provider']).to eq('INSEE')
+        expect(scope['provider_label']).to eq('INSEE')
 
         validate_request_and_response!
       end
@@ -243,7 +243,7 @@ RSpec.describe 'API: Authorization definitions' do
         scopes = response.parsed_body[0]['scopes']
         scope = scopes.find { |s| s['value'] == 'cnaf_quotient_familial' }
 
-        expect(scope['provider']).to eq('CNAF & MSA')
+        expect(scope['provider_label']).to eq('CNAF & MSA')
         expect(scope['group']).to eq('API Quotient familial')
 
         validate_request_and_response!
