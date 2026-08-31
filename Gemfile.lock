@@ -56,7 +56,7 @@ GEM
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     active_model_validates_intersection_of (3.0.1)
       activemodel (>= 5.0.0)
-    active_storage_validations (4.0.0)
+    active_storage_validations (4.1.0)
       activejob (>= 7.0.1)
       activemodel (>= 7.0.1)
       activestorage (>= 7.0.1)
