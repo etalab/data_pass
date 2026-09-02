@@ -14,6 +14,7 @@
 * [Ajout d'un nouveau bloc de formulaire (YAML legacy)](./technique/ajout_nouveau_bloc_de_formulaire.md)
 * [Ajout d'un nouvel événement](./technique/ajout_evenement.md)
 * [Authentification des agents via ProConnect](./technique/authentification_proconnect.md)
+* [Tokens `local-sign-in` (staging & sandbox)](./technique/tokens_local_sign_in.md)
 * [Design System (installation, explications techniques)](./technique/design.md)
 * [Modal dynamique](./technique/modal.md)
 * [Guide sur les scopes](./technique/modification_scopes.md)
