@@ -291,9 +291,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def view_path(step = nil)
     if @authorization_request.form.multiple_steps?
-      first_step = @authorization_request_form.steps.first[:name]
-
-      "authorization_request_forms/build/#{step || params[:id] || first_step}"
+      "authorization_request_forms/build/#{step || authorization_request_steps_names.first}"
     elsif @authorization_request.form.single_page_view.present?
       @authorization_request.form.single_page_view
     else

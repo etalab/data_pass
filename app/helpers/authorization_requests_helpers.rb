@@ -33,6 +33,14 @@ module AuthorizationRequestsHelpers
       authorization_request_first_step_build?
   end
 
+  def current_wizard_step_name
+    english_step_name(step_name_in_params? ? params[:id] : nil)
+  end
+
+  def step_name_in_params?
+    build_controller? || within_edit?
+  end
+
   def within_edit?
     action_name == 'edit'
   end
