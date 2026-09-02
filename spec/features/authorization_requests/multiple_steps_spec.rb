@@ -43,6 +43,27 @@ RSpec.describe 'Authorization request with multiple steps' do
     end
   end
 
+  describe 'start with a step in the query' do
+    let(:first_step_title) do
+      step = authorization_request_form.steps.first[:name]
+
+      I18n.t(
+        "authorization_request_forms.#{authorization_request.model_name.element}.steps.#{step}",
+        default: I18n.t("authorization_request_forms.default.steps.#{step}")
+      )
+    end
+
+    %w[evil@step scopes donnees].each do |ignored_step|
+      it "ignores « #{ignored_step} » and renders the first step" do
+        visit start_authorization_request_forms_path(form_uid: authorization_request_form.uid, id: ignored_step)
+
+        expect(page.status_code).to eq(200)
+        expect(page).to have_css('[data-fr-current-step="1"]')
+        expect(page.title).to start_with(first_step_title)
+      end
+    end
+  end
+
   describe 'resume habilitation' do
     subject(:resume_habilitation) do
       visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
