@@ -31,6 +31,17 @@ Sachantque('ce webhook a reçu {int} appels') do |count|
   end
 end
 
+Sachantque('ce webhook a reçu un appel abandonné') do
+  authorization_request = FactoryBot.create(:authorization_request, :api_entreprise)
+  @webhook_attempt = FactoryBot.create(
+    :webhook_attempt,
+    :abandoned,
+    webhook: @webhook,
+    authorization_request: authorization_request,
+    event_name: 'approve'
+  )
+end
+
 Sachantque('ce webhook a reçu un appel avec le statut {string}') do |status_code|
   authorization_request = FactoryBot.create(:authorization_request, :api_entreprise)
   @webhook_attempt = FactoryBot.create(

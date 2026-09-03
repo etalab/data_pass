@@ -44,5 +44,15 @@ RSpec.describe WebhookHttpService do
         expect { service.call(payload) }.to raise_error(Faraday::ConnectionFailed, /Connection refused/)
       end
     end
+
+    context 'when the endpoint never responds' do
+      before do
+        stub_request(:post, url).to_timeout
+      end
+
+      it 'raises a Faraday timeout error instead of hanging' do
+        expect { service.call(payload) }.to raise_error(Faraday::Error)
+      end
+    end
   end
 end

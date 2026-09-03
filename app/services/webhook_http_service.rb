@@ -1,4 +1,7 @@
 class WebhookHttpService
+  TIMEOUT = 10
+  OPEN_TIMEOUT = 5
+
   attr_reader :url, :secret
 
   def initialize(url, secret)
@@ -33,6 +36,8 @@ class WebhookHttpService
   def faraday_client
     Faraday.new(url: url) do |faraday|
       faraday.adapter Faraday.default_adapter
+      faraday.options.timeout = TIMEOUT
+      faraday.options.open_timeout = OPEN_TIMEOUT
     end
   end
 end

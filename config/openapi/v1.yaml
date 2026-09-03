@@ -590,6 +590,11 @@ components:
           type: integer
           example: 456
           description: Identifiant de la demande d'habilitation concernée par l'appel webhook
+        abandoned_at:
+          type: string
+          format: date-time
+          description: Date et heure à laquelle la livraison a été définitivement abandonnée après épuisement des tentatives de relivraison. Absent tant que la livraison n'est pas abandonnée.
+          nullable: true
       required:
         - id
         - event
