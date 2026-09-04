@@ -1,7 +1,17 @@
 def summary_block_testing(block_title, &)
-  summary_block = find('.summary-block__title', text: block_title, wait: 10).ancestor('.summary-block')
+  attempts = 0
 
-  within(summary_block, &)
+  begin
+    attempts += 1
+    summary_title = find('.summary-block__title', text: block_title, wait: 10)
+    summary_block = find(".summary-block[aria-labelledby='#{summary_title[:id]}']", wait: 10)
+
+    within(summary_block, &)
+  rescue Capybara::Cuprite::ObsoleteNode, Ferrum::BrowserError
+    retry if attempts < 3
+
+    raise
+  end
 end
 
 Quand('je clique sur {string} dans le bloc de résumé {string}') do |button_text, block_title|
