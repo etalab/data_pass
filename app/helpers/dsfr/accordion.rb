@@ -40,9 +40,8 @@ module Dsfr::Accordion
     end
   end
 
-  # rubocop:disable Rails/HelperInstanceVariable
+  # rubocop:disable-next Rails/HelperInstanceVariable
   def template
     @template || self
   end
-  # rubocop:enable Rails/HelperInstanceVariable
 end

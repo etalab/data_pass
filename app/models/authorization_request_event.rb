@@ -46,7 +46,7 @@ class AuthorizationRequestEvent < ApplicationRecord
 
   delegate :full_name, to: :user, prefix: true, allow_nil: true
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
   def entity_type_is_authorized
     return if name.blank? || entity_type.blank?
 
@@ -65,7 +65,6 @@ class AuthorizationRequestEvent < ApplicationRecord
 
     errors.add(:entity_type, :invalid)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def authorization
     entity.authorization

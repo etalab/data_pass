@@ -213,7 +213,7 @@ class AuthorizationRequest < ApplicationRecord
     errors.add(:base, :all_terms_not_accepted)
   end
 
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable-next Metrics/BlockLength
   state_machine initial: :draft do
     state :draft
     state :submitted
@@ -286,7 +286,6 @@ class AuthorizationRequest < ApplicationRecord
       transition from: :validated, to: :revoked
     end
   end
-  # rubocop:enable Metrics/BlockLength
 
   def self.model_specific_ransackable_attributes
     %w[

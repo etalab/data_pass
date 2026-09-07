@@ -11,7 +11,7 @@ RSpec::Matchers.define :have_valid_syntax do
     "expected that the file '#{file}' would not have valid Ruby syntax"
   end
 
-  # rubocop:disable Security/Eval, Style/DocumentDynamicEvalDefinition, Style/EvalWithLocation
+  # rubocop:disable-next Security/Eval, Style/DocumentDynamicEvalDefinition, Style/EvalWithLocation
   def syntax_valid?(code)
     eval("__crash_me__;#{code}")
   rescue SyntaxError
@@ -19,5 +19,4 @@ RSpec::Matchers.define :have_valid_syntax do
   rescue NameError
     true
   end
-  # rubocop:enable Security/Eval, Style/DocumentDynamicEvalDefinition, Style/EvalWithLocation
 end

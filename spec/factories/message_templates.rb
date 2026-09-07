@@ -1,4 +1,4 @@
-# rubocop:disable Style/FormatStringToken
+# rubocop:disable-next Style/FormatStringToken
 FactoryBot.define do
   factory :message_template do
     sequence(:title) { |n| "Template #{n}" }
@@ -7,4 +7,3 @@ FactoryBot.define do
     content { 'Votre demande %{demande_intitule} est disponible ici : %{demande_url}' }
   end
 end
-# rubocop:enable Style/FormatStringToken

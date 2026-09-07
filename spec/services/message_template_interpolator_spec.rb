@@ -1,4 +1,4 @@
-# rubocop:disable Style/FormatStringToken
+# rubocop:disable-next Style/FormatStringToken
 RSpec.describe MessageTemplateInterpolator do
   subject(:interpolator) { described_class.new(content) }
 
@@ -73,4 +73,3 @@ RSpec.describe MessageTemplateInterpolator do
     end
   end
 end
-# rubocop:enable Style/FormatStringToken

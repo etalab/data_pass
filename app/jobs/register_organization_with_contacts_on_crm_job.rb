@@ -73,7 +73,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     %i[contact_metier contact_technique responsable_technique responsable_traitement delegue_protection_donnees]
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def update_multi_attributes_on_company(crm_company)
     datapass_ids = crm_company.properties['n_datapass']
 
@@ -98,9 +98,8 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
       }
     )
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def update_multi_attributes_on_contact(crm_contact, contact)
     contact_types = crm_contact.properties['type_de_contact']
     current_contact_type = extract_contact_type(contact)
@@ -126,7 +125,6 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
       }
     )
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def company_properties_to_retrieve
     %w[
@@ -157,7 +155,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable-next Metrics/MethodLength
   def extract_bouquet(kind)
     case authorization_request.type
     when 'AuthorizationRequest::APIEntreprise'
@@ -180,7 +178,6 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def extract_contact_type(contact)
     if contact.is_a?(User)

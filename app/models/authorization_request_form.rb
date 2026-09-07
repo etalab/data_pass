@@ -37,7 +37,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     []
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def self.build_form_from_template(template)
     klass = authorization_request_class_for(template.habilitation_type)
     return unless klass
@@ -61,7 +61,6 @@ class AuthorizationRequestForm < StaticApplicationRecord
       initialize_with: template.initialize_with.deep_symbolize_keys,
     )
   end
-  # rubocop:enable Metrics/AbcSize
 
   def self.cascaded(template_value, fallback)
     template_value.presence || fallback
@@ -80,7 +79,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
 
   private_class_method :yaml_records, :db_records, :build_form_from_template, :cascaded, :cascaded_steps, :authorization_request_class_for
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def self.build(uid, hash)
     new(
       hash.slice(
@@ -104,7 +103,6 @@ class AuthorizationRequestForm < StaticApplicationRecord
       )
     )
   end
-  # rubocop:enable Metrics/AbcSize
 
   delegate :provider, to: :authorization_definition
   def france_connect_certified?

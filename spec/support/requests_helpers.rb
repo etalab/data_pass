@@ -1,5 +1,5 @@
 module RequestsHelpers
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def sign_in(user)
     OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new({
       provider: :mon_compte_pro,
@@ -16,19 +16,17 @@ module RequestsHelpers
 
     get '/auth/mon_compte_pro/callback'
   end
-  # rubocop:enable Metrics/AbcSize
 end
 
 shared_examples 'an unauthorized access' do
   it do
     subject
 
-    # rubocop:disable Lint/SuppressedException
+    # rubocop:disable-next Lint/SuppressedException
     begin
       5.times { follow_redirect! }
     rescue RuntimeError
     end
-    # rubocop:enable Lint/SuppressedException
 
     expect(response.request.path).to match('/tableau-de-bord')
     expect(response.body).to include('pas le droit')

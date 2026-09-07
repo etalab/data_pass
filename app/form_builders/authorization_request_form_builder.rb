@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class AuthorizationRequestFormBuilder < DsfrFormBuilder
   include Dsfr::Accordion
 
@@ -276,4 +276,3 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
     opts[:class] << 'fr-checkbox-group--no-disabled-text' if opts[:disabled]
   end
 end
-# rubocop:enable Metrics/ClassLength

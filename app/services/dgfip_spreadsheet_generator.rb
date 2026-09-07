@@ -44,7 +44,7 @@ class DGFIPSpreadsheetGenerator
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def build_v2_row(authorization_request)
     [
       authorization_request.id,
@@ -67,7 +67,6 @@ class DGFIPSpreadsheetGenerator
       authorization_request.organization.insee_payload.to_json,
     ]
   end
-  # rubocop:enable Metrics/AbcSize
 
   def headers
     %w[
@@ -100,7 +99,7 @@ class DGFIPSpreadsheetGenerator
     end
   end
 
-  # rubocop:disable Style/MultilineBlockChain
+  # rubocop:disable-next Style/MultilineBlockChain
   def extract_latest_sandbox_authorization_id(authorization_request)
     authorization_request.authorizations.sort {
       authorization_request.authorizations.map(&:created_at).max
@@ -108,7 +107,6 @@ class DGFIPSpreadsheetGenerator
       authorization.request.definition.stage.type == 'sandbox'
     }.try(:id)
   end
-  # rubocop:enable Style/MultilineBlockChain
 
   # https://metabase.entreprise.api.gouv.fr/question/515
   # TODO mettre les bonnes valeurs
@@ -132,7 +130,7 @@ class DGFIPSpreadsheetGenerator
   end
 
   # https://metabase.entreprise.api.gouv.fr/question/514
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def build_legacy_additional_content(authorization_request)
     additional_content = {}
 
@@ -165,9 +163,8 @@ class DGFIPSpreadsheetGenerator
 
     additional_content.compact.to_json
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def extract_legacy_target_api(authorization_request)
     if authorization_request.type.include?('Sandbox')
       authorization_request.type.split('::')[-1].underscore
@@ -177,7 +174,6 @@ class DGFIPSpreadsheetGenerator
       "#{authorization_request.type.split('::')[-1].underscore}_production"
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def generator
     @generator ||= Axlsx::Package.new
