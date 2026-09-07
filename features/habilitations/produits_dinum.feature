@@ -22,6 +22,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation Produits DINUM
       | Dupont | Marc   | dupont.marc@gouv.fr |
     * je clique sur "Suivant"
 
+    Alors la page contient "Le cadre juridique de mise à disposition des produits et services opérés par la DINUM"
+    Et la page contient "URL du texte justificatif"
+    Et la page ne contient pas "Lien relatif au traitement"
+
     * je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
     * je coche "Je confirme que le responsable de l’administration de mon organisation est informé de ma demande."
     * je clique sur "Soumettre la demande d'habilitation"
@@ -43,6 +47,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation Produits DINUM
       | Nom    | Prénom | Courriel            |
       | Dupont | Marc   | dupont.marc@gouv.fr |
     * je clique sur "Suivant"
+
+    Alors la page contient "Le cadre juridique de mise à disposition des produits et services opérés par la DINUM"
+    Et la page contient "Document justificatif"
+    Et la page contient "dummy.pdf"
+    Et la page ne contient pas "Document relatif au traitement"
 
     * je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
     * je coche "Je confirme que le responsable de l’administration de mon organisation est informé de ma demande."

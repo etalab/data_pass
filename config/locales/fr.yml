@@ -74,6 +74,10 @@ fr:
         document_label: "Document relatif au traitement :"
         api_particulier_section: "Pour API Particulier"
         france_connect_section: "Pour FranceConnect"
+      produits_dinum:
+        legal:
+          link_label: "URL du texte justificatif :"
+          document_label: "Document justificatif :"
     france_connect_eidas:
       eidas_1_description: |
           Le niveau recommandé si vous n'avez pas d'exigence particulière sur le niveau eIDAS

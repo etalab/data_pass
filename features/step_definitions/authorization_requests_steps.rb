@@ -346,6 +346,13 @@ Quand('cette demande possède une maquette du projet {string}') do |filename|
   AuthorizationRequest.last.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
 end
 
+Quand('cette demande possède un document justificatif au cadre juridique') do
+  AuthorizationRequest.last.cadre_juridique_document.attach(
+    io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+    filename: 'dummy.pdf'
+  )
+end
+
 Quand('cette demande possède un document d\'expression de besoin spécifique') do
   AuthorizationRequest.last.specific_requirements_document.attach(io: Rails.root.join('spec/fixtures/dummy.csv').open, filename: 'dummy.csv')
 end

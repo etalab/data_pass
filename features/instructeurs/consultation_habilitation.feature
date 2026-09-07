@@ -17,6 +17,27 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Et la page contient "DUPONT Jean"
     Et la page contient "Adjoint au Maire"
 
+  Scénario: Le cadre juridique reprend les libellés du formulaire Produits DINUM
+    Sachant que je suis un instructeur "Éligibilité d'accès aux produits et services mis à disposition par la DINUM"
+    Quand je me rends sur une demande d'habilitation "Éligibilité d'accès aux produits et services mis à disposition par la DINUM" validée
+    Alors la page contient "Le cadre juridique de mise à disposition des produits et services opérés par la DINUM"
+    Et la page contient "URL du texte justificatif"
+    Et la page ne contient pas "Lien relatif au traitement"
+
+  Scénario: Le cadre juridique Produits DINUM restitue le document justificatif
+    Sachant que je suis un instructeur "Éligibilité d'accès aux produits et services mis à disposition par la DINUM"
+    Quand je me rends sur une demande d'habilitation "Éligibilité d'accès aux produits et services mis à disposition par la DINUM" validée
+    Et cette demande possède un document justificatif au cadre juridique
+    Et que je me rends sur la dernière demande à instruire
+    Alors la page contient "Document justificatif"
+    Et la page contient "dummy.pdf"
+    Et la page ne contient pas "Document relatif au traitement"
+
+  Scénario: Les autres formulaires conservent les libellés génériques du cadre juridique
+    Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
+    Alors la page contient "Lien relatif au traitement"
+    Et la page ne contient pas "URL du texte justificatif"
+
   Scénario: Je vois un bouton pour consulter l'habilitation validée d'une demande de réouverture
     Quand je me rends sur une demande d'habilitation "API Entreprise" réouverte
     Alors il y a un bouton "Consulter l'habilitation"
