@@ -107,6 +107,9 @@ Pour la configuration de la [définition (1.)](../../config/authorization_defini
         # Nom du groupe pour cette donnée afin d'effectuer
         # un regroupement visuel
         group: Identité pivot
+        # Optionnel. Nom du fournisseur de la donnée (ex: INSEE, CNAF & MSA).
+        # Aujourd'hui uniquement renseigné pour api_entreprise et api_particulier.
+        provider_label: INSEE
         # Optionnel. Lien vers des détails sur la donnée. Affiche un lien pour
         # en savoir plus sur cette donnée.
         link: https://mon-api.gouv.fr/documentation/nom-de-famille

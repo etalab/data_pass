@@ -194,6 +194,17 @@ RSpec.describe 'API: Authorization definitions' do
         expected_scope_values: %w[unites_legales_etablissements_insee open_data_unites_legales_etablissements_insee open_data_extrait_rcs_infogreffe]
       }
 
+      it 'returns the provider for each scope' do
+        get_index
+
+        scopes = response.parsed_body[0]['scopes']
+        scope = scopes.find { |s| s['value'] == 'unites_legales_etablissements_insee' }
+
+        expect(scope['provider_label']).to eq('INSEE')
+
+        validate_request_and_response!
+      end
+
       context 'when definition is multi-stage' do
         let(:user) { create(:user, :developer, authorization_request_types: %w[api_impot_particulier_sandbox]) }
 
@@ -225,6 +236,18 @@ RSpec.describe 'API: Authorization definitions' do
         authorization_request_class: 'AuthorizationRequest::APIParticulier',
         expected_scope_values: %w[cnaf_quotient_familial cnaf_allocataires pole_emploi_identifiant]
       }
+
+      it 'returns the provider and the cleaned-up group for each scope' do
+        get_index
+
+        scopes = response.parsed_body[0]['scopes']
+        scope = scopes.find { |s| s['value'] == 'cnaf_quotient_familial' }
+
+        expect(scope['provider_label']).to eq('CNAF & MSA')
+        expect(scope['group']).to eq('API Quotient familial')
+
+        validate_request_and_response!
+      end
     end
 
     context 'when user has developer role for api_impot_particulier (multi-stage)' do
