@@ -1,8 +1,10 @@
 <% set_title! t('instruction.user_rights.new.title') %>
 
-<%= render 'instruction/user_rights/page_header',
-  breadcrumb_label: t('instruction.user_rights.new.breadcrumb'),
-  heading: t('instruction.user_rights.new.title') %>
+<% content_for :hero do %>
+  <%= render 'instruction/user_rights/page_header',
+    breadcrumb_label: t('instruction.user_rights.new.breadcrumb'),
+    heading: t('instruction.user_rights.new.title') %>
+<% end %>
 
 <div class="fr-my-5w">
   <%= render 'instruction/user_rights/form',

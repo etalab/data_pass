@@ -1,18 +1,16 @@
 <% set_title! t('page_titles.instruction_user_rights') %>
 
-<div class="fr-my-5w">
-  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-4w">
-    <div class="fr-col">
-      <h1 class="fr-mb-0"><%= t('instruction.user_rights.index.title') %></h1>
-    </div>
-    <div class="fr-col-auto">
-      <%= link_to t('instruction.user_rights.index.add_cta'),
-        new_user_right_path,
-        class: 'fr-btn fr-btn--icon-left fr-icon-user-add-line',
-        id: 'add-user-rights-button' %>
-    </div>
-  </div>
+<% content_for :hero do %>
+  <%= render 'instruction/user_rights/page_header',
+    heading: t('instruction.user_rights.index.title'),
+    subtitle: t('instruction.user_rights.index.subtitle'),
+    action_button: link_to(t('instruction.user_rights.index.add_cta'),
+      new_user_right_path,
+      class: 'fr-btn fr-btn--icon-left fr-icon-user-add-line',
+      id: 'add-user-rights-button') %>
+<% end %>
 
+<div class="fr-my-5w">
   <%= render "instruction/user_rights/roles_help" %>
 
   <% filters_active = @role_filter.present? || @droit_filter.present? %>
