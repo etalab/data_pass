@@ -5,6 +5,11 @@
         <caption class="fr-sr-only">
           <%= t('instruction.user_rights.index.title') %> — <%= t('instruction.user_rights.index.users_count', count: total_count) %>
         </caption>
+        <colgroup>
+          <% HEADERS.each do |header| %>
+            <col class="user-rights-table__col--<%= header %>">
+          <% end %>
+        </colgroup>
         <thead>
           <tr>
             <% HEADERS.each do |header| %>

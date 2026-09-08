@@ -12,6 +12,10 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
 
   attr_reader :user, :authority, :current_user
 
+  def organization_title(organization)
+    t('instruction.user_rights.index.table.organisation_title', name: organization.name, siret: organization.siret)
+  end
+
   def role_types
     user.distinct_role_types.sort_by { |role_type| ROLE_ORDER.index(role_type) || ROLE_ORDER.size }
   end

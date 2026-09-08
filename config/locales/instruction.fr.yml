@@ -659,6 +659,7 @@ fr:
             roles: Rôles
             droits: Droits
             actions: Actions
+          organisation_title: "%{name} — SIRET %{siret}"
           all_services: Tous les services %{provider}
           all_access: Tous les accès
           pairing_tooltip_aria: Détail des rôles par API pour %{email}

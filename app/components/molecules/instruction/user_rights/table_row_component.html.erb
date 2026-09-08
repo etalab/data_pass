@@ -9,16 +9,23 @@
     <ul role="list" class="fr-raw-list">
       <% user.organizations.each do |organization| %>
         <li>
-          <%= organization.name %>
           <% if organization.siret.present? %>
-            (<%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank', rel: 'noopener' %>)
+            <%= link_to "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}",
+                  target: '_blank',
+                  rel: 'noopener',
+                  class: 'user-rights-table__organisation-link',
+                  title: organization_title(organization) do %>
+              <span class="user-rights-table__organisation-name"><%= organization.name %></span>
+            <% end %>
+          <% else %>
+            <span class="user-rights-table__organisation-name" title="<%= organization.name %>"><%= organization.name %></span>
           <% end %>
         </li>
       <% end %>
     </ul>
   </td>
   <td>
-    <ul role="list" class="fr-list--flat-flex">
+    <ul role="list" class="fr-raw-list user-rights-table__roles">
       <% role_types.each do |role_type| %>
         <li><%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %></li>
       <% end %>

@@ -1,0 +1,57 @@
+/* Fixed column grid so the five columns fit the DSFR container without
+   horizontal scroll, and role badges have room to sit side by side.
+   The DSFR modifier fr-table--layout-fixed targets `.fr-table > table`,
+   which does not reach the table through the __container / __content
+   wrappers used here, hence the explicit table-layout. */
+#user-rights-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.user-rights-table__col--identity {
+  width: 20%;
+}
+
+.user-rights-table__col--organisation {
+  width: 22%;
+}
+
+.user-rights-table__col--roles {
+  width: 21%;
+}
+
+.user-rights-table__col--droits {
+  width: 17%;
+}
+
+/* The actions column takes the remaining width, which absorbs the
+   sub-pixel rounding of the four percentages above. */
+
+/* DSFR keeps table cells on a single line; here the API names need to
+   wrap inside their column instead of bleeding over the next one. */
+#user-rights-table td {
+  white-space: normal;
+}
+
+/* Only the organisation name is truncated: the flex wrapper keeps the
+   DSFR external-link icon out of the ellipsis, and the full name plus
+   the SIRET stay available through the link title. */
+.user-rights-table__organisation-link {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.user-rights-table__organisation-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-rights-table__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+}
