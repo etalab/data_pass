@@ -1,13 +1,13 @@
 <div class="fr-table fr-table--bordered">
   <div class="fr-table__container">
     <div class="fr-table__content">
-      <table class="fr-table--align-middle" id="user-rights-table">
+      <table class="fr-table--align-middle dp-user-rights-table" id="user-rights-table">
         <caption class="fr-sr-only">
           <%= t('instruction.user_rights.index.title') %> — <%= t('instruction.user_rights.index.users_count', count: total_count) %>
         </caption>
         <colgroup>
           <% HEADERS.each do |header| %>
-            <col class="user-rights-table__col--<%= header %>">
+            <col class="dp-user-rights-table__col--<%= header %>">
           <% end %>
         </colgroup>
         <thead>

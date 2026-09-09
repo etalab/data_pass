@@ -640,7 +640,7 @@ fr:
         add_cta: Ajouter des droits à un utilisateur sans droits
         search:
           label: Rechercher un utilisateur
-          placeholder: Rechercher dans tous les utilisateurs
+          placeholder: Rechercher par email, nom ou prénom
           submit: Rechercher
         filters:
           placeholder: Sélectionner une option

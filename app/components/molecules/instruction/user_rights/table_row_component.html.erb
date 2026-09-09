@@ -1,9 +1,9 @@
 <tr id="<%= dom_id(user) %>">
   <th scope="row">
     <% if user.family_name.present? && user.given_name.present? %>
-      <p class="fr-text--bold fr-mb-0"><%= user.full_name %></p>
+      <p class="fr-mb-0"><%= user.full_name %></p>
     <% end %>
-    <p class="fr-text--sm fr-mb-0"><%= user.email %></p>
+    <p class="fr-text--bold fr-mb-0"><%= user.email %></p>
   </th>
   <td>
     <ul role="list" class="fr-raw-list">
@@ -13,25 +13,25 @@
             <%= link_to "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}",
                   target: '_blank',
                   rel: 'noopener',
-                  class: 'user-rights-table__organisation-link',
+                  class: 'dp-user-rights-table__organisation-link',
                   title: organization_title(organization) do %>
-              <span class="user-rights-table__organisation-name"><%= organization.name %></span>
+              <span class="dp-user-rights-table__organisation-name"><%= organization.name %></span>
             <% end %>
           <% else %>
-            <span class="user-rights-table__organisation-name" title="<%= organization.name %>"><%= organization.name %></span>
+            <span class="dp-user-rights-table__organisation-name" title="<%= organization.name %>"><%= organization.name %></span>
           <% end %>
         </li>
       <% end %>
     </ul>
   </td>
   <td>
-    <ul role="list" class="fr-raw-list user-rights-table__roles">
+    <ul role="list" class="fr-raw-list dp-user-rights-table__roles">
       <% role_types.each do |role_type| %>
         <li><%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %></li>
       <% end %>
     </ul>
   </td>
-  <td>
+  <td class="fr-cell--multiline">
     <% if all_access? %>
       <p class="fr-text--bold fr-mb-0"><%= t('instruction.user_rights.index.table.all_access') %></p>
     <% else %>
@@ -45,7 +45,10 @@
       <% if droits.any? %>
         <% if aggregate_droits? %>
           <details class="fr-mb-0">
-            <summary class="fr-text--bold"><%= t('instruction.user_rights.index.table.droits_count', count: droits.size) %></summary>
+            <summary class="dp-user-rights-table__droits-toggle">
+              <%= t('instruction.user_rights.index.table.droits_count', count: droits.size) %>
+              <span class="fr-icon-arrow-down-s-line fr-icon--sm dp-user-rights-table__droits-chevron" aria-hidden="true"></span>
+            </summary>
             <ul role="list" class="fr-raw-list fr-mt-1w">
               <% droits.each do |definition| %>
                 <li><%= definition.name_with_stage %></li>
@@ -77,7 +80,7 @@
       </span>
     <% end %>
   </td>
-  <td>
+  <td class="fr-cell--multiline">
     <% if editable? %>
       <%= link_to t('instruction.user_rights.index.table.manage_cta'),
             helpers.edit_user_right_path(user),
