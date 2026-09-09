@@ -10,7 +10,7 @@
 
 <div class="sub-header">
   <div>
-    <h1 class="fr-m-0"><%= t('.title') %></h1>
+    <h1 class="fr-mt-3w"><%= t('.title') %></h1>
   </div>
   <div>
     <%= button_to t('.replay'), replay_developers_webhook_webhook_attempt_path(@webhook, @webhook_attempt), method: :post, class: %w[fr-btn] %>
@@ -72,13 +72,9 @@
       <div class="fr-card__body">
         <div class="fr-card__content">
           <p class="fr-card__title"><%= t('.result') %></p>
-          <p class="fr-card__desc">
-            <% if @webhook_attempt.success? %>
-              <span class="fr-badge fr-badge--success"><%= t('.success') %></span>
-            <% else %>
-              <span class="fr-badge fr-badge--error"><%= t('.failure') %></span>
-            <% end %>
-          </p>
+          <div class="fr-card__desc">
+            <%= webhook_attempt_result_badge(@webhook_attempt, size: :md) %>
+          </div>
         </div>
       </div>
     </div>

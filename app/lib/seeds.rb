@@ -1,4 +1,6 @@
 class Seeds
+  PREVIEW_WEBHOOK_URL = 'http://localhost:3000/dummy/failing/webhooks'.freeze
+
   def perform
     create_data_providers
     create_entities
@@ -560,6 +562,74 @@ class Seeds
 
   def create_webhooks
     create_api_entreprise_webhooks
+    create_api_entreprise_preview_webhook
+  end
+
+  def create_api_entreprise_preview_webhook
+    webhook = Webhook.find_or_initialize_by(
+      authorization_definition_id: 'api_entreprise',
+      url: PREVIEW_WEBHOOK_URL
+    )
+
+    webhook.secret = SecureRandom.hex(32) if webhook.secret.blank?
+    webhook.assign_attributes(
+      events: %w[submit approve refuse request_changes],
+      validated: true,
+      enabled: true
+    )
+    webhook.save!
+
+    create_preview_webhook_attempts(webhook)
+
+    webhook
+  end
+
+  def create_preview_webhook_attempts(webhook)
+    webhook.attempts.destroy_all
+
+    authorization_request = preview_webhook_authorization_request
+
+    preview_webhook_attempts_attributes.each do |attributes|
+      webhook.attempts.create!(
+        authorization_request:,
+        payload: preview_webhook_payload(authorization_request, attributes),
+        **attributes
+      )
+    end
+  end
+
+  def preview_webhook_attempts_attributes
+    [
+      { event_name: 'submit', status_code: 200, response_body: '{"status": "ok"}', created_at: 6.hours.ago },
+      { event_name: 'approve', status_code: 500, response_body: '{"error": "Internal Server Error"}', created_at: 5.hours.ago },
+      { event_name: 'request_changes', status_code: 422, response_body: '{"error": "Unprocessable Content"}', created_at: 4.hours.ago },
+      { event_name: 'refuse', status_code: nil, response_body: 'Faraday::ConnectionFailed: Connection refused', created_at: 3.hours.ago },
+      { event_name: 'approve', status_code: 500, response_body: '{"error": "Internal Server Error"}', created_at: 2.hours.ago, abandoned_at: 90.minutes.ago },
+      { event_name: 'submit', status_code: 422, response_body: '{"error": "Unprocessable Content"}', created_at: 1.hour.ago, abandoned_at: 30.minutes.ago }
+    ]
+  end
+
+  def preview_webhook_payload(authorization_request, attributes)
+    {
+      event: attributes[:event_name],
+      fired_at: attributes[:created_at].to_i,
+      model_type: authorization_request.type.underscore,
+      model_id: authorization_request.id,
+      data: {
+        id: authorization_request.id,
+        intitule: authorization_request.intitule,
+        state: authorization_request.state,
+      }
+    }
+  end
+
+  def preview_webhook_authorization_request
+    @preview_webhook_authorization_request ||=
+      AuthorizationRequest::APIEntreprise.where(state: 'validated').order(:id).first ||
+      create_validated_authorization_request(
+        :api_entreprise,
+        attributes: { intitule: 'Portail de démonstration des webhooks', applicant: demandeur }
+      )
   end
 
   def create_api_entreprise_webhooks

@@ -27,7 +27,7 @@ DataPass propose un système de webhooks permettant de recevoir des notification
 - **Historique complet** : Consultez tous les appels effectués avec leurs statuts, codes HTTP et réponses
 - **Rejeu manuel** : Rejouez un appel qui a échoué directement depuis l'interface
 - **Test automatique** : Les webhooks sont automatiquement testés lors de leur création
-- **Alerte en cas d'échec** : Après 5 tentatives échouées, tous les développeurs du type d'habilitation reçoivent un email d'alerte (les tentatives se poursuivent ensuite selon le back-off)
+- **Alerte en cas d'échec** : lorsqu'un webhook atteint 5 tentatives échouées, tous les développeurs du type d'habilitation reçoivent un email d'alerte. Cette alerte est envoyée au maximum une fois toutes les 2 heures par webhook. Les tentatives continuent ensuite automatiquement, jusqu'à 10 tentatives au total.
 - **API de polling** : Interrogez l'historique des appels via l'API REST avec filtres temporels
 
 ---
@@ -263,9 +263,10 @@ curl -X GET "https://datapass.api.gouv.fr/api/v1/webhooks/123/attempts?start_tim
 | `webhook_id`              | integer  | Référence au webhook                                       |
 | `authorization_request_id` | integer  | Référence à la demande d'habilitation                      |
 | `event_name`              | string   | Nom de l'événement déclenché                               |
-| `status_code`             | integer  | Code HTTP de la réponse (nullable si timeout/erreur)       |
+| `status_code`             | integer  | Code HTTP de la réponse (nullable si timeout/erreur réseau) |
 | `response_body`           | text     | Corps de la réponse (limité à 10 000 caractères)          |
 | `payload`                 | jsonb    | Payload envoyé (JSON complet)                              |
+| `abandoned_at`            | datetime | Date d'abandon définitif après la 10ᵉ tentative échouée, `null` sinon |
 | `created_at`              | datetime | Date et heure de l'appel                                   |
 
 ### Flux de déclenchement
@@ -283,12 +284,19 @@ Pour chaque webhook :
     ↓
     WebhookHttpService (calcul HMAC + appel HTTP)
       ↓
-      SaveWebhookAttempt (enregistrement de l'appel)
+      Developer::SaveWebhookAttempt (enregistrement de l'appel)
         ↓
-        Si échec ET 5ème tentative :
-          → Désactivation du webhook
-          → Envoi email aux développeurs
+        Si échec : nouvelle tentative avec back-off polynomial
 ```
+
+**En cas d'échec**
+
+1. Une nouvelle tentative est planifiée avec un back-off polynomial.
+2. Les tentatives se poursuivent jusqu'à 10 essais au maximum.
+3. À la 5ᵉ tentative échouée, un email d'alerte est envoyé aux développeurs du type d'habilitation.
+4. Cette alerte est posée par webhook, pas par événement : le premier envoi qui atteint 5 échecs déclenche l'email, et tout autre envoi du même webhook qui atteint 5 échecs dans les 2 heures suivantes reste silencieux. L'email signale l'état de votre endpoint, pas un événement en particulier — l'historique des appels reste la source complète.
+5. Dès qu'un appel repart en 2xx, le compteur d'alerte est remis à zéro : une panne ultérieure redéclenche donc un email sans attendre la fin de la fenêtre.
+6. Après la 10ᵉ tentative échouée, la livraison de cet appel est définitivement abandonnée : `abandoned_at` est renseigné et un message Sentry distinct est émis. Le webhook, lui, reste actif.
 
 ### Services et interactors
 
@@ -514,32 +522,45 @@ DataPass considère les codes HTTP suivants comme des succès :
 - `201 Created`
 - `204 No Content`
 
-Tout autre code (4xx, 5xx) ou timeout est considéré comme un échec.
+Tout autre code (4xx, 5xx) est considéré comme un échec. Une absence de réponse — endpoint injoignable, DNS en échec, connexion refusée ou timeout — est traitée exactement de la même façon : elle produit un appel visible dans votre historique, avec un statut « Pas de réponse », et suit la même politique de retry.
+
+DataPass applique un délai de connexion de 5 secondes et un délai de réponse de 10 secondes sur chaque appel : un endpoint qui accepte la connexion sans répondre ne bloque donc pas la tentative au-delà de 10 secondes.
 
 ### Stratégie de retry
 
-En cas d'échec, DataPass utilise un **backoff polynomial** pour réessayer l'envoi :
+En cas d'échec, DataPass réessaie l'envoi selon un **backoff polynomial**, borné à **10 tentatives au total**. Les délais ci-dessous sont des **ordres de grandeur** : un facteur aléatoire (jitter, jusqu'à 15 %) est appliqué à chaque délai pour éviter que des envois échoués simultanément ne soient tous retentés à la même seconde. N'attendez pas une précision à la seconde près.
 
-| Tentative | Délai avant prochain essai | Temps cumulé     |
-|-----------|----------------------------|------------------|
-| 1         | 20 secondes                | 20s              |
-| 2         | 26 secondes                | 46s              |
-| 3         | 46 secondes                | 1m 32s           |
-| 4         | 1m 56s                     | 3m 28s           |
-| 5         | 4m 56s                     | 8m 24s           |
-| ...       | ...                        | ...              |
+| Tentative | Délai avant cette tentative | Temps écoulé depuis le 1er envoi |
+|-----------|------------------------------|-----------------------------------|
+| 2         | ~3 secondes                  | ~3 secondes                       |
+| 3         | ~18 secondes                 | ~21 secondes                      |
+| 4         | ~1 min 23                    | ~1 min 44                         |
+| 5         | ~4 min 18                    | ~6 min — email d'alerte           |
+| 6         | ~10 min 27                   | ~16 min 30                        |
+| 7         | ~21 min 38                   | ~38 min                           |
+| 8         | ~40 minutes                  | ~1 h 18                           |
+| 9         | ~1 h 08                      | ~2 h 26                           |
+| 10        | ~1 h 49                      | ~4 h 16 — abandon définitif       |
 
-*(voir la table complète dans la documentation technique)*
+Entre le premier échec et l'abandon définitif après la 10ᵉ tentative, la fenêtre totale de relivraison est d'environ **4 h 30**, jitter compris.
 
-### Email d'alerte après 5 échecs
+### Abandon après la 10ᵉ tentative
 
-Après **5 tentatives échouées consécutives** pour un même envoi, un **email d'alerte** est automatiquement envoyé à **tous les développeurs du type d'habilitation**. Il contient :
+Si la 10ᵉ tentative échoue à son tour, DataPass **arrête définitivement** d'essayer de livrer cet appel. L'appel reste visible dans votre historique avec le badge « Abandonné », et le champ `abandoned_at` est renseigné dans la réponse de l'API REST. Au-delà de cette fenêtre, la seule façon de récupérer l'événement manqué est le **rejeu manuel** depuis l'interface (voir ci-dessous) — DataPass ne relivre plus l'appel de lui-même.
+
+### Email d'alerte après 5 tentatives échouées
+
+Après **5 tentatives échouées** pour un même envoi, un **email d'alerte** est envoyé à **tous les développeurs du type d'habilitation**. Il contient :
 
 - Le type d'habilitation concerné
 - L'URL du webhook
 - Un lien direct vers l'historique des appels du webhook
 
-Le webhook **n'est pas désactivé** : les tentatives se poursuivent selon le back-off polynomial (voir ci-dessus), sans limite, jusqu'à obtention d'une réponse 2xx. Cette alerte vous invite à vérifier et corriger votre endpoint au plus vite.
+Pour éviter de saturer votre boîte de réception lorsque plusieurs événements échouent en même temps sur le même endpoint, cette alerte est limitée à **un email par webhook toutes les 2 heures** : si un autre envoi atteint sa 5ᵉ tentative échouée pendant que la fenêtre court encore, aucun nouvel email n'est envoyé. Cette alerte porte donc sur l'état de votre endpoint, pas sur chaque événement individuellement.
+
+Dès qu'un appel de ce webhook obtient à nouveau une réponse 2xx, la fenêtre est levée : si votre endpoint retombe ensuite, un nouvel email d'alerte part sans attendre la fin des 2 heures.
+
+Le webhook **n'est pas désactivé automatiquement** par ces échecs : les tentatives se poursuivent selon le back-off polynomial ci-dessus, jusqu'à obtention d'une réponse 2xx ou jusqu'à l'abandon après la 10ᵉ tentative. Cette alerte vous invite à vérifier et corriger votre endpoint au plus vite.
 
 > **Désactivation** : la seule désactivation automatique a lieu lorsque vous **modifiez l'URL** d'un webhook — il faut alors le retester puis le réactiver. Vous pouvez également désactiver un webhook manuellement à tout moment depuis l'interface.
 
@@ -548,8 +569,8 @@ Le webhook **n'est pas désactivé** : les tentatives se poursuivent selon le ba
 Si vous recevez un email d'alerte :
 
 1. Vérifiez et corrigez le problème sur votre endpoint
-2. Les tentatives en cours reprendront d'elles-mêmes dès que votre endpoint répondra en 2xx
-3. Les appels déjà épuisés peuvent être rejoués manuellement depuis l'historique des appels
+2. Les tentatives en cours reprendront d'elles-mêmes dès que votre endpoint répondra en 2xx, tant que la fenêtre de 10 tentatives n'est pas épuisée
+3. Les appels abandonnés ou déjà épuisés peuvent être rejoués manuellement depuis l'historique des appels
 
 ---
 

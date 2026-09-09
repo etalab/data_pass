@@ -166,7 +166,9 @@ L'historique des appels est visible sur [/developpeurs/webhooks](/developpeurs/w
 
 ### Politique de retry
 
-En cas de réponse non-2xx (ou d'absence de réponse), l'appel est rejoué automatiquement selon un back-off polynomial, **sans limite de tentatives**, jusqu'à obtention d'une réponse 2xx. Après **5 tentatives échouées** sur un même envoi, un **email d'alerte** est envoyé à tous les développeurs du type d'habilitation, mais le webhook **reste actif** et les tentatives se poursuivent. Un webhook n'est désactivé automatiquement que lorsque son URL est modifiée ; vous pouvez aussi le désactiver manuellement depuis l'interface.
+En cas de réponse non-2xx **ou d'absence de réponse** (endpoint injoignable, timeout), l'appel est rejoué automatiquement selon un back-off polynomial, jusqu'à **10 tentatives**, fenêtre totale d'environ 4 h 30 (jitter compris). Après la 10ᵉ tentative échouée, la livraison est **définitivement abandonnée** : l'appel reste visible dans l'historique avec le badge « Abandonné » et le champ `abandoned_at` exposé par l'API. Passé ce point, seul le rejeu manuel permet de récupérer l'événement.
+
+Après **5 tentatives échouées** sur un même envoi, un **email d'alerte** est envoyé à tous les développeurs du type d'habilitation, limité à un envoi par webhook toutes les 2 heures. Dès qu'un appel repart en 2xx, cette limite est levée : une panne ultérieure redéclenche donc une alerte. Le webhook **reste actif** et les tentatives se poursuivent selon le back-off ci-dessus. Un webhook n'est désactivé automatiquement que lorsque son URL est modifiée ; vous pouvez aussi le désactiver manuellement depuis l'interface.
 
 Les détails exacts (délais entre tentatives, codes qui déclenchent un retry) sont dans la [documentation webhooks](/developpeurs/webhooks/documentation). Activez une alerte interne sur les codes non-2xx pour ne pas découvrir un endpoint cassé par hasard.
 

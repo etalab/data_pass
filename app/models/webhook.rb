@@ -57,6 +57,14 @@ class Webhook < ApplicationRecord
     @definition ||= AuthorizationDefinition.find(authorization_definition_id)
   end
 
+  def failure_alert_throttled?(window)
+    last_failure_alert_sent_at.present? && last_failure_alert_sent_at.after?(window.ago)
+  end
+
+  def reset_failure_alert!
+    update!(last_failure_alert_sent_at: nil) if last_failure_alert_sent_at?
+  end
+
   private
 
   def url_must_be_valid

@@ -9,10 +9,15 @@ class WebhookAttempt < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
   scope :failed, -> { where.not(status_code: SUCCESS_STATUS_CODES).or(where(status_code: nil)) }
   scope :successful, -> { where(status_code: SUCCESS_STATUS_CODES) }
+  scope :abandoned, -> { where.not(abandoned_at: nil) }
   scope :between_dates, ->(start_date, end_date) { where(created_at: start_date..end_date) }
   scope :latest, ->(limit = 100) { recent.limit(limit) }
 
   def success?
     SUCCESS_STATUS_CODES.include?(status_code)
+  end
+
+  def abandoned?
+    abandoned_at.present?
   end
 end

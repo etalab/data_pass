@@ -8,4 +8,16 @@ module WebhooksHelper
       tag.span(t('developers.webhooks.index.not_validated'), class: 'fr-badge fr-badge--error fr-badge--sm')
     end
   end
+
+  def webhook_attempt_result_badge(webhook_attempt, size:)
+    result, status = if webhook_attempt.abandoned?
+                       %i[abandoned warning]
+                     elsif webhook_attempt.success?
+                       %i[success success]
+                     else
+                       %i[failure error]
+                     end
+
+    dsfr_badge(status:, size:) { t("developers.webhook_attempts.result_badge.#{result}") }
+  end
 end

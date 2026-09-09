@@ -36,6 +36,18 @@ RSpec.describe 'API: Webhook Attempts' do
         end
       end
 
+      context 'when a webhook attempt is abandoned' do
+        let!(:webhook_attempt) { create(:webhook_attempt, :abandoned, webhook:) }
+
+        it 'exposes abandoned_at' do
+          get_index
+
+          expect(response.parsed_body[0]['abandoned_at']).to eq(webhook_attempt.abandoned_at.iso8601(3))
+
+          validate_request_and_response!
+        end
+      end
+
       context 'when there are no webhook attempts' do
         it 'responds OK with empty data' do
           get_index

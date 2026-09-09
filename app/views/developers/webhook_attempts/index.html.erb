@@ -57,11 +57,7 @@
                   </td>
                   <td><%= l(webhook_attempt.created_at, format: :long) %></td>
                   <td>
-                    <% if webhook_attempt.success? %>
-                      <span class="fr-badge fr-badge--success fr-badge--sm"><%= t('.success') %></span>
-                    <% else %>
-                      <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.failure') %></span>
-                    <% end %>
+                    <%= webhook_attempt_result_badge(webhook_attempt, size: :sm) %>
                   </td>
                   <td>
                     <%= link_to t('.view_details'), developers_webhook_webhook_attempt_path(@webhook, webhook_attempt), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
