@@ -93,11 +93,11 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create_authorization_requests_for_clamart
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: demandeur })
     france_connect_authorization_request = create_validated_authorization_request(
       :france_connect,
       attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur },
-      authorization_message: "Vous pouvez maintenant procéder à l'intégration technique."
+      authorization_message: 'Vous pouvez maintenant procéder à l’intégration technique.'
     )
     create_validated_authorization_request(:api_droits_cnam, attributes: { france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id, applicant: demandeur })
 
@@ -115,7 +115,7 @@ class Seeds
     create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Mise à jour soumise en cours', applicant: demandeur })
 
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
-    send_message_to_instructors(authorization_request, body: "Je ne suis pas sûr du cadre de cette demande, pouvez-vous m'aider ?")
+    send_message_to_instructors(authorization_request, body: 'Je ne suis pas sûr du cadre de cette demande, pouvez-vous m’aider ?')
 
     create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
 
@@ -332,7 +332,7 @@ class Seeds
   def create_request_changes_authorization_request(kind, attributes: {})
     authorization_request = create_submitted_authorization_request(kind, attributes:)
     instructor_modification_request_params = {
-      reason: "Le cadre juridique n'est pas suffisamment précis, merci de le compléter",
+      reason: 'Le cadre juridique n’est pas suffisamment précis, merci de le compléter',
     }.merge(attributes[:instructor_modification_request_params] || {})
 
     RequestChangesOnAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, instructor_modification_request_params:).perform
@@ -384,7 +384,7 @@ class Seeds
       :with_data,
       applicant:,
       instructor: api_entreprise_instructor,
-      comment: "Comme discuté au téléphone, je vous envoie cette ébauche de demande d'habilitation.",
+      comment: 'Comme discuté au téléphone, je vous envoie cette ébauche de demande d’habilitation.',
       public_id: '00000000-0000-0000-0000-000000000000',
       data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
     )
@@ -529,16 +529,16 @@ class Seeds
 
   def random_description
     [
-      "Demande d'accès sécurisé aux données fiscales pour analyse économique.",
-      "Requête d'habilitation pour accéder aux dossiers de santé publique.",
-      "Solicitation d'accès aux registres d'état civil pour recherche démographique.",
+      'Demande d’accès sécurisé aux données fiscales pour analyse économique.',
+      'Requête d’habilitation pour accéder aux dossiers de santé publique.',
+      'Solicitation d’accès aux registres d’état civil pour recherche démographique.',
       'Demande de permission pour consulter les données de permis de conduire pour étude de mobilité.',
-      "Application pour accéder aux données cadastrales pour projet d'urbanisme.",
-      "Requête pour l'utilisation des données de sécurité sociale dans le cadre d'une étude sur le vieillissement.",
-      "Demande d'habilitation pour étudier les tendances de l'emploi avec accès aux données du ministère du Travail.",
-      "Solicitation d'accès à la base de données électorales pour analyse politique.",
-      "Demande d'autorisation pour utiliser les données de consommation énergétique pour recherche environnementale.",
-      "Requête pour accéder aux archives judiciaires dans le but d'une étude sur la justice pénale."
+      'Application pour accéder aux données cadastrales pour projet d’urbanisme.',
+      'Requête pour l’utilisation des données de sécurité sociale dans le cadre d’une étude sur le vieillissement.',
+      'Demande d’habilitation pour étudier les tendances de l’emploi avec accès aux données du ministère du Travail.',
+      'Solicitation d’accès à la base de données électorales pour analyse politique.',
+      'Demande d’autorisation pour utiliser les données de consommation énergétique pour recherche environnementale.',
+      'Requête pour accéder aux archives judiciaires dans le but d’une étude sur la justice pénale.'
     ].sample
   end
 

@@ -94,7 +94,7 @@ Fonctionnalité: Instruction: templates de messages
     Et que je clique sur "Instruire la demande"
     Et que je clique sur "Demander des modifications"
     Et que je sélectionne "Informations manquantes" dans le sélecteur de templates
-    Alors le champ "Raison" contient "Il manque des infos sur Demande d'accès à la plateforme fournisseur"
+    Alors le champ "Raison" contient "Il manque des infos sur Demande d’accès à la plateforme fournisseur"
 
   @javascript
   Scénario: Un instructeur peut utiliser un template lors d'un refus
