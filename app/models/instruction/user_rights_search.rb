@@ -1,6 +1,11 @@
 class Instruction::UserRightsSearch
   SEARCH_ATTRIBUTE = :email_or_given_name_or_family_name_cont
 
+  ROLE_PRESENCE_FILTERS = {
+    'with_roles' => :with_roles,
+    'without_roles' => :without_roles
+  }.freeze
+
   def initialize(scope:, params:)
     @scope = scope
     @params = params
@@ -38,6 +43,9 @@ class Instruction::UserRightsSearch
 
   def apply_role_type(relation)
     return relation if role_type.blank?
+
+    presence_scope = ROLE_PRESENCE_FILTERS[role_type]
+    return relation.public_send(presence_scope) if presence_scope
 
     relation.with_role_type(role_type)
   end

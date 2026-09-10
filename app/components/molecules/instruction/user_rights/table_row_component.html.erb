@@ -25,14 +25,20 @@
     </ul>
   </td>
   <td>
-    <ul role="list" class="fr-raw-list dp-user-rights-table__roles">
-      <% role_types.each do |role_type| %>
-        <li><%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %></li>
-      <% end %>
-    </ul>
+    <% if no_rights? %>
+      <span class="fr-badge fr-badge--sm fr-badge--no-icon"><%= t('instruction.user_rights.index.table.no_role') %></span>
+    <% else %>
+      <ul role="list" class="fr-raw-list dp-user-rights-table__roles">
+        <% role_types.each do |role_type| %>
+          <li><%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </td>
   <td class="fr-cell--multiline">
-    <% if all_access? %>
+    <% if no_rights? %>
+      <p class="fr-mb-0"><%= t('instruction.user_rights.index.table.droits_count', count: 0) %></p>
+    <% elsif all_access? %>
       <p class="fr-text--bold fr-mb-0"><%= t('instruction.user_rights.index.table.all_access') %></p>
     <% else %>
       <% if fd_wildcard_provider_labels.any? %>
@@ -81,7 +87,12 @@
     <% end %>
   </td>
   <td class="fr-cell--multiline">
-    <% if editable? %>
+    <% if no_rights? %>
+      <%= link_to t('instruction.user_rights.index.table.add_cta'),
+            helpers.new_user_right_path(email: user.email),
+            class: 'fr-btn fr-btn--secondary fr-btn--sm',
+            aria: { label: t('instruction.user_rights.index.table.add_aria', email: user.email) } %>
+    <% elsif editable? %>
       <%= link_to t('instruction.user_rights.index.table.manage_cta'),
             helpers.edit_user_right_path(user),
             class: 'fr-btn fr-btn--secondary fr-btn--sm',

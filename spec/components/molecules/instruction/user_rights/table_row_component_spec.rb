@@ -35,6 +35,27 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
     end
   end
 
+  context 'when the user holds no role at all' do
+    let(:admin) { create(:user, :admin) }
+    let(:plain_user) { create(:user, email: 'plain@gouv.fr', roles: []) }
+
+    before { render_row(user: plain_user, authority: Rights::AdminAuthority.new(admin), current_user: admin) }
+
+    it 'announces the absence of role and of API' do
+      expect(page).to have_text('Aucun rôle')
+      expect(page).to have_text('aucune API activée')
+    end
+
+    it 'offers to add rights rather than to manage them' do
+      expect(page).to have_link('Ajouter des droits')
+      expect(page).to have_no_link('Gérer les droits / modifier')
+    end
+
+    it 'pre-fills the form with the user email' do
+      expect(page).to have_link('Ajouter des droits', href: /email=plain%40gouv\.fr/)
+    end
+  end
+
   context 'when the user has more than two specific API rights' do
     let(:power_user) do
       create(:user, email: 'power@gouv.fr', roles: %w[

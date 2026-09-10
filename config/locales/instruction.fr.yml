@@ -647,6 +647,8 @@ fr:
           reset: Réinitialiser
           role:
             label: Rôles
+            with_roles: Utilisateurs avec des rôles
+            without_roles: Utilisateurs sans rôle
           droit:
             label: Droits
         users_count:
@@ -670,6 +672,9 @@ fr:
             other: "%{count} API activées"
           manage_cta: Gérer les droits / modifier
           edit_aria: Modifier les droits de %{email}
+          no_role: Aucun rôle
+          add_cta: Ajouter des droits
+          add_aria: Ajouter des droits à %{email}
       roles:
         manager: Manager
         instructor: Instructeur

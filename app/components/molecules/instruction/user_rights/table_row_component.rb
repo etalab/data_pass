@@ -78,6 +78,10 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
     "user-rights-pairing-#{user.id}"
   end
 
+  def no_rights?
+    user.roles.empty?
+  end
+
   def own_row?
     user.id == current_user.id
   end

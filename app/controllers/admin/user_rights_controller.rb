@@ -14,7 +14,7 @@ class Admin::UserRightsController < AdminController
   end
 
   def new
-    @form = Instruction::UserRightForm.new(authority: @authority, rights: [blank_right])
+    @form = Instruction::UserRightForm.new(authority: @authority, email: params[:email], rights: [blank_right])
     render template: 'instruction/user_rights/new'
   end
 
@@ -73,9 +73,7 @@ class Admin::UserRightsController < AdminController
   end
 
   def managed_users_scope
-    User.with_any_role_on(@authority.managed_definitions.map(&:id))
-      .or(User.with_role_matching(['admin']))
-      .includes(:organizations)
+    User.includes(:organizations)
   end
 
   def authorize_user_rights!

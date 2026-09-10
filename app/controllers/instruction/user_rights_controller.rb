@@ -13,7 +13,7 @@ class Instruction::UserRightsController < InstructionController
   end
 
   def new
-    @form = Instruction::UserRightForm.new(authority: @authority, rights: [blank_right])
+    @form = Instruction::UserRightForm.new(authority: @authority, email: params[:email], rights: [blank_right])
   end
 
   def create

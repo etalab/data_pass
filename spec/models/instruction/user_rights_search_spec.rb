@@ -98,6 +98,23 @@ RSpec.describe Instruction::UserRightsSearch do
       end
     end
 
+    context 'when filtering on role presence' do
+      let!(:plain_user) { create(:user, email: 'plain@gouv.fr') }
+      let(:scope) { User.where(id: [manager_entreprise.id, plain_user.id]) }
+
+      it 'keeps only the role holders' do
+        expect(search(filters: { role: 'with_roles' }).results).to contain_exactly(manager_entreprise)
+      end
+
+      it 'keeps only the users without any role' do
+        expect(search(filters: { role: 'without_roles' }).results).to contain_exactly(plain_user)
+      end
+
+      it 'returns nobody when crossing "without roles" with an API filter' do
+        expect(search(filters: { role: 'without_roles', droit: 'api_entreprise' }).results).to be_empty
+      end
+    end
+
     context 'when a crafted param sends a filter as an array' do
       it 'ignores it and returns the whole scope' do
         expect(search(filters: { role: ['manager'] }).results).to match_array(scope)

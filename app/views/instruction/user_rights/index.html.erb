@@ -63,7 +63,7 @@
               <div class="fr-select-group">
                 <label class="fr-label" for="user-rights-role-filter"><%= t('instruction.user_rights.index.filters.role.label') %></label>
                 <%= select_tag 'filters[role]',
-                               options_for_select(user_rights_role_filter_options, @role_filter),
+                               options_for_select(user_rights_role_filter_options(presence: user_rights_namespace == :admin), @role_filter),
                                prompt: t('instruction.user_rights.index.filters.placeholder'),
                                id: 'user-rights-role-filter',
                                class: 'fr-select' %>
@@ -92,7 +92,7 @@
         </div>
       <% else %>
         <%= render Organisms::Instruction::UserRights::TableComponent.new(users: @users, authority: @authority, current_user: current_user, total_count: @users.total_count) %>
-        <%= paginate @users %>
+        <%= paginate @users, outer_window: 1 %>
       <% end %>
     </turbo-frame>
   </div>

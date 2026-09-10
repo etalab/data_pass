@@ -145,6 +145,19 @@ RSpec.describe User do
     end
   end
 
+  describe '.without_roles' do
+    let!(:role_holder) { create(:user, roles: %w[dinum:api_entreprise:manager]) }
+    let!(:plain_user) { create(:user, roles: []) }
+
+    it 'matches only the users whose roles array is empty' do
+      expect(described_class.without_roles).to contain_exactly(plain_user)
+    end
+
+    it 'is the complement of with_roles' do
+      expect(described_class.with_roles).to contain_exactly(role_holder)
+    end
+  end
+
   describe '.with_specific_definition' do
     subject { described_class.with_specific_definition('api_entreprise') }
 

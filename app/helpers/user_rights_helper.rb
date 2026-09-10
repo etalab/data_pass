@@ -11,8 +11,16 @@ module UserRightsHelper
     end
   end
 
-  def user_rights_role_filter_options
-    ROLE_FILTER_TYPES.map { |role| [t("instruction.user_rights.roles.#{role}"), role] }
+  ROLE_PRESENCE_FILTERS = %w[with_roles without_roles].freeze
+
+  def user_rights_role_filter_options(presence: false)
+    presence_options(presence) + ROLE_FILTER_TYPES.map { |role| [t("instruction.user_rights.roles.#{role}"), role] }
+  end
+
+  def presence_options(presence)
+    return [] unless presence
+
+    ROLE_PRESENCE_FILTERS.map { |key| [t("instruction.user_rights.index.filters.role.#{key}"), key] }
   end
 
   def user_rights_droit_filter_options(authority)
