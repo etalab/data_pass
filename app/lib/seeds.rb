@@ -93,7 +93,7 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create_authorization_requests_for_clamart
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: demandeur })
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: demandeur, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
     france_connect_authorization_request = create_validated_authorization_request(
       :france_connect,
       attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur },
