@@ -26,7 +26,8 @@
   </td>
   <td>
     <% if no_rights? %>
-      <span class="fr-badge fr-badge--sm fr-badge--no-icon"><%= t('instruction.user_rights.index.table.no_role') %></span>
+      <p class="fr-mb-0" aria-hidden="true">&mdash;</p>
+      <span class="fr-sr-only"><%= t('instruction.user_rights.index.table.no_role') %></span>
     <% else %>
       <ul role="list" class="fr-raw-list dp-user-rights-table__roles">
         <% role_types.each do |role_type| %>
@@ -37,14 +38,15 @@
   </td>
   <td class="fr-cell--multiline">
     <% if no_rights? %>
-      <p class="fr-mb-0"><%= t('instruction.user_rights.index.table.droits_count', count: 0) %></p>
+      <p class="fr-mb-0" aria-hidden="true">&mdash;</p>
+      <span class="fr-sr-only"><%= t('instruction.user_rights.index.table.droits_count', count: 0) %></span>
     <% elsif all_access? %>
-      <p class="fr-text--bold fr-mb-0"><%= t('instruction.user_rights.index.table.all_access') %></p>
+      <p class="fr-mb-0"><%= t('instruction.user_rights.index.table.all_access') %></p>
     <% else %>
       <% if fd_wildcard_provider_labels.any? %>
         <ul role="list" class="fr-raw-list">
           <% fd_wildcard_provider_labels.each do |label| %>
-            <li class="fr-text--bold"><%= label %></li>
+            <li><%= label %></li>
           <% end %>
         </ul>
       <% end %>

@@ -103,3 +103,20 @@
   border: 1px solid var(--border-default-grey);
   padding: 1.5rem;
 }
+
+/* Le DSFR fixe les cellules à 0.875rem, mais une règle générique sur p
+   ramène chaque paragraphe à 1rem : le tableau se retrouvait avec deux
+   tailles selon la balise qui portait le texte. Tout s'aligne sur la
+   taille des cellules. */
+.dp-user-rights-table th p:not(.fr-badge),
+.dp-user-rights-table td p:not(.fr-badge),
+.dp-user-rights-table th ul,
+.dp-user-rights-table td ul {
+  font-size: inherit;
+}
+
+/* Le DSFR met les en-têtes de ligne en gras. Ici seul l'email l'est,
+   le nom reste en graisse normale, comme dans la maquette. */
+.fr-table__content .dp-user-rights-table tbody th {
+  font-weight: 400;
+}
