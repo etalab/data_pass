@@ -23,6 +23,48 @@ RSpec.describe 'API: OAuth Token' do
       end
     end
 
+    context 'with the read_webhooks scope on an application created through the developers UI' do
+      let(:application) { create(:oauth_application, owner: user, scopes: Developers::OauthApplicationsController::GRANTED_SCOPES) }
+      let(:params) do
+        {
+          grant_type: 'client_credentials',
+          client_id: application.uid,
+          client_secret: application.secret,
+          scope: 'read_webhooks'
+        }
+      end
+
+      it 'returns a token carrying the read_webhooks scope' do
+        post '/api/v1/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body['scope']).to eq('read_webhooks')
+
+        validate_request_and_response!
+      end
+    end
+
+    context 'with the read_webhooks scope on an application predating the scope migration' do
+      let(:application) { create(:oauth_application, owner: user, scopes: 'public read_authorizations') }
+      let(:params) do
+        {
+          grant_type: 'client_credentials',
+          client_id: application.uid,
+          client_secret: application.secret,
+          scope: 'read_webhooks'
+        }
+      end
+
+      it 'returns an invalid_scope error' do
+        post '/api/v1/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+
+        expect(response).to have_http_status(:bad_request)
+        expect(response.parsed_body['error']).to eq('invalid_scope')
+
+        validate_request_and_response!
+      end
+    end
+
     context 'with invalid client credentials' do
       let(:params) do
         {
