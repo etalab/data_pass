@@ -21,6 +21,7 @@ Fonctionnalité: Développeurs: gestion des clefs API
     Quand je clique sur "Retour aux clefs API"
     Alors la page contient "Mes clefs d'accès API"
     Et la page contient "Mon application"
+    Et la page contient "read_webhooks"
 
   Scénario: Je ne peux pas créer une clef API sans nom
     Quand je me rends sur le chemin "/developpeurs/applications"
