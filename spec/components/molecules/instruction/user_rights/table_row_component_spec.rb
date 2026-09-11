@@ -35,6 +35,26 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
     end
   end
 
+  context 'when an admin also holds a role inside the manager perimeter' do
+    let(:admin_with_role) do
+      create(:user, email: 'admin-too@gouv.fr', roles: ['admin', 'dinum:api_entreprise:instructor'])
+    end
+
+    it 'hides the admin badge from a manager' do
+      render_row(user: admin_with_role, authority: Rights::ManagerAuthority.new(manager), current_user: manager)
+
+      expect(page).to have_text('Instructeur')
+      expect(page).to have_no_text('Admin')
+    end
+
+    it 'keeps the admin badge for an admin' do
+      other_admin = create(:user, :admin)
+      render_row(user: admin_with_role, authority: Rights::AdminAuthority.new(other_admin), current_user: other_admin)
+
+      expect(page).to have_text('Admin')
+    end
+  end
+
   context 'when the user holds no role at all' do
     let(:admin) { create(:user, :admin) }
     let(:plain_user) { create(:user, email: 'plain@gouv.fr', roles: []) }

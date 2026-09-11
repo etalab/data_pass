@@ -17,7 +17,14 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
   end
 
   def role_types
-    user.distinct_role_types.sort_by { |role_type| ROLE_ORDER.index(role_type) || ROLE_ORDER.size }
+    visible_role_types.sort_by { |role_type| ROLE_ORDER.index(role_type) || ROLE_ORDER.size }
+  end
+
+  def visible_role_types
+    types = user.distinct_role_types
+    return types if authority.covers_role?('admin')
+
+    types - ['admin']
   end
 
   def droits

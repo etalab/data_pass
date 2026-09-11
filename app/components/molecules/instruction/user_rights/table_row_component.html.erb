@@ -25,7 +25,7 @@
     </ul>
   </td>
   <td>
-    <% if no_rights? %>
+    <% if role_types.empty? %>
       <p class="fr-mb-0" aria-hidden="true">&mdash;</p>
       <span class="fr-sr-only"><%= t('instruction.user_rights.index.table.no_role') %></span>
     <% else %>

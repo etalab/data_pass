@@ -10,6 +10,13 @@ RSpec.describe 'Instruction::UserRights index' do
     let!(:developer_user) { create(:user, email: 'developer@gouv.fr', roles: %w[dinum:api_entreprise:developer]) }
     let!(:fd_reporter_user) { create(:user, email: 'fdreporter@gouv.fr', roles: %w[dinum:*:reporter]) }
 
+    it 'offers neither the admin role nor the presence filters to a manager' do
+      get instruction_user_rights_path
+
+      expect(response.body).not_to include('value="admin"')
+      expect(response.body).not_to include('value="without_roles"')
+    end
+
     it 'renders the list of managed users' do
       get instruction_user_rights_path
 
