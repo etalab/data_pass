@@ -32,6 +32,11 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
         expect(page).to have_text(authorization_request.name)
       end
 
+      it 'renders the access name in bold without escaping the markup' do
+        expect(page).to have_css('.fr-callout strong', text: authorization_request.name)
+        expect(page).to have_no_text('<strong>')
+      end
+
       it 'renders the access link button with external link icon' do
         expect(page).to have_link(
           I18n.t('authorization_requests.show.access_callout.button'),

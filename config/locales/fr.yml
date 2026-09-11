@@ -497,7 +497,7 @@ fr:
         description: *authorization_request_refused_description
       access_callout:
         title: Votre accès est disponible
-        content: Votre accès <strong>%{access_name}</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous.
+        content_html: Votre accès <strong>%{access_name}</strong> a été créé, vous pouvez l’utiliser sur le lien ci-dessous.
         button: Utiliser mon accès
       dirty_from_v1:
         title: Cette demande ou cette habilitation comporte des erreurs
