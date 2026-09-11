@@ -47,6 +47,13 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
       expect(page).to have_no_text('Admin')
     end
 
+    it 'does not betray the admin through the rights column either' do
+      render_row(user: admin_with_role, authority: Rights::ManagerAuthority.new(manager), current_user: manager)
+
+      expect(page).to have_no_text('Tous les accès')
+      expect(page).to have_text('API Entreprise')
+    end
+
     it 'keeps the admin badge for an admin' do
       other_admin = create(:user, :admin)
       render_row(user: admin_with_role, authority: Rights::AdminAuthority.new(other_admin), current_user: other_admin)

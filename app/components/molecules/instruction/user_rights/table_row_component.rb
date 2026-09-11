@@ -42,7 +42,7 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
   end
 
   def all_access?
-    user.roles.include?('admin')
+    user.roles.include?('admin') && authority.covers_role?('admin')
   end
 
   def fd_wildcard_provider_slugs

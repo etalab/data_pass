@@ -6,9 +6,10 @@ class Instruction::UserRightsSearch
     'without_roles' => :without_roles
   }.freeze
 
-  def initialize(scope:, params:)
+  def initialize(scope:, params:, authority: nil)
     @scope = scope
     @params = params
+    @authority = authority
   end
 
   def term
@@ -20,7 +21,8 @@ class Instruction::UserRightsSearch
   def role_type
     return @role_type if defined?(@role_type)
 
-    @role_type = string_param(filters[:role])
+    requested = string_param(filters[:role])
+    @role_type = permitted_role_filter?(requested) ? requested : nil
   end
 
   def droit
@@ -39,7 +41,15 @@ class Instruction::UserRightsSearch
 
   private
 
-  attr_reader :scope, :params
+  attr_reader :scope, :params, :authority
+
+  def permitted_role_filter?(requested)
+    return false if requested.blank?
+    return true if authority.nil?
+    return authority.covers_role?('admin') if requested == 'admin'
+
+    true
+  end
 
   def apply_role_type(relation)
     return relation if role_type.blank?

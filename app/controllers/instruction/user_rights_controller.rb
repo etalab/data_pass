@@ -4,7 +4,7 @@ class Instruction::UserRightsController < InstructionController
   before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
 
   def index
-    search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:)
+    search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:, authority: @authority)
     @search_engine = search.engine
     @search_term = search.term
     @role_filter = search.role_type

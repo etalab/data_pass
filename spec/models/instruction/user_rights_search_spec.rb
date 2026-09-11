@@ -115,6 +115,26 @@ RSpec.describe Instruction::UserRightsSearch do
       end
     end
 
+    context 'when a manager crafts an admin filter in the URL' do
+      let!(:admin_with_role) do
+        create(:user, email: 'admin-too@gouv.fr', roles: ['admin', 'dinum:api_entreprise:instructor'])
+      end
+      let(:scope) { User.where(id: [manager_entreprise.id, admin_with_role.id]) }
+      let(:authority) { Rights::ManagerAuthority.new(manager_entreprise) }
+
+      def search(params)
+        described_class.new(scope: scope, params: ActionController::Parameters.new(params), authority: authority)
+      end
+
+      it 'ignores the filter rather than enumerating the admins' do
+        expect(search(filters: { role: 'admin' }).results).to contain_exactly(manager_entreprise, admin_with_role)
+      end
+
+      it 'still honours a role filter the authority covers' do
+        expect(search(filters: { role: 'instructor' }).results).to contain_exactly(admin_with_role)
+      end
+    end
+
     context 'when a crafted param sends a filter as an array' do
       it 'ignores it and returns the whole scope' do
         expect(search(filters: { role: ['manager'] }).results).to match_array(scope)
