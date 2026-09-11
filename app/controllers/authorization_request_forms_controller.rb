@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   helper DemandesHabilitations::CommonHelper
@@ -98,7 +98,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def create_for_multiple_steps
     organizer = organizer_for_creation
 
@@ -120,7 +120,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
         status: :unprocessable_content
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def next_step_localized
     step_index = next_submit? ? 1 : 0
@@ -380,4 +379,3 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     session.delete(:authorization_request_prefill)
   end
 end
-# rubocop:enable Metrics/ClassLength

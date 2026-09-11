@@ -1,13 +1,12 @@
 module AuthorizationRequestsHelpers
   include DemandesHabilitations::CommonHelper
 
-  # rubocop:disable Rails/HelperInstanceVariable
+  # rubocop:disable-next Rails/HelperInstanceVariable
   def new_authorization_request_hidden_params
     return { attributes: {} } if @authorization_request&.persisted? || params.slice(:attributes).blank?
 
     params.slice(:attributes).permit!
   end
-  # rubocop:enable Rails/HelperInstanceVariable
 
   def start_authorization_request_form(form, disabled: false)
     text = t('start_authorization_request_form.cta', authorization_name: form.authorization_definition.name)
@@ -45,13 +44,12 @@ module AuthorizationRequestsHelpers
     action_name == 'edit'
   end
 
-  # rubocop:disable Rails/HelperInstanceVariable
+  # rubocop:disable-next Rails/HelperInstanceVariable
   def within_summary?
     @summary_before_submit.present?
   end
-  # rubocop:enable Rails/HelperInstanceVariable
 
-  # rubocop:disable Rails/HelperInstanceVariable
+  # rubocop:disable-next Rails/HelperInstanceVariable
   def english_step_name(translated_step_key = nil)
     if translated_step_key.nil?
       @authorization_request.form.steps.first[:name]
@@ -59,7 +57,6 @@ module AuthorizationRequestsHelpers
       I18n.t('wicked').select { |_k, v| v == translated_step_key }.keys.first
     end
   end
-  # rubocop:enable Rails/HelperInstanceVariable
 
   private
 
@@ -68,13 +65,12 @@ module AuthorizationRequestsHelpers
       action_name == 'show'
   end
 
-  # rubocop:disable Rails/HelperInstanceVariable
+  # rubocop:disable-next Rails/HelperInstanceVariable
   def authorization_request_first_step_build?
     @authorization_request.form.multiple_steps? &&
       controller_name == 'authorization_request_forms' &&
       action_name == 'start'
   end
-  # rubocop:enable Rails/HelperInstanceVariable
 
   def authorization_request_form_tag(authorization_request, url: nil, form_options: {}, &)
     form_with(

@@ -35,7 +35,7 @@ def find_factory_trait_from_name(name, stage = nil, form = nil) # rubocop:disabl
   authorization_request_form.uid.underscore
 end
 
-# rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+# rubocop:disable-next Metrics/MethodLength, Metrics/CyclomaticComplexity
 def extract_state_from_french_status(status)
   case status
   when 'attente de modification', 'sujet à modification', 'modifier'
@@ -66,7 +66,6 @@ def extract_state_from_french_status(status)
     raise "Unknown status #{status}"
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
 def extract_stage_type(stage)
   case stage
@@ -77,7 +76,7 @@ def extract_stage_type(stage)
   end
 end
 
-# rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
+# rubocop:disable-next Metrics/MethodLength, Metrics/ParameterLists
 def create_authorization_requests_with_status(type, status = nil, count = 1, stage = nil, form = nil, attributes = {})
   attributes[:applicant] ||= FactoryBot.create(:user, current_organization: attributes[:organization])
 
@@ -100,4 +99,3 @@ def create_authorization_requests_with_status(type, status = nil, count = 1, sta
     )
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/ParameterLists

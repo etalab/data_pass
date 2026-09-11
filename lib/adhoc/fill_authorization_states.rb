@@ -1,11 +1,10 @@
 class Adhoc::FillAuthorizationStates < ApplicationInteractor
-  # rubocop:disable Rails/SkipsModelValidations
+  # rubocop:disable-next Rails/SkipsModelValidations
   def call
     Authorization.where(revoked: true).update_all(state: :revoked)
     Authorization.where(revoked: false).update_all(state: :obsolete)
     Authorization.where(id: last_authorizations_by_stage_ids).update_all(state: :active)
   end
-  # rubocop:enable Rails/SkipsModelValidations
 
   private
 

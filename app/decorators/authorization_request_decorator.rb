@@ -292,7 +292,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
       object.form.initialize_with == { scopes: [] }
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def base_card_name
     if object.data['intitule'].present?
       object.data['intitule']
@@ -302,5 +302,4 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
       object.definition.name
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

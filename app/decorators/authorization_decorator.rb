@@ -131,7 +131,7 @@ class AuthorizationDecorator < ApplicationDecorator
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def base_card_name
     if object.data['intitule'].present?
       object.data['intitule']
@@ -141,7 +141,6 @@ class AuthorizationDecorator < ApplicationDecorator
       object.definition.name
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def current_user_is_a_contact(user)
     t('authorizations.card.current_user_mentions', contact_types: humanized_contact_types_for(user).to_sentence)

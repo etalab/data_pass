@@ -279,11 +279,10 @@ Quand(/je me rends sur mon tableau de bord(?: demandeur)?.?(demandes|habilitatio
   end
 end
 
-# rubocop:disable Lint/Debugger
+# rubocop:disable-next Lint/Debugger
 Quand('je montre la page') do
   save_and_open_page
 end
-# rubocop:enable Lint/Debugger
 
 Alors("il n'y a pas de champ éditable") do
   all('input').each do |input|

@@ -2,7 +2,7 @@ Before do
   @user_sessions = nil
 end
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable-next Metrics/AbcSize
 def user_session(user)
   return user_sessions[user.email] if user_sessions[user.email].present?
 
@@ -15,7 +15,6 @@ def user_session(user)
 
   @user_sessions[user.email]
 end
-# rubocop:enable Metrics/AbcSize
 
 def user_sessions
   @user_sessions ||= {}

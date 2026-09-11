@@ -1,4 +1,4 @@
-# rubocop:disable Style/FormatStringToken
+# rubocop:disable-next Style/FormatStringToken
 RSpec.describe MessageTemplate do
   it 'has a valid factory' do
     expect(build(:message_template)).to be_valid
@@ -84,4 +84,3 @@ RSpec.describe MessageTemplate do
     end
   end
 end
-# rubocop:enable Style/FormatStringToken

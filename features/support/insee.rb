@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 Before do |scenario|
   stub_request(:post, 'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token').to_return(
     status: 200,
@@ -30,4 +30,3 @@ Before do |scenario|
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

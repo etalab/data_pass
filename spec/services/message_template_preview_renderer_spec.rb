@@ -38,7 +38,7 @@ RSpec.describe MessageTemplatePreviewRenderer do
       end
     end
 
-    # rubocop:disable Style/FormatStringToken
+    # rubocop:disable-next Style/FormatStringToken
     context 'with content containing interpolation variables' do
       let(:message_template) { create(:message_template, content: 'Voir demande %{demande_id}') }
 
@@ -46,6 +46,5 @@ RSpec.describe MessageTemplatePreviewRenderer do
         expect(render).to include("Voir demande #{described_class::PREVIEW_REQUEST_ID}")
       end
     end
-    # rubocop:enable Style/FormatStringToken
   end
 end

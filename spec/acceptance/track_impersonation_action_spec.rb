@@ -28,9 +28,8 @@ RSpec.describe 'Track impersonation actions', type: :acceptance do
   it 'has model_to_track_for_impersonation defined for each relevant controllers' do
     all_subclasses(ApplicationController).each do |controller|
       next if skipped_controllers.include?(controller)
-      # rubocop:disable Performance/CollectionLiteralInLoop
+      # rubocop:disable-next Performance/CollectionLiteralInLoop
       next if %w[Admin API].any? { |namespace| controller.name.start_with?(namespace) }
-      # rubocop:enable Performance/CollectionLiteralInLoop
 
       next unless controller_has_tracked_actions?(controller)
 

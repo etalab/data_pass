@@ -1,4 +1,4 @@
-# rubocop:disable Style/FormatStringToken
+# rubocop:disable-next Style/FormatStringToken
 class Seeds
   class MessageTemplates
     def self.create
@@ -52,4 +52,3 @@ class Seeds
     end
   end
 end
-# rubocop:enable Style/FormatStringToken

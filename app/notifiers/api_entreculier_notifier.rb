@@ -11,9 +11,8 @@ class APIEntreculierNotifier < BaseNotifier
     RegisterOrganizationWithContactsOnCRMJob.perform_later(authorization_request.id)
   end
 
-  # rubocop:disable Lint/UselessMethodDefinition
+  # rubocop:disable-next Lint/UselessMethodDefinition
   def submit(_params)
     super
   end
-  # rubocop:enable Lint/UselessMethodDefinition
 end

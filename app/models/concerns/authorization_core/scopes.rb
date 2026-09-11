@@ -7,7 +7,7 @@ module AuthorizationCore::Scopes
         @scopes_enabled
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def self.add_scopes(options = {})
         class_eval do
           store_accessor :data, :scopes
@@ -41,7 +41,6 @@ module AuthorizationCore::Scopes
             scopes,)
         }
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 

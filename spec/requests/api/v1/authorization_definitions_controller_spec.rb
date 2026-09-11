@@ -4,13 +4,12 @@ RSpec.describe 'API: Authorization definitions' do
   let(:access_token) { create(:access_token, application:) }
 
   shared_examples 'validates definition attributes' do |expected_definition|
-    # rubocop:disable RSpec/NoExpectationExample
+    # rubocop:disable-next RSpec/NoExpectationExample
     it 'includes all expected attributes in the response' do
       subject
 
       validate_request_and_response!
     end
-    # rubocop:enable RSpec/NoExpectationExample
 
     it 'returns correct authorization_request_class' do
       subject

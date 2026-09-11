@@ -116,7 +116,7 @@ class Authorization < ApplicationRecord
     format(definition.access_link, external_provider_id: request.external_provider_id)
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def request_as_validated(load_documents: true)
     request_as_validated = authorization_request_class.constantize.new(request.dup.attributes.except('type'))
 
@@ -129,7 +129,6 @@ class Authorization < ApplicationRecord
 
     request_as_validated
   end
-  # rubocop:enable Metrics/AbcSize
 
   def reopenable?
     if multi_stage? && stage.type == 'production'

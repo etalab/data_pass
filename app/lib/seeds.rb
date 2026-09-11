@@ -50,7 +50,7 @@ class Seeds
 
   private
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def create_entities
     verified_params = {
       verified: true,
@@ -69,7 +69,6 @@ class Seeds
     data_pass_admin.add_to_organization(dinum_organization, current: true, **verified_params)
     dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def create_cnous_habilitation_type
     HabilitationType.create!(
@@ -91,7 +90,7 @@ class Seeds
     )
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
     france_connect_authorization_request = create_validated_authorization_request(
@@ -127,7 +126,6 @@ class Seeds
 
     create_fully_approved_api_impot_particulier_authorization_request
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def create_authorization_requests_for_dinum
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Démarches simplifiées', applicant: foreign_demandeur, contact_metier_email: demandeur.email })
@@ -422,7 +420,7 @@ class Seeds
     authorization_request
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
     authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, created_at: 3.days.ago })
 
@@ -447,7 +445,6 @@ class Seeds
 
     raise 'Authorization request not validated' unless authorization_request.reload.validated?
   end
-  # rubocop:enable Metrics/AbcSize
 
   def extract_applicant(attributes)
     attributes[:applicant] || demandeur
