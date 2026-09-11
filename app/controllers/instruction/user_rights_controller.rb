@@ -1,7 +1,7 @@
 class Instruction::UserRightsController < InstructionController
   before_action :build_authority
   before_action :authorize_user_rights!, only: %i[index new create]
-  before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
+  before_action :set_target_user, only: %i[edit update destroy confirm_destroy droits]
 
   def index
     search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:, authority: @authority)
@@ -36,6 +36,11 @@ class Instruction::UserRightsController < InstructionController
 
     success_message(title: t('instruction.user_rights.update.success', email: @target_user.email))
     redirect_to instruction_user_rights_path
+  end
+
+  def droits
+    @rights_by_definition = @target_user.rights_by_definition
+    render partial: 'droits', layout: false
   end
 
   def confirm_destroy

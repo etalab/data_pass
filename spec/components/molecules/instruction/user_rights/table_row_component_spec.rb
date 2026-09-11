@@ -90,10 +90,10 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
       ])
     end
 
-    it 'aggregates the droits behind a count summary' do
+    it 'aggregates the droits behind a count that opens the detail' do
       render_row(user: power_user, authority: Rights::AdminAuthority.new(power_user), current_user: power_user)
 
-      expect(page).to have_css('details summary', text: '3 API activées')
+      expect(page).to have_link('3 API activées')
     end
   end
 
@@ -119,28 +119,37 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
     end
   end
 
-  context 'when the role→API pairing is ambiguous (≥ 2 roles and ≥ 2 APIs)' do
-    let(:ambiguous_user) do
-      create(:user, email: 'ambiguous@gouv.fr', roles: %w[dinum:api_entreprise:manager dinum:api_particulier:instructor])
+  context 'when the rights are folded behind a count' do
+    let(:many_rights_user) do
+      create(:user, email: 'many@gouv.fr', roles: %w[
+        dinum:api_entreprise:manager dinum:api_particulier:instructor dinum:formulaire_qf:reporter
+      ])
     end
 
-    it 'exposes a tooltip detailing which role applies to which API' do
-      render_row(user: ambiguous_user, authority: Rights::AdminAuthority.new(ambiguous_user), current_user: ambiguous_user)
+    before { render_row(user: many_rights_user, authority: Rights::AdminAuthority.new(many_rights_user), current_user: many_rights_user) }
 
-      expect(page).to have_css('.fr-btn--tooltip[aria-describedby]')
-      expect(page).to have_css('[role="tooltip"]', text: 'API Entreprise', visible: :all)
+    it 'opens the detail modal instead of expanding in place' do
+      expect(page).to have_link('3 API activées')
+      expect(page).to have_css('[aria-controls="main-modal"]')
+      expect(page).to have_no_css('details')
+    end
+
+    it 'no longer carries the tooltip it replaces' do
+      expect(page).to have_no_css('.fr-btn--tooltip')
+      expect(page).to have_no_css('[role="tooltip"]', visible: :all)
     end
   end
 
-  context 'when the pairing is unambiguous (a single role type)' do
-    let(:single_role_user) do
-      create(:user, email: 'single@gouv.fr', roles: %w[dinum:api_entreprise:manager dinum:api_particulier:manager])
+  context 'when two rights or fewer are held' do
+    let(:two_rights_user) do
+      create(:user, email: 'two@gouv.fr', roles: %w[dinum:api_entreprise:manager dinum:api_particulier:manager])
     end
 
-    it 'does not render a tooltip' do
-      render_row(user: single_role_user, authority: Rights::AdminAuthority.new(single_role_user), current_user: single_role_user)
+    it 'spells them out without any trigger' do
+      render_row(user: two_rights_user, authority: Rights::AdminAuthority.new(two_rights_user), current_user: two_rights_user)
 
-      expect(page).to have_no_css('.fr-btn--tooltip')
+      expect(page).to have_text('API Entreprise')
+      expect(page).to have_no_css('[aria-controls="main-modal"]')
     end
   end
 end

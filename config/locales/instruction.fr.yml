@@ -665,16 +665,21 @@ fr:
           organisation_title: "%{name} — SIRET %{siret}"
           all_services: Tous les services %{provider}
           all_access: Tous les accès
-          pairing_tooltip_aria: Détail des rôles par API pour %{email}
           droits_count:
             zero: aucune API activée
             one: "%{count} API activée"
             other: "%{count} API activées"
+          droits_aria: Voir le détail des droits de %{email}
           manage_cta: Gérer les droits / modifier
           edit_aria: Modifier les droits de %{email}
           no_role: Aucun rôle
           add_cta: Ajouter des droits
           add_aria: Ajouter des droits à %{email}
+      droits:
+        title: "Droits de %{name}"
+        api: API
+        role: Rôle sur cette API
+        close: Fermer
       roles:
         manager: Manager
         instructor: Instructeur

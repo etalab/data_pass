@@ -19,6 +19,10 @@ module UserRightsPathsHelper
     send(:"#{user_rights_namespace}_user_right_path", user)
   end
 
+  def droits_user_right_path(user)
+    send(:"droits_#{user_rights_namespace}_user_right_path", user)
+  end
+
   def confirm_destroy_user_right_path(user)
     send(:"confirm_destroy_#{user_rights_namespace}_user_right_path", user)
   end
