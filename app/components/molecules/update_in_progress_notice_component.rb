@@ -25,7 +25,7 @@ class Molecules::UpdateInProgressNoticeComponent < ApplicationComponent
 
   attr_reader :authorization
 
-  delegate :request, to: :authorization
+  delegate :request, to: :authorization, prefix: true
 
   def title
     I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title')
@@ -40,8 +40,8 @@ class Molecules::UpdateInProgressNoticeComponent < ApplicationComponent
 
   def request_link
     link_to(
-      I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.link_text', id: request.id),
-      authorization_request_path(request)
+      I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.link_text', id: authorization_request.id),
+      authorization_request_path(authorization_request)
     )
   end
 end
