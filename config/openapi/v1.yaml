@@ -69,6 +69,8 @@ components:
         Authentification OAuth2 via le flow `client_credentials`. Le jeton obtenu sur `/oauth/token` est à transmettre dans l'en-tête `Authorization: Bearer …`.
 
         Les scopes accordés à un jeton sont définis au moment de sa demande. Chaque opération documente les scopes qu'elle exige.
+
+        Une clef API créée depuis « Mes clefs d'accès API » peut demander `public`, `read_authorizations` et `read_webhooks`. `write_authorizations` est accordé au cas par cas, nous contacter.
       flows:
         clientCredentials:
           tokenUrl: https://datapass.api.gouv.fr/api/v1/oauth/token
@@ -657,6 +659,10 @@ paths:
                   type: string
                   description: Secret du client OAuth2
                   example: "secret_token_value"
+                scope:
+                  type: string
+                  description: Scopes demandés pour le jeton, séparés par des espaces. Omis, le jeton reçoit `public read_authorizations`. Les clefs API créées depuis « Mes clefs d'accès API » peuvent demander `public`, `read_authorizations` et `read_webhooks`.
+                  example: "read_authorizations read_webhooks"
       responses:
         200:
           description: Jeton d'accès obtenu avec succès
@@ -681,6 +687,10 @@ paths:
                     type: integer
                     description: Timestamp de création du jeton
                     example: 1613749329
+                  scope:
+                    type: string
+                    description: Scopes effectivement accordés au jeton, séparés par des espaces
+                    example: "read_authorizations read_webhooks"
                 required:
                   - access_token
                   - token_type

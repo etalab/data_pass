@@ -76,12 +76,16 @@ const { access_token: accessToken } = await response.json()
 
 Les scopes disponibles sont détaillés dans [la documentation OpenAPI](/developpeurs/documentation) (section `securitySchemes.OAuth2`) :
 
-| Scope | Usage |
-| --- | --- |
-| `public` | Informations minimales sur l'utilisateur (`GET /me`) ; n'autorise aucun accès aux demandes. |
-| `read_authorizations` | Lecture des demandes, événements et habilitations. |
-| `write_authorizations` | Création et mise à jour des demandes. |
-| `read_webhooks` | Lecture de l'historique des appels webhooks (`GET /webhooks/{id}/attempts`). |
+| Scope | Accordé d’office | Usage |
+| --- | --- | --- |
+| `public` | oui | Informations minimales sur l’utilisateur (`GET /me`) ; n’autorise aucun accès aux demandes. |
+| `read_authorizations` | oui | Lecture des demandes, événements et habilitations. |
+| `read_webhooks` | oui | Lecture de l’historique des appels webhooks (`GET /webhooks/{id}/attempts`). |
+| `write_authorizations` | non | Création et mise à jour des demandes. Nous contacter pour l’obtenir. |
+
+Une clef API créée depuis « Mes clefs d’accès API » reçoit les trois scopes accordés
+d’office : aucune démarche préalable n’est nécessaire pour demander un token avec
+`scope=read_webhooks`.
 
 ### Durée de vie du token
 

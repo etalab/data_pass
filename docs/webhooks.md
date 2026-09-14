@@ -183,7 +183,8 @@ Vous pouvez créer **plusieurs webhooks pour un même type d'habilitation**, san
 L'API utilise OAuth 2.0 pour l'authentification. Vous devez :
 
 1. Créer une application OAuth depuis `/developpeurs/applications`
-2. Obtenir un access token avec le scope `read_webhooks`
+2. Obtenir un access token avec le scope `read_webhooks` — ce scope est accordé
+   d’office à toute clef API, aucune démarche préalable n’est nécessaire
 3. Utiliser ce token dans le header `Authorization: Bearer {token}`
 
 ### Endpoint : GET /api/v1/webhooks/:webhook_id/attempts

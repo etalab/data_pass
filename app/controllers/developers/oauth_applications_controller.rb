@@ -1,4 +1,6 @@
 class Developers::OauthApplicationsController < DevelopersController
+  GRANTED_SCOPES = 'public read_authorizations read_webhooks'.freeze
+
   before_action :set_application, only: %i[destroy show_credentials]
 
   def index
@@ -14,7 +16,7 @@ class Developers::OauthApplicationsController < DevelopersController
   def create
     authorize Doorkeeper::Application, :create?, policy_class: Developer::OauthApplicationPolicy
     @application = Doorkeeper::Application.new(
-      application_params.merge(owner: current_user, scopes: read_only_scopes)
+      application_params.merge(owner: current_user, scopes: GRANTED_SCOPES)
     )
 
     if @application.save
@@ -46,10 +48,6 @@ class Developers::OauthApplicationsController < DevelopersController
 
   def application_params
     params.expect(doorkeeper_application: [:name])
-  end
-
-  def read_only_scopes
-    Doorkeeper.configuration.default_scopes.to_s
   end
 
   def model_to_track_for_impersonation
