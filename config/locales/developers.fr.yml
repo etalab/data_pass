@@ -106,6 +106,10 @@ fr:
           <p>Les webhooks vous permettent de recevoir des notifications en temps réel lorsque des événements se produisent sur vos demandes d'autorisation.</p>
           <p>Pour tester votre webhook, vous pouvez utiliser <a href="https://webhook.site" target="_blank" rel="noopener noreferrer" class="fr-link">webhook.site</a>.</p>
     webhook_attempts:
+      result_badge:
+        success: Succès
+        failure: Échec
+        abandoned: Abandonné
       index:
         title: Historique des appels
         back: Retour aux webhooks
@@ -116,8 +120,6 @@ fr:
         date: Date
         result: Résultat
         actions: Actions
-        success: ✓ Succès
-        failure: ✗ Échec
         view_details: Voir détails
         no_response: Pas de réponse
       show:
@@ -128,8 +130,6 @@ fr:
         event: Événement
         date: Date
         result: Résultat
-        success: Succès
-        failure: Échec
         no_response: Pas de réponse
         payload: Payload envoyé
         response: Réponse reçue

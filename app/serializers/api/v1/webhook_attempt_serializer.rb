@@ -4,7 +4,8 @@ class API::V1::WebhookAttemptSerializer < ActiveModel::Serializer
     :status_code,
     :response_body,
     :created_at,
-    :authorization_request_id
+    :authorization_request_id,
+    :abandoned_at
 
   def event
     object.event_name

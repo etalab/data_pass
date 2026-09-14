@@ -79,6 +79,15 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Et la page contient "200"
     Et la page contient "Validation"
 
+  Scénario: Je vois qu'un appel webhook a été abandonné après épuisement des tentatives
+    Sachant qu'il existe un webhook pour "API Entreprise" avec l'URL "https://webhook.site/test"
+    Et que ce webhook a reçu un appel abandonné
+    Quand je me rends sur le chemin des appels de ce webhook
+    Alors je vois le badge "Abandonné"
+    Quand je clique sur le premier appel
+    Alors la page contient "Détails de l'appel"
+    Et je vois le badge "Abandonné"
+
   Scénario: Je peux activer un webhook
     Sachant qu'il existe un webhook pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur le chemin "/developpeurs/webhooks"
