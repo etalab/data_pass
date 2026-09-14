@@ -10,7 +10,7 @@ Fonctionnalité: Historique des modifications admin
     Quand j'ai 1 demande d'habilitation "API Entreprise" en attente
     Et qu'un administrateur a effectué une modification avec la raison "Correction du titre du projet" et la raison privée "Ticket #SP-1234" et le diff suivant :
       | champ    | ancienne valeur                              | nouvelle valeur         |
-      | intitule | Demande d'accès à la plateforme fournisseur | Nouveau titre du projet |
+      | intitule | Demande d’accès à la plateforme fournisseur | Nouveau titre du projet |
     Et que je me rends sur cette demande d'habilitation
     Et que je clique sur "Historique"
     Alors la page contient "a effectué une modification"

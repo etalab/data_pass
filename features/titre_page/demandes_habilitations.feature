@@ -16,5 +16,5 @@ Fonctionnalité: Titres de page des demandes et habilitations
   Scénario: Le titre de la page d'une habilitation active contient le nom de l'API et le nom de la demande
     Quand j'ai 1 habilitation "API Particulier" active
     Et je visite la page de mon habilitation
-    Alors le titre de la page est "Habilitation API Particulier - Demande d'accès à la plateforme fournisseur - DataPass"
+    Alors le titre de la page est "Habilitation API Particulier - Demande d’accès à la plateforme fournisseur - DataPass"
 

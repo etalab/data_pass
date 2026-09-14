@@ -64,7 +64,7 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   end
 
   def access_callout_content
-    I18n.t('authorization_requests.show.access_callout.content', access_name: authorization_request.name)
+    t('authorization_requests.show.access_callout.content_html', access_name: authorization_request.name)
   end
 
   def show_access_callout?
