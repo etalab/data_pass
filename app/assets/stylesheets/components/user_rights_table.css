@@ -120,3 +120,13 @@
 .fr-table__content .dp-user-rights-table tbody th {
   font-weight: 400;
 }
+
+/* Un droit hors du périmètre de la personne connectée reste affiché mais
+   ne s'édite pas : listes désactivées, ligne en retrait. Le libellé qui
+   l'expliquera viendra du design ; en attendant la raison est rendue aux
+   lecteurs d'écran. */
+.dp-user-rights-form__right--readonly {
+  background-color: var(--background-alt-grey);
+  padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
+}

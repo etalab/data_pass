@@ -702,6 +702,7 @@ fr:
           developer: Peut consulter les demandes et habilitations via l’API, et recevoir des événements par webhook.
         right_legend: "Droit %{position}"
         right_legend_new: Nouveau droit
+        right_legend_readonly: "Droit non modifiable %{position}"
         scope_label: Portée des droits
         scope_placeholder: Sélectionnez une portée
         scope_fd_option: Tous les services %{provider}

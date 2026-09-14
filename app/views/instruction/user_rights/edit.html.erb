@@ -20,6 +20,7 @@
     method: :patch,
     show_email_field: false,
     readonly_rights: @form.readonly_rights,
+    out_of_scope_rights: @form.out_of_scope_rights,
     submit_label: t('instruction.user_rights.edit.submit'),
     oauth_applications_count: @target_user.oauth_applications.count %>
 </div>

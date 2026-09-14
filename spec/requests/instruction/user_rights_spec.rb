@@ -5,6 +5,31 @@ RSpec.describe 'Instruction::UserRights index' do
 
   before { sign_in(manager) }
 
+  describe 'PATCH /instruction/gestion-des-droits/:id' do
+    let(:target) do
+      create(:user, email: 'multi@gouv.fr', roles: %w[dinum:api_entreprise:instructor dgfip:api_impot_particulier:reporter])
+    end
+
+    it 'shows the rights it cannot touch without letting them be submitted' do
+      get edit_instruction_user_right_path(target)
+
+      expect(response.body).to include('out-of-scope-rights')
+      expect(response.body).to include('disabled="disabled"')
+    end
+
+    it 'keeps the rights outside the perimeter when the form is saved' do
+      patch instruction_user_right_path(target), params: {
+        instruction_user_right_form: {
+          rights: [{ scope: 'dinum:api_entreprise', role_type: 'manager' }]
+        }
+      }
+
+      expect(target.reload.roles).to contain_exactly(
+        'dinum:api_entreprise:manager', 'dgfip:api_impot_particulier:reporter'
+      )
+    end
+  end
+
   describe 'GET /instruction/gestion-des-droits/:id/droits' do
     let(:admin_with_role) do
       create(:user, email: 'admin-too@gouv.fr', roles: [
