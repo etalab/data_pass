@@ -101,6 +101,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'cuprite'
   gem 'database_cleaner-active_record'
+  gem 'ferrum', '< 0.18'
   gem 'generator_spec'
   gem 'openapi3_parser'
   gem 'openapi_first'

@@ -834,6 +834,7 @@ DEPENDENCIES
   faraday-multipart
   faraday-net_http
   faraday-retry
+  ferrum (< 0.18)
   foreman
   friendly_id (~> 5.7.0)
   gaffe
