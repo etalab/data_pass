@@ -19,6 +19,15 @@ RSpec.describe UserRoles do
 
       it { is_expected.to eq([]) }
     end
+
+    context 'when user is an admin (admin ⇒ *:*:*)' do
+      let(:user) { build(:user, roles: %w[admin]) }
+
+      it 'manages every provider, so admins see every FD-wildcard option' do
+        expect(subject).to match_array(AuthorizationDefinition.all.filter_map(&:provider_slug).uniq)
+        expect(subject).to include('dinum', 'dgfip')
+      end
+    end
   end
 
   describe '#manages_role?' do
@@ -73,6 +82,28 @@ RSpec.describe UserRoles do
       let(:role) { 'admin' }
 
       it { is_expected.to be false }
+    end
+
+    context 'when the actor is an admin (admin ⇒ *:*:*)' do
+      let(:manager) { create(:user, roles: ['admin']) }
+
+      context 'when the role is an FD-wildcard on any provider' do
+        let(:role) { 'dgfip:*:instructor' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is a definition-level role the admin does not literally hold' do
+        let(:role) { 'cnam:api_droits_cnam:manager' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is the admin role itself' do
+        let(:role) { 'admin' }
+
+        it { is_expected.to be false }
+      end
     end
 
     context 'when the role string is malformed' do

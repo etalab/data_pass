@@ -1,16 +1,28 @@
-<fieldset class="fr-fieldset nested-fields fr-grid-row fr-grid-row--gutters fr-grid-row--bottom fr-mb-2w" data-new-record="true">
+<fieldset class="fr-fieldset nested-fields fr-grid-row fr-grid-row--gutters fr-grid-row--bottom fr-mb-2w<%= ' dp-user-rights-form__right--readonly' unless editable? %>" <%= 'data-new-record="true"'.html_safe if editable? %>>
   <legend class="fr-sr-only"><%= legend_label %></legend>
+  <% unless editable? %>
+    <p class="fr-sr-only" id="<%= readonly_hint_id %>"><%= t('instruction.user_rights.edit.readonly_alerts.default') %></p>
+  <% end %>
   <div class="fr-col-12 fr-col-md-5">
     <div class="fr-select-group">
       <label class="fr-label" for="<%= id_for(:scope) %>">
         <%= t('instruction.user_rights.new.scope_label') %>
       </label>
-      <%= select_tag name_for(:scope),
-            grouped_options_for_select(grouped_scope_pairs, scope),
-            prompt: t('instruction.user_rights.new.scope_placeholder'),
-            id: id_for(:scope),
-            class: 'fr-select',
-            required: true %>
+      <% if editable? %>
+        <%= select_tag name_for(:scope),
+              grouped_options_for_select(grouped_scope_pairs, scope),
+              prompt: t('instruction.user_rights.new.scope_placeholder'),
+              id: id_for(:scope),
+              class: 'fr-select',
+              required: true %>
+      <% else %>
+        <%= select_tag name_for(:scope),
+              options_for_select([[scope_label, scope]], scope),
+              id: id_for(:scope),
+              class: 'fr-select',
+              disabled: true,
+              aria: { describedby: readonly_hint_id } %>
+      <% end %>
     </div>
   </div>
 
@@ -19,19 +31,30 @@
       <label class="fr-label" for="<%= id_for(:role_type) %>">
         <%= t('instruction.user_rights.new.role_label') %>
       </label>
-      <%= select_tag name_for(:role_type),
-            options_for_select(role_pairs, role_type),
-            prompt: t('instruction.user_rights.new.role_placeholder'),
-            id: id_for(:role_type),
-            class: 'fr-select',
-            required: true %>
+      <% if editable? %>
+        <%= select_tag name_for(:role_type),
+              options_for_select(role_pairs, role_type),
+              prompt: t('instruction.user_rights.new.role_placeholder'),
+              id: id_for(:role_type),
+              class: 'fr-select',
+              required: true %>
+      <% else %>
+        <%= select_tag name_for(:role_type),
+              options_for_select([[role_label, role_type]], role_type),
+              id: id_for(:role_type),
+              class: 'fr-select',
+              disabled: true,
+              aria: { describedby: readonly_hint_id } %>
+      <% end %>
     </div>
   </div>
 
   <div class="fr-col-12 fr-col-md-2">
-    <button type="button"
-            class="fr-btn fr-btn--tertiary-no-outline fr-icon-delete-line"
-            aria-label="<%= t('instruction.user_rights.new.remove_right') %>"
-            data-action="click->nested-form#remove"></button>
+    <% if editable? %>
+      <button type="button"
+              class="fr-btn fr-btn--tertiary-no-outline fr-icon-delete-line"
+              aria-label="<%= t('instruction.user_rights.new.remove_right') %>"
+              data-action="click->nested-form#remove"></button>
+    <% end %>
   </div>
 </fieldset>

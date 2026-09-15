@@ -633,27 +633,53 @@ fr:
         given_name: Prénom
         family_name: Nom
       index:
-        title: Gestion des droits
+        title: Utilisateurs et rôles
+        subtitle: Administrez les accès et rôles.
         empty_state: Aucun utilisateur ne possède de droits pour l’instant
         no_results: Aucun utilisateur ne correspond à votre recherche
         add_cta: Ajouter des droits à un utilisateur sans droits
         search:
           label: Rechercher un utilisateur
-          placeholder: Rechercher dans tous les utilisateurs
+          placeholder: Rechercher par email, nom ou prénom
           submit: Rechercher
+        filters:
+          placeholder: Sélectionner une option
+          reset: Réinitialiser
+          role:
+            label: Rôles
+            with_roles: Utilisateurs avec des rôles
+            without_roles: Utilisateurs sans rôle
+          droit:
+            label: Droits
         users_count:
           zero: aucun utilisateur
           one: "%{count} utilisateur"
           other: "%{count} utilisateurs"
         table:
           header:
-            email: Email
-            family_name: Nom
-            given_name: Prénom
-            rights: Droits
+            identity: Identité
+            organisation: Organisation
+            roles: Rôles
+            droits: Droits
             actions: Actions
+          organisation_title: "%{name} — SIRET %{siret}"
+          all_services: Tous les services %{provider}
+          all_access: Tous les accès
+          droits_count:
+            zero: aucune API activée
+            one: "%{count} API activée"
+            other: "%{count} API activées"
+          droits_aria: Voir le détail des droits de %{email}
+          manage_cta: Gérer les droits / modifier
           edit_aria: Modifier les droits de %{email}
-          destroy_aria: Supprimer tous les droits de %{email}
+          no_role: Aucun rôle
+          add_cta: Ajouter des droits
+          add_aria: Ajouter des droits à %{email}
+      droits:
+        title: "Droits de %{name}"
+        api: API
+        role: Rôle sur cette API
+        close: Fermer
       roles:
         manager: Manager
         instructor: Instructeur
@@ -676,6 +702,7 @@ fr:
           developer: Peut consulter les demandes et habilitations via l’API, et recevoir des événements par webhook.
         right_legend: "Droit %{position}"
         right_legend_new: Nouveau droit
+        right_legend_readonly: "Droit non modifiable %{position}"
         scope_label: Portée des droits
         scope_placeholder: Sélectionnez une portée
         scope_fd_option: Tous les services %{provider}
