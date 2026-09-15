@@ -8,21 +8,21 @@
          authorization_request.france_connect_modality? &&
          authorization_request.france_connect_certified_form?)
     end
-    grouped_scopes = authorization_request.available_scopes.group_by(&:group)
+    grouped_scopes = scope_groups_for_display(authorization_request.available_scopes)
   %>
 
-  <% grouped_scopes.each do |group_name, scopes| %>
-    <% next if group_name == 'FranceConnect' && !show_fc_fields %>
+  <% grouped_scopes.each do |scope_group| %>
+    <% next if scope_group.provider_label == 'FranceConnect' && !show_fc_fields %>
 
     <div class="fr-form-group scopes-group">
-      <% if group_name.present? %>
+      <% if scope_group.heading.present? %>
         <h3 class="scopes-group__title fr-h5">
-          <%= group_name %>
+          <%= scope_group.heading %>
         </h3>
       <% end %>
 
       <div class="scopes-group__grid">
-        <% scopes.each do |scope| %>
+        <% scope_group.scopes.each do |scope| %>
           <%= f.dsfr_scope scope, disabled: true %>
         <% end %>
       </div>
