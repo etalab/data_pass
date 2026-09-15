@@ -16,6 +16,22 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Et que je clique sur "Consulter"
     Alors il y a un bouton "Démarrer ma demande d’habilitation en production"
 
+  Scénario: Une habilitation bac à sable validée sans production affiche les consentements cochés
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que je me rends sur mon tableau de bord demandeur habilitations
+    Et que je clique sur "Consulter"
+    Alors "conditions générales" est coché et non modifiable
+    Et "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande." est coché et non modifiable
+
+  Scénario: Une habilitation bac à sable validée affiche les consentements cochés pendant une demande de production
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que je me rends sur mon tableau de bord demandeur habilitations
+    Et que je clique sur "Démarrer ma demande d’habilitation en production"
+    Et que je clique sur "Débuter ma demande"
+    Quand je me rends sur la première habilitation validée
+    Alors "conditions générales" est coché et non modifiable
+    Et "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande." est coché et non modifiable
+
   Scénario: Je ne peux pas démarrer une habilitation de production depuis une habilitation bac à sable en cours d'instruction sur le tableau de bord
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" en attente
     Et que je vais sur la page du tableau de bord
@@ -46,6 +62,9 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Alors il y a un message de succès contenant "Votre demande d'habilitation en production a été annulée"
     Et il y a un bouton "Démarrer ma demande d’habilitation en production"
     Et il y a un badge "Bac à sable"
+    Quand je me rends sur la première habilitation validée
+    Alors "conditions générales" est coché et non modifiable
+    Et "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande." est coché et non modifiable
 
   Scénario: Je peux annuler une demande de production en attente de modification depuis le récapitulatif
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" en attente de modification
