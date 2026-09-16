@@ -123,9 +123,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def next_step_localized
     step_index = next_submit? ? 1 : 0
-    step_name = authorization_request_steps_names.fetch(step_index, authorization_request_steps_names.first)
 
-    t("wicked.#{step_name}")
+    translated_steps_names.fetch(step_index, translated_steps_names.first)
   end
 
   def authorization_request_steps_names
@@ -137,15 +136,25 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def redirect_to_current_build_step
-    first_step = t("wicked.#{@authorization_request_form.steps.first[:name]}")
-    step = cookies.fetch(current_build_step_cache_key, first_step)
-    step = first_step if step == Wicked::FINISH_STEP
-
     redirect_to authorization_request_form_build_path(
       form_uid: @authorization_request_form.uid,
       authorization_request_id: @authorization_request.id,
-      id: step,
+      id: resumable_build_step,
     )
+  end
+
+  def resumable_build_step
+    stored_step = cookies[current_build_step_cache_key]
+
+    if translated_steps_names.include?(stored_step)
+      stored_step
+    else
+      translated_steps_names.first
+    end
+  end
+
+  def translated_steps_names
+    authorization_request_steps_names.map { |step_name| t("wicked.#{step_name}") }
   end
 
   def current_build_step_cache_key
