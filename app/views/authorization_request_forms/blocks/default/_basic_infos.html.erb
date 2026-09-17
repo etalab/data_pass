@@ -34,4 +34,10 @@
       <%= f.dsfr_text_field :volumetrie_approximative %>
     </div>
   <% end %>
+
+  <% if @authorization_request.respond_to?(:adresse_ip_publique) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_text_field :adresse_ip_publique %>
+    </div>
+  <% end %>
 </fieldset>

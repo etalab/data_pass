@@ -38,6 +38,11 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Alors la page contient "Lien relatif au traitement"
     Et la page ne contient pas "URL du texte justificatif"
 
+  Scénario: Je vois l'adresse IP publique et l'adresse du contact technique sur une demande DGFiP
+    Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
+    Alors la page contient "192.0.2.10"
+    Et la page contient "10 rue de la Paix, 75002 Paris"
+
   Scénario: Je vois un bouton pour consulter l'habilitation validée d'une demande de réouverture
     Quand je me rends sur une demande d'habilitation "API Entreprise" réouverte
     Alors il y a un bouton "Consulter l'habilitation"

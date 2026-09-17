@@ -6,6 +6,8 @@ class AuthorizationRequest::APIINFINOE < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::Volumetrie
   include DGFIPExtensions::ExtraContactsInfos
+  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdressePostaleContactTechnique
 
   VOLUMETRIES = {
     '200 appels / minute': 200,
