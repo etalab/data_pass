@@ -398,6 +398,8 @@ Quand('je renseigne les infos de bases du projet') do
     * je remplis "Nom du projet" avec "Conquérir le monde"
     * je remplis "Description du projet" avec "Comment chaque soir"
   )
+
+  fill_in 'Adresse IP publique de connexion', with: '192.0.2.10' if page.has_field?('Adresse IP publique de connexion')
 end
 
 Quand('je renseigne les infos logiciel du projet') do
@@ -452,6 +454,8 @@ Quand('je renseigne les informations du contact technique') do
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 0136656565 | Technique   |
   )
+
+  fill_in 'Adresse du contact technique', with: '10 rue de la Paix, 75002 Paris' if page.has_field?('Adresse du contact technique')
 end
 
 Quand('je renseigne les informations du contact technique avec un numéro de mobile') do
