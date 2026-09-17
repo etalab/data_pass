@@ -13,6 +13,7 @@ fr:
         invalid_french_phone_format: "doit être un numéro de téléphone français. Exemple : 0199001234 ou +33199001234."
         invalid_french_phone_mobile_format: "doit être un numéro de téléphone mobile français. Exemple : 0639981234 ou +33(0)639981234."
         incomplete_france_connect_scopes: "doit contenir tous les scopes FranceConnect obligatoires"
+        invalid_public_ip_address: "doit être une adresse IP publique ou une plage d’adresses. Exemple : 192.0.2.10 ou 192.0.2.0/24. Les adresses privées (10.x, 172.16-31.x, 192.168.x) et locales ne sont pas acceptées."
       models:
         authorization_request_transfer:
           attributes:
