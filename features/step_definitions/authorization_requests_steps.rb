@@ -181,6 +181,18 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
   create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
 end
 
+Quand("cette demande n'a ni adresse IP publique ni adresse du contact technique") do
+  attributes_added_by_dgfip = %w[adresse_ip_publique contact_technique_adresse contact_technique_adresse_complement]
+  authorization_request = AuthorizationRequest.last
+
+  authorization_request.data = authorization_request.data.except(*attributes_added_by_dgfip)
+  authorization_request.save!(validate: false)
+
+  authorization_request.authorizations.each do |authorization|
+    authorization.update!(data: authorization.data.except(*attributes_added_by_dgfip))
+  end
+end
+
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
   last_authorization_request = AuthorizationRequest.last
   last_authorization_request.intitule = intitule
