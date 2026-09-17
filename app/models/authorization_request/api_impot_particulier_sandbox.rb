@@ -6,6 +6,8 @@ class AuthorizationRequest::APIImpotParticulierSandbox < AuthorizationRequest
   include DGFIPExtensions::APIImpotParticulierScopes
   include DGFIPExtensions::APIImpotParticulierModalities
   include DGFIPExtensions::ExtraContactsInfos
+  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdressePostaleContactTechnique
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 

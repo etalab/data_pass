@@ -66,6 +66,7 @@ fr:
         fc_alternative_connexion: Connexion alternative à FranceConnect
         date_prevue_mise_en_production: Date de mise en production prévue
         volumetrie_approximative: Volumétrie approximative
+        adresse_ip_publique: Adresse IP publique de connexion
 
         technical_team_type: La typologie de l'équipe technique
         technical_team_value: L'intitulé de l'équipe technique
@@ -110,6 +111,8 @@ fr:
         contact_technique_phone_number: Téléphone du contact technique
         contact_technique_job_title: Fonction du contact technique
         contact_technique_extra_email: Adresse email générique du contact technique
+        contact_technique_adresse: Adresse du contact technique
+        contact_technique_adresse_complement: Complément adresse du contact technique
 
         contact_metier_family_name: Nom de famille du contact métier
         contact_metier_given_name: Prénom du contact métier

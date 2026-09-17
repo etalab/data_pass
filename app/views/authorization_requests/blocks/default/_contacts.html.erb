@@ -37,6 +37,19 @@
                 </div>
               </div>
             <% end %>
+
+            <% if contact_type == :contact_technique && authorization_request.respond_to?(:contact_technique_adresse) %>
+              <% %w[contact_technique_adresse contact_technique_adresse_complement].each do |postal_attribute| %>
+                <div class="contact-card__attribute">
+                  <div class="contact-card__attribute-label">
+                    <%= f.label_value(postal_attribute) %>
+                  </div>
+                  <div class="contact-card__attribute-value">
+                    <%= authorization_request.public_send(postal_attribute) %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
           </div>
         </div>
       <% end %>
