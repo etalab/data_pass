@@ -92,7 +92,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
   Scénario: Je démarre une demande avec un contact à remplir ne nécessitant pas un email nominatif
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Conformité titulaires de marchés" de l'éditeur "Approval"
     Et que je clique sur "Débuter ma demande"
-    Et que je remplis les informations du contact "Responsable de traitement" avec :
+    Et que je remplis les informations du contact "Délégué à la protection des données" avec :
       | Email          |
       | mairie@gouv.fr |
     Alors la page ne contient pas "doit être un email nominatif"

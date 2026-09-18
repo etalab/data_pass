@@ -61,7 +61,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
       let(:authorization_request_params) do
         ActionController::Parameters.new(
           invalid: 'invalid',
-          responsable_traitement_family_name: 'New Dupont',
+          delegue_protection_donnees_family_name: 'New Dupont',
         )
       end
 
@@ -74,7 +74,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
         expect(authorization_request.scopes).to be_present
         expect(authorization_request.scopes).to include('open_data_unites_legales_etablissements_insee')
-        expect(authorization_request.responsable_traitement_family_name).to eq('New Dupont')
+        expect(authorization_request.delegue_protection_donnees_family_name).to eq('New Dupont')
       end
     end
 
@@ -83,7 +83,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
       let(:authorization_request_params) do
         ActionController::Parameters.new(
           invalid: 'invalid',
-          responsable_traitement_family_name: 'New Dupont',
+          delegue_protection_donnees_family_name: 'New Dupont',
         )
       end
 
@@ -97,7 +97,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
         expect(authorization_request.scopes).to be_present
         expect(authorization_request.scopes).to include('open_data_unites_legales_etablissements_insee')
         expect(authorization_request.scopes).to include('unites_legales_etablissements_insee')
-        expect(authorization_request.responsable_traitement_family_name).to eq('New Dupont')
+        expect(authorization_request.delegue_protection_donnees_family_name).to eq('New Dupont')
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
       let(:authorization_request_params) do
         ActionController::Parameters.new(
           invalid: 'invalid',
-          responsable_traitement_family_name: 'New Dupont',
+          delegue_protection_donnees_family_name: 'New Dupont',
         )
       end
 
@@ -117,7 +117,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
         authorization_request = AuthorizationRequest.last
 
-        expect(authorization_request.responsable_traitement_family_name).to eq('New Dupont')
+        expect(authorization_request.delegue_protection_donnees_family_name).to eq('New Dupont')
         expect(authorization_request.contact_technique_email).to eq('contact-mgdis@yopmail.com')
       end
     end

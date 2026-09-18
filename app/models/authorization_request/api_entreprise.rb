@@ -2,7 +2,6 @@ class AuthorizationRequest::APIEntreprise < AuthorizationRequest
   include AuthorizationExtensions::BasicInfos
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
-  include AuthorizationExtensions::GDPRContacts
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
@@ -14,6 +13,7 @@ class AuthorizationRequest::APIEntreprise < AuthorizationRequest
   })
 
   %i[
+    delegue_protection_donnees
     contact_metier
     contact_technique
   ].each do |contact_kind|
