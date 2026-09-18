@@ -1,4 +1,4 @@
-class Organisms::Stats::TimeSeriesChartComponentPreview < ViewComponent::Preview
+class Organisms::Stats::TimeSeriesChartComponentPreview < ApplicationPreview
   def default
     render Organisms::Stats::TimeSeriesChartComponent.new
   end

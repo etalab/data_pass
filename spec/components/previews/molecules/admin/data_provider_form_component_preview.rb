@@ -1,4 +1,4 @@
-class Molecules::Admin::DataProviderFormComponentPreview < ViewComponent::Preview
+class Molecules::Admin::DataProviderFormComponentPreview < ApplicationPreview
   def standalone_new
     render Molecules::Admin::DataProviderFormComponent.new(
       data_provider: DataProvider.new
