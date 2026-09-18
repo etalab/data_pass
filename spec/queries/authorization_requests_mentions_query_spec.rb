@@ -6,7 +6,7 @@ RSpec.describe AuthorizationRequestsMentionsQuery, type: :query do
     let(:relation) { AuthorizationRequest.all }
 
     let!(:valid_authorization_request) { create(:authorization_request, :api_entreprise, contact_metier_email: user.email) }
-    let!(:another_valid_authorization_request) { create(:authorization_request, :api_entreprise, responsable_traitement_email: user.email) }
+    let!(:another_valid_authorization_request) { create(:authorization_request, :api_entreprise, delegue_protection_donnees_email: user.email) }
     let!(:another_valid_authorization_request_with_uppercase_email) { create(:authorization_request, :api_entreprise) }
     let!(:invalid_authorization_request) { create(:authorization_request, :api_entreprise) }
 

@@ -7,7 +7,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Sachant que je suis un demandeur
     Et que je me connecte
     Et que je me rends sur une demande d'habilitation "Solution Portail des aides" en brouillon
-    Et que je renseigne les informations des contacts RGPD
+    Et que je renseigne les informations du délégué à la protection des données
     Et que je clique sur "Continuer vers le résumé"
 
   Scénario: Les blocs fixes n'ont pas de bouton modifier
@@ -27,7 +27,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
   @javascript
   Scénario: Modification avec des données valides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
-    Et que je remplis les informations du contact "Responsable de traitement" avec :
+    Et que je remplis les informations du contact "Délégué à la protection des données" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       | Nouveau | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
@@ -35,7 +35,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
 
   Scénario: Modification avec des données invalides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
-    Et que je remplis les informations du contact "Responsable de traitement" avec :
+    Et que je remplis les informations du contact "Délégué à la protection des données" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |         | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
@@ -45,6 +45,6 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
   Scénario: Tentative de sauvegarde sans modification
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Alors je peux voir le bouton "Enregistrer les modifications" grisé et désactivé
-    Et que je remplis "Fonction du responsable de traitement" avec "Directeur d'exploitation"
+    Et que je remplis "Fonction du délégué à la protection des données" avec "Directeur d'exploitation"
     Et que je clique sur "Enregistrer les modifications"
     Alors la page contient "Vérifiez le récapitulatif de votre demande"

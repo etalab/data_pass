@@ -85,7 +85,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un bouton "Annuler ma demande de modification"
     Et il n'y a pas de bouton "Envoyer ma demande de modification"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
-    Et que je remplis les informations du contact "Responsable de traitement" avec :
+    Et que je remplis les informations du contact "Délégué à la protection des données" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |Jean     | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur associé d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
