@@ -1,16 +1,26 @@
 class UpdateOrganizationINSEEPayloadJob < ApplicationJob
+  INSEE_CALLS_PAUSE_DURATION = 6.hours
+
   attr_reader :organization
 
   retry_on Faraday::ServerError, wait: :polynomially_longer, attempts: Float::INFINITY
   retry_on Faraday::ConnectionFailed, wait: :polynomially_longer, attempts: Float::INFINITY
-  retry_on Faraday::UnauthorizedError, wait: 1, attempts: 5
   retry_on INSEESireneAPIClient::InvalidResponseError, wait: :polynomially_longer, attempts: Float::INFINITY
   rescue_from INSEESireneAPIClient::EntityNotFoundError do |e|
     Sentry.capture_exception(e, level: :warning)
   end
+  discard_on Faraday::UnauthorizedError do |_job, error|
+    insee_calls_pause.mark(expires_in: INSEE_CALLS_PAUSE_DURATION)
+    Sentry.capture_exception(error)
+  end
+
+  def self.insee_calls_pause
+    Kredis.flag('insee_calls_pause')
+  end
 
   def perform(organization_id)
     return if skip_development?
+    return if self.class.insee_calls_pause.marked?
 
     @organization = Organization.find(organization_id)
 

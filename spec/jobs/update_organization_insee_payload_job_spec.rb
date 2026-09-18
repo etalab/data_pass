@@ -84,5 +84,56 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
         )
       end
     end
+
+    context 'when INSEE rejects the credentials' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+      let(:other_organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+
+      before do
+        allow(insee_sirene_api_client).to receive(:etablissement).and_raise(Faraday::UnauthorizedError, 'the server responded with status 401')
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      after { described_class.insee_calls_pause.remove }
+
+      it 'does not retry the job' do
+        expect { update_organization_insee_payload_job }.not_to have_enqueued_job(described_class)
+      end
+
+      it 'reports to Sentry' do
+        update_organization_insee_payload_job
+
+        expect(Sentry).to have_received(:capture_exception).with(an_instance_of(Faraday::UnauthorizedError))
+      end
+
+      it 'stops calling INSEE for the other organizations' do
+        update_organization_insee_payload_job
+        described_class.perform_now(other_organization.id)
+
+        expect(insee_sirene_api_client).to have_received(:etablissement).once
+      end
+
+      it 'stops calling INSEE long enough to stay under the account lockout threshold' do
+        update_organization_insee_payload_job
+
+        pause_ttl = Kredis.configured_for(:shared).ttl(described_class.insee_calls_pause.key)
+
+        expect(pause_ttl).to be_within(1.minute).of(described_class::INSEE_CALLS_PAUSE_DURATION)
+      end
+    end
+
+    context 'when INSEE calls are paused' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+
+      before { described_class.insee_calls_pause.mark(expires_in: 1.minute) }
+
+      after { described_class.insee_calls_pause.remove }
+
+      it 'does not call the API' do
+        expect(insee_sirene_api_client).not_to receive(:etablissement)
+
+        update_organization_insee_payload_job
+      end
+    end
   end
 end
