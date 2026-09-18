@@ -14,6 +14,10 @@ class AuthorizationHeaderComponent < ApplicationComponent
     @decorated_authorization ||= authorization.decorate
   end
 
+  def policy(record)
+    Pundit.policy!(UserContext.new(current_user, helpers.request&.host), record)
+  end
+
   def header_background_class
     if %w[revoked obsolete].include?(authorization.state)
       'fr-background-alt--grey'

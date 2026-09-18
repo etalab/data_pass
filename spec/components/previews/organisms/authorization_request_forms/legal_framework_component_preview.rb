@@ -2,9 +2,9 @@
 
 module Organisms
   module AuthorizationRequestForms
-    class LegalFrameworkComponentPreview < ViewComponent::Preview
+    class LegalFrameworkComponentPreview < ApplicationPreview
       def default
-        authorization_request = AuthorizationRequest::APIEntreprise.first
+        authorization_request = AuthorizationRequest::APIParticulier.first
         form = create_form_builder(authorization_request)
 
         render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(

@@ -1,4 +1,4 @@
-class Molecules::UpdateInProgressNoticeComponentPreview < ViewComponent::Preview
+class Molecules::UpdateInProgressNoticeComponentPreview < ApplicationPreview
   def default
     authorization = Authorization.joins(:request).where(authorization_requests: { state: 'draft' }).first
     render Molecules::UpdateInProgressNoticeComponent.new(authorization:)

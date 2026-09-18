@@ -1,4 +1,4 @@
-class Organisms::Stats::SummaryCardsComponentPreview < ViewComponent::Preview
+class Organisms::Stats::SummaryCardsComponentPreview < ApplicationPreview
   def default
     render Organisms::Stats::SummaryCardsComponent.new
   end

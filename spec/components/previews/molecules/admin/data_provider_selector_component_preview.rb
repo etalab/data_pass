@@ -1,4 +1,4 @@
-class Molecules::Admin::DataProviderSelectorComponentPreview < ViewComponent::Preview
+class Molecules::Admin::DataProviderSelectorComponentPreview < ApplicationPreview
   def default
     render Molecules::Admin::DataProviderSelectorComponent.new(
       data_providers: DataProvider.all

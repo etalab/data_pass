@@ -1,4 +1,4 @@
-class Molecules::Instruction::UserRights::RightFieldComponentPreview < ViewComponent::Preview
+class Molecules::Instruction::UserRights::RightFieldComponentPreview < ApplicationPreview
   def empty
     render Molecules::Instruction::UserRights::RightFieldComponent.new(
       index: 0,

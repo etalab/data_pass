@@ -1,4 +1,4 @@
-class Molecules::Instruction::UserRights::ReadonlyRightsListComponentPreview < ViewComponent::Preview
+class Molecules::Instruction::UserRights::ReadonlyRightsListComponentPreview < ApplicationPreview
   def with_rights
     render Molecules::Instruction::UserRights::ReadonlyRightsListComponent.new(rights: sample_rights)
   end

@@ -1,4 +1,4 @@
-class Molecules::DurationCardComponentPreview < ViewComponent::Preview
+class Molecules::DurationCardComponentPreview < ApplicationPreview
   def duration
     render Molecules::DurationCardComponent.new(
       title: I18n.t('stats.durations.fill_title'),

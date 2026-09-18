@@ -1,4 +1,4 @@
-class Molecules::Admin::ContactTypesSelectorComponentPreview < ViewComponent::Preview
+class Molecules::Admin::ContactTypesSelectorComponentPreview < ApplicationPreview
   def all_checked
     record = HabilitationType.new(
       contact_types: Molecules::Admin::ContactTypesSelectorComponent::CONTACT_TYPES
