@@ -31,6 +31,7 @@ module DataPass
     end
 
     config.action_mailer.preview_paths = [Rails.root.join('spec/mailers/previews')]
+    config.view_component.previews.paths << Rails.root.join('spec/components/previews').to_s if Rails.env.local? || Rails.env.sandbox?
 
     config.default_from = 'notifications@api.gouv.fr'
 
