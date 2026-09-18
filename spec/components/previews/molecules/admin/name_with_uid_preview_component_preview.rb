@@ -1,4 +1,4 @@
-class Molecules::Admin::NameWithUidPreviewComponentPreview < ViewComponent::Preview
+class Molecules::Admin::NameWithUidPreviewComponentPreview < ApplicationPreview
   def new_record
     record = HabilitationType.new
     render Molecules::Admin::NameWithUidPreviewComponent.new(

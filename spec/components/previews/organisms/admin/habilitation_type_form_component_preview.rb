@@ -1,4 +1,4 @@
-class Organisms::Admin::HabilitationTypeFormComponentPreview < ViewComponent::Preview
+class Organisms::Admin::HabilitationTypeFormComponentPreview < ApplicationPreview
   def new_record
     render Organisms::Admin::HabilitationTypeFormComponent.new(
       habilitation_type: HabilitationType.new(blocks: HabilitationType::BLOCK_ORDER)

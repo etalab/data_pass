@@ -1,4 +1,4 @@
-class Molecules::StatCardComponentPreview < ViewComponent::Preview
+class Molecules::StatCardComponentPreview < ApplicationPreview
   def default
     render Molecules::StatCardComponent.new(
       title: I18n.t('stats.summary.validated'),

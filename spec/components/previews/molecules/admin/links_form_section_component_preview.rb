@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Molecules::Admin::LinksFormSectionComponentPreview < ViewComponent::Preview
+class Molecules::Admin::LinksFormSectionComponentPreview < ApplicationPreview
   def default
     record = HabilitationType.first
     render Molecules::Admin::LinksFormSectionComponent.new(

@@ -1,4 +1,4 @@
-class Atoms::ColorBadgeComponentPreview < ViewComponent::Preview
+class Atoms::ColorBadgeComponentPreview < ApplicationPreview
   def role_manager
     render Atoms::ColorBadgeComponent.new(label: 'Manager', color: 'purple-glycine')
   end
