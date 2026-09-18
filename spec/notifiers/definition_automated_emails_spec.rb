@@ -89,6 +89,8 @@ RSpec.describe 'Automated emails wiring per definition', type: :notifier do
       attributes[:modalities] = %w[france_connect] if modalities_supported?(definition_id)
     end
 
+    attributes[:modalities] = %w[params formulaire_qf] if state['formulaire_qf_modality']
+
     authorization_request = create_with_definition_trait(definition_id, extra_traits, attributes)
     fake_reopening(authorization_request) if state['reopening']
     authorization_request

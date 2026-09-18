@@ -33,6 +33,38 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
+  describe '#formulaire_qf?' do
+    subject { build(:authorization_request, :api_particulier, modalities:).formulaire_qf? }
+
+    context 'with the formulaire QF modality' do
+      let(:modalities) { %w[params formulaire_qf] }
+
+      it { is_expected.to be(true) }
+    end
+
+    context 'without the formulaire QF modality' do
+      let(:modalities) { %w[params france_connect] }
+
+      it { is_expected.to be(false) }
+    end
+  end
+
+  describe '#editor' do
+    subject { build(:authorization_request, form_trait).editor }
+
+    context 'with an editor form' do
+      let(:form_trait) { :api_particulier_3d_ouest }
+
+      it { is_expected.to have_attributes(name: '3D Ouest') }
+    end
+
+    context 'with the free form' do
+      let(:form_trait) { :api_particulier }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#skip_france_connect_authorization?' do
     subject { authorization_request.skip_france_connect_authorization? }
 

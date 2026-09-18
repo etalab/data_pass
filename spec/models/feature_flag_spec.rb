@@ -67,5 +67,27 @@ RSpec.describe FeatureFlag do
         end
       end
     end
+
+    context 'when the flag is hubee_formulaire_qf_notification' do
+      %w[production development test].each do |environment|
+        context "when the environment is #{environment}" do
+          it 'returns true' do
+            allow(Rails).to receive(:env).and_return(ActiveSupport::EnvironmentInquirer.new(environment))
+
+            expect(described_class.enabled?(:hubee_formulaire_qf_notification)).to be true
+          end
+        end
+      end
+
+      %w[staging sandbox].each do |environment|
+        context "when the environment is #{environment}" do
+          it 'returns false' do
+            allow(Rails).to receive(:env).and_return(ActiveSupport::EnvironmentInquirer.new(environment))
+
+            expect(described_class.enabled?(:hubee_formulaire_qf_notification)).to be false
+          end
+        end
+      end
+    end
   end
 end

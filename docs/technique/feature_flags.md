@@ -18,7 +18,8 @@ visible) ou `false` (masquée). Les règles vivent dans la constante `RULES`.
 module FeatureFlag
   RULES = {
     depot_dossier_mariage: ->(**) { !Rails.env.production? },
-    authorization_definitions: ->(user: nil, **) { user&.admin? || Rails.env.test? }
+    authorization_definitions: ->(user: nil, **) { user&.admin? || Rails.env.test? },
+    hubee_formulaire_qf_notification: ->(**) { Rails.env.production? || Rails.env.local? }
   }.freeze
 
   def self.enabled?(name, **context)
@@ -28,6 +29,11 @@ module FeatureFlag
   end
 end
 ```
+
+`hubee_formulaire_qf_notification` n’est pas un rollout mais une **garde d’environnement** :
+staging et sandbox délivrent réellement les e-mails, et l’e-mail au support HubEE
+(cf. [emails automatiques](automated_emails.md)) ne doit partir que depuis la production.
+Cette règle n’a pas vocation à être retirée.
 
 - **Nom inconnu → activé.** `enabled?` renvoie `true` si le flag n'existe pas dans
   `RULES`. Retirer une règle « allume » donc définitivement la fonctionnalité : c'est

@@ -220,6 +220,19 @@ fr:
         La demande d'habilitation n°%{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
 
         Vous pouvez consulter la demande en suivant le lien suivant: %{authorization_request_url}
+  hubee_mailer:
+    formulaire_qf_validation:
+      subject: "[DataPass] Demande FQF %{authorization_request_id} validée — %{organization_name}"
+      description: |
+        Nous vous informons que la demande %{authorization_request_id} d’accès au formulaire de collecte du quotient familial (FQF) vient d’être validée sur DataPass.
+
+        Voici les informations nécessaires à l’activation de l’abonnement HubEE :
+      intitule: "Intitulé de la demande : %{intitule}"
+      form_name: "Formulaire : %{form_name}"
+      editor_name: "Éditeur : %{editor_name}"
+      organization: "Organisation : %{organization_name} (SIRET %{siret})"
+      validated_at: "Date de validation : %{validated_at}"
+      consultation: "Consulter la demande : %{authorization_request_url}"
   produits_dinum_mailer:
     transmit_convention:
       subject: "Votre habilitation numéro %{authorization_request_id} vient d’être validée"
