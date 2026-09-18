@@ -1,4 +1,4 @@
-class Organisms::Stats::LoadingOverlayComponentPreview < ViewComponent::Preview
+class Organisms::Stats::LoadingOverlayComponentPreview < ApplicationPreview
   def default
     render Organisms::Stats::LoadingOverlayComponent.new
   end

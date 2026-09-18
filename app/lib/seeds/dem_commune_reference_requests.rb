@@ -56,7 +56,13 @@ class Seeds::DemCommuneReferenceRequests
   def create_reopening_scenarios
     @requests.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Réouverte'))
     @requests.create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: scenario('Réouverte et soumise'))
-    @requests.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Migration v1')).update!(dirty_from_v1: true)
+    create_migrated_from_v1_scenario
+  end
+
+  def create_migrated_from_v1_scenario
+    authorization_request = @requests.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Migration v1'))
+    authorization_request.update!(dirty_from_v1: true)
+    authorization_request.authorizations.update_all(form_uid: nil) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def create_exchange_scenarios

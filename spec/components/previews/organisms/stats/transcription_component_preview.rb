@@ -1,4 +1,4 @@
-class Organisms::Stats::TranscriptionComponentPreview < ViewComponent::Preview
+class Organisms::Stats::TranscriptionComponentPreview < ApplicationPreview
   def default
     render Organisms::Stats::TranscriptionComponent.new(
       id: 'preview',

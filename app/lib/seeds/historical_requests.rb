@@ -29,6 +29,7 @@ class Seeds::HistoricalRequests
       :api_particulier,
       :with_france_connect_embedded_fields,
       fill_all_attributes: true,
+      form_uid: 'api-particulier-aiga',
       applicant: dem_historique,
       organization: dem_historique.current_organization,
       intitule: 'Portail famille avec FranceConnect unifié',

@@ -1,4 +1,4 @@
-class Organisms::Instruction::UserRights::TableComponentPreview < ViewComponent::Preview
+class Organisms::Instruction::UserRights::TableComponentPreview < ApplicationPreview
   def with_users
     actor = User.find_by!(email: 'admin-instructeur@yopmail.com')
     users = User.with_roles.where.not(id: actor.id).limit(5)

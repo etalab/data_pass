@@ -1,4 +1,4 @@
-class FlashAlertComponentPreview < ViewComponent::Preview
+class FlashAlertComponentPreview < ApplicationPreview
   def success
     render FlashAlertComponent.new(
       type: :success,

@@ -1,4 +1,4 @@
-class Molecules::Admin::ScopesEditorComponentPreview < ViewComponent::Preview
+class Molecules::Admin::ScopesEditorComponentPreview < ApplicationPreview
   def with_scopes
     record = HabilitationType.new(
       scopes: [

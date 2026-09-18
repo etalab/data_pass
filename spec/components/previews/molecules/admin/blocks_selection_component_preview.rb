@@ -1,4 +1,4 @@
-class Molecules::Admin::BlocksSelectionComponentPreview < ViewComponent::Preview
+class Molecules::Admin::BlocksSelectionComponentPreview < ApplicationPreview
   def all_checked
     record = HabilitationType.new(blocks: HabilitationType::BLOCK_ORDER)
     render Molecules::Admin::BlocksSelectionComponent.new(
