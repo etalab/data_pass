@@ -13,7 +13,7 @@ RSpec.describe DeliverGDPRContactsMails do
     end
 
     context 'when all GDPR contacts exist on authorization request' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+      let(:authorization_request) { create(:authorization_request, :api_scolarite, fill_all_attributes: true) }
 
       it 'delivers notification emails to these contacts' do
         expect { subject }.to have_enqueued_mail(GDPRContactMailer, :responsable_traitement)

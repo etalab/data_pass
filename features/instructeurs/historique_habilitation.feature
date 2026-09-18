@@ -56,11 +56,6 @@ Fonctionnalité: Instruction: historique habilitation
     Quand il y a 1 demande d'habilitation "Solution Portail des aides" en brouillon
     Et que cette demande a été modifiée avec les informations suivantes :
       | champ                                   | nouvelle valeur                     |
-      | responsable_traitement_family_name      | Dupont                              |
-      | responsable_traitement_given_name       | Jacques                             |
-      | responsable_traitement_email            | responsable_traitement@test.fr      |
-      | responsable_traitement_job_title        | Responsable traitement              |
-      | responsable_traitement_phone_number     | 0836656565                          |
       | delegue_protection_donnees_family_name  | Dupond                              |
       | delegue_protection_donnees_given_name   | Jean                                |
       | delegue_protection_donnees_email        | delegue_protection_donnees@test.fr  |
@@ -78,11 +73,6 @@ Fonctionnalité: Instruction: historique habilitation
     Et que cette demande a été modifiée avec les informations suivantes :
       | champ                                   | nouvelle valeur                     |
       | contact_technique_email                 | tech@test.fr                        |
-      | responsable_traitement_family_name      | Dupont                              |
-      | responsable_traitement_given_name       | Jacques                             |
-      | responsable_traitement_email            | responsable_traitement@test.fr      |
-      | responsable_traitement_job_title        | Responsable traitement              |
-      | responsable_traitement_phone_number     | 0836656565                          |
       | delegue_protection_donnees_family_name  | Dupond                              |
       | delegue_protection_donnees_given_name   | Jean                                |
       | delegue_protection_donnees_email        | delegue_protection_donnees@test.fr  |
