@@ -105,9 +105,11 @@ fr:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
       adresse_ip_publique:
-        hint: L’ouverture de l’accès aux informations de la DGFIP est sécurisée et nécessite de communiquer l’adresse IP publique (ou la plage la plus réduite possible) par laquelle vos applications interrogent nos APIs. Toute modification de l’adresse IP publique nécessitera une mise à jour de la demande.
+        hint: "L’ouverture de l’accès aux informations de la DGFIP est sécurisée et nécessite de communiquer l’adresse IP publique (ou la plage la plus réduite possible) par laquelle vos applications interrogent nos APIs. Toute modification de l’adresse IP publique nécessitera une mise à jour de la demande. Exemple : 198.51.100.24 pour une adresse seule, ou 203.0.113.0/24 pour une plage. Les adresses IPv4 et IPv6 sont acceptées, ainsi que plusieurs adresses séparées par des virgules. Une adresse privée (10.x, 172.16 à 172.31.x, 192.168.x) ou locale sera refusée."
       contact_technique_adresse:
-        hint: Nous insistons à cet égard sur le besoin d’une adresse postale professionnelle sans laquelle cette opération serait considérablement ralentie. Attention, merci de bien vouloir nous transmettre une adresse postale professionnelle, complète, exacte et à jour, afin de garantir le bon acheminement de nos correspondances et d’éviter toute erreur de destinataire.
+        hint: "Nous insistons à cet égard sur le besoin d’une adresse postale professionnelle sans laquelle cette opération serait considérablement ralentie. Attention, merci de bien vouloir nous transmettre une adresse postale professionnelle, complète, exacte et à jour, afin de garantir le bon acheminement de nos correspondances et d’éviter toute erreur de destinataire. Indiquez le numéro, la voie, le code postal et la commune sur une seule ligne. Exemple : 12 rue des Lilas, 44000 Nantes."
+      contact_technique_adresse_complement:
+        hint: Bâtiment, étage, service ou boîte postale, si nécessaire.
 
       prefill_data_info:
         title: Nous avons pré-rempli des informations pour vous aider
