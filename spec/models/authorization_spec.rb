@@ -146,6 +146,33 @@ RSpec.describe Authorization do
         expect(authorization_request.reload.maquette_projet.first.filename.to_s).to eq('another_dummy.pdf')
       end
     end
+
+    context 'when the next stage has been started, resetting terms on the shared request' do
+      let(:authorization_definition_kind) { :api_impot_particulier_sandbox }
+
+      before do
+        organizer = StartNextAuthorizationRequestStage.call(
+          authorization_request: authorization.request,
+          user: authorization.applicant
+        )
+        raise "StartNextAuthorizationRequestStage failed: #{organizer.error}" unless organizer.success?
+      end
+
+      it 'keeps the terms accepted on the validated sandbox authorization' do
+        expect(AuthorizationRequest.find(authorization.request_id).terms_of_service_accepted).to be false
+        expect(request_as_validated.terms_of_service_accepted).to be true
+        expect(request_as_validated.data_protection_officer_informed).to be true
+      end
+    end
+
+    context 'when the definition has no stage' do
+      it 'does not touch the terms' do
+        authorization.request.update!(terms_of_service_accepted: false, data_protection_officer_informed: false)
+
+        expect(request_as_validated.terms_of_service_accepted).to be false
+        expect(request_as_validated.data_protection_officer_informed).to be false
+      end
+    end
   end
 
   describe '#latest?' do

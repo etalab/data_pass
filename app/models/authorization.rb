@@ -125,6 +125,7 @@ class Authorization < ApplicationRecord
     request_as_validated.applicant_id = applicant_id
     request_as_validated.state = revoked? ? 'revoked' : 'validated'
     request_as_validated.created_at = created_at
+    affect_accepted_terms(request_as_validated)
     affect_snapshot_documents(request_as_validated) if load_documents
 
     request_as_validated
@@ -209,6 +210,13 @@ class Authorization < ApplicationRecord
   end
 
   private
+
+  def affect_accepted_terms(request_as_validated)
+    return unless multi_stage?
+
+    request_as_validated.terms_of_service_accepted = true
+    request_as_validated.data_protection_officer_informed = true
+  end
 
   def affect_snapshot_documents(request_as_validated)
     request_as_validated.class.documents.each do |document|
