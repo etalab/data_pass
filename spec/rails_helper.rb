@@ -95,6 +95,7 @@ RSpec.configure do |config|
     Rails.cache.clear
     INSEECallsPause.reset!
     Setting.invalidate_cache!
+    INSEEAPIAuthentication.invalidate_access_token!
   end
 
   # Filter lines from Rails gems in backtraces.

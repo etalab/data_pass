@@ -4,6 +4,7 @@ require 'faraday'
 
 class AbstractINSEEAPIClient
   class UnavailableError < StandardError; end
+  class InvalidResponseError < StandardError; end
 
   def self.calls_allowed?
     Setting.fetch(:insee_calls_enabled) && !INSEECallsPause.paused?
@@ -13,12 +14,24 @@ class AbstractINSEEAPIClient
 
   def http_connection(&block)
     @http_connection ||= Faraday.new do |conn|
-      conn.request :retry, max: 5
+      conn.request :retry, retry_options
       conn.response :raise_error
-      conn.response :json
       conn.options.timeout = 2
       yield(conn) if block
     end
+  end
+
+  def retry_options
+    {
+      max: 2,
+      interval: 0.05,
+      interval_randomness: 0.5,
+      backoff_factor: 2,
+      exceptions: [
+        Faraday::ConnectionFailed,
+        Faraday::TimeoutError,
+      ],
+    }
   end
 
   def ensure_insee_available!
