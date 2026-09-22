@@ -54,6 +54,46 @@ RSpec.describe INSEESireneAPIClient do
       end
     end
 
+    context 'when API returns a 401' do
+      before do
+        stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
+          status: 401,
+          headers: { 'Content-Type' => 'application/json' },
+          body: ''
+        )
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'raises an UnavailableError' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+      end
+
+      it 'pauses the INSEE calls' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause).to be_paused
+      end
+    end
+
+    context 'when INSEE calls are paused' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})
+        INSEECallsPause.pause!
+      end
+
+      it 'raises an UnavailableError without calling INSEE' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(a_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})).not_to have_been_made
+      end
+
+      it 'counts the skipped call' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause.skipped_calls_count).to eq(1)
+      end
+    end
+
     context 'when the INSEE calls are disabled by configuration' do
       before do
         stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})

@@ -6,7 +6,7 @@ class AbstractINSEEAPIClient
   class UnavailableError < StandardError; end
 
   def self.calls_allowed?
-    Setting.fetch(:insee_calls_enabled)
+    Setting.fetch(:insee_calls_enabled) && !INSEECallsPause.paused?
   end
 
   protected
@@ -22,8 +22,30 @@ class AbstractINSEEAPIClient
   end
 
   def ensure_insee_available!
-    return if self.class.calls_allowed?
+    ensure_insee_calls_enabled!
+    ensure_insee_calls_not_paused!
+  end
+
+  def ensure_insee_calls_enabled!
+    return if Setting.fetch(:insee_calls_enabled)
+
+    INSEECallsPause.record_skipped_call
 
     raise UnavailableError, 'INSEE calls are disabled by configuration'
+  end
+
+  def ensure_insee_calls_not_paused!
+    return unless INSEECallsPause.paused?
+
+    INSEECallsPause.record_skipped_call
+
+    raise UnavailableError, 'INSEE calls are paused'
+  end
+
+  def pause_insee_calls!(error, message)
+    INSEECallsPause.pause!
+    Sentry.capture_exception(error)
+
+    raise UnavailableError, "#{message}: #{error.message}"
   end
 end

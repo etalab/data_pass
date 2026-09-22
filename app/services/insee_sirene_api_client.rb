@@ -12,6 +12,8 @@ class INSEESireneAPIClient < AbstractINSEEAPIClient
     JSON.parse(response)
   rescue Faraday::ResourceNotFound => e
     raise EntityNotFoundError, "Etablissement with SIRET #{siret} not found: #{e.message}"
+  rescue Faraday::UnauthorizedError => e
+    pause_insee_calls!(e, 'INSEE rejected our access token')
   rescue JSON::ParserError => e
     raise InvalidResponseError, e.message
   end

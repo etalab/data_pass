@@ -63,6 +63,50 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
       end
     end
 
+    context 'when INSEE is unavailable' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+
+      before do
+        allow(insee_sirene_api_client).to receive(:etablissement).and_raise(AbstractINSEEAPIClient::UnavailableError)
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'does not retry the job' do
+        expect { update_organization_insee_payload_job }.not_to have_enqueued_job(described_class)
+      end
+
+      it 'does not raise' do
+        expect { update_organization_insee_payload_job }.not_to raise_error
+      end
+
+      it 'leaves the organization without a fresh payload so that it is picked up again later' do
+        update_organization_insee_payload_job
+
+        expect(organization.reload.last_insee_payload_updated_at).to be < 24.hours.ago
+      end
+
+      it 'reports to Sentry as a warning' do
+        update_organization_insee_payload_job
+
+        expect(Sentry).to have_received(:capture_exception).with(
+          an_instance_of(AbstractINSEEAPIClient::UnavailableError),
+          level: :warning,
+        )
+      end
+    end
+
+    context 'when INSEE calls are paused' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+
+      before { INSEECallsPause.pause! }
+
+      it 'does not call the API' do
+        expect(insee_sirene_api_client).not_to receive(:etablissement)
+
+        update_organization_insee_payload_job
+      end
+    end
+
     context 'when the INSEE calls are disabled by configuration' do
       let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
 

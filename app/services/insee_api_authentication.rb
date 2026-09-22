@@ -14,6 +14,8 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
         'password' => password,
       }.to_query,
     ).body['access_token']
+  rescue Faraday::BadRequestError, Faraday::UnauthorizedError => e
+    pause_insee_calls!(e, 'INSEE rejected our credentials')
   end
 
   protected

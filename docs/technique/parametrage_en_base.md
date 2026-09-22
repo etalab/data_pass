@@ -33,7 +33,7 @@ DEFINITIONS = {
 
 | Clé de déclaration | Rôle |
 | -- | -- |
-| `type` | `:string`, `:enabled_unless_false` — d’autres s’ajoutent avec les clés qui les emploient |
+| `type` | `:string`, `:duration` (stockée en secondes), `:enabled_unless_false` |
 | `env` | nom de la variable d’environnement consultée ensuite |
 | `credential` | chemin dans les credentials, passé à `dig` |
 | `default` | valeur si rien ne répond |

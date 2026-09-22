@@ -31,6 +31,61 @@ RSpec.describe INSEEAPIAuthentication do
       end
     end
 
+    context 'when INSEE rejects the credentials with a 400' do
+      before do
+        stub_request(:post, 'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token').to_return(status: 400)
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'raises an UnavailableError' do
+        expect { access_token }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+      end
+
+      it 'pauses the INSEE calls' do
+        expect { access_token }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause).to be_paused
+      end
+
+      it 'reports to Sentry' do
+        expect { access_token }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(Sentry).to have_received(:capture_exception).with(an_instance_of(Faraday::BadRequestError))
+      end
+    end
+
+    context 'when INSEE rejects the credentials with a 401' do
+      before do
+        stub_request(:post, 'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token').to_return(status: 401)
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'pauses the INSEE calls' do
+        expect { access_token }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause).to be_paused
+      end
+    end
+
+    context 'when INSEE calls are paused' do
+      before do
+        token_request_stub
+        INSEECallsPause.pause!
+      end
+
+      it 'raises an UnavailableError without calling INSEE' do
+        expect { access_token }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(token_request_stub).not_to have_been_requested
+      end
+
+      it 'counts the skipped call' do
+        expect { access_token }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause.skipped_calls_count).to eq(1)
+      end
+    end
+
     context 'when the credentials come from the database' do
       before do
         token_request_stub
