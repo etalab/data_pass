@@ -1,4 +1,6 @@
 class UpdateOrganizationINSEEPayloadJob < ApplicationJob
+  queue_as :insee
+
   attr_reader :organization
 
   retry_on Faraday::ServerError, wait: :polynomially_longer, attempts: Float::INFINITY

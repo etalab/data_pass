@@ -1,6 +1,10 @@
 RSpec.describe UpdateOrganizationINSEEPayloadJob do
   subject(:update_organization_insee_payload_job) { described_class.perform_now(organization_id) }
 
+  it 'runs on the serialised INSEE queue' do
+    expect(described_class.new.queue_name).to eq('insee')
+  end
+
   context 'with invalid organization' do
     let(:organization_id) { 0 }
 
