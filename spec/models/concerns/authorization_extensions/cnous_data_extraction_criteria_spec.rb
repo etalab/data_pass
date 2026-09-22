@@ -113,4 +113,60 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
       expect(request.reload.geographic_perimeter_automatic?).to be(false)
     end
   end
+
+  describe 'tracing the silent degradations to manual mode' do
+    before { allow(Sentry).to receive(:capture_message) }
+
+    it 'reports when the organization has no INSEE payload' do
+      request = build_request(organization: create(:organization))
+      request.save(validate: false)
+
+      expect(Sentry).to have_received(:capture_message).with(/has no INSEE payload/, level: :warning)
+    end
+
+    it 'stays silent for an organization whose legal category is legitimately not mapped' do
+      request = build_request(organization: organization_with(categorie: '7340'))
+      request.save(validate: false)
+
+      expect(Sentry).not_to have_received(:capture_message)
+    end
+
+    it 'reports when the organization payload carries no commune code' do
+      request = build_request(organization: organization_with(categorie: '7210', commune: nil))
+      request.save(validate: false)
+
+      expect(Sentry).to have_received(:capture_message).with(/no commune code/, level: :warning)
+    end
+
+    it 'reports when the geo API is unavailable' do
+      allow(Sentry).to receive(:capture_exception)
+      stub_request(:get, %r{https://geo\.api\.gouv\.fr/communes/69402}).to_return(status: 502, body: '')
+      request = build_request(organization: organization_with(categorie: '7220', commune: '69402'))
+      request.save(validate: false)
+
+      expect(Sentry).to have_received(:capture_exception).with(an_instance_of(GeoAPIGouvClient::ServerError), level: :warning)
+    end
+  end
+
+  describe '#populate_codes_insee_and_entity replayed once the INSEE payload arrives' do
+    it 'switches the request back to the automatic perimeter' do
+      organization = create(:organization)
+      request = build_request(organization:)
+      request.save(validate: false)
+
+      organization.update!(insee_payload: organization_with(categorie: '7210', commune: '92023').insee_payload)
+      request.populate_codes_insee_and_entity
+
+      expect(request.reload.data).to include('entity_type' => 'commune', 'code_insee_entity' => '92023')
+    end
+
+    it 'leaves an already automatic request untouched' do
+      request = build_request(data: { 'entity_type' => 'region', 'code_insee_entity' => '84' })
+      request.save(validate: false)
+
+      request.populate_codes_insee_and_entity
+
+      expect(request.reload.data).to include('entity_type' => 'region', 'code_insee_entity' => '84')
+    end
+  end
 end
