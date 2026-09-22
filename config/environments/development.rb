@@ -5,7 +5,6 @@ Rails.application.configure do
   config.hosts << /.*\.localtest\.me/
 
   config.lookbook.preview_layout = 'component_preview'
-  config.lookbook.preview_paths = ['spec/components/previews']
 
   config.hotwire.spark.enabled = ENV['DISABLE_HOTWIRE_SPARK'].nil?
 
