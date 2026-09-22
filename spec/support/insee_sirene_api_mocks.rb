@@ -22,10 +22,12 @@ module INSEESireneAPIMocks
   end
 
   def mock_insee_authentication
-    stub_request(:post, 'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token').to_return(
+    stub_request(:post, INSEEAPIAuthentication::TOKEN_URL).to_return(
       status: 200,
+      headers: { 'Content-Type' => 'application/json' },
       body: {
         access_token: 'token',
+        expires_in: 3600,
       }.to_json,
     )
   end

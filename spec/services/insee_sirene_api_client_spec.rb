@@ -1,8 +1,6 @@
 RSpec.describe INSEESireneAPIClient do
-  let(:insee_api_authentication) { instance_double(INSEEAPIAuthentication, access_token: 'access_token') }
-
   before do
-    allow(INSEEAPIAuthentication).to receive(:new).and_return(insee_api_authentication)
+    allow(INSEEAPIAuthentication).to receive(:access_token).and_return('access_token')
   end
 
   describe '#etablissement' do
@@ -52,18 +50,39 @@ RSpec.describe INSEESireneAPIClient do
       it 'raises an error' do
         expect { etablissement_payload }.to raise_error(Faraday::Error)
       end
+
+      it 'does not retry a request INSEE has already refused' do
+        expect { etablissement_payload }.to raise_error(Faraday::Error)
+
+        expect(a_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}")).to have_been_made.once
+      end
     end
 
-    context 'when the INSEE calls are disabled by configuration' do
+    context 'when API returns a 401' do
       before do
-        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})
-        Setting.set(:insee_calls_enabled, 'false')
+        stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
+          status: 401,
+          headers: { 'Content-Type' => 'application/json' },
+          body: ''
+        )
+        allow(INSEEAPIAuthentication).to receive(:invalidate_access_token!)
+        allow(Sentry).to receive(:capture_exception)
       end
 
-      it 'raises an UnavailableError without calling INSEE' do
+      it 'raises an UnavailableError' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+      end
+
+      it 'pauses the INSEE calls' do
         expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
 
-        expect(a_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})).not_to have_been_made
+        expect(INSEECallsPause).to be_paused
+      end
+
+      it 'invalidates the cached access token' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEEAPIAuthentication).to have_received(:invalidate_access_token!)
       end
     end
 
@@ -78,6 +97,44 @@ RSpec.describe INSEESireneAPIClient do
 
       it 'raises an InvalidResponseError' do
         expect { etablissement_payload }.to raise_error(INSEESireneAPIClient::InvalidResponseError)
+      end
+    end
+
+    context 'when the INSEE calls are disabled by configuration' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})
+        Setting.set(:insee_calls_enabled, 'false')
+      end
+
+      it 'raises an UnavailableError without calling INSEE' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(a_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})).not_to have_been_made
+      end
+
+      it 'counts the skipped call' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause.skipped_calls_count).to eq(1)
+      end
+    end
+
+    context 'when INSEE calls are paused' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})
+        INSEECallsPause.pause!
+      end
+
+      it 'raises an UnavailableError without calling INSEE' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(a_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})).not_to have_been_made
+      end
+
+      it 'counts the skipped call' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(INSEECallsPause.skipped_calls_count).to eq(1)
       end
     end
   end

@@ -41,6 +41,12 @@ RSpec.describe Setting do
       end
     end
 
+    it 'casts a duration setting' do
+      described_class.set(:insee_calls_pause_duration, '3600')
+
+      expect(described_class.fetch(:insee_calls_pause_duration)).to eq(1.hour)
+    end
+
     it 'raises on a key that is not declared in the code' do
       expect { described_class.fetch(:not_declared) }.to raise_error(described_class::UnknownKeyError)
     end

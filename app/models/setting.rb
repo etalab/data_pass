@@ -7,6 +7,7 @@ class Setting < ApplicationRecord
     insee_username: { type: :string, env: 'INSEE_USERNAME', credential: %i[insee_username] },
     insee_password: { type: :string, env: 'INSEE_PASSWORD', credential: %i[insee_password] },
     insee_calls_enabled: { type: :enabled_unless_false, env: 'INSEE_CALLS_ENABLED', default: true },
+    insee_calls_pause_duration: { type: :duration, default: 6.hours },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze
@@ -76,6 +77,7 @@ class Setting < ApplicationRecord
 
     def cast(value, type)
       case type
+      when :duration then Integer(value).seconds
       when :enabled_unless_false then value.to_s != 'false'
       else value
       end

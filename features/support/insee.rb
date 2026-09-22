@@ -1,9 +1,13 @@
 # rubocop:disable-next Metrics/BlockLength
 Before do |scenario|
-  stub_request(:post, 'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token').to_return(
+  INSEEAPIAuthentication.invalidate_access_token!
+
+  stub_request(:post, INSEEAPIAuthentication::TOKEN_URL).to_return(
     status: 200,
+    headers: { 'Content-Type' => 'application/json' },
     body: {
       access_token: 'token',
+      expires_in: 3600,
     }.to_json,
   )
 
