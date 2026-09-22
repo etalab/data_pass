@@ -1,4 +1,4 @@
-# INSEE — couper les appels sans déploiement
+# INSEE — couper les appels, puis rattraper
 
 ## Pourquoi
 
@@ -156,6 +156,46 @@ La lecture est défensive partout, rien ne casse, mais trois effets persistent j
 3. **HubEE reçoit des champs vides** (`codeCommuneEtablissement`, `codePostalEtablissement`,
    `sigleUniteLegale`). C’est le plus dur : un abonnement créé dans cet état part incomplet chez un
    partenaire.
+
+## Le rattrapage
+
+Aucun registre parallèle : `organizations.last_insee_payload_updated_at` porte déjà l’information. Le job
+ne l’écrit qu’en cas de succès, donc un appel court-circuité, échoué ou jamais tenté laisse la colonne
+inchangée. Les organisations à rattraper sont exactement celles dont elle est nulle ou vieille — c’est
+auto-réparateur, et ça survit à un redémarrage, à un vidage Redis et à une purge de queue.
+
+`Organization.needing_insee_refresh` les sélectionne, les jamais-rafraîchies d’abord.
+`RefreshStaleOrganizationsINSEEPayloadJob` les enfile **par lots étalés dans le temps** et ne fait rien
+si les appels sont coupés. Le lissage est réglable sans déploiement :
+`insee_refresh_batch_size` (50), `insee_refresh_batch_interval` (1 min),
+`insee_refresh_max_organizations_per_run` (500).
+
+Il reste sur la **queue par défaut**, pas sur `insee` : il n’émet lui-même aucun appel INSEE, il se
+contenterait de bloquer l’unique worker sérialisé derrière lequel les vrais appels attendent.
+
+Le rejeu est idempotent : `return if last_update_within_24h?` en tête du job fait qu’une organisation
+déjà rafraîchie coûte une requête SQL et rien d’autre. On peut donc relancer large.
+
+```ruby
+Organization.needing_insee_refresh.count          # mesurer avant de relancer
+RefreshStaleOrganizationsINSEEPayloadJob.perform_later
+```
+
+⚠️ **Le job n’est planifié nulle part.** Le débit acceptable pour l’INSEE reste à mesurer avant de le
+mettre au cron. Tant qu’il n’y est pas, une organisation créée pendant une coupure reste sans payload
+jusqu’à un déclenchement manuel.
+
+## Après une coupure
+
+1. Vérifier que les appels sont bien arrêtés : `AbstractINSEEAPIClient.calls_allowed?` → `false`.
+   Si le coupe-circuit n’est pas armé, couper à la main : `Setting.set(:insee_calls_enabled, 'false')`.
+2. Tourner le mot de passe INSEE — le compte doit être déverrouillé, donc les appels arrêtés depuis plus
+   de 30 minutes.
+3. Poser la nouvelle valeur : `Setting.set(:insee_password, '…')`. Aucun déploiement.
+4. Relâcher : `INSEECallsPause.reset!`, puis `Setting.unset(:insee_calls_enabled)` si l’interrupteur
+   manuel avait été utilisé.
+5. Mesurer l’ampleur : `Organization.needing_insee_refresh.count`.
+6. Rattraper par vagues : `RefreshStaleOrganizationsINSEEPayloadJob.perform_later`, à répéter.
 
 ## Les identifiants
 

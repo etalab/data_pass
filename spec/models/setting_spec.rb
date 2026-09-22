@@ -41,6 +41,16 @@ RSpec.describe Setting do
       end
     end
 
+    it 'falls back to the declared default when nothing overrides it' do
+      expect(described_class.fetch(:insee_refresh_batch_size)).to eq(50)
+    end
+
+    it 'casts an integer setting' do
+      described_class.set(:insee_refresh_batch_size, '25')
+
+      expect(described_class.fetch(:insee_refresh_batch_size)).to eq(25)
+    end
+
     it 'casts a duration setting' do
       described_class.set(:insee_calls_pause_duration, '3600')
 
