@@ -3,6 +3,12 @@
 require 'faraday'
 
 class AbstractINSEEAPIClient
+  class UnavailableError < StandardError; end
+
+  def self.calls_allowed?
+    Setting.fetch(:insee_calls_enabled)
+  end
+
   protected
 
   def http_connection(&block)
@@ -13,5 +19,11 @@ class AbstractINSEEAPIClient
       conn.options.timeout = 2
       yield(conn) if block
     end
+  end
+
+  def ensure_insee_available!
+    return if self.class.calls_allowed?
+
+    raise UnavailableError, 'INSEE calls are disabled by configuration'
   end
 end

@@ -11,6 +11,7 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
 
   def perform(organization_id)
     return if skip_development?
+    return unless AbstractINSEEAPIClient.calls_allowed?
 
     @organization = Organization.find(organization_id)
 
@@ -26,7 +27,7 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   private
 
   def skip_development?
-    Rails.env.development? && ENV.fetch('INSEE_CLIENT_ID', Rails.application.credentials.insee_client_id).blank?
+    Rails.env.development? && Setting.fetch(:insee_client_id).blank?
   end
 
   def last_update_within_24h?

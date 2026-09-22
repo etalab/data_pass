@@ -2,6 +2,8 @@
 
 class INSEEAPIAuthentication < AbstractINSEEAPIClient
   def access_token
+    ensure_insee_available!
+
     http_connection.post(
       'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token',
       {
@@ -43,18 +45,18 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
   private
 
   def client_id
-    ENV.fetch('INSEE_CLIENT_ID', Rails.application.credentials.insee_client_id)
+    Setting.fetch(:insee_client_id)
   end
 
   def client_secret
-    ENV.fetch('INSEE_CLIENT_SECRET', Rails.application.credentials.insee_client_secret)
+    Setting.fetch(:insee_client_secret)
   end
 
   def username
-    ENV.fetch('INSEE_USERNAME', Rails.application.credentials.insee_username)
+    Setting.fetch(:insee_username)
   end
 
   def password
-    ENV.fetch('INSEE_PASSWORD', Rails.application.credentials.insee_password)
+    Setting.fetch(:insee_password)
   end
 end

@@ -54,6 +54,19 @@ RSpec.describe INSEESireneAPIClient do
       end
     end
 
+    context 'when the INSEE calls are disabled by configuration' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})
+        Setting.set(:insee_calls_enabled, 'false')
+      end
+
+      it 'raises an UnavailableError without calling INSEE' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(a_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/})).not_to have_been_made
+      end
+    end
+
     context 'when API returns HTML instead of JSON' do
       before do
         stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(

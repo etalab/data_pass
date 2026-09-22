@@ -3,6 +3,8 @@ class INSEESireneAPIClient < AbstractINSEEAPIClient
   class InvalidResponseError < StandardError; end
 
   def etablissement(siret:)
+    ensure_insee_available!
+
     response = http_connection.get(
       "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}",
     ).body
