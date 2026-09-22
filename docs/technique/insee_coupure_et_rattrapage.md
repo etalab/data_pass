@@ -131,6 +131,32 @@ Deux limites à connaître :
 - la queue ne protège **pas le chemin synchrone**, qui exécute le job en ligne sans passer par aucune
   queue. Là, le coupe-circuit client reste la seule protection.
 
+## Le chemin synchrone
+
+`FindOrCreateOrganization` pose `update_organization_insee_payload_now = true`, ce qui exécute
+`UpdateOrganizationINSEEPayloadJob.new.perform` **en ligne**, pendant la requête HTTP de l’utilisateur.
+Un 400 non rattrapé y remontait en 500.
+
+`UpdateOrganizationINSEEPayload` distingue maintenant deux échecs :
+
+| Situation | Sens | Réponse |
+| -- | -- | -- |
+| `EntityNotFoundError` | « ce SIRET n’existe pas » | on refuse — l’information est certaine |
+| Indisponibilité INSEE | « on ne sait pas » | on **crée** l’organisation et on enfile un rattrapage |
+
+Refuser la création parce que l’INSEE est en panne ferait porter notre incident à l’utilisateur, pour
+une information qu’on obtiendra de toute façon quelques minutes plus tard.
+
+### Ce que coûte une organisation sans payload
+
+La lecture est défensive partout, rien ne casse, mais trois effets persistent jusqu’au rattrapage :
+
+1. `legal_category` tombe à `:other` ;
+2. la recherche par nom ne trouve pas l’organisation — le ransacker `:name` interroge le JSON en SQL ;
+3. **HubEE reçoit des champs vides** (`codeCommuneEtablissement`, `codePostalEtablissement`,
+   `sigleUniteLegale`). C’est le plus dur : un abonnement créé dans cet état part incomplet chez un
+   partenaire.
+
 ## Les identifiants
 
 Les quatre identifiants INSEE passent par `Setting` :
