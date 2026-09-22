@@ -108,6 +108,29 @@ minutes. Chaque appel Sirene partait ensuite en 401, donc en coupure de 6 h, dé
 mal typée. La réponse du jeton doit maintenant être un objet JSON portant un `access_token`, sinon rien
 n’est mis en cache et l’erreur remonte en `InvalidResponseError`.
 
+## La queue sérialisée
+
+`UpdateOrganizationINSEEPayloadJob` tourne sur la queue **`insee`, à concurrence 1**
+(`config/initializers/good_job.rb`, `'insee:1;-insee'` : un pool d’un thread pour `insee`, un pool pour
+tout le reste). Le débit devient une propriété de configuration au lieu d’une discipline d’opérateur.
+
+**C’est elle qui rend la borne du coupe-circuit réelle.** Sans elle, les jobs déjà en vol sur les autres
+threads sont passés devant `calls_allowed?` avant que le drapeau ne soit posé, et partent quand même :
+avec cinq threads par process et plusieurs process, c’est dix à vingt échecs d’authentification avant que
+la coupure ne soit vue — bien au-delà du seuil de verrouillage de cinq. Avec un seul worker, le premier
+échec arme le drapeau et tous les suivants sortent tôt.
+
+L’initializer **prime sur `GOOD_JOB_QUEUES`** dans GoodJob, d’où le `ENV.fetch` : une variable posée au
+déploiement reste prioritaire. Et l’exclusion `-insee` est nécessaire — `*` inclurait `insee`, donc le
+pool général y piocherait aussi et la sérialisation ne tiendrait pas.
+
+Deux limites à connaître :
+
+- avec `conn.options.timeout = 2`, un worker unique plafonne autour de 30 appels/minute, soit le quota
+  INSEE Sirene. C’est heureux, mais c’est une **coïncidence** : baisser le timeout augmenterait le débit.
+- la queue ne protège **pas le chemin synchrone**, qui exécute le job en ligne sans passer par aucune
+  queue. Là, le coupe-circuit client reste la seule protection.
+
 ## Les identifiants
 
 Les quatre identifiants INSEE passent par `Setting` :
