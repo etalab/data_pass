@@ -78,6 +78,19 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
 
         expect { update_organization_insee_payload_job }.to change { organization.reload.insee_consecutive_failures }.from(3).to(0)
       end
+
+      it 'replays the geographic perimeter of the draft requests now that the payload is there' do
+        expect { update_organization_insee_payload_job }.to have_enqueued_job(PopulateDraftRequestsGeographicPerimeterJob).with(organization.id)
+      end
+
+      context 'when the payload has not changed' do
+        let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago, insee_payload: insee_sirene_api_etablissement_payload) }
+        let(:insee_sirene_api_etablissement_payload) { insee_sirene_api_etablissement_valid_payload(siret: generate(:siret)) }
+
+        it 'does not replay the geographic perimeter' do
+          expect { update_organization_insee_payload_job }.not_to have_enqueued_job(PopulateDraftRequestsGeographicPerimeterJob)
+        end
+      end
     end
 
     context 'when INSEE is unavailable' do
@@ -163,10 +176,10 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
       end
     end
 
-    context 'when INSEE calls are paused' do
+    context 'when the INSEE calls are disabled by configuration' do
       let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
 
-      before { INSEECallsPause.pause! }
+      before { Setting.set(:insee_calls_enabled, 'false') }
 
       it 'does not call the API' do
         expect(insee_sirene_api_client).not_to receive(:etablissement)
@@ -175,10 +188,10 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
       end
     end
 
-    context 'when the INSEE calls are disabled by configuration' do
+    context 'when INSEE calls are paused' do
       let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
 
-      before { Setting.set(:insee_calls_enabled, 'false') }
+      before { INSEECallsPause.pause! }
 
       it 'does not call the API' do
         expect(insee_sirene_api_client).not_to receive(:etablissement)

@@ -65,6 +65,10 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
       last_insee_payload_updated_at: DateTime.current,
       insee_consecutive_failures: 0,
     )
+
+    return unless organization.saved_change_to_insee_payload?
+
+    PopulateDraftRequestsGeographicPerimeterJob.perform_later(organization.id)
   end
 
   def insee_payload

@@ -38,20 +38,46 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     entity_type.present?
   end
 
-  private
-
   def populate_codes_insee_and_entity
-    return if geographic_perimeter_automatic?
+    return unless geographic_identity_derivable?
 
-    kind = GEOGRAPHIC_KINDS[organization&.legal_category]
+    kind = GEOGRAPHIC_KINDS[organization.legal_category]
     return if kind.nil?
 
     code = code_insee_entity_for(kind)
-    return if code.nil?
+    return report_missing_code_insee_entity(kind) if code.nil?
 
+    store_geographic_identity(kind, code)
+  rescue GeoAPIGouvClient::ServerError, Faraday::Error => e
+    Sentry.capture_exception(e, level: :warning)
+  end
+
+  private
+
+  def geographic_identity_derivable?
+    return false if geographic_perimeter_automatic? || organization.nil?
+    return true if organization.insee_payload.present?
+
+    report_missing_insee_payload
+    false
+  end
+
+  def store_geographic_identity(kind, code)
     update_columns(data: data.merge('entity_type' => kind, 'code_insee_entity' => code)) # rubocop:disable Rails/SkipsModelValidations
-  rescue GeoAPIGouvClient::ServerError, Faraday::Error
-    nil
+  end
+
+  def report_missing_insee_payload
+    Sentry.capture_message(
+      "CnousDataExtractionCriteria: organization #{organization.id} has no INSEE payload, geographic perimeter left manual",
+      level: :warning
+    )
+  end
+
+  def report_missing_code_insee_entity(kind)
+    Sentry.capture_message(
+      "CnousDataExtractionCriteria: no #{kind} code for organization #{organization.id}, geographic perimeter left manual",
+      level: :warning
+    )
   end
 
   def code_insee_entity_for(kind)
