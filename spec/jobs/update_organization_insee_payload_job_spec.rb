@@ -63,6 +63,18 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
       end
     end
 
+    context 'when the INSEE calls are disabled by configuration' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+
+      before { Setting.set(:insee_calls_enabled, 'false') }
+
+      it 'does not call the API' do
+        expect(insee_sirene_api_client).not_to receive(:etablissement)
+
+        update_organization_insee_payload_job
+      end
+    end
+
     context 'when API returns a not found error' do
       let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
 
