@@ -94,9 +94,27 @@ Désormais un seul middleware `:retry`, configuré par `retry_options`, et seule
 (`ConnectionFailed`, `TimeoutError`) sont rejouées par le client. Les 5xx et les réponses illisibles sont
 rejoués par ActiveJob, avec un backoff polynomial (3 s, 18 s, 83 s, 4 min), **cinq tentatives au plus** :
 c’est la stratégie que recommande la documentation de l’API Sirene privée, qui ne considère le service
-en panne qu’après quatre ou cinq échecs espacés. Au-delà, le job échoue et remonte dans Sentry ; il n’a
-pas écrit `last_insee_payload_updated_at`, donc le rattrapage reprendra l’organisation. Relancer à
-l’infini n’apporte plus rien depuis que ce rattrapage existe.
+en panne qu’après quatre ou cinq échecs espacés. Au-delà, le job abandonne, compte l’échec sur
+l’organisation et le remonte dans Sentry en `error` ; il n’a pas écrit `last_insee_payload_updated_at`,
+donc le rattrapage reprendra l’organisation. Relancer à l’infini n’apporte plus rien depuis que ce
+rattrapage existe.
+
+### Le compteur d’échecs
+
+`organizations.insee_consecutive_failures` compte les jobs **consécutifs** qui ont échoué pour
+l’organisation, et revient à 0 au premier succès. Avec `last_insee_payload_updated_at` (date du dernier
+succès), il dit depuis quand et combien de fois l’organisation résiste.
+
+| Issue du job | Compteur |
+| -- | -- |
+| Payload obtenu | remis à 0 |
+| 404 (`EntityNotFoundError`) | +1 |
+| 5xx, réseau ou réponse illisible, après les 5 tentatives | +1 — un job, pas une tentative |
+| Appels coupés (interrupteur, coupe-circuit, 401) | inchangé : aucun appel n’a atteint l’INSEE pour elle |
+| Organisation exclue, étrangère ou fraîche | inchangé : pas d’appel |
+
+Le chemin synchrone (`.new.perform` à la création) ne passe pas par les handlers d’ActiveJob et ne
+compte pas ; un échec y enfile de toute façon un job, qui comptera.
 
 Le jeton est mis en cache pour la durée annoncée par l’INSEE moins une minute de marge (5 minutes si
 l’INSEE n’annonce rien). Le cache est par process, sans verrou : sous le GVL une affectation d’ivar est
@@ -222,7 +240,8 @@ Organization.insee_skipped.count
 (`Setting.set(:insee_skipped_identifiers, Setting.fetch(:insee_skipped_identifiers) + ['…'])`).
 
 Un 404 qui n’est pas dans la liste continue d’être retenté à chaque passage du rattrapage : c’est le
-signal qui permet de l’y ajouter, après vérification (annuaire des entreprises, organisation).
+signal qui permet de l’y ajouter, après vérification (annuaire des entreprises, organisation). Le
+compteur d’échecs les fait ressortir.
 
 ### Mesurer en console
 
@@ -234,7 +253,10 @@ Organization.without_insee_payload.count      # payload nul ou vide
 Organization.never_insee_refreshed.count      # jamais rafraîchies
 Organization.with_stale_insee_payload.count   # rafraîchies il y a plus de 24 h
 Organization.with_fresh_insee_payload.count   # rafraîchies depuis moins de 24 h
-Organization.insee_skipped.count            # exclues du rattrapage, voir ci-dessus
+Organization.insee_skipped.count              # exclues des appels, voir ci-dessus
+Organization.with_insee_failures.count        # dernier appel en échec
+Organization.with_insee_failures.group(:insee_consecutive_failures).count   # répartition
+Organization.where(insee_consecutive_failures: 3..).pluck(:legal_entity_id) # candidates à l’exclusion
 Organization.needing_insee_refresh.count      # ce que le rattrapage va traiter
 
 RefreshStaleOrganizationsINSEEPayloadJob.perform_later   # relancer sans attendre le cron

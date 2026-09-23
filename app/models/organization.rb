@@ -45,6 +45,7 @@ class Organization < ApplicationRecord
   scope :with_fresh_insee_payload, lambda {
     registered_in_insee_sirene.where(arel_table[:last_insee_payload_updated_at].gt(INSEE_PAYLOAD_FRESHNESS.ago))
   }
+  scope :with_insee_failures, -> { registered_in_insee_sirene.where(insee_consecutive_failures: 1..) }
   scope :insee_skipped, lambda {
     identifiers = Setting.fetch(:insee_skipped_identifiers)
 
