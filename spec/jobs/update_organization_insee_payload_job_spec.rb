@@ -128,6 +128,18 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
       end
     end
 
+    context 'when the organization is listed as skipped for the INSEE calls' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: nil) }
+
+      before { Setting.set(:insee_skipped_identifiers, organization.siret.first(9)) }
+
+      it 'does not call the API' do
+        expect(insee_sirene_api_client).not_to receive(:etablissement)
+
+        update_organization_insee_payload_job
+      end
+    end
+
     context 'when INSEE calls are paused' do
       let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
 

@@ -172,4 +172,30 @@ RSpec.describe Organization do
       expect(described_class.needing_insee_refresh).to contain_exactly(organization_never_refreshed, organization_with_empty_payload, stale_organization)
     end
   end
+
+  describe 'organizations skipped for the INSEE calls' do
+    let!(:skipped_by_siret) { create(:organization, last_insee_payload_updated_at: nil) }
+    let!(:skipped_by_siren) { create(:organization, last_insee_payload_updated_at: nil) }
+    let!(:not_skipped_organization) { create(:organization, last_insee_payload_updated_at: nil) }
+
+    before do
+      Setting.set(:insee_skipped_identifiers, [skipped_by_siret.siret, skipped_by_siren.siret.first(9)])
+    end
+
+    it 'skips an organization listed by its SIRET or by its SIREN' do
+      expect([skipped_by_siret, skipped_by_siren, not_skipped_organization].map(&:insee_skipped?)).to eq([true, true, false])
+    end
+
+    it 'never skips a foreign organization' do
+      expect(build(:organization, :foreign)).not_to be_insee_skipped
+    end
+
+    it 'lists the skipped organizations' do
+      expect(described_class.insee_skipped).to contain_exactly(skipped_by_siret, skipped_by_siren)
+    end
+
+    it 'leaves the skipped organizations out of the refresh' do
+      expect(described_class.needing_insee_refresh).to contain_exactly(not_skipped_organization)
+    end
+  end
 end

@@ -196,6 +196,34 @@ contenterait de bloquer l’unique worker sérialisé derrière lequel les vrais
 Le rejeu est idempotent : `return if last_update_within_24h?` en tête du job fait qu’une organisation
 déjà rafraîchie coûte une requête SQL et rien d’autre. On peut donc relancer large.
 
+### Les organisations exclues des appels
+
+Certaines organisations ne doivent pas être demandées à l’INSEE. Le cas qui a motivé la liste :
+l’INSEE répond **404** pour un établissement non diffusible ou une structure publique dont les
+informations sont protégées (Défense, Gendarmerie, parlementaires…), exactement comme pour un SIRET mal
+saisi ou trop récent. On ne peut donc pas les distinguer automatiquement, et sans rien faire :
+
+- à la création (`FindOrCreateOrganization`, chemin synchrone), le 404 fait **refuser** l’organisation
+  avec « n’existe pas dans le répertoire Sirene » ;
+- au rattrapage, elle n’est jamais horodatée, donc **renfilée à chaque passage**, en tête de file, avec
+  un warning Sentry (`EntityNotFoundError`) à chaque fois.
+
+`insee_skipped_identifiers` liste en base les **SIRET ou SIREN** à ne pas appeler, sans dire
+pourquoi — un SIREN couvre tous les établissements de la structure. Pour ces organisations, le job
+n’appelle pas l’INSEE (l’organisation est créée sans payload, sans refus) et le rattrapage les ignore.
+
+```ruby
+Setting.set(:insee_skipped_identifiers, '575 397 807 42358, 130007669')   # espaces tolérés
+Setting.fetch(:insee_skipped_identifiers)   # => ["57539780742358", "130007669"]
+Organization.insee_skipped.count
+```
+
+`Setting.set` **remplace** la liste : pour ajouter un identifiant, repartir de la valeur actuelle
+(`Setting.set(:insee_skipped_identifiers, Setting.fetch(:insee_skipped_identifiers) + ['…'])`).
+
+Un 404 qui n’est pas dans la liste continue d’être retenté à chaque passage du rattrapage : c’est le
+signal qui permet de l’y ajouter, après vérification (annuaire des entreprises, organisation).
+
 ### Mesurer en console
 
 Chaque état a son scope, limité aux organisations immatriculées à l’INSEE (les étrangères n’ont
@@ -206,6 +234,7 @@ Organization.without_insee_payload.count      # payload nul ou vide
 Organization.never_insee_refreshed.count      # jamais rafraîchies
 Organization.with_stale_insee_payload.count   # rafraîchies il y a plus de 24 h
 Organization.with_fresh_insee_payload.count   # rafraîchies depuis moins de 24 h
+Organization.insee_skipped.count            # exclues du rattrapage, voir ci-dessus
 Organization.needing_insee_refresh.count      # ce que le rattrapage va traiter
 
 RefreshStaleOrganizationsINSEEPayloadJob.perform_later   # relancer sans attendre le cron
