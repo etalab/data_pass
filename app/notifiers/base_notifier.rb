@@ -49,7 +49,6 @@ class BaseNotifier < ApplicationNotifier
   def notify_hubee_formulaire_qf(params)
     return unless authorization_request.formulaire_qf?
     return if params[:within_reopening] && formulaire_qf_before_reopening?
-    return unless FeatureFlag.enabled?(:hubee_formulaire_qf_notification)
 
     HubEEMailer.with(authorization_request:).formulaire_qf_validation.deliver_later
   end

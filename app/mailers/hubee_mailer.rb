@@ -36,7 +36,7 @@ class HubEEMailer < ApplicationMailer
   private
 
   def formulaire_qf_recipients
-    Array(params[:recipients].presence || Rails.application.credentials[:hubee_formulaire_qf_notification_emails]).compact_blank
+    Array(params[:recipients].presence || Setting.fetch(:hubee_formulaire_qf_notification_emails)).compact_blank
   end
 
   def formulaire_qf_validation_date

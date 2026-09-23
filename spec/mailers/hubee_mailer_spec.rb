@@ -38,8 +38,8 @@ RSpec.describe HubEEMailer do
     let(:authorization_request) { create(:authorization_request, :formulaire_qf, :validated) }
 
     before do
-      allow(Rails.application.credentials).to receive(:[]).and_call_original
-      allow(Rails.application.credentials).to receive(:[]).with(:hubee_formulaire_qf_notification_emails).and_return(recipients)
+      allow(Setting).to receive(:fetch).and_call_original
+      allow(Setting).to receive(:fetch).with(:hubee_formulaire_qf_notification_emails).and_return(recipients)
     end
 
     it 'is sent to the HubEE support recipients from credentials' do
@@ -69,7 +69,7 @@ RSpec.describe HubEEMailer do
     end
 
     context 'when no recipient is configured' do
-      let(:recipients) { nil }
+      let(:recipients) { [] }
 
       before { allow(Sentry).to receive(:capture_message) }
 

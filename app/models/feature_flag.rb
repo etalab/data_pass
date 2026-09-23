@@ -1,8 +1,7 @@
 module FeatureFlag
   RULES = {
     depot_dossier_mariage: ->(**) { !Rails.env.production? },
-    authorization_definitions: ->(user: nil, **) { user&.admin? || Rails.env.test? },
-    hubee_formulaire_qf_notification: ->(**) { Rails.env.production? || Rails.env.local? }
+    authorization_definitions: ->(user: nil, **) { user&.admin? || Rails.env.test? }
   }.freeze
 
   def self.enabled?(name, **context)
