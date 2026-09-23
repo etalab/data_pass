@@ -65,6 +65,7 @@ api-particulier-familea: &api_particulier_familea
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Diabolo | Gestion des structures de petites enfances, enfance et jeunesse
     description: |
@@ -153,6 +154,7 @@ api-particulier-arpege-concerto:
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Tarification sur Quotient Familial des prestations Périscolaire
     description: |
@@ -188,6 +190,7 @@ api-particulier-cantine-de-france:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule:
       Récupération du Quotient Familial ainsi que les informations administratives
@@ -230,6 +233,7 @@ api-particulier-agora-plus:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule:
       Dématérialisation du calcul du quotient/taux d'effort pour les structures
@@ -270,6 +274,7 @@ api-particulier-amiciel-malice:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule:
@@ -379,6 +384,7 @@ api-particulier-city-family-mushroom-software:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Calcul du quotient familial pour la facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire
     description: Gestion des activités enfance, jeunesse, petite enfance (facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire). Portail famille et back-office
@@ -426,6 +432,7 @@ api-particulier-civil-enfance-ciril-group:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
       # Scopes FranceConnect
       - family_name
@@ -468,6 +475,7 @@ api-particulier-cosoluce-fluo:
       - cnaf_quotient_familial
     displayed:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description: Logiciel utilisé par des agents habilités pour la facturation des cantines
@@ -500,6 +508,7 @@ api-particulier-nfi:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Gestion de la relation client sur le portail famille
     description: |
@@ -534,6 +543,7 @@ api-particulier-technocarte-ile:
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule:
       Récupération du Quotient Familial pour le service Enfance (Périscolaire,
@@ -577,6 +587,7 @@ api-particulier-waigeo-myperischool:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
+      - cnav_allocation_enfant_handicape
 
       # Scopes FranceConnect
       - family_name
@@ -619,6 +630,7 @@ api-particulier-3d-ouest:
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule:
@@ -661,6 +673,7 @@ api-particulier-agedi-proxima-enf:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule: Tarification service enfance et récupération des quotients familiaux
@@ -702,6 +715,7 @@ api-particulier-ecorestauration-loyfeey:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
@@ -741,6 +755,7 @@ api-particulier-jcdeveloppement-familyclic:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
@@ -783,6 +798,7 @@ api-particulier-aiga:
       - openid
     displayed:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
 
       # Scopes FranceConnect
       - family_name
@@ -1127,6 +1143,7 @@ api-particulier-bl-enfance-berger-levrault:
       - cnaf_quotient_familial
     displayed:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Tarification sur Quotient Familial des activités scolaires, périscolaires et loisirs
     description: |
@@ -1161,6 +1178,7 @@ api-particulier-noethys:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs)
     description: |
@@ -1195,6 +1213,7 @@ api-particulier-carte-plus:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs)
     description: |
@@ -1234,6 +1253,7 @@ api-particulier-resagenda:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs)
     description: |
@@ -1317,6 +1337,7 @@ api-particulier-jvs-mairistem:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule: Facturation des familles pour les services périscolaires et loisirs
@@ -1409,6 +1430,7 @@ api-particulier-ypok-ykidz:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
 
       # Scopes FranceConnect
       - family_name
@@ -1482,6 +1504,7 @@ api-particulier-e1os:
       - cnaf_quotient_familial
     displayed:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule: Facturation des familles pour les services scolaire et cantine
@@ -1512,6 +1535,7 @@ api-particulier-acheteza:
       - cnaf_quotient_familial
     displayed:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
 
   initialize_with:
     intitule: Facturation des familles pour les services scolaire et cantine
@@ -1999,6 +2023,7 @@ api-particulier-entrouvert-publik:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
+      - cnav_allocation_enfant_handicape
 
       # Scopes FranceConnect
       - family_name
@@ -3058,6 +3083,7 @@ api-particulier-andyvie:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+      - cnav_allocation_enfant_handicape
   initialize_with:
     intitule: Tarification des services municipaux à l’enfance
     description: |
