@@ -181,11 +181,48 @@ une information qu’on obtiendra de toute façon quelques minutes plus tard.
 
 La lecture est défensive partout, rien ne casse, mais trois effets persistent jusqu’au rattrapage :
 
-1. `legal_category` tombe à `:other` ;
+1. `legal_category` tombe à `:other`, ce qui fait basculer une demande CNOUS du périmètre géographique
+   automatique à la saisie manuelle (voir plus bas) ;
 2. la recherche par nom ne trouve pas l’organisation — le ransacker `:name` interroge le JSON en SQL ;
 3. **HubEE reçoit des champs vides** (`codeCommuneEtablissement`, `codePostalEtablissement`,
    `sigleUniteLegale`). C’est le plus dur : un abonnement créé dans cet état part incomplet chez un
    partenaire.
+
+## Le périmètre géographique CNOUS, rejouable
+
+`legal_category` n’a qu’un seul lecteur : `populate_codes_insee_and_entity`, dans
+`AuthorizationExtensions::CnousDataExtractionCriteria`. Sans payload INSEE, la catégorie n’est pas mappée
+**et** le code commune est nil : `entity_type` reste vide, donc `geographic_perimeter_automatic?` est
+faux, donc la validation exige que le demandeur saisisse lui-même les codes INSEE de communes. Ce n’est
+pas une donnée fausse — c’est un basculement de parcours.
+
+Le problème était le **timing** : le hook était un `after_commit ... on: :create`, donc il ne tournait
+qu’une fois. Un payload arrivant cinq minutes plus tard par le rattrapage ne le rejouait pas, et la
+demande restait en saisie manuelle définitivement.
+
+`populate_codes_insee_and_entity` est désormais public et rejouable.
+`UpdateOrganizationINSEEPayloadJob` enfile `PopulateDraftRequestsGeographicPerimeterJob` dès que
+`insee_payload` a réellement changé ; ce job rejoue le calcul sur les demandes de l’organisation encore
+en `draft` qui portent le bloc CNOUS. Le garde `return if geographic_perimeter_automatic?` rend le rejeu
+idempotent.
+
+⚠️ Seules les demandes en `draft` sont rejouées. Corriger le périmètre d’une demande déjà soumise est une
+décision métier, pas une correction technique.
+
+### Les dégradations silencieuses sont tracées
+
+Trois chemins menaient au même `return` muet. Deux sont instrumentés, le troisième ne l’est pas parce
+qu’il est légitime :
+
+| Cas | Trace |
+| -- | -- |
+| catégorie juridique non mappée (ni commune, ni département, ni région) | aucune — c’est le fonctionnement normal |
+| payload INSEE absent | `Sentry.capture_message(…, level: :warning)` |
+| code commune absent du payload, ou commune inconnue de l’API Géo | `Sentry.capture_message(…, level: :warning)` |
+| API Géo en panne | `Sentry.capture_exception(…, level: :warning)` |
+
+Le cas « API Géo en panne » produisait déjà cet effet **avant l’incident INSEE**, et personne ne l’avait
+jamais vu.
 
 ## Le rattrapage
 
