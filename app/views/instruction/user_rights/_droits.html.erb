@@ -1,0 +1,55 @@
+<turbo-frame id="main-modal-content">
+  <div class="fr-modal__content">
+    <h1 id="fr-modal-title-main-modal" class="fr-modal__title">
+      <%= t('instruction.user_rights.droits.title', name: @target_user.full_name) %>
+    </h1>
+
+    <p class="fr-text--sm fr-mb-3w">
+      <%= t('instruction.user_rights.index.table.droits_count', count: @rights_by_definition.size) %>
+      <% if @target_user.organizations.any? %>
+        · <%= @target_user.organizations.map(&:name).join(', ') %>
+      <% end %>
+    </p>
+
+    <div class="fr-table fr-table--bordered">
+      <div class="fr-table__container">
+        <div class="fr-table__content">
+          <table>
+            <caption class="fr-sr-only"><%= t('instruction.user_rights.droits.title', name: @target_user.full_name) %></caption>
+            <thead>
+              <tr>
+                <th scope="col"><%= t('instruction.user_rights.droits.api') %></th>
+                <th scope="col"><%= t('instruction.user_rights.droits.role') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @rights_by_definition.each do |entry| %>
+                <tr>
+                  <th scope="row"><%= entry[:definition].name_with_stage %></th>
+                  <td class="fr-cell--multiline">
+                    <ul role="list" class="fr-raw-list dp-user-rights-table__roles">
+                      <% entry[:role_types].each do |role_type| %>
+                        <li><%= render Atoms::ColorBadgeComponent.for_role(role_type, label: t("instruction.user_rights.roles.#{role_type}")) %></li>
+                      <% end %>
+                    </ul>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fr-modal__footer">
+    <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+      <button type="button" class="fr-btn fr-btn--secondary" aria-controls="main-modal">
+        <%= t('instruction.user_rights.droits.close') %>
+      </button>
+      <%= link_to t('instruction.user_rights.index.table.manage_cta'),
+            edit_user_right_path(@target_user),
+            class: 'fr-btn' %>
+    </div>
+  </div>
+</turbo-frame>

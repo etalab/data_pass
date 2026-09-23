@@ -1,4 +1,6 @@
 <%= content_for(:body) do %>
+  <%= yield(:hero) %>
+
   <div class="fr-container fr-container--main">
     <%= render partial: 'shared/alerts' %>
 

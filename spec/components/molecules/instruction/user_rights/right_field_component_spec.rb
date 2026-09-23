@@ -4,15 +4,34 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
   let(:api_entreprise) { AuthorizationDefinition.find('api_entreprise') }
   let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
 
-  def render_component(index:, scope: '', role_type: '', actor: manager)
+  def render_component(index:, scope: '', role_type: '', actor: manager, editable: true)
     render_inline(
       described_class.new(
         index:,
         scope:,
         role_type:,
-        permissions: Rights::ManagerAuthority.new(actor)
+        permissions: Rights::ManagerAuthority.new(actor),
+        editable:
       )
     )
+  end
+
+  context 'when the right lies outside the actor perimeter' do
+    before { render_component(index: 'out-0', scope: 'dgfip:api_impot_particulier', role_type: 'reporter', editable: false) }
+
+    it 'shows the right without letting it be changed' do
+      expect(page).to have_css('select[disabled]', count: 2)
+      expect(page).to have_text('Observateur')
+    end
+
+    it 'offers no way to remove it' do
+      expect(page).to have_no_button
+    end
+
+    it 'says why it cannot be changed, for screen readers' do
+      hint = page.find('p.fr-sr-only', text: 'pas modifiable')
+      expect(page).to have_css("select[aria-describedby='#{hint[:id]}']", count: 2)
+    end
   end
 
   it 'renders labelled selects for scope and role and a remove button' do
