@@ -45,7 +45,7 @@ Il part depuis les notifiers, avec les autres e-mails de validation : `BaseNotif
 
 Il n’est pas renvoyé lors de la validation d’une mise à jour, sauf si la mise à jour fait entrer la demande dans ce périmètre (par exemple l’ajout de la modalité `formulaire_qf`).
 
-Les destinataires viennent du réglage `hubee_formulaire_qf_notification_emails` (`Setting`), qui lit la base, puis la variable d’environnement `HUBEE_FORMULAIRE_QF_NOTIFICATION_EMAILS`, puis les credentials. **C’est ce réglage seul qui décide de l’envoi** : sans destinataire, l’e-mail n’est pas envoyé et un message part dans Sentry. Il n’y a donc pas de garde d’environnement — pour tester en sandbox, il suffit d’y poser une adresse interne :
+Les destinataires viennent du réglage `hubee_formulaire_qf_notification_emails` (`Setting`), qui lit la base, puis la variable d’environnement `HUBEE_FORMULAIRE_QF_NOTIFICATION_EMAILS`, puis les credentials. **C’est ce réglage seul qui décide de l’envoi** : sans destinataire, l’e-mail n’est pas envoyé — et, **en production uniquement**, un message part dans Sentry pour que l’oubli de configuration ne reste pas silencieux. Il n’y a donc pas de garde d’environnement — pour tester en sandbox, il suffit d’y poser une adresse interne :
 
 ```ruby
 Setting.set(:hubee_formulaire_qf_notification_emails, 'equipe@yopmail.com')

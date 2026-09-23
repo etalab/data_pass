@@ -77,10 +77,20 @@ RSpec.describe HubEEMailer do
         expect(mail.message).to be_a(ActionMailer::Base::NullMail)
       end
 
-      it 'reports the missing configuration to Sentry' do
+      it 'does not report anything outside production' do
         mail.message
 
-        expect(Sentry).to have_received(:capture_message).with(/no recipient configured/, level: :warning)
+        expect(Sentry).not_to have_received(:capture_message)
+      end
+
+      context 'when the application runs in production' do
+        before { allow(Rails).to receive(:env).and_return(ActiveSupport::EnvironmentInquirer.new('production')) }
+
+        it 'reports the missing configuration to Sentry' do
+          mail.message
+
+          expect(Sentry).to have_received(:capture_message).with(/no recipient configured/, level: :warning)
+        end
       end
     end
   end

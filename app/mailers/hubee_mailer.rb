@@ -44,6 +44,8 @@ class HubEEMailer < ApplicationMailer
   end
 
   def report_missing_formulaire_qf_recipients
+    return unless Rails.env.production?
+
     Sentry.capture_message(
       "HubEE formulaire QF notification skipped: no recipient configured for authorization_request ##{@authorization_request.id}",
       level: :warning
