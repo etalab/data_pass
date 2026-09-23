@@ -38,7 +38,7 @@ automated_emails:
 
 `HubEEMailer#formulaire_qf_validation` prévient le support HubEE qu’une demande FQF vient d’être validée, pour qu’il active l’abonnement de la commune.
 
-Il est envoyé par l’interactor `DeliverHubEEFormulaireQFNotification`, en fin de `ApproveAuthorizationRequest`, quand `AuthorizationRequest#formulaire_qf?` est vrai :
+Il part depuis les notifiers, avec les autres e-mails de validation : `BaseNotifier#approve` (qui couvre `FormulaireQF`) et `APIParticulierNotifier#approve`. Les deux points d’appel sont nécessaires car `APIEntreculierNotifier#approve` ne remonte pas à `BaseNotifier` — c’est le même montage que `notify_france_connect`. L’envoi a lieu quand `AuthorizationRequest#formulaire_qf?` est vrai :
 
 - demande `AuthorizationRequest::FormulaireQF` ;
 - demande `AuthorizationRequest::APIParticulier` portant la modalité `formulaire_qf`, quel que soit le formulaire — éditeur, thématique ou « Demande libre ». La modalité est une déclaration explicite du demandeur, et le même libellé est affiché sur tous les formulaires de la définition.

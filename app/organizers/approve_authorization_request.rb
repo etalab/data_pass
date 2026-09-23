@@ -15,6 +15,5 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
     CreateLinkedFranceConnectAuthorizationEvent,
     DeliverLinkedFranceConnectNotification,
     DeliverLinkedFranceConnectWebhook,
-    ExecuteAuthorizationRequestBridge,
-    DeliverHubEEFormulaireQFNotification
+    ExecuteAuthorizationRequestBridge
 end
