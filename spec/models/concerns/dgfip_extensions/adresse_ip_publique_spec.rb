@@ -65,6 +65,22 @@ RSpec.describe DGFIPExtensions::AdresseIpPublique do
     end
   end
 
+  describe 'enregistrement d’un bloc depuis la synthèse' do
+    before { authorization_request.state = 'changes_requested' }
+
+    it 'n’exige pas l’adresse IP, pour débloquer les demandes créées avant son ajout' do
+      authorization_request.adresse_ip_publique = nil
+
+      expect(authorization_request.valid?(:review)).to be(true)
+    end
+
+    it 'refuse toujours une adresse IP privée' do
+      authorization_request.adresse_ip_publique = '10.0.0.1'
+
+      expect(authorization_request.valid?(:review)).to be(false)
+    end
+  end
+
   describe 'stock existant' do
     it 'laisse valide une demande déjà validée sans adresse IP' do
       authorization_request.adresse_ip_publique = nil

@@ -7,6 +7,6 @@ module DGFIPExtensions::AdressePostaleContactTechnique
 
     validates :contact_technique_adresse,
       presence: true,
-      if: -> { need_complete_validation?(:contacts) }
+      if: -> { validation_context != :review && need_complete_validation?(:contacts) }
   end
 end

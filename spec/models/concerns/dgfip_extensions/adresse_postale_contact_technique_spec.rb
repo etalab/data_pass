@@ -60,6 +60,15 @@ RSpec.describe DGFIPExtensions::AdressePostaleContactTechnique do
     end
   end
 
+  describe 'enregistrement d’un bloc depuis la synthèse' do
+    it 'n’exige pas l’adresse, pour débloquer les demandes créées avant son ajout' do
+      authorization_request.state = 'changes_requested'
+      authorization_request.contact_technique_adresse = nil
+
+      expect(authorization_request.valid?(:review)).to be(true)
+    end
+  end
+
   describe 'stock existant' do
     it 'laisse valide une demande déjà validée sans adresse' do
       authorization_request.contact_technique_adresse = nil

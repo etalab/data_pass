@@ -181,6 +181,12 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
   create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
 end
 
+Quand("cette demande n'a ni adresse IP publique ni adresse du contact technique") do
+  authorization_request = AuthorizationRequest.last
+  authorization_request.data = authorization_request.data.except('adresse_ip_publique', 'contact_technique_adresse')
+  authorization_request.save!(validate: false)
+end
+
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
   last_authorization_request = AuthorizationRequest.last
   last_authorization_request.intitule = intitule

@@ -146,3 +146,35 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     * je clique sur "Débuter ma demande"
 
     Alors la page ne contient pas le champ "Adresse IP publique de connexion"
+
+  @javascript
+  Scénario: Une demande à modifier créée avant l'ajout des deux champs peut être complétée bloc par bloc puis re-soumise
+    Quand j'ai 1 demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" à l'étape "Bac à sable" en attente de modification
+    Et que cette demande n'a ni adresse IP publique ni adresse du contact technique
+    Et que je me rends sur cette demande d'habilitation
+
+    Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
+    Et que je remplis "Adresse IP publique de connexion" avec "192.0.2.10"
+    Et que je clique sur "Enregistrer les modifications"
+    Alors il y a "192.0.2.10" dans le bloc de résumé "Mon projet"
+
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Et que je remplis "Adresse du contact technique" avec "10 rue de la Paix, 75002 Paris"
+    Et que je clique sur "Enregistrer les modifications"
+    Alors il y a "10 rue de la Paix, 75002 Paris" dans le bloc de résumé "Les personnes impliquées"
+
+    Quand je clique sur "Soumettre la demande d'habilitation"
+    Alors il y a un message de succès contenant "soumise avec succès"
+
+  @javascript
+  Scénario: Une demande à modifier créée avant l'ajout des deux champs ne peut pas être re-soumise tant qu'il en manque un
+    Quand j'ai 1 demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" à l'étape "Bac à sable" en attente de modification
+    Et que cette demande n'a ni adresse IP publique ni adresse du contact technique
+    Et que je me rends sur cette demande d'habilitation
+
+    Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
+    Et que je remplis "Adresse IP publique de connexion" avec "192.0.2.10"
+    Et que je clique sur "Enregistrer les modifications"
+    Et que je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message d'erreur contenant "Adresse du contact technique"
