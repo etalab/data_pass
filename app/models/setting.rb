@@ -8,7 +8,8 @@ class Setting < ApplicationRecord
     insee_password: { type: :string, env: 'INSEE_PASSWORD', credential: %i[insee_password] },
     insee_calls_enabled: { type: :enabled_unless_false, env: 'INSEE_CALLS_ENABLED', default: true },
     insee_calls_pause_duration: { type: :duration, default: 6.hours },
-    insee_refresh_batch_size: { type: :integer, default: 50 },
+    insee_calls_per_minute: { type: :integer, default: 20 },
+    insee_refresh_batch_size: { type: :integer, default: 10 },
     insee_refresh_batch_interval: { type: :duration, default: 1.minute },
     insee_refresh_max_organizations_per_run: { type: :integer, default: 500 },
   }.freeze

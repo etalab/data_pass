@@ -5,6 +5,13 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
     expect(described_class.new.queue_name).to eq('insee')
   end
 
+  it 'throttles its executions to the configured number of INSEE calls per minute' do
+    Setting.set(:insee_calls_per_minute, 7)
+    perform_throttle = described_class.good_job_concurrency_config[:perform_throttle]
+
+    expect(described_class.new.instance_exec(&perform_throttle)).to eq([7, 1.minute])
+  end
+
   context 'with invalid organization' do
     let(:organization_id) { 0 }
 
@@ -96,6 +103,28 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
           an_instance_of(AbstractINSEEAPIClient::UnavailableError),
           level: :warning,
         )
+      end
+    end
+
+    context 'when INSEE keeps answering with a server error' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+      let(:job) { described_class.new(organization.id) }
+
+      before do
+        allow(insee_sirene_api_client).to receive(:etablissement).and_raise(Faraday::ServerError)
+      end
+
+      it 'retries until the fifth attempt' do
+        expect {
+          (described_class::MAX_ATTEMPTS - 1).times { job.perform_now }
+        }.to have_enqueued_job(described_class).exactly(described_class::MAX_ATTEMPTS - 1).times
+      end
+
+      it 'gives up on the fifth attempt, leaving the organization to the catch-up job' do
+        (described_class::MAX_ATTEMPTS - 1).times { job.perform_now }
+
+        expect { job.perform_now }.to raise_error(Faraday::ServerError)
+        expect(organization.reload.last_insee_payload_updated_at).to be < 24.hours.ago
       end
     end
 
