@@ -14,6 +14,13 @@ RSpec.describe 'Local sign-in' do
 
         expect(response).to redirect_to(dashboard_path)
       end
+
+      it 'redirects to the page requested before signing in' do
+        get '/demandes/api_particulier/nouveau'
+        get '/local-sign-in', params: { email: user.email }
+
+        expect(response).to redirect_to('http://www.example.com/demandes/api_particulier/nouveau')
+      end
     end
 
     context 'when tokens are configured (protected environment)' do
