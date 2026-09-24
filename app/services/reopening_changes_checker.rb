@@ -16,7 +16,13 @@ class ReopeningChangesChecker
     previous_data = Hash(latest_approval&.data)
     current_data = Hash(authorization_request.data)
 
-    previous_data != current_data.slice(*previous_data.keys)
+    compared_keys(previous_data, current_data).any? do |key|
+      previous_data[key].presence != current_data[key].presence
+    end
+  end
+
+  def compared_keys(previous_data, current_data)
+    previous_data.keys | (current_data.keys & authorization_request.class.extra_attributes.map(&:to_s))
   end
 
   def documents_changed?
