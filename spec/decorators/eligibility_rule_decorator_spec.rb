@@ -12,7 +12,7 @@ RSpec.describe EligibilityRuleDecorator, type: :decorator do
     end
 
     it 'returns the correct number of options' do
-      expect(decorator.options.size).to eq(3)
+      expect(decorator.options.size).to eq(4)
     end
 
     it 'each option is decorated and functional' do

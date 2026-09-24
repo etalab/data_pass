@@ -8,7 +8,7 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
   Scénario: Un utilisateur non connecté voit l'arbre de décision d'éligibilité
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Alors la page contient "Bienvenue sur DataPass !"
-    Et la page contient "Etes-vous :"
+    Et la page contient "Êtes-vous :"
     Et la page contient "Un particulier"
     Et la page contient "Une collectivité ou une administration"
     Et la page contient "Une entreprise ou une association"
@@ -31,9 +31,9 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
-    Alors la page ne contient pas "Etes-vous :"
+    Alors la page ne contient pas "Êtes-vous :"
 
   Scénario: Un utilisateur pour une API sans règles d'éligibilité voit directement ProConnect
     Quand je démarre une nouvelle demande d'habilitation "API Mobilic"
-    Alors la page ne contient pas "Etes-vous :"
+    Alors la page ne contient pas "Êtes-vous :"
     Et la page contient "S’identifier avec ProConnect"

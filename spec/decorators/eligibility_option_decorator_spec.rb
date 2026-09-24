@@ -79,6 +79,14 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
         expect(decorator.label).to eq('Une collectivité ou une administration')
       end
     end
+
+    context 'when eaje' do
+      let(:option_attributes) { { 'type' => 'eaje', 'eligible' => 'yes', 'body' => 'Test' } }
+
+      it 'returns the correct translation' do
+        expect(decorator.label).to eq('Un établissement d’accueil du jeune enfant (EAJE)')
+      end
+    end
   end
 
   describe '#shows_request_access_button?' do

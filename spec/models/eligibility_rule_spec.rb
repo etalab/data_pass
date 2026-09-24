@@ -5,7 +5,7 @@ RSpec.describe EligibilityRule do
 
       expect(rule.options).to be_an(Array)
       expect(rule.options).to all(be_a(EligibilityOption))
-      expect(rule.options.size).to eq(3)
+      expect(rule.options.size).to eq(4)
     end
   end
 end
