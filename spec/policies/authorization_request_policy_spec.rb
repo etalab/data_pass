@@ -96,6 +96,37 @@ RSpec.describe AuthorizationRequestPolicy do
 
         it { is_expected.to be true }
       end
+
+      context 'when the latest approval predates an attribute added to the form since' do
+        let(:authorization_request) { create(:authorization_request, :api_ficoba_sandbox, :validated, applicant: user) }
+        let(:attributes_added_since) { %w[adresse_ip_publique contact_technique_adresse contact_technique_adresse_complement] }
+
+        before do
+          authorization = authorization_request.latest_authorization
+          authorization.update!(data: authorization.data.except(*attributes_added_since))
+          authorization_request.data = authorization_request.data.except(*attributes_added_since)
+        end
+
+        context 'when the applicant fills it in' do
+          before { authorization_request.data['adresse_ip_publique'] = '198.51.100.24' }
+
+          it { is_expected.to be true }
+        end
+
+        context 'when the applicant only saves it blank' do
+          before { authorization_request.data['contact_technique_adresse_complement'] = '' }
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when the request still holds data of the next stage' do
+        let(:authorization_request) { create(:authorization_request, :api_ficoba_sandbox, :validated, applicant: user) }
+
+        before { authorization_request.data['safety_certification_authority_name'] = 'Jean Dupont' }
+
+        it { is_expected.to be false }
+      end
     end
   end
 

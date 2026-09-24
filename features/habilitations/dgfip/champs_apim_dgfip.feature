@@ -178,3 +178,22 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     Et que je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message d'erreur contenant "Adresse du contact technique"
+
+  @javascript
+  Scénario: Une habilitation validée avant l'ajout des deux champs peut être mise à jour pour les renseigner
+    Quand j'ai 1 demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" à l'étape "Bac à sable" validée
+    Et que cette demande n'a ni adresse IP publique ni adresse du contact technique
+    Et que je me rends sur mon tableau de bord demandeur habilitations
+    Et que je clique sur le premier "Mettre à jour"
+    Et que je clique sur "Mettre à jour l'habilitation"
+    Alors il n'y a pas de bouton "Envoyer ma demande de modification"
+
+    Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
+    Et que je remplis "Adresse IP publique de connexion" avec "192.0.2.10"
+    Et que je clique sur "Enregistrer les modifications"
+    Et que je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Et que je remplis "Adresse du contact technique" avec "10 rue de la Paix, 75002 Paris"
+    Et que je clique sur "Enregistrer les modifications"
+    Et que je clique sur "Envoyer ma demande de modification"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
