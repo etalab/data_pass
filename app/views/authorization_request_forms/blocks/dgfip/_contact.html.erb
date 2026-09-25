@@ -1,5 +1,12 @@
 <% extra_block_content = capture do %>
   <% if contact_definition.type == :contact_technique %>
+    <% if @authorization_request.respond_to?(:contact_technique_adresse) %>
+      <div class="fr-fieldset__element">
+        <%= f.dsfr_text_field(:contact_technique_adresse) %>
+        <%= f.dsfr_text_field(:contact_technique_adresse_complement) %>
+      </div>
+    <% end %>
+
     <div class="fr-fieldset__element">
       <hr class="fr-mt-3w">
 

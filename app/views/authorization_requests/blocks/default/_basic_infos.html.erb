@@ -36,4 +36,10 @@
       <strong><%= f.label_value(:volumetrie_approximative) %></strong> : <%= authorization_request.volumetrie_approximative || 'Non renseigné' %>
     </p>
   <% end %>
+
+  <% if authorization_request.respond_to?(:adresse_ip_publique) %>
+    <p>
+      <strong><%= f.label_value(:adresse_ip_publique) %></strong> : <%= authorization_request.adresse_ip_publique || 'Non renseigné' %>
+    </p>
+  <% end %>
 <% end %>

@@ -8,6 +8,8 @@ class AuthorizationRequest::APISFiPR2P < AuthorizationRequest
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
   include DGFIPExtensions::ExtraContactsInfos
+  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdressePostaleContactTechnique
 
   MODALITIES = %w[with_acces_etat_civil
                   with_acces_spi

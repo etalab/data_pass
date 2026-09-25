@@ -5,6 +5,8 @@ class AuthorizationRequest::APISFiPSandbox < AuthorizationRequest
   include AuthorizationExtensions::GDPRContacts
   include DGFIPExtensions::APIImpotParticulierScopes
   include DGFIPExtensions::ExtraContactsInfos
+  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdressePostaleContactTechnique
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 

@@ -181,6 +181,18 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
   create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
 end
 
+Quand("cette demande n'a ni adresse IP publique ni adresse du contact technique") do
+  attributes_added_by_dgfip = %w[adresse_ip_publique contact_technique_adresse contact_technique_adresse_complement]
+  authorization_request = AuthorizationRequest.last
+
+  authorization_request.data = authorization_request.data.except(*attributes_added_by_dgfip)
+  authorization_request.save!(validate: false)
+
+  authorization_request.authorizations.each do |authorization|
+    authorization.update!(data: authorization.data.except(*attributes_added_by_dgfip))
+  end
+end
+
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
   last_authorization_request = AuthorizationRequest.last
   last_authorization_request.intitule = intitule
@@ -343,7 +355,14 @@ Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
 end
 
 Quand('cette demande possède une maquette du projet {string}') do |filename|
-  AuthorizationRequest.last.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
+  authorization_request = AuthorizationRequest.last
+  authorization_request.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
+
+  latest_approval = authorization_request.latest_authorization
+  next if latest_approval.nil?
+
+  approved_maquette = latest_approval.documents.find_or_create_by!(identifier: 'maquette_projet')
+  approved_maquette.files.attach(authorization_request.maquette_projet.attachments.last.blob)
 end
 
 Quand('cette demande possède un document justificatif au cadre juridique') do
@@ -398,6 +417,8 @@ Quand('je renseigne les infos de bases du projet') do
     * je remplis "Nom du projet" avec "Conquérir le monde"
     * je remplis "Description du projet" avec "Comment chaque soir"
   )
+
+  fill_in 'Adresse IP publique de connexion', with: '192.0.2.10' if page.has_field?('Adresse IP publique de connexion')
 end
 
 Quand('je renseigne les infos logiciel du projet') do
@@ -452,6 +473,8 @@ Quand('je renseigne les informations du contact technique') do
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 0136656565 | Technique   |
   )
+
+  fill_in 'Adresse du contact technique', with: '10 rue de la Paix, 75002 Paris' if page.has_field?('Adresse du contact technique')
 end
 
 Quand('je renseigne les informations du contact technique avec un numéro de mobile') do
