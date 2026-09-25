@@ -69,3 +69,6 @@ lib/suivi_dtnum/__pycache__
 venv/
 
 /docs/shaping/*
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+

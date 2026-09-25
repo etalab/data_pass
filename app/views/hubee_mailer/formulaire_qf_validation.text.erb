@@ -1,0 +1,14 @@
+<%= t('mailer.shared.header.hello') %>
+
+<%= t('.description', authorization_request_id: @authorization_request.formatted_id) %>
+- <%= t('.intitule', intitule: @authorization_request.name) %>
+- <%= t('.form_name', form_name: @authorization_request.form.name) %>
+<% if @editor -%>
+- <%= t('.editor_name', editor_name: @editor.name) %>
+<% end -%>
+- <%= t('.organization', organization_name: @authorization_request.organization.name, siret: @authorization_request.organization.siret) %>
+- <%= t('.validated_at', validated_at: @validated_at) %>
+
+<%= t('.consultation', authorization_request_url: authorization_request_url(@authorization_request)) %>
+
+<%= t('mailer.shared.instruction.footer.text') %>

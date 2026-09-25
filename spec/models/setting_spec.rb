@@ -47,6 +47,30 @@ RSpec.describe Setting do
       expect(described_class.fetch(:insee_calls_pause_duration)).to eq(1.hour)
     end
 
+    it 'returns an empty list when no recipient is configured' do
+      expect(described_class.fetch(:hubee_formulaire_qf_notification_emails)).to eq([])
+    end
+
+    it 'casts a comma separated list, whitespace included' do
+      described_class.set(:hubee_formulaire_qf_notification_emails, 'support@hubee.example, relais@hubee.example')
+      described_class.invalidate_cache!
+
+      expect(described_class.fetch(:hubee_formulaire_qf_notification_emails)).to eq(%w[support@hubee.example relais@hubee.example])
+    end
+
+    it 'accepts an array and reads it back as a list' do
+      described_class.set(:hubee_formulaire_qf_notification_emails, %w[support@hubee.example relais@hubee.example])
+      described_class.invalidate_cache!
+
+      expect(described_class.fetch(:hubee_formulaire_qf_notification_emails)).to eq(%w[support@hubee.example relais@hubee.example])
+    end
+
+    it 'casts a list coming from the credentials' do
+      allow(Rails.application.credentials).to receive(:dig).with(:hubee_formulaire_qf_notification_emails).and_return(%w[support@hubee.example])
+
+      expect(described_class.fetch(:hubee_formulaire_qf_notification_emails)).to eq(%w[support@hubee.example])
+    end
+
     it 'raises on a key that is not declared in the code' do
       expect { described_class.fetch(:not_declared) }.to raise_error(described_class::UnknownKeyError)
     end

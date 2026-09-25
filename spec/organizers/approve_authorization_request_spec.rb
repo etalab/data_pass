@@ -47,6 +47,56 @@ RSpec.describe ApproveAuthorizationRequest do
         end
       end
 
+      context 'when it is a formulaire QF request' do
+        let(:authorization_request_kind) { :formulaire_qf }
+
+        it 'delivers the HubEE support email' do
+          expect { approve_authorization_request }.to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+        end
+      end
+
+      context 'when it is an API Particulier request with the formulaire QF modality' do
+        let!(:authorization_request) { create(:authorization_request, :api_particulier, :submitted, modalities: %w[params formulaire_qf]) }
+
+        it 'delivers the HubEE support email' do
+          expect { approve_authorization_request }.to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+        end
+      end
+
+      context 'when it is an API Particulier request without the formulaire QF modality' do
+        let!(:authorization_request) { create(:authorization_request, :api_particulier, :submitted, modalities: %w[params]) }
+
+        it 'does not deliver the HubEE support email' do
+          expect { approve_authorization_request }.not_to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+        end
+      end
+
+      context 'when it is a reopening of a formulaire QF request' do
+        let!(:authorization_request) { create(:authorization_request, :formulaire_qf, :reopened) }
+
+        before do
+          authorization_request.update!(state: 'submitted')
+        end
+
+        it 'does not deliver a second HubEE support email' do
+          expect { approve_authorization_request }.not_to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+        end
+      end
+
+      context 'when a reopening adds the formulaire QF modality to an editor request' do
+        let!(:authorization_request) { create(:authorization_request, :api_particulier_3d_ouest, :reopened, modalities: %w[params]) }
+
+        before do
+          authorization_request.modalities = %w[params formulaire_qf]
+          authorization_request.state = 'submitted'
+          authorization_request.save!(validate: false)
+        end
+
+        it 'delivers the HubEE support email' do
+          expect { approve_authorization_request }.to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+        end
+      end
+
       context 'when it is a reopening' do
         let!(:authorization_request) { create(:authorization_request, :api_scolarite, :reopened) }
 

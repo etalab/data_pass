@@ -140,4 +140,32 @@ RSpec.describe BaseNotifier, type: :notifier do
       end
     end
   end
+
+  describe '#approve for a formulaire QF request' do
+    let(:authorization_request) { create(:authorization_request, :formulaire_qf, :validated) }
+
+    it 'enqueues the HubEE support email' do
+      expect {
+        notifier.approve({ within_reopening: false })
+      }.to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+    end
+
+    context 'when it is a reopening of a request already in the formulaire QF scope' do
+      before { create(:authorization, request: authorization_request, data: authorization_request.data) }
+
+      it 'does not enqueue a second HubEE support email' do
+        expect {
+          notifier.approve({ within_reopening: true })
+        }.not_to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+      end
+    end
+  end
+
+  describe '#approve for a request outside the formulaire QF scope' do
+    it 'does not enqueue the HubEE support email' do
+      expect {
+        notifier.approve({ within_reopening: false })
+      }.not_to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
+    end
+  end
 end
