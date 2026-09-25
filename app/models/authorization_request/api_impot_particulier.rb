@@ -9,6 +9,8 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   include DGFIPExtensions::APIImpotParticulierScopes
   include DGFIPExtensions::APIImpotParticulierModalities
   include DGFIPExtensions::ExtraContactsInfos
+  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdressePostaleContactTechnique
 
   VOLUMETRIES = {
     '50 appels / minute': 50,

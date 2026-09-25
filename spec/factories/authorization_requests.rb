@@ -35,6 +35,8 @@ FactoryBot.define do
           end
         end
 
+        authorization_request.contact_technique_adresse ||= '10 rue de la Paix, 75002 Paris' if authorization_request.respond_to?(:contact_technique_adresse)
+
         authorization_request.extra_checkboxes.each do |checkbox|
           authorization_request.public_send(:"#{checkbox}=", '1')
         end
@@ -213,6 +215,7 @@ FactoryBot.define do
           authorization_request.description ||= 'Description de la demande' if authorization_request.respond_to?(:description)
           authorization_request.date_prevue_mise_en_production ||= '25-06-2025' if authorization_request.respond_to?(:date_prevue_mise_en_production)
           authorization_request.volumetrie_approximative ||= 1000 if authorization_request.respond_to?(:volumetrie_approximative)
+          authorization_request.adresse_ip_publique ||= '192.0.2.10' if authorization_request.respond_to?(:adresse_ip_publique)
         end
       end
     end

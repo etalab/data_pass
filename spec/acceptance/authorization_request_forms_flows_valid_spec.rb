@@ -122,6 +122,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         description
         date_prevue_mise_en_production
         volumetrie_approximative
+        adresse_ip_publique
       ],
       'personal_data' => %w[
         destinataire_donnees_caractere_personnel
@@ -154,7 +155,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
   end
 
   def contact_attributes(authorization_request)
-    authorization_request.class.contacts.flat_map do |contact|
+    authorization_request.class.contacts.flat_map { |contact|
       %W[
         #{contact.type}_family_name
         #{contact.type}_given_name
@@ -162,7 +163,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         #{contact.type}_phone_number
         #{contact.type}_job_title
       ]
-    end
+    } + %w[contact_technique_adresse contact_technique_adresse_complement]
   end
 
   def custom_attributes_for_step(definition_id, step_name)
