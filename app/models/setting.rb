@@ -8,6 +8,12 @@ class Setting < ApplicationRecord
     insee_password: { type: :string, env: 'INSEE_PASSWORD', credential: %i[insee_password] },
     insee_calls_enabled: { type: :enabled_unless_false, env: 'INSEE_CALLS_ENABLED', default: true },
     insee_calls_pause_duration: { type: :duration, default: 6.hours },
+    hubee_formulaire_qf_notification_emails: {
+      type: :list,
+      env: 'HUBEE_FORMULAIRE_QF_NOTIFICATION_EMAILS',
+      credential: %i[hubee_formulaire_qf_notification_emails],
+      default: [],
+    },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze
@@ -31,7 +37,7 @@ class Setting < ApplicationRecord
     def set(key, value)
       definition_for(key)
 
-      find_or_initialize_by(key: key.to_s).update!(value: value.to_s)
+      find_or_initialize_by(key: key.to_s).update!(value: serialized_value(value))
       value
     end
 
@@ -75,12 +81,21 @@ class Setting < ApplicationRecord
       Rails.application.credentials.dig(*definition[:credential])
     end
 
+    def serialized_value(value)
+      value.is_a?(Array) ? value.join(',') : value.to_s
+    end
+
     def cast(value, type)
       case type
       when :duration then Integer(value).seconds
       when :enabled_unless_false then value.to_s != 'false'
+      when :list then cast_list(value)
       else value
       end
+    end
+
+    def cast_list(value)
+      Array(value).flat_map { |entry| entry.to_s.split(',') }.map(&:strip).compact_blank
     end
 
     def stored_values
