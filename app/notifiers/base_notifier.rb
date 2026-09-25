@@ -19,6 +19,7 @@ class BaseNotifier < ApplicationNotifier
 
     notify_france_connect if authorization_request.with_france_connect?
     notify_dgfip_apim(params) if dgfip_provider?
+    notify_hubee_formulaire_qf(params)
 
     email_notification_with_reopening('approve', params)
   end
@@ -43,6 +44,27 @@ class BaseNotifier < ApplicationNotifier
       authorization: authorization_request.latest_authorization,
       reopening: params[:within_reopening]
     ).approve.deliver_later
+  end
+
+  def notify_hubee_formulaire_qf(params)
+    return unless authorization_request.formulaire_qf?
+    return if params[:within_reopening] && formulaire_qf_before_reopening?
+
+    HubEEMailer.with(authorization_request:).formulaire_qf_validation.deliver_later
+  end
+
+  def formulaire_qf_before_reopening?
+    return true if authorization_before_reopening.nil?
+
+    authorization_before_reopening.request_as_validated(load_documents: false).formulaire_qf?
+  end
+
+  def authorization_before_reopening
+    @authorization_before_reopening ||= authorization_request.authorizations
+      .where(authorization_request_class: authorization_request.class.name)
+      .order(created_at: :desc)
+      .offset(1)
+      .first
   end
 
   def dgfip_provider?
