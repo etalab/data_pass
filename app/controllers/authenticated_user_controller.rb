@@ -23,7 +23,7 @@ class AuthenticatedUserController < ApplicationController
 
     sign_in(user, identity_federator: :bypass_login, identity_provider_uid: 'bypass')
 
-    redirect_to dashboard_path
+    redirect_to session.delete(:return_to_after_sign_in) || dashboard_path
   end
 
   def refresh_current_organization_insee_data
