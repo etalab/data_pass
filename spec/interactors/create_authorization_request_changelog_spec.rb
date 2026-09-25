@@ -166,6 +166,29 @@ RSpec.describe CreateAuthorizationRequestChangelog, type: :interactor do
           end
         end
 
+        describe 'when an attribute was added to the form after the latest approval' do
+          let!(:authorization_request) { create(:authorization_request, :api_ficoba_sandbox, fill_all_attributes: true) }
+          let(:attributes_added_since) { %w[adresse_ip_publique contact_technique_adresse contact_technique_adresse_complement] }
+
+          before do
+            changelog_before_the_attribute = described_class.call(authorization_request:).changelog
+            changelog_before_the_attribute.update!(diff: changelog_before_the_attribute.diff.except(*attributes_added_since))
+            latest_approval = create(:authorization, request: authorization_request)
+            latest_approval.update!(data: latest_approval.data.except(*attributes_added_since))
+
+            authorization_request.adresse_ip_publique = '198.51.100.24'
+            authorization_request.contact_technique_adresse_complement = ''
+          end
+
+          it 'stores it as added, with nil as the previous value' do
+            expect(changelog.diff['adresse_ip_publique']).to eq([nil, '198.51.100.24'])
+          end
+
+          it 'does not store it while it stays blank' do
+            expect(changelog.diff).not_to have_key('contact_technique_adresse_complement')
+          end
+        end
+
         describe 'when first changelog is legacy with complete diff and there is an authorization snapshot' do
           let(:legacy_intitule) { 'Legacy intitule value' }
 
