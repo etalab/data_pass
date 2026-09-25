@@ -2,14 +2,6 @@
 - id: 1
   definition_id: api_particulier
   options:
-  - type: particulier
-    eligible: 'no'
-    body: |-
-      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage
-      de l’API Particulier est <strong>uniquement reservé aux acteurs publics</strong> : les
-      administrations, les collectivités, leurs opérateurs, les acteurs de santé,
-      les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire
-      de service public »</i>, etc.</p>
   - type: collectivite_ou_administration
     eligible: 'yes'
     body: |-
@@ -31,6 +23,22 @@
     cta:
       content: Demander à être référencé
       url: https://form.typeform.com/to/OJ4rkf5Z
+  - type: eaje
+    eligible: 'yes'
+    body: |-
+      <p>Que vous soyez un établissement d’accueil du jeune enfant (EAJE) du secteur public ou privé conventionné PSU, vous êtes éligible à l’utilisation de l’API <i>Participation familiale dans les EAJE</i>.</p>
+      <br />
+      <p>En tant qu’EAJE privé, vous pouvez demander <b>uniquement</b> accès à l’API <i>Participation familiale dans les EAJE</i>.</p>
+      <br />
+      <p>Pour en savoir plus sur cette API et vérifier qu’elle répond à votre besoin, consultez <a href="https://simplifions.data.gouv.fr/cas-d-usages/tarification-daccueil-du-jeune-enfant-par-un-eaje-beneficiant-de-la-psu">la page dédiée au cas d’usage</a>.</p>
+  - type: particulier
+    eligible: 'no'
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage
+      de l’API Particulier est <strong>uniquement reservé aux acteurs publics</strong> : les
+      administrations, les collectivités, leurs opérateurs, les acteurs de santé,
+      les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire
+      de service public »</i>, etc.</p>
 - id: 2
   definition_id: api_entreprise
   options:

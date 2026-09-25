@@ -885,11 +885,12 @@ fr:
   eligibility:
     title: "Bienvenue sur DataPass !"
     subtitle: "Les données auxquelles vous souhaitez avoir accès ne sont accessibles que sur habilitation, vérifions si vous êtes éligibles :"
-    question: "Etes-vous :"
+    question: "Êtes-vous :"
     user_types:
       particulier: "Un particulier"
       collectivite_ou_administration: "Une collectivité ou une administration"
       entreprise_ou_association: "Une entreprise ou une association"
+      eaje: "Un établissement d’accueil du jeune enfant (EAJE)"
     cta:
       request_access: "Demander l'accès aux données"
 
