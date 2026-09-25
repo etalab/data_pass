@@ -12,7 +12,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 
 | Cadre | Ancre YAML | Formulaires | Texte du cadre juridique |
 |---|---|---:|---|
-| **Socle général** | `socle_general` | 55 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
+| **Socle général** | `socle_general` | 58 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
 | **CCAS** | `ccas` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.<br>- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives. |
 | **Cantines** | `cantines` | 8 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire. |
 | **Transport** | `transport_complet` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification. |
@@ -21,7 +21,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 
 ## Formulaires par cadre
 
-### Socle général — 55 formulaire(s)
+### Socle général — 58 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
@@ -58,6 +58,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `ganesh_education` | Ganesh Education | `api-particulier-ganesh-education` |
 | `hoptis` | Hoptis | `api-particulier-hoptis` |
 | `hoptis` | Hoptis Petite enfance | `api-particulier-hoptis-petite-enfance` |
+| `icap` | CapCreche | `api-particulier-capcreche-petite-enfance` |
 | `jcdeveloppement` | FamilyClic | `api-particulier-jcdeveloppement-familyclic` |
 | `jdealise` | Cantine de France | `api-particulier-cantine-de-france` |
 | `jvs_mairistem` | Mairistem | `api-particulier-jvs-mairistem` |
@@ -66,6 +67,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `nfi` | NFI | `api-particulier-nfi` |
 | `noethys` | Noethys | `api-particulier-noethys` |
 | `odyssee_informatique` | Pandore | `api-particulier-odyssee-informatique-pandore` |
+| `osmia_projects` | Daycare app | `api-particulier-daycare-app-petite-enfance` |
 | `qiis` | eTicket | `api-particulier-qiis-eticket` |
 | `resagenda` | Res'Agenda | `api-particulier-resagenda` |
 | `sigec` | Maelis Petite enfance | `api-particulier-sigec-maelis-petite-enfance` |
@@ -74,6 +76,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `teamnet` | Axel petite enfance | `api-particulier-teamnet-axel-petite-enfance` |
 | `technocarte` | Babicarte Petite enfance | `api-particulier-technocarte-babicarte` |
 | `technocarte` | ILE - Kiosque famille | `api-particulier-technocarte-ile` |
+| `themisto_conseil` | optiCreche | `api-particulier-opticreche-petite-enfance` |
 | `waigeo` | MyPérischool | `api-particulier-waigeo-myperischool` |
 | `ypok` | Ykidz | `api-particulier-ypok-ykidz` |
 | _demande générique_ | Gestion RH du secteur public | `api-particulier-gestion-rh-secteur-public` |
