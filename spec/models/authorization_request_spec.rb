@@ -749,4 +749,10 @@ RSpec.describe AuthorizationRequest do
       expect(result[ar2.id]).to eq(0)
     end
   end
+
+  describe '#formulaire_qf?' do
+    subject { build(:authorization_request, :api_entreprise).formulaire_qf? }
+
+    it { is_expected.to be(false) }
+  end
 end

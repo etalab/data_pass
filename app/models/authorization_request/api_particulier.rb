@@ -45,6 +45,10 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
     true
   end
 
+  def formulaire_qf?
+    modalities.include?('formulaire_qf')
+  end
+
   def skip_france_connect_authorization?
     false
   end

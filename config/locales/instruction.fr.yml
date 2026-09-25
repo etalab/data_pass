@@ -86,6 +86,7 @@ fr:
       states:
         with_france_connect: Si la demande utilise FranceConnect en modalité d'accès
         embeds_france_connect_fields: Si une habilitation FranceConnect est générée automatiquement
+        formulaire_qf_modality: Si la demande utilise le formulaire QF en modalité d’accès
     forms:
       index:
         empty: Aucun cas d'usage disponible.
