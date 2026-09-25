@@ -8,9 +8,15 @@ class Setting < ApplicationRecord
     insee_password: { type: :string, env: 'INSEE_PASSWORD', credential: %i[insee_password] },
     insee_calls_enabled: { type: :enabled_unless_false, env: 'INSEE_CALLS_ENABLED', default: true },
     insee_calls_pause_duration: { type: :duration, default: 6.hours },
+    insee_calls_per_minute: { type: :integer, default: 20 },
+    insee_refresh_batch_size: { type: :integer, default: 10 },
+    insee_refresh_batch_interval: { type: :duration, default: 1.minute },
+    insee_refresh_max_organizations_per_run: { type: :integer, default: 500 },
+    insee_skipped_identifiers: { type: :list, default: [] },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze
+  LIST_SEPARATOR = /[,;\n]/
 
   encrypts :value, deterministic: false
 
@@ -31,7 +37,7 @@ class Setting < ApplicationRecord
     def set(key, value)
       definition_for(key)
 
-      find_or_initialize_by(key: key.to_s).update!(value: value.to_s)
+      find_or_initialize_by(key: key.to_s).update!(value: serialize(value))
       value
     end
 
@@ -75,8 +81,16 @@ class Setting < ApplicationRecord
       Rails.application.credentials.dig(*definition[:credential])
     end
 
+    def serialize(value)
+      return value.join(',') if value.is_a?(Array)
+
+      value.to_s
+    end
+
     def cast(value, type)
       case type
+      when :integer then Integer(value)
+      when :list then value.split(LIST_SEPARATOR).map { |item| item.delete(' ') }.compact_blank
       when :duration then Integer(value).seconds
       when :enabled_unless_false then value.to_s != 'false'
       else value

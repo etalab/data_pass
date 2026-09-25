@@ -142,4 +142,66 @@ RSpec.describe Organization do
       it { is_expected.to eq(:other) }
     end
   end
+
+  describe 'INSEE payload freshness scopes' do
+    let!(:organization_never_refreshed) { create(:organization, insee_payload: nil, last_insee_payload_updated_at: nil) }
+    let!(:organization_with_empty_payload) { create(:organization, insee_payload: {}, last_insee_payload_updated_at: 42.days.ago) }
+    let!(:stale_organization) { create(:organization, insee_payload: { 'etablissement' => {} }, last_insee_payload_updated_at: 42.days.ago) }
+    let!(:fresh_organization) { create(:organization, insee_payload: { 'etablissement' => {} }, last_insee_payload_updated_at: 1.hour.ago) }
+
+    before { create(:organization, :foreign, insee_payload: nil, last_insee_payload_updated_at: nil) }
+
+    it 'lists the INSEE organizations without payload, whether null or empty' do
+      expect(described_class.without_insee_payload).to contain_exactly(organization_never_refreshed, organization_with_empty_payload)
+    end
+
+    it 'lists the INSEE organizations never refreshed' do
+      expect(described_class.never_insee_refreshed).to contain_exactly(organization_never_refreshed)
+    end
+
+    it 'lists the INSEE organizations whose payload is older than the freshness window' do
+      expect(described_class.with_stale_insee_payload).to contain_exactly(organization_with_empty_payload, stale_organization)
+    end
+
+    it 'lists the INSEE organizations whose payload is within the freshness window' do
+      expect(described_class.with_fresh_insee_payload).to contain_exactly(fresh_organization)
+    end
+
+    it 'lists the INSEE organizations whose last calls failed' do
+      stale_organization.update!(insee_consecutive_failures: 2)
+
+      expect(described_class.with_insee_failures).to contain_exactly(stale_organization)
+    end
+
+    it 'lists the INSEE organizations needing a refresh, never refreshed first' do
+      expect(described_class.needing_insee_refresh.first).to eq(organization_never_refreshed)
+      expect(described_class.needing_insee_refresh).to contain_exactly(organization_never_refreshed, organization_with_empty_payload, stale_organization)
+    end
+  end
+
+  describe 'organizations skipped for the INSEE calls' do
+    let!(:skipped_by_siret) { create(:organization, last_insee_payload_updated_at: nil) }
+    let!(:skipped_by_siren) { create(:organization, last_insee_payload_updated_at: nil) }
+    let!(:not_skipped_organization) { create(:organization, last_insee_payload_updated_at: nil) }
+
+    before do
+      Setting.set(:insee_skipped_identifiers, [skipped_by_siret.siret, skipped_by_siren.siret.first(9)])
+    end
+
+    it 'skips an organization listed by its SIRET or by its SIREN' do
+      expect([skipped_by_siret, skipped_by_siren, not_skipped_organization].map(&:insee_skipped?)).to eq([true, true, false])
+    end
+
+    it 'never skips a foreign organization' do
+      expect(build(:organization, :foreign)).not_to be_insee_skipped
+    end
+
+    it 'lists the skipped organizations' do
+      expect(described_class.insee_skipped).to contain_exactly(skipped_by_siret, skipped_by_siren)
+    end
+
+    it 'leaves the skipped organizations out of the refresh' do
+      expect(described_class.needing_insee_refresh).to contain_exactly(not_skipped_organization)
+    end
+  end
 end

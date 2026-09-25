@@ -1,4 +1,4 @@
-# INSEE — couper les appels sans déploiement
+# INSEE — couper les appels, puis rattraper
 
 ## Pourquoi
 
@@ -92,7 +92,29 @@ Le nombre d’appels était le vrai moteur de l’incident :
 
 Désormais un seul middleware `:retry`, configuré par `retry_options`, et seules les pannes de transport
 (`ConnectionFailed`, `TimeoutError`) sont rejouées par le client. Les 5xx et les réponses illisibles sont
-rejoués par ActiveJob, avec un backoff, une fois par niveau.
+rejoués par ActiveJob, avec un backoff polynomial (3 s, 18 s, 83 s, 4 min), **cinq tentatives au plus** :
+c’est la stratégie que recommande la documentation de l’API Sirene privée, qui ne considère le service
+en panne qu’après quatre ou cinq échecs espacés. Au-delà, le job abandonne, compte l’échec sur
+l’organisation et le remonte dans Sentry en `error` ; il n’a pas écrit `last_insee_payload_updated_at`,
+donc le rattrapage reprendra l’organisation. Relancer à l’infini n’apporte plus rien depuis que ce
+rattrapage existe.
+
+### Le compteur d’échecs
+
+`organizations.insee_consecutive_failures` compte les jobs **consécutifs** qui ont échoué pour
+l’organisation, et revient à 0 au premier succès. Avec `last_insee_payload_updated_at` (date du dernier
+succès), il dit depuis quand et combien de fois l’organisation résiste.
+
+| Issue du job | Compteur |
+| -- | -- |
+| Payload obtenu | remis à 0 |
+| 404 (`EntityNotFoundError`) | +1 |
+| 5xx, réseau ou réponse illisible, après les 5 tentatives | +1 — un job, pas une tentative |
+| Appels coupés (interrupteur, coupe-circuit, 401) | inchangé : aucun appel n’a atteint l’INSEE pour elle |
+| Organisation exclue, étrangère ou fraîche | inchangé : pas d’appel |
+
+Le chemin synchrone (`.new.perform` à la création) ne passe pas par les handlers d’ActiveJob et ne
+compte pas ; un échec y enfile de toute façon un job, qui comptera.
 
 Le jeton est mis en cache pour la durée annoncée par l’INSEE moins une minute de marge (5 minutes si
 l’INSEE n’annonce rien). Le cache est par process, sans verrou : sous le GVL une affectation d’ivar est
@@ -124,12 +146,20 @@ L’initializer **prime sur `GOOD_JOB_QUEUES`** dans GoodJob, d’où le `ENV.fe
 déploiement reste prioritaire. Et l’exclusion `-insee` est nécessaire — `*` inclurait `insee`, donc le
 pool général y piocherait aussi et la sérialisation ne tiendrait pas.
 
-Deux limites à connaître :
+La queue borne la **concurrence**, pas le **débit** : un worker unique enchaîne autant d’appels que
+l’INSEE répond vite. Le débit est donc plafonné à part, par le `perform_throttle` de GoodJob :
+`insee_calls_per_minute` exécutions par minute (20 par défaut, réglable en base). La documentation de
+l’API Sirene privée ne publie aucun quota ; les 30 requêtes/minute connues sont celles de l’API
+publique, d’où la marge.
 
-- avec `conn.options.timeout = 2`, un worker unique plafonne autour de 30 appels/minute, soit le quota
-  INSEE Sirene. C’est heureux, mais c’est une **coïncidence** : baisser le timeout augmenterait le débit.
-- la queue ne protège **pas le chemin synchrone**, qui exécute le job en ligne sans passer par aucune
-  queue. Là, le coupe-circuit client reste la seule protection.
+Ce plafond est un **garde-fou, pas un lissage**. Un job refusé ne patiente pas dans une file : il lève
+`ThrottleExceededError` et GoodJob le replanifie avec un backoff polynomial, sans limite de tentatives.
+Enfiler un gros stock d’un coup derrière ce plafond repousserait la fin du stock de plusieurs heures,
+créerait une exécution en base par refus, et ferait patienter les organisations créées par les usagers
+derrière le stock. Le lissage reste le travail du rattrapage (ci-dessous), calé sous le plafond.
+
+La queue et le throttle ne protègent **pas le chemin synchrone**, qui exécute le job en ligne sans
+passer par GoodJob. Là, le coupe-circuit client reste la seule protection.
 
 ## Le chemin synchrone
 
@@ -156,6 +186,96 @@ La lecture est défensive partout, rien ne casse, mais trois effets persistent j
 3. **HubEE reçoit des champs vides** (`codeCommuneEtablissement`, `codePostalEtablissement`,
    `sigleUniteLegale`). C’est le plus dur : un abonnement créé dans cet état part incomplet chez un
    partenaire.
+
+## Le rattrapage
+
+Aucun registre parallèle : `organizations.last_insee_payload_updated_at` porte déjà l’information. Le job
+ne l’écrit qu’en cas de succès, donc un appel court-circuité, échoué ou jamais tenté laisse la colonne
+inchangée. Les organisations à rattraper sont exactement celles dont elle est nulle ou vieille — c’est
+auto-réparateur, et ça survit à un redémarrage, à un vidage Redis et à une purge de queue.
+
+`Organization.needing_insee_refresh` les sélectionne, les jamais-rafraîchies d’abord.
+`RefreshStaleOrganizationsINSEEPayloadJob` les enfile **par lots étalés dans le temps** et ne fait rien
+si les appels sont coupés. Le lissage est réglable sans déploiement :
+`insee_refresh_batch_size` (10), `insee_refresh_batch_interval` (1 min),
+`insee_refresh_max_organizations_per_run` (500).
+
+Soit 10 appels par minute, sous le plafond de 20 : l’autre moitié reste aux organisations créées par
+les usagers. Une exécution de 500 s’étale sur 50 minutes, donc tient dans l’heure qui la sépare de la
+suivante.
+
+Le job tourne **toutes les heures en production** (`config/schedule.yml`, à la 15ᵉ minute). Pas sur
+staging ni sandbox : si elles partagent le compte INSEE de production, elles consommeraient le même
+quota et le même compteur de verrouillage.
+
+Il reste sur la **queue par défaut**, pas sur `insee` : il n’émet lui-même aucun appel INSEE, il se
+contenterait de bloquer l’unique worker sérialisé derrière lequel les vrais appels attendent.
+
+Le rejeu est idempotent : `return if last_update_within_24h?` en tête du job fait qu’une organisation
+déjà rafraîchie coûte une requête SQL et rien d’autre. On peut donc relancer large.
+
+### Les organisations exclues des appels
+
+Certaines organisations ne doivent pas être demandées à l’INSEE. Le cas qui a motivé la liste :
+l’INSEE répond **404** pour un établissement non diffusible ou une structure publique dont les
+informations sont protégées (Défense, Gendarmerie, parlementaires…), exactement comme pour un SIRET mal
+saisi ou trop récent. On ne peut donc pas les distinguer automatiquement, et sans rien faire :
+
+- à la création (`FindOrCreateOrganization`, chemin synchrone), le 404 fait **refuser** l’organisation
+  avec « n’existe pas dans le répertoire Sirene » ;
+- au rattrapage, elle n’est jamais horodatée, donc **renfilée à chaque passage**, en tête de file, avec
+  un warning Sentry (`EntityNotFoundError`) à chaque fois.
+
+`insee_skipped_identifiers` liste en base les **SIRET ou SIREN** à ne pas appeler, sans dire
+pourquoi — un SIREN couvre tous les établissements de la structure. Pour ces organisations, le job
+n’appelle pas l’INSEE (l’organisation est créée sans payload, sans refus) et le rattrapage les ignore.
+
+```ruby
+Setting.set(:insee_skipped_identifiers, '575 397 807 42358, 130007669')   # espaces tolérés
+Setting.fetch(:insee_skipped_identifiers)   # => ["57539780742358", "130007669"]
+Organization.insee_skipped.count
+```
+
+`Setting.set` **remplace** la liste : pour ajouter un identifiant, repartir de la valeur actuelle
+(`Setting.set(:insee_skipped_identifiers, Setting.fetch(:insee_skipped_identifiers) + ['…'])`).
+
+Un 404 qui n’est pas dans la liste continue d’être retenté à chaque passage du rattrapage : c’est le
+signal qui permet de l’y ajouter, après vérification (annuaire des entreprises, organisation). Le
+compteur d’échecs les fait ressortir.
+
+### Mesurer en console
+
+Chaque état a son scope, limité aux organisations immatriculées à l’INSEE (les étrangères n’ont
+jamais de payload) :
+
+```ruby
+Organization.without_insee_payload.count      # payload nul ou vide
+Organization.never_insee_refreshed.count      # jamais rafraîchies
+Organization.with_stale_insee_payload.count   # rafraîchies il y a plus de 24 h
+Organization.with_fresh_insee_payload.count   # rafraîchies depuis moins de 24 h
+Organization.insee_skipped.count              # exclues des appels, voir ci-dessus
+Organization.with_insee_failures.count        # dernier appel en échec
+Organization.with_insee_failures.group(:insee_consecutive_failures).count   # répartition
+Organization.where(insee_consecutive_failures: 3..).pluck(:legal_entity_id) # candidates à l’exclusion
+Organization.needing_insee_refresh.count      # ce que le rattrapage va traiter
+
+RefreshStaleOrganizationsINSEEPayloadJob.perform_later   # relancer sans attendre le cron
+```
+
+`without_insee_payload` regarde le contenu, les trois suivants la date du dernier rafraîchissement
+réussi : un écart entre `without_insee_payload` et `never_insee_refreshed` est un signal à creuser.
+
+## Après une coupure
+
+1. Vérifier que les appels sont bien arrêtés : `AbstractINSEEAPIClient.calls_allowed?` → `false`.
+   Si le coupe-circuit n’est pas armé, couper à la main : `Setting.set(:insee_calls_enabled, 'false')`.
+2. Tourner le mot de passe INSEE — le compte doit être déverrouillé, donc les appels arrêtés depuis plus
+   de 30 minutes.
+3. Poser la nouvelle valeur : `Setting.set(:insee_password, '…')`. Aucun déploiement.
+4. Relâcher : `INSEECallsPause.reset!`, puis `Setting.unset(:insee_calls_enabled)` si l’interrupteur
+   manuel avait été utilisé.
+5. Mesurer l’ampleur : `Organization.needing_insee_refresh.count`.
+6. Laisser le cron horaire rattraper, ou accélérer avec `RefreshStaleOrganizationsINSEEPayloadJob.perform_later`.
 
 ## Les identifiants
 

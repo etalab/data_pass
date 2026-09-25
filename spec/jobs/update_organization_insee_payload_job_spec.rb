@@ -5,6 +5,13 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
     expect(described_class.new.queue_name).to eq('insee')
   end
 
+  it 'throttles its executions to the configured number of INSEE calls per minute' do
+    Setting.set(:insee_calls_per_minute, 7)
+    perform_throttle = described_class.good_job_concurrency_config[:perform_throttle]
+
+    expect(described_class.new.instance_exec(&perform_throttle)).to eq([7, 1.minute])
+  end
+
   context 'with invalid organization' do
     let(:organization_id) { 0 }
 
@@ -65,6 +72,12 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
 
         expect(organization.reload.last_insee_payload_updated_at).to be_within(1.second).of(Time.current)
       end
+
+      it 'resets the consecutive failures counter' do
+        organization.update!(insee_consecutive_failures: 3)
+
+        expect { update_organization_insee_payload_job }.to change { organization.reload.insee_consecutive_failures }.from(3).to(0)
+      end
     end
 
     context 'when INSEE is unavailable' do
@@ -89,6 +102,10 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
         expect(organization.reload.last_insee_payload_updated_at).to be < 24.hours.ago
       end
 
+      it 'does not count a failure, since no call reached the INSEE' do
+        expect { update_organization_insee_payload_job }.not_to change { organization.reload.insee_consecutive_failures }
+      end
+
       it 'reports to Sentry as a warning' do
         update_organization_insee_payload_job
 
@@ -96,6 +113,53 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
           an_instance_of(AbstractINSEEAPIClient::UnavailableError),
           level: :warning,
         )
+      end
+    end
+
+    context 'when INSEE keeps answering with a server error' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+      let(:job) { described_class.new(organization.id) }
+
+      before do
+        allow(insee_sirene_api_client).to receive(:etablissement).and_raise(Faraday::ServerError)
+      end
+
+      it 'retries until the fifth attempt' do
+        expect {
+          (described_class::MAX_ATTEMPTS - 1).times { job.perform_now }
+        }.to have_enqueued_job(described_class).exactly(described_class::MAX_ATTEMPTS - 1).times
+      end
+
+      it 'gives up on the fifth attempt, leaving the organization to the catch-up job' do
+        described_class::MAX_ATTEMPTS.times { job.perform_now }
+
+        expect(organization.reload.last_insee_payload_updated_at).to be < 24.hours.ago
+      end
+
+      it 'counts one failure for the whole job, not one per attempt' do
+        expect {
+          described_class::MAX_ATTEMPTS.times { job.perform_now }
+        }.to change { organization.reload.insee_consecutive_failures }.from(0).to(1)
+      end
+
+      it 'reports the final failure to Sentry as an error' do
+        allow(Sentry).to receive(:capture_exception)
+
+        described_class::MAX_ATTEMPTS.times { job.perform_now }
+
+        expect(Sentry).to have_received(:capture_exception).with(an_instance_of(Faraday::ServerError), level: :error).once
+      end
+    end
+
+    context 'when the organization is listed as skipped for the INSEE calls' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: nil) }
+
+      before { Setting.set(:insee_skipped_identifiers, organization.siret.first(9)) }
+
+      it 'does not call the API' do
+        expect(insee_sirene_api_client).not_to receive(:etablissement)
+
+        update_organization_insee_payload_job
       end
     end
 
@@ -133,6 +197,10 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
 
       it 'does not raise' do
         expect { update_organization_insee_payload_job }.not_to raise_error
+      end
+
+      it 'counts a failure on the organization' do
+        expect { update_organization_insee_payload_job }.to change { organization.reload.insee_consecutive_failures }.by(1)
       end
 
       it 'reports to Sentry as a warning' do
