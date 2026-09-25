@@ -213,7 +213,7 @@ FactoryBot.define do
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           authorization_request.intitule ||= 'Demande d’accès à la plateforme fournisseur'
           authorization_request.description ||= 'Description de la demande' if authorization_request.respond_to?(:description)
-          authorization_request.date_prevue_mise_en_production ||= '25-06-2025' if authorization_request.respond_to?(:date_prevue_mise_en_production)
+          authorization_request.date_prevue_mise_en_production ||= '2025-06-25' if authorization_request.respond_to?(:date_prevue_mise_en_production)
           authorization_request.volumetrie_approximative ||= 1000 if authorization_request.respond_to?(:volumetrie_approximative)
           authorization_request.adresse_ip_publique ||= '192.0.2.10' if authorization_request.respond_to?(:adresse_ip_publique)
         end

@@ -96,6 +96,72 @@ RSpec.describe AuthorizationRequestPolicy do
 
         it { is_expected.to be true }
       end
+
+      context 'when the latest approval predates an attribute added to the form since' do
+        let(:authorization_request) { create(:authorization_request, :api_ficoba_sandbox, :validated, applicant: user) }
+        let(:attributes_added_since) { %w[adresse_ip_publique contact_technique_adresse contact_technique_adresse_complement] }
+
+        before do
+          authorization = authorization_request.latest_authorization
+          authorization.update!(data: authorization.data.except(*attributes_added_since))
+          authorization_request.data = authorization_request.data.except(*attributes_added_since)
+        end
+
+        context 'when the applicant fills it in' do
+          before { authorization_request.data['adresse_ip_publique'] = '198.51.100.24' }
+
+          it { is_expected.to be true }
+        end
+
+        context 'when the applicant only saves it blank' do
+          before { authorization_request.data['contact_technique_adresse_complement'] = '' }
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when only documents differ from the latest approval' do
+        let(:authorization_request) { create(:authorization_request, :api_ficoba_sandbox, :validated, applicant: user) }
+        let(:attach_maquette!) do
+          authorization_request.maquette_projet.attach(io: Rails.root.join('spec/fixtures/dummy.pdf').open, filename: 'dummy.pdf')
+        end
+
+        context 'when a document has been added since' do
+          before { attach_maquette! }
+
+          it { is_expected.to be true }
+        end
+
+        context 'when a document approved has been removed since' do
+          before do
+            attach_maquette!
+            snapshot = authorization_request.latest_authorization.documents.create!(identifier: 'maquette_projet')
+            snapshot.files.attach(authorization_request.maquette_projet.attachments.last.blob)
+            authorization_request.maquette_projet.attachments.last.destroy!
+            authorization_request.reload
+          end
+
+          it { is_expected.to be true }
+        end
+
+        context 'when documents are the ones approved' do
+          before do
+            attach_maquette!
+            snapshot = authorization_request.latest_authorization.documents.create!(identifier: 'maquette_projet')
+            snapshot.files.attach(authorization_request.maquette_projet.attachments.last.blob)
+          end
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when the request still holds data of the next stage' do
+        let(:authorization_request) { create(:authorization_request, :api_ficoba_sandbox, :validated, applicant: user) }
+
+        before { authorization_request.data['safety_certification_authority_name'] = 'Jean Dupont' }
+
+        it { is_expected.to be false }
+      end
     end
   end
 
