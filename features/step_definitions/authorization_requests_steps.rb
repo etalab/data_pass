@@ -355,7 +355,14 @@ Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
 end
 
 Quand('cette demande possède une maquette du projet {string}') do |filename|
-  AuthorizationRequest.last.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
+  authorization_request = AuthorizationRequest.last
+  authorization_request.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
+
+  latest_approval = authorization_request.latest_authorization
+  next if latest_approval.nil?
+
+  approved_maquette = latest_approval.documents.find_or_create_by!(identifier: 'maquette_projet')
+  approved_maquette.files.attach(authorization_request.maquette_projet.attachments.last.blob)
 end
 
 Quand('cette demande possède un document justificatif au cadre juridique') do

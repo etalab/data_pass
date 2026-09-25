@@ -147,16 +147,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def changed_since_latest_approval?
-    previous_data = Hash(record.latest_authorization_of_class(original_record.class_name)&.data)
-    current_data = Hash(record.data)
-
-    keys_compared_with_latest_approval(previous_data, current_data).any? do |key|
-      previous_data[key].presence != current_data[key].presence
-    end
-  end
-
-  def keys_compared_with_latest_approval(previous_data, current_data)
-    previous_data.keys | (current_data.keys & original_record.class.extra_attributes.map(&:to_s))
+    ReopeningChangesChecker.new(original_record).changed?
   end
 
   def original_record
