@@ -14,7 +14,7 @@ class AuthorizationRequest::APIFicoba < AuthorizationRequest
   VOLUMETRIES = {
     '200 appels / minute': 200,
     '500 appels / minute': 500,
-    '700 appels / minute': 700,
+    '750 appels / minute': 750,
   }.freeze
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
