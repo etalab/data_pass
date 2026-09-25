@@ -36,7 +36,7 @@
           <% if option.shows_request_access_button? %>
             <div class='fr-mt-3w'>
               <%= link_to t('eligibility.cta.request_access'),
-                eligibility_rule.request_access_path,
+                eligibility_rule.request_access_path(option),
                 class: 'fr-btn' %>
             </div>
           <% elsif option.shows_custom_cta? %>
