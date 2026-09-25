@@ -29,6 +29,20 @@ RSpec.describe EligibilityRuleDecorator, type: :decorator do
       expected_path = '/demandes/api_particulier/nouveau?eligibility_confirmed=true'
       expect(decorator.request_access_path).to eq(expected_path)
     end
+
+    it 'keeps the same path for an option without use case' do
+      collectivite_option = decorator.options.find { |option| option.type == 'collectivite_ou_administration' }
+
+      expected_path = '/demandes/api_particulier/nouveau?eligibility_confirmed=true'
+      expect(decorator.request_access_path(collectivite_option)).to eq(expected_path)
+    end
+
+    it 'adds the use case of the option to filter the forms' do
+      eaje_option = decorator.options.find { |option| option.type == 'eaje' }
+
+      expected_path = '/demandes/api_particulier/nouveau?eligibility_confirmed=true&use_case=tarification_eaje'
+      expect(decorator.request_access_path(eaje_option)).to eq(expected_path)
+    end
   end
 
   describe 'delegation' do

@@ -51,6 +51,16 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
     Et que je choisis "Vos développeurs"
     Alors je vois 1 tuile "Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU"
 
+  Scénario: Un établissement d’accueil du jeune enfant ne voit que les formulaires EAJE après connexion
+    Sachant que je suis un demandeur
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Et je choisis "Un établissement d’accueil du jeune enfant (EAJE)"
+    Et je clique sur "Demander l'accès aux données"
+    Et je clique sur "S’identifier avec ProConnect"
+    Et que je choisis "Vos développeurs"
+    Alors je vois 2 tuiles
+    Et je vois 1 tuile "Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU"
+
   Scénario: Un utilisateur connecté ne voit pas l'arbre de décision
     Sachant que je suis un demandeur
     Et que je me connecte
