@@ -24,7 +24,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact métier
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"

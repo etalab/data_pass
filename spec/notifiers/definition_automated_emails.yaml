@@ -179,7 +179,6 @@ authorization_definitions:
       - event_name: approve
         emails:
           - GDPRContactMailer#delegue_protection_donnees
-          - GDPRContactMailer#responsable_traitement
   - definition_id: api_ficoba
     events: *with_gdpr_and_dgfip
   - definition_id: api_ficoba_sandbox

@@ -40,4 +40,4 @@ Fonctionnalité: Gestion des emails automatiques d'un formulaire
 
   Scénario: Le nombre d’emails automatiques est affiché sur le détail du formulaire
     Quand je me rends sur le formulaire "API Entreprise"
-    Alors la page contient "4 emails automatiques"
+    Alors la page contient "3 emails automatiques"
