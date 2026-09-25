@@ -46,8 +46,16 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
         [key, changelog_diff[key].last]
       elsif (previous_value = previous_value_from_last_authorization(key))
         [key, previous_value]
+      elsif added_since_latest_authorization?(key)
+        [key, nil]
       end
     end
+  end
+
+  def added_since_latest_authorization?(key)
+    latest_authorization_data.present? &&
+      !latest_authorization_data.key?(key) &&
+      authorization_request_value_for_diff(key).present?
   end
 
   def latest_authorization_data
