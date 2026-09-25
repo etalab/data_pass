@@ -25,6 +25,7 @@
       url: https://form.typeform.com/to/OJ4rkf5Z
   - type: eaje
     eligible: 'yes'
+    use_case: tarification_eaje
     body: |-
       <p>Que vous soyez un établissement d’accueil du jeune enfant (EAJE) du secteur public ou privé conventionné PSU, vous êtes éligible à l’utilisation de l’API <i>Participation familiale dans les EAJE</i>.</p>
       <br />
