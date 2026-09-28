@@ -17,6 +17,11 @@ class AuthorizationDefinition::AutomatedEmails
 
   EVENTS = RESULTING_STATES.keys.freeze
 
+  FORMULAIRE_QF_EMAIL_STATES = {
+    'AuthorizationRequest::FormulaireQF' => { reopening: false },
+    'AuthorizationRequest::APIParticulier' => { formulaire_qf_modality: true },
+  }.freeze
+
   def self.resulting_state(event)
     RESULTING_STATES.fetch(event.to_s)
   end
@@ -40,11 +45,22 @@ class AuthorizationDefinition::AutomatedEmails
   end
 
   def emails_for(event)
+    notifier_family_emails(event) + formulaire_qf_emails(event)
+  end
+
+  def notifier_family_emails(event)
     case notifier_family
     when :entreculier then entreculier_emails(event)
     when :hubee then hubee_emails(event)
     else base_emails(event)
     end
+  end
+
+  def formulaire_qf_emails(event)
+    state = FORMULAIRE_QF_EMAIL_STATES[authorization_request_class.name]
+    return [] unless event == 'approve' && state
+
+    [Email.new(mailer: 'HubEEMailer', action: 'formulaire_qf_validation', state:)]
   end
 
   def base_emails(event)

@@ -21,6 +21,17 @@ RSpec.describe AutomatedEmailPreviewRenderer do
       end
     end
 
+    context 'when rendering the HubEE formulaire QF email of an editor form' do
+      let(:definition) { AuthorizationDefinition.find('api_particulier') }
+      let(:email) { build_email('HubEEMailer', 'formulaire_qf_validation', { formulaire_qf_modality: true }) }
+
+      it 'renders placeholders for the recipient, the form and the editor' do
+        expect(rendered.error).to be_nil
+        expect(rendered.recipients).to eq('[support HubEE]')
+        expect(rendered.body).to include('[nom du formulaire]', '[nom du fournisseur de service]')
+      end
+    end
+
     context 'when the mailer is unknown' do
       let(:email) { build_email('UnknownMailer', 'approve', { reopening: false }) }
 

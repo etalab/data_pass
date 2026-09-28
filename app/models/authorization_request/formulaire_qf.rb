@@ -8,4 +8,8 @@ class AuthorizationRequest::FormulaireQF < AuthorizationRequest
   ].each do |contact_kind|
     contact contact_kind, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
   end
+
+  def formulaire_qf?
+    true
+  end
 end

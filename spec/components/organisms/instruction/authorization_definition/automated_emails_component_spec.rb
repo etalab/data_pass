@@ -54,4 +54,11 @@ RSpec.describe Organisms::Instruction::AuthorizationDefinition::AutomatedEmailsC
     expect(page).to have_text('[administrateur métier]')
     expect(page).to have_css('pre.automated-email-body', text: 'administrateur local HubEE')
   end
+
+  it 'renders the HubEE formulaire QF email with its placeholder recipient' do
+    render_for('formulaire_qf')
+
+    expect(page).to have_text('[support HubEE]')
+    expect(page).to have_css('pre.automated-email-body', text: 'formulaire de collecte du quotient familial')
+  end
 end

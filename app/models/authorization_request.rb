@@ -181,6 +181,14 @@ class AuthorizationRequest < ApplicationRecord
 
   delegate :service_provider, to: :form
 
+  def editor
+    service_provider if service_provider&.editor?
+  end
+
+  def formulaire_qf?
+    false
+  end
+
   def france_connect_certified_form?
     form&.france_connect_certified? || false
   end
