@@ -167,6 +167,12 @@ RSpec.describe Organization do
       expect(described_class.with_fresh_insee_payload).to contain_exactly(fresh_organization)
     end
 
+    it 'lists the INSEE organizations whose last calls failed' do
+      stale_organization.update!(insee_consecutive_failures: 2)
+
+      expect(described_class.with_insee_failures).to contain_exactly(stale_organization)
+    end
+
     it 'follows the staleness delay configured in database' do
       Setting.set(:insee_refresh_stale_after, 1.day.to_i)
 
@@ -176,6 +182,20 @@ RSpec.describe Organization do
     it 'lists the INSEE organizations needing a refresh, never refreshed first' do
       expect(described_class.needing_insee_refresh.first).to eq(organization_never_refreshed)
       expect(described_class.needing_insee_refresh).to contain_exactly(organization_never_refreshed, organization_with_empty_payload, stale_organization)
+    end
+  end
+
+  describe '#insee_refresh_due?' do
+    it 'is due for an INSEE organization never refreshed' do
+      expect(build(:organization, last_insee_payload_updated_at: nil)).to be_insee_refresh_due
+    end
+
+    it 'is not due within 24 hours of the last refresh' do
+      expect(build(:organization, last_insee_payload_updated_at: 1.hour.ago)).not_to be_insee_refresh_due
+    end
+
+    it 'is not due for a foreign organization' do
+      expect(build(:organization, :foreign)).not_to be_insee_refresh_due
     end
   end
 end

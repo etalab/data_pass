@@ -1,14 +1,28 @@
 class UpdateOrganizationINSEEPayloadJob < ApplicationJob
+  include GoodJob::ActiveJobExtensions::Concurrency
+
+  MAX_ATTEMPTS = 5
+
   queue_as :insee
+
+  good_job_control_concurrency_with(
+    key: 'insee',
+    perform_throttle: -> { [Setting.fetch(:insee_calls_per_minute), 1.minute] },
+  )
 
   attr_reader :organization
 
-  retry_on Faraday::ServerError, wait: :polynomially_longer, attempts: Float::INFINITY
-  retry_on Faraday::ConnectionFailed, wait: :polynomially_longer, attempts: Float::INFINITY
-  retry_on INSEESireneAPIClient::InvalidResponseError, wait: :polynomially_longer, attempts: Float::INFINITY
+  retry_on Faraday::ServerError,
+    Faraday::TooManyRequestsError,
+    Faraday::ConnectionFailed,
+    INSEESireneAPIClient::InvalidResponseError,
+    wait: :polynomially_longer,
+    attempts: MAX_ATTEMPTS do |job, error|
+    job.record_insee_failure(error, level: :error)
+  end
 
-  rescue_from INSEESireneAPIClient::EntityNotFoundError do |e|
-    Sentry.capture_exception(e, level: :warning)
+  rescue_from INSEESireneAPIClient::EntityNotFoundError do |error|
+    record_insee_failure(error, level: :warning)
   end
 
   discard_on AbstractINSEEAPIClient::UnavailableError do |_job, error|
@@ -30,6 +44,11 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   end
   # rubocop:enable Lint/SuppressedException
 
+  def record_insee_failure(error, level:)
+    organization&.increment!(:insee_consecutive_failures) # rubocop:disable Rails/SkipsModelValidations
+    Sentry.capture_exception(error, level:)
+  end
+
   private
 
   def skip_development?
@@ -44,6 +63,7 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
     organization.update(
       insee_payload:,
       last_insee_payload_updated_at: DateTime.current,
+      insee_consecutive_failures: 0,
     )
   end
 

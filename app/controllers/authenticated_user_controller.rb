@@ -27,8 +27,7 @@ class AuthenticatedUserController < ApplicationController
   end
 
   def refresh_current_organization_insee_data
-    return unless current_organization
-    return if current_organization.last_insee_update_within_24h?
+    return unless current_organization&.insee_refresh_due?
 
     UpdateOrganizationINSEEPayloadJob.perform_later(current_organization.id)
   end

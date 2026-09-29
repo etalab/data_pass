@@ -45,6 +45,7 @@ class Organization < ApplicationRecord
   scope :with_fresh_insee_payload, lambda {
     registered_in_insee_sirene.where(arel_table[:last_insee_payload_updated_at].gt(Setting.fetch(:insee_refresh_stale_after).ago))
   }
+  scope :with_insee_failures, -> { registered_in_insee_sirene.where(insee_consecutive_failures: 1..) }
   scope :needing_insee_refresh, lambda {
     never_insee_refreshed.or(with_stale_insee_payload)
       .order(Arel.sql('last_insee_payload_updated_at ASC NULLS FIRST'))
@@ -87,6 +88,10 @@ class Organization < ApplicationRecord
     return false if last_insee_payload_updated_at.blank?
 
     last_insee_payload_updated_at > INSEE_REFRESH_COOLDOWN.ago
+  end
+
+  def insee_refresh_due?
+    !foreign? && !last_insee_update_within_24h?
   end
 
   def foreign?
