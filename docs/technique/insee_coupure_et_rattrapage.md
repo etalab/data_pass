@@ -126,7 +126,7 @@ succès), il dit depuis quand et combien de fois l’organisation résiste.
 | 404 (`EntityNotFoundError`) | +1 |
 | 5xx, 429, réseau ou réponse illisible, après les 5 tentatives | +1 — un job, pas une tentative |
 | Appels coupés (interrupteur, coupe-circuit, 401) | inchangé : aucun appel n’a atteint l’INSEE pour elle |
-| Organisation étrangère ou rafraîchie depuis moins de 24 h | inchangé : pas d’appel |
+| Organisation exclue, étrangère ou rafraîchie depuis moins de 24 h | inchangé : pas d’appel |
 
 Le chemin synchrone (`.new.perform` à la création) ne passe pas par les handlers d’ActiveJob et ne
 compte pas ; un échec y enfile de toute façon un job, qui comptera.
@@ -155,7 +155,7 @@ publique, d’où la marge.
 
 Le throttle compte **toutes** les exécutions, y compris celles qui s’arrêtent sans appeler l’INSEE.
 On n’enfile donc que les jobs qui appelleront vraiment : `Organization#insee_refresh_due?` (ni
-étrangère, ni rafraîchie depuis moins de 24 h) est vérifié avant chaque enfilement — à
+étrangère, ni exclue, ni rafraîchie depuis moins de 24 h) est vérifié avant chaque enfilement — à
 chaque page vue (`AuthenticatedUserController`), à la connexion (`UpdateOrganizationINSEEPayload`) et à
 la création par l’API (`EnqueueOrganizationINSEERefresh`). Sans ce filtre, chaque page vue par une
 organisation étrangère prenait une place sur les 20 de la minute.
@@ -179,7 +179,7 @@ Un 400 non rattrapé y remontait en 500.
 
 | Situation | Sens | Réponse |
 | -- | -- | -- |
-| `EntityNotFoundError` | « ce SIRET n’existe pas » | on refuse — l’information est certaine |
+| `EntityNotFoundError` | « ce SIRET n’existe pas » | on refuse — sauf s’il figure dans la liste d’exclusion, voir plus bas |
 | Indisponibilité INSEE | « on ne sait pas » | on **crée** l’organisation et on enfile un rattrapage |
 
 Refuser la création parce que l’INSEE est en panne ferait porter notre incident à l’utilisateur, pour
@@ -229,6 +229,35 @@ contenterait de bloquer l’unique worker sérialisé derrière lequel les vrais
 Le rejeu est idempotent : `return if last_update_within_24h?` en tête du job fait qu’une organisation
 déjà rafraîchie coûte une requête SQL et rien d’autre. On peut donc relancer large.
 
+### Les organisations exclues des appels
+
+Certaines organisations ne doivent pas être demandées à l’INSEE. Le cas qui a motivé la liste :
+l’INSEE répond **404** pour un établissement non diffusible ou une structure publique dont les
+informations sont protégées (Défense, Gendarmerie, parlementaires…), exactement comme pour un SIRET mal
+saisi ou trop récent. On ne peut donc pas les distinguer automatiquement, et sans rien faire :
+
+- à la création (`FindOrCreateOrganization`, chemin synchrone), le 404 fait **refuser** l’organisation
+  avec « n’existe pas dans le répertoire Sirene » ;
+- au rattrapage, elle n’est jamais horodatée, donc **renfilée à chaque passage**, en tête de file, avec
+  un warning Sentry (`EntityNotFoundError`) à chaque fois.
+
+`insee_skipped_identifiers` liste en base les **SIRET ou SIREN** à ne pas appeler, sans dire
+pourquoi — un SIREN couvre tous les établissements de la structure. Pour ces organisations, le job
+n’appelle pas l’INSEE (l’organisation est créée sans payload, sans refus) et le rattrapage les ignore.
+
+```ruby
+Setting.set(:insee_skipped_identifiers, '575 397 807 42358, 130007669')   # espaces tolérés
+Setting.fetch(:insee_skipped_identifiers)   # => ["57539780742358", "130007669"]
+Organization.insee_skipped.count
+```
+
+`Setting.set` **remplace** la liste : pour ajouter un identifiant, repartir de la valeur actuelle
+(`Setting.set(:insee_skipped_identifiers, Setting.fetch(:insee_skipped_identifiers) + ['…'])`).
+
+Un 404 qui n’est pas dans la liste continue d’être retenté à chaque passage du rattrapage : c’est le
+signal qui permet de l’y ajouter, après vérification (annuaire des entreprises, organisation). Le
+compteur d’échecs les fait ressortir.
+
 ### Mesurer en console
 
 Chaque état a son scope, limité aux organisations immatriculées à l’INSEE (les étrangères n’ont
@@ -239,9 +268,10 @@ Organization.without_insee_payload.count      # payload nul ou vide
 Organization.never_insee_refreshed.count      # jamais rafraîchies
 Organization.with_stale_insee_payload.count   # rafraîchies il y a plus de 30 jours (insee_refresh_stale_after)
 Organization.with_fresh_insee_payload.count   # rafraîchies depuis moins de 30 jours
+Organization.insee_skipped.count              # exclues des appels, voir ci-dessus
 Organization.with_insee_failures.count        # dernier appel en échec
 Organization.with_insee_failures.group(:insee_consecutive_failures).count   # répartition
-Organization.where(insee_consecutive_failures: 3..).pluck(:legal_entity_id) # qui résistent
+Organization.where(insee_consecutive_failures: 3..).pluck(:legal_entity_id) # candidates à l’exclusion
 Organization.needing_insee_refresh.count      # ce que le rattrapage va traiter
 
 RefreshStaleOrganizationsINSEEPayloadJob.perform_later   # relancer sans attendre le cron

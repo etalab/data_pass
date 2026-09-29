@@ -9,6 +9,18 @@ RSpec.describe UpdateOrganizationINSEEPayload, type: :interactor do
     allow(Sentry).to receive(:capture_exception)
   end
 
+  context 'when the organization is skipped for the INSEE calls' do
+    before { Setting.set(:insee_skipped_identifiers, organization.siret) }
+
+    it { is_expected.to be_a_success }
+
+    it 'does not call the INSEE' do
+      interactor
+
+      expect(INSEESireneAPIClient).not_to have_received(:new)
+    end
+  end
+
   context 'when the organization was refreshed less than 24 hours ago' do
     subject(:interactor) { described_class.call(organization:) }
 

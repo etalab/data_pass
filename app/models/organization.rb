@@ -46,8 +46,15 @@ class Organization < ApplicationRecord
     registered_in_insee_sirene.where(arel_table[:last_insee_payload_updated_at].gt(Setting.fetch(:insee_refresh_stale_after).ago))
   }
   scope :with_insee_failures, -> { registered_in_insee_sirene.where(insee_consecutive_failures: 1..) }
+  scope :insee_skipped, lambda {
+    identifiers = Setting.fetch(:insee_skipped_identifiers)
+
+    registered_in_insee_sirene.where(legal_entity_id: identifiers)
+      .or(registered_in_insee_sirene.where('left(legal_entity_id, 9) IN (?)', identifiers))
+  }
   scope :needing_insee_refresh, lambda {
     never_insee_refreshed.or(with_stale_insee_payload)
+      .where.not(id: insee_skipped.select(:id))
       .order(Arel.sql('last_insee_payload_updated_at ASC NULLS FIRST'))
   }
 
@@ -91,7 +98,15 @@ class Organization < ApplicationRecord
   end
 
   def insee_refresh_due?
-    !foreign? && !last_insee_update_within_24h?
+    !foreign? && !last_insee_update_within_24h? && !insee_skipped?
+  end
+
+  def insee_skipped?
+    return false if foreign?
+
+    identifiers = Setting.fetch(:insee_skipped_identifiers)
+
+    identifiers.include?(legal_entity_id) || identifiers.include?(legal_entity_id.first(9))
   end
 
   def foreign?

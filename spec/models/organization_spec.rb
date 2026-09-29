@@ -185,6 +185,32 @@ RSpec.describe Organization do
     end
   end
 
+  describe 'organizations skipped for the INSEE calls' do
+    let!(:skipped_by_siret) { create(:organization, last_insee_payload_updated_at: nil) }
+    let!(:skipped_by_siren) { create(:organization, last_insee_payload_updated_at: nil) }
+    let!(:not_skipped_organization) { create(:organization, last_insee_payload_updated_at: nil) }
+
+    before do
+      Setting.set(:insee_skipped_identifiers, [skipped_by_siret.siret, skipped_by_siren.siret.first(9)])
+    end
+
+    it 'skips an organization listed by its SIRET or by its SIREN' do
+      expect([skipped_by_siret, skipped_by_siren, not_skipped_organization].map(&:insee_skipped?)).to eq([true, true, false])
+    end
+
+    it 'never skips a foreign organization' do
+      expect(build(:organization, :foreign)).not_to be_insee_skipped
+    end
+
+    it 'lists the skipped organizations' do
+      expect(described_class.insee_skipped).to contain_exactly(skipped_by_siret, skipped_by_siren)
+    end
+
+    it 'leaves the skipped organizations out of the refresh' do
+      expect(described_class.needing_insee_refresh).to contain_exactly(not_skipped_organization)
+    end
+  end
+
   describe '#insee_refresh_due?' do
     it 'is due for an INSEE organization never refreshed' do
       expect(build(:organization, last_insee_payload_updated_at: nil)).to be_insee_refresh_due
@@ -196,6 +222,13 @@ RSpec.describe Organization do
 
     it 'is not due for a foreign organization' do
       expect(build(:organization, :foreign)).not_to be_insee_refresh_due
+    end
+
+    it 'is not due for an organization skipped for the INSEE calls' do
+      organization = build(:organization, last_insee_payload_updated_at: nil)
+      Setting.set(:insee_skipped_identifiers, organization.siret)
+
+      expect(organization).not_to be_insee_refresh_due
     end
   end
 end

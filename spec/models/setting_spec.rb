@@ -81,6 +81,18 @@ RSpec.describe Setting do
       expect(described_class.fetch(:hubee_formulaire_qf_notification_emails)).to eq(%w[support@hubee.example])
     end
 
+    it 'casts a list setting, accepting identifiers pasted with spaces' do
+      described_class.set(:insee_skipped_identifiers, "575 397 807 42358,\n130 007 669 ; ")
+
+      expect(described_class.fetch(:insee_skipped_identifiers)).to eq(%w[57539780742358 130007669])
+    end
+
+    it 'stores a list given as an array' do
+      described_class.set(:insee_skipped_identifiers, %w[57539780742358 130007669])
+
+      expect(described_class.fetch(:insee_skipped_identifiers)).to eq(%w[57539780742358 130007669])
+    end
+
     it 'raises on a key that is not declared in the code' do
       expect { described_class.fetch(:not_declared) }.to raise_error(described_class::UnknownKeyError)
     end
