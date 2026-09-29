@@ -1,6 +1,7 @@
 class UpdateOrganizationINSEEPayload < ApplicationInteractor
   def call
     return if organization.nil?
+    return unless organization.insee_refresh_due?
 
     if update_organization_now?
       UpdateOrganizationINSEEPayloadJob.new.perform(organization.id)

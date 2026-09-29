@@ -22,5 +22,8 @@ production:
   datagouv_habilitations_sync:
     cron: '0 2 1 * *'
     class: 'DatagouvHabilitationsSyncJob'
+  refresh_stale_organizations_insee_payload:
+    cron: '15 * * * *'
+    class: 'RefreshStaleOrganizationsINSEEPayloadJob'
 
 sandbox: *deployed

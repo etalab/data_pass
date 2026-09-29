@@ -41,6 +41,16 @@ RSpec.describe Setting do
       end
     end
 
+    it 'falls back to the declared default when nothing overrides it' do
+      expect(described_class.fetch(:insee_refresh_batch_size)).to eq(10)
+    end
+
+    it 'casts an integer setting' do
+      described_class.set(:insee_refresh_batch_size, '25')
+
+      expect(described_class.fetch(:insee_refresh_batch_size)).to eq(25)
+    end
+
     it 'casts a duration setting' do
       described_class.set(:insee_calls_pause_duration, '3600')
 
@@ -69,6 +79,18 @@ RSpec.describe Setting do
       allow(Rails.application.credentials).to receive(:dig).with(:hubee_formulaire_qf_notification_emails).and_return(%w[support@hubee.example])
 
       expect(described_class.fetch(:hubee_formulaire_qf_notification_emails)).to eq(%w[support@hubee.example])
+    end
+
+    it 'casts a list setting, accepting identifiers pasted with spaces' do
+      described_class.set(:insee_skipped_identifiers, "575 397 807 42358,\n130 007 669 ; ")
+
+      expect(described_class.fetch(:insee_skipped_identifiers)).to eq(%w[57539780742358 130007669])
+    end
+
+    it 'stores a list given as an array' do
+      described_class.set(:insee_skipped_identifiers, %w[57539780742358 130007669])
+
+      expect(described_class.fetch(:insee_skipped_identifiers)).to eq(%w[57539780742358 130007669])
     end
 
     it 'raises on a key that is not declared in the code' do
