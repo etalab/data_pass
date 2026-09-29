@@ -8,6 +8,8 @@ class Organization < ApplicationRecord
   }.freeze
   private_constant :LEGAL_CATEGORY_MAP
 
+  INSEE_REFRESH_COOLDOWN = 24.hours
+
   validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
   validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
 
@@ -30,6 +32,23 @@ class Organization < ApplicationRecord
   has_many :instructor_draft_requests,
     dependent: :destroy,
     inverse_of: :organization
+
+  scope :registered_in_insee_sirene, -> { where(legal_entity_registry: 'insee_sirene') }
+  scope :without_insee_payload, lambda {
+    registered_in_insee_sirene.where(insee_payload: nil)
+      .or(registered_in_insee_sirene.where(Arel.sql("insee_payload = '{}'::jsonb")))
+  }
+  scope :never_insee_refreshed, -> { registered_in_insee_sirene.where(last_insee_payload_updated_at: nil) }
+  scope :with_stale_insee_payload, lambda {
+    registered_in_insee_sirene.where(last_insee_payload_updated_at: ..Setting.fetch(:insee_refresh_stale_after).ago)
+  }
+  scope :with_fresh_insee_payload, lambda {
+    registered_in_insee_sirene.where(arel_table[:last_insee_payload_updated_at].gt(Setting.fetch(:insee_refresh_stale_after).ago))
+  }
+  scope :needing_insee_refresh, lambda {
+    never_insee_refreshed.or(with_stale_insee_payload)
+      .order(Arel.sql('last_insee_payload_updated_at ASC NULLS FIRST'))
+  }
 
   def siret
     return if foreign?
@@ -67,7 +86,7 @@ class Organization < ApplicationRecord
   def last_insee_update_within_24h?
     return false if last_insee_payload_updated_at.blank?
 
-    last_insee_payload_updated_at > 24.hours.ago
+    last_insee_payload_updated_at > INSEE_REFRESH_COOLDOWN.ago
   end
 
   def foreign?
