@@ -252,7 +252,7 @@ shared:
   osmia_projects:
     type: editor
     name: Osmia Projects
-    siret: "48824909500032"
+    siret: "10901665900012"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"

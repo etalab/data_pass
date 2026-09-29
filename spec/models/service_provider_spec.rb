@@ -3,6 +3,12 @@ RSpec.describe ServiceProvider do
     it 'returns a list of all editors' do
       expect(described_class.all).to be_all { |a| a.is_a? ServiceProvider }
     end
+
+    it 'gives each service provider its own siret' do
+      sirets = described_class.all.filter_map(&:siret)
+
+      expect(sirets).to eq(sirets.uniq)
+    end
   end
 
   describe '#already_integrated?' do
