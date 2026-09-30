@@ -58,7 +58,28 @@ RSpec.describe INSEESireneAPIClient do
       end
     end
 
-    context 'when API returns a 401' do
+    context 'when API returns a 401, then accepts a renewed access token' do
+      before do
+        stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
+          { status: 401, headers: { 'Content-Type' => 'application/json' }, body: '' },
+          { status: 200, headers: { 'Content-Type' => 'application/json' }, body: insee_sirene_api_etablissement_valid_payload(siret:).to_json },
+        )
+        allow(INSEEAPIAuthentication).to receive(:invalidate_access_token!)
+      end
+
+      it 'renews the access token and returns the payload' do
+        expect(etablissement_payload).to eq(insee_sirene_api_etablissement_valid_payload(siret:))
+        expect(INSEEAPIAuthentication).to have_received(:invalidate_access_token!).once
+      end
+
+      it 'does not pause the INSEE calls' do
+        etablissement_payload
+
+        expect(INSEECallsPause).not_to be_paused
+      end
+    end
+
+    context 'when API keeps returning a 401, even with a renewed access token' do
       before do
         stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
           status: 401,
@@ -67,6 +88,12 @@ RSpec.describe INSEESireneAPIClient do
         )
         allow(INSEEAPIAuthentication).to receive(:invalidate_access_token!)
         allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'tries only once more' do
+        expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
+
+        expect(a_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}")).to have_been_made.twice
       end
 
       it 'raises an UnavailableError' do
@@ -79,10 +106,10 @@ RSpec.describe INSEESireneAPIClient do
         expect(INSEECallsPause).to be_paused
       end
 
-      it 'invalidates the cached access token' do
+      it 'invalidates the access token before retrying, then once more before pausing' do
         expect { etablissement_payload }.to raise_error(AbstractINSEEAPIClient::UnavailableError)
 
-        expect(INSEEAPIAuthentication).to have_received(:invalidate_access_token!)
+        expect(INSEEAPIAuthentication).to have_received(:invalidate_access_token!).twice
       end
     end
 

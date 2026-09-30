@@ -7,7 +7,7 @@ class Setting < ApplicationRecord
     insee_username: { type: :string, env: 'INSEE_USERNAME', credential: %i[insee_username] },
     insee_password: { type: :string, env: 'INSEE_PASSWORD', credential: %i[insee_password] },
     insee_calls_enabled: { type: :enabled_unless_false, env: 'INSEE_CALLS_ENABLED', default: true },
-    insee_calls_pause_duration: { type: :duration, default: 6.hours },
+    insee_calls_pause_duration: { type: :duration, default: 1.hour },
     hubee_formulaire_qf_notification_emails: {
       type: :list,
       env: 'HUBEE_FORMULAIRE_QF_NOTIFICATION_EMAILS',
