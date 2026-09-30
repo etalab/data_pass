@@ -368,7 +368,7 @@ RSpec.describe AuthorizationRequest do
       context 'with displayed config on form' do
         let(:authorization_request) { create(:authorization_request, :api_particulier_familea) }
 
-        it { expect(available_scopes.map(&:value)).to match_array(%w[cnaf_quotient_familial cnaf_allocataires cnaf_enfants cnaf_adresse]) }
+        it { expect(available_scopes.map(&:value)).to match_array(%w[cnaf_quotient_familial cnaf_allocataires cnaf_enfants cnaf_adresse cnav_allocation_enfant_handicape]) }
       end
     end
 
