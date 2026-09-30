@@ -41,7 +41,7 @@ charger d’organisation.
 
 L’interrupteur demande une intervention humaine. `INSEECallsPause` coupe **tout seul**, sur un drapeau
 Redis partagé par tous les serveurs web et les workers (`Kredis.flag('insee_calls_pause')`), posé pour
-la durée de `insee_calls_pause_duration` (6 h par défaut).
+la durée de `insee_calls_pause_duration` (1 h par défaut).
 
 Il est armé par le **client**, dans les trois situations où l’INSEE nous refuse :
 
@@ -49,10 +49,26 @@ Il est armé par le **client**, dans les trois situations où l’INSEE nous ref
 | -- | -- | -- |
 | `POST .../token` | 400 | identifiants refusés — l’erreur observée en production |
 | `POST .../token` | 401 | identifiants refusés |
-| `GET .../siret/…` | 401 | jeton refusé |
+| `GET .../siret/…` | 401, **deux fois de suite** | jeton refusé, même renouvelé |
+
+Un 401 de Sirene ne coupe pas du premier coup. Comme le recommande l’INSEE, on renouvelle alors le
+jeton et on rejoue l’appel **une fois** : un jeton expiré ou révoqué avant la durée annoncée se règle
+ainsi sans coupure. On ne coupe que si le jeton neuf est refusé à son tour. Si ce sont les identifiants
+qui sont faux, c’est la demande de jeton qui échoue (400) et coupe, pour un seul échec
+d’authentification. Le 30/09, un 401 isolé avait coupé les appels six heures.
 
 Toutes remontent en `AbstractINSEEAPIClient::UnavailableError`, que le job `discard_on` : réessayer ne
 peut pas aboutir et ne ferait qu’alimenter le compteur de verrouillage.
+
+### Pourquoi 1 h
+
+L’INSEE verrouille le compte **30 minutes après 5 échecs d’authentification sur 12 heures**, compteur
+commun au jeton, au renouvellement et au portail. Chaque fin de coupure relance un appel : si les
+identifiants sont vraiment faux, une coupure d’1 h produit une douzaine d’échecs par nuit, donc un
+compte verrouillé jusqu’au matin. Ce n’est acceptable que parce que le compte **n’est pas partagé**
+avec d’autres applications et que chaque coupure remonte dans Sentry en `error` : on corrige le
+matin (voir « Après une coupure »). Une coupure plus longue (6 h) ne verrouillerait jamais, mais
+immobiliserait le rattrapage six heures au moindre incident passager.
 
 Chaque appel court-circuité incrémente `Kredis.counter('insee_skipped_calls')` — un **compteur**, pas une
 liste d’identifiants à réconcilier.
@@ -110,7 +126,7 @@ valides.
 
 `conn.response :json` ne parse que sur le bon `Content-Type`. Une page HTML renvoyée en 200 par un WAF
 faisait que `payload['access_token']` valait la **sous-chaîne** `"access_token"`, mise en cache cinq
-minutes. Chaque appel Sirene partait ensuite en 401, donc en coupure de 6 h, déclenchée par une réponse
+minutes. Chaque appel Sirene partait ensuite en 401, donc en coupure, déclenchée par une réponse
 mal typée. La réponse du jeton doit maintenant être un objet JSON portant un `access_token`, sinon rien
 n’est mis en cache et l’erreur remonte en `InvalidResponseError`.
 
@@ -302,8 +318,9 @@ signal à creuser.
 
 1. Vérifier que les appels sont bien arrêtés : `AbstractINSEEAPIClient.calls_allowed?` → `false`.
    Si le coupe-circuit n’est pas armé, couper à la main : `Setting.set(:insee_calls_enabled, 'false')`.
-2. Tourner le mot de passe INSEE — le compte doit être déverrouillé, donc les appels arrêtés depuis plus
-   de 30 minutes.
+2. **Attendre 35 minutes** : si des coupures se sont enchaînées pendant la nuit, le compte est
+   verrouillé, et le verrou tombe 30 minutes après le dernier échec. Tourner le mot de passe INSEE
+   ensuite seulement.
 3. Poser la nouvelle valeur : `Setting.set(:insee_password, '…')`. Aucun déploiement.
 4. Relâcher : `INSEECallsPause.reset!`, puis `Setting.unset(:insee_calls_enabled)` si l’interrupteur
    manuel avait été utilisé.
