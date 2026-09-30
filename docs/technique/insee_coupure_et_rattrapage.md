@@ -252,6 +252,12 @@ Soit 200 appels par minute, sous le plafond de 250 : le reste va aux organisatio
 par les usagers. Une exécution de 11 000 s’étale sur 55 minutes, donc tient dans l’heure qui la
 sépare de la suivante — sinon le passage suivant renfilerait des organisations encore en attente.
 
+Un passage **ignore les organisations qui ont déjà un `UpdateOrganizationINSEEPayloadJob` en
+attente**. Sans ce filtre, tant que la file n’est pas vide au passage suivant, les organisations encore
+en attente restent dans `needing_insee_refresh` et sont renfilées : le second exemplaire sort sans
+appel, mais occupe une place dans le plafond. Le 30/09, pendant le premier rattrapage, ces doublons
+prenaient jusqu’à 70 % du plafond.
+
 Le job tourne **toutes les heures en production** (`config/schedule.yml`, à la 15ᵉ minute). Pas sur
 staging ni sandbox : si elles partagent le compte INSEE de production, elles consommeraient le même
 quota et le même compteur de verrouillage.
