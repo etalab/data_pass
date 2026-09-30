@@ -22,7 +22,16 @@ class RefreshStaleOrganizationsINSEEPayloadJob < ApplicationJob
   end
 
   def stale_organization_ids
-    Organization.needing_insee_refresh.limit(max_organizations_per_run).pluck(:id)
+    Organization.needing_insee_refresh
+      .where.not(id: organization_ids_already_pending)
+      .limit(max_organizations_per_run)
+      .pluck(:id)
+  end
+
+  def organization_ids_already_pending
+    GoodJob::Job
+      .where(job_class: UpdateOrganizationINSEEPayloadJob.name, finished_at: nil)
+      .select(Arel.sql("(serialized_params->'arguments'->>0)::bigint"))
   end
 
   def enqueue_batch(organization_ids, batch_index)

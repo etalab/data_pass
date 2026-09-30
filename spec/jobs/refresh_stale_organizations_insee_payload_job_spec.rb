@@ -45,6 +45,36 @@ RSpec.describe RefreshStaleOrganizationsINSEEPayloadJob do
     end
   end
 
+  context 'when a refresh is already pending for an organization' do
+    before do
+      pending_refresh(organization_without_payload, finished_at: nil)
+      pending_refresh(stale_organization, finished_at: 1.minute.ago)
+    end
+
+    it 'does not enqueue a second refresh for it, so that the pending one is not duplicated' do
+      refresh_stale_organizations_insee_payload_job
+
+      expect(UpdateOrganizationINSEEPayloadJob).not_to have_been_enqueued.with(organization_without_payload.id)
+    end
+
+    it 'still enqueues the organizations whose previous refresh is finished' do
+      refresh_stale_organizations_insee_payload_job
+
+      expect(UpdateOrganizationINSEEPayloadJob).to have_been_enqueued.with(stale_organization.id)
+    end
+
+    def pending_refresh(organization, finished_at:)
+      GoodJob::Job.create!(
+        active_job_id: SecureRandom.uuid,
+        job_class: UpdateOrganizationINSEEPayloadJob.name,
+        queue_name: 'insee',
+        serialized_params: { 'job_class' => UpdateOrganizationINSEEPayloadJob.name, 'arguments' => [organization.id] },
+        scheduled_at: 1.minute.from_now,
+        finished_at:,
+      )
+    end
+  end
+
   it 'caps how many organizations a single run enqueues' do
     Setting.set(:insee_refresh_max_organizations_per_run, 1)
 
