@@ -179,6 +179,12 @@ RSpec.describe Organization do
       expect(described_class.with_stale_insee_payload).to include(fresh_organization)
     end
 
+    it 'puts the organizations whose last calls failed behind the others, so that they cannot block the refresh' do
+      organization_never_refreshed.update!(insee_consecutive_failures: 1)
+
+      expect(described_class.needing_insee_refresh.to_a).to eq([organization_with_empty_payload, stale_organization, organization_never_refreshed])
+    end
+
     it 'lists the INSEE organizations needing a refresh, never refreshed first' do
       expect(described_class.needing_insee_refresh.first).to eq(organization_never_refreshed)
       expect(described_class.needing_insee_refresh).to contain_exactly(organization_never_refreshed, organization_with_empty_payload, stale_organization)

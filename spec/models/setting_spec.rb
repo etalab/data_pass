@@ -42,7 +42,7 @@ RSpec.describe Setting do
     end
 
     it 'falls back to the declared default when nothing overrides it' do
-      expect(described_class.fetch(:insee_refresh_batch_size)).to eq(10)
+      expect(described_class.fetch(:insee_refresh_batch_size)).to eq(200)
     end
 
     it 'casts an integer setting' do
