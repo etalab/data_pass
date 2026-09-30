@@ -55,6 +55,7 @@ class Organization < ApplicationRecord
   scope :needing_insee_refresh, lambda {
     never_insee_refreshed.or(with_stale_insee_payload)
       .where.not(id: insee_skipped.select(:id))
+      .order(:insee_consecutive_failures)
       .order(Arel.sql('last_insee_payload_updated_at ASC NULLS FIRST'))
   }
 

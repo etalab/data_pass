@@ -149,16 +149,30 @@ pool général y piocherait aussi et la sérialisation ne tiendrait pas.
 
 La queue borne la **concurrence**, pas le **débit** : un worker unique enchaîne autant d’appels que
 l’INSEE répond vite. Le débit est donc plafonné à part, par le `perform_throttle` de GoodJob :
-`insee_calls_per_minute` exécutions par minute (20 par défaut, réglable en base). La documentation de
-l’API Sirene privée ne publie aucun quota ; les 30 requêtes/minute connues sont celles de l’API
-publique, d’où la marge.
+`insee_calls_per_minute` exécutions par minute (250 par défaut, réglable en base). Les conditions
+générales de l’API Sirene fixent 30 interrogations par minute, un quota plus élevé n’étant accordé
+que sur demande approuvée par l’Insee : c’est le cas de notre compte, dont l’en-tête
+`x-rate-limit-limit` annonce **500** (relevé le 30/09/2026). On n’en utilise que la moitié. Le throttle
+compte sur une fenêtre glissante d’une minute : il ne dépasse le plafond sur aucune minute, quelle que
+soit la façon dont l’Insee découpe les siennes.
+
+Chaque réponse porte le quota restant : `x-rate-limit-limit`, `x-rate-limit-remaining` et
+`x-rate-limit-reset` (epoch en millisecondes). Pour vérifier le quota en console :
+
+```ruby
+response = INSEESireneAPIClient.new.send(:http_connection).get("#{INSEESireneAPIClient::ETABLISSEMENT_URL}/21110274400011")
+response.headers['x-rate-limit-limit']
+```
+
+Un worker unique ne tient 250 appels par minute que si chaque appel dure moins de 240 ms. Au-delà,
+c’est la queue sérialisée, et non le throttle, qui borne le débit réel.
 
 Le throttle compte **toutes** les exécutions, y compris celles qui s’arrêtent sans appeler l’INSEE.
 On n’enfile donc que les jobs qui appelleront vraiment : `Organization#insee_refresh_due?` (ni
 étrangère, ni exclue, ni rafraîchie depuis moins de 24 h) est vérifié avant chaque enfilement — à
 chaque page vue (`AuthenticatedUserController`), à la connexion (`UpdateOrganizationINSEEPayload`) et à
 la création par l’API (`EnqueueOrganizationINSEERefresh`). Sans ce filtre, chaque page vue par une
-organisation étrangère prenait une place sur les 20 de la minute.
+organisation étrangère prenait une place dans le plafond.
 
 Ce plafond est un **garde-fou, pas un lissage**. Un job refusé ne patiente pas dans une file : il lève
 `ThrottleExceededError` et GoodJob le replanifie avec un backoff polynomial, sans limite de tentatives.
@@ -209,15 +223,18 @@ redeviendrait à rafraîchir le lendemain, et le cron balaierait tout le parc en
 vider. Les organisations actives sont rafraîchies par la navigation ; le rattrapage ne sert qu’aux
 jamais-rafraîchies et aux oubliées.
 
-`Organization.needing_insee_refresh` les sélectionne, les jamais-rafraîchies d’abord.
+`Organization.needing_insee_refresh` les sélectionne : d’abord celles dont le dernier appel n’a pas
+échoué, puis les jamais-rafraîchies avant les plus anciennes. Une organisation en échec (404,
+abandon après cinq tentatives) n’est jamais horodatée : triée seulement par date, elle resterait en
+tête de file et chaque passage reprendrait les mêmes échecs jusqu’à bloquer le rattrapage.
 `RefreshStaleOrganizationsINSEEPayloadJob` les enfile **par lots étalés dans le temps** et ne fait rien
 si les appels sont coupés. Le lissage est réglable sans déploiement :
-`insee_refresh_batch_size` (10), `insee_refresh_batch_interval` (1 min),
-`insee_refresh_max_organizations_per_run` (500).
+`insee_refresh_batch_size` (200), `insee_refresh_batch_interval` (1 min),
+`insee_refresh_max_organizations_per_run` (11 000).
 
-Soit 10 appels par minute, sous le plafond de 20 : l’autre moitié reste aux organisations créées par
-les usagers. Une exécution de 500 s’étale sur 50 minutes, donc tient dans l’heure qui la sépare de la
-suivante.
+Soit 200 appels par minute, sous le plafond de 250 : le reste va aux organisations créées ou visitées
+par les usagers. Une exécution de 11 000 s’étale sur 55 minutes, donc tient dans l’heure qui la
+sépare de la suivante — sinon le passage suivant renfilerait des organisations encore en attente.
 
 Le job tourne **toutes les heures en production** (`config/schedule.yml`, à la 15ᵉ minute). Pas sur
 staging ni sandbox : si elles partagent le compte INSEE de production, elles consommeraient le même

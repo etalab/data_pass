@@ -14,10 +14,10 @@ class Setting < ApplicationRecord
       credential: %i[hubee_formulaire_qf_notification_emails],
       default: [],
     },
-    insee_calls_per_minute: { type: :integer, default: 20 },
-    insee_refresh_batch_size: { type: :integer, default: 10 },
+    insee_calls_per_minute: { type: :integer, default: 250 },
+    insee_refresh_batch_size: { type: :integer, default: 200 },
     insee_refresh_batch_interval: { type: :duration, default: 1.minute },
-    insee_refresh_max_organizations_per_run: { type: :integer, default: 500 },
+    insee_refresh_max_organizations_per_run: { type: :integer, default: 11_000 },
     insee_refresh_stale_after: { type: :duration, default: 30.days },
     insee_skipped_identifiers: { type: :list, default: [] },
   }.freeze
