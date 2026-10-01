@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   include NotificationsSettings
   include UserRoles
+  include UserRoleProjections
 
   ROLES = %w[reporter instructor manager developer].freeze
 
@@ -57,6 +58,7 @@ class User < ApplicationRecord
     dependent: :restrict_with_exception
 
   scope :with_roles, -> { where("roles <> '{}'") }
+  scope :without_roles, -> { where("roles = '{}'") }
   scope :banned, -> { where.not(banned_at: nil) }
 
   scope :with_role_matching, lambda { |role_strings|
@@ -99,6 +101,16 @@ class User < ApplicationRecord
 
   scope :admin, lambda {
     where("'admin' = ANY(roles)")
+  }
+
+  scope :with_role_type, lambda { |role_type|
+    next admin if role_type.to_s == 'admin'
+
+    where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 3) = ?)", role_type)
+  }
+
+  scope :with_specific_definition, lambda { |definition_id|
+    where("EXISTS (SELECT 1 FROM unnest(roles) AS r WHERE split_part(r, ':', 2) = ?)", definition_id)
   }
 
   add_instruction_boolean_settings :submit_notifications, :messages_notifications

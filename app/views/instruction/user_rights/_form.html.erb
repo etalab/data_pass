@@ -60,6 +60,20 @@
         </button>
       </div>
     </div>
+
+    <% if out_of_scope_rights.any? %>
+      <div class="fr-mt-3w" id="out-of-scope-rights">
+        <% out_of_scope_rights.each_with_index do |right, index| %>
+          <%= render Molecules::Instruction::UserRights::RightFieldComponent.new(
+            index: "out-#{index}",
+            scope: right[:scope],
+            role_type: right[:role_type],
+            permissions: permissions,
+            editable: false
+          ) %>
+        <% end %>
+      </div>
+    <% end %>
   </section>
 
   <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg fr-btns-group--icon-left">

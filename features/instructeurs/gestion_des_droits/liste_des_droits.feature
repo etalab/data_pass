@@ -32,7 +32,7 @@ Fonctionnalité: Instruction — Gestion des droits — lister les utilisateurs 
   Scénario: Un reporter n'a pas accès à la gestion des droits
     Étant donné que je suis un rapporteur "API Entreprise"
     Quand je me rends sur le chemin "/instruction/gestion-des-droits"
-    Alors la page ne contient pas "Gestion des droits"
+    Alors la page ne contient pas "Utilisateurs et rôles"
 
   Scénario: Je peux filtrer la liste avec une recherche
     Quand il y a l'utilisateur "alice@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"

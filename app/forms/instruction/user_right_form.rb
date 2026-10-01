@@ -27,6 +27,10 @@ class Instruction::UserRightForm
     @readonly_rights ||= user ? Instruction::UserRightsView.new(authority: authority, user: user).readonly : []
   end
 
+  def out_of_scope_rights
+    @out_of_scope_rights ||= user ? Instruction::UserRightsView.new(authority: authority, user: user).out_of_scope : []
+  end
+
   def rights=(raw)
     list = case raw
            when Hash, ActionController::Parameters then raw.values
