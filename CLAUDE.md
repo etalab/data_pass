@@ -180,6 +180,28 @@ un `local_sign_in_tokens: { test: <valeur> }`. Dès qu’un token est présent, 
 - When you move files, use `git mv` to keep history.
 - No `Co-Authored-By` trailer in commits.
 
+## Pull requests
+
+Team process is documented in `CONTRIBUTING.md` — read it when a rule here is
+ambiguous. The rules below are the ones you apply yourself:
+
+- Every change maps to a Linear ticket, whatever its size.
+- Name the branch `feature/dpp-123-short-description` so Linear links it
+  automatically.
+- When opening a PR, fill in every section of
+  `.github/PULL_REQUEST_TEMPLATE.md`. `gh pr create --body` bypasses the
+  template, so read the file and reproduce its sections.
+- Write two test protocols: a "Comment tester" in the PR description for
+  developers (commands, seeds, test accounts), and another one as a Linear
+  comment for the PO, written for a non-developer.
+- Before moving a ticket to Review PO/UX: deploy the branch on staging, prepare
+  test data on sandbox, and list in the Linear comment which record (request
+  number, name) illustrates which case.
+- Never merge without the PO's approval at the end of Review PO/UX, even when
+  the PR is approved by a developer.
+- Run the accessibility audit on anything that touches the front-end, before
+  the PR leaves draft.
+
 ## ViewComponents Guidelines
 
 - **Creating a ViewComponent**: consult `.claude/skills/component-creation/SKILL.md`
