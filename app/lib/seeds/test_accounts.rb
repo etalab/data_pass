@@ -38,6 +38,7 @@ class Seeds::TestAccounts < Seeds
     'dem-orga-fermee@yopmail.com' => { given_name: 'Louis', family_name: 'Demandeur orga fermée', job_title: 'Chargé de mission', phone_number: '0199000116' },
     'dem-banni@yopmail.com' => { given_name: 'Jade', family_name: 'Demandeuse bannie', job_title: 'Chargée de mission', phone_number: '0199000117' },
     'dem-email-ko@yopmail.com' => { given_name: 'Noé', family_name: 'Demandeur email KO', job_title: 'Chargé de mission', phone_number: '0199000118' },
+    'dem-historique@yopmail.com' => { given_name: 'Lina', family_name: 'Demandeuse historique', job_title: 'Chargée de mission, demandes historiques', phone_number: '0199000124' },
     'dem-stats@yopmail.com' => { given_name: 'Robin', family_name: 'Demandeur statistiques', job_title: 'Compte des statistiques, à ne pas utiliser en recette', phone_number: '0199000123' },
   }.freeze
 
@@ -71,6 +72,7 @@ class Seeds::TestAccounts < Seeds
 
   def create_reference_applicants
     create_clamart_applicant('dem-commune@yopmail.com')
+    create_clamart_applicant('dem-historique@yopmail.com')
     create_user('dem-departement@yopmail.com').add_to_organization(@seeds.rhone_departement_organization, current: true, **verified_link)
     create_user('dem-editeur@yopmail.com').add_to_organization(organizations.fetch(:editor), current: true, **verified_link)
   end

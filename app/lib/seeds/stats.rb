@@ -78,7 +78,7 @@ class Seeds::Stats < Seeds
   end
 
   def create_with_state(state, type, form_uid: nil, organization: nil, target_date: Time.current)
-    attributes = { applicant: organization ? stats_applicant : applicant, organization: }.compact
+    attributes = { applicant: stats_applicant, organization: }.compact
     attributes[:form_uid] = form_uid if form_uid
 
     authorization_request = build_authorization_request(state, type, attributes)
@@ -146,10 +146,6 @@ class Seeds::Stats < Seeds
       entity: authorization_request,
       authorization_request: authorization_request
     )
-  end
-
-  def applicant
-    @seeds.demandeur
   end
 
   def stats_applicant
