@@ -90,10 +90,9 @@ class Seeds::Stats < Seeds
   def create_validated_after_changes(type, attributes)
     authorization_request = @seeds.create_request_changes_authorization_request(type, attributes:)
     user = authorization_request.applicant
-    instructor = @seeds.api_entreprise_instructor
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user:)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: @seeds.instructor_for(authorization_request))
 
     authorization_request
   end
