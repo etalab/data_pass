@@ -16,11 +16,8 @@ class Seeds
     create_all_verified_emails
 
     create_stats_data
-    create_authorization_requests_for_clamart
-    create_authorization_requests_for_dinum
-    create_unread_messages_from_applicant
+    create_historical_requests
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
-    create_instructor_draft_request(applicant: demandeur)
     create_message_templates
     create_webhooks
   end
@@ -81,15 +78,8 @@ class Seeds
     )
   end
 
-  # rubocop:disable-next Metrics/AbcSize
-  def create_authorization_requests_for_clamart
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: demandeur, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
-    france_connect_authorization_request = create_validated_authorization_request(
-      :france_connect,
-      attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur },
-      authorization_message: 'Vous pouvez maintenant procéder à l’intégration technique.'
-    )
-    create_validated_authorization_request(:api_droits_cnam, attributes: { france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id, applicant: demandeur })
+  def create_historical_requests
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: historical_applicant, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
 
     authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
@@ -98,48 +88,26 @@ class Seeds
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Je ne suis pas sûr du cadre de cette demande, pouvez-vous m’aider ?')
 
-    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
-
-    create_reopened_api_impot_particulier_sandbox_with_france_connect
-
     create_api_particulier_with_france_connect_embedded_fields
-
     create_fully_approved_api_impot_particulier_authorization_request
-  end
-
-  def create_authorization_requests_for_dinum
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Démarches simplifiées', applicant: foreign_demandeur, contact_metier_email: demandeur.email })
-
-    create_validated_authorization_request(:api_particulier, attributes: { intitule: 'Cantine à 1€', applicant: demandeur, scopes: AuthorizationDefinition.find('api_particulier').scopes.map(&:value).sample(3) + ['dgfip_annee_impot'] })
-
-    create_authorization_request_with_contact_mention
     create_authorization_request_with_old_authorization
   end
 
-  def create_authorization_request_with_contact_mention
-    create_draft_authorization_request(:api_entreprise, attributes: { intitule: 'Demande avec contact métier externe', applicant: another_demandeur, contact_metier_email: demandeur.email })
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation avec contact métier externe', applicant: another_demandeur, contact_metier_email: demandeur.email })
-  end
-
   def create_authorization_request_with_old_authorization
-    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: demandeur })
-    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: demandeur)
+    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: historical_applicant })
+    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: historical_applicant)
     ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
     authorization_request
   end
 
   protected
 
-  def demandeur
-    @demandeur ||= User.find_by!(email: 'dem-commune@yopmail.com')
+  def historical_applicant
+    @historical_applicant ||= User.find_by!(email: 'dem-historique@yopmail.com')
   end
 
   def another_demandeur
     @another_demandeur ||= User.find_by!(email: 'dem-multi-orga@yopmail.com')
-  end
-
-  def foreign_demandeur
-    @foreign_demandeur ||= User.find_by!(email: 'dem-org-non-verifiee@yopmail.com')
   end
 
   def instructor_for(authorization_request)
@@ -287,46 +255,19 @@ class Seeds
     )
   end
 
-  def create_instructor_draft_request(applicant:)
-    FactoryBot.create(
-      :instructor_draft_request,
-      :with_applicant,
-      :with_data,
-      applicant:,
-      instructor: User.find_by!(email: 'instructeur-apie@yopmail.com'),
-      comment: 'Comme discuté au téléphone, je vous envoie cette ébauche de demande d’habilitation.',
-      public_id: '00000000-0000-0000-0000-000000000000',
-      data: FactoryBot.build(:authorization_request, :api_entreprise, applicant:, organization: applicant.current_organization, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
-    )
-  end
-
-  def create_reopened_api_impot_particulier_sandbox_with_france_connect
-    france_connect_authorization_request = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect mise à jour', applicant: demandeur })
-
-    create_reopened_and_submitted_authorization_request(
-      :api_impot_particulier_sandbox,
-      attributes: {
-        modalities: ['with_france_connect'],
-        france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id,
-        intitule: 'Demande de retraite progressive en ligne (mise à jour des scopes)',
-        applicant: demandeur
-      }
-    )
-  end
-
   def create_api_particulier_with_france_connect_embedded_fields
     authorization_request = FactoryBot.create(
       :authorization_request,
       :api_particulier,
       :with_france_connect_embedded_fields,
       fill_all_attributes: true,
-      applicant: demandeur,
-      organization: demandeur.current_organization,
+      applicant: historical_applicant,
+      organization: historical_applicant.current_organization,
       intitule: 'Portail famille avec FranceConnect unifié',
       description: random_description
     )
 
-    SubmitAuthorizationRequest.call(authorization_request:, user: demandeur)
+    SubmitAuthorizationRequest.call(authorization_request:, user: historical_applicant)
     ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
 
     authorization_request
@@ -334,7 +275,7 @@ class Seeds
 
   # rubocop:disable-next Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
-    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, created_at: 3.days.ago })
+    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: historical_applicant, created_at: 3.days.ago })
 
     StartNextAuthorizationRequestStage.call(authorization_request: authorization_request, user: authorization_request.applicant).perform
 
@@ -359,7 +300,7 @@ class Seeds
   end
 
   def extract_applicant(attributes)
-    attributes[:applicant] || demandeur
+    attributes[:applicant] || historical_applicant
   end
 
   def create_all_verified_emails
@@ -404,20 +345,6 @@ class Seeds
     )
 
     authorization_request.mark_messages_as_read_by_applicant!
-  end
-
-  def create_unread_messages_from_applicant
-    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Autre demande avec message non lu', applicant: another_demandeur })
-    SendMessageToInstructors.call(
-      authorization_request:,
-      user: authorization_request.applicant,
-      message_params: { body: 'Pouvez-vous me préciser le délai d\'instruction ?' },
-    )
-    SendMessageToInstructors.call(
-      authorization_request:,
-      user: authorization_request.applicant,
-      message_params: { body: 'Et les pièces à joindre pour le justificatif ?' },
-    )
   end
 
   def send_message_to_applicant(authorization_request, message_params)
