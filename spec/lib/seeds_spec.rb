@@ -18,6 +18,11 @@ RSpec.describe Seeds do
       expect(User.where(email: legacy_emails)).to be_empty
     end
 
+    it 'creates no account nor organization as a side effect of building request data' do
+      expect(User.where.not('email LIKE ?', '%@yopmail.com').pluck(:email)).to be_empty
+      expect(Organization.all.map(&:name).grep(/nom inconnu/)).to be_empty
+    end
+
     it 'no longer creates the legacy requests duplicated by the reference scenarios' do
       duplicated_intitules = [
         'Statistiques sur les effectifs',

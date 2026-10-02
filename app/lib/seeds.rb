@@ -298,7 +298,7 @@ class Seeds
       instructor: User.find_by!(email: 'instructeur-apie@yopmail.com'),
       comment: 'Comme discuté au téléphone, je vous envoie cette ébauche de demande d’habilitation.',
       public_id: '00000000-0000-0000-0000-000000000000',
-      data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
+      data: FactoryBot.build(:authorization_request, :api_entreprise, applicant:, organization: applicant.current_organization, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
     )
   end
 
@@ -342,7 +342,7 @@ class Seeds
 
     authorization_request = AuthorizationRequest.find(authorization_request.id)
 
-    valid_api_impot_particulier_production = FactoryBot.build(:authorization_request, :api_impot_particulier_production, fill_all_attributes: true)
+    valid_api_impot_particulier_production = FactoryBot.build(:authorization_request, :api_impot_particulier_production, applicant: authorization_request.applicant, organization: authorization_request.organization, fill_all_attributes: true)
 
     valid_api_impot_particulier_production.class.extra_attributes.each do |key|
       authorization_request.public_send(:"#{key}=", valid_api_impot_particulier_production.public_send(key))
