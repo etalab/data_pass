@@ -31,7 +31,7 @@ class AuthorizationHeaderComponentPreview < ApplicationPreview
   #
   # **Où** : haut de la page d’une habilitation (`authorizations/show`).
   def contact_mention
-    contact_user = User.find_by!(email: 'dem-commune@yopmail.com')
+    contact_user = User.find_by!(email: 'dem-departement@yopmail.com')
     authorization_request = AuthorizationRequest
       .where(state: 'validated')
       .where("EXISTS (
