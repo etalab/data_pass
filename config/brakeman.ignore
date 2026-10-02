@@ -58,29 +58,6 @@
       "note": ""
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "356e6d0847ba9e4d4d88c2b5a9016a2b71f1cdd821248af8384b997249c4eec0",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/lib/seeds.rb",
-      "line": 22,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Seeds",
-        "method": "flushdb"
-      },
-      "user_input": "table",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "e23838f5bbe8c6b3322d3c05c6b0a20bba3539ddaf345a56e818ba612ff0cacc",
