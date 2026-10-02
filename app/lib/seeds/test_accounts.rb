@@ -38,7 +38,10 @@ class Seeds::TestAccounts < Seeds
     'dem-orga-fermee@yopmail.com' => { given_name: 'Louis', family_name: 'Demandeur orga fermée', job_title: 'Chargé de mission', phone_number: '0199000116' },
     'dem-banni@yopmail.com' => { given_name: 'Jade', family_name: 'Demandeuse bannie', job_title: 'Chargée de mission', phone_number: '0199000117' },
     'dem-email-ko@yopmail.com' => { given_name: 'Noé', family_name: 'Demandeur email KO', job_title: 'Chargé de mission', phone_number: '0199000118' },
+    'dem-stats@yopmail.com' => { given_name: 'Robin', family_name: 'Demandeur statistiques', job_title: 'Compte des statistiques, à ne pas utiliser en recette', phone_number: '0199000123' },
   }.freeze
+
+  STATS_COMMUNES_COUNT = 4
 
   def initialize(seeds)
     @seeds = seeds
@@ -51,6 +54,7 @@ class Seeds::TestAccounts < Seeds
 
     create_reference_applicants
     create_applicants_in_a_particular_state
+    create_stats_applicant
   end
 
   private
@@ -86,6 +90,33 @@ class Seeds::TestAccounts < Seeds
 
     applicant.add_to_organization(@seeds.dinum_organization, verified: false)
     applicant.add_to_organization(@seeds.clamart_organization, current: true, **verified_link)
+  end
+
+  def create_stats_applicant
+    applicant = create_user('dem-stats@yopmail.com')
+
+    STATS_COMMUNES_COUNT.times do |index|
+      applicant.add_to_organization(create_stats_commune("COMMUNE DE STATISTIQUES #{index + 1}"), current: index.zero?, **verified_link)
+    end
+  end
+
+  def create_stats_commune(name)
+    siret = Faker::Company.french_siret_number
+
+    Organization.create!(
+      legal_entity_id: siret,
+      last_mon_compte_pro_updated_at: DateTime.now,
+      mon_compte_pro_payload: { label: name },
+      insee_payload: stats_commune_insee_payload(siret, name),
+      last_insee_payload_updated_at: DateTime.now,
+    )
+  end
+
+  def stats_commune_insee_payload(siret, name)
+    payload = JSON.parse(Rails.root.join('spec/fixtures/insee/21920023500014.json').read)
+    payload['etablissement'].merge!('siret' => siret, 'siren' => siret.first(9), 'nic' => siret.last(5))
+    payload['etablissement']['uniteLegale']['denominationUniteLegale'] = name
+    payload
   end
 
   def create_clamart_applicant(email, **attributes)
