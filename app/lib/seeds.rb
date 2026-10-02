@@ -1,12 +1,4 @@
 class Seeds
-  INSTRUCTORS_BY_PRIORITY = %w[
-    instructeur-apie@yopmail.com
-    instructeur-dgfip@yopmail.com
-    instructeur-multi-fd@yopmail.com
-    manager-fd-dgfip@yopmail.com
-    admin-instructeur@yopmail.com
-  ].freeze
-
   def perform
     create_data_providers
     create_test_accounts
@@ -17,7 +9,7 @@ class Seeds
 
     create_stats_data
     create_historical_requests
-    create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
+    requests.create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil, applicant: historical_applicant })
     create_message_templates
     create_webhooks
   end
@@ -58,6 +50,10 @@ class Seeds
     end
   end
 
+  def dem_commune
+    @dem_commune ||= User.find_by!(email: 'dem-commune@yopmail.com')
+  end
+
   private
 
   def create_cnous_habilitation_type
@@ -81,13 +77,13 @@ class Seeds
   end
 
   def create_historical_requests
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: historical_applicant, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
+    requests.create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: historical_applicant, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
 
-    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
+    authorization_request = requests.create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
     send_message_to_applicant(authorization_request, body: 'Bonjour, il faut que vous demandiez à votre DPO de vous fournir le document inférent à votre demande.')
 
-    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
+    authorization_request = requests.create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Je ne suis pas sûr du cadre de cette demande, pouvez-vous m’aider ?')
 
     create_api_particulier_with_france_connect_embedded_fields
@@ -96,13 +92,17 @@ class Seeds
   end
 
   def create_authorization_request_with_old_authorization
-    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: historical_applicant })
+    authorization_request = requests.create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: historical_applicant })
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: historical_applicant)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: requests.instructor_for(authorization_request))
     authorization_request
   end
 
   protected
+
+  def requests
+    @requests ||= Seeds::AuthorizationRequestInState.new(self)
+  end
 
   def historical_applicant
     @historical_applicant ||= User.find_by!(email: 'dem-historique@yopmail.com')
@@ -110,17 +110,6 @@ class Seeds
 
   def another_demandeur
     @another_demandeur ||= User.find_by!(email: 'dem-multi-orga@yopmail.com')
-  end
-
-  def instructor_for(authorization_request)
-    instructed_type = authorization_request.type.underscore.split('/').last
-
-    instructors.find { |instructor| instructor.instructor?(instructed_type) } ||
-      raise("Aucun instructeur seedé pour le type #{instructed_type}")
-  end
-
-  def instructors
-    @instructors ||= INSTRUCTORS_BY_PRIORITY.map { |email| User.find_by!(email:) }
   end
 
   def all_authorization_definition_manager_roles
@@ -155,107 +144,7 @@ class Seeds
     )
   end
 
-  def create_draft_authorization_request(kind, attributes: {})
-    description = attributes.fetch(:description) { random_description }
-    authorization_request = create_authorization_request_model(kind, attributes: { fill_all_attributes: true }.merge(attributes.except(:description)))
-
-    authorization_request.update!(description:) if description && authorization_request.respond_to?(:description=)
-    authorization_request
-  end
-
-  def create_submitted_authorization_request(kind, attributes: {})
-    user = extract_applicant(attributes)
-    authorization_request = create_draft_authorization_request(kind, attributes:)
-
-    organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
-
-    raise "Fail to submit authorization request: #{organizer}" unless organizer.success?
-
-    authorization_request
-  end
-
-  def create_validated_authorization_request(kind, attributes: {}, authorization_message: nil)
-    authorization_request = create_submitted_authorization_request(kind, attributes:)
-
-    organizer = ApproveAuthorizationRequest.call(
-      authorization_request:,
-      user: instructor_for(authorization_request),
-      authorization_message:
-    )
-
-    raise "Fail to approve authorization request #{organizer}" unless organizer.success?
-
-    authorization_request
-  end
-
-  def create_revoked_authorization_request(kind, attributes: {})
-    authorization_request = create_validated_authorization_request(kind, attributes:)
-
-    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
-
-    raise "Fail to revoked authorization request: #{organizer}" unless organizer.success?
-
-    authorization_request
-  end
-
-  def create_refused_authorization_request(kind, attributes: {})
-    authorization_request = create_submitted_authorization_request(kind, attributes:)
-    denial_of_authorization_params = {
-      reason: 'Cette demande ne correspond pas à nos critères',
-    }.merge(attributes[:denial_of_authorization_params] || {})
-
-    RefuseAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), denial_of_authorization_params:).perform
-
-    authorization_request
-  end
-
-  def create_request_changes_authorization_request(kind, attributes: {})
-    authorization_request = create_submitted_authorization_request(kind, attributes:)
-    instructor_modification_request_params = {
-      reason: 'Le cadre juridique n’est pas suffisamment précis, merci de le compléter',
-    }.merge(attributes[:instructor_modification_request_params] || {})
-
-    RequestChangesOnAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), instructor_modification_request_params:).perform
-
-    authorization_request
-  end
-
-  def create_reopened_authorization_request(kind, attributes: {})
-    authorization_request = create_validated_authorization_request(kind, attributes:)
-
-    ReopenAuthorization.call(authorization: authorization_request.latest_authorization, user: authorization_request.applicant).perform
-
-    authorization_request
-  end
-
-  def create_reopened_and_submitted_authorization_request(kind, attributes: {})
-    user = extract_applicant(attributes)
-    authorization_request = create_reopened_authorization_request(kind, attributes:)
-
-    organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
-
-    raise "Fail to submit authorization request: #{organizer}" unless organizer.success?
-
-    authorization_request
-  end
-
   private
-
-  def create_authorization_request_model(kind, attributes: {})
-    traits = [:draft]
-    traits << kind
-
-    applicant = extract_applicant(attributes)
-
-    FactoryBot.create(
-      :authorization_request,
-      *traits,
-      {
-        applicant:,
-        organization: applicant.current_organization,
-      }.merge(attributes.except(:applicant))
-    )
-  end
 
   def create_api_particulier_with_france_connect_embedded_fields
     authorization_request = FactoryBot.create(
@@ -266,18 +155,18 @@ class Seeds
       applicant: historical_applicant,
       organization: historical_applicant.current_organization,
       intitule: 'Portail famille avec FranceConnect unifié',
-      description: random_description
+      description: requests.random_description
     )
 
     SubmitAuthorizationRequest.call(authorization_request:, user: historical_applicant)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: requests.instructor_for(authorization_request))
 
     authorization_request
   end
 
   # rubocop:disable-next Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
-    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: historical_applicant, created_at: 3.days.ago })
+    authorization_request = requests.create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: historical_applicant, created_at: 3.days.ago })
 
     StartNextAuthorizationRequestStage.call(authorization_request: authorization_request, user: authorization_request.applicant).perform
 
@@ -288,7 +177,7 @@ class Seeds
     valid_api_impot_particulier_production.class.extra_attributes.each do |key|
       authorization_request.public_send(:"#{key}=", valid_api_impot_particulier_production.public_send(key))
     end
-    authorization_request.safety_certification_document.attach([dummy_file])
+    authorization_request.safety_certification_document.attach([requests.dummy_file])
     authorization_request.terms_of_service_accepted = true
     authorization_request.data_protection_officer_informed = true
     authorization_request.dpd_homologation_checkbox = '1'
@@ -296,13 +185,9 @@ class Seeds
     authorization_request.save!
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: authorization_request.applicant)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: requests.instructor_for(authorization_request))
 
     raise 'Authorization request not validated' unless authorization_request.reload.validated?
-  end
-
-  def extract_applicant(attributes)
-    attributes[:applicant] || historical_applicant
   end
 
   def create_all_verified_emails
@@ -352,33 +237,10 @@ class Seeds
   def send_message_to_applicant(authorization_request, message_params)
     SendMessageToApplicant.call(
       authorization_request:,
-      user: instructor_for(authorization_request),
+      user: requests.instructor_for(authorization_request),
       message_params:,
     )
     authorization_request.mark_messages_as_read_by_instructors!
-  end
-
-  def random_description
-    [
-      'Demande d’accès sécurisé aux données fiscales pour analyse économique.',
-      'Requête d’habilitation pour accéder aux dossiers de santé publique.',
-      'Solicitation d’accès aux registres d’état civil pour recherche démographique.',
-      'Demande de permission pour consulter les données de permis de conduire pour étude de mobilité.',
-      'Application pour accéder aux données cadastrales pour projet d’urbanisme.',
-      'Requête pour l’utilisation des données de sécurité sociale dans le cadre d’une étude sur le vieillissement.',
-      'Demande d’habilitation pour étudier les tendances de l’emploi avec accès aux données du ministère du Travail.',
-      'Solicitation d’accès à la base de données électorales pour analyse politique.',
-      'Demande d’autorisation pour utiliser les données de consommation énergétique pour recherche environnementale.',
-      'Requête pour accéder aux archives judiciaires dans le but d’une étude sur la justice pénale.'
-    ].sample
-  end
-
-  def dummy_file
-    {
-      io: Rails.root.join('spec/fixtures/dummy.pdf').open,
-      filename: 'dummy.pdf',
-      content_type: 'application/pdf'
-    }
   end
 
   def load_all_models!
