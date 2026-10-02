@@ -307,6 +307,14 @@ RSpec.describe Seeds do
       expect(create(:authorization_request).id).to eq(1)
     end
 
+    it 'resets the unread messages counters along with the ids' do
+      create(:authorization_request).redis_unread_messages_from_applicant.increment
+
+      flushdb
+
+      expect(create(:authorization_request).unread_messages_from_applicant_count).to eq(0)
+    end
+
     context 'when in production' do
       before do
         allow(Rails).to receive(:env).and_return('production')
