@@ -2,12 +2,12 @@ class Seeds
   STEPS = [
     :create_dem_commune_scenarios,
     Seeds::BoursiersHabilitationType,
-    :create_oauth_app,
+    Seeds::OauthApplication,
     :create_all_verified_emails,
     :create_stats_data,
     :create_historical_requests,
     :create_clamart_hubee_cert_dc_request,
-    :create_message_templates,
+    Seeds::MessageTemplates,
     :create_webhooks,
   ].freeze
 
@@ -172,15 +172,6 @@ class Seeds
     end
   end
 
-  def create_oauth_app
-    Doorkeeper::Application.create!(
-      name: 'API Entreprise',
-      uid: 'client_id',
-      secret: 'so_secret',
-      owner: User.find_by!(email: 'dev-apie@yopmail.com'),
-    )
-  end
-
   def create_verified_email(email, status)
     return if email.blank?
     return if VerifiedEmail.exists?(email:)
@@ -310,10 +301,6 @@ class Seeds
 
   def production?
     Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
-  end
-
-  def create_message_templates
-    Seeds::MessageTemplates.create
   end
 
   def create_dem_commune_scenarios
