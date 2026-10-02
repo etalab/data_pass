@@ -106,7 +106,7 @@ class Seeds::DemCommuneScenarios < Seeds
       applicant:,
       instructor: User.find_by!(email: 'instructeur-apie@yopmail.com'),
       comment: 'Voici une ébauche de demande préparée pour votre commune.',
-      data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Référence — Brouillon d’instructeur')
+      data: FactoryBot.build(:authorization_request, :api_entreprise, applicant:, organization: applicant.current_organization, fill_all_attributes: true).data.merge('intitule' => 'Référence — Brouillon d’instructeur')
     )
   end
 
