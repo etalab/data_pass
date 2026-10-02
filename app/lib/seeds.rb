@@ -1,17 +1,23 @@
 class Seeds
+  STEPS = [
+    :create_dem_commune_scenarios,
+    Seeds::BoursiersHabilitationType,
+    :create_oauth_app,
+    :create_all_verified_emails,
+    :create_stats_data,
+    :create_historical_requests,
+    :create_clamart_hubee_cert_dc_request,
+    :create_message_templates,
+    :create_webhooks,
+  ].freeze
+
   def perform
     create_data_providers
     create_organizations_and_accounts
-    create_dem_commune_scenarios
-    create_cnous_habilitation_type
-    create_oauth_app
-    create_all_verified_emails
 
-    create_stats_data
-    create_historical_requests
-    requests.create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil, applicant: dem_historique })
-    create_message_templates
-    create_webhooks
+    STEPS.each do |step|
+      step.is_a?(Symbol) ? send(step) : step.new(context).perform
+    end
   end
 
   def flushdb
@@ -52,26 +58,6 @@ class Seeds
 
   private
 
-  def create_cnous_habilitation_type
-    HabilitationType.create!(
-      name: 'Boursiers',
-      description: 'Extraction des données des boursiers CNOUS (périmètre géographique dérivé de l’identité INSEE).',
-      kind: 'api',
-      data_provider: DataProvider.find_by!(slug: 'menj'),
-      cgu_link: 'https://example.org/cgu',
-      support_email: 'support@yopmail.com',
-      blocks: [
-        { 'name' => 'basic_infos' },
-        { 'name' => 'cnous_data_extraction_criteria' },
-        { 'name' => 'contacts' },
-      ],
-      contact_types: ['contact_metier'],
-      features: { 'messaging' => true, 'transfer' => true, 'reopening' => true },
-      scopes: [],
-      custom_labels: {}
-    )
-  end
-
   def create_historical_requests
     requests.create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: dem_historique, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
 
@@ -108,6 +94,10 @@ class Seeds
     @requests ||= Seeds::AuthorizationRequestInState.new(accounts)
   end
 
+  def context
+    @context ||= Seeds::Context.new(organizations:, accounts:, requests:)
+  end
+
   private
 
   def create_organizations_and_accounts
@@ -118,6 +108,10 @@ class Seeds
   def dem_historique = accounts.dem_historique
 
   def dem_multi_orga = accounts.dem_multi_orga
+
+  def create_clamart_hubee_cert_dc_request
+    requests.create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil, applicant: dem_historique })
+  end
 
   def create_api_particulier_with_france_connect_embedded_fields
     authorization_request = FactoryBot.create(
