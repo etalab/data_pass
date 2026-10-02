@@ -25,6 +25,7 @@ class Seeds::Stats < Seeds
 
   def initialize(seeds)
     @seeds = seeds
+    @requests = seeds.requests
     @skipped_requests_count = 0
   end
 
@@ -99,22 +100,22 @@ class Seeds::Stats < Seeds
   def build_authorization_request(state, type, attributes)
     case state
     when :submitted
-      @seeds.create_submitted_authorization_request(type, attributes:)
+      @requests.create_submitted_authorization_request(type, attributes:)
     when :validated
-      @seeds.create_validated_authorization_request(type, attributes:)
+      @requests.create_validated_authorization_request(type, attributes:)
     when :refused
-      @seeds.create_refused_authorization_request(type, attributes:)
+      @requests.create_refused_authorization_request(type, attributes:)
     when :validated_after_changes
       create_validated_after_changes(type, attributes)
     end
   end
 
   def create_validated_after_changes(type, attributes)
-    authorization_request = @seeds.create_request_changes_authorization_request(type, attributes:)
+    authorization_request = @requests.create_request_changes_authorization_request(type, attributes:)
     user = authorization_request.applicant
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user:)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: @seeds.instructor_for(authorization_request))
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: @requests.instructor_for(authorization_request))
 
     authorization_request
   end
