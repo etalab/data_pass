@@ -1,17 +1,17 @@
 RSpec.describe Seeds::AuthorizationRequestInState do
-  subject(:requests) { described_class.new(seeds) }
+  subject(:requests) { described_class.new(accounts) }
 
-  let(:seeds) { Seeds.new }
+  let(:accounts) { Seeds::TestAccounts.new(Seeds::ReferenceOrganizations.new.tap(&:perform)) }
 
   before do
-    seeds.create_data_providers
-    seeds.send(:create_test_accounts)
+    Seeds.new.create_data_providers
+    accounts.perform
   end
 
   it 'creates a draft request for the reference applicant by default' do
     authorization_request = requests.create_draft_authorization_request(:api_entreprise)
 
-    expect(authorization_request).to have_attributes(state: 'draft', applicant: seeds.dem_commune)
+    expect(authorization_request).to have_attributes(state: 'draft', applicant: accounts.dem_commune)
     expect(authorization_request.description).to be_present
   end
 
