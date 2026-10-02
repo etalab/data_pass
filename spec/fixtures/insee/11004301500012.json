@@ -1,0 +1,45 @@
+{
+  "header": {
+    "statut": 200,
+    "message": "ok"
+  },
+  "etablissement": {
+    "siren": "110043015",
+    "nic": "00012",
+    "siret": "11004301500012",
+    "statutDiffusionEtablissement": "O",
+    "dateCreationEtablissement": "1983-03-01",
+    "etablissementSiege": true,
+    "nombrePeriodesEtablissement": 1,
+    "uniteLegale": {
+      "etatAdministratifUniteLegale": "A",
+      "statutDiffusionUniteLegale": "O",
+      "categorieJuridiqueUniteLegale": "7113",
+      "denominationUniteLegale": "MINISTERE DE L'EDUCATION NATIONALE",
+      "sigleUniteLegale": null,
+      "activitePrincipaleUniteLegale": "84.11Z",
+      "nomenclatureActivitePrincipaleUniteLegale": "NAFRev2",
+      "nicSiegeUniteLegale": "00012"
+    },
+    "adresseEtablissement": {
+      "numeroVoieEtablissement": "110",
+      "typeVoieEtablissement": "RUE",
+      "libelleVoieEtablissement": "DE GRENELLE",
+      "codePostalEtablissement": "75007",
+      "libelleCommuneEtablissement": "PARIS",
+      "codeCommuneEtablissement": "75107"
+    },
+    "periodesEtablissement": [
+      {
+        "dateFin": null,
+        "dateDebut": "1983-03-01",
+        "etatAdministratifEtablissement": "A",
+        "changementEtatAdministratifEtablissement": false,
+        "enseigne1Etablissement": null,
+        "activitePrincipaleEtablissement": "84.11Z",
+        "nomenclatureActivitePrincipaleEtablissement": "NAFRev2",
+        "caractereEmployeurEtablissement": "O"
+      }
+    ]
+  }
+}

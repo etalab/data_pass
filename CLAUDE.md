@@ -123,10 +123,11 @@ In development, ProConnect authentication can be bypassed by visiting:
 /local-sign-in?email=EMAIL
 ```
 
-Available test accounts:
-- `user@yopmail.com` — basic user account (demandeur), organisation commune (Ville de Clamart)
-- `datapass@yopmail.com` — admin and instructor on all authorization requests
-- `departement@yopmail.com` — demandeur rattaché à une collectivité département (Département du Rhône). Sert à tester le bloc CNOUS « Boursiers » en mode périmètre automatique avec appel à l’API Géo (dérivation commune → département). Le type d’habilitation `Boursiers` (slug `boursiers-dyn`) est seedé avec le bloc `cnous_data_extraction_criteria` : démarrer une demande via `/demandes/boursiers_dyn/nouveau`.
+Available test accounts (full list with roles in `app/lib/seeds/test_accounts.rb`):
+- `dem-commune@yopmail.com` — demandeur de référence, organisation commune (Ville de Clamart) ; porte les demandes seedées
+- `admin-instructeur@yopmail.com` — admin and manager on all authorization requests
+- `instructeur-apie@yopmail.com` — instructeur API Entreprise ; `dev-apie@yopmail.com` owns the seeded OAuth application
+- `dem-departement@yopmail.com` — demandeur rattaché à une collectivité département (Département du Rhône). Sert à tester le bloc CNOUS « Boursiers » en mode périmètre automatique avec appel à l’API Géo (dérivation commune → département). Le type d’habilitation `Boursiers` (slug `boursiers-dyn`) est seedé avec le bloc `cnous_data_extraction_criteria` : démarrer une demande via `/demandes/boursiers_dyn/nouveau`.
 
 #### Protection par token (staging & sandbox)
 
@@ -161,16 +162,17 @@ un `local_sign_in_tokens: { test: <valeur> }`. Dès qu’un token est présent, 
 ### Quick sign-in links
 
 **Local** (http://localhost:3000) (always check the port in your `.env.local`):
-- [user@yopmail.com](http://localhost:3000/local-sign-in?email=user@yopmail.com)
-- [datapass@yopmail.com](http://localhost:3000/local-sign-in?email=datapass@yopmail.com)
-- [departement@yopmail.com](http://localhost:3000/local-sign-in?email=departement@yopmail.com)
+- [dem-commune@yopmail.com](http://localhost:3000/local-sign-in?email=dem-commune@yopmail.com)
+- [admin-instructeur@yopmail.com](http://localhost:3000/local-sign-in?email=admin-instructeur@yopmail.com)
+- [dem-departement@yopmail.com](http://localhost:3000/local-sign-in?email=dem-departement@yopmail.com)
 
 **Sandbox** (https://sandbox.datapass.api.gouv.fr) — token requis, ajouter `&token=VOTRE_TOKEN` :
-- [user@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com&token=VOTRE_TOKEN)
-- [datapass@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com&token=VOTRE_TOKEN)
-- [departement@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com&token=VOTRE_TOKEN)
+- [dem-commune@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=dem-commune@yopmail.com&token=VOTRE_TOKEN)
+- [admin-instructeur@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=admin-instructeur@yopmail.com&token=VOTRE_TOKEN)
+- [dem-departement@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=dem-departement@yopmail.com&token=VOTRE_TOKEN)
 
 **Staging** (https://staging.datapass.api.gouv.fr) — token requis, ajouter `&token=VOTRE_TOKEN` :
+(staging n’est pas reseedé : il garde les anciens comptes)
 - [user@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com&token=VOTRE_TOKEN)
 - [datapass@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com&token=VOTRE_TOKEN)
 - [departement@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=departement@yopmail.com&token=VOTRE_TOKEN)
