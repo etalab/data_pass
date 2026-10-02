@@ -32,6 +32,8 @@ class Seeds
 
       connection.execute("TRUNCATE TABLE #{connection.quote_table_name(table)} RESTART IDENTITY CASCADE;")
     end
+
+    flush_unread_messages_counters
   end
 
   def create_data_providers
@@ -468,6 +470,13 @@ class Seeds
       payload: { event: 'update', id: authorization_request.id },
       created_at: 30.minutes.ago
     )
+  end
+
+  def flush_unread_messages_counters
+    redis = Kredis.configured_for(:shared)
+    counter_keys = redis.scan_each(match: Kredis.namespaced_key('authorization_request:*:redis_unread_messages_*')).to_a
+
+    redis.del(*counter_keys) if counter_keys.any?
   end
 
   def production?
