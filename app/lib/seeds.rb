@@ -186,13 +186,11 @@ class Seeds
   end
 
   def create_draft_authorization_request(kind, attributes: {})
-    create_authorization_request_model(
-      kind,
-      attributes: {
-        fill_all_attributes: true,
-        description: random_description,
-      }.merge(attributes).compact
-    )
+    description = attributes.fetch(:description) { random_description }
+    authorization_request = create_authorization_request_model(kind, attributes: { fill_all_attributes: true }.merge(attributes.except(:description)))
+
+    authorization_request.update!(description:) if description && authorization_request.respond_to?(:description=)
+    authorization_request
   end
 
   def create_submitted_authorization_request(kind, attributes: {})
