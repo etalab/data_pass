@@ -85,7 +85,7 @@ RSpec.describe AuthorizationRequestsSearchEngineBuilder do
           applicant: current_user,
           organization: organization,
           data: { intitule: 'cantine' },
-          id: 12)
+          id: 90_012)
       end
 
       let!(:request_with_intitule_transport) do
@@ -93,11 +93,11 @@ RSpec.describe AuthorizationRequestsSearchEngineBuilder do
           applicant: current_user,
           organization: organization,
           data: { intitule: 'transport' },
-          id: 34)
+          id: 90_034)
       end
 
       context 'when searching by authorization_request ID' do
-        let(:search_text) { '12' }
+        let(:search_text) { '90012' }
         let(:params) do
           ActionController::Parameters.new(
             search_query: { within_data_or_id_cont: search_text }

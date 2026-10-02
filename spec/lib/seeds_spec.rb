@@ -18,6 +18,21 @@ RSpec.describe Seeds do
       expect(User.where(email: legacy_emails)).to be_empty
     end
 
+    it 'no longer creates the legacy requests duplicated by the reference scenarios' do
+      duplicated_intitules = [
+        'Statistiques sur les effectifs',
+        'Loi énérgie',
+        'Mise à jour soumise en cours',
+        'MPS 2014 - Migration v1',
+        'Demande avec nouveau message',
+        'Connexion FranceConnect ImpotPart',
+        'Portail des aides dans le secteur du bâtiment',
+      ]
+
+      expect(AuthorizationRequest.all.map { |request| request.try(:intitule) } & duplicated_intitules).to be_empty
+      expect(AuthorizationRequest.where(form_uid: 'api-entreprise-mgdis')).to be_empty
+    end
+
     it 'gives the OAuth application to the API Entreprise developer' do
       expect(Doorkeeper::Application.find_by!(uid: 'client_id').owner.email).to eq('dev-apie@yopmail.com')
     end
@@ -92,6 +107,91 @@ RSpec.describe Seeds do
 
         expect(reference_applicants.count).to eq(3)
         expect(reference_applicants.map(&:roles)).to all(be_empty)
+      end
+    end
+
+    describe 'dem-commune scenarios' do
+      let(:dem_commune) { User.find_by!(email: 'dem-commune@yopmail.com') }
+
+      def scenario(intitule) = AuthorizationRequest.where(applicant: dem_commune).find { |request| request.try(:intitule) == intitule }
+
+      it 'creates one request per lifecycle state' do
+        states_by_intitule = {
+          'Référence — Brouillon' => 'draft',
+          'Référence — Soumise' => 'submitted',
+          'Référence — Modifications demandées' => 'changes_requested',
+          'Référence — Validée' => 'validated',
+          'Référence — Refusée' => 'refused',
+          'Référence — Révoquée' => 'revoked',
+          'Référence — Archivée' => 'archived',
+        }
+
+        expect(states_by_intitule.keys.index_with { |intitule| scenario(intitule)&.state }).to eq(states_by_intitule)
+      end
+
+      it 'creates reopened requests, in draft and submitted' do
+        expect(scenario('Référence — Réouverte')).to have_attributes(state: 'draft', reopening?: true)
+        expect(scenario('Référence — Réouverte et soumise')).to have_attributes(state: 'submitted', reopening?: true)
+      end
+
+      it 'creates a request migrated from v1' do
+        expect(scenario('Référence — Migration v1')).to have_attributes(dirty_from_v1: true)
+      end
+
+      it 'creates a request with unread messages for instructors' do
+        expect(scenario('Référence — Messages non lus').messages).to be_present
+      end
+
+      it 'creates a request with an external business contact' do
+        expect(scenario('Référence — Contact métier externe').contact_metier_email).to eq('dem-departement@yopmail.com')
+      end
+
+      it 'creates a submitted request with an attached document' do
+        attached_document_request = scenario('Référence — Pièce jointe')
+
+        expect(attached_document_request.cadre_juridique_document).to be_attached
+        expect(attached_document_request.state).to eq('submitted')
+      end
+
+      it 'creates a request whose next stage is in progress' do
+        expect(scenario('Référence — Palier 2 en cours')).to have_attributes(type: 'AuthorizationRequest::APIImpotParticulier', state: 'draft')
+      end
+
+      it 'creates a request linked to a FranceConnect authorization' do
+        france_connect_authorization = scenario('Référence — FranceConnect').latest_authorization
+
+        expect(scenario('Référence — API Impôt particulier liée à FranceConnect').france_connect_authorization_id).to eq(france_connect_authorization.id.to_s)
+      end
+
+      it 'gives a fixed id to each reference request' do
+        ids_by_intitule = {
+          'Référence — Brouillon' => 1,
+          'Référence — Soumise' => 2,
+          'Référence — Modifications demandées' => 3,
+          'Référence — Validée' => 4,
+          'Référence — Refusée' => 5,
+          'Référence — Révoquée' => 6,
+          'Référence — Archivée' => 7,
+          'Référence — Réouverte' => 8,
+          'Référence — Réouverte et soumise' => 9,
+          'Référence — Migration v1' => 10,
+          'Référence — Messages non lus' => 11,
+          'Référence — Contact métier externe' => 12,
+          'Référence — Pièce jointe' => 13,
+          'Référence — Palier 2 en cours' => 14,
+          'Référence — FranceConnect' => 15,
+          'Référence — API Impôt particulier liée à FranceConnect' => 16,
+        }
+
+        expect(ids_by_intitule.keys.index_with { |intitule| scenario(intitule)&.id }).to eq(ids_by_intitule)
+      end
+
+      it 'numbers the requests created afterwards above the reference ids' do
+        expect(create(:authorization_request).id).to be > 16
+      end
+
+      it 'creates a draft request prepared by an instructor' do
+        expect(InstructorDraftRequest.where(applicant: dem_commune).map { |draft| draft.data['intitule'] }).to include('Référence — Brouillon d’instructeur')
       end
     end
 
@@ -176,6 +276,14 @@ RSpec.describe Seeds do
       expect {
         flushdb
       }.not_to raise_error
+    end
+
+    it 'restarts the ids from 1' do
+      create(:authorization_request)
+
+      flushdb
+
+      expect(create(:authorization_request).id).to eq(1)
     end
 
     context 'when in production' do
