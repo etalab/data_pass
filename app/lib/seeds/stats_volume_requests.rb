@@ -1,4 +1,4 @@
-class Seeds::Stats < Seeds
+class Seeds::StatsVolumeRequests
   AUTHORIZATION_TYPES_PER_PROVIDER = {
     'dgs' => %i[portail_hubee_demarche_certdc],
     'dila' => %i[hubee_dila],
@@ -23,9 +23,9 @@ class Seeds::Stats < Seeds
     france_connect: %w[france-connect france-connect-collectivite-administration]
   }.freeze
 
-  def initialize(seeds)
-    @seeds = seeds
-    @requests = seeds.requests
+  def initialize(context)
+    @requests = context.requests
+    @accounts = context.accounts
     @skipped_requests_count = 0
   end
 
@@ -150,7 +150,7 @@ class Seeds::Stats < Seeds
   end
 
   def stats_applicant
-    @stats_applicant ||= User.find_by!(email: 'dem-stats@yopmail.com')
+    @stats_applicant ||= @accounts.find('dem-stats@yopmail.com')
   end
 
   def stats_communes
