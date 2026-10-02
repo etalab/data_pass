@@ -1,7 +1,15 @@
 class Seeds
+  INSTRUCTORS_BY_PRIORITY = %w[
+    instructeur-apie@yopmail.com
+    instructeur-dgfip@yopmail.com
+    instructeur-multi-fd@yopmail.com
+    manager-fd-dgfip@yopmail.com
+    admin-instructeur@yopmail.com
+  ].freeze
+
   def perform
     create_data_providers
-    create_entities
+    create_test_accounts
     create_cnous_habilitation_type
     create_oauth_app
     create_all_verified_emails
@@ -49,26 +57,6 @@ class Seeds
   end
 
   private
-
-  # rubocop:disable-next Metrics/AbcSize
-  def create_entities
-    verified_params = {
-      verified: true,
-      identity_federator: 'pro_connect',
-      identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID,
-    }
-
-    demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
-    departement_demandeur.add_to_organization(rhone_departement_organization, current: true, **verified_params)
-    another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
-    another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-
-    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, **verified_params)
-    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, **verified_params)
-    foreign_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-    data_pass_admin.add_to_organization(dinum_organization, current: true, **verified_params)
-    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
-  end
 
   def create_cnous_habilitation_type
     HabilitationType.create!(
@@ -151,92 +139,33 @@ class Seeds
   def create_authorization_request_with_old_authorization
     authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: demandeur })
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: demandeur)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
     authorization_request
   end
 
   protected
 
   def demandeur
-    @demandeur ||= User.create!(
-      given_name: 'Jean',
-      family_name: 'Dupont',
-      email: 'user@yopmail.com',
-      external_id: '1',
-      job_title: 'Responsable des affaires générales',
-      phone_number: '0123456789'
-    )
+    @demandeur ||= User.find_by!(email: 'dem-commune@yopmail.com')
   end
 
   def another_demandeur
-    @another_demandeur ||= User.create!(
-      given_name: 'Jacques',
-      family_name: 'Dupont',
-      email: 'whatever@fia1.fr',
-      external_id: '10',
-      job_title: 'Responsable des affaires juridiques',
-      phone_number: '0823456789'
-    )
-  end
-
-  def departement_demandeur
-    @departement_demandeur ||= User.create!(
-      given_name: 'Camille',
-      family_name: 'Bernard',
-      email: 'departement@yopmail.com',
-      external_id: '20',
-      job_title: 'Responsable des bourses',
-      phone_number: '0423456789'
-    )
+    @another_demandeur ||= User.find_by!(email: 'dem-multi-orga@yopmail.com')
   end
 
   def foreign_demandeur
-    @foreign_demandeur ||= User.create!(
-      given_name: 'Pierre',
-      family_name: 'Dupont',
-      email: 'user11@yopmail.com',
-      external_id: '11',
-      job_title: 'Responsable des affaires étrangères',
-      phone_number: '0323456789'
-    )
+    @foreign_demandeur ||= User.find_by!(email: 'dem-org-non-verifiee@yopmail.com')
   end
 
-  def api_entreprise_instructor
-    @api_entreprise_instructor ||= User.create!(
-      given_name: 'Paul',
-      family_name: 'Dupont',
-      email: 'api-entreprise@yopmail.com',
-      external_id: '4',
-      job_title: 'Responsable des instructions',
-      phone_number: '0423456789',
-      roles: ['dinum:api_entreprise:instructor', 'dinum:api_entreprise:developer']
-    )
+  def instructor_for(authorization_request)
+    instructed_type = authorization_request.type.underscore.split('/').last
+
+    instructors.find { |instructor| instructor.instructor?(instructed_type) } ||
+      raise("Aucun instructeur seedé pour le type #{instructed_type}")
   end
 
-  def api_entreprise_reporter
-    @api_entreprise_reporter ||= User.create!(
-      given_name: 'Marc',
-      family_name: 'Dupont',
-      email: 'user12@yopmail.com',
-      external_id: '12',
-      job_title: 'Responsable des reporteurs',
-      phone_number: '0423456789',
-      roles: ['dinum:api_entreprise:reporter']
-    )
-  end
-
-  def data_pass_admin
-    @data_pass_admin ||= User.create!(
-      email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_manager_roles + ['dinum:api_entreprise:developer', 'dinum:api_particulier:developer'],
-    )
-  end
-
-  def dgfip_instructor_developer
-    @dgfip_instructor_developer ||= User.create!(
-      email: 'dgfip@yopmail.com',
-      roles: %w[dgfip:*:instructor dgfip:*:developer dgfip:*:manager]
-    )
+  def instructors
+    @instructors ||= INSTRUCTORS_BY_PRIORITY.map { |email| User.find_by!(email:) }
   end
 
   def all_authorization_definition_manager_roles
@@ -297,7 +226,7 @@ class Seeds
 
     organizer = ApproveAuthorizationRequest.call(
       authorization_request:,
-      user: api_entreprise_instructor,
+      user: instructor_for(authorization_request),
       authorization_message:
     )
 
@@ -309,7 +238,7 @@ class Seeds
   def create_revoked_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
 
-    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
+    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
 
     raise "Fail to revoked authorization request: #{organizer}" unless organizer.success?
 
@@ -322,7 +251,7 @@ class Seeds
       reason: 'Cette demande ne correspond pas à nos critères',
     }.merge(attributes[:denial_of_authorization_params] || {})
 
-    RefuseAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, denial_of_authorization_params:).perform
+    RefuseAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), denial_of_authorization_params:).perform
 
     authorization_request
   end
@@ -333,7 +262,7 @@ class Seeds
       reason: 'Le cadre juridique n’est pas suffisamment précis, merci de le compléter',
     }.merge(attributes[:instructor_modification_request_params] || {})
 
-    RequestChangesOnAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, instructor_modification_request_params:).perform
+    RequestChangesOnAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), instructor_modification_request_params:).perform
 
     authorization_request
   end
@@ -381,7 +310,7 @@ class Seeds
       :with_applicant,
       :with_data,
       applicant:,
-      instructor: api_entreprise_instructor,
+      instructor: User.find_by!(email: 'instructeur-apie@yopmail.com'),
       comment: 'Comme discuté au téléphone, je vous envoie cette ébauche de demande d’habilitation.',
       public_id: '00000000-0000-0000-0000-000000000000',
       data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
@@ -415,7 +344,7 @@ class Seeds
     )
 
     SubmitAuthorizationRequest.call(authorization_request:, user: demandeur)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
 
     authorization_request
   end
@@ -441,7 +370,7 @@ class Seeds
     authorization_request.save!
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: authorization_request.applicant)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
 
     raise 'Authorization request not validated' unless authorization_request.reload.validated?
   end
@@ -469,7 +398,7 @@ class Seeds
       name: 'API Entreprise',
       uid: 'client_id',
       secret: 'so_secret',
-      owner: api_entreprise_instructor,
+      owner: User.find_by!(email: 'dev-apie@yopmail.com'),
     )
   end
 
@@ -518,7 +447,7 @@ class Seeds
   def send_message_to_applicant(authorization_request, message_params)
     SendMessageToApplicant.call(
       authorization_request:,
-      user: api_entreprise_instructor,
+      user: instructor_for(authorization_request),
       message_params:,
     )
     authorization_request.mark_messages_as_read_by_instructors!
@@ -643,6 +572,10 @@ class Seeds
 
   def create_message_templates
     Seeds::MessageTemplates.create
+  end
+
+  def create_test_accounts
+    Seeds::TestAccounts.new(self).perform
   end
 
   def create_stats_data

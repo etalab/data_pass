@@ -9,7 +9,7 @@ class AuthorizationHeaderComponentPreview < ApplicationPreview
 
   # @label 2. Mention en tant que contact
   def contact_mention
-    contact_user = User.find_by!(email: 'user@yopmail.com')
+    contact_user = User.find_by!(email: 'dem-commune@yopmail.com')
     authorization_request = AuthorizationRequest
       .where(state: 'validated')
       .where("EXISTS (
