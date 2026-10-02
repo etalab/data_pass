@@ -21,14 +21,7 @@ class Seeds
   def flushdb
     raise 'Not in production!' if production?
 
-    connection = ActiveRecord::Base.connection
-
-    connection.tables.each do |table|
-      next if %w[schema_migrations ar_internal_metadata].include?(table)
-
-      connection.execute("TRUNCATE TABLE #{connection.quote_table_name(table)} RESTART IDENTITY CASCADE;")
-    end
-
+    ActiveRecord::Base.connection.execute(truncate_all_tables_statement)
     flush_unread_messages_counters
   end
 
@@ -75,6 +68,13 @@ class Seeds
   def create_organizations_and_accounts
     organizations.perform
     accounts.perform
+  end
+
+  def truncate_all_tables_statement
+    connection = ActiveRecord::Base.connection
+    tables = (connection.tables - %w[schema_migrations ar_internal_metadata]).map { |table| connection.quote_table_name(table) }
+
+    "TRUNCATE TABLE #{tables.join(', ')} RESTART IDENTITY CASCADE;"
   end
 
   def seeds_for(name)
