@@ -1,10 +1,10 @@
 class Seeds
   STEPS = [
-    :create_dem_commune_scenarios,
+    Seeds::DemCommuneReferenceRequests,
     Seeds::BoursiersHabilitationType,
     Seeds::OauthApplication,
     Seeds::VerifiedEmails,
-    :create_stats_data,
+    Seeds::StatsVolumeRequests,
     Seeds::HistoricalRequests,
     Seeds::ClamartHubEECertDCRequest,
     Seeds::MessageTemplates,
@@ -15,9 +15,7 @@ class Seeds
     create_data_providers
     create_organizations_and_accounts
 
-    STEPS.each do |step|
-      step.is_a?(Symbol) ? send(step) : step.new(context).perform
-    end
+    STEPS.each { |step| step.new(context).perform }
   end
 
   def flushdb
@@ -56,7 +54,7 @@ class Seeds
     end
   end
 
-  protected
+  private
 
   def organizations
     @organizations ||= Seeds::ReferenceOrganizations.new
@@ -73,8 +71,6 @@ class Seeds
   def context
     @context ||= Seeds::Context.new(organizations:, accounts:, requests:)
   end
-
-  private
 
   def create_organizations_and_accounts
     organizations.perform
@@ -94,13 +90,5 @@ class Seeds
 
   def production?
     Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
-  end
-
-  def create_dem_commune_scenarios
-    Seeds::DemCommuneScenarios.new(self).perform
-  end
-
-  def create_stats_data
-    Seeds::Stats.new(self).perform
   end
 end
