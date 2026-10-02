@@ -29,10 +29,10 @@ class Molecules::Instruction::UserRights::RightFieldComponentPreview < ViewCompo
   private
 
   def definition_manager_permissions
-    Rights::ManagerAuthority.new(User.find_by!(email: 'datapass@yopmail.com'))
+    Rights::ManagerAuthority.new(User.find_by!(email: 'admin-instructeur@yopmail.com'))
   end
 
   def fd_manager_permissions
-    Rights::ManagerAuthority.new(User.find_by!(email: 'dgfip@yopmail.com'))
+    Rights::ManagerAuthority.new(User.find_by!(email: 'manager-fd-dgfip@yopmail.com'))
   end
 end

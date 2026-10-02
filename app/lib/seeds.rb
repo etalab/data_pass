@@ -1,17 +1,23 @@
 class Seeds
+  INSTRUCTORS_BY_PRIORITY = %w[
+    instructeur-apie@yopmail.com
+    instructeur-dgfip@yopmail.com
+    instructeur-multi-fd@yopmail.com
+    manager-fd-dgfip@yopmail.com
+    admin-instructeur@yopmail.com
+  ].freeze
+
   def perform
     create_data_providers
-    create_entities
+    create_test_accounts
+    create_dem_commune_scenarios
     create_cnous_habilitation_type
     create_oauth_app
     create_all_verified_emails
 
     create_stats_data
-    create_authorization_requests_for_clamart
-    create_authorization_requests_for_dinum
-    create_unread_messages_from_applicant
+    create_historical_requests
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
-    create_instructor_draft_request(applicant: demandeur)
     create_message_templates
     create_webhooks
   end
@@ -19,11 +25,15 @@ class Seeds
   def flushdb
     raise 'Not in production!' if production?
 
-    ActiveRecord::Base.connection.tables.each do |table|
+    connection = ActiveRecord::Base.connection
+
+    connection.tables.each do |table|
       next if %w[schema_migrations ar_internal_metadata].include?(table)
 
-      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
+      connection.execute("TRUNCATE TABLE #{connection.quote_table_name(table)} RESTART IDENTITY CASCADE;")
     end
+
+    flush_unread_messages_counters
   end
 
   def create_data_providers
@@ -50,26 +60,6 @@ class Seeds
 
   private
 
-  # rubocop:disable-next Metrics/AbcSize
-  def create_entities
-    verified_params = {
-      verified: true,
-      identity_federator: 'pro_connect',
-      identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID,
-    }
-
-    demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
-    departement_demandeur.add_to_organization(rhone_departement_organization, current: true, **verified_params)
-    another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
-    another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-
-    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, **verified_params)
-    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, **verified_params)
-    foreign_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-    data_pass_admin.add_to_organization(dinum_organization, current: true, **verified_params)
-    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
-  end
-
   def create_cnous_habilitation_type
     HabilitationType.create!(
       name: 'Boursiers',
@@ -90,153 +80,47 @@ class Seeds
     )
   end
 
-  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  def create_authorization_requests_for_clamart
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: demandeur, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
-    france_connect_authorization_request = create_validated_authorization_request(
-      :france_connect,
-      attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur },
-      authorization_message: 'Vous pouvez maintenant procéder à l’intégration technique.'
-    )
-    create_validated_authorization_request(:api_droits_cnam, attributes: { france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id, applicant: demandeur })
+  def create_historical_requests
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: historical_applicant, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
 
     authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
     send_message_to_applicant(authorization_request, body: 'Bonjour, il faut que vous demandiez à votre DPO de vous fournir le document inférent à votre demande.')
 
-    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides dans le secteur du bâtiment' })
-    send_message_to_instructors(authorization_request, body: 'Bonjour, dois-je inclure les aides pour les particuliers ?')
-    send_message_to_applicant(authorization_request, body: 'Bonjour, non il s\'agit uniquement des aides pour les entreprises.')
-
-    create_refused_authorization_request(:api_entreprise, attributes: { intitule: 'Statistiques sur les effectifs', applicant: demandeur })
-    create_revoked_authorization_request(:api_entreprise, attributes: { intitule: 'Loi énérgie', applicant: demandeur })
-    create_reopened_authorization_request(:api_entreprise_mgdis, attributes: { applicant: demandeur })
-    create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Mise à jour soumise en cours', applicant: demandeur })
-
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Je ne suis pas sûr du cadre de cette demande, pouvez-vous m’aider ?')
 
-    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
-
-    france_connect_authorization_request_for_dgfip = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect ImpotPart', applicant: demandeur })
-    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { modalities: ['with_france_connect'], france_connect_authorization_id: france_connect_authorization_request_for_dgfip.latest_authorization.id, intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
-    create_reopened_api_impot_particulier_sandbox_with_france_connect
-
     create_api_particulier_with_france_connect_embedded_fields
-
     create_fully_approved_api_impot_particulier_authorization_request
-  end
-
-  def create_authorization_requests_for_dinum
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Démarches simplifiées', applicant: foreign_demandeur, contact_metier_email: demandeur.email })
-
-    create_validated_authorization_request(:api_particulier, attributes: { intitule: 'Cantine à 1€', applicant: demandeur, scopes: AuthorizationDefinition.find('api_particulier').scopes.map(&:value).sample(3) + ['dgfip_annee_impot'] })
-
-    create_dirty_from_v1_authorization_request
-    create_authorization_request_with_contact_mention
     create_authorization_request_with_old_authorization
   end
 
-  def create_dirty_from_v1_authorization_request
-    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'MPS 2014 - Migration v1', applicant: demandeur })
-    authorization_request.update!(dirty_from_v1: true)
-    authorization_request
-  end
-
-  def create_authorization_request_with_contact_mention
-    create_draft_authorization_request(:api_entreprise, attributes: { intitule: 'Demande avec contact métier externe', applicant: another_demandeur, contact_metier_email: demandeur.email })
-    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation avec contact métier externe', applicant: another_demandeur, contact_metier_email: demandeur.email })
-  end
-
   def create_authorization_request_with_old_authorization
-    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: demandeur })
-    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: demandeur)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: historical_applicant })
+    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: historical_applicant)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
     authorization_request
   end
 
   protected
 
-  def demandeur
-    @demandeur ||= User.create!(
-      given_name: 'Jean',
-      family_name: 'Dupont',
-      email: 'user@yopmail.com',
-      external_id: '1',
-      job_title: 'Responsable des affaires générales',
-      phone_number: '0123456789'
-    )
+  def historical_applicant
+    @historical_applicant ||= User.find_by!(email: 'dem-historique@yopmail.com')
   end
 
   def another_demandeur
-    @another_demandeur ||= User.create!(
-      given_name: 'Jacques',
-      family_name: 'Dupont',
-      email: 'whatever@fia1.fr',
-      external_id: '10',
-      job_title: 'Responsable des affaires juridiques',
-      phone_number: '0823456789'
-    )
+    @another_demandeur ||= User.find_by!(email: 'dem-multi-orga@yopmail.com')
   end
 
-  def departement_demandeur
-    @departement_demandeur ||= User.create!(
-      given_name: 'Camille',
-      family_name: 'Bernard',
-      email: 'departement@yopmail.com',
-      external_id: '20',
-      job_title: 'Responsable des bourses',
-      phone_number: '0423456789'
-    )
+  def instructor_for(authorization_request)
+    instructed_type = authorization_request.type.underscore.split('/').last
+
+    instructors.find { |instructor| instructor.instructor?(instructed_type) } ||
+      raise("Aucun instructeur seedé pour le type #{instructed_type}")
   end
 
-  def foreign_demandeur
-    @foreign_demandeur ||= User.create!(
-      given_name: 'Pierre',
-      family_name: 'Dupont',
-      email: 'user11@yopmail.com',
-      external_id: '11',
-      job_title: 'Responsable des affaires étrangères',
-      phone_number: '0323456789'
-    )
-  end
-
-  def api_entreprise_instructor
-    @api_entreprise_instructor ||= User.create!(
-      given_name: 'Paul',
-      family_name: 'Dupont',
-      email: 'api-entreprise@yopmail.com',
-      external_id: '4',
-      job_title: 'Responsable des instructions',
-      phone_number: '0423456789',
-      roles: ['dinum:api_entreprise:instructor', 'dinum:api_entreprise:developer']
-    )
-  end
-
-  def api_entreprise_reporter
-    @api_entreprise_reporter ||= User.create!(
-      given_name: 'Marc',
-      family_name: 'Dupont',
-      email: 'user12@yopmail.com',
-      external_id: '12',
-      job_title: 'Responsable des reporteurs',
-      phone_number: '0423456789',
-      roles: ['dinum:api_entreprise:reporter']
-    )
-  end
-
-  def data_pass_admin
-    @data_pass_admin ||= User.create!(
-      email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_manager_roles + ['dinum:api_entreprise:developer', 'dinum:api_particulier:developer'],
-    )
-  end
-
-  def dgfip_instructor_developer
-    @dgfip_instructor_developer ||= User.create!(
-      email: 'dgfip@yopmail.com',
-      roles: %w[dgfip:*:instructor dgfip:*:developer dgfip:*:manager]
-    )
+  def instructors
+    @instructors ||= INSTRUCTORS_BY_PRIORITY.map { |email| User.find_by!(email:) }
   end
 
   def all_authorization_definition_manager_roles
@@ -272,13 +156,11 @@ class Seeds
   end
 
   def create_draft_authorization_request(kind, attributes: {})
-    create_authorization_request_model(
-      kind,
-      attributes: {
-        fill_all_attributes: true,
-        description: random_description,
-      }.merge(attributes).compact
-    )
+    description = attributes.fetch(:description) { random_description }
+    authorization_request = create_authorization_request_model(kind, attributes: { fill_all_attributes: true }.merge(attributes.except(:description)))
+
+    authorization_request.update!(description:) if description && authorization_request.respond_to?(:description=)
+    authorization_request
   end
 
   def create_submitted_authorization_request(kind, attributes: {})
@@ -297,7 +179,7 @@ class Seeds
 
     organizer = ApproveAuthorizationRequest.call(
       authorization_request:,
-      user: api_entreprise_instructor,
+      user: instructor_for(authorization_request),
       authorization_message:
     )
 
@@ -309,7 +191,7 @@ class Seeds
   def create_revoked_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
 
-    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
+    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
 
     raise "Fail to revoked authorization request: #{organizer}" unless organizer.success?
 
@@ -322,7 +204,7 @@ class Seeds
       reason: 'Cette demande ne correspond pas à nos critères',
     }.merge(attributes[:denial_of_authorization_params] || {})
 
-    RefuseAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, denial_of_authorization_params:).perform
+    RefuseAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), denial_of_authorization_params:).perform
 
     authorization_request
   end
@@ -333,12 +215,10 @@ class Seeds
       reason: 'Le cadre juridique n’est pas suffisamment précis, merci de le compléter',
     }.merge(attributes[:instructor_modification_request_params] || {})
 
-    RequestChangesOnAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, instructor_modification_request_params:).perform
+    RequestChangesOnAuthorizationRequest.call(authorization_request:, user: instructor_for(authorization_request), instructor_modification_request_params:).perform
 
     authorization_request
   end
-
-  private
 
   def create_reopened_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
@@ -359,6 +239,8 @@ class Seeds
     authorization_request
   end
 
+  private
+
   def create_authorization_request_model(kind, attributes: {})
     traits = [:draft]
     traits << kind
@@ -375,60 +257,33 @@ class Seeds
     )
   end
 
-  def create_instructor_draft_request(applicant:)
-    FactoryBot.create(
-      :instructor_draft_request,
-      :with_applicant,
-      :with_data,
-      applicant:,
-      instructor: api_entreprise_instructor,
-      comment: 'Comme discuté au téléphone, je vous envoie cette ébauche de demande d’habilitation.',
-      public_id: '00000000-0000-0000-0000-000000000000',
-      data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
-    )
-  end
-
-  def create_reopened_api_impot_particulier_sandbox_with_france_connect
-    france_connect_authorization_request = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect mise à jour', applicant: demandeur })
-
-    create_reopened_and_submitted_authorization_request(
-      :api_impot_particulier_sandbox,
-      attributes: {
-        modalities: ['with_france_connect'],
-        france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id,
-        intitule: 'Demande de retraite progressive en ligne (mise à jour des scopes)',
-        applicant: demandeur
-      }
-    )
-  end
-
   def create_api_particulier_with_france_connect_embedded_fields
     authorization_request = FactoryBot.create(
       :authorization_request,
       :api_particulier,
       :with_france_connect_embedded_fields,
       fill_all_attributes: true,
-      applicant: demandeur,
-      organization: demandeur.current_organization,
+      applicant: historical_applicant,
+      organization: historical_applicant.current_organization,
       intitule: 'Portail famille avec FranceConnect unifié',
       description: random_description
     )
 
-    SubmitAuthorizationRequest.call(authorization_request:, user: demandeur)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    SubmitAuthorizationRequest.call(authorization_request:, user: historical_applicant)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
 
     authorization_request
   end
 
   # rubocop:disable-next Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
-    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, created_at: 3.days.ago })
+    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: historical_applicant, created_at: 3.days.ago })
 
     StartNextAuthorizationRequestStage.call(authorization_request: authorization_request, user: authorization_request.applicant).perform
 
     authorization_request = AuthorizationRequest.find(authorization_request.id)
 
-    valid_api_impot_particulier_production = FactoryBot.build(:authorization_request, :api_impot_particulier_production, fill_all_attributes: true)
+    valid_api_impot_particulier_production = FactoryBot.build(:authorization_request, :api_impot_particulier_production, applicant: authorization_request.applicant, organization: authorization_request.organization, fill_all_attributes: true)
 
     valid_api_impot_particulier_production.class.extra_attributes.each do |key|
       authorization_request.public_send(:"#{key}=", valid_api_impot_particulier_production.public_send(key))
@@ -441,13 +296,13 @@ class Seeds
     authorization_request.save!
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: authorization_request.applicant)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor_for(authorization_request))
 
     raise 'Authorization request not validated' unless authorization_request.reload.validated?
   end
 
   def extract_applicant(attributes)
-    attributes[:applicant] || demandeur
+    attributes[:applicant] || historical_applicant
   end
 
   def create_all_verified_emails
@@ -469,7 +324,7 @@ class Seeds
       name: 'API Entreprise',
       uid: 'client_id',
       secret: 'so_secret',
-      owner: api_entreprise_instructor,
+      owner: User.find_by!(email: 'dev-apie@yopmail.com'),
     )
   end
 
@@ -494,31 +349,10 @@ class Seeds
     authorization_request.mark_messages_as_read_by_applicant!
   end
 
-  def create_unread_messages_from_applicant
-    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Demande avec nouveau message', applicant: demandeur })
-    SendMessageToInstructors.call(
-      authorization_request:,
-      user: authorization_request.applicant,
-      message_params: { body: 'Bonjour, j\'ai une question sur le périmètre de données.' },
-    )
-
-    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Autre demande avec message non lu', applicant: another_demandeur })
-    SendMessageToInstructors.call(
-      authorization_request:,
-      user: authorization_request.applicant,
-      message_params: { body: 'Pouvez-vous me préciser le délai d\'instruction ?' },
-    )
-    SendMessageToInstructors.call(
-      authorization_request:,
-      user: authorization_request.applicant,
-      message_params: { body: 'Et les pièces à joindre pour le justificatif ?' },
-    )
-  end
-
   def send_message_to_applicant(authorization_request, message_params)
     SendMessageToApplicant.call(
       authorization_request:,
-      user: api_entreprise_instructor,
+      user: instructor_for(authorization_request),
       message_params:,
     )
     authorization_request.mark_messages_as_read_by_instructors!
@@ -637,12 +471,27 @@ class Seeds
     )
   end
 
+  def flush_unread_messages_counters
+    redis = Kredis.configured_for(:shared)
+    counter_keys = redis.scan_each(match: Kredis.namespaced_key('authorization_request:*:redis_unread_messages_*')).to_a
+
+    redis.del(*counter_keys) if counter_keys.any?
+  end
+
   def production?
     Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
   end
 
   def create_message_templates
     Seeds::MessageTemplates.create
+  end
+
+  def create_test_accounts
+    Seeds::TestAccounts.new(self).perform
+  end
+
+  def create_dem_commune_scenarios
+    Seeds::DemCommuneScenarios.new(self).perform
   end
 
   def create_stats_data

@@ -116,7 +116,7 @@ demandeurs à ce sous-ensemble.
 Par exemple pour API Entreprise: [http://api-entreprise.localtest.me:3000/](http://api-entreprise.localtest.me:3000/)
 
 Il est possible de bypass le login via ProConnect de cette manière en local :
-[http://api-entreprise.localtest.me:3000/local-sign-in?email=api-entreprise@yopmail.com](http://api-entreprise.localtest.me:3000/local-sign-in?email=api-entreprise@yopmail.com)
+[http://api-entreprise.localtest.me:3000/local-sign-in?email=instructeur-apie@yopmail.com](http://api-entreprise.localtest.me:3000/local-sign-in?email=instructeur-apie@yopmail.com)
 
 ## Tests
 

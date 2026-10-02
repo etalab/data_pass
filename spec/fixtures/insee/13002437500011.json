@@ -1,0 +1,54 @@
+{
+  "header": {
+    "statut": 200,
+    "message": "ok"
+  },
+  "etablissement": {
+    "siren": "130024375",
+    "nic": "00011",
+    "siret": "13002437500011",
+    "statutDiffusionEtablissement": "O",
+    "dateCreationEtablissement": "2018-10-17",
+    "etablissementSiege": true,
+    "nombrePeriodesEtablissement": 2,
+    "uniteLegale": {
+      "etatAdministratifUniteLegale": "C",
+      "statutDiffusionUniteLegale": "O",
+      "categorieJuridiqueUniteLegale": "7113",
+      "denominationUniteLegale": "SECRETARIAT D'ETAT AUPRES DU MINISTERE DE L'EDUCATION NATIONALE ET DES SPORTS CHARGE DE L'EDUCATION PRIORITAIRE",
+      "activitePrincipaleUniteLegale": "84.11Z",
+      "nomenclatureActivitePrincipaleUniteLegale": "NAFRev2",
+      "nicSiegeUniteLegale": "00011"
+    },
+    "adresseEtablissement": {
+      "numeroVoieEtablissement": "110",
+      "typeVoieEtablissement": "RUE",
+      "libelleVoieEtablissement": "DE GRENELLE",
+      "codePostalEtablissement": "75007",
+      "libelleCommuneEtablissement": "PARIS 7",
+      "codeCommuneEtablissement": "75107"
+    },
+    "periodesEtablissement": [
+      {
+        "dateFin": null,
+        "dateDebut": "2020-07-06",
+        "etatAdministratifEtablissement": "F",
+        "changementEtatAdministratifEtablissement": true,
+        "enseigne1Etablissement": null,
+        "activitePrincipaleEtablissement": "84.11Z",
+        "nomenclatureActivitePrincipaleEtablissement": "NAFRev2",
+        "caractereEmployeurEtablissement": "N"
+      },
+      {
+        "dateFin": "2020-07-05",
+        "dateDebut": "2018-10-17",
+        "etatAdministratifEtablissement": "A",
+        "changementEtatAdministratifEtablissement": false,
+        "enseigne1Etablissement": null,
+        "activitePrincipaleEtablissement": "84.11Z",
+        "nomenclatureActivitePrincipaleEtablissement": "NAFRev2",
+        "caractereEmployeurEtablissement": "N"
+      }
+    ]
+  }
+}
