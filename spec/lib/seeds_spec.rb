@@ -195,9 +195,25 @@ RSpec.describe Seeds do
         expect(create(:authorization_request).id).to be > 16
       end
 
+      it 'gives dem-commune only the reference requests' do
+        expect(AuthorizationRequest.where(applicant: dem_commune).order(:id).pluck(:id)).to eq((1..16).to_a)
+      end
+
+      it 'mentions dem-commune as a business contact on no other request' do
+        expect(AuthorizationRequest.where.not(applicant: dem_commune).select { |request| request.try(:contact_metier_email) == dem_commune.email }).to be_empty
+      end
+
       it 'creates a draft request prepared by an instructor' do
         expect(InstructorDraftRequest.where(applicant: dem_commune).map { |draft| draft.data['intitule'] }).to include('Référence — Brouillon d’instructeur')
       end
+    end
+
+    it 'gives the historical requests to dem-historique' do
+      historical_applicant = User.find_by!(email: 'dem-historique@yopmail.com')
+      intitules = AuthorizationRequest.where(applicant: historical_applicant).map { |request| request.try(:intitule) }
+
+      expect(intitules).to include('Portail des appels d’offres', 'Portail famille avec FranceConnect unifié', 'Habilitation mise à jour')
+      expect(AuthorizationRequest.where(applicant: historical_applicant).pluck(:type)).to include('AuthorizationRequest::APIImpotParticulier', 'AuthorizationRequest::HubEECertDC')
     end
 
     describe 'applicant accounts in a particular state' do
