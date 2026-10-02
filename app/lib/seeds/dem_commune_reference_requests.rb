@@ -1,4 +1,4 @@
-class Seeds::DemCommuneScenarios < Seeds
+class Seeds::DemCommuneReferenceRequests
   EMAIL = 'dem-commune@yopmail.com'.freeze
 
   IDS = {
@@ -20,9 +20,9 @@ class Seeds::DemCommuneScenarios < Seeds
     'API Impôt particulier liée à FranceConnect' => 16,
   }.freeze
 
-  def initialize(seeds)
-    @seeds = seeds
-    @requests = seeds.requests
+  def initialize(context)
+    @requests = context.requests
+    @accounts = context.accounts
   end
 
   def perform
@@ -110,6 +110,6 @@ class Seeds::DemCommuneScenarios < Seeds
   end
 
   def applicant
-    @applicant ||= User.find_by!(email: EMAIL)
+    @applicant ||= @accounts.find(EMAIL)
   end
 end

@@ -1,13 +1,15 @@
-RSpec.describe Seeds::Stats do
+RSpec.describe Seeds::StatsVolumeRequests do
   describe '#perform' do
-    subject(:perform) { described_class.new(seeds).perform }
+    subject(:perform) { described_class.new(context).perform }
 
-    let(:seeds) { Seeds.new }
+    let(:organizations) { Seeds::ReferenceOrganizations.new }
+    let(:accounts) { Seeds::TestAccounts.new(organizations) }
+    let(:context) { Seeds::Context.new(organizations:, accounts:, requests: Seeds::AuthorizationRequestInState.new(accounts)) }
 
     before do
-      seeds.create_data_providers
-      seeds.send(:organizations).perform
-      seeds.send(:accounts).perform
+      Seeds.new.create_data_providers
+      organizations.perform
+      accounts.perform
       allow(Rails.logger).to receive(:error).and_call_original
     end
 
