@@ -18,6 +18,16 @@ RSpec.describe Seeds do
       expect(User.where(email: legacy_emails)).to be_empty
     end
 
+    it 'verifies the contact emails of every seeded request' do
+      contact_emails = AuthorizationRequest.all.flat_map { |request| request.class.contact_types.map { |contact_type| request.public_send(:"#{contact_type}_email") } }.compact_blank
+
+      expect(contact_emails.uniq - VerifiedEmail.pluck(:email)).to be_empty
+    end
+
+    it 'exposes only perform, flushdb and create_data_providers' do
+      expect(described_class.public_instance_methods(false)).to contain_exactly(:perform, :flushdb, :create_data_providers)
+    end
+
     it 'creates no account nor organization as a side effect of building request data' do
       expect(User.where.not('email LIKE ?', '%@yopmail.com').pluck(:email)).to be_empty
       expect(Organization.all.map(&:name).grep(/nom inconnu/)).to be_empty
@@ -287,6 +297,14 @@ RSpec.describe Seeds do
 
         expect(blank_applicant.full_name).to eq(blank_applicant_email)
       end
+    end
+  end
+
+  describe '#create_data_providers' do
+    it 'creates the data providers on an empty database, as the migration and cucumber do' do
+      seeds.create_data_providers
+
+      expect(DataProvider.pluck(:slug)).to include('dinum', 'dgfip', 'menj')
     end
   end
 

@@ -1,4 +1,4 @@
-class Seeds::DemCommuneScenarios < Seeds
+class Seeds::DemCommuneReferenceRequests
   EMAIL = 'dem-commune@yopmail.com'.freeze
 
   IDS = {
@@ -20,8 +20,9 @@ class Seeds::DemCommuneScenarios < Seeds
     'API Impôt particulier liée à FranceConnect' => 16,
   }.freeze
 
-  def initialize(seeds)
-    @seeds = seeds
+  def initialize(context)
+    @requests = context.requests
+    @accounts = context.accounts
   end
 
   def perform
@@ -37,56 +38,56 @@ class Seeds::DemCommuneScenarios < Seeds
   private
 
   def create_lifecycle_scenarios
-    @seeds.create_draft_authorization_request(:api_entreprise, attributes: scenario('Brouillon'))
-    @seeds.create_submitted_authorization_request(:api_entreprise, attributes: scenario('Soumise'))
-    @seeds.create_request_changes_authorization_request(:api_entreprise, attributes: scenario('Modifications demandées'))
-    @seeds.create_validated_authorization_request(:api_entreprise, attributes: scenario('Validée'))
-    @seeds.create_refused_authorization_request(:api_entreprise, attributes: scenario('Refusée'))
-    @seeds.create_revoked_authorization_request(:api_entreprise, attributes: scenario('Révoquée'))
+    @requests.create_draft_authorization_request(:api_entreprise, attributes: scenario('Brouillon'))
+    @requests.create_submitted_authorization_request(:api_entreprise, attributes: scenario('Soumise'))
+    @requests.create_request_changes_authorization_request(:api_entreprise, attributes: scenario('Modifications demandées'))
+    @requests.create_validated_authorization_request(:api_entreprise, attributes: scenario('Validée'))
+    @requests.create_refused_authorization_request(:api_entreprise, attributes: scenario('Refusée'))
+    @requests.create_revoked_authorization_request(:api_entreprise, attributes: scenario('Révoquée'))
     create_archived_scenario
   end
 
   def create_archived_scenario
-    authorization_request = @seeds.create_draft_authorization_request(:api_entreprise, attributes: scenario('Archivée'))
+    authorization_request = @requests.create_draft_authorization_request(:api_entreprise, attributes: scenario('Archivée'))
 
     ArchiveAuthorizationRequest.call(authorization_request:, user: applicant)
   end
 
   def create_reopening_scenarios
-    @seeds.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Réouverte'))
-    @seeds.create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: scenario('Réouverte et soumise'))
-    @seeds.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Migration v1')).update!(dirty_from_v1: true)
+    @requests.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Réouverte'))
+    @requests.create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: scenario('Réouverte et soumise'))
+    @requests.create_reopened_authorization_request(:api_entreprise, attributes: scenario('Migration v1')).update!(dirty_from_v1: true)
   end
 
   def create_exchange_scenarios
     create_unread_messages_scenario
-    @seeds.create_validated_authorization_request(:api_entreprise, attributes: scenario('Contact métier externe').merge(contact_metier_email: 'dem-departement@yopmail.com'))
+    @requests.create_validated_authorization_request(:api_entreprise, attributes: scenario('Contact métier externe').merge(contact_metier_email: 'dem-departement@yopmail.com'))
     create_attached_document_scenario
   end
 
   def create_unread_messages_scenario
-    authorization_request = @seeds.create_submitted_authorization_request(:api_entreprise, attributes: scenario('Messages non lus'))
+    authorization_request = @requests.create_submitted_authorization_request(:api_entreprise, attributes: scenario('Messages non lus'))
 
     SendMessageToInstructors.call(authorization_request:, user: applicant, message_params: { body: 'Bonjour, pouvez-vous me confirmer le périmètre des données ?' })
   end
 
   def create_attached_document_scenario
-    authorization_request = @seeds.create_draft_authorization_request(:api_entreprise, attributes: scenario('Pièce jointe'))
+    authorization_request = @requests.create_draft_authorization_request(:api_entreprise, attributes: scenario('Pièce jointe'))
     authorization_request.cadre_juridique_document.attach(io: Rails.root.join('spec/fixtures/dummy.pdf').open, filename: 'cadre-juridique.pdf', content_type: 'application/pdf')
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: applicant)
   end
 
   def create_next_stage_scenario
-    authorization_request = @seeds.create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: scenario('Palier 2 en cours'))
+    authorization_request = @requests.create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: scenario('Palier 2 en cours'))
 
     StartNextAuthorizationRequestStage.call(authorization_request:, user: applicant)
   end
 
   def create_france_connect_scenario
-    france_connect_request = @seeds.create_validated_authorization_request(:france_connect, attributes: scenario('FranceConnect'))
+    france_connect_request = @requests.create_validated_authorization_request(:france_connect, attributes: scenario('FranceConnect'))
 
-    @seeds.create_validated_authorization_request(
+    @requests.create_validated_authorization_request(
       :api_impot_particulier_sandbox,
       attributes: scenario('API Impôt particulier liée à FranceConnect').merge(modalities: ['with_france_connect'], france_connect_authorization_id: france_connect_request.latest_authorization.id)
     )
@@ -109,6 +110,6 @@ class Seeds::DemCommuneScenarios < Seeds
   end
 
   def applicant
-    @applicant ||= User.find_by!(email: EMAIL)
+    @applicant ||= @accounts.find(EMAIL)
   end
 end
