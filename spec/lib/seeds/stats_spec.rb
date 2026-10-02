@@ -6,7 +6,8 @@ RSpec.describe Seeds::Stats do
 
     before do
       seeds.create_data_providers
-      seeds.send(:create_test_accounts)
+      seeds.send(:organizations).perform
+      seeds.send(:accounts).perform
       allow(Rails.logger).to receive(:error).and_call_original
     end
 
