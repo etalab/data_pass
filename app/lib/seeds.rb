@@ -10,6 +10,7 @@ class Seeds
   def perform
     create_data_providers
     create_test_accounts
+    create_dem_commune_scenarios
     create_cnous_habilitation_type
     create_oauth_app
     create_all_verified_emails
@@ -27,10 +28,12 @@ class Seeds
   def flushdb
     raise 'Not in production!' if production?
 
-    ActiveRecord::Base.connection.tables.each do |table|
+    connection = ActiveRecord::Base.connection
+
+    connection.tables.each do |table|
       next if %w[schema_migrations ar_internal_metadata].include?(table)
 
-      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
+      connection.execute("TRUNCATE TABLE #{connection.quote_table_name(table)} RESTART IDENTITY CASCADE;")
     end
   end
 
@@ -78,7 +81,7 @@ class Seeds
     )
   end
 
-  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: demandeur, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
     france_connect_authorization_request = create_validated_authorization_request(
@@ -92,22 +95,11 @@ class Seeds
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
     send_message_to_applicant(authorization_request, body: 'Bonjour, il faut que vous demandiez à votre DPO de vous fournir le document inférent à votre demande.')
 
-    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides dans le secteur du bâtiment' })
-    send_message_to_instructors(authorization_request, body: 'Bonjour, dois-je inclure les aides pour les particuliers ?')
-    send_message_to_applicant(authorization_request, body: 'Bonjour, non il s\'agit uniquement des aides pour les entreprises.')
-
-    create_refused_authorization_request(:api_entreprise, attributes: { intitule: 'Statistiques sur les effectifs', applicant: demandeur })
-    create_revoked_authorization_request(:api_entreprise, attributes: { intitule: 'Loi énérgie', applicant: demandeur })
-    create_reopened_authorization_request(:api_entreprise_mgdis, attributes: { applicant: demandeur })
-    create_reopened_and_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Mise à jour soumise en cours', applicant: demandeur })
-
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Je ne suis pas sûr du cadre de cette demande, pouvez-vous m’aider ?')
 
     create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
 
-    france_connect_authorization_request_for_dgfip = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect ImpotPart', applicant: demandeur })
-    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { modalities: ['with_france_connect'], france_connect_authorization_id: france_connect_authorization_request_for_dgfip.latest_authorization.id, intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
     create_reopened_api_impot_particulier_sandbox_with_france_connect
 
     create_api_particulier_with_france_connect_embedded_fields
@@ -120,15 +112,8 @@ class Seeds
 
     create_validated_authorization_request(:api_particulier, attributes: { intitule: 'Cantine à 1€', applicant: demandeur, scopes: AuthorizationDefinition.find('api_particulier').scopes.map(&:value).sample(3) + ['dgfip_annee_impot'] })
 
-    create_dirty_from_v1_authorization_request
     create_authorization_request_with_contact_mention
     create_authorization_request_with_old_authorization
-  end
-
-  def create_dirty_from_v1_authorization_request
-    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'MPS 2014 - Migration v1', applicant: demandeur })
-    authorization_request.update!(dirty_from_v1: true)
-    authorization_request
   end
 
   def create_authorization_request_with_contact_mention
@@ -267,8 +252,6 @@ class Seeds
     authorization_request
   end
 
-  private
-
   def create_reopened_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
 
@@ -287,6 +270,8 @@ class Seeds
 
     authorization_request
   end
+
+  private
 
   def create_authorization_request_model(kind, attributes: {})
     traits = [:draft]
@@ -424,13 +409,6 @@ class Seeds
   end
 
   def create_unread_messages_from_applicant
-    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Demande avec nouveau message', applicant: demandeur })
-    SendMessageToInstructors.call(
-      authorization_request:,
-      user: authorization_request.applicant,
-      message_params: { body: 'Bonjour, j\'ai une question sur le périmètre de données.' },
-    )
-
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Autre demande avec message non lu', applicant: another_demandeur })
     SendMessageToInstructors.call(
       authorization_request:,
@@ -576,6 +554,10 @@ class Seeds
 
   def create_test_accounts
     Seeds::TestAccounts.new(self).perform
+  end
+
+  def create_dem_commune_scenarios
+    Seeds::DemCommuneScenarios.new(self).perform
   end
 
   def create_stats_data
