@@ -1,7 +1,7 @@
 class Seeds
   def perform
     create_data_providers
-    create_test_accounts
+    create_organizations_and_accounts
     create_dem_commune_scenarios
     create_cnous_habilitation_type
     create_oauth_app
@@ -9,7 +9,7 @@ class Seeds
 
     create_stats_data
     create_historical_requests
-    requests.create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil, applicant: historical_applicant })
+    requests.create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil, applicant: dem_historique })
     create_message_templates
     create_webhooks
   end
@@ -50,10 +50,6 @@ class Seeds
     end
   end
 
-  def dem_commune
-    @dem_commune ||= User.find_by!(email: 'dem-commune@yopmail.com')
-  end
-
   private
 
   def create_cnous_habilitation_type
@@ -77,13 +73,13 @@ class Seeds
   end
 
   def create_historical_requests
-    requests.create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: historical_applicant, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
+    requests.create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des appels d’offres', applicant: dem_historique, external_provider_id: 'e5b4c2d1-8f3a-4b6e-9c7d-1a2b3c4d5e6f' })
 
-    authorization_request = requests.create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
+    authorization_request = requests.create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: dem_multi_orga })
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
     send_message_to_applicant(authorization_request, body: 'Bonjour, il faut que vous demandiez à votre DPO de vous fournir le document inférent à votre demande.')
 
-    authorization_request = requests.create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
+    authorization_request = requests.create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: dem_multi_orga })
     send_message_to_instructors(authorization_request, body: 'Je ne suis pas sûr du cadre de cette demande, pouvez-vous m’aider ?')
 
     create_api_particulier_with_france_connect_embedded_fields
@@ -92,59 +88,36 @@ class Seeds
   end
 
   def create_authorization_request_with_old_authorization
-    authorization_request = requests.create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: historical_applicant })
-    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: historical_applicant)
+    authorization_request = requests.create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: dem_historique })
+    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: dem_historique)
     ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: requests.instructor_for(authorization_request))
     authorization_request
   end
 
   protected
 
+  def organizations
+    @organizations ||= Seeds::ReferenceOrganizations.new
+  end
+
+  def accounts
+    @accounts ||= Seeds::TestAccounts.new(organizations)
+  end
+
   def requests
-    @requests ||= Seeds::AuthorizationRequestInState.new(self)
-  end
-
-  def historical_applicant
-    @historical_applicant ||= User.find_by!(email: 'dem-historique@yopmail.com')
-  end
-
-  def another_demandeur
-    @another_demandeur ||= User.find_by!(email: 'dem-multi-orga@yopmail.com')
-  end
-
-  def all_authorization_definition_manager_roles
-    AuthorizationDefinition.all.filter_map do |definition|
-      next unless definition.provider_slug
-
-      "#{definition.provider_slug}:#{definition.id}:manager"
-    end
-  end
-
-  def clamart_organization
-    @clamart_organization ||= create_organization(siret: '21920023500014', name: 'Ville de Clamart')
-  end
-
-  def dinum_organization
-    @dinum_organization ||= create_organization(siret: '13002526500013', name: 'DINUM')
-  end
-
-  def rhone_departement_organization
-    @rhone_departement_organization ||= create_organization(siret: '22690001700014', name: 'Département du Rhône')
-  end
-
-  def create_organization(siret:, name:)
-    Organization.create!(
-      legal_entity_id: siret,
-      last_mon_compte_pro_updated_at: DateTime.now,
-      mon_compte_pro_payload: {
-        label: name
-      },
-      insee_payload: JSON.parse(Rails.root.join('spec', 'fixtures', 'insee', "#{siret}.json").read),
-      last_insee_payload_updated_at: DateTime.now,
-    )
+    @requests ||= Seeds::AuthorizationRequestInState.new(accounts)
   end
 
   private
+
+  def create_organizations_and_accounts
+    organizations.perform
+    accounts.perform
+  end
+
+  def dem_historique = accounts.dem_historique
+
+  def dem_multi_orga = accounts.dem_multi_orga
 
   def create_api_particulier_with_france_connect_embedded_fields
     authorization_request = FactoryBot.create(
@@ -153,13 +126,13 @@ class Seeds
       :with_france_connect_embedded_fields,
       fill_all_attributes: true,
       form_uid: 'api-particulier-aiga',
-      applicant: historical_applicant,
-      organization: historical_applicant.current_organization,
+      applicant: dem_historique,
+      organization: dem_historique.current_organization,
       intitule: 'Portail famille avec FranceConnect unifié',
       description: requests.random_description
     )
 
-    SubmitAuthorizationRequest.call(authorization_request:, user: historical_applicant)
+    SubmitAuthorizationRequest.call(authorization_request:, user: dem_historique)
     ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: requests.instructor_for(authorization_request))
 
     authorization_request
@@ -167,7 +140,7 @@ class Seeds
 
   # rubocop:disable-next Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
-    authorization_request = requests.create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: historical_applicant, created_at: 3.days.ago })
+    authorization_request = requests.create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: dem_historique, created_at: 3.days.ago })
 
     StartNextAuthorizationRequestStage.call(authorization_request: authorization_request, user: authorization_request.applicant).perform
 
@@ -347,10 +320,6 @@ class Seeds
 
   def create_message_templates
     Seeds::MessageTemplates.create
-  end
-
-  def create_test_accounts
-    Seeds::TestAccounts.new(self).perform
   end
 
   def create_dem_commune_scenarios
