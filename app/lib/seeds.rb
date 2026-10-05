@@ -140,6 +140,7 @@ class Seeds
   def create_dirty_from_v1_authorization_request
     authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'MPS 2014 - Migration v1', applicant: demandeur })
     authorization_request.update!(dirty_from_v1: true)
+    authorization_request.authorizations.update_all(form_uid: nil) # rubocop:disable Rails/SkipsModelValidations
     authorization_request
   end
 
@@ -408,6 +409,7 @@ class Seeds
       :api_particulier,
       :with_france_connect_embedded_fields,
       fill_all_attributes: true,
+      form_uid: 'api-particulier-aiga',
       applicant: demandeur,
       organization: demandeur.current_organization,
       intitule: 'Portail famille avec FranceConnect unifié',
