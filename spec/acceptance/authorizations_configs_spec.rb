@@ -38,4 +38,16 @@ RSpec.describe 'Authorizations config files' do
       end
     end
   end
+
+  describe 'forms uniqueness' do
+    it 'never declares the same form uid twice across form files' do
+      uids = Rails.root.glob('config/authorization_request_forms/*.y*ml').flat_map do |file|
+        Psych.parse(File.read(file)).root.children.each_slice(2).map { |key, _value| key.value }
+      end
+
+      duplicates = uids.tally.select { |_uid, count| count > 1 }.keys
+
+      expect(duplicates).to be_empty, "Formulaires déclarés plusieurs fois : #{duplicates.join(', ')}"
+    end
+  end
 end
