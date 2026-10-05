@@ -531,6 +531,11 @@ FactoryBot.define do
       api-particulier-opticreche-petite-enfance
       api-particulier-capcreche-petite-enfance
       api-particulier-daycare-app-petite-enfance
+      api-particulier-clartec
+      api-particulier-clartec-petite-enfance
+      api-particulier-periscolia
+      api-particulier-nouvelle-epoque-industries
+      api-particulier-studio1247-petite-enfance
       api-particulier-andyvie
       api-particulier-polycea
       api-particulier-edhec

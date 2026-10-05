@@ -32,6 +32,14 @@ Fonctionnalité: Choix du type de formulalire pour API Particulier
     Alors je vois 2 tuiles
     Et je vois 1 tuile "Publik Famille petite enfance"
 
+  Scénario: Je choisis un éditeur ayant un formulaire de tarification enfance et un formulaire petite enfance
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Et que je choisis "Votre éditeur"
+    Et que je clique sur "C"
+    Et que je choisis "Clartec SAS"
+    Alors je vois 2 tuiles
+    Et je vois 1 tuile "Manua Petite enfance"
+
   Scénario: Je choisis un éditeur inconnu de API Particulier
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Votre éditeur"

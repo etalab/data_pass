@@ -69,6 +69,22 @@ shared:
     type: editor
     name: Hoptis Software
     siret: "48987179800067"
+  clartec:
+    type: editor
+    name: Clartec SAS
+    siret: "81898542600035"
+  periscolia:
+    type: editor
+    name: Periscolia
+    siret: "10298517300016"
+  nouvelle_epoque_industries:
+    type: editor
+    name: Nouvelle Epoque Industries
+    siret: "10934591800014"
+  studio1247:
+    type: editor
+    name: Studio 1247
+    siret: <%= Rails.application.credentials.service_provider_studio1247_siret&.to_s.to_json %>
   agora_plus:
     type: editor
     name: Agora Plus
