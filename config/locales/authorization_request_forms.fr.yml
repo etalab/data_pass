@@ -487,6 +487,16 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_hoptis_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_clartec:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_clartec_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_periscolia:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_nouvelle_epoque_industries:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_studio1247_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_sigec_maelis:
       <<: *api_particulier_editor_common_wordings
     api_particulier_arpege_concerto:
