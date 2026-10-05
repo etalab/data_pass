@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plan d’action et bilans d’accessibilité - DataPass</title>
+  <meta name="description" content="Plan d’action 2026-2028 et bilans annuels d’accessibilité de DataPass.">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #161616;
+      background-color: #ffffff;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .skip-link {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .skip-link:focus {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: auto;
+      height: auto;
+      padding: 10px;
+      margin: 10px;
+      background-color: #ffffff;
+      color: #000091;
+      font-weight: bold;
+      z-index: 100;
+      clip: auto;
+      outline: 3px solid #000091;
+    }
+    article {
+      padding: 20px 0;
+    }
+    h1, h2, h3 {
+      color: #000091;
+      font-weight: 700;
+    }
+    h1 {
+      font-size: 2rem;
+      line-height: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.75rem;
+      line-height: 2.25rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+    h3 {
+      font-size: 1.375rem;
+      line-height: 1.75rem;
+      margin: 2rem 0 1rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin: 0 0 1.5rem;
+    }
+    ul {
+      list-style-type: disc;
+      padding-inline-start: 1rem;
+      margin: 0.5rem 0 1.5rem;
+    }
+    li {
+      padding-bottom: 0.25rem;
+    }
+    a {
+      color: #000091;
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    a:focus {
+      outline: 3px solid #000091;
+      outline-offset: 2px;
+    }
+    .date {
+      color: #666666;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+    .table-wrapper:focus-visible {
+      outline: 3px solid #000091;
+      outline-offset: 2px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+    caption {
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 700;
+      padding-bottom: 0.75rem;
+    }
+    thead th {
+      background-color: #e3e3fd;
+      color: #000091;
+      border-bottom: 2px solid #000091;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f6f6f6;
+    }
+    tbody th {
+      font-weight: 400;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.5rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge--done {
+      color: #18753c;
+      background-color: #b8fec9;
+    }
+    .badge--partial {
+      color: #b34000;
+      background-color: #ffe9e6;
+    }
+    hr {
+      margin: 30px 0;
+      border: none;
+      border-top: 1px solid #dddddd;
+    }
+  </style>
+</head>
+<body>
+  <a href="#content" class="skip-link">Aller au contenu</a>
+  <main id="content">
+    <article>
+      <h1>Plan d’action et bilans d’accessibilité de DataPass</h1>
+      <p class="date">
+        <time datetime="2026-10-05">Mis à jour le 5 octobre 2026</time>
+      </p>
+
+      <section aria-labelledby="introduction">
+        <h2 id="introduction">Introduction</h2>
+        <p>
+          Cette page présente les actions menées par l’équipe DataPass pour rendre le service accessible, ainsi que les actions prévues jusqu’en 2028.
+        </p>
+        <p>
+          Elle complète le <a href="/schema_pluriannuel">schéma pluriannuel 2025-2028 du Pôle Data de la DINUM</a>, qui décrit l’organisation et les moyens communs à l’ensemble des produits du pôle.
+        </p>
+        <p>
+          DataPass n’a pas encore été audité et reste à ce jour non conforme au RGAA. L’objectif est de faire réaliser un audit de conformité par un prestataire externe au second semestre 2028.
+        </p>
+        <p>
+          Le plan d’action porte sur l’espace des demandeurs, l’espace des instructeurs, les pages publiques et la documentation à destination des développeurs. Les pièces jointes ajoutées par les usagers à leurs demandes n’en font pas partie.
+        </p>
+      </section>
+
+      <section aria-labelledby="bilans">
+        <h2 id="bilans">Bilans</h2>
+
+        <h3 id="bilan-2025">Bilan 2025</h3>
+        <div class="table-wrapper" role="region" aria-labelledby="caption-bilan-2025" tabindex="0">
+          <table>
+            <caption id="caption-bilan-2025">Actions menées en 2025</caption>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col">Thématique</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Détails</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Publier la déclaration d’accessibilité</th>
+                <td>Obligations légales</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Publiée en février 2025 et mise à jour en juillet 2025. Le pied de page indique « Accessibilité : non conforme ».</td>
+              </tr>
+              <tr>
+                <th scope="row">Publier un schéma pluriannuel</th>
+                <td>Obligations légales</td>
+                <td><span class="badge badge--partial">Fait partiellement</span></td>
+                <td>Le schéma du Pôle Data a été publié en juillet 2025, sans plan d’action détaillé pour DataPass.</td>
+              </tr>
+              <tr>
+                <th scope="row">Ajouter des liens d’évitement</th>
+                <td>Tests automatisés</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Chaque page propose un lien « Aller au contenu ». Les tests automatiques vérifient sa présence.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="bilan-2026">Bilan 2026</h3>
+        <p class="date">Arrêté au 5 octobre 2026</p>
+        <div class="table-wrapper" role="region" aria-labelledby="caption-bilan-2026" tabindex="0">
+          <table>
+            <caption id="caption-bilan-2026">Actions menées en 2026</caption>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col">Thématique</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Détails</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Donner un titre à chaque page</th>
+                <td>Tests automatisés</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Chaque page a un titre unique qui décrit son contenu. Les tests automatiques le vérifient.</td>
+              </tr>
+              <tr>
+                <th scope="row">Corriger les problèmes signalés</th>
+                <td>Tests manuels</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Navigation au clavier et lecture par les lecteurs d’écran améliorées dans certains formulaires, texte alternatif corrigé sur la page des préférences.</td>
+              </tr>
+              <tr>
+                <th scope="row">Faire un état des lieux</th>
+                <td>Conformité</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Onze pages analysées en octobre 2026. Onze critères du RGAA ne sont pas respectés, dont deux qui bloquent l’accès à une fonctionnalité. Vingt-huit autres restent à vérifier par des tests manuels.</td>
+              </tr>
+              <tr>
+                <th scope="row">Publier le plan d’action de DataPass</th>
+                <td>Obligations légales</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Publié en octobre 2026, en complément du schéma pluriannuel du Pôle Data.</td>
+              </tr>
+              <tr>
+                <th scope="row">Mettre à jour la déclaration d’accessibilité</th>
+                <td>Obligations légales</td>
+                <td><span class="badge badge--done">Fait</span></td>
+                <td>Dates corrigées, adresse du service mise à jour et lien ajouté vers cette page.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="plan">
+        <h2 id="plan">Plan d’action 2026-2028</h2>
+        <p>
+          Sur toute la période, l’équipe forme ses membres à l’accessibilité, y compris les personnes qui la rejoignent. Chaque évolution de l’interface est vérifiée au clavier avant sa mise en ligne.
+        </p>
+
+        <h3 id="plan-2026">2026</h3>
+        <div class="table-wrapper" role="region" aria-labelledby="caption-plan-2026" tabindex="0">
+          <table>
+            <caption id="caption-plan-2026">Actions prévues en 2026</caption>
+            <thead>
+              <tr>
+                <th scope="col">Échéance</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Quatrième trimestre</th>
+                <td>Désigner une personne référente accessibilité dans l’équipe.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="plan-2027">2027</h3>
+        <div class="table-wrapper" role="region" aria-labelledby="caption-plan-2027" tabindex="0">
+          <table>
+            <caption id="caption-plan-2027">Actions prévues en 2027</caption>
+            <thead>
+              <tr>
+                <th scope="col">Échéance</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Premier trimestre</th>
+                <td>Corriger les liens sans intitulé, notamment le bouton d’accès à la messagerie.</td>
+              </tr>
+              <tr>
+                <th scope="row">Premier trimestre</th>
+                <td>Créer un plan du site, accessible depuis le pied de page.</td>
+              </tr>
+              <tr>
+                <th scope="row">Premier trimestre</th>
+                <td>Organiser une première session de sensibilisation pour toute l’équipe.</td>
+              </tr>
+              <tr>
+                <th scope="row">Deuxième trimestre</th>
+                <td>Compléter les tests automatiques par des contrôles d’accessibilité sur les parcours principaux.</td>
+              </tr>
+              <tr>
+                <th scope="row">Deuxième trimestre</th>
+                <td>Préciser les boutons et les liens qui portent le même nom sur une même page, comme « Consulter » ou « Supprimer ce fichier ».</td>
+              </tr>
+              <tr>
+                <th scope="row">Deuxième trimestre</th>
+                <td>Rendre les fenêtres de dialogue utilisables au clavier et avec un lecteur d’écran.</td>
+              </tr>
+              <tr>
+                <th scope="row">Troisième trimestre</th>
+                <td>Faire annoncer par les lecteurs d’écran les messages de confirmation et les résultats de recherche.</td>
+              </tr>
+              <tr>
+                <th scope="row">Troisième et quatrième trimestres</th>
+                <td>Rendre accessibles tous les formulaires de demande : regroupement des champs, messages d’erreur, champs obligatoires, saisie automatique.</td>
+              </tr>
+              <tr>
+                <th scope="row">Quatrième trimestre</th>
+                <td>Revoir la structure des tableaux de bord et de la page d’instruction, et remplacer les composants maison par ceux du Système de design de l’État.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="plan-2028">2028</h3>
+        <div class="table-wrapper" role="region" aria-labelledby="caption-plan-2028" tabindex="0">
+          <table>
+            <caption id="caption-plan-2028">Actions prévues en 2028</caption>
+            <thead>
+              <tr>
+                <th scope="col">Échéance</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Premier semestre</th>
+                <td>Rendre accessibles les documents PDF ou en proposer une version en ligne, et signaler les liens qui ouvrent une nouvelle fenêtre.</td>
+              </tr>
+              <tr>
+                <th scope="row">Premier semestre</th>
+                <td>Tester manuellement les pages retenues pour l’audit et corriger les derniers problèmes.</td>
+              </tr>
+              <tr>
+                <th scope="row">Premier semestre</th>
+                <td>Réaliser un pré-audit interne avec la grille officielle du RGAA.</td>
+              </tr>
+              <tr>
+                <th scope="row">Second semestre</th>
+                <td>Faire réaliser l’audit de conformité par un prestataire externe et publier une nouvelle déclaration d’accessibilité.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="contact">
+        <h2 id="contact">Signaler un problème d’accessibilité</h2>
+        <p>
+          Si vous n’arrivez pas à accéder à un contenu ou à un service, écrivez-nous à <a href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>. Nous vous proposerons une solution et répondrons dans un délai de 3 jours ouvrés.
+        </p>
+      </section>
+
+      <hr>
+
+      <footer>
+        <p>
+          Cette page est mise à jour chaque année avec le bilan de l’année écoulée.
+        </p>
+        <ul>
+          <li><a href="/accessibilite">Déclaration d’accessibilité de DataPass</a></li>
+          <li><a href="/">Retour à l’accueil de DataPass</a></li>
+        </ul>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
