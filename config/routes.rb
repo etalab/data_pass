@@ -94,6 +94,7 @@ Rails.application.routes.draw do
 
     get 'faq', to: 'pages#faq', as: :faq
     get 'accessibilite', to: 'pages#accessibilite', as: :accessibilite
+    get 'plan_action_accessibilite', to: 'pages#plan_action_accessibilite', as: :plan_action_accessibilite
     get 'mentions-legales', to: 'pages#mentions_legales', as: :mentions_legales
     get 'politique-confidentialite', to: 'pages#politique_confidentialite', as: :politique_confidentialite
 

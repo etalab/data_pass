@@ -38,6 +38,7 @@ class SkipLinksImplementedChecker
     stats#index
     pages#home
     pages#accessibilite
+    pages#plan_action_accessibilite
     pages#politique_confidentialite
     pages#faq
     pages#mentions_legales

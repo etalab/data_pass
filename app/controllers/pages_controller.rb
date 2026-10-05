@@ -23,6 +23,10 @@ class PagesController < ApplicationController
     render 'static_pages/accessibilite'
   end
 
+  def plan_action_accessibilite
+    render 'static_pages/plan_action_accessibilite'
+  end
+
   def mentions_legales
     render 'static_pages/mentions_legales'
   end
