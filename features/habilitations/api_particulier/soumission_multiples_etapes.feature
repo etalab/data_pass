@@ -693,7 +693,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
       | Nom du formulaire               | Nom de l'éditeur  |
       | iNoé \| Malice Petite enfance   | Aiga              |
 
-Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
+Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d’usage lié à la tarification dans les établissements d’accueil du jeune enfant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
