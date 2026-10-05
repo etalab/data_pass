@@ -29,6 +29,10 @@ Fonctionnalité: Titres de page des pages publiques
     Quand je me rends sur le chemin "/accessibilite"
     Alors le titre de la page est "Déclaration d’accessibilité - DataPass"
 
+  Scénario: Le titre de la page du plan d’action d’accessibilité est Plan d’action et bilans d’accessibilité
+    Quand je me rends sur le chemin "/plan_action_accessibilite"
+    Alors le titre de la page est "Plan d’action et bilans d’accessibilité - DataPass"
+
   Scénario: Le titre de la page des mentions légales est Mentions légales
     Quand je me rends sur le chemin "/mentions-legales"
     Alors le titre de la page est "Mentions légales - DataPass"
