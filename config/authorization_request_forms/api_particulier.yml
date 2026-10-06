@@ -115,7 +115,7 @@ api-particulier-hoptis:
       contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_hoptis_contact_technique_given_name || 'Jean' %>"
       contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_hoptis_contact_technique_family_name || 'Dupont' %>"
       contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_hoptis_contact_technique_phone_number || '0836656565' %>"
-      contact_technique_job_title: Support client
+      contact_technique_job_title: Support technique
     modalities:
       - params
 
