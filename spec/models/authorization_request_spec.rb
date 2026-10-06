@@ -755,4 +755,10 @@ RSpec.describe AuthorizationRequest do
 
     it { is_expected.to be(false) }
   end
+
+  describe '#hubee_file_retention_notice?' do
+    subject { build(:authorization_request, :api_entreprise).hubee_file_retention_notice? }
+
+    it { is_expected.to be(false) }
+  end
 end

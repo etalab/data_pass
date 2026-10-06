@@ -37,6 +37,34 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Alors il y a un message de succès contenant "soumise avec succès"
     Et la demande contient les conditions d'extraction CNOUS attendues
 
+  @AvecCourriels
+  Scénario: Le mail de validation prévient que le fichier HubEE est supprimé après 7 jours
+    Sachant que je suis un demandeur
+    Et que l’API géo connaît la commune "75056" nommée "Paris"
+    Et que l’API HubEE accepte les abonnements
+    Et que je me connecte
+    Et qu'un type d'habilitation "Boursiers" expose le bloc "cnous_data_extraction_criteria"
+
+    Quand je démarre une nouvelle demande d'habilitation "Boursiers"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je remplis "Communes (codes INSEE) n°1" avec "75056"
+    * je sélectionne "Échelon 5 et au-dessus" pour "Échelon de bourse minimum"
+    * je remplis la date de transmission avec une date future
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du contact métier
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Quand un instructeur a validé la demande d'habilitation
+    Alors un email est envoyé contenant "vous disposerez de 7 jours à compter de cette date pour télécharger le fichier"
+    Et un email est envoyé contenant "le fichier sera automatiquement supprimé de HubEE"
+
   Scénario: Un code INSEE invalide est signalé visuellement sur le champ concerné
     Sachant que je suis un demandeur
     Et que l’API géo connaît la commune "75056" nommée "Paris"
