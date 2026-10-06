@@ -65,6 +65,12 @@ RSpec.describe AuthorizationExtensions::CnousDataExtractionCriteria do
     end
   end
 
+  describe '#hubee_file_retention_notice?' do
+    it 'is true for any request embedding the CNOUS extraction block' do
+      expect(build_request).to be_hubee_file_retention_notice
+    end
+  end
+
   describe 'populate codes insee and entity on create (after_commit)' do
     it 'stores a commune entity without a geo lookup' do
       request = build_request(organization: organization_with(categorie: '7210', commune: '92023'))

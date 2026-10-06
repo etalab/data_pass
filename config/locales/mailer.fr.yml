@@ -65,6 +65,12 @@ fr:
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
 
   authorization_request_mailer:
+    shared:
+      hubee_file_retention_notice:
+        warning: "Attention :"
+        availability_html: selon la date indiquée dans votre demande pour la réception du fichier, vous disposerez de %{delay}.
+        delay: 7 jours à compter de cette date pour télécharger le fichier
+        deletion: Une fois ce délai passé, le fichier sera automatiquement supprimé de HubEE.
     approve:
       subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
       description: |

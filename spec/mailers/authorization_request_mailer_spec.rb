@@ -310,4 +310,89 @@ RSpec.describe AuthorizationRequestMailer do
       expect(text).to match(authorization_request.modification_request.reason)
     end
   end
+
+  describe 'HubEE file retention notice' do
+    let(:notice) { 'vous disposerez de 7 jours à compter de cette date pour télécharger le fichier' }
+    let(:deletion) { 'Une fois ce délai passé, le fichier sera automatiquement supprimé de HubEE.' }
+    let(:habilitation_type) do
+      create(:habilitation_type,
+        contact_types: ['contact_metier'],
+        blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }])
+    end
+
+    def cnous_authorization_request(*traits)
+      create(:authorization_request, *traits, type: habilitation_type.authorization_request_type, form_uid: habilitation_type.slug)
+    end
+
+    before do
+      AuthorizationDefinition.reset!
+      AuthorizationRequestForm.reset!
+    end
+
+    after do
+      AuthorizationDefinition.reset!
+      AuthorizationRequestForm.reset!
+    end
+
+    describe '#approve' do
+      subject(:mail) { described_class.with(authorization_request:).approve }
+
+      let(:authorization_request) { cnous_authorization_request(:validated) }
+
+      it 'warns the applicant in the text part that the file is deleted from HubEE after 7 days' do
+        text = decoded_text_body(mail)
+
+        expect(text).to include("⚠️ Attention : selon la date indiquée dans votre demande pour la réception du fichier, #{notice}.")
+        expect(text).to include(deletion)
+      end
+
+      it 'warns the applicant in the HTML part, the emoji being hidden from screen readers' do
+        html = decoded_html_body(mail)
+
+        expect(html).to include('<span aria-hidden="true">⚠️</span> Attention :')
+        expect(html).to include('<strong>7 jours à compter de cette date pour télécharger le fichier</strong>')
+        expect(html).to include(deletion)
+      end
+
+      it 'keeps the instructor message after the notice' do
+        authorization_request.latest_authorization.update!(message: 'Message de l’instructeur')
+
+        text = decoded_text_body(mail)
+
+        expect(text.index(deletion)).to be < text.index('Message de l’instructeur')
+      end
+    end
+
+    describe '#reopening_approve' do
+      subject(:mail) { described_class.with(authorization_request:).reopening_approve }
+
+      let(:authorization_request) { cnous_authorization_request(:validated) }
+
+      it 'warns the applicant in both parts' do
+        expect(decoded_text_body(mail)).to include(notice)
+        expect(decoded_html_body(mail)).to include(deletion)
+      end
+    end
+
+    describe '#refuse' do
+      subject(:mail) { described_class.with(authorization_request:).refuse }
+
+      let(:authorization_request) { cnous_authorization_request(:refused) }
+
+      it 'does not include the notice' do
+        expect(decoded_text_body(mail)).not_to include(deletion)
+      end
+    end
+
+    describe 'another kind of authorization request' do
+      subject(:mail) { described_class.with(authorization_request:).approve }
+
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+      it 'does not include the notice' do
+        expect(decoded_text_body(mail)).not_to include(deletion)
+        expect(decoded_html_body(mail)).not_to include(deletion)
+      end
+    end
+  end
 end
