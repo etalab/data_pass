@@ -50,5 +50,43 @@ RSpec.describe EmailPreviewRenderer do
         expect(render).to include('réouverture')
       end
     end
+
+    context 'with an authorization request embedding the CNOUS extraction block' do
+      let(:habilitation_type) do
+        create(:habilitation_type,
+          contact_types: ['contact_metier'],
+          blocks: [{ 'name' => 'basic_infos' }, { 'name' => 'cnous_data_extraction_criteria' }, { 'name' => 'contacts' }])
+      end
+      let(:authorization_request) do
+        create(:authorization_request, type: habilitation_type.authorization_request_type, form_uid: habilitation_type.slug)
+      end
+      let(:hubee_file_retention_notice) { 'le fichier sera automatiquement supprimé de HubEE' }
+
+      before do
+        AuthorizationDefinition.reset!
+        AuthorizationRequestForm.reset!
+      end
+
+      after do
+        AuthorizationDefinition.reset!
+        AuthorizationRequestForm.reset!
+      end
+
+      context 'with approval action' do
+        let(:action) { :approval }
+
+        it 'shows the instructor the HubEE file retention notice sent to the applicant' do
+          expect(render).to include(hubee_file_retention_notice)
+        end
+      end
+
+      context 'with refusal action' do
+        let(:action) { :refusal }
+
+        it 'does not include the HubEE file retention notice' do
+          expect(render).not_to include(hubee_file_retention_notice)
+        end
+      end
+    end
   end
 end

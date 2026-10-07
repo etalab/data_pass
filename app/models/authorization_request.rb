@@ -189,6 +189,10 @@ class AuthorizationRequest < ApplicationRecord
     false
   end
 
+  def hubee_file_retention_notice?
+    false
+  end
+
   def france_connect_certified_form?
     form&.france_connect_certified? || false
   end

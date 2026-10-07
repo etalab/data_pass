@@ -6,6 +6,10 @@
   authorization_request_name: @authorization_request.name,
   authorization_request_url: authorization_request_url(@authorization_request),
 )) %>
+<% if @authorization_request.hubee_file_retention_notice? %>
+<br/>
+<%= render partial: 'authorization_request_mailer/shared/hubee_file_retention_notice' %>
+<% end %>
 <% if @authorization_request.latest_authorization&.message.present? %>
 <br/>
 <%= simple_format(t('.additional_message', message: @authorization_request.latest_authorization.message)) %>

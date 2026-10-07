@@ -38,6 +38,10 @@ module AuthorizationExtensions::CnousDataExtractionCriteria
     entity_type.present?
   end
 
+  def hubee_file_retention_notice?
+    true
+  end
+
   private
 
   def populate_codes_insee_and_entity
