@@ -47,6 +47,19 @@ Fonctionnalité: Instruction: templates de messages
     Alors il y a un message de succès contenant "Le modèle a été créé avec succès"
     Et la page contient "eIDAS 2"
 
+  Scénario: Un manager du formulaire QF peut créer un template et retrouver la liste
+    Sachant que je suis un manager "Formulaire d'accès au Quotient Familial"
+    Et que je me connecte
+    Quand je me rends sur la page des templates de messages pour "Formulaire d'accès au Quotient Familial"
+    Et que je clique sur le premier "Nouveau modèle"
+    Et que je sélectionne "Refus" pour "Type de modèle"
+    Et que je remplis "Titre" avec "Commune hors périmètre"
+    Et que je remplis "Contenu" avec "La commune n’est pas éligible au formulaire QF."
+    Et que je clique sur "Enregistrer"
+    Alors il y a un message de succès contenant "Le modèle a été créé avec succès"
+    Et la page contient "Commune hors périmètre"
+    Et la page contient "La commune n’est pas éligible au formulaire QF."
+
   Scénario: Un manager peut éditer un template
     Sachant que je suis un manager "API Entreprise"
     Et que je me connecte
