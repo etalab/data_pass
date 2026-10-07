@@ -2,13 +2,13 @@ RSpec.describe FindOrCreateUserThroughProConnect do
   describe '#call' do
     subject(:find_or_create_user) { described_class.call(pro_connect_omniauth_payload:) }
 
-    let(:raw_info_overrides) { {} }
-    let(:removed_raw_info_keys) { [] }
+    let(:payload_overrides) { {} }
+    let(:removed_payload_keys) { [] }
     let(:pro_connect_omniauth_payload) do
       build(
         :proconnect_omniauth_payload,
-        extra: { 'raw_info' => build(:proconnect_raw_info_payload, **raw_info_overrides) }
-      ).tap { |payload| payload['extra']['raw_info'].except!(*removed_raw_info_keys) }
+        extra: { 'raw_info' => build(:proconnect_raw_info_payload, **payload_overrides) }
+      ).tap { |payload| payload['extra']['raw_info'].except!(*removed_payload_keys) }
     end
     let(:raw_info) { pro_connect_omniauth_payload.dig('extra', 'raw_info') }
 
@@ -42,7 +42,7 @@ RSpec.describe FindOrCreateUserThroughProConnect do
       end
 
       context 'when the identity provider does not send the phone number' do
-        let(:removed_raw_info_keys) { ['phone_number'] }
+        let(:removed_payload_keys) { ['phone_number'] }
 
         it 'creates the user without phone number' do
           expect(find_or_create_user.user.phone_number).to be_nil
@@ -60,34 +60,6 @@ RSpec.describe FindOrCreateUserThroughProConnect do
           phone_number: '0102030405',
           job_title: 'Cheffe de projet'
         )
-      end
-
-      shared_examples 'an identity attribute synchronized only when filled' do |attribute, payload_key, filled_value|
-        context "when #{payload_key} is missing from the payload" do
-          let(:removed_raw_info_keys) { [payload_key] }
-
-          it "keeps the existing #{attribute}" do
-            expect { find_or_create_user }.not_to change { user.reload.public_send(attribute) }
-          end
-        end
-
-        [nil, '', '   '].each do |blank_value|
-          context "when #{payload_key} is #{blank_value.inspect}" do
-            let(:raw_info_overrides) { { payload_key.to_sym => blank_value } }
-
-            it "keeps the existing #{attribute}" do
-              expect { find_or_create_user }.not_to change { user.reload.public_send(attribute) }
-            end
-          end
-        end
-
-        context "when #{payload_key} is filled" do
-          let(:raw_info_overrides) { { payload_key.to_sym => filled_value } }
-
-          it "updates #{attribute}" do
-            expect { find_or_create_user }.to change { user.reload.public_send(attribute) }.to(filled_value)
-          end
-        end
       end
 
       it 'does not create a new user' do
