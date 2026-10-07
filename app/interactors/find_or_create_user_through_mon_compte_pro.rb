@@ -29,16 +29,23 @@ class FindOrCreateUserThroughMonComptePro < ApplicationInteractor
   def user_attributes
     info_payload.slice(
       'email',
-      'family_name',
-      'given_name',
       'email_verified',
-      'phone_number',
       'phone_number_verified',
     ).merge(
-      'job_title' => info_payload['job'],
+      identity_attributes
+    ).merge(
       'external_id' => info_payload['sub'],
     ).merge(
       context.user_attributes || {}
     )
+  end
+
+  def identity_attributes
+    {
+      'family_name' => info_payload['family_name'],
+      'given_name' => info_payload['given_name'],
+      'phone_number' => info_payload['phone_number'],
+      'job_title' => info_payload['job'],
+    }.reject { |_attribute, value| value.to_s.blank? }
   end
 end
