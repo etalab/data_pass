@@ -1,0 +1,45 @@
+{
+  "header": {
+    "statut": 200,
+    "message": "ok"
+  },
+  "etablissement": {
+    "siren": "110068012",
+    "nic": "00050",
+    "siret": "11006801200050",
+    "statutDiffusionEtablissement": "O",
+    "dateCreationEtablissement": "2012-05-16",
+    "etablissementSiege": true,
+    "nombrePeriodesEtablissement": 1,
+    "uniteLegale": {
+      "etatAdministratifUniteLegale": "A",
+      "statutDiffusionUniteLegale": "O",
+      "categorieJuridiqueUniteLegale": "7113",
+      "denominationUniteLegale": "MINISTERE DE LA TRANSITION ECOLOGIQUE, DE LA BIODIVERSITE ET DES NEGOCIATIONS INTERNATIONALES SUR LE CLIMAT ET LA NATURE",
+      "sigleUniteLegale": null,
+      "activitePrincipaleUniteLegale": "84.11Z",
+      "nomenclatureActivitePrincipaleUniteLegale": "NAFRev2",
+      "nicSiegeUniteLegale": "00050"
+    },
+    "adresseEtablissement": {
+      "numeroVoieEtablissement": "246",
+      "typeVoieEtablissement": "BD",
+      "libelleVoieEtablissement": "SAINT-GERMAIN",
+      "codePostalEtablissement": "75007",
+      "libelleCommuneEtablissement": "PARIS",
+      "codeCommuneEtablissement": "75107"
+    },
+    "periodesEtablissement": [
+      {
+        "dateFin": null,
+        "dateDebut": "2012-05-16",
+        "etatAdministratifEtablissement": "A",
+        "changementEtatAdministratifEtablissement": false,
+        "enseigne1Etablissement": null,
+        "activitePrincipaleEtablissement": "84.11Z",
+        "nomenclatureActivitePrincipaleEtablissement": "NAFRev2",
+        "caractereEmployeurEtablissement": "O"
+      }
+    ]
+  }
+}

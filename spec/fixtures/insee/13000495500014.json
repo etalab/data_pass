@@ -1,0 +1,45 @@
+{
+  "header": {
+    "statut": 200,
+    "message": "ok"
+  },
+  "etablissement": {
+    "siren": "130004955",
+    "nic": "00014",
+    "siret": "13000495500014",
+    "statutDiffusionEtablissement": "O",
+    "dateCreationEtablissement": "2008-04-03",
+    "etablissementSiege": true,
+    "nombrePeriodesEtablissement": 1,
+    "uniteLegale": {
+      "etatAdministratifUniteLegale": "A",
+      "statutDiffusionUniteLegale": "O",
+      "categorieJuridiqueUniteLegale": "7120",
+      "denominationUniteLegale": "DIRECTION GENERALE DES FINANCES PUBLIQUES",
+      "sigleUniteLegale": "DGFIP",
+      "activitePrincipaleUniteLegale": "84.11Z",
+      "nomenclatureActivitePrincipaleUniteLegale": "NAFRev2",
+      "nicSiegeUniteLegale": "00014"
+    },
+    "adresseEtablissement": {
+      "numeroVoieEtablissement": "139",
+      "typeVoieEtablissement": "RUE",
+      "libelleVoieEtablissement": "DE BERCY",
+      "codePostalEtablissement": "75012",
+      "libelleCommuneEtablissement": "PARIS",
+      "codeCommuneEtablissement": "75112"
+    },
+    "periodesEtablissement": [
+      {
+        "dateFin": null,
+        "dateDebut": "2008-04-03",
+        "etatAdministratifEtablissement": "A",
+        "changementEtatAdministratifEtablissement": false,
+        "enseigne1Etablissement": null,
+        "activitePrincipaleEtablissement": "84.11Z",
+        "nomenclatureActivitePrincipaleEtablissement": "NAFRev2",
+        "caractereEmployeurEtablissement": "O"
+      }
+    ]
+  }
+}

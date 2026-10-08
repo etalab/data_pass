@@ -8,7 +8,7 @@ L'accès à l'API requiert un compte avec des droits spécifiques. Vous pouvez d
 
 ### Setup mode facile
 
-Les seeds ajoutent le role `api_entreprise:developer` et créent une application (identifiants: client_id/so_secret) à l'utilisteur `api-entreprise@yopmail.com`
+Les seeds ajoutent le role `api_entreprise:developer` et créent une application (identifiants: client_id/so_secret) à l'utilisateur `dev-apie@yopmail.com`
 
 ### Setup mode avancé
 

@@ -20,7 +20,7 @@ class Organisms::Instruction::UserRights::TableComponentPreview < ApplicationPre
   # **Où** : espace instruction, gestion des droits (`instruction/user_rights/index`), dans la
   # turbo-frame alimentée par la recherche.
   def with_users
-    actor = User.find_by!(email: 'datapass@yopmail.com')
+    actor = User.find_by!(email: 'admin-instructeur@yopmail.com')
     users = User.with_roles.where.not(id: actor.id).limit(5)
 
     render Organisms::Instruction::UserRights::TableComponent.new(
@@ -40,7 +40,7 @@ class Organisms::Instruction::UserRights::TableComponentPreview < ApplicationPre
   # **Où** : espace instruction, gestion des droits (`instruction/user_rights/index`), dans la
   # turbo-frame alimentée par la recherche.
   def with_own_row_non_editable_as_manager
-    actor = User.find_by!(email: 'datapass@yopmail.com')
+    actor = User.find_by!(email: 'admin-instructeur@yopmail.com')
     others = User.with_roles.where.not(id: actor.id).limit(4).to_a
     users = [actor, *others]
 
