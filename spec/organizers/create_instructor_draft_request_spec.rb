@@ -72,6 +72,7 @@ RSpec.describe CreateInstructorDraftRequest, type: :organizer do
 
       expect(document.files.count).to eq(1)
       expect(document.files.first.filename.to_s).to eq('dummy.pdf')
+      expect(document.files.first.download).to eq(Rails.root.join('spec/fixtures/dummy.pdf').binread)
     end
   end
 

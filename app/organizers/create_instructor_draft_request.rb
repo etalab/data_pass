@@ -7,5 +7,5 @@ class CreateInstructorDraftRequest < ApplicationOrganizer
   organize BuildInstructorDraftRequestModels,
     AssignParamsToAuthorizationRequest,
     SaveInstructorDraftRequest,
-    AssignDocumentsToInstructorDraftRequest
+    SyncInstructorDraftRequestDocuments
 end

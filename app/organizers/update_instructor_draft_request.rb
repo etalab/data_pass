@@ -7,7 +7,8 @@ class UpdateInstructorDraftRequest < ApplicationOrganizer
     context.fail! if context.authorization_request_params.empty?
   end
 
-  organize AssignParamsToAuthorizationRequest
+  organize AssignParamsToAuthorizationRequest,
+    SyncInstructorDraftRequestDocuments
 
   after do
     context.instructor_draft_request.data = context.authorization_request.data

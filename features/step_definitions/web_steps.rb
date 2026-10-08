@@ -87,7 +87,7 @@ Quand('je remplis {string} avec {string}') do |label, value|
 end
 
 Quand('je remplis {string} avec le fichier {string}') do |label, path|
-  attach_file(label, path)
+  attach_file(label, Rails.root.join(path).to_s)
 end
 
 Quand('je clique sur {string} dans la rangée {string}') do |link, row|

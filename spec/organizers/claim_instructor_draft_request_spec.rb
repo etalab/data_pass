@@ -112,4 +112,26 @@ RSpec.describe ClaimInstructorDraftRequest, type: :organizer do
       expect(organizer.error).to eq(:draft_already_claimed)
     end
   end
+
+  context 'with a document uploaded at the draft creation' do
+    let(:instructor_draft_request) do
+      CreateInstructorDraftRequest.call(
+        instructor: create(:user, :instructor),
+        instructor_draft_request_params: { authorization_request_class: 'AuthorizationRequest::APIEntreprise' },
+        authorization_request_params: ActionController::Parameters.new(
+          intitule: 'Test Project',
+          cadre_juridique_document: ['', fixture_file_upload('spec/fixtures/dummy.pdf', 'application/pdf')]
+        )
+      ).instructor_draft_request.tap do |draft|
+        draft.update!(applicant: create(:user), organization:)
+      end
+    end
+
+    it 'gives the authorization request a downloadable file' do
+      file = organizer.authorization_request.cadre_juridique_document.first
+
+      expect(file.filename.to_s).to eq('dummy.pdf')
+      expect(file.download).to eq(Rails.root.join('spec/fixtures/dummy.pdf').binread)
+    end
+  end
 end
