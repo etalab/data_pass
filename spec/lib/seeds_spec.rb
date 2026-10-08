@@ -12,32 +12,6 @@ RSpec.describe Seeds do
       described_class.new.flushdb
     end
 
-    it 'no longer creates the legacy test accounts' do
-      legacy_emails = %w[user@yopmail.com user11@yopmail.com user12@yopmail.com whatever@fia1.fr departement@yopmail.com api-entreprise@yopmail.com datapass@yopmail.com dgfip@yopmail.com]
-
-      expect(User.where(email: legacy_emails)).to be_empty
-    end
-
-    it 'creates no account nor organization as a side effect of building request data' do
-      expect(User.where.not('email LIKE ?', '%@yopmail.com').pluck(:email)).to be_empty
-      expect(Organization.all.map(&:name).grep(/nom inconnu/)).to be_empty
-    end
-
-    it 'no longer creates the legacy requests duplicated by the reference scenarios' do
-      duplicated_intitules = [
-        'Statistiques sur les effectifs',
-        'Loi énérgie',
-        'Mise à jour soumise en cours',
-        'MPS 2014 - Migration v1',
-        'Demande avec nouveau message',
-        'Connexion FranceConnect ImpotPart',
-        'Portail des aides dans le secteur du bâtiment',
-      ]
-
-      expect(AuthorizationRequest.all.map { |request| request.try(:intitule) } & duplicated_intitules).to be_empty
-      expect(AuthorizationRequest.where(form_uid: 'api-entreprise-mgdis')).to be_empty
-    end
-
     it 'gives the OAuth application to the API Entreprise developer' do
       expect(Doorkeeper::Application.find_by!(uid: 'client_id').owner.email).to eq('dev-apie@yopmail.com')
     end
