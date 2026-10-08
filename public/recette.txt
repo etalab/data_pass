@@ -1,0 +1,8 @@
+Recette sandbox : recette/2026-10-08
+Base : develop @ 2800721e
+
+2026-10-08 09:16 — construction
+  DPP-75     #1792   32a2c751  feature/dpp-75-us-page-interne-de-reference-des-environnements-de-test
+  DPP-75     #1793   5eca0a4c  feature/dpp-75-refacto-et-optimisation-des-seeds
+  DPP-168    #1799   b9fd6098  feature/dpp-168-ts-ne-plus-ecraser-les-informations-du-compte-par-une-valeur
+  DPP-58     #1800   404a6eb2  feature/dpp-58-bug-ecran-derreur-sur-modele-de-message-dans-linterface
