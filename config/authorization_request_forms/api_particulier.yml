@@ -115,7 +115,101 @@ api-particulier-hoptis:
       contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_hoptis_contact_technique_given_name || 'Jean' %>"
       contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_hoptis_contact_technique_family_name || 'Dupont' %>"
       contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_hoptis_contact_technique_phone_number || '0836656565' %>"
-      contact_technique_job_title: Support client
+      contact_technique_job_title: Support technique
+    modalities:
+      - params
+
+api-particulier-clartec:
+  name: Manua
+  description: Gestion des services enfance et jeunesse
+  authorization_request: APIParticulier
+  use_case: tarification_municipale_enfance
+  service_provider_id: clartec
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - cnav_allocation_enfant_handicape
+  initialize_with:
+    intitule: Manua | Gestion des services enfance et jeunesse
+    description: |
+      Gestion des services enfance et jeunesse qui ont une tarification basée sur le quotient familial.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnaf_quotient_familial
+    modalities:
+      - params
+
+api-particulier-periscolia:
+  name: Periscolia
+  description: Gestion des services scolaires et périscolaires
+  authorization_request: APIParticulier
+  use_case: tarification_municipale_enfance
+  service_provider_id: periscolia
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - cnav_allocation_enfant_handicape
+  initialize_with:
+    intitule: Periscolia | Gestion des services scolaires et périscolaires
+    description: |
+      Gestion des services scolaires et périscolaires qui ont une tarification basée sur le quotient familial.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnaf_quotient_familial
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_periscolia_contact_technique_email || 'tech-periscolia@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_periscolia_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_periscolia_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_periscolia_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Support client
+    modalities:
+      - params
+
+api-particulier-nouvelle-epoque-industries:
+  name: Nouvelle Époque
+  description: Gestion des services scolaires et périscolaires
+  authorization_request: APIParticulier
+  use_case: tarification_municipale_enfance
+  service_provider_id: nouvelle_epoque_industries
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - cnav_allocation_enfant_handicape
+  initialize_with:
+    intitule: Nouvelle Époque | Gestion des services scolaires et périscolaires
+    description: |
+      Gestion des services scolaires et périscolaires qui ont une tarification basée sur le quotient familial.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnaf_quotient_familial
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_nouvelle_epoque_industries_contact_technique_email || 'tech-nouvelle-epoque@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_nouvelle_epoque_industries_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_nouvelle_epoque_industries_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_nouvelle_epoque_industries_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Support client
     modalities:
       - params
 
@@ -2099,7 +2193,7 @@ api-particulier-sigec-maelis:
 
 api-particulier-arpege-concerto-petite-enfance:
   name: Concerto Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: arpege
@@ -2120,7 +2214,7 @@ api-particulier-arpege-concerto-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2132,7 +2226,7 @@ api-particulier-arpege-concerto-petite-enfance:
 
 api-particulier-aiga-petite-enfance:
   name: iNoé | Malice Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: aiga
@@ -2171,7 +2265,7 @@ api-particulier-aiga-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d’acceuil du jeune enfant en backoffice par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2186,7 +2280,7 @@ api-particulier-aiga-petite-enfance:
 
 api-particulier-teamnet-axel-petite-enfance:
   name: Axel petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: teamnet
@@ -2207,7 +2301,7 @@ api-particulier-teamnet-axel-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2610,7 +2704,7 @@ api-particulier-inscription-administrative-etudiant:
 
 api-particulier-technocarte-babicarte:
   name: Babicarte Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: technocarte
@@ -2631,7 +2725,7 @@ api-particulier-technocarte-babicarte:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2643,7 +2737,7 @@ api-particulier-technocarte-babicarte:
 
 api-particulier-sigec-maelis-petite-enfance:
   name: Maelis Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: sigec
@@ -2664,7 +2758,7 @@ api-particulier-sigec-maelis-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2676,7 +2770,7 @@ api-particulier-sigec-maelis-petite-enfance:
 
 api-particulier-city-family-mushroom-software-petite-enfance:
   name: City Family Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: mushroom_software
@@ -2697,7 +2791,7 @@ api-particulier-city-family-mushroom-software-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2709,7 +2803,7 @@ api-particulier-city-family-mushroom-software-petite-enfance:
 
 api-particulier-carte-plus-petite-enfance:
   name: Carte+ Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: carte_plus
@@ -2730,7 +2824,7 @@ api-particulier-carte-plus-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2742,7 +2836,7 @@ api-particulier-carte-plus-petite-enfance:
 
 api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
   name: Mikado
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: familea
@@ -2763,7 +2857,7 @@ api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+      Gestion de la tarification des établissements d’accueil du jeune enfant par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2778,7 +2872,7 @@ api-particulier-abelium-petite-enfance:
 
 api-particulier-hoptis-petite-enfance:
   name: Hoptis Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: hoptis
@@ -2799,7 +2893,7 @@ api-particulier-hoptis-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2812,7 +2906,7 @@ api-particulier-hoptis-petite-enfance:
 
 api-particulier-agora-baby:
   name: Agora Baby
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: agora_plus
@@ -2833,7 +2927,7 @@ api-particulier-agora-baby:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2845,7 +2939,7 @@ api-particulier-agora-baby:
 
 api-particulier-bl-enfance-petite-enfance:
   name: BL Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: berger_levrault
@@ -2866,7 +2960,7 @@ api-particulier-bl-enfance-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2878,7 +2972,7 @@ api-particulier-bl-enfance-petite-enfance:
 
 api-particulier-civil-petite-enfance-ciril-group:
   name: Civil petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: ciril_group
@@ -2917,7 +3011,7 @@ api-particulier-civil-petite-enfance-ciril-group:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2929,7 +3023,7 @@ api-particulier-civil-petite-enfance-ciril-group:
 
 api-particulier-docaposte-fast-petite-enfance:
   name: Fast Petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: docaposte
@@ -2950,7 +3044,7 @@ api-particulier-docaposte-fast-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2962,7 +3056,7 @@ api-particulier-docaposte-fast-petite-enfance:
 
 api-particulier-entrouvert-publik-famille-petite-enfance:
   name: Publik Famille petite enfance
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: entrouvert
@@ -2983,7 +3077,7 @@ api-particulier-entrouvert-publik-famille-petite-enfance:
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -2995,7 +3089,7 @@ api-particulier-entrouvert-publik-famille-petite-enfance:
 
 api-particulier-opticreche-petite-enfance:
   name: optiCreche
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: themisto_conseil
@@ -3016,7 +3110,7 @@ api-particulier-opticreche-petite-enfance:
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -3033,7 +3127,7 @@ api-particulier-opticreche-petite-enfance:
 
 api-particulier-capcreche-petite-enfance:
   name: CapCreche
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: icap
@@ -3054,7 +3148,7 @@ api-particulier-capcreche-petite-enfance:
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -3071,7 +3165,7 @@ api-particulier-capcreche-petite-enfance:
 
 api-particulier-daycare-app-petite-enfance:
   name: Daycare app
-  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
   service_provider_id: osmia_projects
@@ -3092,7 +3186,7 @@ api-particulier-daycare-app-petite-enfance:
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
-      Gestion de la tarification des établissement d'acceuil du jeune enfant pour les établissement qui ont une convention Prestation de service unique (PSU)
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
     scopes:
       - cnav_participation_familiale_eaje_allocataires
@@ -3104,6 +3198,77 @@ api-particulier-daycare-app-petite-enfance:
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_daycare_app_petite_enfance_contact_technique_family_name || 'Dupont' %>"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_daycare_app_petite_enfance_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Développeur
+    modalities:
+      - params
+
+api-particulier-clartec-petite-enfance:
+  name: Manua Petite enfance
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: clartec
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
+    description: |
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-studio1247-petite-enfance:
+  name: Gertrude
+  description: Tarification PSU dans les établissements d’accueil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: studio1247
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
+    description: |
+      Gestion de la tarification des établissements d’accueil du jeune enfant pour les établissements qui ont une convention Prestation de service unique (PSU)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_email || 'tech-gertrude@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Support technique
     modalities:
       - params
 
