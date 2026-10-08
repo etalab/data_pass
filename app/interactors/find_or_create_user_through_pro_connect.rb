@@ -16,13 +16,16 @@ class FindOrCreateUserThroughProConnect < ApplicationInteractor
   end
 
   def user_attributes
+    identity_attributes
+      .merge('external_id' => raw_info_payload['sub'])
+      .merge(Hash(context.user_attributes))
+  end
+
+  def identity_attributes
     {
       'family_name' => raw_info_payload['usual_name'],
       'given_name' => raw_info_payload['given_name'],
       'phone_number' => raw_info_payload['phone_number'],
-      'external_id' => raw_info_payload['sub'],
-    }.merge(
-      Hash(context.user_attributes)
-    )
+    }.reject { |_attribute, value| value.to_s.blank? }
   end
 end
