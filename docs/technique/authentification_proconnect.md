@@ -124,6 +124,13 @@ Trois objets distincts en sortent : **qui** est l'agent (User, via email), **où
 (Organization, via SIRET enrichi INSEE), et le **lien de confiance** entre les deux (`verified`
 ou non, selon le FI).
 
+À chaque connexion, `FindOrCreateUserThroughProConnect` resynchronise le nom (`usual_name`), le
+prénom (`given_name`) et le téléphone (`phone_number`) de l’agent, **seulement quand le FI les
+transmet** : une valeur vide ou absente laisse en place celle déjà connue du compte (certains FI
+fédérés, comme celui de la CNAM, ne transmettent pas le téléphone). Le poste (`job_title`) n’est
+jamais fourni par ProConnect et n’est donc pas touché. La chaîne MonComptePro applique la même
+règle, poste compris.
+
 Le controller appelle ensuite `sign_in`, qui crée la **session applicative DataPass**. La logique
 de cycle de vie est isolée dans le concern `Authentication::SessionLifecycle` (durée, validation,
 rotation). Au login, `rotate_session` régénère l'identifiant de session (protection
