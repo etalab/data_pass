@@ -6,6 +6,8 @@ class MessageTemplatePreviewRenderer
   }.freeze
 
   PREVIEW_REQUEST_ID = 9001
+  PREVIEW_REQUEST_INTITULE = 'Exemple de demande'.freeze
+  PREVIEW_ORGANIZATION_NAME = 'Organisation exemple'.freeze
 
   def initialize(message_template, entity_name:)
     @message_template = message_template
@@ -44,14 +46,29 @@ class MessageTemplatePreviewRenderer
   end
 
   def build_authorization_request
-    authorization_request_class.new(id: PREVIEW_REQUEST_ID, intitule: 'Exemple de demande').tap do |request|
+    authorization_request_class.new(preview_attributes).tap do |request|
       request.applicant = preview_applicant
+      request.organization = preview_organization
       request.build_denial(reason: interpolated_content)
       request.build_modification_request(reason: interpolated_content)
 
       authorization = Authorization.new(message: interpolated_content)
       request.define_singleton_method(:latest_authorization) { authorization }
     end
+  end
+
+  def preview_attributes
+    attributes = { id: PREVIEW_REQUEST_ID, form_uid: message_template.authorization_definition.default_form&.uid }
+    attributes[:intitule] = PREVIEW_REQUEST_INTITULE if authorization_request_class.method_defined?(:intitule=)
+    attributes
+  end
+
+  def preview_organization
+    Organization.new(
+      legal_entity_id: '13002526500013',
+      legal_entity_registry: 'insee_sirene',
+      insee_payload: { 'etablissement' => { 'uniteLegale' => { 'denominationUniteLegale' => PREVIEW_ORGANIZATION_NAME } } }
+    )
   end
 
   def preview_applicant
