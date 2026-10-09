@@ -975,7 +975,7 @@ fr:
             label: Via l'état civil
         callout:
           title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
-          content: Vous pourrez poursuivre votre demande d’habilitation à l’API Impôt Particulier lorsque votre habilitation FranceConnect sera validée.
+          content: Vous pourrez poursuivre votre demande d’habilitation à l’API Impôt Particulier lorsque votre habilitation FranceConnect sera délivrée.
           link: Demander une habilitation FranceConnect
         alert:
           title: Vous cherchez la modalité d’accès État civil ?

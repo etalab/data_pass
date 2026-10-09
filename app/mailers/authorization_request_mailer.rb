@@ -11,6 +11,7 @@ class AuthorizationRequestMailer < ApplicationMailer
           subject: t(
             '.subject',
             authorization_request_id: @authorization_request.formatted_id,
+            authorization_id: @authorization_request.latest_authorization&.formatted_id,
           )
         ) do |format|
           format.text { render text_template_path_for(@authorization_request.kind, mth) }

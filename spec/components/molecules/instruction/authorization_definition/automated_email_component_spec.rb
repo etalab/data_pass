@@ -13,7 +13,7 @@ RSpec.describe Molecules::Instruction::AuthorizationDefinition::AutomatedEmailCo
       standard_email: email('AuthorizationRequestMailer', 'approve', { reopening: false })
     ))
 
-    expect(page).to have_css('h3', text: 'Votre habilitation numéro [numéro de la demande]')
+    expect(page).to have_css('h3', text: 'Votre demande [numéro de la demande] a été validée : habilitation [numéro de l’habilitation] délivrée')
     expect(page).to have_text('[demandeur]')
     expect(page).to have_css('pre.automated-email-body', text: '[nom du demandeur]')
   end

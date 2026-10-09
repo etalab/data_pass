@@ -11,7 +11,7 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     it 'renders the form name and instructor email' do
       expect(subject).to have_text('créée par la')
       expect(subject).to have_text('formulaire')
-      expect(subject).to have_text('validée par')
+      expect(subject).to have_text('délivrée par')
       expect(subject).to have_text(event.user.email)
     end
   end
@@ -25,7 +25,7 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     it 'renders the form name without instructor' do
       expect(subject).to have_text('créée par la')
       expect(subject).to have_text('formulaire')
-      expect(subject).to have_no_text('validée par')
+      expect(subject).to have_no_text('délivrée par')
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
 
     it 'renders without form name but with instructor' do
       expect(subject).to have_text('liée à la')
-      expect(subject).to have_text('validée par')
+      expect(subject).to have_text('délivrée par')
       expect(subject).to have_no_text('formulaire')
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
 
     it 'renders without form name and without instructor' do
       expect(subject).to have_text('liée à la')
-      expect(subject).to have_no_text('validée par')
+      expect(subject).to have_no_text('délivrée par')
       expect(subject).to have_no_text('formulaire')
     end
   end
@@ -80,7 +80,7 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     it 'renders auto-generated message with form name and parent instructor' do
       expect(subject).to have_text('automatiquement délivrée')
       expect(subject).to have_text('formulaire')
-      expect(subject).to have_text('validée par')
+      expect(subject).to have_text('délivrée par')
       expect(subject).to have_text(event.user.email)
     end
   end
@@ -96,7 +96,7 @@ RSpec.describe Habilitation::OriginHeaderInfo, type: :component do
     it 'renders auto-generated message with parent instructor but without form name' do
       expect(subject).to have_text('automatiquement délivrée')
       expect(subject).to have_no_text('formulaire')
-      expect(subject).to have_text('validée par')
+      expect(subject).to have_text('délivrée par')
       expect(subject).to have_text(event.user.email)
     end
   end

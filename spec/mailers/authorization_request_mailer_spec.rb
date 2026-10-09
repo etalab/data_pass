@@ -58,6 +58,16 @@ RSpec.describe AuthorizationRequestMailer do
       expect(decoded_text_body(mail)).not_to match('/compte#notifications-section')
     end
 
+    it 'names the validated request and the authorization it gave rise to in the subject' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} a été validée : habilitation #{authorization_request.latest_authorization.formatted_id} délivrée")
+    end
+
+    it 'links the text and html parts to the delivered authorization' do
+      authorization = authorization_request.latest_authorization
+
+      expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}"))
+    end
+
     describe 'custom emails' do
       describe 'HubEE CertDC' do
         let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
