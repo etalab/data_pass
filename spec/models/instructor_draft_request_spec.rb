@@ -23,4 +23,30 @@ RSpec.describe InstructorDraftRequest do
       it { is_expected.not_to be_valid }
     end
   end
+
+  describe '#attachments_for' do
+    subject(:attachments) { draft.attachments_for(identifier) }
+
+    let(:draft) { create(:instructor_draft_request, :with_documents) }
+
+    context 'when the document has files' do
+      let(:identifier) { :cadre_juridique_document }
+
+      it 'returns the persisted attachments' do
+        expect(attachments.map { |attachment| attachment.filename.to_s }).to eq(['dummy.pdf'])
+      end
+    end
+
+    context 'when the document has no files' do
+      let(:identifier) { :maquette_projet }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when the draft is not persisted' do
+      subject(:attachments) { build(:instructor_draft_request).attachments_for(:cadre_juridique_document) }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end

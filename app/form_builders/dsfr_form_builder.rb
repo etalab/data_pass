@@ -219,16 +219,16 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def link_to_files(attribute)
-    files = @object.send(attribute)
-    return unless files.attached?
+    files = existing_attachments(attribute)
+    return if files.empty?
 
     @template.content_tag(:div, class: 'fr-input-group__text fr-mt-1w') do
-      Array(files).filter_map { |file|
-        next unless file.persisted?
-
-        link_to_blob_file_with_remove_button(attribute, file)
-      }.join('<br>').html_safe
+      files.map { |file| link_to_blob_file_with_remove_button(attribute, file) }.join('<br>').html_safe
     end
+  end
+
+  def existing_attachments(attribute)
+    Array(@object.send(attribute)).select(&:persisted?)
   end
 
   def link_to_blob_file_with_remove_button(attribute, file)
@@ -273,11 +273,7 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def hidden_fields_for_existing_attachments(attribute)
-    files = @object.send(attribute)
-
-    hidden_fields = Array(files).filter_map do |file|
-      next unless file.persisted?
-
+    hidden_fields = existing_attachments(attribute).map do |file|
       create_hidden_field_for_file(attribute, file)
     end
 

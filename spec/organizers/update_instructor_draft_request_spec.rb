@@ -123,4 +123,57 @@ RSpec.describe UpdateInstructorDraftRequest, type: :organizer do
       }.not_to change(AuthorizationRequest, :count)
     end
   end
+
+  context 'with files' do
+    let!(:instructor_draft_request) do
+      create(
+        :instructor_draft_request,
+        :with_documents,
+        instructor:,
+        authorization_request_class: 'AuthorizationRequest::APIEntreprise',
+        data: { 'intitule' => 'Original title' }
+      )
+    end
+    let(:existing_signed_id) { instructor_draft_request.documents.first.files.first.signed_id }
+    let(:filenames) { instructor_draft_request.reload.documents.flat_map { |document| document.files.map { |file| file.filename.to_s } } }
+
+    context 'when a file is added on a later save' do
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(
+          intitule: 'Updated title',
+          cadre_juridique_document: ['', fixture_file_upload('spec/fixtures/another_dummy.pdf', 'application/pdf')]
+        )
+      end
+
+      it 'stores the new file and drops the one not resubmitted' do
+        expect(organizer).to be_success
+        expect(filenames).to eq(['another_dummy.pdf'])
+      end
+    end
+
+    context 'when the existing file is kept through its signed id' do
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(
+          intitule: 'Updated title',
+          cadre_juridique_document: ['', existing_signed_id, fixture_file_upload('spec/fixtures/another_dummy.pdf', 'application/pdf')]
+        )
+      end
+
+      it 'keeps both files in a single document' do
+        expect { organizer }.not_to change(InstructorDraftRequestDocument, :count)
+        expect(filenames).to contain_exactly('dummy.pdf', 'another_dummy.pdf')
+      end
+    end
+
+    context 'when only the sentinel is submitted' do
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(intitule: 'Updated title', cadre_juridique_document: [''])
+      end
+
+      it 'removes the file' do
+        expect(organizer).to be_success
+        expect(filenames).to be_empty
+      end
+    end
+  end
 end

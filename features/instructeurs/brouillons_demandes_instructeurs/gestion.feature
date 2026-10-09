@@ -32,6 +32,47 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
     Et le champ "Nom du projet" contient "Conquérir le monde"
     Et le champ "Description du projet" contient "Comment chaque soir"
 
+  Scénario: Le document joint à la création reste visible après sauvegarde
+    Quand je clique sur "Demandes initiées par des instructeurs"
+    Et que je clique sur "Initier une demande d'habilitation"
+    Et que je clique sur "Démarrer le brouillon"
+    Et que je remplis "Nom du projet" avec "Conquérir le monde"
+    Et que je remplis "Ajoutez votre document" avec le fichier "spec/fixtures/dummy.pdf"
+    Et que je clique sur "Sauvegarder"
+    Alors il y a un message de succès contenant "La demande d'habilitation a bien été sauvegardé"
+    Et la page contient "dummy.pdf"
+
+  Scénario: Le document joint lors d’une sauvegarde ultérieure reste visible
+    Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
+    Et que je clique sur "Demandes initiées par des instructeurs"
+    Et que je clique sur "Modifier"
+    Et que je remplis "Ajoutez votre document" avec le fichier "spec/fixtures/dummy.pdf"
+    Et que je clique sur "Sauvegarder"
+    Alors la page contient "dummy.pdf"
+
+  Scénario: Le document est conservé quand on sauvegarde à nouveau sans y toucher
+    Quand je clique sur "Demandes initiées par des instructeurs"
+    Et que je clique sur "Initier une demande d'habilitation"
+    Et que je clique sur "Démarrer le brouillon"
+    Et que je remplis "Nom du projet" avec "Conquérir le monde"
+    Et que je remplis "Ajoutez votre document" avec le fichier "spec/fixtures/dummy.pdf"
+    Et que je clique sur "Sauvegarder"
+    Et que je clique sur "Sauvegarder"
+    Alors la page contient "dummy.pdf"
+
+  @javascript
+  Scénario: Je peux supprimer un document joint à une demande initiée pour autrui
+    Quand je clique sur "Demandes initiées par des instructeurs"
+    Et que je clique sur "Initier une demande d'habilitation"
+    Et que je clique sur "Démarrer le brouillon"
+    Et que je remplis "Nom du projet" avec "Conquérir le monde"
+    Et que je remplis "Ajoutez votre document" avec le fichier "spec/fixtures/dummy.pdf"
+    Et que je clique sur "Sauvegarder"
+    Alors il y a un message de succès contenant "La demande d'habilitation a bien été sauvegardé"
+    Quand je supprime le document "dummy.pdf"
+    Et que je clique sur "Sauvegarder"
+    Alors la page ne contient pas "dummy.pdf"
+
   Scénario: Si je suis instructeur de plusieurs type de demande, je peux choisir le type de demande que je veux
     Sachant que je suis un instructeur "API Particulier"
     Quand je clique sur "Demandes initiées par des instructeurs"

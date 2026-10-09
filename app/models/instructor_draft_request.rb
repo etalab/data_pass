@@ -36,6 +36,12 @@ class InstructorDraftRequest < ApplicationRecord
     )
   end
 
+  def attachments_for(identifier)
+    ActiveStorage::Attachment
+      .includes(:blob)
+      .where(record: documents.where(identifier: identifier.to_s), name: 'files')
+  end
+
   private
 
   def instructor_for_authorization_request
