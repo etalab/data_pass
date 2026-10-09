@@ -197,11 +197,11 @@ fr:
           title: Validation de la demande d'habilitation
           description:
             organization: |
-              Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de valider la demande « %{authorization_request_name} » au profit de l’organisation « %{organization_name} » (numéro de siret : %{organization_siret}) et de délivrer l’habilitation correspondante.
             disclaimer: |
               <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
           cancel: Annuler
-          approve: Valider la demande d'habilitation
+          approve: Valider la demande et délivrer l’habilitation
         reopening:
           title: Validation de la demande de mise à jour de l'habilitation.
           description:
@@ -213,9 +213,9 @@ fr:
           approve: Valider la demande de mise à jour
       create:
         success:
-          title: La demande d'habilitation %{name} a été validé
+          title: L’habilitation %{authorization_id} « %{name} » a été délivrée
         reopening_success:
-          title: La demande de mise à jour de l'habilitation %{name} a été validé
+          title: L’habilitation %{authorization_id} « %{name} » a été mise à jour
 
     refuse_authorization_requests:
       new:

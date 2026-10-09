@@ -97,7 +97,7 @@ Objectif : afficher en interne le nombre de demandes en cours, validées, refus�
 
 L'endpoint `GET /demandes` accepte les filtres `state`, `siret`, pagine via `limit` + `offset`, et retourne les résultats triés par date de création décroissante (les plus récentes en premier). Voir [la documentation OpenAPI](/developpeurs/documentation) pour la liste complète des paramètres et du schéma `Demande`.
 
-### Récupérer toutes les demandes validées d'un SIRET
+### Récupérer les demandes d'un SIRET ayant donné lieu à une habilitation
 
 ```python
 import os, requests

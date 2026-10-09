@@ -814,7 +814,7 @@ fr:
       description: Vous consultez des données antérieures à 2025. Une partie de ces données a été migrée depuis une ancienne version de l’application et peut présenter des anomalies, notamment sur les durées calculées.
     summary:
       submitted: Demandes soumises
-      validated: Demandes validées
+      validated: Habilitations délivrées
       refused: Demandes refusées
       reopenings_prefix: dont
       reopenings_suffix: demandes de mises à jour
@@ -827,10 +827,10 @@ fr:
     chart:
       aria_label: Graphique d’évolution des demandes en attente de réponse (description détaillée disponible ci-après)
       transcription_title: Évolution des demandes en attente de réponse
-      transcription_description: "Ce graphique présente l'évolution des demandes sur la période sélectionnée. Quatre séries sont représentées : les demandes soumises (barres bleues), les demandes validées (barres vertes empilées), les demandes refusées (barres rouges empilées) et les demandes en attente de réponse (ligne grise)."
+      transcription_description: "Ce graphique présente l'évolution des demandes sur la période sélectionnée. Quatre séries sont représentées : les demandes soumises (barres bleues), les habilitations délivrées (barres vertes empilées), les demandes refusées (barres rouges empilées) et les demandes en attente de réponse (ligne grise)."
       labels:
         submitted: Demandes soumises
-        validated: Demandes validées
+        validated: Habilitations délivrées
         refused: Demandes refusées
         pending: Demandes en attente de réponse
     transcription:
