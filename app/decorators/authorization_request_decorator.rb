@@ -1,4 +1,6 @@
 class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Metrics/ClassLength
+  include ContactWording
+
   delegate_all
 
   decorates_association :organization
@@ -30,12 +32,6 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
   def only_in_contacts?(user)
     user != object.applicant &&
       object.contact_types_for(user).present?
-  end
-
-  def humanized_contact_types_for(user)
-    object.contact_types_for(user).map do |contact_type|
-      lookup_i18n_key("#{contact_type}.title").downcase
-    end
   end
 
   def blocks
@@ -263,9 +259,8 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     end
   end
 
-  def lookup_i18n_key(subkey)
-    t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
-      t("authorization_request_forms.default.#{subkey}")
+  def request_model_element
+    object.model_name.element
   end
 
   def current_user_is_a_contact(user)

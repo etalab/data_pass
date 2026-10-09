@@ -55,4 +55,23 @@ RSpec.describe AuthorizationRequestDecorator, type: :decorator do
       end
     end
   end
+
+  describe '#humanized_contact_types_for' do
+    subject { authorization_request.decorate.humanized_contact_types_for(user) }
+
+    let(:user) { build(:user) }
+    let(:authorization_request) { build(:authorization_request, authorization_request_trait, contact_technique_email: user.email) }
+
+    context 'when the form renames the technical contact to RSSI' do
+      let(:authorization_request_trait) { :services_cisirh }
+
+      it { is_expected.to eq(['RSSI']) }
+    end
+
+    context 'when the form keeps the default wording' do
+      let(:authorization_request_trait) { :api_particulier }
+
+      it { is_expected.to eq(['contact technique']) }
+    end
+  end
 end

@@ -147,6 +147,13 @@ fr:
       authorization_request/pro_connect_identity_provider:
         authorize_service_providers_to_connect: J’autorise tous les fournisseurs de services de la fonction publique à utiliser les données transmises par ProConnect pour procéder à l’authentification de leurs utilisateurs.
 
+      authorization_request/services_cisirh:
+        contact_technique_family_name: Nom de famille du RSSI
+        contact_technique_given_name: Prénom du RSSI
+        contact_technique_email: Email du RSSI
+        contact_technique_phone_number: Téléphone du RSSI
+        contact_technique_job_title: Fonction du RSSI
+
       authorization:
         message: Message complémentaire (optionnel)
       denial_of_authorization:
