@@ -158,6 +158,7 @@ Rails.application.routes.draw do
     resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
       member do
         get :confirm_destroy, path: 'confirmer-suppression'
+        get :droits
       end
     end
   end
@@ -186,6 +187,7 @@ Rails.application.routes.draw do
     resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
       member do
         get :confirm_destroy, path: 'confirmer-suppression'
+        get :droits
       end
     end
   end

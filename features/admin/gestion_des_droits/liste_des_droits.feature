@@ -49,6 +49,6 @@ Fonctionnalité: Admin — Gestion des droits — lister les utilisateurs avec d
     Quand je me rends sur la page de gestion des droits
     Alors ma ligne affiche un bouton de modification
 
-  Scénario: Le menu admin contient un lien vers la gestion des droits
+  Scénario: Le menu admin contient un lien vers les utilisateurs et rôles
     Quand je me rends sur le chemin "/admin"
-    Alors la page contient "Gestion des droits"
+    Alors la page contient "Utilisateurs et rôles"

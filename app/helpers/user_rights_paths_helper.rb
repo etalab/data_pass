@@ -7,8 +7,8 @@ module UserRightsPathsHelper
     send(:"#{user_rights_namespace}_user_rights_path")
   end
 
-  def new_user_right_path
-    send(:"new_#{user_rights_namespace}_user_right_path")
+  def new_user_right_path(**)
+    send(:"new_#{user_rights_namespace}_user_right_path", **)
   end
 
   def edit_user_right_path(user)
@@ -17,6 +17,10 @@ module UserRightsPathsHelper
 
   def user_right_path(user)
     send(:"#{user_rights_namespace}_user_right_path", user)
+  end
+
+  def droits_user_right_path(user)
+    send(:"droits_#{user_rights_namespace}_user_right_path", user)
   end
 
   def confirm_destroy_user_right_path(user)

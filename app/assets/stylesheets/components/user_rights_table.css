@@ -1,0 +1,132 @@
+/* Grille à colonnes fixes pour que les cinq colonnes tiennent dans le
+   conteneur DSFR sans défilement horizontal, et que les badges de rôles
+   aient la place de s'aligner. Le modificateur fr-table--layout-fixed
+   cible `.fr-table > table` et ne traverse pas les conteneurs
+   __container / __content de ce markup, d'où le table-layout explicite. */
+.dp-user-rights-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.dp-user-rights-table__col--identity {
+  width: 20%;
+}
+
+.dp-user-rights-table__col--organisation {
+  width: 22%;
+}
+
+.dp-user-rights-table__col--roles {
+  width: 21%;
+}
+
+.dp-user-rights-table__col--droits {
+  width: 17%;
+}
+
+/* La colonne Actions prend la largeur restante, ce qui absorbe l'arrondi
+   des quatre pourcentages ci-dessus. */
+
+/* La cellule d'identité est un en-tête de ligne, que le DSFR colore comme
+   un en-tête de colonne. La maquette la veut blanche : on garde le th
+   pour les lecteurs d'écran et on repeint le fond. */
+.fr-table__content .dp-user-rights-table tbody th {
+  background-color: var(--background-default-grey);
+}
+
+/* Séparateurs horizontaux seulement : le style bordé du DSFR empile deux
+   dégradés par cellule, un filet bas et un filet droit. On ne garde que
+   le premier. */
+.fr-table--bordered .fr-table__content .dp-user-rights-table th,
+.fr-table--bordered .fr-table__content .dp-user-rights-table td {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+}
+
+/* Seul le nom d'organisation est tronqué : l'enveloppe flex sort l'icône
+   de lien externe du DSFR de la zone rognée, et le nom complet comme le
+   SIRET restent dans le title du lien. */
+.dp-user-rights-table__organisation-link {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.dp-user-rights-table__organisation-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dp-user-rights-table__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+}
+
+/* Repli des droits : la maquette montre un lien souligné et un chevron à
+   droite, pas le triangle natif de details. */
+.dp-user-rights-table__droits-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.dp-user-rights-table__droits-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.dp-user-rights-table__droits-chevron {
+  transition: transform 0.2s;
+}
+
+[open] > .dp-user-rights-table__droits-toggle .dp-user-rights-table__droits-chevron {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dp-user-rights-table__droits-chevron {
+    transition: none;
+  }
+}
+
+/* Barre de filtres : la maquette la pose dans une carte bordée, tout sur
+   une seule ligne. */
+.dp-user-rights-filters {
+  border: 1px solid var(--border-default-grey);
+  padding: 1.5rem;
+}
+
+/* Le DSFR fixe les cellules à 0.875rem, mais une règle générique sur p
+   ramène chaque paragraphe à 1rem : le tableau se retrouvait avec deux
+   tailles selon la balise qui portait le texte. Tout s'aligne sur la
+   taille des cellules. */
+.dp-user-rights-table th p:not(.fr-badge),
+.dp-user-rights-table td p:not(.fr-badge),
+.dp-user-rights-table th ul,
+.dp-user-rights-table td ul {
+  font-size: inherit;
+}
+
+/* Le DSFR met les en-têtes de ligne en gras. Ici seul l'email l'est,
+   le nom reste en graisse normale, comme dans la maquette. */
+.fr-table__content .dp-user-rights-table tbody th {
+  font-weight: 400;
+}
+
+/* Un droit hors du périmètre de la personne connectée reste affiché mais
+   ne s'édite pas : listes désactivées, ligne en retrait. Le libellé qui
+   l'expliquera viendra du design ; en attendant la raison est rendue aux
+   lecteurs d'écran. */
+.dp-user-rights-form__right--readonly {
+  background-color: var(--background-alt-grey);
+  padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
+}
