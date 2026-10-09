@@ -13,6 +13,10 @@ class Seeds::Stats < Seeds
     'mtes' => %i[api_mobilic]
   }.freeze
 
+  ONE_REQUEST_PER_ORGANIZATION_TYPES = %i[portail_hubee_demarche_certdc hubee_dila].freeze
+
+  STATES = %i[submitted validated refused validated_after_changes].freeze
+
   FORMS_PER_TYPE = {
     api_entreprise: %w[api-entreprise api-entreprise-marches-publics api-entreprise-aides-publiques],
     api_particulier: %w[api-particulier api-particulier-aiga api-particulier-entrouvert-publik],
@@ -21,12 +25,14 @@ class Seeds::Stats < Seeds
 
   def initialize(seeds)
     @seeds = seeds
+    @skipped_requests_count = 0
   end
 
   def perform
     create_requests_for_all_providers
     create_multi_form_requests
     create_time_spread_requests
+    report_skipped_requests
   end
 
   private
@@ -34,16 +40,25 @@ class Seeds::Stats < Seeds
   def create_requests_for_all_providers
     AUTHORIZATION_TYPES_PER_PROVIDER.each_value do |types|
       types.each do |type|
-        create_authorization_requests_for_type(type)
+        if ONE_REQUEST_PER_ORGANIZATION_TYPES.include?(type)
+          create_one_request_per_stats_commune(type)
+        else
+          create_authorization_requests_for_type(type)
+        end
       end
     end
   end
 
   def create_authorization_requests_for_type(type)
-    create_with_state(:submitted, type, target_date: rand(1..11).months.ago)
-    create_with_state(:validated, type, target_date: rand(1..11).months.ago)
-    create_with_state(:refused, type, target_date: rand(1..11).months.ago)
-    create_with_state(:validated_after_changes, type, target_date: rand(1..11).months.ago)
+    STATES.each do |state|
+      create_with_state(state, type, target_date: rand(1..11).months.ago)
+    end
+  end
+
+  def create_one_request_per_stats_commune(type)
+    STATES.zip(stats_communes).each do |state, commune|
+      create_with_state(state, type, organization: commune, target_date: rand(1..11).months.ago)
+    end
   end
 
   def create_multi_form_requests
@@ -56,14 +71,14 @@ class Seeds::Stats < Seeds
 
   def create_time_spread_requests
     (1..12).each do |months_ago|
-      type = AUTHORIZATION_TYPES_PER_PROVIDER.values.flatten.sample
+      type = (AUTHORIZATION_TYPES_PER_PROVIDER.values.flatten - ONE_REQUEST_PER_ORGANIZATION_TYPES).sample
       create_with_state(:validated, type, target_date: months_ago.months.ago)
       create_with_state(:submitted, type, target_date: months_ago.months.ago)
     end
   end
 
-  def create_with_state(state, type, form_uid: nil, target_date: Time.current)
-    attributes = { applicant: applicant }
+  def create_with_state(state, type, form_uid: nil, organization: nil, target_date: Time.current)
+    attributes = { applicant: stats_applicant, organization: }.compact
     attributes[:form_uid] = form_uid if form_uid
 
     authorization_request = build_authorization_request(state, type, attributes)
@@ -71,7 +86,14 @@ class Seeds::Stats < Seeds
 
     backdate_request_and_events(authorization_request, target_date)
   rescue StandardError => e
-    Rails.logger.warn("Stats seed: skipping #{state} #{type} - #{e.message}")
+    @skipped_requests_count += 1
+    Rails.logger.error("Stats seed: skipping #{state} #{type} - #{e.message}")
+  end
+
+  def report_skipped_requests
+    return if @skipped_requests_count.zero?
+
+    Rails.logger.error("Stats seed: #{@skipped_requests_count} demandes de statistiques ignorées")
   end
 
   def build_authorization_request(state, type, attributes)
@@ -90,10 +112,9 @@ class Seeds::Stats < Seeds
   def create_validated_after_changes(type, attributes)
     authorization_request = @seeds.create_request_changes_authorization_request(type, attributes:)
     user = authorization_request.applicant
-    instructor = @seeds.api_entreprise_instructor
 
     SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user:)
-    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: instructor)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: @seeds.instructor_for(authorization_request))
 
     authorization_request
   end
@@ -127,7 +148,11 @@ class Seeds::Stats < Seeds
     )
   end
 
-  def applicant
-    @seeds.demandeur
+  def stats_applicant
+    @stats_applicant ||= User.find_by!(email: 'dem-stats@yopmail.com')
+  end
+
+  def stats_communes
+    @stats_communes ||= stats_applicant.organizations.order(:id).to_a
   end
 end
