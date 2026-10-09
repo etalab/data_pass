@@ -6,6 +6,7 @@ Fonctionnalité: Instruction: annuler une demande de production
   Contexte:
     Sachant que je suis un instructeur "API Impôt Particulier"
     Et que je suis un instructeur "API Particulier"
+    Et que je suis un instructeur "API Courtier fonctionnel SFiP"
     Et que je me connecte
 
   Scénario: Je peux annuler une demande de production soumise
@@ -15,6 +16,11 @@ Fonctionnalité: Instruction: annuler une demande de production
 
   Scénario: Je ne peux pas annuler une demande qui n'est pas en production
     Quand je me rends sur une demande d'habilitation "API Particulier" à modérer
+    Alors il n'y a pas de bouton "Annuler la demande de production"
+
+  Scénario: Je ne peux pas annuler une demande de production créée via un formulaire éditeur
+    Quand il y a 1 demande d'habilitation "API Courtier fonctionnel SFiP" via le formulaire "Demande libre avec éditeur" à l'étape "Production" soumise
+    Et que je me rends sur cette demande d'habilitation
     Alors il n'y a pas de bouton "Annuler la demande de production"
 
   Scénario: J'annule une demande de production
