@@ -54,6 +54,73 @@ RSpec.describe 'Authorization request with scopes' do
     end
   end
 
+  describe 'provider-aware scope headings on the interactive picker' do
+    let(:user) { create(:user) }
+    let(:authorization_request) do
+      authorization_request = create(:authorization_request, :api_particulier, fill_all_attributes: true, applicant: user)
+      authorization_request.current_build_step = 'basic_infos'
+      authorization_request.scopes = nil
+      authorization_request.save!
+      authorization_request
+    end
+    let(:authorization_request_form) { authorization_request.form }
+    let(:scope_step_name) { I18n.t('wicked.scopes') }
+
+    before do
+      sign_in(user)
+
+      visit authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: scope_step_name)
+    end
+
+    it 'shows the combined "provider — group" heading for a scope that has both' do
+      expect(page).to have_text('CNAF & MSA — API Quotient familial')
+    end
+  end
+
+  describe 'provider-aware scope headings on the read-only summary' do
+    let(:user) { create(:user) }
+    let(:authorization_request) do
+      authorization_request = create(:authorization_request, :api_particulier, fill_all_attributes: true, applicant: user)
+      authorization_request.scopes = %w[cnaf_quotient_familial]
+      authorization_request.save!
+      authorization_request
+    end
+
+    before do
+      sign_in(user)
+
+      visit summary_authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id)
+    end
+
+    it 'shows the combined "provider — group" heading for a scope that has both' do
+      expect(page).to have_text('CNAF & MSA — API Quotient familial')
+    end
+  end
+
+  describe 'FranceConnect scope visibility guard on the read-only summary' do
+    let(:user) { create(:user) }
+    let(:authorization_request) do
+      create(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields, :submitted, applicant: user)
+    end
+
+    before do
+      ServiceProvider.find('entrouvert').apipfc_enabled = false
+
+      sign_in(user)
+
+      visit summary_authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id)
+    end
+
+    it 'hides the FranceConnect identity scopes when the modality is selected but the form is not FranceConnect-certified' do
+      expect(authorization_request.france_connect_modality?).to be true
+      expect(authorization_request.france_connect_authorization_id).to be_blank
+      expect(authorization_request.france_connect_certified_form?).to be false
+
+      expect(page).to have_no_text('Nom de famille')
+      expect(page).to have_no_text('Prénoms')
+    end
+  end
+
   describe 'at the review step, with some scopes defined' do
     let(:user) { create(:user) }
     let(:authorization_request) do

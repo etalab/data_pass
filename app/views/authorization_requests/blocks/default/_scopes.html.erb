@@ -1,14 +1,14 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.scopes'), block_id: :scopes, f:, editable: } do %>
-  <% authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
+  <% scope_groups_for_display(authorization_request.available_scopes).each do |scope_group| %>
     <div class="fr-form-group scopes-group">
-      <% if group_name.present? %>
+      <% if scope_group.heading.present? %>
         <h3 class="scopes-group__title fr-h5">
-          <%= group_name %>
+          <%= scope_group.heading %>
         </h3>
       <% end %>
 
       <div class="scopes-group__grid">
-        <% scopes.each do |scope| %>
+        <% scope_group.scopes.each do |scope| %>
           <%= f.dsfr_scope scope, disabled: true %>
         <% end %>
       </div>

@@ -104,7 +104,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
     return false unless authorization_request.respond_to?(:france_connect_modality?)
 
     scope = authorization_request.definition.scopes.find { |s| s.value == scope_value }
-    return false unless scope&.group == 'FranceConnect'
+    return false unless scope&.provider_label == 'FranceConnect'
 
     !authorization_request.france_connect_modality?
   end
