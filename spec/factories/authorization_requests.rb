@@ -78,6 +78,7 @@ FactoryBot.define do
     transient do
       fill_all_attributes { false }
       documents { [] }
+      previous_authorization { !form_uid.to_s.end_with?('-editeur') }
     end
 
     trait :no_checkboxes do
@@ -188,7 +189,9 @@ FactoryBot.define do
     end
 
     trait :has_previous_authorization_validated do
-      after(:create) do |authorization_request|
+      after(:create) do |authorization_request, evaluator|
+        next unless evaluator.previous_authorization
+
         if authorization_request.authorizations.empty?
           previous_authorization_created_at = authorization_request.created_at
         else

@@ -120,6 +120,10 @@ class AuthorizationRequest < ApplicationRecord
     authorizations.where(authorization_request_class: extract_authorization_request_class_from_stage(stage_type)).order(created_at: :desc).limit(1).first
   end
 
+  def previous_stage_authorization?
+    latest_authorization_of_stage('sandbox').present?
+  end
+
   def latest_authorization_of_class(authorization_request_class)
     authorizations.where(authorization_request_class:).order(created_at: :desc).limit(1).first
   end
@@ -291,7 +295,10 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :cancel_next_stage do
-      transition from: %i[draft changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.definition.previous_stage? }
+      transition from: %i[draft changes_requested submitted], to: :validated, if: lambda { |authorization_request|
+        authorization_request.definition.previous_stage? &&
+          authorization_request.previous_stage_authorization?
+      }
     end
 
     event :revoke do
