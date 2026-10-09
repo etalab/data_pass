@@ -234,7 +234,7 @@ fr:
 
         Voici les informations nécessaires à l’activation de l’abonnement HubEE :
       intitule: "Intitulé de la demande : %{intitule}"
-      form_name: "Formulaire : %{form_name}"
+      form_name: "Cas d’usage : %{form_name}"
       editor_name: "Éditeur : %{editor_name}"
       organization: "Organisation : %{organization_name} (SIRET %{siret})"
       validated_at: "Date de validation : %{validated_at}"

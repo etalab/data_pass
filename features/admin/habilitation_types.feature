@@ -15,7 +15,7 @@ Fonctionnalité: Espace admin: types d'habilitation
   Scénario: La page a le bon titre
     Sachant que je me connecte
     Quand je me rends sur le chemin "/admin/types-habilitation"
-    Alors le titre de la page contient "Types d’habilitation"
+    Alors le titre de la page contient "Formulaires"
 
   Scénario: Je crée un type d'habilitation
     Sachant que je me connecte
@@ -134,7 +134,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Quand je me rends sur le chemin "/admin/types-habilitation"
     Et que je clique sur "Supprimer" dans la rangée "API Jetable"
     Alors il y a un message de succès contenant "supprimé"
-    Et la page contient "Aucun type d’habilitation créé."
+    Et la page contient "Aucun formulaire créé."
 
   Scénario: Un admin peut modifier les champs éditoriaux d'un type avec des demandes liées
     Sachant que je me connecte
