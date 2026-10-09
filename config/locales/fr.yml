@@ -765,6 +765,8 @@ fr:
       confirm: Confirmer l'annulation
     create:
       success: Votre demande d'habilitation en production a été annulée
+      error:
+        title: La demande de production n’a pas pu être annulée, car aucune habilitation de bac à sable n’est disponible.
   stats:
     index:
       title: Statistiques d’utilisation

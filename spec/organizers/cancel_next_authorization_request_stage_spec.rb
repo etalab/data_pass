@@ -43,6 +43,20 @@ RSpec.describe CancelNextAuthorizationRequestStage, type: :organizer do
           it_behaves_like 'creates an event', event_name: :cancel_next_stage
         end
 
+        context 'when created through an editor form without sandbox authorization' do
+          let(:authorization_request) { create(:authorization_request, :api_sfip_editeur, :submitted) }
+
+          it { is_expected.to be_failure }
+
+          it 'does not change state, type or form' do
+            expect { cancel_next_stage }.not_to change { AuthorizationRequest.find(authorization_request.id).attributes.slice('state', 'type', 'form_uid') }
+          end
+
+          it 'does not create an event' do
+            expect { cancel_next_stage }.not_to change { authorization_request.events.count }
+          end
+        end
+
         context 'when in validated state' do
           let(:authorization_request) { create(:authorization_request, :api_impot_particulier, :validated) }
 
