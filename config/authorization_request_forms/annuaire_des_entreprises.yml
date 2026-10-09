@@ -30,8 +30,6 @@ annuaire-des-entreprises-aides-publiques:
   steps: *ade_steps
   scopes_config:
     disabled:
-      - bilans_bdf
-      - liasses_fiscales
       - beneficiaires
   initialize_with:
     cadre_juridique_nature: |+
