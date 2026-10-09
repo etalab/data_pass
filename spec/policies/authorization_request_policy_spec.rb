@@ -373,6 +373,30 @@ RSpec.describe AuthorizationRequestPolicy do
     end
   end
 
+  describe '#cancel_next_stage?' do
+    subject { instance.cancel_next_stage? }
+
+    let(:authorization_request_class) { authorization_request }
+
+    context 'when production request comes from a validated sandbox' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_production, :draft, applicant: user) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when production request was created through an editor form' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_editeur, :draft, applicant: user) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when editor request is reopened with only a production authorization' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_editeur, :reopened, applicant: user) }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#authorizations?' do
     subject { instance.authorizations? }
 
