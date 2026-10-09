@@ -1,0 +1,6 @@
+Recette sandbox : recette/2026-10-09
+Base : develop @ 6ee4a111
+
+2026-10-09 15:20 — construction
+  DPP-176    #1802   790256b4  feature/dpp-176-us-renommer-contact-technique-en-rssi-dans-le-formulaire
+  DPP-136    #1804   950c83f7  feature/dpp-136-bug-linstructeur-peut-annuler-letape-production-sans
