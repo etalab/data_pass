@@ -467,6 +467,14 @@ Quand('je renseigne la volumétrie') do
   find_field('Quelle limitation de débit souhaitez-vous pour votre téléservice ?').all('option').find { |option| option.value.present? }.select_option
 end
 
+Alors('le bloc de contact {string} est affiché') do |title|
+  expect(page).to have_css('.contact-card__kind, .contact-form-card__title', exact_text: title)
+end
+
+Alors("aucun bloc de contact {string} n'est affiché") do |title|
+  expect(page).to have_no_css('.contact-card__kind, .contact-form-card__title', exact_text: title)
+end
+
 Quand('je renseigne les informations du contact technique') do
   steps %(
     * je remplis les informations du contact "Contact technique" avec :

@@ -1,4 +1,6 @@
 class AuthorizationDecorator < ApplicationDecorator
+  include ContactWording
+
   delegate_all
 
   decorates_association :request
@@ -54,17 +56,6 @@ class AuthorizationDecorator < ApplicationDecorator
       object.contact_types_for(user).present?
   end
 
-  def humanized_contact_types_for(user)
-    object.contact_types_for(user).map do |contact_type|
-      lookup_i18n_key("#{contact_type}.title").downcase
-    end
-  end
-
-  def lookup_i18n_key(subkey)
-    t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
-      t("authorization_request_forms.default.#{subkey}")
-  end
-
   def reopening_validated?
     object.request.reopening_validated?
   end
@@ -112,6 +103,10 @@ class AuthorizationDecorator < ApplicationDecorator
   end
 
   private
+
+  def request_model_element
+    object.authorization_request_class.constantize.model_name.element
+  end
 
   def stage_badge_class
     case definition.stage.type

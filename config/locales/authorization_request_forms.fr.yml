@@ -1240,6 +1240,10 @@ fr:
         groups:
           'Autres services RH': |
             Information :  il n'est pas obligatoire d'adhérer à RenoiRH pour adhérer à d'autres services (ex : ESTEVE)
+      contact_technique:
+        title: RSSI
+        mention: RSSI
+        info: Responsable de la sécurité des systèmes d’information de votre organisation. Cette personne sera contactée pour les questions de sécurité liées à l’utilisation des services du CISIRH.
 
     produits_dinum:
       legal:

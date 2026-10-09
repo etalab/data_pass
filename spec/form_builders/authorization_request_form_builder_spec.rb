@@ -66,6 +66,14 @@ RSpec.describe AuthorizationRequestFormBuilder, type: :helper do
         expect(builder.wording_for('contact_technique.title')).to eq('Contact référent des outils numériques de l’administration')
       end
     end
+
+    context 'when the form is the CISIRH services form' do
+      let(:authorization_request) { build(:authorization_request, :services_cisirh) }
+
+      it 'renames the technical contact to RSSI' do
+        expect(builder.wording_for('contact_technique.title')).to eq('RSSI')
+      end
+    end
   end
 
   describe '#interpolated_wording' do
