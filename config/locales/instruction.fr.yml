@@ -307,6 +307,8 @@ fr:
       create:
         success:
           title: La demande de production %{name} a été annulée.
+        error:
+          title: La demande de production n’a pas pu être annulée, car aucune habilitation de bac à sable n’est disponible.
 
     request_changes_on_authorization_requests:
       new:
