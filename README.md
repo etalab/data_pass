@@ -212,6 +212,10 @@ bin/stream-remote-logs
 3. `staging`, for the staging (E2E tests with others apps) ;
 4. `development`, for development/test.
 
+## Contribuer
+
+Process d’équipe (tickets, pull requests, revue de code) : [CONTRIBUTING.md](./CONTRIBUTING.md)
+
 ## Documentations
 
 Check [this link](./docs/README.md)
