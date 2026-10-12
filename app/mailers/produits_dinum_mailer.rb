@@ -9,7 +9,7 @@ class ProduitsDinumMailer < ApplicationMailer
 
     mail(
       bcc: recipients,
-      subject: t('.subject', authorization_request_id: @authorization_request.formatted_id),
+      subject: t('.subject', authorization_request_id: @authorization_request.formatted_id, authorization_id: @authorization_request.latest_authorization.formatted_id),
     )
   end
 

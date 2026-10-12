@@ -37,7 +37,11 @@ class AutomatedEmailPreviewRenderer
   ServiceProviderHolder = Data.define(:name)
   RequestHolder = Data.define(:request)
   LinkedAuthorization = Data.define(:request, :formatted_id)
-  AuthorizationHolder = Data.define(:applicant, :request, :request_as_validated, :message, :formatted_id)
+  AuthorizationHolder = Data.define(:applicant, :request, :request_as_validated, :message, :formatted_id) do
+    def to_param
+      'exemple'
+    end
+  end
 
   ModificationRequestHolder = Data.define(:reason) do
     def present?
@@ -147,7 +151,7 @@ class AutomatedEmailPreviewRenderer
   end
 
   def authorization
-    AuthorizationHolder.new(applicant: applicant, request:, request_as_validated: request, message: MESSAGE, formatted_id: REQUEST_ID)
+    AuthorizationHolder.new(applicant: applicant, request:, request_as_validated: request, message: MESSAGE, formatted_id: AUTHORIZATION_ID)
   end
 
   def linked_authorization
