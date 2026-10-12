@@ -7,10 +7,10 @@ Une fois ce formulaire rempli, nous pourrons procéder au raccordement.
 N'hésitez pas à nous solliciter sur <%= @authorization_request.definition.support_email %>
 
 <% if @authorization_request.latest_authorization&.message.present? %>
-Message associé à la validation de votre habilitation :
+Message associé à la validation de votre demande :
 <%= @authorization_request.latest_authorization.message %>
 <% end %>
-Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>
+Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_url(@authorization_request.latest_authorization) %>
 
 Bien cordialement,
 

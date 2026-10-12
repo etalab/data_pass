@@ -17,7 +17,7 @@ RSpec.describe Organisms::Instruction::AuthorizationDefinition::AutomatedEmailsC
 
     expect(page).to have_css('.fr-badge--info', text: "En cours d'instruction")
     expect(page).to have_css('.fr-badge--success', text: 'Validée')
-    expect(page).to have_css('.fr-badge--warning', text: 'A modifier')
+    expect(page).to have_css('.fr-badge--warning', text: 'Modifications demandées')
     expect(page).to have_css('.fr-badge--error', text: 'Refusée')
     expect(page).to have_css('.fr-badge--error', text: 'Révoquée')
   end

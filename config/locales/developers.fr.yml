@@ -7,11 +7,11 @@ fr:
       submit: Soumission
       approve: Validation
       refuse: Refus
-      request_changes: Demande de modifications
+      request_changes: Modifications demandées
       revoke: Révocation
       archive: Archivage
-      reopen: Réouverture
-      cancel_reopening: Annulation de la réouverture
+      reopen: Demande de mise à jour
+      cancel_reopening: Annulation de la demande de mise à jour
   developers:
     index:
       title: Espace développeur

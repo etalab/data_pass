@@ -181,11 +181,11 @@ Les détails exacts (délais entre tentatives, codes qui déclenchent un retry) 
 | `submit` | Soumission d'une demande par le demandeur |
 | `approve` | Validation par un instructeur |
 | `refuse` | Refus par un instructeur |
-| `request_changes` | Demande de modifications par un instructeur |
+| `request_changes` | Modifications demandées par un instructeur |
 | `revoke` | Révocation d'une habilitation |
 | `archive` | Archivage |
-| `reopen` | Réouverture d'une demande clôturée |
-| `cancel_reopening` | Annulation d'une réouverture |
+| `reopen` | Demande de mise à jour d’une habilitation |
+| `cancel_reopening` | Annulation d’une demande de mise à jour |
 | `transfer` | Transfert à une autre organisation |
 
 La liste complète, le format détaillé du payload, la politique de retry et les bonnes pratiques de sécurité sont dans la [documentation des webhooks](/developpeurs/webhooks/documentation).

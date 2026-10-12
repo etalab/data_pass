@@ -20,7 +20,7 @@ fr:
             messaging: Messagerie via DataPass active
             transfer: Transfert de demandeur possible
             instructor_drafts: Initiable par un instructeur
-            reopening: Demande de modification possible
+            reopening: Mise à jour possible
       form:
         card_component:
           default_badge: Cas d’usage par défaut

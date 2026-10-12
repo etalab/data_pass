@@ -161,9 +161,9 @@ fr:
       revocation_of_authorization:
         reason: Indiquez les motifs de révocation
       instructor_modification_request:
-        reason: Raison de la demande de modification
+        reason: Motif des modifications demandées
       authorization_request_reopening_cancellation:
-        reason: Raison de l'annulation de la réouverture
+        reason: Motif de l’annulation de la demande de mise à jour
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
@@ -235,7 +235,7 @@ fr:
       message_template:
         template_type:
           refusal: Refus
-          modification_request: Demande de modifications
+          modification_request: Modifications demandées
           approval: Validation
       authorization_request:
         france_connect_eidas:
