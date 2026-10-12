@@ -4,9 +4,13 @@ class Instruction::CancelNextAuthorizationRequestStagesController < Instruction:
   def new; end
 
   def create
-    CancelNextAuthorizationRequestStage.call(authorization_request: @authorization_request, user: current_user)
+    organizer = CancelNextAuthorizationRequestStage.call(authorization_request: @authorization_request, user: current_user)
 
-    success_message_for_authorization_request(@authorization_request, key: 'instruction.cancel_next_authorization_request_stages.create')
+    if organizer.success?
+      success_message_for_authorization_request(@authorization_request, key: 'instruction.cancel_next_authorization_request_stages.create')
+    else
+      error_message(title: t('.error.title'))
+    end
 
     redirect_to instruction_dashboard_show_path(id: 'demandes'),
       status: :see_other

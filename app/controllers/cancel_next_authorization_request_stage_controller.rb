@@ -11,7 +11,12 @@ class CancelNextAuthorizationRequestStageController < AuthenticatedUserControlle
     organizer = CancelNextAuthorizationRequestStage.call(authorization_request: @authorization_request, user: current_user)
     @authorization_request = organizer.authorization_request
 
-    success_message(title: t('.success'))
+    if organizer.success?
+      success_message(title: t('.success'))
+    else
+      error_message(title: t('.error.title'))
+    end
+
     redirect_to authorization_request_path(@authorization_request)
   end
 

@@ -6,6 +6,8 @@ class CancelNextAuthorizationRequestStage < ApplicationOrganizer
     context.state_machine_new_state = :validated
 
     context.authorization = context.authorization_request.latest_authorization_of_stage('sandbox')
+    context.fail!(error: :no_previous_stage_authorization) if context.authorization.nil?
+
     context.production_stage_form = context.authorization_request.form
   end
 

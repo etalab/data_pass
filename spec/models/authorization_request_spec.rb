@@ -481,6 +481,34 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '#can_cancel_next_stage?' do
+    subject { authorization_request.can_cancel_next_stage? }
+
+    context 'when production request comes from a validated sandbox' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_production, :submitted) }
+
+      it { is_expected.to be(true) }
+    end
+
+    context 'when production request was created through an editor form' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_editeur, :submitted) }
+
+      it { is_expected.to be(false) }
+    end
+
+    context 'when editor request is reopened with only a production authorization' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_editeur, :reopened) }
+
+      it { is_expected.to be(false) }
+    end
+
+    context 'when production request is validated' do
+      let(:authorization_request) { create(:authorization_request, :api_sfip_production, :validated) }
+
+      it { is_expected.to be(false) }
+    end
+  end
+
   describe '#reopening?' do
     subject { authorization_request.reopening? }
 

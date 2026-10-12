@@ -74,6 +74,11 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Et que je clique sur "Confirmer"
     Alors il y a un message de succès contenant "Votre demande d'habilitation en production a été annulée"
 
+  Scénario: Je ne peux pas annuler une demande de production créée via un formulaire éditeur
+    Quand j'ai 1 demande d'habilitation "API Courtier fonctionnel SFiP" via le formulaire "Demande libre avec éditeur" à l'étape "Production" en attente de modification
+    Et que je me rends sur cette demande d'habilitation
+    Alors il n'y a pas de bouton "Annuler la demande de production"
+
   Scénario: Il y a un badge sandbox lors du démarrage d'une habilitation de bac à sable
     Quand je veux remplir une demande pour "API Impôt Particulier" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
     Et que je clique sur "Débuter ma demande"

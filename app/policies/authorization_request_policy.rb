@@ -103,8 +103,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     same_user_and_organization? &&
       record.definition.previous_stage? &&
       record.filling? &&
-      record.can_cancel_next_stage? &&
-      record.authorizations.any?
+      record.can_cancel_next_stage?
   end
 
   def ongoing_request?
