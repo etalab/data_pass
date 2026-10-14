@@ -240,7 +240,7 @@ Détail des champs renvoyés pour chaque scope :
 
 - **`value`** — identifiant technique, utilisé dans `data.scopes` d'une demande.
 - **`name`** / **`group`** / **`link`** — libellé humain, regroupement métier et lien documentation pour l'affichage.
-- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation validée, faites l'union de `data.scopes` et des `value` `included: true`.
+- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation, faites l'union de `data.scopes` et des `value` `included: true`.
 - **`deprecated`** (+ **`deprecated_date`**) — scope conservé pour l'historique des anciennes demandes mais à exclure d'une UI de création.
 - **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une habilitation peut tout de même en contenir.
 
