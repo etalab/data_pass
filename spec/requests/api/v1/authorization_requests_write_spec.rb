@@ -148,6 +148,33 @@ RSpec.describe 'API: Authorization requests write' do
       end
     end
 
+    context 'with data that fails model validation' do
+      let(:user) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
+      let(:params) do
+        {
+          demande: {
+            form_uid: 'api-particulier-aiga',
+            applicant: { email: 'user@example.com', given_name: 'A', family_name: 'B' },
+            organization: { siret: '13002526500013' },
+            data: { modalities: %w[unknown_modality] }
+          }
+        }
+      end
+
+      it 'returns 422 with the model errors' do
+        create_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['title']).to eq('Demande invalide')
+      end
+
+      it 'creates no authorization request, applicant or organization' do
+        write_token
+
+        expect { create_request }.not_to change { [AuthorizationRequest.count, User.count, Organization.count] }
+      end
+    end
+
     context 'without write_authorizations scope' do
       let(:auth_headers) { { 'Authorization' => "Bearer #{read_token.token}" } }
 
@@ -356,6 +383,27 @@ RSpec.describe 'API: Authorization requests write' do
 
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/data/unknown_key')
+      end
+    end
+
+    context 'with data that fails model validation' do
+      let(:user) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
+      let(:authorization_request) do
+        create(:authorization_request, :api_particulier, form_uid: 'api-particulier-aiga')
+      end
+      let(:params) do
+        { demande: { data: { modalities: %w[unknown_modality] } } }
+      end
+
+      it 'returns 422 with the model errors' do
+        update_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['title']).to eq('Demande invalide')
+      end
+
+      it 'leaves the authorization request unchanged' do
+        expect { update_request }.not_to change { authorization_request.reload.modalities }
       end
     end
 
