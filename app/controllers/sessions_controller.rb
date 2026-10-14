@@ -96,7 +96,7 @@ class SessionsController < ApplicationController
 
     organizer = call_authenticator(identity_federator)
 
-    raise AuthenticationFailedError, failure_message_key(organizer) if organizer.failure?
+    reject_authentication(organizer, identity_federator) if organizer.failure?
 
     raise ApplicationController::BannedUserError if organizer.user.banned?
 
@@ -114,6 +114,16 @@ class SessionsController < ApplicationController
     else
       raise ArgumentError, "Unknown identity federator: #{identity_federator}"
     end
+  end
+
+  def reject_authentication(organizer, identity_federator)
+    Sentry.capture_message(
+      'Authentication failed',
+      level: :warning,
+      extra: { identity_federator:, error: organizer.error }
+    )
+
+    raise AuthenticationFailedError, failure_message_key(organizer)
   end
 
   def failure_message_key(organizer)
