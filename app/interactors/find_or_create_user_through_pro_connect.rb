@@ -5,10 +5,16 @@ class FindOrCreateUserThroughProConnect < ApplicationInteractor
     context.user = find_or_initialize_user
     fail_with_error(:user_email_mismatch) if email_mismatch?
     context.user.assign_attributes(user_attributes)
-    context.user.save!
+    save_user
   end
 
   private
+
+  def save_user
+    context.user.save!
+  rescue ActiveRecord::RecordInvalid
+    fail_with_error(:user_invalid, errors: context.user.errors.full_messages)
+  end
 
   def find_or_initialize_user
     find_by_sub || User.where(email: payload_email).first_or_initialize
