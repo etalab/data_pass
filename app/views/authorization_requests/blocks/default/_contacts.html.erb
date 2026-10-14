@@ -50,8 +50,16 @@
                 </div>
               <% end %>
             <% end %>
+
+            <% if contact_type == :contact_technique && authorization_request.respond_to?(:contact_technique_extra_email) %>
+              <%= render partial: 'authorization_requests/blocks/dgfip/contact_technique_extra', locals: { authorization_request:, f: } %>
+            <% end %>
           </div>
         </div>
+      <% end %>
+
+      <% if authorization_request.respond_to?(:extra_organization_contact_email) %>
+        <%= render partial: 'authorization_requests/blocks/dgfip/extra_organization_contact', locals: { authorization_request:, f: } %>
       <% end %>
     </div>
   </div>
