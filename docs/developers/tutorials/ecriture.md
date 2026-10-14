@@ -322,6 +322,14 @@ L'utilisateur arrive sur sa demande pré-remplie ; s'il est connecté (ou après
 
 > **Pré-requis côté utilisateur** : l'email passé dans `applicant.email` doit correspondre au compte ProConnect de la personne qui sera redirigée, sinon elle ne verra pas la demande dans son espace.
 
+## Rattachement du demandeur à son organisation
+
+Lorsque `POST /demandes` crée le demandeur, il est rattaché à l'organisation (identifiée par `organisation.siret`) par un lien **non vérifié** : DataPass n'a, à ce stade, aucune preuve que cette personne appartient à cette organisation.
+
+- **Vérification** : le lien ne devient vérifié qu'à la première connexion ProConnect du demandeur, et seulement si le fournisseur d'identité utilisé garantit le SIRET (`siret_verified`). Avec un fournisseur d'identité qui ne le garantit pas, le lien reste non vérifié, selon les règles habituelles de DataPass.
+- **Effet pour le demandeur** : tant que le lien n'est pas vérifié, le demandeur retrouve sur son tableau de bord les demandes dont il est lui-même le demandeur, y compris celle créée par votre appel. En revanche, il ne voit pas les autres demandes et habilitations de l'organisation (filtre « Organisation » indisponible), et un bandeau d'information lui indique : « Nous n’avons pas pu vérifier votre lien avec l’organisation que vous avez sélectionnée, vous ne pourrez pas consulter l’ensemble des demandes et habilitations de l’organisation. »
+- **Continuité du compte** : après sa première connexion ProConnect, la demande reste rattachée au même compte, retrouvé grâce à l'email. Un identifiant ProConnect (`sub`) déjà associé à un compte ayant un autre email est refusé à la connexion.
+
 ## Workflow recommandé
 
 1. **Créer** la demande en `draft` depuis votre formulaire/CRM (`POST /demandes`).
