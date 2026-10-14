@@ -152,7 +152,7 @@ La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeu
 
 - `201 Created` — la demande est créée en état `draft`, la réponse contient la `Demande` complète.
 - `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, ou le scope `write_authorizations` manque.
-- `422 Unprocessable Content` — le payload ne respecte pas la définition.
+- `422 Unprocessable Content` — le payload ne respecte pas la définition, ou les données ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »). Un payload accepté auparavant peut désormais être rejeté.
 
 Le format des erreurs suit la convention JSON:API. Exemple de réponse `422` :
 

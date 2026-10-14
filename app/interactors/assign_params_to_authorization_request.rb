@@ -8,7 +8,10 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
 
     return if context.skip_validation || context.authorization_request.valid?(context.save_context)
 
-    context.fail!
+    fail_with_error(
+      :authorization_request_invalid,
+      errors: context.authorization_request.errors.full_messages
+    )
   end
 
   private
