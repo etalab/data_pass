@@ -38,4 +38,29 @@ RSpec.describe 'ProConnect sign-in' do
     expect(response).to redirect_to(root_path)
     expect(flash[:error]['title']).to eq('La connexion a échoué. Veuillez réessayer.')
   end
+
+  it 'reports the failure to Sentry with the error key' do
+    allow(Sentry).to receive(:capture_message)
+
+    get '/auth/proconnect/callback'
+
+    expect(Sentry).to have_received(:capture_message).with(
+      'Authentication failed',
+      level: :warning,
+      extra: { identity_federator: 'proconnect', error: hash_including(key: :user_email_mismatch) }
+    )
+  end
+
+  it 'reports the error key of any other failure to Sentry' do
+    allow(Sentry).to receive(:capture_message)
+    allow(AuthenticateUserThroughProConnect).to receive(:call).and_return(failed_context)
+
+    get '/auth/proconnect/callback'
+
+    expect(Sentry).to have_received(:capture_message).with(
+      'Authentication failed',
+      level: :warning,
+      extra: { identity_federator: 'proconnect', error: { key: :something_else } }
+    )
+  end
 end
