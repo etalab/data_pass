@@ -230,6 +230,20 @@ Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identi
   )
 end
 
+Sachantque("je me connecte via ProConnect avec l'identité {string} sans double authentification") do |identity_provider_name|
+  @current_user_email = 'demandeur@gouv.fr'
+
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+  identity_provider = IdentityProvider.where(name: identity_provider_name).first
+
+  mock_proconnect(user, identity_provider_uid: identity_provider.id, acr: 'eidas1')
+
+  steps %(
+    Quand je me rends sur la page d'accueil
+    Et que je clique sur "S’identifier avec ProConnect"
+  )
+end
+
 Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l'organisation {string}") do |identity_provider_name, organization_name|
   @current_user_email = 'demandeur@gouv.fr'
 
