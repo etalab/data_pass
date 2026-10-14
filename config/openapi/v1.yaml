@@ -621,7 +621,10 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     ValidationError:
-      description: La sauvegarde ou la mise à jour a échoué.
+      description: >-
+        La sauvegarde ou la mise à jour a échoué : le payload ne respecte pas la définition, ou les données
+        ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »).
+        Un payload accepté auparavant peut désormais être rejeté.
       content:
         application/json:
           schema:
