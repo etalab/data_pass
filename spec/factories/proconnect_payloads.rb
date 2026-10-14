@@ -10,7 +10,7 @@ FactoryBot.define do
     provider { 'proconnect' }
     info { build(:proconnect_info_payload) }
     credentials { {} }
-    extra { { 'raw_info' => build(:proconnect_raw_info_payload) } }
+    extra { { 'raw_info' => build(:proconnect_raw_info_payload), 'acr' => 'eidas1-mfa' } }
 
     after(:build) do |payload, evaluator|
       payload['extra']['raw_info'].stringify_keys!
