@@ -506,4 +506,31 @@ RSpec.describe AuthorizationRequestPolicy do
       it { is_expected.to be false }
     end
   end
+
+  describe 'visibility for an applicant created through the API' do
+    let(:api_applicant) do
+      ProvisionApplicantFromAPI.call(
+        applicant_params: { email: 'api-applicant@example.com', given_name: 'Jeanne', family_name: 'Martin' },
+        siret: '21920023500014'
+      ).applicant
+    end
+    let(:organization) { api_applicant.organizations.sole }
+    let!(:colleague_request) { create(:authorization_request, :api_entreprise, organization:) }
+
+    before { api_applicant.organizations_users.sole.set_as_current! }
+
+    context 'when the organization link is still unverified' do
+      it 'denies the summary of a colleague request' do
+        expect(described_class.new(UserContext.new(api_applicant), colleague_request).summary?).to be false
+      end
+    end
+
+    context 'when the organization link has been verified' do
+      before { api_applicant.organizations_users.sole.update!(verified: true) }
+
+      it 'allows the summary of a colleague request' do
+        expect(described_class.new(UserContext.new(api_applicant), colleague_request).summary?).to be true
+      end
+    end
+  end
 end
