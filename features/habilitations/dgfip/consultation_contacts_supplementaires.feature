@@ -48,3 +48,12 @@ Fonctionnalité: Consultation des contacts supplémentaires sur les APIs DGFiP
     Et que je me connecte
     Quand je me rends sur une demande d'habilitation "API Entreprise" en attente
     Alors il n'y a pas "Contact supplémentaire" dans le bloc de résumé "Les personnes impliquées"
+
+  Scénario: Je consulte une demande API SFiP avec des contacts supplémentaires
+    Sachant que je suis un demandeur
+    Et que je me connecte
+    Et que j'ai 1 demande d'habilitation "API Courtier fonctionnel SFiP" à l'étape "Bac à sable" en attente
+    Et que cette demande renseigne des contacts supplémentaires DGFiP
+    Quand je me rends sur la dernière demande
+    Alors il y a "generique@banque.fr" dans le bloc de résumé "Les personnes impliquées"
+    Et il y a "Jean Secours" dans le bloc de résumé "Les personnes impliquées"
