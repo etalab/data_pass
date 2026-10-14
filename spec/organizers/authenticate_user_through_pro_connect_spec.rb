@@ -66,6 +66,44 @@ RSpec.describe AuthenticateUserThroughProConnect do
         expect(link.identity_federator).to eq('pro_connect')
         expect(link.identity_provider_uid).to be_present
       end
+
+      context 'when the identity provider verifies the SIRET' do
+        let(:pro_connect_omniauth_payload) do
+          build(:proconnect_omniauth_payload, siret:, data_identity_id: '71144ab3-ee1a-4401-b7b3-79b44f7daeeb').tap do |payload|
+            payload['extra']['raw_info']['email'] = 'API-Applicant@example.com'
+          end
+        end
+
+        it 'starts with an unverified link' do
+          expect(api_applicant.organizations_users.sole).not_to be_verified
+        end
+
+        it 'verifies the existing link instead of creating another one' do
+          link = api_applicant.organizations_users.sole
+
+          expect { authenticate_user }.not_to change(OrganizationsUser, :count)
+
+          expect(link.reload).to be_verified
+          expect(link.verified_reason).to eq('from ProConnect identity')
+        end
+      end
+
+      context 'when the identity provider does not verify the SIRET' do
+        let(:pro_connect_omniauth_payload) do
+          build(:proconnect_omniauth_payload, siret:, data_identity_id: 'e2f397e0-f2a5-4cbb-b19f-8b3b54410c26').tap do |payload|
+            payload['extra']['raw_info']['email'] = 'API-Applicant@example.com'
+          end
+        end
+
+        it 'keeps the link unverified' do
+          link = api_applicant.organizations_users.sole
+
+          expect { authenticate_user }.not_to change(OrganizationsUser, :count)
+
+          expect(link.reload).not_to be_verified
+          expect(link.identity_federator).to eq('pro_connect')
+        end
+      end
     end
 
     context 'when a returning ProConnect user logs in' do
