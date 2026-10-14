@@ -46,6 +46,13 @@ module OmniAuth
         'eidas3'
       ].freeze
 
+      extra do
+        {
+          raw_info: @userinfo,
+          acr: id_token_claims['acr']
+        }
+      end
+
       private
 
       def authorization_uri
@@ -60,6 +67,13 @@ module OmniAuth
             claims: mfa_claims.to_json
           )
         end
+      end
+
+      def id_token_claims
+        id_token = session['omniauth.pc.id_token']
+        return {} if id_token.blank?
+
+        JSON::JWT.decode(id_token, :skip_verification)
       end
 
       def mfa_claims

@@ -40,6 +40,8 @@ class SessionsController < ApplicationController
   end
 
   def create_from_proconnect
+    return reject_sign_in_without_mfa unless mfa_performed?
+
     organizer = authenticate_user(identity_federator: 'proconnect')
 
     user = organizer.user
@@ -49,6 +51,28 @@ class SessionsController < ApplicationController
     else
       post_sign_in
     end
+  end
+
+  def mfa_performed?
+    OmniAuth::Strategies::Proconnect::MFA_ACR_VALUES.include?(proconnect_acr)
+  end
+
+  def proconnect_acr
+    request.env['omniauth.auth'].dig('extra', 'acr')
+  end
+
+  def reject_sign_in_without_mfa
+    Sentry.capture_message(
+      'ProConnect sign in rejected: acr is not MFA',
+      level: :error,
+      extra: {
+        acr: proconnect_acr,
+        identity_provider_uid: request.env['omniauth.auth'].dig('extra', 'raw_info', 'idp_id')
+      }
+    )
+
+    flash[:error] = { 'title' => t('sessions.mfa_required.title') }
+    redirect_to root_path
   end
 
   def mon_compte_pro_connect?
