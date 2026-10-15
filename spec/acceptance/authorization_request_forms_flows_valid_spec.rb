@@ -176,12 +176,15 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
       },
       'api_mobilic' => {
         'basic_infos' => 'nombre_utilisateurs_finaux_approximatif'
-      }
+      },
+      'resana' => {
+        'legal' => %w[nature_juridique habilitation_certifiee],
+      },
     }
 
     return [] unless mapping[definition_id] && mapping[definition_id][step_name]
 
-    [mapping[definition_id][step_name]]
+    Array(mapping[definition_id][step_name])
   end
 
   def assign_attribute_to_request(authorization_request, full_request, key)

@@ -1,7 +1,7 @@
 Quand('je remplis le cadre juridique et les personnes impliquées de la demande Resana') do
   steps %(
-    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Établissement public administratif"
-    * je remplis "URL du texte relatif au traitement" avec "https://exemple.gouv.fr/cadre-juridique"
+    * je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    * je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
     * je clique sur "Suivant"
 
     * je remplis les informations du contact "Délégué à la protection des données" avec :

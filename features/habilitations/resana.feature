@@ -57,3 +57,60 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Et je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
     Et je clique sur "Soumettre la demande d'habilitation"
     Alors un email est envoyé contenant "a soumis une nouvelle demande d'habilitation"
+
+  Scénario: La certification suffit à valider le cadre juridique
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Alors la page contient "La DINUM attribue le rôle d’administrateur Resana aux seuls agents habilités par leur hiérarchie à l’exercer pour leur organisation."
+    Quand je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
+    Et je clique sur "Suivant"
+    Alors la page contient "Délégué à la protection des données"
+
+  Scénario: Une lettre de la DSI suffit à valider le cadre juridique
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je sélectionne "Service déconcentré de l’État" pour "Nature juridique de votre structure"
+    Et je remplis "Fournissez une lettre de votre DSI ou DNUM attestant ce droit" avec le fichier "spec/fixtures/dummy.pdf"
+    Et je clique sur "Suivant"
+    Alors la page contient "Délégué à la protection des données"
+
+  Scénario: Sans certification ni lettre, le cadre juridique est bloqué
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "cochez la certification ou fournissez une lettre de votre DSI ou DNUM"
+
+  Scénario: Sans nature juridique, le cadre juridique est bloqué
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
+    Et je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "Nature juridique de votre structure doit être rempli(e)"
+
+  Scénario: Une lettre qui n’est pas un PDF est refusée
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je remplis "Fournissez une lettre de votre DSI ou DNUM attestant ce droit" avec le fichier "spec/fixtures/dummy.xlsx"
+    Et je clique sur "Suivant"
+    Alors il y a au moins une erreur sur un champ
+
+  Scénario: La liste des natures juridiques ne propose aucune collectivité territoriale
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Alors la page ne contient pas "Collectivité"
+    Et la page ne contient pas "Commune"
+
+  Scénario: Le résumé affiche la nature juridique, l’engagement et la lettre
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
+    Et je remplis "Fournissez une lettre de votre DSI ou DNUM attestant ce droit" avec le fichier "spec/fixtures/dummy.pdf"
+    Et je clique sur "Suivant"
+    Et je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email                  | Téléphone  | Fonction du délégué à la protection des données |
+      | Dupont | Jacques | dupont.jacques@gouv.fr | 0836656565 | DPO                                             |
+    Et je remplis les informations du contact "Contact métier" avec :
+      | Nom    | Prénom | Email               | Téléphone  | Fonction du contact métier |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Chef de projet             |
+    Et je clique sur "Suivant"
+    Alors la page contient "Établissement public administratif"
+    Et la page contient "Habilitation à exercer le rôle"
+    Et la page contient "Le demandeur certifie être habilité par sa hiérarchie"
+    Et la page contient "dummy.pdf"

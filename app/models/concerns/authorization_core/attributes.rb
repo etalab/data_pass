@@ -68,7 +68,7 @@ module AuthorizationCore::Attributes
 
       def self.override_boolean_reader(name)
         define_method(name) do
-          %w[1 on].include?(data[name.to_s])
+          [true, '1', 'on', 'true'].include?(data[name.to_s])
         end
       end
 
