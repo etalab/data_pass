@@ -146,7 +146,7 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
       | Nom    | Prénom  | Email        | Téléphone  |
       | Dupont | Jacques | pas-un-email | 0836656565 |
     Et je remplis les informations du contact "Responsable métier" avec :
-      | Nom    | Prénom | Email               | Téléphone  | Fonction du responsable métier |
+      | Nom    | Prénom | Email               | Téléphone  | Poste occupé                   |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Chef de projet                 |
     Et je clique sur "Suivant"
     Alors il y a un message d'erreur contenant "Email du délégué à la protection des données"

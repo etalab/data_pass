@@ -18,25 +18,27 @@
   </div>
 </div>
 
-<fieldset class="fr-fieldset legal-border-card fr-mt-3w" aria-describedby="resana-habilitation-hint">
-  <legend class="fr-fieldset__legend fr-h5 legal-subtitle">
-    <%= f.wording_for('legal.habilitation.title') %>
-    <span class="fr-hint-text" id="resana-habilitation-hint"><%= f.wording_for('legal.habilitation.hint') %></span>
-  </legend>
+<div class="legal-border-card fr-mt-3w">
+  <fieldset class="fr-fieldset fr-mb-0">
+    <legend class="fr-fieldset__legend">
+      <span class="fr-h5 legal-subtitle"><%= f.wording_for('legal.habilitation.title') %></span>
+      <span class="fr-hint-text"><%= f.wording_for('legal.habilitation.hint') %></span>
+    </legend>
 
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_check_box :habilitation_certifiee, required: false %>
-  </div>
-
-  <div class="legal-bloc-separation fr-fieldset__element">
-    <div class="legal-line"></div>
-    <div class="legal-centered__element">
-      <p class="fr-h5"><%= f.wording_for('legal.habilitation.separator') %></p>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_check_box :habilitation_certifiee, required: false %>
     </div>
-    <div class="legal-line"></div>
-  </div>
 
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_file_field :lettre_habilitation_document, multiple: true, required: false %>
-  </div>
-</fieldset>
+    <div class="legal-bloc-separation fr-fieldset__element">
+      <div class="legal-line"></div>
+      <div class="legal-centered__element">
+        <p class="fr-h5"><%= f.wording_for('legal.habilitation.separator') %></p>
+      </div>
+      <div class="legal-line"></div>
+    </div>
+
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_file_field :lettre_habilitation_document, multiple: true, required: false %>
+    </div>
+  </fieldset>
+</div>

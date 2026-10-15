@@ -19,7 +19,7 @@ Quand('je remplis les personnes impliquées de la demande Resana') do
       | Nom    | Prénom  | Email                  | Téléphone  |
       | Dupont | Jacques | dupont.jacques@gouv.fr | 0836656565 |
     * je remplis les informations du contact "Responsable métier" avec :
-      | Nom    | Prénom | Email               | Téléphone  | Fonction du responsable métier |
+      | Nom    | Prénom | Email               | Téléphone  | Poste occupé                   |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Chef de projet                 |
     * je clique sur "Suivant"
   )

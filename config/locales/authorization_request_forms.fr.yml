@@ -1323,6 +1323,8 @@ fr:
         summary_title: Responsable métier · reçoit les accès administrateur
         mention: responsable métier
         info: "C’est la personne qui <strong>recevra les accès administrateur</strong> dans Resana : vous-même ou votre responsable DNUM, DSI ou équivalent."
+      contact_metier_job_title:
+        label: Poste occupé
       terms_of_service_accepted:
         label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation de Resana<span class="fr-sr-only"> - nouvelle fenêtre</span></a>&nbsp;et je les valide.
 
