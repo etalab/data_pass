@@ -37,7 +37,7 @@
         <div class="fr-fieldset__element">
           <%
             field_name = "#{contact_definition.type}_#{contact_attribute}"
-            field_options = { required: true }
+            field_options = { required: contact_definition.optional_attributes.exclude?(contact_attribute) }
 
             if contact_attribute == 'email' && contact_definition.required_personal_email?
               field_options[:data] = { controller: 'individual-email-checker' }

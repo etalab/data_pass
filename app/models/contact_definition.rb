@@ -16,6 +16,10 @@ class ContactDefinition
     Array(options.fetch(:except, [])).map(&:to_s)
   end
 
+  def optional_attributes
+    Array(options.fetch(:optional, [])).map(&:to_s)
+  end
+
   def fill_data_with_applicant_data?
     options.fetch(:fillable_with_applicant_data) do
       !type.in?(EXCLUDED_FROM_APPLICANT_DATA_TYPES)
