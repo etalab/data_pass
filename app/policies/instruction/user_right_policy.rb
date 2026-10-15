@@ -30,4 +30,8 @@ class Instruction::UserRightPolicy < ApplicationPolicy
   def confirm_destroy?
     destroy?
   end
+
+  def droits?
+    enabled?
+  end
 end

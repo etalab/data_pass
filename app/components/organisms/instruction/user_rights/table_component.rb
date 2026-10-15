@@ -1,5 +1,5 @@
 class Organisms::Instruction::UserRights::TableComponent < ApplicationComponent
-  HEADERS = %w[email family_name given_name rights actions].freeze
+  HEADERS = %w[identity organisation roles droits actions].freeze
 
   def initialize(users:, authority:, current_user:, total_count:)
     @users = users
