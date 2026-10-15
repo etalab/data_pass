@@ -88,6 +88,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Alors le champ commune INSEE contenant "20000" est signalé en erreur
     Et le champ commune INSEE contenant "75056" n’est pas signalé en erreur
 
+  @geo_api_navigateur
   Scénario: Une collectivité identifiée comme commune voit son périmètre pré-rempli en lecture seule
     Sachant que je suis un demandeur de la commune de Clamart
     Et que je me connecte
@@ -115,6 +116,7 @@ Fonctionnalité: Soumission d'une demande Boursiers CNOUS avec le bloc cnous_dat
     Alors il y a un message de succès contenant "soumise avec succès"
     Et la demande contient le code commune INSEE "92023"
 
+  @geo_api_navigateur
   Scénario: Une collectivité identifiée comme département voit ses communes à la demande
     Sachant que je suis un demandeur du département du Rhône
     Et que l’API géo connaît la commune "69123" nommée "Lyon"
