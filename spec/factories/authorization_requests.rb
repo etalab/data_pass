@@ -1693,5 +1693,13 @@ FactoryBot.define do
 
       with_cadre_juridique
     end
+
+    trait :resana do
+      type { 'AuthorizationRequest::Resana' }
+
+      form_uid { 'resana' }
+
+      with_cadre_juridique
+    end
   end
 end

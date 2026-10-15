@@ -1286,6 +1286,10 @@ fr:
       responsable_traitement_informed:
         label: Je confirme que le responsable de l’administration de mon organisation est informé de ma demande.
 
+    resana:
+      terms_of_service_accepted:
+        label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation de Resana<span class="fr-sr-only"> - nouvelle fenêtre</span></a>&nbsp;et je les valide.
+
     # FormTemplate defined in database
     proactivite_pour_les_etudiants_boursiers_dyn:
       contact_metier:
