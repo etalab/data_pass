@@ -31,22 +31,41 @@ class SessionsController < ApplicationController
   private
 
   def create_from_mon_compte_pro
-    authenticate_user(identity_federator: 'mon_compte_pro')
+    return reject_mon_compte_pro_organization_change unless mon_compte_pro_organization_change_allowed?
 
-    case request.env['omniauth.params']['prompt']
-    when 'select_organization'
-      change_current_organization
-    when 'update_userinfo'
-      update_user
-    else
-      post_sign_in
-    end
+    ensure_not_banned!(current_user)
+
+    change_current_organization
+  end
+
+  def mon_compte_pro_organization_change_allowed?
+    user_signed_in? &&
+      current_identity_federator == 'proconnect' &&
+      current_user.email.casecmp?(mon_compte_pro_email.to_s)
+  end
+
+  def mon_compte_pro_email
+    request.env['omniauth.auth'].dig('info', 'email')
+  end
+
+  def reject_mon_compte_pro_organization_change
+    Sentry.capture_message(
+      'MonComptePro organization change rejected: no matching ProConnect session',
+      level: :warning,
+      extra: {
+        signed_in: user_signed_in?,
+        identity_federator: current_identity_federator
+      }
+    )
+
+    flash[:error] = { 'title' => t('sessions.mon_compte_pro_organization_change_rejected.title') }
+    redirect_to root_path
   end
 
   def create_from_proconnect
     return reject_sign_in_without_mfa unless mfa_performed?
 
-    organizer = authenticate_user(identity_federator: 'proconnect')
+    organizer = authenticate_user
 
     user = organizer.user
 
@@ -83,29 +102,18 @@ class SessionsController < ApplicationController
     params[:provider] == 'mon_compte_pro'
   end
 
-  def authenticate_user(identity_federator: 'mon_compte_pro')
+  def authenticate_user
     sign_out if user_signed_in?
 
-    organizer = call_authenticator(identity_federator)
+    organizer = AuthenticateUserThroughProConnect.call(pro_connect_omniauth_payload: request.env['omniauth.auth'])
 
-    reject_authentication(organizer, identity_federator) if organizer.failure?
+    reject_authentication(organizer, 'proconnect') if organizer.failure?
 
     ensure_not_banned!(organizer.user)
 
-    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
+    sign_in(organizer.user, identity_federator: 'proconnect', identity_provider_uid: organizer.identity_provider_uid)
 
     organizer
-  end
-
-  def call_authenticator(identity_federator)
-    case identity_federator
-    when 'mon_compte_pro'
-      AuthenticateUserThroughMonComptePro.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
-    when 'proconnect'
-      AuthenticateUserThroughProConnect.call(pro_connect_omniauth_payload: request.env['omniauth.auth'])
-    else
-      raise ArgumentError, "Unknown identity federator: #{identity_federator}"
-    end
   end
 
   def reject_authentication(organizer, identity_federator)
@@ -146,18 +154,6 @@ class SessionsController < ApplicationController
     success_message(
       title: t('sessions.change_current_organization.success.title'),
       description: t('sessions.change_current_organization.success.description', organization_name: current_organization.name, organization_siret: current_organization.siret),
-    )
-
-    redirect_to after_prompt_path
-  end
-
-  def update_user
-    FindOrCreateUserThroughMonComptePro.call(
-      mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
-    )
-
-    success_message(
-      title: t('sessions.update_user.success.title')
     )
 
     redirect_to after_prompt_path

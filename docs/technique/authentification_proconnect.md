@@ -258,16 +258,25 @@ flowchart TD
 ## Provider legacy MonComptePro
 
 Un second provider existe dans `config/initializers/omniauth.rb` : `mon_compte_pro` (l'ancêtre,
-AgentConnect/MonComptePro). Même logique générale, mais c'est l'ancienne porte d'entrée, en voie
-d'extinction — les utilisateurs sont migrés vers ProConnect. Il ne passe pas par la double
-authentification ProConnect. C'est ce provider qui demande le scope `organization`. Le
-`SessionsController#create` aiguille entre les deux providers selon `params[:provider]`
-(`mon_compte_pro_connect?`).
+AgentConnect/MonComptePro, aujourd'hui ProConnect Identité interrogé en direct, hors fédération
+ProConnect). Il ne sert plus à se connecter : il ne reste que pour changer d'organisation avec
+le prompt `select_organization`, que la fédération ProConnect ne propose pas encore. Les boutons
+« Rejoindre une autre organisation » (`user/organizations/index`, agents ProConnect Identité) et
+« Changer d'organisation » (`authorization_requests/closed_organization`) l'utilisent.
 
-Chaîne MonComptePro équivalente : `AuthenticateUserThroughMonComptePro`, avec
-`FindOrCreateOrganizationThroughMonComptePro` et `FindOrCreateUserThroughMonComptePro`. Deux
-prompts spécifiques MonComptePro sont gérés au retour : `select_organization` (changer
-d'organisation courante) et `update_userinfo` (rafraîchir les infos de l'agent).
+Comme ce provider ne passe pas par la double authentification ProConnect, son callback n'ouvre
+jamais de session. `SessionsController#create_from_mon_compte_pro` exige :
+
+- un agent déjà connecté, via ProConnect (`identity_federator` de la session à `proconnect`) ;
+- le même email côté MonComptePro que celui de l'agent connecté.
+
+Si c'est le cas, `ChangeCurrentOrganizationThroughMonComptePro` change l'organisation courante
+(lien vérifié, « from MonComptePro identity ») et la session ProConnect est conservée. Sinon :
+message d'erreur, `Sentry.capture_message` en `warning`, redirection vers l'accueil.
+
+`AuthenticateUserThroughMonComptePro` et `FindOrCreateUserThroughMonComptePro` n'ont plus
+d'appelant ; leur retrait, avec celui du provider, attend que ProConnect propose le choix
+d'organisation.
 
 ## En une phrase
 
@@ -293,7 +302,7 @@ depuis la connexion, sans prolongation par l'activité).
 | Lien agent ↔ organisation | `app/interactors/add_user_to_organization.rb` |
 | Organisation courante | `app/interactors/change_user_current_organization.rb` |
 | Caractéristiques d'un FI | `app/models/identity_provider.rb` + `config/identity_providers.yml` |
-| Provider legacy | `app/organizers/authenticate_user_through_mon_compte_pro.rb` |
+| Provider legacy (changement d'organisation) | `app/organizers/change_current_organization_through_mon_compte_pro.rb` |
 
 ## Glossaire
 
