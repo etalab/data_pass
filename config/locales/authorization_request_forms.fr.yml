@@ -1315,6 +1315,14 @@ fr:
       lettre_habilitation_document:
         label: Fournissez une lettre de votre DSI ou DNUM attestant ce droit
         hint: *pdf_input_hint
+      delegue_protection_donnees:
+        title: Délégué à la protection des données
+        info: Le délégué à la protection des données de votre organisation, informé de votre accès aux données personnelles des utilisateurs Resana.
+      contact_metier:
+        title: Responsable métier
+        summary_title: Responsable métier · reçoit les accès administrateur
+        mention: responsable métier
+        info: "C’est la personne qui <strong>recevra les accès administrateur</strong> dans Resana : vous-même ou votre responsable DNUM, DSI ou équivalent."
       terms_of_service_accepted:
         label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation de Resana<span class="fr-sr-only"> - nouvelle fenêtre</span></a>&nbsp;et je les valide.
 

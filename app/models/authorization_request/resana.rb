@@ -16,12 +16,12 @@ class AuthorizationRequest::Resana < AuthorizationRequest
     validate :habilitation_certifiee_or_lettre_habilitation_document_present
   end
 
-  %i[
-    delegue_protection_donnees
-    contact_metier
-  ].each do |contact_kind|
-    contact contact_kind, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
-  end
+  contact :delegue_protection_donnees,
+    validation_condition: ->(record) { record.need_complete_validation?(:contacts) },
+    options: { except: %w[job_title] }
+
+  contact :contact_metier,
+    validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
   private
 

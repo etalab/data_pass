@@ -155,6 +155,11 @@ fr:
         contact_technique_job_title: Fonction du RSSI
       authorization_request/resana:
         nature_juridique: Nature juridique de votre structure
+        contact_metier_family_name: Nom de famille du responsable métier
+        contact_metier_given_name: Prénom du responsable métier
+        contact_metier_email: Email du responsable métier
+        contact_metier_phone_number: Téléphone du responsable métier
+        contact_metier_job_title: Fonction du responsable métier
         habilitation_certifiee: Certification de votre habilitation
         lettre_habilitation_document: Lettre de votre DSI ou DNUM
 

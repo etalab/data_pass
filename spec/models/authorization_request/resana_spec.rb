@@ -63,6 +63,35 @@ RSpec.describe AuthorizationRequest::Resana do
   end
 
   describe 'contacts and terms' do
+    it 'asks for the data protection officer then the business owner' do
+      expect(authorization_request.contact_types).to eq(%i[delegue_protection_donnees contact_metier])
+    end
+
+    it 'does not ask for the data protection officer job title' do
+      authorization_request.delegue_protection_donnees_job_title = nil
+
+      expect(authorization_request).to be_valid(:submit)
+    end
+
+    it 'requires the data protection officer phone number' do
+      authorization_request.delegue_protection_donnees_phone_number = nil
+
+      expect(authorization_request).not_to be_valid(:submit)
+    end
+
+    it 'requires the business owner job title' do
+      authorization_request.contact_metier_job_title = nil
+
+      expect(authorization_request).not_to be_valid(:submit)
+      expect(authorization_request.errors.full_messages_for(:contact_metier_job_title)).to include(a_string_starting_with('Fonction du responsable métier'))
+    end
+
+    it 'lets only the business owner be filled with the applicant data' do
+      fillable = described_class.contacts.index_by(&:type).transform_values(&:fill_data_with_applicant_data?)
+
+      expect(fillable).to eq(delegue_protection_donnees: false, contact_metier: true)
+    end
+
     it 'requires the data protection officer email' do
       authorization_request.delegue_protection_donnees_email = nil
 

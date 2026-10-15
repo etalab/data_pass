@@ -103,14 +103,55 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
     Et je remplis "Fournissez une lettre de votre DSI ou DNUM attestant ce droit" avec le fichier "spec/fixtures/dummy.pdf"
     Et je clique sur "Suivant"
-    Et je remplis les informations du contact "Délégué à la protection des données" avec :
-      | Nom    | Prénom  | Email                  | Téléphone  | Fonction du délégué à la protection des données |
-      | Dupont | Jacques | dupont.jacques@gouv.fr | 0836656565 | DPO                                             |
-    Et je remplis les informations du contact "Contact métier" avec :
-      | Nom    | Prénom | Email               | Téléphone  | Fonction du contact métier |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Chef de projet             |
-    Et je clique sur "Suivant"
+    Et je remplis les personnes impliquées de la demande Resana
     Alors la page contient "Établissement public administratif"
     Et la page contient "Habilitation à exercer le rôle"
     Et la page contient "Le demandeur certifie être habilité par sa hiérarchie"
     Et la page contient "dummy.pdf"
+
+  Scénario: L’étape des personnes impliquées présente le DPO puis le responsable métier
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je remplis le cadre juridique de la demande Resana
+    Alors la page contient "Les personnes renseignées ici seront contactées en temps voulu selon leur implication dans la démarche."
+    Et la carte de contact "Délégué à la protection des données" contient "informé de votre accès aux données personnelles des utilisateurs Resana"
+    Et la carte de contact "Délégué à la protection des données" ne propose pas de bouton "C'est moi"
+    Et la carte de contact "Responsable métier" contient "recevra les accès administrateur"
+    Et la carte de contact "Responsable métier" propose un bouton "C'est moi"
+    Et la page ne contient pas "Contact technique"
+
+  @javascript
+  Scénario: « C’est moi » remplit le responsable métier avec mes informations
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je remplis le cadre juridique de la demande Resana
+    Et je clique sur "C'est moi"
+    Alors un champ contient "demandeur@gouv.fr"
+    Et un champ contient "Adjoint au Maire"
+
+  Scénario: Le poste du responsable métier est obligatoire
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je remplis le cadre juridique de la demande Resana
+    Et je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email                  | Téléphone  |
+      | Dupont | Jacques | dupont.jacques@gouv.fr | 0836656565 |
+    Et je remplis les informations du contact "Responsable métier" avec :
+      | Nom    | Prénom | Email               | Téléphone  |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 |
+    Et je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "Fonction du responsable métier doit être rempli(e)"
+
+  Scénario: Un e-mail de DPO invalide est signalé
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je remplis le cadre juridique de la demande Resana
+    Et je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email        | Téléphone  |
+      | Dupont | Jacques | pas-un-email | 0836656565 |
+    Et je remplis les informations du contact "Responsable métier" avec :
+      | Nom    | Prénom | Email               | Téléphone  | Fonction du responsable métier |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Chef de projet                 |
+    Et je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "Email du délégué à la protection des données"
+
+  Scénario: Le récapitulatif indique qui reçoit les accès administrateur
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je remplis le cadre juridique et les personnes impliquées de la demande Resana
+    Alors la page contient "Responsable métier · reçoit les accès administrateur"
