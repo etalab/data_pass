@@ -126,7 +126,7 @@ setup_proc = lambda do |env|
 
   prompt_param = Rack::Utils.parse_nested_query(env['QUERY_STRING'])['prompt']
 
-  if %w[select_organization update_userinfo].include?(prompt_param)
+  if prompt_param == 'select_organization'
     env['omniauth.strategy'].options[:authorize_params] = {
       prompt: prompt_param,
     }

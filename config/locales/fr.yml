@@ -209,9 +209,8 @@ fr:
       success:
         title: Vous avez changé votre organisation
         description: "Vous êtes maintenant connecté pour le compte de '%{organization_name}' (numéro de siret: %{organization_siret})"
-    update_user:
-      success:
-        title: Vos informations ont bien été mises à jour
+    mon_compte_pro_organization_change_rejected:
+      title: Pour changer d’organisation, connectez-vous d’abord via ProConnect.
 
   pages:
     home:
