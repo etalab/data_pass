@@ -181,7 +181,7 @@ RSpec.describe 'API: Authorization requests write' do
       it 'returns an error' do
         create_request
 
-        expect(response).to have_http_status(:unprocessable_content)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
