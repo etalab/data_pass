@@ -127,7 +127,7 @@ Available test accounts (full list with roles in `app/lib/seeds/test_accounts.rb
 - `dem-commune@yopmail.com` — demandeur de référence, organisation commune (Ville de Clamart) ; porte uniquement les 16 situations « Référence — », numérotées 1 à 16 (`app/lib/seeds/dem_commune_reference_requests.rb`)
 - `dem-historique@yopmail.com` — demandes historiques des seeds (Clamart) ; `dem-stats@yopmail.com` — volume de la page de statistiques, à ne pas utiliser en recette
 - `admin-instructeur@yopmail.com` — admin and manager on all authorization requests
-- `instructeur-apie@yopmail.com` — instructeur API Entreprise ; `dev-apie@yopmail.com` owns the seeded OAuth application
+- `instructeur-apie@yopmail.com` — instructeur API Entreprise ; `dev-apie@yopmail.com` owns the seeded OAuth application ; `dev-multi-fd@yopmail.com` est développeur sur deux fournisseurs de données (DINUM et CNAM) et possède une application OAuth seedée pour tester les droits API sur `/admin/acces-api`
 - `dem-departement@yopmail.com` — demandeur rattaché à une collectivité département (Département du Rhône). Sert à tester le bloc CNOUS « Boursiers » en mode périmètre automatique avec appel à l’API Géo (dérivation commune → département). Le type d’habilitation `Boursiers` (slug `boursiers-dyn`) est seedé avec le bloc `cnous_data_extraction_criteria` : démarrer une demande via `/demandes/boursiers_dyn/nouveau`.
 
 #### Protection par token (staging & sandbox)

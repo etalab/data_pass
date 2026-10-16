@@ -151,7 +151,7 @@ La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeu
 ### Réponses possibles
 
 - `201 Created` — la demande est créée en état `draft`, la réponse contient la `Demande` complète.
-- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, le scope `write_authorizations` manque, ou le compte propriétaire du jeton a été banni de DataPass (erreur « Compte banni »). Un jeton émis avant le bannissement cesse alors aussi de fonctionner, sur tous les endpoints de l’API.
+- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, le scope `write_authorizations` manque (titre « Droit API manquant » dans ce cas, voir [Droits de soumission et de validation](#droits-de-soumission-et-de-validation)), ou le compte propriétaire du jeton a été banni de DataPass (erreur « Compte banni »). Un jeton émis avant le bannissement cesse alors aussi de fonctionner, sur tous les endpoints de l’API.
 - `422 Unprocessable Content` — le payload ne respecte pas la définition, ou les données ne passent pas les validations d’une demande en brouillon (erreur « Demande invalide »). Un payload accepté auparavant peut désormais être rejeté.
 
 Une demande créée par l’API est un brouillon : seules les validations d’un brouillon s’appliquent, comme sur le formulaire web, ce qui permet de la créer incomplète. Les données sont validées en totalité lorsque le demandeur soumet la demande depuis DataPass.
@@ -266,6 +266,45 @@ request.body = {
 ### Désactiver les emails DataPass
 
 Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés ; leur charge utile reprend la valeur effectivement appliquée dans le champ `notifications`.
+
+## Droits de soumission et de validation
+
+En plus de `write_authorizations` (création et mise à jour, inchangé), deux scopes optionnels distinguent la **soumission** et la **validation** de demandes par l’API :
+
+| Scope | Droit |
+| --- | --- |
+| `submit_authorizations` | Soumettre des demandes pour les fournisseurs de données autorisés |
+| `validate_authorizations` | Valider des demandes pour les fournisseurs de données autorisés |
+
+### Comment obtenir un droit
+
+- Ces droits ne se demandent pas depuis « Mes clefs d’accès API » : à la création d’une clef, vous n’obtenez que `public`, `read_authorizations` et `read_webhooks`.
+- Un administrateur DataPass les accorde à votre application, **fournisseur de données par fournisseur de données**, après qualification du parcours du fournisseur. Contactez-nous pour en faire la demande.
+- Les types d’habilitation sur lesquels votre application peut agir restent limités par les rôles « développeur » de son propriétaire.
+- Un droit accordé n’apparaît pas dans les jetons déjà émis : demandez un **nouveau jeton** en incluant le scope voulu. Les jetons `client_credentials` durent 2 heures.
+
+### Réponses `403`
+
+Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ».
+
+- le jeton ne porte pas le scope exigé : « Le jeton d’accès ne permet pas cette action. Si un droit vient d’être accordé à votre application, demandez un nouveau jeton d’accès. » Ce cas s’applique désormais à **tous** les endpoints qui exigent un scope (il renvoyait auparavant une erreur `422`) ;
+- le jeton porte le scope mais l’application n’a pas de droit actif pour le fournisseur de données du type d’habilitation : « Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données. » (ou « valider » pour la validation).
+
+```json
+{
+  "errors": [
+    {
+      "status": "403",
+      "title": "Droit API manquant",
+      "detail": "Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données."
+    }
+  ]
+}
+```
+
+### Révocation
+
+Un administrateur peut révoquer un droit à tout moment. La révocation est effective **immédiatement**, même avec un jeton qui porte encore le scope : le droit est revérifié à chaque appel. La suppression d’une application révoque automatiquement ses droits.
 
 ## Rediriger l'utilisateur vers sa demande
 
