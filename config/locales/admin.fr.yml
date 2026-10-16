@@ -1,4 +1,6 @@
 fr:
+  api_access_grants:
+    revoked_on_application_deletion: Application supprimée
   admin:
     index:
       title: Espace administrateur
