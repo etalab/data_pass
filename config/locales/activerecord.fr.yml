@@ -264,7 +264,7 @@ fr:
             safety_certification_begin_date:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:
-              inclusion: n'est pas incluse dans la liste des habilitations validées de votre organization
+              inclusion: n’est pas incluse dans la liste des habilitations actives de votre organisation
         authorization_request/france_connect:
           attributes:
             contact_technique_phone_number:

@@ -163,11 +163,11 @@ fr:
     responsable_traitement: &shared_gdpr
       subject: &gdpr_subject Vous avez été désigné %{authorization_request_contact_kind} pour la démarche « %{authorization_request_name} ».
       description: &gdpr_description |
-        Nous vous informons que %{authorization_request_applicant_email}, de l'organisation %{authorization_request_organization}, vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre de la démarche « %{authorization_request_name} ». Les détails de cette habilitation sont disponibles via le lien suivant: %{authorization_request_url}.
+        Nous vous informons que %{authorization_request_applicant_email}, de l'organisation %{authorization_request_organization}, vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre de la démarche « %{authorization_request_name} ». Les détails de cette demande sont disponibles via le lien suivant : %{authorization_request_url}.
 
         Vous n'avez rien de plus à faire!
 
-        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin que celui-ci effectue les modifications sur son habilitation : %{applicant_email}
+        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin qu’il demande une mise à jour de son habilitation : %{applicant_email}
 
         En cas de question, vous pouvez nous contacter à l'adresse suivante : %{support_email}.
 
@@ -181,7 +181,7 @@ fr:
         description: |
           %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande d'habilitation pour l'API %{api_name} sur DataPass pour le compte de l'organisation %{organization_name}
 
-          Vous pouvez modérer cette demande d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+          Vous pouvez instruire cette demande en suivant le lien suivant : %{authorization_request_instruction_url}
         changes_requested_submit: |
           Cette demande fait suite à des modifications demandées.
       reopening_submit:
