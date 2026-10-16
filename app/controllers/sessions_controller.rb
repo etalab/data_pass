@@ -98,7 +98,7 @@ class SessionsController < ApplicationController
 
     reject_authentication(organizer, identity_federator) if organizer.failure?
 
-    raise ApplicationController::BannedUserError if organizer.user.banned?
+    ensure_not_banned!(organizer.user)
 
     sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
 
