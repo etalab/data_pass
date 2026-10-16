@@ -12,7 +12,48 @@ fr:
       user_organization_verification: "Vérification lien utilisateur / organisation"
       habilitation_types: Types d’habilitation
       data_providers: Fournisseurs de données
+      api_access_grants: Droits API par fournisseur de données
       bans: Bannir un utilisateur
+    api_access_grants:
+      index:
+        title: Droits API par fournisseur de données
+        new: Accorder un droit API
+        empty: Aucun droit API n’a été accordé
+        revoke: Retirer
+        revoke_aria: Retirer le droit « %{action} » de %{application} pour %{data_provider}
+        granted_by: Accordé par %{email} le %{date}
+        revoked_by: Retiré par %{email} le %{date}
+        revoked_automatically: Retiré automatiquement le %{date}
+        reason: "Motif :"
+        table:
+          application: Application
+          data_provider: Fournisseur de données
+          action: Droit
+          granted: Octroi
+          status: Statut
+          actions: Actions
+        status:
+          active: Actif
+          revoked: Retiré
+        actions:
+          submission: Soumission par API
+          validation: Validation par API
+      new:
+        title: Accorder un droit API
+        blank: Veuillez choisir une valeur
+        cta: Accorder le droit
+        cancel: Annuler
+      create:
+        success: Le droit API a été accordé
+    api_access_grant_revocations:
+      already_revoked: Ce droit a déjà été retiré
+      new:
+        title: Retirer un droit API
+        summary: Retirer à l’application « %{application} » le droit « %{action} » pour %{data_provider}.
+        cta: Retirer le droit
+        cancel: Annuler
+      create:
+        success: Le droit API a été retiré
     bans:
       index:
         title: Utilisateurs bannis

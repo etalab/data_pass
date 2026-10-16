@@ -131,6 +131,12 @@ class SkipLinksImplementedChecker
     admin/bans#destroy
     admin/bans#confirm_destroy
 
+    admin/api_access_grants#index
+    admin/api_access_grants#new
+    admin/api_access_grants#create
+    admin/api_access_grant_revocations#new
+    admin/api_access_grant_revocations#create
+
     developers/open_api#show
     developers/oauth_applications#index
     developers/tutorials#index
