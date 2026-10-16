@@ -21,3 +21,10 @@ fr:
     generic:
       title: Entité non traitable
       detail: Un problème est survenu lors du traitement de la requête.
+    api_access_denied:
+      title: Droit API manquant
+      detail:
+        submit: Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données.
+        validate: Votre application n’est pas autorisée à valider des demandes pour ce fournisseur de données.
+        missing_scope: Le jeton d’accès ne permet pas cette action. Si un droit vient d’être accordé à votre application, demandez un nouveau jeton d’accès.
+        default: Votre application n’a pas le droit d’effectuer cette action.

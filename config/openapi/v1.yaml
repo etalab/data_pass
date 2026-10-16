@@ -71,6 +71,8 @@ components:
         Les scopes accordés à un jeton sont définis au moment de sa demande. Chaque opération documente les scopes qu'elle exige.
 
         Une clef API créée depuis « Mes clefs d'accès API » peut demander `public`, `read_authorizations` et `read_webhooks`. `write_authorizations` est accordé au cas par cas, nous contacter.
+
+        `submit_authorizations` et `validate_authorizations` (noms provisoires) ne peuvent pas être demandés par le développeur : un administrateur DataPass les accorde, par fournisseur de données, après qualification du parcours du fournisseur. Un appel dont le jeton ne porte pas le scope exigé, ou dont l'application n'a pas de droit actif pour le fournisseur de données du type d'habilitation, reçoit une réponse `403`. Un jeton émis avant l'octroi d'un droit ne porte pas le nouveau scope : demandez un nouveau jeton.
       flows:
         clientCredentials:
           tokenUrl: https://datapass.api.gouv.fr/api/v1/oauth/token
@@ -78,6 +80,8 @@ components:
             public: Accès aux informations publiques de l'utilisateur courant (`/me`)
             read_authorizations: Lecture des demandes, habilitations, événements et définitions d'habilitations
             write_authorizations: Création et mise à jour des demandes d'habilitations via l'API
+            submit_authorizations: Soumettre des demandes pour les fournisseurs de données autorisés
+            validate_authorizations: Valider des demandes pour les fournisseurs de données autorisés
             read_webhooks: Lecture de l'historique des appels webhooks
   parameters:
     Authorization:
@@ -614,7 +618,7 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     ForbiddenError:
-      description: Accès interdit - les scopes associés au jeton ne permettent pas d'effectuer cette action.
+      description: Accès interdit (titre « Droit API manquant ») - le jeton ne porte pas le scope exigé, ou l'application n'a pas le droit actif correspondant pour le fournisseur de données concerné.
       content:
         application/json:
           schema:
@@ -875,6 +879,8 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Demande"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
         404:
           $ref: "#/components/responses/NotFoundError"
     patch:
@@ -1071,6 +1077,8 @@ paths:
                 $ref: "#/components/schemas/Me"
         401:
           $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
 
   /definitions:
     get:
@@ -1236,6 +1244,8 @@ paths:
                         deprecated_date: null
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
         '404':
           description: Définition d'habilitation non trouvée ou accès non autorisé
           content:
@@ -1313,6 +1323,8 @@ paths:
                       scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
         '404':
           description: Définition d'habilitation non trouvée ou accès non autorisé
           content:
