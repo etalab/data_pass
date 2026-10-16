@@ -16,6 +16,15 @@ class AuthorizationRequestCreationRules
     )
   end
 
+  def self.for_instructor_draft(instructor_draft, applicant:)
+    new(
+      definition: instructor_draft.authorization_request_class.constantize.definition,
+      startable: true,
+      organization: instructor_draft.organization,
+      applicant:
+    )
+  end
+
   def initialize(definition:, startable:, organization:, applicant: nil)
     @definition = definition
     @startable = startable
@@ -45,7 +54,7 @@ class AuthorizationRequestCreationRules
   def unicity_violated?
     definition.unique &&
       organization.present? &&
-      organization.active_authorization_requests.exists?(type: definition.authorization_request_class_as_string)
+      definition.active_authorization_requests_for(organization).exists?
   end
 
   private

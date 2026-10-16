@@ -196,11 +196,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     !multiple_steps?
   end
 
-  def active_authorization_requests_for(organization)
-    organization
-      .active_authorization_requests
-      .where(type: authorization_request_class.to_s)
-  end
+  delegate :active_authorization_requests_for, to: :authorization_definition
 
   def self.clean_data(initialize_with)
     initialize_with ||= {}

@@ -86,4 +86,21 @@ RSpec.describe AuthorizationRequestCreationRules do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '.for_instructor_draft' do
+    subject(:violation) { described_class.for_instructor_draft(instructor_draft, applicant:).creation_violation }
+
+    let(:instructor_draft) { build_stubbed(:instructor_draft_request, authorization_request_class:, organization:) }
+    let(:authorization_request_class) { 'AuthorizationRequest::APIR2P' }
+
+    it 'does not require the form to be startable by an applicant' do
+      expect(violation).to be_nil
+    end
+
+    context 'when the applicant is banned' do
+      let(:applicant) { create(:user, banned_at: Time.zone.now, ban_reason: 'Abus') }
+
+      it { is_expected.to eq(:applicant_banned) }
+    end
+  end
 end
