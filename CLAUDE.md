@@ -115,6 +115,14 @@ Redis is shared across worktrees.
 - Create a new worktree: `bin/worktree-build <folder> <branch> [port]`
 - Reconfigure an existing worktree: `bin/worktree-build --setup-only <folder> [port]`
 
+## Sandbox recette
+
+Build recette branches with `bin/build-recette` (usage: `bin/build-recette`
+without arguments), never by hand: it only merges pushed branches, stops at the
+first conflict, and creates a new dated branch each time, so it never
+force-pushes. Process: "Recetter plusieurs branches en même temps" in
+`CONTRIBUTING.md`.
+
 ## Local Authentication
 
 In development, ProConnect authentication can be bypassed by visiting:
