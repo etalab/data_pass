@@ -193,6 +193,22 @@ Quand("cette demande n'a ni adresse IP publique ni adresse du contact technique"
   end
 end
 
+Quand('cette demande renseigne des contacts supplémentaires DGFiP') do
+  authorization_request = AuthorizationRequest.last
+
+  extra_contacts = {
+    'contact_technique_extra_email' => 'generique@banque.fr',
+    'extra_organization_contact_name' => 'Jean Secours',
+    'extra_organization_contact_email' => 'secours@banque.fr',
+  }
+
+  authorization_request.update!(data: authorization_request.data.merge(extra_contacts))
+
+  authorization_request.authorizations.each do |authorization|
+    authorization.update!(data: authorization.data.merge(extra_contacts))
+  end
+end
+
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
   last_authorization_request = AuthorizationRequest.last
   last_authorization_request.intitule = intitule

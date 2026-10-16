@@ -1,0 +1,18 @@
+<div class="fr-col-12 fr-col-lg-6">
+  <div class="fr-basic-card contact-card">
+    <div class="contact-card__kind" id="<%= dom_id(authorization_request, 'extra_organization_contact_label') %>">
+      <%= f.wording_for('contact_organization.title') %>
+    </div>
+
+    <% %w[extra_organization_contact_name extra_organization_contact_email].each do |extra_contact_attribute| %>
+      <div class="contact-card__attribute">
+        <div class="contact-card__attribute-label">
+          <%= f.label_value(extra_contact_attribute) %>
+        </div>
+        <div class="contact-card__attribute-value">
+          <%= authorization_request.public_send(extra_contact_attribute) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
