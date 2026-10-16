@@ -154,6 +154,13 @@ La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeu
 - `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, ou le scope `write_authorizations` manque.
 - `422 Unprocessable Content` — le payload ne respecte pas la définition, ou les données ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »). Un payload accepté auparavant peut désormais être rejeté.
 
+La création applique aussi les règles d’accès du formulaire web. Elle est refusée en `422` dans les cas suivants :
+
+- le formulaire n’est pas ouvert aux demandeurs (par exemple une étape de production, qui ne se démarre qu’à partir de la demande de bac à sable) : erreur « Formulaire non disponible » ;
+- l’organisation est fermée selon l’INSEE : erreur « Organisation fermée » ;
+- le type d’habilitation est unique par organisation et une demande est déjà en cours ou validée : erreur « Demande déjà existante » ;
+- le demandeur a été exclu de DataPass : erreur « Demandeur invalide », sans plus de précision.
+
 Le format des erreurs suit la convention JSON:API. Exemple de réponse `422` :
 
 ```json
@@ -182,7 +189,7 @@ Voir la [spec OpenAPI de `POST /demandes`](/developpeurs/documentation) pour la 
 
 ## Cas d'usage : mise à jour programmée (CRM → DataPass)
 
-`PATCH /demandes/{id}` permet de mettre à jour une demande **en état `draft`** depuis l'API. Les demandes déjà soumises ne sont pas modifiables via cet endpoint.
+`PATCH /demandes/{id}` permet de mettre à jour une demande **en état `draft` ou `changes_requested`** depuis l'API, comme le demandeur sur le formulaire web. Dès qu’une demande est soumise (`submitted`) ou traitée, elle n’est plus modifiable via cet endpoint : l’API répond `422` avec l’erreur « État non modifiable ».
 
 ```ruby
 uri = URI("https://datapass.api.gouv.fr/api/v1/demandes/#{demande_id}")
