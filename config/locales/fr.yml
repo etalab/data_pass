@@ -851,6 +851,15 @@ fr:
         already_claimed:
           title: Vous ne pouvez pas créer cette demande d'habilitation
           description: Cette demande d'habilitation a déjà été créée par un autre usager.
+        applicant_banned:
+          title: Vous ne pouvez pas créer cette demande d'habilitation
+          description: Votre compte ne permet pas de créer cette demande d'habilitation. Veuillez contacter le support pour plus d'informations.
+        organization_closed:
+          title: Vous ne pouvez pas créer cette demande d'habilitation
+          description: Votre organisation est fermée, aucune demande ne peut être créée pour elle.
+        unicity_violated:
+          title: Vous ne pouvez pas créer cette demande d'habilitation
+          description: Votre organisation possède déjà une demande de ce type en cours ou validée, elle ne peut en avoir qu'une seule.
         invalid_authorization_request:
           title: Vous ne pouvez pas créer cette demande d'habilitation
           description: Cette demande d'habilitation n'est pas dans un état permettant d'être créée. Veuillez contacter le support pour plus d'informations.
