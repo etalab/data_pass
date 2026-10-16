@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_15_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -65,6 +65,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_admin_events_on_admin_id"
     t.index ["entity_type", "entity_id"], name: "index_admin_events_on_entity"
+  end
+
+  create_table "api_access_grants", force: :cascade do |t|
+    t.string "action", null: false
+    t.datetime "created_at", null: false
+    t.bigint "data_provider_id", null: false
+    t.text "grant_reason", null: false
+    t.datetime "granted_at", null: false
+    t.string "granted_by_email", null: false
+    t.bigint "granted_by_id"
+    t.bigint "oauth_application_id", null: false
+    t.string "oauth_application_name", null: false
+    t.text "revoke_reason"
+    t.datetime "revoked_at"
+    t.boolean "revoked_automatically", default: false, null: false
+    t.string "revoked_by_email"
+    t.bigint "revoked_by_id"
+    t.datetime "updated_at", null: false
+    t.index ["data_provider_id"], name: "index_api_access_grants_on_data_provider_id"
+    t.index ["oauth_application_id", "data_provider_id", "action"], name: "index_api_access_grants_on_active_grant", unique: true, where: "(revoked_at IS NULL)"
+    t.index ["oauth_application_id"], name: "index_api_access_grants_on_oauth_application_id"
+    t.check_constraint "(revoked_at IS NULL) = (revoked_by_email IS NULL AND NOT revoked_automatically)", name: "api_access_grants_revocation_is_complete"
   end
 
   create_table "authorization_documents", force: :cascade do |t|
@@ -194,6 +216,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "data_providers", force: :cascade do |t|
+    t.jsonb "api_contract_options", default: {}, null: false
     t.datetime "created_at", null: false
     t.string "link", null: false
     t.string "name", null: false
@@ -749,6 +772,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_changes", "authorization_requests"
   add_foreign_key "admin_events", "users", column: "admin_id"
+  add_foreign_key "api_access_grants", "data_providers"
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorization_request_events", "authorization_requests"
