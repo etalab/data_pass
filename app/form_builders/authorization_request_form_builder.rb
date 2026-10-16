@@ -212,7 +212,7 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   def readonly?
-    !@object.filling?
+    !@object.editable_by_applicant?
   end
 
   def check_box_disabled

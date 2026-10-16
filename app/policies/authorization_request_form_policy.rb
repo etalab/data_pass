@@ -1,20 +1,15 @@
 class AuthorizationRequestFormPolicy < ApplicationPolicy
   def new?
-    creation_rules.startable? &&
-      creation_rules.organization_active?
+    creation_rules.access_violation.nil?
   end
 
   def create?
-    new? && !creation_rules.unicity_violated?
+    creation_rules.creation_violation.nil?
   end
 
   private
 
   def creation_rules
-    @creation_rules ||= AuthorizationRequestCreationRules.new(
-      form: record,
-      organization: current_organization,
-      applicant: user
-    )
+    @creation_rules ||= AuthorizationRequestCreationRules.for_form(record, organization: current_organization, applicant: user)
   end
 end

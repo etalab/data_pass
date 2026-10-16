@@ -8,8 +8,8 @@ class EnsureAuthorizationRequestCanBeCreated < ApplicationInteractor
   private
 
   def rules
-    AuthorizationRequestCreationRules.new(
-      form: context.authorization_request_form,
+    AuthorizationRequestCreationRules.for_form(
+      context.authorization_request_form,
       organization: context.organization,
       applicant: context.applicant
     )

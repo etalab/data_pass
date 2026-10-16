@@ -1,20 +1,41 @@
 class AuthorizationRequestCreationRules
-  def initialize(form:, organization:, applicant: nil)
-    @form = form
+  def self.for_form(form, organization:, applicant: nil)
+    new(definition: form.authorization_definition, startable: form.startable_by_applicant, organization:, applicant:)
+  end
+
+  def self.for_definition(definition, organization:, applicant: nil)
+    new(definition:, startable: true, organization:, applicant:)
+  end
+
+  def self.for_request_class(authorization_request_class, organization:, applicant: nil)
+    new(
+      definition: authorization_request_class.definition,
+      startable: authorization_request_class.startable_by_applicant,
+      organization:,
+      applicant:
+    )
+  end
+
+  def initialize(definition:, startable:, organization:, applicant: nil)
+    @definition = definition
+    @startable = startable
     @organization = organization
     @applicant = applicant
   end
 
   def creation_violation
+    access_violation || (:unicity_violated if unicity_violated?)
+  end
+
+  def access_violation
     return :applicant_banned if applicant_known_and_banned?
     return :form_not_startable unless startable?
-    return :organization_closed unless organization_active?
 
-    :unicity_violated if unicity_violated?
+    :organization_closed unless organization_active?
   end
 
   def startable?
-    form.startable_by_applicant
+    @startable
   end
 
   def organization_active?
@@ -22,14 +43,14 @@ class AuthorizationRequestCreationRules
   end
 
   def unicity_violated?
-    form.authorization_definition.unique &&
+    definition.unique &&
       organization.present? &&
-      form.active_authorization_requests_for(organization).exists?
+      organization.active_authorization_requests.exists?(type: definition.authorization_request_class_as_string)
   end
 
   private
 
-  attr_reader :form, :organization, :applicant
+  attr_reader :definition, :organization, :applicant
 
   def applicant_known_and_banned?
     applicant.present? && applicant.banned?

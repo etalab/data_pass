@@ -412,6 +412,10 @@ class AuthorizationRequest < ApplicationRecord
     %w[draft changes_requested].include?(state)
   end
 
+  def editable_by_applicant?
+    filling?
+  end
+
   TERMINAL_STATES = %w[validated refused revoked archived].freeze
 
   def finished?
