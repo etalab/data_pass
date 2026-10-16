@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
   include Authentication
 
+  class AuthenticationFailedError < StandardError; end
+
   allow_unauthenticated_access only: %i[create failure]
+
+  rescue_from AuthenticationFailedError, with: :reject_failed_authentication
 
   def create
     if mon_compte_pro_connect?
@@ -92,6 +96,8 @@ class SessionsController < ApplicationController
 
     organizer = call_authenticator(identity_federator)
 
+    reject_authentication(organizer, identity_federator) if organizer.failure?
+
     raise ApplicationController::BannedUserError if organizer.user.banned?
 
     sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
@@ -108,6 +114,25 @@ class SessionsController < ApplicationController
     else
       raise ArgumentError, "Unknown identity federator: #{identity_federator}"
     end
+  end
+
+  def reject_authentication(organizer, identity_federator)
+    Sentry.capture_message(
+      'Authentication failed',
+      level: :warning,
+      extra: { identity_federator:, error: organizer.error }
+    )
+
+    raise AuthenticationFailedError, failure_message_key(organizer)
+  end
+
+  def failure_message_key(organizer)
+    organizer.error&.dig(:key) == :user_email_mismatch ? 'email_mismatch' : 'generic'
+  end
+
+  def reject_failed_authentication(error)
+    flash[:error] = { 'title' => I18n.t("sessions.authenticate_user.errors.#{error.message}") }
+    redirect_to root_path
   end
 
   def post_sign_in

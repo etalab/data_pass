@@ -621,7 +621,10 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     ValidationError:
-      description: La sauvegarde ou la mise à jour a échoué.
+      description: >-
+        La sauvegarde ou la mise à jour a échoué : le payload ne respecte pas la définition, ou les données
+        ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »).
+        Un payload accepté auparavant peut désormais être rejeté.
       content:
         application/json:
           schema:
@@ -774,6 +777,7 @@ paths:
         Le demandeur (applicant) est créé s'il n'existe pas, identifié par email.
         L'organisation est créée si elle n'existe pas, identifiée par SIRET, et un rafraîchissement des données INSEE est planifié.
         Si aucun lien n'existe entre le demandeur et l'organisation, un lien non vérifié est créé.
+        Ce lien ne devient vérifié qu'à la première connexion ProConnect du demandeur, si le fournisseur d'identité vérifie le SIRET ; tant qu'il ne l'est pas, le demandeur ne voit pas les autres demandes de l'organisation.
 
         Requiert le scope OAuth2 `write_authorizations` et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
       tags:

@@ -3,15 +3,11 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     context.authorization_request_params ||= ActionController::Parameters.new
     context.event_name = 'create_by_api'
     context.event_entity = :changelog
-    context.identity_federator = 'unknown'
-    context.skip_validation = true
   end
 
   organize ResolveAuthorizationRequestForm,
     ValidateAPIDataKeys,
-    FindOrCreateApplicantFromAPI,
-    FindOrCreateOrganizationForAPI,
-    LinkApplicantToOrganization,
+    ProvisionApplicantFromAPI,
     CreateAuthorizationRequestModel,
     CreateAuthorizationRequestChangelog,
     AfterCreateAuthorizationRequest,

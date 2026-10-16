@@ -284,4 +284,45 @@ RSpec.describe AuthorizationRequestsSearchEngineBuilder do
       end
     end
   end
+
+  describe 'for an applicant created through the API' do
+    subject(:result) { service.build_search_engine(AuthorizationRequest.all) }
+
+    let(:service) { described_class.new(api_applicant, ActionController::Parameters.new(search_query: { user_relationship_eq: relationship })) }
+    let(:api_applicant) do
+      ProvisionApplicantFromAPI.call(
+        applicant_params: { email: 'api-applicant@example.com', given_name: 'Jeanne', family_name: 'Martin' },
+        siret: '21920023500014'
+      ).applicant
+    end
+    let(:api_organization) { api_applicant.organizations.sole }
+    let!(:own_request) { create(:authorization_request, :api_entreprise, applicant: api_applicant, organization: api_organization) }
+    let!(:colleague_request) { create(:authorization_request, :api_particulier, organization: api_organization) }
+
+    before { api_applicant.organizations_users.sole.set_as_current! }
+
+    context 'when the organization link is still unverified' do
+      context 'with the applicant relationship' do
+        let(:relationship) { 'applicant' }
+
+        it { is_expected.to contain_exactly(own_request) }
+      end
+
+      context 'with the organization relationship' do
+        let(:relationship) { 'organization' }
+
+        it { is_expected.to be_empty }
+      end
+    end
+
+    context 'when the organization link has been verified' do
+      before { api_applicant.organizations_users.sole.update!(verified: true) }
+
+      context 'with the organization relationship' do
+        let(:relationship) { 'organization' }
+
+        it { is_expected.to contain_exactly(own_request, colleague_request) }
+      end
+    end
+  end
 end
