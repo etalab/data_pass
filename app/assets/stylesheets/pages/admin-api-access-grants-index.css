@@ -1,0 +1,14 @@
+.admin-api-access-grants-table.fr-table--no-scroll .fr-table__wrapper {
+  width: 100%;
+}
+
+@media (min-width: 36em) {
+  .admin-api-access-grants-table.fr-table--no-scroll .fr-table__wrapper .fr-table__content table {
+    width: 100%;
+  }
+
+  .admin-api-access-grants-table .admin-api-access-grants-table__details {
+    max-width: 18rem;
+    overflow-wrap: anywhere;
+  }
+}
