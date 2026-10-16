@@ -1,6 +1,6 @@
 <%= t('mailer.shared.header.hello') %>
 
-<%= t('.description', authorization_request_id: @authorization_request.formatted_id) %>
+<%= t('.description', authorization_request_id: @authorization_request.formatted_id, authorization_id: @authorization.formatted_id) %>
 - <%= t('.intitule', intitule: @authorization_request.name) %>
 - <%= t('.form_name', form_name: @authorization_request.form.name) %>
 <% if @editor -%>

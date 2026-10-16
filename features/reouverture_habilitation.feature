@@ -64,36 +64,36 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
-    Alors il y a un bouton "Annuler ma demande de modification"
-    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un bouton "Annuler ma demande de mise à jour"
+    Et que je clique sur "Annuler ma demande de mise à jour"
     Alors il y a un titre contenant "Annulation de vos modifications"
-    Alors il y a un bouton "Annuler ma demande de modification"
-    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un bouton "Annuler ma demande de mise à jour"
+    Et que je clique sur "Annuler ma demande de mise à jour"
     Alors il y a un message de succès contenant "a été annulée"
 
   Scénario: Soumission impossible d'une habilitation fraîchement réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
-    Alors il y a un bouton "Annuler ma demande de modification"
-    Et il n'y a pas de bouton "Envoyer ma demande de modification"
+    Alors il y a un bouton "Annuler ma demande de mise à jour"
+    Et il n'y a pas de bouton "Envoyer ma demande de mise à jour"
 
   Scénario: Soumission d'une habilitation réouverte avec des modifications
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
-    Alors il y a un bouton "Annuler ma demande de modification"
-    Et il n'y a pas de bouton "Envoyer ma demande de modification"
+    Alors il y a un bouton "Annuler ma demande de mise à jour"
+    Et il n'y a pas de bouton "Envoyer ma demande de mise à jour"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Délégué à la protection des données" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |Jean     | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur associé d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Envoyer ma demande de modification"
+    Et que je clique sur "Envoyer ma demande de mise à jour"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "En cours"
     Et que je clique sur le dernier "Consulter"
-    Alors il n'y a pas de bouton "Annuler ma demande de modification"
+    Alors il n'y a pas de bouton "Annuler ma demande de mise à jour"
 
   @DisableBullet
   @FlushJobQueue
@@ -119,13 +119,13 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Enregistrer les modifications"
     Et que j'adhère aux conditions générales
     Et que je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
-    Et que je clique sur "Envoyer ma demande de modification"
+    Et que je clique sur "Envoyer ma demande de mise à jour"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Bac à sable"
     Et il y a un badge "En cours"
     Et qu'un instructeur a validé la demande d'habilitation
     Et que je me rends sur mon tableau de bord demandeur habilitations
-    Alors la page contient "Votre demande de réouverture d’accès au bac à sable a été validée !"
+    Alors la page contient "Votre habilitation bac à sable a été mise à jour !"
 
 
   Scénario: Annulation d'une demande de réouverture multi stage
@@ -138,11 +138,11 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un badge "Bac à sable"
     Et il y a un badge "Brouillon"
     Quand je clique sur le dernier "Consulter"
-    Alors il y a un bouton "Annuler ma demande de modification"
-    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un bouton "Annuler ma demande de mise à jour"
+    Et que je clique sur "Annuler ma demande de mise à jour"
     Alors il y a un titre contenant "Annulation de vos modifications"
-    Alors il y a un bouton "Annuler ma demande de modification"
-    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un bouton "Annuler ma demande de mise à jour"
+    Et que je clique sur "Annuler ma demande de mise à jour"
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Alors il y a un badge "Production"
     Et il y a un badge "Active"
@@ -167,7 +167,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Enregistrer les modifications"
     Et que j'adhère aux conditions générales
     Et que je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
-    Et que je clique sur "Envoyer ma demande de modification"
+    Et que je clique sur "Envoyer ma demande de mise à jour"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et qu'un instructeur a validé la demande d'habilitation
     Et que je me rends sur mon tableau de bord demandeur habilitations
@@ -177,7 +177,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors je clique sur "Démarrer ma demande d’habilitation en production"
     Et je clique sur "Débuter ma demande"
     Et que j'adhère aux conditions générales
-    Et je clique sur "Envoyer ma demande de modification"
+    Et je clique sur "Envoyer ma demande de mise à jour"
     Et il y a un badge "Production"
     Et il y a un badge "En cours"
     Et il y a un badge "Mise à jour"
@@ -220,6 +220,6 @@ Fonctionnalité: Réouverture d'une habilitation validée
       | safety_certification_end_date   | 2026-01-13      |
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
-    Et que je clique sur "Envoyer ma demande de modification"
+    Et que je clique sur "Envoyer ma demande de mise à jour"
     Alors il y a un message d'erreur contenant "doit être supérieure à la date de début"
 

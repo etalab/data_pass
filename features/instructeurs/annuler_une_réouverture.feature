@@ -9,28 +9,28 @@ Fonctionnalité: Instruction: annuler une réouverture
 
   Scénario: Je peux annuler une réouverture sur une habilitation réouverte
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte
-    Alors il y a un bouton "Annuler la demande de réouverture"
+    Alors il y a un bouton "Annuler la demande de mise à jour"
 
   Scénario: Je peux annuler une réouverture sur une habilitation réouverte et soumise
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte et soumise
-    Alors il y a un bouton "Annuler la demande de réouverture"
+    Alors il y a un bouton "Annuler la demande de mise à jour"
 
   Scénario: Je ne peux pas annuler une réouverture sur une habilitation qui n'a jamais été réouverte
     Quand je me rends sur une demande d'habilitation "API Particulier" à modérer
-    Alors il n'y a pas de bouton "Annuler la demande de réouverture"
+    Alors il n'y a pas de bouton "Annuler la demande de mise à jour"
 
   Scénario: J'annule une réouverture d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte
-    Et que je clique sur "Annuler la demande de réouverture"
-    Et que je remplis "Raison de l'annulation de la réouverture" avec "L'usager s'est trompé de bouton"
-    Et que je clique sur "Annuler la réouverture de cette demande"
+    Et que je clique sur "Annuler la demande de mise à jour"
+    Et que je remplis "Motif de l’annulation de la demande de mise à jour" avec "L'usager s'est trompé de bouton"
+    Et que je clique sur "Annuler cette demande de mise à jour"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et que je me rends sur mon tableau de bord instructeur habilitations
     Et je vois 1 habilitation "API Particulier" active
 
   Scénario: J'annule une réouverture d'habilitation avec un message invalide
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte
-    Et que je clique sur "Annuler la demande de réouverture"
-    Et que je clique sur "Annuler la réouverture de cette demande"
+    Et que je clique sur "Annuler la demande de mise à jour"
+    Et que je clique sur "Annuler cette demande de mise à jour"
     Alors il y a au moins une erreur sur un champ
 

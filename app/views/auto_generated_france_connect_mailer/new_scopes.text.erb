@@ -3,7 +3,7 @@
 <%=
   t(
     '.description',
-    request_type: @authorization_request.reopening? ? 'mise à jour' : 'habilitation',
+    outcome: @authorization_request.reopening? ? 'mise à jour' : 'délivrée',
     definition_name: @authorization_request.definition.name_with_stage,
     organization_name: @authorization_request.organization.name,
     linked_authorization_url: authorization_request_url(@linked_authorization.request),
@@ -17,7 +17,6 @@
 <%=
   t(
     '.consultation',
-    request_type: @authorization_request.reopening? ? 'mise à jour' : 'habilitation',
     authorization_request_url: authorization_request_url(@authorization_request)
   )
 %>
