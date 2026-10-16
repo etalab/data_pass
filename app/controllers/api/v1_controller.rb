@@ -8,6 +8,8 @@ class API::V1Controller < APIController
   rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing_error
+  rescue_from Doorkeeper::Errors::TokenForbidden, with: :render_missing_scope_error
+  rescue_from Pundit::NotAuthorizedError, with: :render_pundit_error
 
   protected
 
@@ -37,17 +39,40 @@ class API::V1Controller < APIController
     render_error(422, :generic)
   end
 
+  def render_missing_scope_error
+    render_api_access_denied(I18n.t('api_errors.api_access_denied.detail.missing_scope'))
+  end
+
+  def render_pundit_error(exception)
+    detail_key = exception.policy.is_a?(APIAccessPolicy) ? exception.query.to_s.delete_suffix('?') : 'default'
+
+    render_api_access_denied(I18n.t("api_errors.api_access_denied.detail.#{detail_key}", default: I18n.t('api_errors.api_access_denied.detail.default')))
+  end
+
+  def render_api_access_denied(detail)
+    render_error_payload(403, title: I18n.t('api_errors.api_access_denied.title'), detail:)
+  end
+
   def render_parameter_missing_error(exception)
     render_error(400, :parameter_missing, interpolations: { param: exception.param }, source: { pointer: "/#{exception.param}" })
   end
 
   def render_error(http_code, key, source: nil, interpolations: {})
+    render_error_payload(
+      http_code,
+      title: I18n.t("api_errors.#{key}.title"),
+      detail: I18n.t("api_errors.#{key}.detail", **interpolations),
+      source:
+    )
+  end
+
+  def render_error_payload(http_code, title:, detail:, source: nil)
     render json: {
       errors: [
         {
           status: http_code.to_s,
-          title: I18n.t("api_errors.#{key}.title"),
-          detail: I18n.t("api_errors.#{key}.detail", **interpolations),
+          title:,
+          detail:,
           source:,
         }.compact
       ]

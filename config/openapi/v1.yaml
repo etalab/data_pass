@@ -967,6 +967,8 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Demande"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
         404:
           $ref: "#/components/responses/NotFoundError"
     patch:
@@ -1348,6 +1350,8 @@ paths:
                 $ref: "#/components/schemas/Me"
         401:
           $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
 
   /definitions:
     get:
@@ -1513,6 +1517,8 @@ paths:
                         deprecated_date: null
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
         '404':
           description: Définition d'habilitation non trouvée ou accès non autorisé
           content:
@@ -1590,6 +1596,8 @@ paths:
                       scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
         '404':
           description: Définition d'habilitation non trouvée ou accès non autorisé
           content:
