@@ -1,0 +1,26 @@
+resana:
+  authorization_request: Resana
+  name: Rôle administrateur Resana
+  introduction: |
+    <p>Ce formulaire vous permet de devenir administrateur de votre organisation dans Resana. Ce rôle vous donne la main pour :</p>
+    <ul>
+      <li>paramétrer l’espace Resana de votre organisation ;</li>
+      <li>répondre aux questions des utilisateurs de votre organisation ;</li>
+      <li>recevoir les notifications concernant les demandes de création d’espace ou d’ajout d’un membre à un espace ;</li>
+      <li>suivre la migration de vos espaces hors de Resana ;</li>
+      <li>archiver les données de votre organisation.</li>
+    </ul>
+    <p>Pour bien prendre en main ce rôle, consultez la documentation <a href="https://resana.zendesk.com/hc/fr/categories/23766418523933-Administrateur-de-l-organisation" target="_blank" rel="noopener">« Administrateur de l’organisation »<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.</p>
+    <p>
+      En savoir plus : <a href="https://lasuite.numerique.gouv.fr/resana-en-2027" target="_blank" rel="noopener">Resana en 2027<span class="fr-sr-only"> - nouvelle fenêtre</span></a>
+      · <a href="https://resana.numerique.gouv.fr/public/utilisateur/afficherPageConnexionAnnexe?page=cgu" target="_blank" rel="noopener">CGU Resana<span class="fr-sr-only"> - nouvelle fenêtre</span></a>
+      · Support : <a href="mailto:support-resana@numerique.gouv.fr">support-resana@numerique.gouv.fr</a>
+    </p>
+    <div class="fr-callout">
+      <h6 class="fr-callout__title">Votre engagement</h6>
+      <p class="fr-callout__text">En remplissant ce formulaire, vous vous engagez à être habilité à traiter les documents enregistrés sur Resana par votre organisme. Il appartient dans ce cadre à votre organisme de définir des politiques de migration, archivage et suppression le cas échéant des fichiers conservés sur Resana.</p>
+    </div>
+    <p>Une fois soumise, votre demande est examinée par l’équipe Resana. Après validation, celle-ci vous informera par e-mail de l’attribution de votre rôle d’administrateur.</p>
+  steps:
+    - name: legal
+    - name: contacts

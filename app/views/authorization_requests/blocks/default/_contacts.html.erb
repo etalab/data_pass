@@ -10,7 +10,7 @@
             class="fr-basic-card contact-card"
           >
             <div class="contact-card__kind" id="<%= contact_label_id %>">
-              <%= f.wording_for("#{contact_type}.title") %>
+              <%= f.wording_for("#{contact_type}.summary_title") || f.wording_for("#{contact_type}.title") %>
             </div>
 
             <% if authorization_request.public_send("#{contact_type}_type") == 'person' %>
