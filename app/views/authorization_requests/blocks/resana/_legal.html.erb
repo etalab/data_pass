@@ -5,12 +5,10 @@
     <%= f.wording_for("nature_juridique.values.#{authorization_request.nature_juridique}") if authorization_request.nature_juridique.present? %>
   </p>
 
-  <h3 class="fr-h6 fr-mt-3w">
-    <%= f.wording_for('legal.habilitation.summary_title') %>
-  </h3>
-
   <% if authorization_request.habilitation_certifiee %>
     <p>
+      <strong><%= f.wording_for('legal.habilitation.summary_title') %></strong>
+      <br>
       <%= f.wording_for('habilitation_certifiee.summary') %>
     </p>
   <% end %>
