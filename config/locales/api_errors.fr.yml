@@ -9,6 +9,18 @@ fr:
     dead_end_state:
       title: État non modifiable
       detail: La demande ne peut pas être modifiée dans l’état actuel.
+    form_not_startable:
+      title: Formulaire non disponible
+      detail: Ce formulaire ne peut pas être utilisé pour créer une demande.
+    organization_closed:
+      title: Organisation fermée
+      detail: L’organisation indiquée est fermée, aucune demande ne peut être créée pour elle.
+    applicant_banned:
+      title: Demandeur invalide
+      detail: Ce demandeur ne peut pas être utilisé.
+    unicity_violated:
+      title: Demande déjà existante
+      detail: Une autre demande d’habilitation de ce type est déjà en cours ou validée pour cette organisation, elle ne peut en avoir qu’une seule.
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."

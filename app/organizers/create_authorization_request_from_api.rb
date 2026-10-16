@@ -8,6 +8,7 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
   organize ResolveAuthorizationRequestForm,
     ValidateAPIDataKeys,
     ProvisionApplicantFromAPI,
+    EnsureAuthorizationRequestCanBeCreated,
     CreateAuthorizationRequestModel,
     CreateAuthorizationRequestChangelog,
     AfterCreateAuthorizationRequest,
