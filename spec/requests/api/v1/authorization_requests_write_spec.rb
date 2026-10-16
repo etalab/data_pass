@@ -366,10 +366,10 @@ RSpec.describe 'API: Authorization requests write' do
     context 'when authorization request is in submitted state' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
 
-      it 'allows the update' do
+      it 'returns 422 like the web, where a submitted request is no longer editable' do
         update_request
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
