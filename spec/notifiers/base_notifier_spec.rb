@@ -125,7 +125,7 @@ RSpec.describe BaseNotifier, type: :notifier do
         }.to change { ActionMailer::Base.deliveries.count }.by(2)
 
         instruction_mail = ActionMailer::Base.deliveries[-2]
-        expect(instruction_mail.body.encoded).to include('Cette demande fait suite à des modifications demandées.')
+        expect(instruction_mail.text_part.body.decoded).to include('Cette demande fait suite à des modifications demandées.')
       end
     end
 
@@ -136,7 +136,7 @@ RSpec.describe BaseNotifier, type: :notifier do
         }.to change { ActionMailer::Base.deliveries.count }.by(2)
 
         instruction_mail = ActionMailer::Base.deliveries[-2]
-        expect(instruction_mail.body.encoded).not_to include('Cette demande fait suite à des modifications demandées.')
+        expect(instruction_mail.text_part.body.decoded).not_to include('Cette demande fait suite à des modifications demandées.')
       end
     end
   end

@@ -11,19 +11,21 @@ RSpec.describe FranceConnectMailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to match('FranceConnect associée')
+      expect(decoded_text_body(mail)).to match('FranceConnect associée')
     end
 
     it 'says an authorization was delivered and identifies the FranceConnect request by its request number' do
-      expect(mail.body.encoded).to include('vient d’être délivrée', "demande FranceConnect associée : #{authorization_request.france_connect_authorization.request.formatted_id}")
+      expect(decoded_text_body(mail)).to include('vient d’être délivrée', "demande FranceConnect associée : #{authorization_request.france_connect_authorization.request.formatted_id}")
     end
 
     context 'when the request has a stage' do
       let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :with_france_connect, :validated, modalities: %w[with_france_connect]) }
 
       it 'includes the stage in the body' do
-        expect(mail.body.encoded).to match('Bac à sable')
+        expect(decoded_text_body(mail)).to match('Bac à sable')
       end
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end
