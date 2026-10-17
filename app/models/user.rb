@@ -111,13 +111,13 @@ class User < ApplicationRecord
   has_many :access_grants,
     class_name: 'Doorkeeper::AccessGrant',
     foreign_key: :resource_owner_id,
-    inverse_of: :resource_owner,
+    inverse_of: false,
     dependent: :delete_all
 
   has_many :access_tokens,
     class_name: 'Doorkeeper::AccessToken',
     foreign_key: :resource_owner_id,
-    inverse_of: :resource_owner,
+    inverse_of: false,
     dependent: :delete_all
 
   def banned?

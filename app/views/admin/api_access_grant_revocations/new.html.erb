@@ -1,0 +1,15 @@
+<% content_for(:admin_page_title, t('admin.api_access_grant_revocations.new.title')) %>
+<div class="fr-container fr-mt-5w">
+  <div class="fr-grid-row">
+    <div class="fr-col-md-8">
+      <p><%= t('admin.api_access_grant_revocations.new.summary', application: @grant.oauth_application_name, data_provider: @grant.data_provider.name, action: t("admin.api_access_grants.index.actions.#{@grant.action}")) %></p>
+      <%= form_with model: @grant, scope: :api_access_grant, url: admin_api_access_grant_revocation_path(@grant), method: :post, builder: DsfrFormBuilder do |f| %>
+        <%= f.dsfr_text_area :revoke_reason, required: true, rows: 4 %>
+        <div class="fr-btns-group">
+          <%= f.submit t('admin.api_access_grant_revocations.new.cta'), class: 'fr-btn fr-btn--warning' %>
+          <%= link_to t('admin.api_access_grant_revocations.new.cancel'), admin_api_access_grants_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

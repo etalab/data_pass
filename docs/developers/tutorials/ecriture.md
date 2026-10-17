@@ -151,7 +151,7 @@ La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeu
 ### Réponses possibles
 
 - `201 Created` — la demande est créée en état `draft`, la réponse contient la `Demande` complète.
-- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, ou le scope `write_authorizations` manque.
+- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, ou le scope `write_authorizations` manque (titre « Droit API manquant » dans ce second cas, voir [Droits de soumission et de validation](#droits-de-soumission-et-de-validation)).
 - `422 Unprocessable Content` — le payload ne respecte pas la définition.
 
 Le format des erreurs suit la convention JSON:API. Exemple de réponse `422` :
@@ -203,6 +203,48 @@ Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req
 ```
 
 Chaque mise à jour génère un événement `update_by_api` consultable via `GET /demandes/{id}/events` ou via un webhook.
+
+## Droits de soumission et de validation
+
+En plus de `write_authorizations` (création et mise à jour, inchangé), deux scopes optionnels distinguent la **soumission** et la **validation** de demandes par l’API :
+
+| Scope | Droit |
+| --- | --- |
+| `submit_authorizations` | Soumettre des demandes pour les fournisseurs de données autorisés |
+| `validate_authorizations` | Valider des demandes pour les fournisseurs de données autorisés |
+
+Ces noms sont provisoires : ils peuvent être renommés lors de la finalisation des endpoints de soumission et de validation.
+
+### Comment obtenir un droit
+
+- Ces droits ne se demandent pas depuis « Mes clefs d’accès API » : à la création d’une clef, vous n’obtenez que `public`, `read_authorizations` et `read_webhooks`.
+- Un administrateur DataPass les accorde à votre application, **fournisseur de données par fournisseur de données**, après qualification du parcours du fournisseur. Contactez-nous pour en faire la demande.
+- Les types d’habilitation sur lesquels votre application peut agir restent limités par les rôles « développeur » de son propriétaire.
+- Un droit accordé n’apparaît pas dans les jetons déjà émis : demandez un **nouveau jeton** en incluant le scope voulu. Les jetons `client_credentials` durent 2 heures.
+
+### Réponses `403`
+
+Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ». Les endpoints de soumission et de validation sont livrés séparément : tant qu’ils ne sont pas disponibles, seul le premier cas ci-dessous est observable, sur les endpoints existants.
+
+
+- le jeton ne porte pas le scope exigé : « Le jeton d’accès ne permet pas cette action. Si un droit vient d’être accordé à votre application, demandez un nouveau jeton d’accès. » Ce cas s’applique désormais à **tous** les endpoints qui exigent un scope (il renvoyait auparavant une erreur `422`) ;
+- le jeton porte le scope mais l’application n’a pas de droit actif pour le fournisseur de données du type d’habilitation : « Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données. » (ou « valider » pour la validation).
+
+```json
+{
+  "errors": [
+    {
+      "status": "403",
+      "title": "Droit API manquant",
+      "detail": "Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données."
+    }
+  ]
+}
+```
+
+### Révocation
+
+Un administrateur peut révoquer un droit à tout moment. La révocation est effective **immédiatement**, même avec un jeton qui porte encore le scope : le droit est revérifié à chaque appel. La suppression d’une application révoque automatiquement ses droits.
 
 ## Rediriger l'utilisateur vers sa demande
 

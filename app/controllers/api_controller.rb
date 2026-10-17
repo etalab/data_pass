@@ -1,5 +1,6 @@
 class APIController < ActionController::API
   include Authentication
+  include Pundit::Authorization
 
   api_mode!
 
@@ -11,6 +12,10 @@ class APIController < ActionController::API
   end
 
   private
+
+  def pundit_user
+    APIUserContext.new(current_user, request.host, oauth_application: doorkeeper_token&.application)
+  end
 
   def current_user_authorization_request_types
     current_user.authorization_request_types_for(:developer)
