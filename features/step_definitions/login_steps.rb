@@ -16,7 +16,7 @@ def mock_mon_compte_pro(user)
   })
 end
 
-def mock_proconnect(user, identity_provider_uid: '71144ab3-ee1a-4401-b7b3-79b44f7daeeb', siret: nil)
+def mock_proconnect(user, identity_provider_uid: '71144ab3-ee1a-4401-b7b3-79b44f7daeeb', siret: nil, acr: 'eidas1-mfa')
   proconnect_omniauth_payload = build(
     :proconnect_omniauth_payload,
     data_identity_id: identity_provider_uid,
@@ -27,21 +27,16 @@ def mock_proconnect(user, identity_provider_uid: '71144ab3-ee1a-4401-b7b3-79b44f
         email: user.email,
         sub: user.external_id,
         idp_id: identity_provider_uid
-      )
+      ),
+      'acr' => acr
     }
   )
-
-  proconnect_omniauth_payload['credentials'] = { 'id_token' => build_mfa_id_token }
 
   OmniAuth.config.mock_auth[:proconnect] = OmniAuth::AuthHash.new(
     {
       provider: :proconnect,
     }.merge(proconnect_omniauth_payload)
   )
-end
-
-def build_mfa_id_token
-  JSON::JWT.new(amr: ['mfa'], exp: 1.hour.from_now.to_i).to_s
 end
 
 Sachantque('je suis un demandeur') do
@@ -232,6 +227,30 @@ Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identi
   steps %(
     Quand je me rends sur la page d'accueil
     Et que je clique sur "S’identifier avec ProConnect"
+  )
+end
+
+Sachantque("je me connecte via ProConnect avec l'identité {string} sans double authentification") do |identity_provider_name|
+  @current_user_email = 'demandeur@gouv.fr'
+
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+  identity_provider = IdentityProvider.where(name: identity_provider_name).first
+
+  mock_proconnect(user, identity_provider_uid: identity_provider.id, acr: 'eidas1')
+
+  steps %(
+    Quand je me rends sur la page d'accueil
+    Et que je clique sur "S’identifier avec ProConnect"
+  )
+end
+
+Sachantque("ProConnect Identité renvoie l'organisation {string}") do |organization_name|
+  user = User.find_by(email: @current_user_email)
+
+  OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new(
+    provider: :mon_compte_pro,
+    uid: user.external_id,
+    info: attributes_for(:mon_compte_pro_payload, email: user.email, siret: organization_name_to_siret(organization_name))
   )
 end
 
