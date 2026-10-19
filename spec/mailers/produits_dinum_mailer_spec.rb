@@ -15,11 +15,13 @@ RSpec.describe ProduitsDinumMailer do
     end
 
     it 'links to the convention pdf' do
-      expect(mail.body.encoded).to include('/conventions/convention_mise_a_disposition_produits_dinum.pdf')
+      expect(decoded_text_body(mail)).to include('/conventions/convention_mise_a_disposition_produits_dinum.pdf')
     end
 
     it 'renders a subject naming the validated request and the delivered authorization' do
       expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} a été validée : habilitation #{authorization_request.latest_authorization.formatted_id} délivrée")
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end
