@@ -97,7 +97,7 @@ Objectif : afficher en interne le nombre de demandes en cours, validées, refus�
 
 L'endpoint `GET /demandes` accepte les filtres `state`, `siret`, pagine via `limit` + `offset`, et retourne les résultats triés par date de création décroissante (les plus récentes en premier). Voir [la documentation OpenAPI](/developpeurs/documentation) pour la liste complète des paramètres et du schéma `Demande`.
 
-### Récupérer toutes les demandes validées d'un SIRET
+### Récupérer les demandes d'un SIRET ayant donné lieu à une habilitation
 
 ```python
 import os, requests
@@ -240,9 +240,9 @@ Détail des champs renvoyés pour chaque scope :
 
 - **`value`** — identifiant technique, utilisé dans `data.scopes` d'une demande.
 - **`name`** / **`group`** / **`link`** — libellé humain, regroupement métier et lien documentation pour l'affichage.
-- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation validée, faites l'union de `data.scopes` et des `value` `included: true`.
+- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation, faites l'union de `data.scopes` et des `value` `included: true`.
 - **`deprecated`** (+ **`deprecated_date`**) — scope conservé pour l'historique des anciennes demandes mais à exclure d'une UI de création.
-- **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une demande validée peut tout de même en contenir.
+- **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une habilitation peut tout de même en contenir.
 
 > **Note** — une `value` présente dans `data.scopes` mais absente de la définition correspond à une suppression côté config : à conserver pour l'historique, à ne plus proposer à la modification.
 
