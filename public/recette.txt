@@ -1,0 +1,8 @@
+Recette sandbox : recette/2026-10-19
+Base : develop @ 8dd05c9f
+
+2026-10-19 10:41 — construction
+  DPP-183    #1808   95666188  feature/dpp-183-demande-externe-dgfip-a-quoi-sert-l-adresse-email-generique
+  DPP-155    #1812   c2cdd094  feature/dpp-155-us-demander-le-role-dadministrateur-resana-via-un-formulaire
+  DPP-166    #1809   179e763a  feature/dpp-166-exiger-la-2fa-proconnect-pour-tous-les-agents-retrait-du
+  DPP-43     #1815   66f9d142  feature/dpp-43-us-harmoniser-les-termes-demande-habilitation-dans-les
