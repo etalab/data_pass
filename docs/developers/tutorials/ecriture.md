@@ -204,6 +204,59 @@ Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req
 
 Chaque mise à jour génère un événement `update_by_api` consultable via `GET /demandes/{id}/events` ou via un webhook.
 
+## Cas d'usage : soumission et validation par un fournisseur de données
+
+Un fournisseur de données (FD) qui a recueilli lui-même le consentement du demandeur peut créer, soumettre puis valider une demande sans renvoyer le demandeur sur DataPass. Ces deux actions sont des **droits distincts**, accordés par un administrateur DataPass à votre application, FD par FD, après qualification de votre parcours.
+
+| Action | Endpoint | Scope du jeton |
+| --- | --- | --- |
+| Soumettre | `POST /demandes/{id}/soumettre` | `submit_authorizations` |
+| Valider | `POST /demandes/{id}/valider` | `validate_authorizations` |
+
+Ces scopes ne se demandent pas librement : une fois le droit accordé, demandez un **nouveau jeton** avec le scope correspondant. Sans droit actif, ou avec un jeton antérieur à l'octroi, la réponse est `403` (titre « Droit API manquant »).
+
+### Soumettre
+
+```ruby
+uri = URI("https://datapass.api.gouv.fr/api/v1/demandes/#{demande_id}/soumettre")
+request = Net::HTTP::Post.new(uri)
+request['Authorization'] = "Bearer #{access_token}"
+request['Content-Type'] = 'application/json'
+request.body = {
+  consentement: {
+    terms_of_service_accepted: true,
+    data_protection_officer_informed: true
+  }
+}.to_json
+```
+
+- Le demandeur reste la personne indiquée à la création : l'API ne soumet jamais au nom du FD.
+- Vous déclarez avoir recueilli le consentement du demandeur en transmettant dans `consentement` chaque case que le demandeur doit cocher dans l'interface (CGU, information du DPO, cases propres à certains types…), à `true`. La liste des cases exigées pour un type est dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission, avec une erreur par case (`source.pointer` : `/consentement/<case>`).
+- La demande est contrôlée comme dans l'interface. Si elle est incomplète, elle reste en `draft` et la réponse `422` contient **une erreur par champ**, avec `source.pointer` (ex. `/data/delegue_protection_donnees_family_name`).
+- Seules les demandes `draft` ou `changes_requested` sont soumettables. Les autres renvoient une erreur « État non modifiable ».
+- Après la soumission, la demande est `submitted`, avec les mêmes effets qu'une soumission classique (webhook `submit`). L'historique indique qu'elle a été soumise par API, avec le nom de votre application.
+
+### Valider
+
+```ruby
+request.body = {
+  instructeur: { email: 'instructeur@example.com' },
+  message: 'Demande conforme au cadre juridique.'
+}.to_json
+```
+
+- `instructeur.email` désigne un compte DataPass existant qui a le rôle d'instructeur sur ce type. Une personne nommément identifiée doit porter la responsabilité de la décision.
+- Seules les demandes `submitted` sont validables par API. Le refus, la demande de modification et la révocation restent dans l'interface DataPass.
+- La validation a les mêmes effets qu'une validation dans l'interface (habilitation créée, anciennes habilitations `obsolete`, passerelles, webhook `approve`). La réponse contient la demande avec l'habilitation active dans `habilitations`.
+
+### Métadonnées
+
+À la création et à la mise à jour, `demande.metadata` accepte un objet libre (ex. `{ "campagne": "migration-editeur-x", "source": "api" }`). Il est restitué dans les réponses de l'API et dans la charge utile de chaque webhook de la demande, ce qui permet de reconnaître vos demandes et de ne pas rejouer vos propres traitements. Il n'est visible que des applications du FD et des administrateurs DataPass, et ne doit contenir aucune donnée personnelle.
+
+### Désactiver les emails DataPass
+
+Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés.
+
 ## Rediriger l'utilisateur vers sa demande
 
 La réponse d'un `POST /demandes` réussi contient deux identifiants, qui servent à des usages **distincts** :

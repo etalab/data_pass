@@ -71,6 +71,8 @@ components:
         Les scopes accordés à un jeton sont définis au moment de sa demande. Chaque opération documente les scopes qu'elle exige.
 
         Une clef API créée depuis « Mes clefs d'accès API » peut demander `public`, `read_authorizations` et `read_webhooks`. `write_authorizations` est accordé au cas par cas, nous contacter.
+
+        `submit_authorizations` et `validate_authorizations` ne peuvent pas être demandés par le développeur : un administrateur DataPass les accorde, par fournisseur de données, après qualification du parcours du fournisseur. Un appel dont le jeton ne porte pas le scope exigé, ou dont l'application n'a pas de droit actif pour le fournisseur de données du type d'habilitation, reçoit une réponse `403`. Un jeton émis avant l'octroi d'un droit ne porte pas le nouveau scope : demandez un nouveau jeton.
       flows:
         clientCredentials:
           tokenUrl: https://datapass.api.gouv.fr/api/v1/oauth/token
@@ -78,6 +80,8 @@ components:
             public: Accès aux informations publiques de l'utilisateur courant (`/me`)
             read_authorizations: Lecture des demandes, habilitations, événements et définitions d'habilitations
             write_authorizations: Création et mise à jour des demandes d'habilitations via l'API
+            submit_authorizations: Soumettre des demandes pour les fournisseurs de données autorisés
+            validate_authorizations: Valider des demandes pour les fournisseurs de données autorisés
             read_webhooks: Lecture de l'historique des appels webhooks
   parameters:
     Authorization:
@@ -153,6 +157,17 @@ components:
           format: date-time
           description: Date à laquelle la demande a été réouverte
           nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        meta:
+          type: object
+          description: Informations complémentaires sur la réponse. Présent uniquement lorsque l'appel appelle un avertissement.
+          properties:
+            warnings:
+              type: array
+              description: Avertissements non bloquants. L'appel a abouti, mais une partie de la demande n'a pas été appliquée.
+              items:
+                $ref: '#/components/schemas/Warning'
         organisation:
           $ref: '#/components/schemas/Organisation'
         applicant:
@@ -181,6 +196,50 @@ components:
         - organisation
         - applicant
 
+    Metadata:
+      type: object
+      description: |
+        Métadonnées libres posées par le fournisseur de données sur une demande, par exemple `{"campagne": "migration-editeur-x", "source": "api"}`. Elles sont restituées dans les réponses de l'API et dans la charge utile de chaque webhook de la demande.
+
+        Elles ne sont visibles que des applications du fournisseur de données et des administrateurs DataPass, jamais du demandeur. Elles ne doivent contenir aucune donnée personnelle.
+
+        Limites proposées, à confirmer à l'implémentation : 20 clés au maximum, clés de 40 caractères au maximum, valeurs textuelles de 500 caractères au maximum.
+
+        À la mise à jour (`PATCH`), l'objet transmis remplace intégralement les métadonnées existantes ; `null` les supprime.
+      nullable: true
+      additionalProperties:
+        oneOf:
+          - type: string
+          - type: number
+          - type: boolean
+      example:
+        campagne: migration-editeur-x
+        source: api
+
+    Notifications:
+      type: boolean
+      default: true
+      description: |
+        Mettre à `false` pour ne pas envoyer les emails DataPass liés à cet appel (accusé de réception au demandeur, « nouvelle demande » aux instructeurs, emails aux contacts…), lorsque le contrat du fournisseur de données le permet.
+
+        Si le contrat rend ces notifications obligatoires, le paramètre est ignoré : l'appel aboutit, les emails sont envoyés et la réponse contient un avertissement dans `meta.warnings`.
+
+        Les webhooks sont toujours envoyés, quelle que soit la valeur. L'historique de la demande indique que les notifications ont été désactivées.
+
+    Warning:
+      type: object
+      description: Avertissement non bloquant
+      properties:
+        title:
+          type: string
+          example: "Notifications obligatoires"
+        detail:
+          type: string
+          example: "Le contrat de votre fournisseur de données rend les notifications obligatoires : le paramètre `notifications` a été ignoré."
+      required:
+        - title
+        - detail
+
     Utilisateur:
       type: object
       description: Utilisateur associé à la demande ou à l'événement
@@ -189,6 +248,11 @@ components:
           type: integer
           example: 42
           description: Identifiant technique de l'utilisateur
+        uid:
+          type: string
+          example: "5f2a9c1e-7b3d-4e8a-9a41-0c6d2f7b8e13"
+          description: Identifiant du compte chez le fournisseur d'identité (ProConnect, champ `sub`). Identique à celui des webhooks. Absent tant que l'utilisateur ne s'est jamais connecté à DataPass.
+          nullable: true
         email:
           type: string
           example: utilisateur@gouv.fr
@@ -207,6 +271,11 @@ components:
           type: string
           example: "0612345678"
           description: Numéro de téléphone de l'utilisateur
+          nullable: true
+        job_title:
+          type: string
+          example: "Responsable informatique"
+          description: Fonction de l'utilisateur
           nullable: true
       required:
         - id
@@ -239,7 +308,8 @@ components:
 
     ServiceProvider:
       type: object
-      description: Prestataire de service associé à la demande (Typiquement l'éditeur de logiciel au service d'une collectivité).
+      nullable: true
+      description: Prestataire de service associé au formulaire de la demande (Typiquement l'éditeur de logiciel au service d'une collectivité). `null` lorsque le formulaire n'est pas porté par un prestataire.
       properties:
         id:
           type: integer
@@ -427,8 +497,8 @@ components:
                 properties:
                   pointer:
                     type: string
-                    description: "Un pointeur JSON indiquant l'attribut source de l'erreur."
-                    example: "/data/attributes/nom"
+                    description: "Un pointeur JSON indiquant le champ du payload à l'origine de l'erreur. Pour une donnée de formulaire, il a la forme `/data/<clé>` ; la clé est celle décrite par `GET /definitions/{id}`. Absent lorsque l'erreur ne concerne pas un champ précis (droit manquant, état de la demande, etc.)."
+                    example: "/data/delegue_protection_donnees_family_name"
                 required:
                   - pointer
               title:
@@ -496,6 +566,14 @@ components:
           example: "AuthorizationRequest::ApiImpotParticulier"
           description: "**DÉPRÉCIÉ** - Classe de demande d'autorisation associée à cette définition. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
           deprecated: true
+        consentements:
+          type: array
+          description: Cases de consentement à transmettre dans `consentement` à la soumission par API (`POST /demandes/{id}/soumettre`). Vide si le type d'habilitation n'en exige aucune.
+          items:
+            type: string
+          example:
+            - terms_of_service_accepted
+            - data_protection_officer_informed
         scopes:
           type: array
           description: Liste des scopes disponibles pour cette définition d'habilitation avec leurs métadonnées complètes
@@ -614,14 +692,20 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     ForbiddenError:
-      description: Accès interdit - les scopes associés au jeton ne permettent pas d'effectuer cette action.
+      description: Accès interdit (titre « Droit API manquant ») - le jeton ne porte pas le scope exigé, ou l'application n'a pas le droit actif correspondant pour le fournisseur de données concerné.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorResponse"
 
     ValidationError:
-      description: La sauvegarde ou la mise à jour a échoué.
+      description: >-
+        La sauvegarde ou la mise à jour a échoué : le payload ne respecte pas la définition, ou les données
+        ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »).
+        Un payload accepté auparavant peut désormais être rejeté. Les règles d’accès du formulaire web
+        s’appliquent aussi : formulaire non ouvert aux demandeurs, organisation fermée, demande unique
+        déjà existante pour l’organisation, demandeur exclu, et demande modifiable uniquement en état
+        `draft` ou `changes_requested` (erreur « État non modifiable » sinon).
       content:
         application/json:
           schema:
@@ -774,6 +858,7 @@ paths:
         Le demandeur (applicant) est créé s'il n'existe pas, identifié par email.
         L'organisation est créée si elle n'existe pas, identifiée par SIRET, et un rafraîchissement des données INSEE est planifié.
         Si aucun lien n'existe entre le demandeur et l'organisation, un lien non vérifié est créé.
+        Ce lien ne devient vérifié qu'à la première connexion ProConnect du demandeur, si le fournisseur d'identité vérifie le SIRET ; tant qu'il ne l'est pas, le demandeur ne voit pas les autres demandes de l'organisation.
 
         Requiert le scope OAuth2 `write_authorizations` et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
       tags:
@@ -840,6 +925,10 @@ paths:
                       type: object
                       description: Données du formulaire. Les clés doivent correspondre aux attributs définis pour la définition d'habilitation. Voir /defintions/{id} pour le détail des clés nécessaires.
                       additionalProperties: true
+                    metadata:
+                      $ref: '#/components/schemas/Metadata'
+                notifications:
+                  $ref: '#/components/schemas/Notifications'
       responses:
         201:
           description: Demande d'habilitation créée avec succès
@@ -884,7 +973,7 @@ paths:
 
         Seules les données et les documents peuvent être modifiés. Le demandeur et l'organisation ne peuvent pas être changés.
 
-        La mise à jour n'est pas autorisée si la demande est dans un état terminal (`validated`, `refused`, `revoked`, `archived`).
+        La mise à jour n'est autorisée que si la demande est en état `draft` ou `changes_requested`, comme dans l'interface. Dans tout autre état, notamment `submitted`, la réponse est une erreur `422` « État non modifiable ».
         La liste de l'ensemble des états possibles d'une demande sont documentés ici https://datapass.api.gouv.fr/developpeurs/webhooks/documentation#tats-possibles-dune-demande-dhabilitation
 
         Requiert le scope OAuth2 write_authorizations et que l'utilisateur propriétaire de l'application OAuth2 ait le rôle développeur pour le type de demande concerné.
@@ -917,6 +1006,10 @@ paths:
                       type: object
                       description: Données du formulaire à mettre à jour. Les clés doivent correspondre aux attributs définis pour le type de demande.
                       additionalProperties: true
+                    metadata:
+                      $ref: '#/components/schemas/Metadata'
+                notifications:
+                  $ref: '#/components/schemas/Notifications'
       responses:
         200:
           description: Demande d'habilitation mise à jour avec succès
@@ -932,6 +1025,183 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         422:
           $ref: "#/components/responses/ValidationError"
+
+  /demandes/{id}/soumettre:
+    post:
+      summary: Soumettre une demande d'habilitation
+      description: |
+        Soumet pour instruction une demande complète, au nom du demandeur indiqué à la création. L'API ne soumet jamais au nom du fournisseur de données.
+
+        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission.
+
+        La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que le fournisseur choisit d'enchaîner ou non.
+
+        La demande est contrôlée avec les mêmes règles que la soumission dans l'interface (champs obligatoires, emails de contact vérifiés, pièces jointes). Si elle est incomplète, rien n'est soumis : elle reste dans son état et la réponse `422` liste les erreurs, une par champ, avec leur `source.pointer`.
+
+        La soumission n'est possible que depuis les états où le demandeur peut soumettre dans l'interface : `draft` ou `changes_requested`. Dans tout autre état, la réponse est une erreur `422` et l'état ne change pas.
+
+        Après la soumission, la demande est en état `submitted` et déclenche les mêmes effets qu'une soumission dans l'interface : webhook `submit`, et notifications selon le paramètre `notifications` et le contrat du fournisseur de données. L'historique indique que la demande a été soumise par API, au nom du demandeur, et par quelle application.
+
+        Requiert le scope OAuth2 `submit_authorizations` et un droit de soumission actif pour le fournisseur de données du type de demande, accordé par un administrateur DataPass. Sinon, la réponse est `403`.
+      tags:
+        - Demandes d'habilitations
+      security:
+        - OAuth2:
+            - submit_authorizations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: id
+          in: path
+          description: Identifiant de la demande d'habilitation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - consentement
+              properties:
+                consentement:
+                  type: object
+                  description: Cases à cocher de la soumission, recueillies par le fournisseur de données auprès du demandeur. Les clés sont celles de `consentements` dans `GET /definitions/{id}`.
+                  additionalProperties:
+                    type: boolean
+                  example:
+                    terms_of_service_accepted: true
+                    data_protection_officer_informed: true
+                notifications:
+                  $ref: '#/components/schemas/Notifications'
+      responses:
+        200:
+          description: Demande soumise avec succès. La réponse contient la demande à jour, en état `submitted`.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demande"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        422:
+          description: |
+            La demande n'a pas été soumise : elle est incomplète ou invalide (une erreur par champ, titre « Demande invalide »), ou elle n'est pas dans un état soumettable (titre « État non modifiable »).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                champ_manquant:
+                  summary: Délégué à la protection des données non renseigné
+                  value:
+                    errors:
+                      - status: "422"
+                        title: "Demande invalide"
+                        detail: "Nom de famille du délégué à la protection des données doit être rempli(e)"
+                        source:
+                          pointer: "/data/delegue_protection_donnees_family_name"
+                consentement_manquant:
+                  summary: Case de consentement non transmise
+                  value:
+                    errors:
+                      - status: "422"
+                        title: "Consentement manquant"
+                        detail: "La case « terms_of_service_accepted » doit être cochée pour soumettre cette demande."
+                        source:
+                          pointer: "/consentement/terms_of_service_accepted"
+                etat_non_soumettable:
+                  summary: Demande déjà en instruction
+                  value:
+                    errors:
+                      - status: "422"
+                        title: "État non modifiable"
+                        detail: "La demande ne peut pas être modifiée dans l'état actuel."
+
+  /demandes/{id}/valider:
+    post:
+      summary: Valider une demande d'habilitation
+      description: |
+        Valide une demande en cours d'instruction, au nom d'un instructeur identifié qui en prend la responsabilité. Peu importe que la décision vienne de règles automatiques ou du portail du fournisseur de données, tant qu'une personne en porte la responsabilité.
+
+        L'instructeur est désigné par son adresse email (`instructeur.email`) : ce doit être un compte DataPass existant qui a le rôle d'instructeur pour le type de la demande. Sinon, la réponse est une erreur `422` « informations de l'instructeur manquantes ou invalides » et la demande ne change pas.
+
+        Seules les demandes en état `submitted` peuvent être validées par API. Une demande `changes_requested`, `draft`, `refused` ou `validated` renvoie une erreur `422` et ne change pas. Le refus, la demande de modification et la révocation ne sont pas possibles par API : ils se font dans l'interface DataPass.
+
+        La validation produit exactement les mêmes effets qu'une validation dans l'interface : création de l'habilitation, passage des habilitations précédentes en `obsolete`, passerelles, webhook `approve`, habilitation FranceConnect liée le cas échéant. L'historique affiche le nom de l'instructeur, la mention que la validation a été faite par API, et l'application appelante.
+
+        Requiert le scope OAuth2 `validate_authorizations` et un droit de validation actif pour le fournisseur de données du type de demande, accordé par un administrateur DataPass. Sinon, la réponse est `403`.
+      tags:
+        - Demandes d'habilitations
+      security:
+        - OAuth2:
+            - validate_authorizations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: id
+          in: path
+          description: Identifiant de la demande d'habilitation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - instructeur
+              properties:
+                instructeur:
+                  type: object
+                  required:
+                    - email
+                  properties:
+                    email:
+                      type: string
+                      description: Email du compte DataPass de l'instructeur qui valide.
+                      example: "instructeur@example.com"
+                message:
+                  type: string
+                  description: Message de validation facultatif, comme dans l'interface.
+                  example: "Demande conforme au cadre juridique."
+                notifications:
+                  $ref: '#/components/schemas/Notifications'
+      responses:
+        200:
+          description: Demande validée avec succès. La réponse contient la demande à jour, en état `validated`, avec l'habilitation active créée dans `habilitations`.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demande"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        422:
+          description: |
+            La demande n'a pas été validée : instructeur manquant ou invalide (ou sans rôle d'instructeur sur ce type), ou demande qui n'est pas en état `submitted` (titre « État non modifiable »).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                instructeur_invalide:
+                  summary: Instructeur inconnu ou sans rôle sur ce type
+                  value:
+                    errors:
+                      - status: "422"
+                        title: "Instructeur invalide"
+                        detail: "Informations de l'instructeur manquantes ou invalides."
+                        source:
+                          pointer: "/instructeur/email"
 
   /demandes/{id}/events:
     get:
