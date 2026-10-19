@@ -37,7 +37,7 @@ RSpec.describe Molecules::Instruction::AuthorizationDefinition::AutomatedEmailCo
     expect(page).to have_css('[data-controller="toggle-class"][data-toggle-class-class-value="fr-hidden"]')
     expect(page).to have_css('.automated-email-reopening .fr-badge--purple-glycine', count: 1, text: 'Mise à jour')
     expect(page).to have_css('[data-toggle-class-target="toggle"]:not(.fr-hidden)', text: 'Votre demande')
-    expect(page).to have_css('[data-toggle-class-target="toggle"].fr-hidden', text: 'Votre réouverture')
+    expect(page).to have_css('[data-toggle-class-target="toggle"].fr-hidden', text: 'Votre demande de mise à jour')
   end
 
   it 'keeps the status badge out of the toggled zone' do

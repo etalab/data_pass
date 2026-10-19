@@ -49,12 +49,12 @@ fr:
     new_scopes:
       subject: "[DataPass] nouveaux scopes pour « %{organization_name} - %{authorization_request_id} »"
       description: |
-        Une %{request_type} %{definition_name} pour le FS %{organization_name} vient d'être validée.
-        Identifiant DataPass de l'habilitation FranceConnect associée : %{linked_authorization_url} (%{linked_authorization_id}).
+        Une habilitation %{definition_name} pour le FS %{organization_name} vient d’être %{outcome}.
+        Habilitation FranceConnect associée : %{linked_authorization_id} (%{linked_authorization_url}).
 
         En conséquence, merci d'autoriser les scopes suivants pour le sus-mentionné FS :
       consultation: |
-        Pour consulter cette %{request_type}, veuillez cliquer sur le lien suivant %{authorization_request_url} .
+        Pour consulter la demande, veuillez cliquer sur le lien suivant %{authorization_request_url} .
     revoke:
       subject: Votre habilitation FranceConnect %{authorization_id} a été révoquée (demande %{authorization_request_id})
       description: |
@@ -114,11 +114,11 @@ fr:
 
         Vous pouvez consulter votre demande en suivant le lien suivant : %{authorization_request_url}
     reopening_approve:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} vient d'être validée
+      subject: "Votre demande de mise à jour %{authorization_request_id} a été validée : habilitation %{authorization_id} délivrée"
       description: |
-        Votre réouverture d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes.
+        Votre demande de mise à jour « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes : elle a donné lieu à l’habilitation %{authorization_id}, qui remplace la précédente.
 
-        Vous pouvez consulter votre habilitation mise à jour en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre habilitation mise à jour en suivant le lien suivant : %{authorization_url}
 
       additional_message: |
         L'instructeur a ajouté le message suivant :
@@ -126,18 +126,18 @@ fr:
         %{message}
 
     reopening_refuse:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} a été refusée
+      subject: Votre demande de mise à jour %{authorization_request_id} a été refusée
       description: |
-        Votre réouverture habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
+        Votre demande de mise à jour « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante :
 
         %{reason}
 
-        Les modifications apportées ont donc été annulées. Votre ancienne habilitation est toujours valide, vous pouvez la consulter en suivant le lien suivant: %{authorization_request_url}
+        Les modifications apportées ont donc été annulées. Votre habilitation en cours reste valide, vous pouvez la consulter en suivant le lien suivant : %{authorization_request_url}
 
     reopening_request_changes:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} requiert des modifications
+      subject: Votre demande de mise à jour %{authorization_request_id} requiert des modifications
       description: |
-        Votre réouverture d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
+        Votre demande de mise à jour « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
 
         Les modifications attendues sont les suivantes:
 
@@ -157,8 +157,8 @@ fr:
         Dans le cas d'une telle décision implicite de rejet, vous pouvez contester cette décision dans un délai de deux mois à compter de la date à laquelle naît la décision en formant un recours gracieux, hiérarchique ou en saisissant le tribunal administratif de Paris, en application des dispositions des articles L. 411-2 et L. 431-1 du CRPA et L. 211-1, R. 312-1, R. 421-1 du code de justice administrative.
     
     reopening_submit:
-      subject: Nous accusons réception de votre demande de modification d'habilitation n°%{authorization_request_id} sur DataPass
-      description: Nous accusons réception de votre demande de modification de l'habilitation n°%{authorization_request_id} du %{submitted_at} pour %{api_name}.
+      subject: Nous accusons réception de votre demande de mise à jour n°%{authorization_request_id} sur DataPass
+      description: Nous accusons réception de votre demande de mise à jour de l’habilitation n°%{authorization_request_id} du %{submitted_at} pour %{api_name}.
   gdpr_contact_mailer:
     responsable_traitement: &shared_gdpr
       subject: &gdpr_subject Vous avez été désigné %{authorization_request_contact_kind} pour la démarche « %{authorization_request_name} ».
@@ -183,13 +183,13 @@ fr:
 
           Vous pouvez instruire cette demande en suivant le lien suivant : %{authorization_request_instruction_url}
         changes_requested_submit: |
-          Cette demande fait suite à une demande de modification.
+          Cette demande fait suite à des modifications demandées.
       reopening_submit:
-        subject: Demande de réouverture d'habilitation sur DataPass
+        subject: Demande de mise à jour d’habilitation sur DataPass
         description: |
-          %{applicant_full_name} (%{applicant_email}) a soumis une demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_name}
+          %{applicant_full_name} (%{applicant_email}) a soumis une demande de mise à jour d’habilitation sur DataPass pour le compte de l'organisation %{organization_name}
 
-          Vous pouvez modérer cette demande de réouverture d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+          Vous pouvez instruire cette demande de mise à jour en suivant le lien suivant : %{authorization_request_instruction_url}
 
   message_mailer:
     to_applicant:
@@ -200,9 +200,9 @@ fr:
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
     reopening_to_applicant:
-      subject: Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation %{authorization_request_name}
+      subject: Vous avez reçu un nouveau message concernant votre demande de mise à jour de l’habilitation %{authorization_request_name}
       description: |
-        Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        Vous avez reçu un nouveau message concernant votre demande de mise à jour de l’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
@@ -214,9 +214,9 @@ fr:
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
 
     reopening_to_instructors:
-      subject: Nouveau message concernant la demande de réouverture de l'habilitation %{authorization_request_name}
+      subject: Nouveau message concernant la demande de mise à jour de l’habilitation %{authorization_request_name}
       description: |
-        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande de réouverture de l'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande de mise à jour de l’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
   authorization_request_transfer_mailer:
