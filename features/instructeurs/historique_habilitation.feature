@@ -82,7 +82,7 @@ Fonctionnalité: Instruction: historique habilitation
     Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
-    Alors la page contient "Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire"
+    Alors la page contient "Les données suivantes ont été modifiées par rapport aux informations pré-remplies du cas d’usage"
 
   @DisableBullet
   Scénario: Je vois un lien vers l'habilitation sur l'évènement de validation

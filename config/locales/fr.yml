@@ -336,12 +336,12 @@ fr:
       validated_by: Habilitation %{type} délivrée par <strong>%{email}</strong>
       auto_generated: Habilitation %{type} automatiquement délivrée
     instruction_header_info:
-      with_form_and_instructor_html: "Cette habilitation a été créée par la %{request_link} via le formulaire « %{form_name} » et a été délivrée par <strong>%{email}</strong>"
-      with_form_html: "Cette habilitation a été créée par la %{request_link} via le formulaire « %{form_name} »"
+      with_form_and_instructor_html: "Cette habilitation a été créée par la %{request_link} via le cas d’usage « %{form_name} » et a été délivrée par <strong>%{email}</strong>"
+      with_form_html: "Cette habilitation a été créée par la %{request_link} via le cas d’usage « %{form_name} »"
       without_form_and_instructor_html: "Cette habilitation est liée à la %{request_link} et a été délivrée par <strong>%{email}</strong>"
       without_form_html: "Cette habilitation est liée à la %{request_link}"
-      auto_generated_with_form_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le formulaire « %{form_name} » et a été délivrée par <strong>%{email}</strong>"
-      auto_generated_with_form_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le formulaire « %{form_name} »"
+      auto_generated_with_form_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le cas d’usage « %{form_name} » et a été délivrée par <strong>%{email}</strong>"
+      auto_generated_with_form_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le cas d’usage « %{form_name} »"
       auto_generated_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} et a été délivrée par <strong>%{email}</strong>"
       auto_generated_html: "Cette habilitation a été automatiquement délivrée par la %{request_link}"
     card:
@@ -353,7 +353,7 @@ fr:
       access_link_cta: Récupérer mon accès
       reopen_cta: Mettre à jour
       title: Habilitation à %{definition_name}
-      description: Via le formulaire %{form_name}
+      description: Via le cas d’usage %{form_name}
 
   authorization_requests:
     card:
@@ -365,7 +365,7 @@ fr:
       applicant_request: "%{applicant_full_name} est le demandeur"
       show_cta: Consulter
       access_link_cta: Récupérer mon accès
-      description: Demande d'habilitation à %{definition_name} via le formulaire %{form_name}
+      description: Demande d'habilitation à %{definition_name} via le cas d’usage %{form_name}
     unauthenticated_start:
       sub_title:
         service: |
@@ -389,9 +389,9 @@ fr:
       default:
         title: &start_new_habilitation_title "Demander une habilitation à : %{authorization_name}"
         multiple_forms:
-          description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+          description: "Il existe plusieurs cas d’usage pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre projet :"
         use_case:
-          title: Des formulaires sont disponibles pour vous aider
+          title: Des cas d’usage sont disponibles pour vous aider
           description: Nous vous proposons un ou des modèles(s) correspondant à un cas d'usage similaire au votre, en choisissant un modèle, certaines parties du formulaire peuvent être pré-remplies.
         no_france_connect_callout:
           title: Vous ne possédez pas d'habilitation à FranceConnect
@@ -412,20 +412,20 @@ fr:
         no_editor: Aucun de ces éditeurs
       step3:
         single_use_case_intro_html:
-          Il n’existe qu’un seul formulaire pour obtenir une habilitation à
+          Il n’existe qu’un seul cas d’usage pour obtenir une habilitation à
           %{name}, vous pouvez le remplir ci-dessous.
           <br/>
         use_case_intro_html:
-          Il existe plusieurs formulaires pour obtenir une habilitation à
-          %{name}, vos réponses ont permis de réduire le choix aux formulaires
+          Il existe plusieurs cas d’usage pour obtenir une habilitation à
+          %{name}, vos réponses ont permis de réduire le choix aux cas d’usage
           ci-dessous.
           <br/>
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usage</a>.
         use_case_intro_without_use_case_url_html:
-          Il existe plusieurs formulaires pour obtenir une habilitation à
-          %{name}, vos réponses ont permis de réduire le choix aux formulaires
+          Il existe plusieurs cas d’usage pour obtenir une habilitation à
+          %{name}, vos réponses ont permis de réduire le choix aux cas d’usage
           ci-dessous.
           <br/>
           <br/>
@@ -441,12 +441,12 @@ fr:
             - label: Non, nous n’avons pas d’éditeur qui a finalisé et validé ses développements en bac à sable
               value: false
         choose_form_title:
-          sandbox: "Choisissez le formulaire d’accès en bac à sable qui correspond le mieux à votre cas d’usage :"
-          editor: "Choisissez le formulaire d’accès en production qui correspond le mieux à votre cas d’usage :"
+          sandbox: "Choisissez le cas d’usage d’accès en bac à sable qui correspond le mieux à votre projet :"
+          editor: "Choisissez le cas d’usage d’accès en production qui correspond le mieux à votre projet :"
       api_sfip:
         page_title: "Choix du type de données - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
         data_choice:
           title: "Quelles sont les données dont vous avez besoin ?"
           options:
@@ -454,15 +454,15 @@ fr:
             r2p: "Les données relatives à la recherche de personnes physiques (API SFiP R2P)"
       api_sfip_r2p:
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
       api_infinoe:
         page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
       api_ficoba:
         page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
       api_droits_cnam:
         page_title: "Habilitation France Connect manquante - %{authorization_name}"
       api_r2p:
@@ -511,7 +511,7 @@ fr:
         through_saas: "Via %{service_provider_name}"
       blocks:
         scopes:
-          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
+          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le cas d’usage sélectionné :"
     bulk_update_modal:
       title: Une mise à jour a été effectuée sur votre demande d'habilitation
       description: |
@@ -528,15 +528,15 @@ fr:
       text: Vous avez été référencé comme %{contact_types}.
 
   authorization_request_forms:
-    form_not_found: Le formulaire demandé n'existe pas
+    form_not_found: Le cas d’usage demandé n'existe pas
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
       organization:
         start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a>.
-        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
+        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le cas d’usage <strong>%{authorization_request_form_name}</strong>.
       intro:
-        title: Les objectifs de ce formulaire
+        title: Les objectifs de ce cas d’usage
       single_form:
         title: Les étapes de votre formulaire
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
