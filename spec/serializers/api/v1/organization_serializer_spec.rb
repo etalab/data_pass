@@ -9,6 +9,7 @@ RSpec.describe API::V1::OrganizationSerializer, type: :serializer do
       expect(serializable_hash).to include(
         id: organization.id,
         siret: organization.siret,
+        name: organization.name,
         insee_payload: organization.insee_payload
       )
     end
