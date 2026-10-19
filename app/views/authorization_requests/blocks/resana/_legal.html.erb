@@ -1,0 +1,27 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.legal'), block_id: :legal, f:, editable: } do %>
+  <p>
+    <strong><%= f.label_value(:nature_juridique) %></strong>
+    <br>
+    <%= f.wording_for("nature_juridique.values.#{authorization_request.nature_juridique}") if authorization_request.nature_juridique.present? %>
+  </p>
+
+  <% if authorization_request.habilitation_certifiee %>
+    <p>
+      <strong><%= f.wording_for('legal.habilitation.summary_title') %></strong>
+      <br>
+      <%= f.wording_for('habilitation_certifiee.summary') %>
+    </p>
+  <% end %>
+
+  <% if authorization_request.lettre_habilitation_document.attached? %>
+    <div>
+      <p>
+        <strong><%= f.label_value(:lettre_habilitation_document) %></strong>
+      </p>
+
+      <div class="fr-grid-row">
+        <%= render 'shared/display_documents', documents: authorization_request.lettre_habilitation_document, f: f %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
