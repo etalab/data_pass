@@ -1,20 +1,23 @@
 module RequestsHelpers
-  # rubocop:disable-next Metrics/AbcSize
   def sign_in(user)
-    OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new({
-      provider: :mon_compte_pro,
-      uid: user.external_id,
-      info: attributes_for(:mon_compte_pro_payload, email: user.email, external_id: user.external_id, siret: user.current_organization.siret),
-      credentials: {
-        token: 'token',
-        expires_at: 1.hour.from_now.to_i,
-        expires: true
-      }
-    })
+    OmniAuth.config.mock_auth[:proconnect] = OmniAuth::AuthHash.new(
+      build(
+        :proconnect_omniauth_payload,
+        data_identity_id: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID,
+        siret: user.current_organization.siret,
+        extra: {
+          'raw_info' => attributes_for(
+            :proconnect_raw_info_payload,
+            email: user.email,
+            sub: user.external_id,
+            idp_id: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID
+          ),
+          'acr' => 'eidas1-mfa'
+        }
+      )
+    )
 
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:mon_compte_pro]
-
-    get '/auth/mon_compte_pro/callback'
+    get '/auth/proconnect/callback'
   end
 end
 

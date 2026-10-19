@@ -2,12 +2,6 @@ require 'rack_session_access/capybara'
 
 OmniAuth.config.test_mode = true
 
-OmniAuth.config.before_callback_phase do |env|
-  if (id_token = env['omniauth.auth']&.dig('credentials', 'id_token'))
-    env['rack.session']['omniauth.pc.id_token'] = id_token
-  end
-end
-
 Before do
   @current_user = nil
   @current_user_email = nil
