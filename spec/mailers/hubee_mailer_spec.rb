@@ -12,8 +12,10 @@ RSpec.describe HubEEMailer do
       end
 
       it 'renders the body' do
-        expect(mail.body.encoded).to match('HubEE')
+        expect(decoded_text_body(mail)).to match('HubEE')
       end
+
+      it_behaves_like 'a mail whose html part mirrors its text part'
     end
 
     context 'with dila' do
@@ -26,8 +28,10 @@ RSpec.describe HubEEMailer do
       end
 
       it 'renders the body' do
-        expect(mail.body.encoded).to match('HubEE')
+        expect(decoded_text_body(mail)).to match('HubEE')
       end
+
+      it_behaves_like 'a mail whose html part mirrors its text part'
     end
   end
 
@@ -51,16 +55,16 @@ RSpec.describe HubEEMailer do
     end
 
     it 'links the validated request to the authorization it gave rise to' do
-      expect(mail.body.encoded).to include("la demande #{authorization_request.formatted_id}", "a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}")
+      expect(decoded_text_body(mail)).to include("la demande #{authorization_request.formatted_id}", "a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}")
     end
 
     it 'renders the request name, form name and organization siret' do
-      expect(mail.body.encoded).to include(authorization_request.name, authorization_request.form.name, authorization_request.organization.siret)
+      expect(decoded_text_body(mail)).to include(authorization_request.name, authorization_request.form.name, authorization_request.organization.siret)
     end
 
     context 'when the request comes from a formulaire QF without editor' do
       it 'does not mention any editor' do
-        expect(mail.body.encoded).not_to include('Éditeur')
+        expect(decoded_text_body(mail)).not_to include('Éditeur')
       end
     end
 
@@ -68,7 +72,7 @@ RSpec.describe HubEEMailer do
       let(:authorization_request) { create(:authorization_request, :api_particulier_3d_ouest, :validated, modalities: %w[params formulaire_qf]) }
 
       it 'renders the editor name' do
-        expect(mail.body.encoded).to include('Éditeur : 3D Ouest')
+        expect(decoded_text_body(mail)).to include('Éditeur : 3D Ouest')
       end
     end
 
@@ -97,5 +101,7 @@ RSpec.describe HubEEMailer do
         end
       end
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end

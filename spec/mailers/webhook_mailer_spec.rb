@@ -20,8 +20,10 @@ RSpec.describe WebhookMailer do
 
     it 'renders relevant information in body and subject' do
       expect(mail.subject).to include('API Entreprise')
-      expect(mail.body.encoded).to include(webhook_url)
-      expect(mail.body.encoded).to include("/developpeurs/webhooks/#{webhook.id}/tentatives")
+      expect(decoded_text_body(mail)).to include(webhook_url)
+      expect(decoded_text_body(mail)).to include("/developpeurs/webhooks/#{webhook.id}/tentatives")
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end

@@ -11,6 +11,8 @@ RSpec.describe MessageMailer do
       expect(decoded_text_body(mail)).to match('un nouveau message')
       expect(decoded_text_body(mail)).to match('concernant votre demande')
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 
   describe '#reopening_to_applicant' do
@@ -25,6 +27,8 @@ RSpec.describe MessageMailer do
       expect(decoded_text_body(mail)).to match('un nouveau message')
       expect(decoded_text_body(mail)).to match('demande de mise à jour de l’habilitation')
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 
   describe '#to_instructors' do
@@ -56,6 +60,8 @@ RSpec.describe MessageMailer do
         expect(decoded_text_body(mail)).to include('/desabonnement-notifications?token=')
       end
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 
   describe '#reopening_to_instructors' do
@@ -87,5 +93,7 @@ RSpec.describe MessageMailer do
         expect(decoded_text_body(mail)).to include('/desabonnement-notifications?token=')
       end
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end
