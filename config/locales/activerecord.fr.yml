@@ -274,16 +274,16 @@ fr:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:
               inclusion: n'est pas incluse dans la liste des habilitations validées de votre organization
+        authorization_request/france_connect:
+          attributes:
+            contact_technique_phone_number:
+              invalid_french_phone_mobile_format: "n'est pas un numéro de téléphone valide : afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
         authorization_request/resana:
           attributes:
             habilitation_certifiee:
               certification_or_letter_missing: "manquante : cochez la certification ou fournissez une lettre de votre DSI ou DNUM."
             lettre_habilitation_document:
               certification_or_letter_missing: "manquante : cochez la certification ou fournissez une lettre de votre DSI ou DNUM."
-        authorization_request/france_connect:
-          attributes:
-            contact_technique_phone_number:
-              invalid_french_phone_mobile_format: "n'est pas un numéro de téléphone valide : afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:
