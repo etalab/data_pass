@@ -11,7 +11,7 @@ Fonctionnalité: Instruction: historique habilitation
   Scénario: Je vois les événements
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Et que je me rends sur mon tableau de bord instructeur habilitations
     Et que je clique sur "Voir la demande"
     Et que je clique sur "Historique"

@@ -18,9 +18,10 @@ Fonctionnalité: Instruction: modération
   Scénario: Je valide une demande d'habilitation soumise
     Quand je me rends sur une demande d'habilitation "API scolarité de l’élève" à modérer
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
-    Et il y a un message de succès contenant "a été validé"
+    Et il y a un message de succès contenant "a été délivrée"
+    Et il y a un message de succès contenant "L’habilitation H"
     Et que je me rends sur mon tableau de bord instructeur habilitations
     Et je vois 1 habilitation "API scolarité de l’élève" active
     Et un email est envoyé contenant "validé"
@@ -30,7 +31,7 @@ Fonctionnalité: Instruction: modération
   Scénario: Je valide une demande d'habilitation en attente de modification
     Quand je me rends sur une demande d'habilitation "API scolarité de l’élève" en attente de modification
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et que je me rends sur mon tableau de bord instructeur habilitations
     Alors je vois 1 habilitation "API scolarité de l’élève" active
@@ -41,7 +42,7 @@ Fonctionnalité: Instruction: modération
     Et qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors un webhook avec l'évènement "approve" est envoyé
 
   @AvecCourriels

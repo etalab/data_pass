@@ -125,7 +125,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "En cours"
     Et qu'un instructeur a validé la demande d'habilitation
     Et que je me rends sur mon tableau de bord demandeur habilitations
-    Alors la page contient "Votre demande de réouverture d’accès au bac à sable a été validée !"
+    Alors la page contient "Votre habilitation bac à sable a été mise à jour !"
 
 
   Scénario: Annulation d'une demande de réouverture multi stage
