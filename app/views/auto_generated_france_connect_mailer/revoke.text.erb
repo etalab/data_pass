@@ -3,9 +3,9 @@
 <%=
   t(
     '.description',
-    authorization_request_id: @authorization.request.formatted_id,
+    authorization_id: @authorization.formatted_id,
     authorization_request_name: @authorization_request.name,
-    authorization_request_url: authorization_request_url(@authorization.request),
+    authorization_url: authorization_url(@authorization),
     authorization_request_revocation_reason: @authorization.request.revocation.reason
   )
 %>

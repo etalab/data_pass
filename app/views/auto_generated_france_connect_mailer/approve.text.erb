@@ -4,5 +4,5 @@
 <% if @authorization.message.present? %>
 <%= t('.additional_message', message: @authorization.message) %>
 <% end %>
-<%= t('.consultation', authorization_request_url: authorization_request_url(@authorization.request)) %>
+<%= t('.consultation', authorization_url: authorization_url(@authorization)) %>
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: 'FranceConnect' } %>

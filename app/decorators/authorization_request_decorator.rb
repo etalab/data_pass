@@ -1,6 +1,8 @@
 class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Metrics/ClassLength
   include ContactWording
 
+  TransferredSubject = Data.define(:kind, :formatted_id)
+
   delegate_all
 
   decorates_association :organization
@@ -108,6 +110,14 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
         reopening?
     else
       reopening?
+    end
+  end
+
+  def transferred_subject
+    if latest_authorization.present?
+      TransferredSubject.new(kind: :habilitation, formatted_id: latest_authorization.formatted_id)
+    else
+      TransferredSubject.new(kind: :demande, formatted_id:)
     end
   end
 

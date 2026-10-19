@@ -46,8 +46,12 @@ RSpec.describe HubEEMailer do
       expect(mail.to).to eq(recipients)
     end
 
-    it 'renders a subject with the request id and the organization name' do
-      expect(mail.subject).to include(authorization_request.formatted_id, authorization_request.organization.name)
+    it 'renders a subject naming the delivered authorization and the organization' do
+      expect(mail.subject).to eq("[DataPass] Habilitation FQF #{authorization_request.latest_authorization.formatted_id} délivrée — #{authorization_request.organization.name}")
+    end
+
+    it 'links the validated request to the authorization it gave rise to' do
+      expect(mail.body.encoded).to include("la demande #{authorization_request.formatted_id}", "a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}")
     end
 
     it 'renders the request name, form name and organization siret' do

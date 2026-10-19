@@ -26,13 +26,13 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
       end
 
       it 'includes the changes_requested_submit message' do
-        expect(mail.body.encoded).to match('Cette demande fait suite à une demande de modification.')
+        expect(mail.body.encoded).to match('Cette demande fait suite à des modifications demandées.')
       end
     end
 
     context 'when the authorization request does not have a modification request' do
       it 'does not include the changes_requested_submit message' do
-        expect(mail.body.encoded).not_to match('Cette demande fait suite à une demande de modification.')
+        expect(mail.body.encoded).not_to match('Cette demande fait suite à des modifications demandées.')
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('demande de réouverture')
+      expect(mail.body.encoded).to match('demande de mise à jour')
       expect(mail.body.encoded).to match('a soumis')
       expect(mail.body.encoded).to match(authorization_request.applicant.email)
     end

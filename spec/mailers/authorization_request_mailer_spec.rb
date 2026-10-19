@@ -58,6 +58,16 @@ RSpec.describe AuthorizationRequestMailer do
       expect(decoded_text_body(mail)).not_to match('/compte#notifications-section')
     end
 
+    it 'names the validated request and the authorization it gave rise to in the subject' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} a été validée : habilitation #{authorization_request.latest_authorization.formatted_id} délivrée")
+    end
+
+    it 'links the text and html parts to the delivered authorization' do
+      authorization = authorization_request.latest_authorization
+
+      expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}"))
+    end
+
     describe 'custom emails' do
       describe 'HubEE CertDC' do
         let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
@@ -89,6 +99,40 @@ RSpec.describe AuthorizationRequestMailer do
         it 'renders valid custom template' do
           expect(mail.body.encoded).to match('espace agent')
         end
+
+        it 'names the delivered authorization in both parts' do
+          expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("elle a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}"))
+        end
+      end
+
+      %i[france_connect pro_connect_service_provider pro_connect_identity_provider api_pro_sante_connect api_ingres api_particulier_demarche_numerique api_r2p_sandbox].each do |kind|
+        describe "#{kind} custom template" do
+          let(:authorization_request) { create(:authorization_request, kind, :validated) }
+
+          it 'names the delivered authorization and links to it' do
+            authorization = authorization_request.latest_authorization
+
+            expect(mail.body.encoded).to include("l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}")
+          end
+        end
+      end
+
+      %i[hubee_cert_dc hubee_dila].each do |kind|
+        describe "#{kind} custom template" do
+          let(:authorization_request) { create(:authorization_request, kind, :validated) }
+
+          it 'includes the instructor message when there is one' do
+            authorization_request.latest_authorization.update!(message: 'Bienvenue')
+
+            expect(decoded_text_body(mail)).to include("Message associé à la validation de votre demande :\nBienvenue")
+          end
+
+          it 'leaves out the message section when the instructor wrote none' do
+            authorization_request.latest_authorization.update!(message: nil)
+
+            expect(decoded_text_body(mail)).not_to include('Message associé à la validation de votre demande')
+          end
+        end
       end
 
       describe 'FranceConnect' do
@@ -96,7 +140,7 @@ RSpec.describe AuthorizationRequestMailer do
 
         it 'renders valid custom template for new habilitation' do
           text = decoded_text_body(mail)
-          expect(text).to match('Votre habilitation a été validée')
+          expect(text).to match("Votre demande a été validée : elle a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}")
           expect(text).to match('Le demandeur et le responsable technique ont accès à un service dédié sur l\'espace partenaires FranceConnect')
           expect(text).to match('espace.partenaires.franceconnect.gouv.fr')
         end
@@ -122,6 +166,14 @@ RSpec.describe AuthorizationRequestMailer do
       expect(text).to match('a été refusée')
       expect(text).to match(authorization_request.denial.reason)
     end
+
+    it 'names the refused request by its number in the subject' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} a été refusée")
+    end
+
+    it 'speaks of the refused request, not of an authorization' do
+      expect(decoded_text_body(mail)).to include("Votre demande « #{authorization_request.name} » (numéro #{authorization_request.formatted_id}) a été refusée", 'consulter votre demande')
+    end
   end
 
   describe '#revoke' do
@@ -141,10 +193,34 @@ RSpec.describe AuthorizationRequestMailer do
       expect(decoded_text_body(mail)).to match('a été révoquée')
     end
 
+    it 'names the revoked authorization in the subject and links to it' do
+      authorization = authorization_request.latest_authorization
+
+      expect(mail.subject).to eq("Votre habilitation #{authorization.formatted_id} a été révoquée")
+      expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("Votre habilitation « #{authorization_request.name} » (numéro #{authorization.formatted_id}) a été révoquée", "/habilitations/#{authorization.id}"))
+    end
+
     it 'renders HTML part' do
       html = decoded_html_body(mail)
       expect(html).to be_present
       expect(html).to match('révoquée')
+    end
+
+    context 'when an instructor revokes one authorization while a more recent one stays active' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+      let!(:revoked_authorization) { authorization_request.latest_authorization }
+      let!(:active_authorization) { create(:authorization, request: authorization_request, applicant: authorization_request.applicant, data: authorization_request.data) }
+
+      before do
+        create(:revocation_of_authorization, authorization_request:, authorization: revoked_authorization)
+        revoked_authorization.update!(state: 'revoked')
+      end
+
+      it 'names the revoked authorization, not the most recent one' do
+        expect(mail.subject).to eq("Votre habilitation #{revoked_authorization.formatted_id} a été révoquée")
+        expect(decoded_text_body(mail)).to include("(numéro #{revoked_authorization.formatted_id})", "/habilitations/#{revoked_authorization.id}")
+        expect(decoded_text_body(mail)).not_to include(active_authorization.formatted_id)
+      end
     end
   end
 
@@ -166,6 +242,14 @@ RSpec.describe AuthorizationRequestMailer do
       expect(text).to match('des modifications')
       expect(text).to match(authorization_request.modification_request.reason)
     end
+
+    it 'names the request to modify by its number in the subject' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} requiert des modifications")
+    end
+
+    it 'speaks of the request to modify, not of an authorization' do
+      expect(decoded_text_body(mail)).to include("Votre demande « #{authorization_request.name} » (numéro #{authorization_request.formatted_id}) requiert des modifications", 'consulter votre demande')
+    end
   end
 
   describe '#reopening_approve' do
@@ -184,7 +268,26 @@ RSpec.describe AuthorizationRequestMailer do
     it 'renders valid template' do
       text = decoded_text_body(mail)
       expect(text).to match('a été validée')
-      expect(text).to match('réouverture')
+      expect(text).to match('demande de mise à jour')
+    end
+
+    it 'names the new authorization in the subject and links the text and html parts to it' do
+      authorization = authorization_request.latest_authorization
+
+      expect(mail.subject).to eq("Votre demande de mise à jour #{authorization_request.formatted_id} a été validée : habilitation #{authorization.formatted_id} délivrée")
+      expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}"))
+    end
+
+    %i[france_connect pro_connect_service_provider pro_connect_identity_provider api_ingres api_r2p_sandbox].each do |kind|
+      describe "#{kind} custom template" do
+        let(:authorization_request) { create(:authorization_request, kind, :validated) }
+
+        it 'names the new authorization and links to it' do
+          authorization = authorization_request.latest_authorization
+
+          expect(decoded_text_body(mail)).to include('Votre demande de mise à jour', "a été validée : elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}")
+        end
+      end
     end
 
     describe 'FranceConnect' do
@@ -192,7 +295,7 @@ RSpec.describe AuthorizationRequestMailer do
 
       it 'renders valid custom template for reopening' do
         text = decoded_text_body(mail)
-        expect(text).to match('La mise à jour de votre habilitation a été validée')
+        expect(text).to match("Votre demande de mise à jour a été validée : elle a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}")
         expect(text).to match('demande-modification-fs-fc')
         expect(text).to match('demarches-simplifiees.fr')
       end
@@ -215,7 +318,7 @@ RSpec.describe AuthorizationRequestMailer do
     it 'renders valid template, with denial reason' do
       text = decoded_text_body(mail)
       expect(text).to match('a été refusée')
-      expect(text).to match('réouverture')
+      expect(text).to match('demande de mise à jour')
       expect(text).to match(authorization_request.denial.reason)
     end
   end
@@ -305,7 +408,7 @@ RSpec.describe AuthorizationRequestMailer do
 
     it 'renders valid template, with modification request reason' do
       text = decoded_text_body(mail)
-      expect(text).to match('réouverture')
+      expect(text).to match('demande de mise à jour')
       expect(text).to match('des modifications')
       expect(text).to match(authorization_request.modification_request.reason)
     end

@@ -1,6 +1,6 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 <br/>
-Votre habilitation à l’espace agent de l’annuaire des entreprises a été validée.
+Votre demande d’accès à l’espace agent de l’annuaire des entreprises a été validée : elle a donné lieu à l’habilitation <%= @authorization_request.latest_authorization.formatted_id %>.
 <br/>
 Vous bénéficiez de vos nouveaux droits et désormais, sur votre compte agent, vous avez :
 <br/>
@@ -10,7 +10,7 @@ Vous bénéficiez de vos nouveaux droits et désormais, sur votre compte agent, 
 </ul>
 </br>
 <% if @authorization_request.latest_authorization&.message.present? %>
-Message associée à la validation de votre habilitation :
+Message associé à la validation de votre demande :
 </br>
 <%= simple_format(@authorization_request.latest_authorization.message) %>
 </br>

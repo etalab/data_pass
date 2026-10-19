@@ -4,7 +4,8 @@
   '.description',
   authorization_request_id: @authorization_request.formatted_id,
   authorization_request_name: @authorization_request.name,
-  authorization_request_url: authorization_request_url(@authorization_request),
+  authorization_id: @authorization_request.latest_authorization.formatted_id,
+  authorization_url: authorization_url(@authorization_request.latest_authorization),
 )) %>
 <% if @authorization_request.hubee_file_retention_notice? %>
 <br/>

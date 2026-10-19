@@ -52,7 +52,7 @@ class MessageTemplatePreviewRenderer
       request.build_denial(reason: interpolated_content)
       request.build_modification_request(reason: interpolated_content)
 
-      authorization = Authorization.new(message: interpolated_content)
+      authorization = Authorization.new(id: PREVIEW_REQUEST_ID, message: interpolated_content)
       request.define_singleton_method(:latest_authorization) { authorization }
     end
   end

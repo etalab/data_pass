@@ -84,7 +84,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
   Scénario: Je peux choisir un formulaire spécifique lors de la création d'une demande d'habilitation d'instructeur
     Quand je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Initier une demande d'habilitation"
-    Et que je sélectionne "Marchés publics" pour "Sélectionner un formulaire"
+    Et que je sélectionne "Marchés publics" pour "Sélectionner un cas d’usage"
     Alors la page contient "Simplifier le dépôt des candidatures"
     Quand je clique sur "Démarrer le brouillon"
     Alors le champ "URL du texte relatif au traitement" contient "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"

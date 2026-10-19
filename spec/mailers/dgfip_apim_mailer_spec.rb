@@ -18,9 +18,7 @@ RSpec.describe DGFIP::APIMMailer do
       end
 
       it 'has the correct subject for new request' do
-        expect(mail.subject).to eq(
-          I18n.t('dgfip_apim_mailer.approve.subject', authorization_request_id: authorization_request.formatted_id)
-        )
+        expect(mail.subject).to eq("Nouvelle habilitation #{authorization.formatted_id} délivrée")
       end
 
       it 'includes the authorization_request\'s formatted_id in the body' do

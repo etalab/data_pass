@@ -16,7 +16,7 @@ Fonctionnalité: Instruction: templates de messages
     Et que je me connecte
     Quand je me rends sur la page des templates de messages pour "API Entreprise"
     Et que je clique sur "Nouveau modèle"
-    Et que je sélectionne "Demande de modifications" pour "Type de modèle"
+    Et que je sélectionne "Modifications demandées" pour "Type de modèle"
     Et que je remplis "Titre" avec "Informations manquantes"
     Et que je remplis "Contenu" avec "Bonjour, il manque des informations sur votre demande %{demande_intitule}. Voir : %{demande_url}"
     Et que je clique sur "Enregistrer"
@@ -65,7 +65,7 @@ Fonctionnalité: Instruction: templates de messages
     Et que je me connecte
     Sachant qu'il existe un template de message de modifications "Informations manquantes" pour "API Entreprise"
     Quand je me rends sur la page des templates de messages pour "API Entreprise"
-    Et que j'ouvre l'accordéon "API Entreprise - Demande de modifications - Informations manquantes"
+    Et que j'ouvre l'accordéon "API Entreprise - Modifications demandées - Informations manquantes"
     Et que je clique sur "Modifier"
     Et que je remplis "Titre" avec "Documents manquants"
     Et que je clique sur "Enregistrer"
@@ -77,7 +77,7 @@ Fonctionnalité: Instruction: templates de messages
     Et que je me connecte
     Sachant qu'il existe un template de message de modifications "Informations manquantes" pour "API Entreprise"
     Quand je me rends sur la page des templates de messages pour "API Entreprise"
-    Et que j'ouvre l'accordéon "API Entreprise - Demande de modifications - Informations manquantes"
+    Et que j'ouvre l'accordéon "API Entreprise - Modifications demandées - Informations manquantes"
     Et que je clique sur "Supprimer"
     Alors il y a un message de succès contenant "Le modèle a été supprimé avec succès"
     Et la page ne contient pas "Informations manquantes"
@@ -87,7 +87,7 @@ Fonctionnalité: Instruction: templates de messages
     Et que je me connecte
     Sachant qu'il existe un template de message de modifications "Template de test" avec le contenu "Voir %{demande_url}" pour "API Entreprise"
     Quand je me rends sur la page des templates de messages pour "API Entreprise"
-    Et que j'ouvre l'accordéon "API Entreprise - Demande de modifications"
+    Et que j'ouvre l'accordéon "API Entreprise - Modifications demandées"
     Alors la page contient "Voir http://localhost:3000/demandes/9001"
 
   Scénario: Un instructeur peut consulter les templates mais pas les modifier
@@ -107,7 +107,7 @@ Fonctionnalité: Instruction: templates de messages
     Et que je clique sur "Instruire la demande"
     Et que je clique sur "Demander des modifications"
     Et que je sélectionne "Informations manquantes" dans le sélecteur de templates
-    Alors le champ "Raison" contient "Il manque des infos sur Demande d’accès à la plateforme fournisseur"
+    Alors le champ "Motif des modifications demandées" contient "Il manque des infos sur Demande d’accès à la plateforme fournisseur"
 
   @javascript
   Scénario: Un instructeur peut utiliser un template lors d'un refus
@@ -166,7 +166,7 @@ Fonctionnalité: Instruction: templates de messages
     Quand je clique sur "Refus"
     Alors la page contient "Template refus"
     Et la page ne contient pas "Template modification"
-    Quand je clique sur "Demande de modifications"
+    Quand je clique sur "Modifications demandées"
     Alors la page ne contient pas "Template refus"
     Et la page contient "Template modification"
     Quand je clique sur "Voir tout"

@@ -49,7 +49,7 @@ fr:
     instruction_draft_requests_new: Initier une demande d’habilitation
     instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
     instruction_user_rights: Gestion des droits
-    admin_habilitation_types: "Types d’habilitation"
+    admin_habilitation_types: "Formulaires"
 
     notification_unsubscription_show: Désinscription des notifications
     notification_unsubscription_success: Préférence enregistrée

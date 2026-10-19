@@ -18,8 +18,8 @@ RSpec.describe ProduitsDinumMailer do
       expect(mail.body.encoded).to include('/conventions/convention_mise_a_disposition_produits_dinum.pdf')
     end
 
-    it 'renders a subject with the request id' do
-      expect(mail.subject).to include(authorization_request.formatted_id)
+    it 'renders a subject naming the validated request and the delivered authorization' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} a été validée : habilitation #{authorization_request.latest_authorization.formatted_id} délivrée")
     end
   end
 end
