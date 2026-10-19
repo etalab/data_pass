@@ -76,12 +76,12 @@ Fonctionnalité: Instruction: modération
   Scénario: Je demande des modifications sur une demande d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API scolarité de l’élève" à modérer
     Et je clique sur "Demander des modifications"
-    Et que je remplis "Raison de la demande de modification" avec "Précisez votre cas d'usage"
-    Et que je clique sur "Envoyer la demande de modification"
+    Et que je remplis "Motif des modifications demandées" avec "Précisez votre cas d'usage"
+    Et que je clique sur "Demander les modifications"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et je vois 1 demande d'habilitation "API scolarité de l’élève" en attente de modification
     Et un email est envoyé contenant "Précisez votre cas d'usage"
-    Et il y a un message de succès contenant "demande de modifications"
+    Et il y a un message de succès contenant "modifications demandées"
 
   @FlushJobQueue
   Scénario: Je demande des modifications sur une demande d'habilitation qui déclenche un webhook
@@ -89,14 +89,14 @@ Fonctionnalité: Instruction: modération
     Et qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Demander des modifications"
-    Et que je remplis "Raison de la demande de modification" avec "Précisez votre cas d'usage"
-    Et que je clique sur "Envoyer la demande de modification"
+    Et que je remplis "Motif des modifications demandées" avec "Précisez votre cas d'usage"
+    Et que je clique sur "Demander les modifications"
     Alors un webhook avec l'évènement "request_changes" est envoyé
 
   Scénario: Je demande des modifications sur une demande d'habilitation avec un message invalide
     Quand je me rends sur une demande d'habilitation "API scolarité de l’élève" à modérer
     Et je clique sur "Demander des modifications"
-    Et que je clique sur "Envoyer la demande de modification"
+    Et que je clique sur "Demander les modifications"
     Alors il y a au moins une erreur sur un champ
 
   Scénario: Je supprime une demande d'habilitation

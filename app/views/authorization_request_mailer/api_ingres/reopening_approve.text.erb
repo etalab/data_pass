@@ -5,7 +5,7 @@ Il faut vous créer un compte, créer votre application puis sélectionner la ou
 Une fois cet accès validé, vous pourrez recevoir les identifiants techniques à utiliser pour appeler nos APIs.
 
 <% if @authorization_request.latest_authorization&.message.present? %>
-Message associé à la validation de votre habilitation :
+Message associé à la validation de votre demande :
 <%= @authorization_request.latest_authorization.message %>
 <% end %>
 Pour consulter cette mise à jour, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %> .

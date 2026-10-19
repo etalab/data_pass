@@ -47,7 +47,7 @@ RSpec.describe EmailPreviewRenderer do
       let(:action) { :approval }
 
       it 'renders the reopening_approve mailer template' do
-        expect(render).to include('réouverture')
+        expect(render).to include('demande de mise à jour')
       end
     end
 

@@ -80,7 +80,7 @@ fr:
       event_descriptions:
         submit: Ces emails sont envoyés lorsqu’un demandeur soumet une demande complète. La demande passe « En cours d’instruction ».
         approve: Ces emails sont envoyés lorsqu’un instructeur valide une demande et délivre ainsi une habilitation. La demande passe en « Validée ».
-        request_changes: Ces emails sont envoyés lorsqu’un instructeur demande des modifications au demandeur avant de pouvoir valider une demande. La demande passe en « À modifier ».
+        request_changes: Ces emails sont envoyés lorsqu’un instructeur demande des modifications au demandeur avant de pouvoir valider une demande. La demande passe en « Modifications demandées ».
         refuse: Ces emails sont envoyés lorsqu’un instructeur refuse une demande. La demande passe en « Refusée ».
         revoke: Ces emails sont envoyés lorsqu’un instructeur révoque une habilitation existante. L’habilitation ainsi que sa demande passent en « Révoquée ».
       states:
@@ -183,7 +183,7 @@ fr:
         refuse: Refuser
         request_changes: Demander des modifications
         revoke: Révoquer
-        cancel_reopening: Annuler la demande de réouverture
+        cancel_reopening: Annuler la demande de mise à jour
         cancel_next_stage: Annuler la demande de production
         transfer: Transférer
     france_connected_authorizations:
@@ -235,7 +235,7 @@ fr:
             organization: |
               Vous êtes sur le point de refuser la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
-              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L'habilitation sera toujours valide.
+              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la demande de mise à jour seront annulées. L'habilitation sera toujours valide.
           cancel: Annuler
           refuse: Refuser la demande de mise à jour
       create:
@@ -280,21 +280,21 @@ fr:
     cancel_authorization_reopenings:
       new:
         initial:
-          title: Annulation de la réouverture de l'habilitation
+          title: Annulation de la demande de mise à jour de l’habilitation
           description:
             organization: |
-              Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point d’annuler la demande de mise à jour de l’habilitation « %{authorization_request_name} » au profit de l’organisation « %{organization_name} » (numéro de siret : %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner les motifs de cette annulation, qui sera affichée dans l'historique de la demande.
           cancel: Annuler
-          cancel_reopening: Annuler la réouverture de cette demande
+          cancel_reopening: Annuler cette demande de mise à jour
 
       create:
         reopening_success:
-          title: La réouverture de l'habilitation %{name} a été annulée.
+          title: La demande de mise à jour de l’habilitation %{name} a été annulée.
         success:
-          title: La réouverture de l'habilitation %{name} a été annulée.
+          title: La demande de mise à jour de l’habilitation %{name} a été annulée.
 
     cancel_next_authorization_request_stages:
       new:
@@ -313,29 +313,29 @@ fr:
     request_changes_on_authorization_requests:
       new:
         initial:
-          title: Demande de modifications
+          title: Demander des modifications
           description:
             organization: |
               Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
-          request_changes: Envoyer la demande de modification
+          request_changes: Demander les modifications
         reopening:
-          title: Demande de modifications
+          title: Demander des modifications
           description:
             organization: |
               Vous êtes sur le point de demander des modifications sur la mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
-          request_changes: Envoyer la demande de modification
+          request_changes: Demander les modifications
       create:
         success:
-          title: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+          title: Les modifications demandées sur la demande %{name} ont été envoyées au demandeur
 
         reopening_success:
-          title: La demande de modifications de la mise à jour de l'habilitation %{name} a bien été envoyée au demandeur
+          title: Les modifications demandées sur la demande de mise à jour de l’habilitation %{name} ont été envoyées au demandeur
     archive_authorization_requests:
       create:
         success: La demande d'habilitation %{name} a été supprimée avec succèss
@@ -461,15 +461,15 @@ fr:
 
         reopen:
           message_summary: |
-            <strong>%{user_full_name}</strong> a réouvert l'habilitation.
+            <strong>%{user_full_name}</strong> a demandé une mise à jour de l’habilitation.
 
         cancel_reopening_from_applicant:
           message_summary: |
-            <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation.
+            <strong>%{user_full_name}</strong> a annulé la demande de mise à jour de l’habilitation.
 
         cancel_reopening_from_instructor:
           message_summary: |
-            L'instructeur <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation pour la raison suivante :
+            L'instructeur <strong>%{user_full_name}</strong> a annulé la demande de mise à jour de l’habilitation pour la raison suivante :
           message_details: |
             <blockquote>
               %{message_details_text}

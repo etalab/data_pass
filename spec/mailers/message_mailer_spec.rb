@@ -23,7 +23,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      expect(mail.body.encoded).to match('demande de mise à jour de l’habilitation')
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      expect(mail.body.encoded).to match('demande de mise à jour de l’habilitation')
     end
 
     context 'with the unsubscribe footer' do

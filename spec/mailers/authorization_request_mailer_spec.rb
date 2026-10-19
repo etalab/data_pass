@@ -254,7 +254,14 @@ RSpec.describe AuthorizationRequestMailer do
     it 'renders valid template' do
       text = decoded_text_body(mail)
       expect(text).to match('a été validée')
-      expect(text).to match('réouverture')
+      expect(text).to match('demande de mise à jour')
+    end
+
+    it 'names the new authorization in the subject and links the text and html parts to it' do
+      authorization = authorization_request.latest_authorization
+
+      expect(mail.subject).to eq("Votre demande de mise à jour #{authorization_request.formatted_id} a été validée : habilitation #{authorization.formatted_id} délivrée")
+      expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}"))
     end
 
     describe 'FranceConnect' do
@@ -285,7 +292,7 @@ RSpec.describe AuthorizationRequestMailer do
     it 'renders valid template, with denial reason' do
       text = decoded_text_body(mail)
       expect(text).to match('a été refusée')
-      expect(text).to match('réouverture')
+      expect(text).to match('demande de mise à jour')
       expect(text).to match(authorization_request.denial.reason)
     end
   end
@@ -375,7 +382,7 @@ RSpec.describe AuthorizationRequestMailer do
 
     it 'renders valid template, with modification request reason' do
       text = decoded_text_body(mail)
-      expect(text).to match('réouverture')
+      expect(text).to match('demande de mise à jour')
       expect(text).to match('des modifications')
       expect(text).to match(authorization_request.modification_request.reason)
     end
