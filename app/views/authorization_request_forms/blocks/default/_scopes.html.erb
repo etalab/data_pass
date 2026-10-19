@@ -4,20 +4,20 @@
 
 <%= f.info_for(:scopes) %>
 
-<% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
+<% scope_groups_for_display(@authorization_request.available_scopes).each do |scope_group| %>
   <div class="fr-form-group scopes-group">
-    <% if group_name.present? %>
+    <% if scope_group.heading.present? %>
       <p class="scopes-group__title fr-text--lg">
-        <%= group_name %>
+        <%= scope_group.heading %>
       </p>
 
-      <% if f.wording_for("scopes.groups.#{group_name.to_sym}").present? %>
-        <%= render partial: "authorization_request_forms/shared/scopes_group_documentation_accordion", locals: { f:, group_name: } %>
+      <% if scope_group.group.present? && f.wording_for("scopes.groups.#{scope_group.group.to_sym}").present? %>
+        <%= render partial: "authorization_request_forms/shared/scopes_group_documentation_accordion", locals: { f:, group_name: scope_group.group } %>
       <% end %>
     <% end %>
 
     <div class="scopes-group__grid">
-      <% scopes.each do |scope| %>
+      <% scope_group.scopes.each do |scope| %>
         <%= f.dsfr_scope scope %>
       <% end %>
     </div>
