@@ -33,7 +33,8 @@ Chaque demande possède un cycle de vie déterminer via une machine à états. L
    demandeur ;
 4. `refused`: l'instructeur a refusé la demande d'habilitation. Il s'agit d'un
    état final pour la demande.
-5. `validated`: l'instructeur a validé la demande d'habilitation
+5. `validated`: l'instructeur a validé la demande, ce qui délivre une habilitation. La
+   demande reste consultable par les instructeurs avec le statut « Validée ».
 
 Chaque état influe sur les actions possibles sur une demande d'un point de vue
 controller (via la stack d'autorisation).
