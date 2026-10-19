@@ -13,7 +13,7 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Sachant qu'il y a une demande API Particulier avec champs FranceConnect intégrés à modérer
     Quand je me rends sur cette demande d'habilitation
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et il y a 2 habilitations pour cette demande
 
@@ -22,7 +22,7 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Sachant qu'il y a une demande API Particulier sans champs FranceConnect à modérer
     Quand je me rends sur cette demande d'habilitation
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et il y a 1 habilitation pour cette demande
 
@@ -32,7 +32,7 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Et qu'il existe un webhook activé pour FranceConnect avec l'URL "https://webhook.site/fc-test"
     Quand je me rends sur cette demande d'habilitation
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors un webhook avec l'évènement "approve" est envoyé pour FranceConnect
 
   @FlushJobQueue
@@ -42,6 +42,7 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande de mise à jour"
     Alors je suis sur la page "Liste des demandes et habilitations"
+    Et il y a un message de succès contenant "a été mise à jour"
     Et il y a 1 habilitation FranceConnect pour cette demande
 
   @FlushJobQueue
@@ -70,7 +71,7 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Sachant qu'il y a une demande API Particulier avec une habilitation FC existante liée à modérer
     Quand je me rends sur cette demande d'habilitation
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et il y a 1 habilitation pour cette demande
     Et il y a 0 habilitation FranceConnect pour cette demande

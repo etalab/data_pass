@@ -79,7 +79,7 @@ fr:
         revoke: Révocation de l’habilitation
       event_descriptions:
         submit: Ces emails sont envoyés lorsqu’un demandeur soumet une demande complète. La demande passe « En cours d’instruction ».
-        approve: Ces emails sont envoyés lorsqu’un instructeur valide une demande et génère ainsi une habilitation. La demande passe en « Validée ».
+        approve: Ces emails sont envoyés lorsqu’un instructeur valide une demande et délivre ainsi une habilitation. La demande passe en « Validée ».
         request_changes: Ces emails sont envoyés lorsqu’un instructeur demande des modifications au demandeur avant de pouvoir valider une demande. La demande passe en « À modifier ».
         refuse: Ces emails sont envoyés lorsqu’un instructeur refuse une demande. La demande passe en « Refusée ».
         revoke: Ces emails sont envoyés lorsqu’un instructeur révoque une habilitation existante. L’habilitation ainsi que sa demande passent en « Révoquée ».
@@ -197,11 +197,11 @@ fr:
           title: Validation de la demande d'habilitation
           description:
             organization: |
-              Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de valider la demande « %{authorization_request_name} » au profit de l’organisation « %{organization_name} » (numéro de siret : %{organization_siret}) et de délivrer l’habilitation correspondante.
             disclaimer: |
               <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
           cancel: Annuler
-          approve: Valider la demande d'habilitation
+          approve: Valider la demande et délivrer l’habilitation
         reopening:
           title: Validation de la demande de mise à jour de l'habilitation.
           description:
@@ -213,9 +213,9 @@ fr:
           approve: Valider la demande de mise à jour
       create:
         success:
-          title: La demande d'habilitation %{name} a été validé
+          title: L’habilitation %{authorization_id} « %{name} » a été délivrée
         reopening_success:
-          title: La demande de mise à jour de l'habilitation %{name} a été validé
+          title: L’habilitation %{authorization_id} « %{name} » a été mise à jour
 
     refuse_authorization_requests:
       new:
@@ -300,7 +300,7 @@ fr:
       new:
         title: Annulation de la demande de production
         description: |
-          Vous êtes sur le point d'annuler la demande de production « %{authorization_request_name} ». La demande reviendra au statut validé du palier précédent.
+          Vous êtes sur le point d’annuler la demande de production « %{authorization_request_name} ». L’habilitation bac à sable reste active ; la demande pour être habilité à accéder à l’environnement de production est abandonnée.
         confirmation_question: Êtes-vous sûr de vouloir annuler cette demande de production ?
         back: Annuler
         confirm: Confirmer l'annulation

@@ -15,7 +15,7 @@ class TransferAuthorizationRequestsController < AuthenticatedUserController
     organizer = TransferAuthorizationRequestToNewApplicant.call(transfer_authorization_request_params)
 
     if organizer.success?
-      success_message(title: t(".#{to_new_applicant}.success", name: @authorization_request.name, new_applicant_email: organizer.new_applicant_email))
+      success_message(title: t(".#{to_new_applicant}.success.#{@authorization_request.decorate.transferred_object}", name: @authorization_request.name, new_applicant_email: organizer.new_applicant_email))
 
       redirect_to authorization_request_path(@authorization_request),
         status: :see_other
