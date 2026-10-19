@@ -22,20 +22,22 @@ RSpec.describe DGFIP::APIMMailer do
       end
 
       it 'includes the authorization_request\'s formatted_id in the body' do
-        expect(mail.body.encoded).to include(authorization_request.formatted_id)
+        expect(decoded_text_body(mail)).to include(authorization_request.formatted_id)
       end
 
       it 'includes the authorization\'s formatted id in the body' do
-        expect(mail.body.encoded).to include(authorization.formatted_id)
+        expect(decoded_text_body(mail)).to include(authorization.formatted_id)
       end
 
       it 'includes BAS for sandbox stage' do
-        expect(mail.body.encoded).to include('BAS')
+        expect(decoded_text_body(mail)).to include('BAS')
       end
 
       it 'does not include mise à jour in the body' do
-        expect(mail.body.encoded).not_to include('mise à jour')
+        expect(decoded_text_body(mail)).not_to include('mise à jour')
       end
+
+      it_behaves_like 'a mail whose html part mirrors its text part'
     end
 
     context 'when it is a reopening (mise à jour)' do
@@ -53,8 +55,10 @@ RSpec.describe DGFIP::APIMMailer do
       end
 
       it 'includes mise à jour in the body' do
-        expect(mail.body.encoded).to include('mise à jour')
+        expect(decoded_text_body(mail)).to include('mise à jour')
       end
+
+      it_behaves_like 'a mail whose html part mirrors its text part'
     end
 
     context 'when it is a production request' do
@@ -68,8 +72,10 @@ RSpec.describe DGFIP::APIMMailer do
       end
 
       it 'includes PROD for production stage' do
-        expect(mail.body.encoded).to include('PROD')
+        expect(decoded_text_body(mail)).to include('PROD')
       end
+
+      it_behaves_like 'a mail whose html part mirrors its text part'
     end
 
     context 'when the API has no specific emails configured' do
@@ -85,6 +91,8 @@ RSpec.describe DGFIP::APIMMailer do
       it 'sends only to the base DGFiP APIM emails' do
         expect(mail.to).to eq ['test1@dgfip.finances.gouv.fr', 'test2@dgfip.finances.gouv.fr']
       end
+
+      it_behaves_like 'a mail whose html part mirrors its text part'
     end
   end
 end
