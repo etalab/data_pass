@@ -11,7 +11,7 @@ Fonctionnalité: Instruction: historique habilitation
   Scénario: Je vois les événements
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
-    Et je clique sur "Valider la demande d'habilitation"
+    Et je clique sur "Valider la demande et délivrer l’habilitation"
     Et que je me rends sur mon tableau de bord instructeur habilitations
     Et que je clique sur "Voir la demande"
     Et que je clique sur "Historique"
@@ -82,7 +82,7 @@ Fonctionnalité: Instruction: historique habilitation
     Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
-    Alors la page contient "Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire"
+    Alors la page contient "Les données suivantes ont été modifiées par rapport aux informations pré-remplies du cas d’usage"
 
   @DisableBullet
   Scénario: Je vois un lien vers l'habilitation sur l'évènement de validation

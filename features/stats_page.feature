@@ -13,7 +13,7 @@ Fonctionnalité: Page de statistiques
     Quand je vais sur la page des stats
     Alors la page des stats affiche le titre principal
     Et la page contient "Demandes soumises"
-    Et la page contient "Demandes validées"
+    Et la page contient "Habilitations délivrées"
     Et la page contient "Durée de remplissage d’une nouvelle demande"
 
   Scénario: Filtrage par période

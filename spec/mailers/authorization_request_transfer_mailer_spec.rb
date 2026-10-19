@@ -9,9 +9,9 @@ RSpec.describe AuthorizationRequestTransferMailer do
     let(:authorization_request_transfer) { create(:authorization_request_transfer) }
 
     it 'renders a valid template with both email' do
-      expect(mail.body.encoded).to match('été transférée')
-      expect(mail.body.encoded).to match(authorization_request_transfer.from.email)
-      expect(mail.body.encoded).to match(authorization_request_transfer.to.email)
+      expect(decoded_text_body(mail)).to match('été transférée')
+      expect(decoded_text_body(mail)).to match(authorization_request_transfer.from.email)
+      expect(decoded_text_body(mail)).to match(authorization_request_transfer.to.email)
     end
 
     it 'sends the email to the old and new applicant' do
@@ -20,5 +20,7 @@ RSpec.describe AuthorizationRequestTransferMailer do
         authorization_request_transfer.to.email,
       )
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end

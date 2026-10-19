@@ -9,7 +9,7 @@ fr:
         email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation pour que l'on valide manuellement cette adresse."
         email_deliverability_unknown: "n'a pas pu être vérifiée : merci de vérifier que cette adresse email est bien valide. Si tel est le cas, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation ainsi que l'email pour que celle-ci soit validée manuellement."
         url_format: "n'est pas un lien valide"
-        already_exists: "Une autre demande d'habilitation est déjà en cours ou validée pour cette organisation, il ne peut en avoir qu'une seule de ce type."
+        already_exists: "Votre organisation a déjà une demande en cours ou une habilitation pour ce service : il ne peut y en avoir qu’une."
         invalid_french_phone_format: "doit être un numéro de téléphone français. Exemple : 0199001234 ou +33199001234."
         invalid_french_phone_mobile_format: "doit être un numéro de téléphone mobile français. Exemple : 0639981234 ou +33(0)639981234."
         incomplete_france_connect_scopes: "doit contenir tous les scopes FranceConnect obligatoires"
@@ -170,14 +170,14 @@ fr:
       revocation_of_authorization:
         reason: Indiquez les motifs de révocation
       instructor_modification_request:
-        reason: Raison de la demande de modification
+        reason: Motif des modifications demandées
       authorization_request_reopening_cancellation:
-        reason: Raison de l'annulation de la réouverture
+        reason: Motif de l’annulation de la demande de mise à jour
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
       message_template:
-        authorization_definition_uid: Type d'habilitation
+        authorization_definition_uid: Formulaire
         title: Titre
         template_type: Type de modèle
         content: Contenu
@@ -244,7 +244,7 @@ fr:
       message_template:
         template_type:
           refusal: Refus
-          modification_request: Demande de modifications
+          modification_request: Modifications demandées
           approval: Validation
       authorization_request:
         france_connect_eidas:
@@ -273,7 +273,7 @@ fr:
             safety_certification_begin_date:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:
-              inclusion: n'est pas incluse dans la liste des habilitations validées de votre organization
+              inclusion: n’est pas incluse dans la liste des habilitations actives de votre organisation
         authorization_request/france_connect:
           attributes:
             contact_technique_phone_number:
@@ -302,8 +302,8 @@ fr:
         data_provider:
           attributes:
             base:
-              has_habilitation_types: "ne peut pas être supprimé car des types d’habilitation y sont rattachés"
-              has_authorization_definitions: "ne peut pas être supprimé car des types d’habilitation statiques référencent ce fournisseur"
+              has_habilitation_types: "ne peut pas être supprimé car des formulaires y sont rattachés"
+              has_authorization_definitions: "ne peut pas être supprimé car des formulaires statiques référencent ce fournisseur"
         habilitation_type:
           attributes:
             base:
@@ -323,12 +323,12 @@ fr:
         form_template:
           attributes:
             base:
-              last_default_form_template: "ne peut pas être supprimé : il doit rester au moins un template par défaut pour ce type d’habilitation"
+              last_default_form_template: "ne peut pas être supprimé : il doit rester au moins un cas d’usage par défaut pour ce formulaire"
             slug:
-              taken_by_yaml_form: "est déjà utilisé par un formulaire YAML"
+              taken_by_yaml_form: "est déjà utilisé par un cas d’usage YAML"
             default:
-              last_default_form_template: "ne peut pas être désactivé : il doit rester au moins un template par défaut pour ce type d’habilitation"
-              already_taken: "un autre template par défaut existe déjà pour ce type d’habilitation"
+              last_default_form_template: "ne peut pas être désactivé : il doit rester au moins un cas d’usage par défaut pour ce formulaire"
+              already_taken: "un autre cas d’usage par défaut existe déjà pour ce formulaire"
             service_provider_id:
               inclusion: "n’existe pas dans la liste des fournisseurs de service"
         impersonation:
@@ -342,9 +342,9 @@ fr:
     attributes:
       authorization:
         within_data: Les infos de l'habilitation
-        authorization_request_class: Type d'habilitation
+        authorization_request_class: Formulaire
         state: État
       authorization_request:
         within_data: Les infos de la demande
-        type: Type de demande
+        type: Formulaire
         state: État
