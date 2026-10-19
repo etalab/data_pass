@@ -4,7 +4,7 @@ Les webhooks permettent d'être **notifié en temps réel** des changements d'é
 
 ## Prérequis
 
-- Avoir le rôle **« développeur »** pour le type d'habilitation concerné (sans ce rôle, l'interface de création de webhooks n'est pas accessible).
+- Avoir le rôle **« développeur »** pour le formulaire concerné (sans ce rôle, l'interface de création de webhooks n'est pas accessible).
 - Disposer d'un endpoint HTTPS public capable de recevoir un `POST` JSON et de répondre `200` en moins de quelques secondes.
 
 La documentation exhaustive (événements, signature HMAC, retry, désactivation automatique) est disponible sur la page [Documentation des webhooks](/developpeurs/webhooks/documentation). Ce tutoriel se concentre sur les cas d'usage d'intégration.
@@ -17,7 +17,7 @@ Scénario : un agent soumet une demande via votre CRM (créée par API), vous vo
 
 Rendez-vous sur [/developpeurs/webhooks](/developpeurs/webhooks) et créez un webhook :
 
-- **Type d'habilitation** : le type pour lequel vous voulez recevoir les événements (limité aux types où vous avez le rôle développeur).
+- **Formulaire** : le formulaire pour lequel vous voulez recevoir les événements (limité aux formulaires où vous avez le rôle développeur).
 - **URL** : l'URL HTTPS publique de votre endpoint.
 - **Événements** : cochez `submit`, `approve`, `refuse`, `request_changes` (par exemple).
 
@@ -166,7 +166,7 @@ L'historique des appels est visible sur [/developpeurs/webhooks](/developpeurs/w
 
 ### Politique de retry
 
-En cas de réponse non-2xx (ou d'absence de réponse), l'appel est rejoué automatiquement selon un back-off polynomial, **sans limite de tentatives**, jusqu'à obtention d'une réponse 2xx. Après **5 tentatives échouées** sur un même envoi, un **email d'alerte** est envoyé à tous les développeurs du type d'habilitation, mais le webhook **reste actif** et les tentatives se poursuivent. Un webhook n'est désactivé automatiquement que lorsque son URL est modifiée ; vous pouvez aussi le désactiver manuellement depuis l'interface.
+En cas de réponse non-2xx (ou d'absence de réponse), l'appel est rejoué automatiquement selon un back-off polynomial, **sans limite de tentatives**, jusqu'à obtention d'une réponse 2xx. Après **5 tentatives échouées** sur un même envoi, un **email d'alerte** est envoyé à tous les développeurs du formulaire, mais le webhook **reste actif** et les tentatives se poursuivent. Un webhook n'est désactivé automatiquement que lorsque son URL est modifiée ; vous pouvez aussi le désactiver manuellement depuis l'interface.
 
 Les détails exacts (délais entre tentatives, codes qui déclenchent un retry) sont dans la [documentation webhooks](/developpeurs/webhooks/documentation). Activez une alerte interne sur les codes non-2xx pour ne pas découvrir un endpoint cassé par hasard.
 

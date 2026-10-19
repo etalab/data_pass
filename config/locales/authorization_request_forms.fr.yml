@@ -113,7 +113,7 @@ fr:
 
       prefill_data_info:
         title: Nous avons pré-rempli des informations pour vous aider
-        description: "Vous avez choisi le formulaire %{name}, nous avons pré-rempli les informations correspondantes."
+        description: "Vous avez choisi le cas d’usage %{name}, nous avons pré-rempli les informations correspondantes."
 
       basic_infos:
         title: Décrivez nous votre projet
