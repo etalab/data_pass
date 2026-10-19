@@ -5,12 +5,14 @@ class AuthorizationRequestMailer < ApplicationMailer
 
       define_method(mth) do
         @authorization_request = params[:authorization_request]
+        @authorization = event == :revoke ? revoked_authorization : @authorization_request.latest_authorization
 
         mail(
           to: @authorization_request.applicant.email,
           subject: t(
             '.subject',
             authorization_request_id: @authorization_request.formatted_id,
+            authorization_id: @authorization&.formatted_id,
           )
         ) do |format|
           format.text { render text_template_path_for(@authorization_request.kind, mth) }
@@ -22,6 +24,10 @@ class AuthorizationRequestMailer < ApplicationMailer
   end
 
   private
+
+  def revoked_authorization
+    @authorization_request.revocation.try(:authorization) || @authorization_request.latest_authorization
+  end
 
   def text_template_path_for(kind, action)
     return "authorization_request_mailer/#{kind}/#{action}" if text_template_exists?(kind, action)
