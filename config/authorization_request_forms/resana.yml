@@ -20,7 +20,7 @@ resana:
       <h6 class="fr-callout__title">Votre engagement</h6>
       <p class="fr-callout__text">En remplissant ce formulaire, vous vous engagez à être habilité à traiter les documents enregistrés sur Resana par votre organisme. Il appartient dans ce cadre à votre organisme de définir des politiques de migration, archivage et suppression le cas échéant des fichiers conservés sur Resana.</p>
     </div>
-    <p>Une fois soumise, votre demande est examinée par l’équipe Resana. Après validation, celle-ci vous informera par e-mail de l’attribution de votre rôle d’administrateur.</p>
+    <p>Une fois soumise, votre demande est examinée par un agent de la DINUM. Après validation, il vous informera par e-mail de l’attribution de votre rôle d’administrateur.</p>
   steps:
     - name: legal
     - name: contacts

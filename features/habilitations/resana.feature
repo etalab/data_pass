@@ -18,7 +18,7 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Et la page contient "CGU Resana"
     Et la page contient "support-resana@numerique.gouv.fr"
     Et la page contient "Votre engagement"
-    Et la page contient "Une fois soumise, votre demande est examinée par l’équipe Resana."
+    Et la page contient "Une fois soumise, votre demande est examinée par un agent de la DINUM."
     Et la page contient "Le cadre juridique"
     Et la page contient "Les personnes impliquées"
 
