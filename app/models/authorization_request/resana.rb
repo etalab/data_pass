@@ -25,6 +25,10 @@ class AuthorizationRequest::Resana < AuthorizationRequest
   contact :contact_metier,
     validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
+  validates :delegue_protection_donnees_phone_number, :contact_metier_phone_number,
+    french_phone_number: true,
+    if: -> { need_complete_validation?(:contacts) }
+
   private
 
   def habilitation_certifiee_or_lettre_habilitation_document_present

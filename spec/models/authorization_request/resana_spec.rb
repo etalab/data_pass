@@ -86,6 +86,21 @@ RSpec.describe AuthorizationRequest::Resana do
       expect(authorization_request).not_to be_valid(:submit)
     end
 
+    it 'rejects a phone number which is not a french one' do
+      authorization_request.delegue_protection_donnees_phone_number = '123'
+      authorization_request.contact_metier_phone_number = '123'
+
+      expect(authorization_request).not_to be_valid(:submit)
+      expect(authorization_request.errors[:delegue_protection_donnees_phone_number]).to be_present
+      expect(authorization_request.errors[:contact_metier_phone_number]).to be_present
+    end
+
+    it 'accepts a french phone number with spaces' do
+      authorization_request.contact_metier_phone_number = '01 99 00 01 19'
+
+      expect(authorization_request).to be_valid(:submit)
+    end
+
     it 'requires the business owner job title' do
       authorization_request.contact_metier_job_title = nil
 

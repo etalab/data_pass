@@ -165,6 +165,18 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Et je clique sur "Suivant"
     Alors il y a un message d'erreur contenant "Email du délégué à la protection des données"
 
+  Scénario: Un téléphone qui n’est pas un numéro français est signalé
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Et je remplis le cadre juridique de la demande Resana
+    Et je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email                  | Téléphone  |
+      | Dupont | Jacques | dupont.jacques@gouv.fr | 123        |
+    Et je remplis les informations du contact "Responsable métier" avec :
+      | Nom    | Prénom | Email               | Téléphone  | Poste occupé                   |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Chef de projet                 |
+    Et je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "doit être un numéro de téléphone français"
+
   Scénario: Le récapitulatif indique qui reçoit les accès administrateur
     Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
     Et je remplis le cadre juridique et les personnes impliquées de la demande Resana
