@@ -62,6 +62,7 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
     Alors la page contient "La DINUM attribue le rôle d’administrateur Resana aux seuls agents habilités par leur hiérarchie à l’exercer pour leur organisation."
     Quand je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je remplis "Organisations Resana concernées" avec "DINUM"
     Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
     Et je clique sur "Suivant"
     Alors la page contient "Délégué à la protection des données"
@@ -69,6 +70,7 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
   Scénario: Une lettre de la DSI suffit à valider le cadre juridique
     Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
     Et je sélectionne "Service déconcentré de l’État" pour "Nature juridique de votre structure"
+    Et je remplis "Organisations Resana concernées" avec "DINUM"
     Et je remplis "Fournissez une lettre de votre DSI ou DNUM attestant ce droit" avec le fichier "spec/fixtures/dummy.pdf"
     Et je clique sur "Suivant"
     Alors la page contient "Délégué à la protection des données"
@@ -85,6 +87,15 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Et je clique sur "Suivant"
     Alors il y a un message d'erreur contenant "Nature juridique de votre structure doit être rempli(e)"
 
+  Scénario: Sans organisation Resana, le cadre juridique est bloqué
+    Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
+    Alors la page contient "Pour quelle(s) organisation(s) Resana demandez-vous le rôle d’administrateur ?"
+    Et la page contient "Une organisation par ligne"
+    Quand je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
+    Et je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "Organisations Resana concernées doit être rempli(e)"
+
   Scénario: Une lettre qui n’est pas un PDF est refusée
     Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
     Et je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
@@ -100,11 +111,14 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
   Scénario: Le résumé affiche la nature juridique, l’engagement et la lettre
     Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
     Et je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    Et je remplis "Organisations Resana concernées" avec "DINUM"
     Et je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
     Et je remplis "Fournissez une lettre de votre DSI ou DNUM attestant ce droit" avec le fichier "spec/fixtures/dummy.pdf"
     Et je clique sur "Suivant"
     Et je remplis les personnes impliquées de la demande Resana
     Alors la page contient "Établissement public administratif"
+    Et la page contient "Organisations Resana concernées"
+    Et la page contient "DINUM"
     Et la page contient "Habilitation à exercer le rôle"
     Et la page contient "Le demandeur certifie être habilité par sa hiérarchie"
     Et la page contient "dummy.pdf"

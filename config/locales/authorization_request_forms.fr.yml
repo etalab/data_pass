@@ -1295,6 +1295,9 @@ fr:
           Veillez à fournir toutes les informations qui vous sembleraient utiles à porter à notre connaissance.
         nature:
           title: Quelle est la nature juridique de votre structure ?
+        organisations:
+          title: Pour quelle(s) organisation(s) Resana demandez-vous le rôle d’administrateur ?
+          documentation_html: Consultez la documentation Resana <a href="https://resana.zendesk.com/hc/fr/articles/38451019801245-Comprendre-le-fonctionnement-des-organisations-et-le-multi-organisation" target="_blank" rel="noopener">« Comprendre le fonctionnement des organisations et le multi-organisation »<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.
         habilitation:
           title: Votre habilitation à exercer ce rôle
           hint: Cochez la certification ou fournissez une lettre de votre DSI ou DNUM.
@@ -1309,6 +1312,9 @@ fr:
           etablissement_public_administratif: Établissement public administratif
           etablissement_public_scientifique_culturel_professionnel: Établissement public à caractère scientifique, culturel et professionnel
           autre: Autre
+      organisations_resana:
+        label: Organisations Resana concernées
+        hint: Une organisation par ligne
       habilitation_certifiee:
         label: Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation
         summary: Le demandeur certifie être habilité par sa hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation.

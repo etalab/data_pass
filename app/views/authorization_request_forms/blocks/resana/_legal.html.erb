@@ -19,6 +19,20 @@
 </div>
 
 <div class="legal-border-card fr-mt-3w">
+  <p class="fr-h5 legal-subtitle">
+    <%= f.wording_for('legal.organisations.title') %>
+  </p>
+
+  <p>
+    <%= f.wording_for('legal.organisations.documentation_html').html_safe %>
+  </p>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_area :organisations_resana, required: true, rows: 4 %>
+  </div>
+</div>
+
+<div class="legal-border-card fr-mt-3w">
   <fieldset class="fr-fieldset fr-mb-0">
     <legend class="fr-fieldset__legend">
       <span class="fr-h5 legal-subtitle"><%= f.wording_for('legal.habilitation.title') %></span>

@@ -178,7 +178,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         'basic_infos' => 'nombre_utilisateurs_finaux_approximatif'
       },
       'resana' => {
-        'legal' => %w[nature_juridique habilitation_certifiee],
+        'legal' => %w[nature_juridique organisations_resana habilitation_certifiee],
       },
     }
 

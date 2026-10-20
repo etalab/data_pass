@@ -1702,6 +1702,7 @@ FactoryBot.define do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           authorization_request.nature_juridique ||= 'etablissement_public_administratif'
+          authorization_request.organisations_resana ||= "DINUM\nANCT"
           authorization_request.habilitation_certifiee = '1' if authorization_request.data['habilitation_certifiee'].nil?
         end
       end

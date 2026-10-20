@@ -5,6 +5,11 @@
     <%= f.wording_for("nature_juridique.values.#{authorization_request.nature_juridique}") if authorization_request.nature_juridique.present? %>
   </p>
 
+  <div>
+    <strong><%= f.label_value(:organisations_resana) %></strong>
+    <%= simple_format_without_html_tags(authorization_request.organisations_resana) %>
+  </div>
+
   <% if authorization_request.habilitation_certifiee %>
     <p>
       <strong><%= f.wording_for('legal.habilitation.summary_title') %></strong>

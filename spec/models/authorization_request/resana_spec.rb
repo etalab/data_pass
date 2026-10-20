@@ -22,6 +22,13 @@ RSpec.describe AuthorizationRequest::Resana do
       expect(authorization_request.errors[:nature_juridique]).to be_present
     end
 
+    it 'requires the Resana organisations' do
+      authorization_request.organisations_resana = ''
+
+      expect(authorization_request).not_to be_valid(:submit)
+      expect(authorization_request.errors[:organisations_resana]).to be_present
+    end
+
     it 'offers no local authority' do
       expect(described_class::NATURES_JURIDIQUES.grep(/collectivit|commune|departement|region/)).to be_empty
     end

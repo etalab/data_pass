@@ -8,6 +8,7 @@ end
 Quand('je remplis le cadre juridique de la demande Resana') do
   steps %(
     * je sélectionne "Établissement public administratif" pour "Nature juridique de votre structure"
+    * je remplis "Organisations Resana concernées" avec "DINUM"
     * je coche "Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation"
     * je clique sur "Suivant"
   )

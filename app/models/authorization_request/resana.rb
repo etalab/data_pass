@@ -8,11 +8,13 @@ class AuthorizationRequest::Resana < AuthorizationRequest
   ].freeze
 
   add_attribute :nature_juridique
+  add_attribute :organisations_resana
   add_attribute :habilitation_certifiee, type: :boolean
   add_documents :lettre_habilitation_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   with_options if: -> { need_complete_validation?(:legal) } do
     validates :nature_juridique, presence: true, inclusion: { in: NATURES_JURIDIQUES, allow_blank: true }
+    validates :organisations_resana, presence: true
     validate :habilitation_certifiee_or_lettre_habilitation_document_present
   end
 
