@@ -223,7 +223,7 @@ fr:
           title: Refus de la demande d'habilitation
           description:
             organization: |
-              Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de refuser la demande '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
@@ -240,7 +240,7 @@ fr:
           refuse: Refuser la demande de mise à jour
       create:
         success:
-          title: La demande d'habilitation %{name} a été refusée
+          title: La demande %{name} a été refusée
         reopening_success:
           title: La demande de mise à jour de l'habilitation %{name} a été refusée
 
@@ -316,7 +316,7 @@ fr:
           title: Demander des modifications
           description:
             organization: |
-              Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de demander des modifications sur la demande '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
@@ -338,7 +338,7 @@ fr:
           title: Les modifications demandées sur la demande de mise à jour de l’habilitation %{name} ont été envoyées au demandeur
     archive_authorization_requests:
       create:
-        success: La demande d'habilitation %{name} a été supprimée avec succèss
+        success: La demande %{name} a été supprimée avec succès
     messages:
       index:
         form:
@@ -518,10 +518,10 @@ fr:
             </blockquote>
 
         start_next_stage:
-          message_summary: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
+          message_summary: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d’accès à la production
 
         cancel_next_stage:
-          message_summary: Le demandeur <strong>%{user_full_name}</strong> a annulé la demande d'habilitation pour la production
+          message_summary: Le demandeur <strong>%{user_full_name}</strong> a annulé la demande d’accès à la production
 
         system_reminder:
           message_summary: Une relance a été envoyé au demandeur
@@ -539,7 +539,7 @@ fr:
       new:
         title: Transférer la demande d'habilitation
         disclaimer: |
-          Vous êtes sur le point de transférer la demande d'habilitation n°%{authorization_request_id} vers le compte d'un autre usager.
+          Vous êtes sur le point de transférer la demande %{authorization_request_id} vers le compte d'un autre usager.
           <br />
           Une fois la demande transférée, elle sera associée au compte du destinataire.
         cancel: Annuler
@@ -556,7 +556,7 @@ fr:
             Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
       create:
         success:
-          title: La demande d'habilitation '%{name}' a été transférée avec succès.
+          title: La demande '%{name}' a été transférée avec succès.
         error:
           email_not_found: |
             Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.

@@ -9,7 +9,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(decoded_text_body(mail)).to match('un nouveau message')
-      expect(decoded_text_body(mail)).to match('demande d\'habilitation')
+      expect(decoded_text_body(mail)).to match('concernant votre demande')
     end
 
     it_behaves_like 'a mail whose html part mirrors its text part'
@@ -44,7 +44,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(decoded_text_body(mail)).to match('un nouveau message')
-      expect(decoded_text_body(mail)).to match('demande d\'habilitation')
+      expect(decoded_text_body(mail)).to match('concernant la demande')
     end
 
     context 'with the unsubscribe footer' do

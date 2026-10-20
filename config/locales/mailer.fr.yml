@@ -88,7 +88,7 @@ fr:
 
         *L’ANSSI vous accompagne dans la sécurisation de vos applications : https://www.monservicesecurise.cyber.gouv.fr
     refuse:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} a été refusée
+      subject: Votre demande %{authorization_request_id} a été refusée
       description: |
         Votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante :
 
@@ -104,7 +104,7 @@ fr:
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant : %{authorization_url}
     request_changes:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} requiert des modifications
+      subject: Votre demande %{authorization_request_id} requiert des modifications
       description: |
         Votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
 
@@ -145,9 +145,9 @@ fr:
 
         Vous pouvez consulter votre demande de mise à jour en suivant le lien suivant: %{authorization_request_url}
     submit:
-      subject: Nous accusons réception de votre demande d'habilitation n°%{authorization_request_id} sur DataPass
-      description: Nous accusons réception de votre demande d'habilitation n°%{authorization_request_id} du %{submitted_at} pour accéder à %{api_name}.
-      contact_sentence: "Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via la messagerie sur votre demande d'habilitation : %{messages_url}"
+      subject: Nous accusons réception de votre demande %{authorization_request_id} sur DataPass
+      description: Nous accusons réception de votre demande %{authorization_request_id} du %{submitted_at} pour accéder à %{api_name}.
+      contact_sentence: "Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via la messagerie de votre demande : %{messages_url}"
       contact_sentence_without_messaging: Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via l'email %{support_email}.
       legal_paragraphs: |
         Si votre demande est incomplète, nous vous informerons via la plateforme DataPass des pièces et informations manquantes à fournir. Vous disposerez d'un délai de deux mois pour nous fournir ces pièces et informations.
@@ -193,9 +193,9 @@ fr:
 
   message_mailer:
     to_applicant:
-      subject: Vous avez reçu un nouveau message concernant votre demande d'habilitation %{authorization_request_name}
+      subject: Vous avez reçu un nouveau message concernant votre demande « %{authorization_request_name} »
       description: |
-        Vous avez reçu un nouveau message concernant votre demande d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        Vous avez reçu un nouveau message concernant votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
@@ -207,9 +207,9 @@ fr:
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
     to_instructors:
-      subject: Nouveau message concernant la demande d'habilitation %{authorization_request_name}
+      subject: Nouveau message concernant la demande « %{authorization_request_name} »
       description: |
-        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
 
@@ -221,9 +221,9 @@ fr:
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
   authorization_request_transfer_mailer:
     success:
-      subject: Transfert de la demande d'habilitation n°%{authorization_request_id} réussie
+      subject: Transfert de la demande %{authorization_request_id} réussi
       description: |
-        La demande d'habilitation n°%{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
+        La demande %{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
 
         Vous pouvez consulter la demande en suivant le lien suivant: %{authorization_request_url}
   hubee_mailer:

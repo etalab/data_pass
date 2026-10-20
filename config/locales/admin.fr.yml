@@ -139,7 +139,7 @@ fr:
           description: "La demande #%{authorization_request_id} a été transférée avec succès vers l'organisation %{siret}"
       errors:
         title: "Erreur lors du transfert"
-        authorization_request_not_found: "Aucune demande d'habilitation trouvée avec l'ID %{authorization_request_id}"
+        authorization_request_not_found: "Aucune demande trouvée avec l'ID %{authorization_request_id}"
         new_organization_not_found: "Aucune organisation trouvée avec le SIRET %{siret}"
         new_applicant_not_found: "Aucun utilisateur trouvé avec l'email %{email}"
         applicant_not_in_organization: "L'utilisateur %{email} n'appartient pas à l'organisation %{siret}"

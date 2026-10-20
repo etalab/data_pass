@@ -484,16 +484,16 @@ fr:
 
     show:
       refused:
-        title: Votre demande d'habilitation a été refusée
+        title: Votre demande %{formatted_id} a été refusée
         description: &authorization_request_refused_description "La raison évoquée par l'équipe d'instruction est la suivante :"
       reopening_refused:
-        title: Votre demande de mise à jour a été refusée
+        title: Votre demande de mise à jour %{formatted_id} a été refusée
         description: *authorization_request_refused_description
       changes_requested:
-        title: Votre demande d'habilitation nécessite des modifications avant d'être validée
+        title: Votre demande %{formatted_id} nécessite des modifications avant d’être validée
         description: *authorization_request_refused_description
       reopening_changes_requested:
-        title: Votre demande de mise à jour nécessite des modifications avant d'être validée
+        title: Votre demande de mise à jour %{formatted_id} nécessite des modifications avant d’être validée
         description: *authorization_request_refused_description
       access_callout:
         title: Votre accès est disponible
@@ -578,7 +578,7 @@ fr:
 
     submit:
       success:
-        title: La demande d'habilitation %{name} a été soumise avec succès
+        title: La demande %{name} a été soumise avec succès
       error:
         title: Nous n’avons pas pu transmettre votre demande
         description: *common_authorization_requests_error_description
@@ -660,15 +660,15 @@ fr:
         reopening_error: *authorization_requests_update_reopening_error
   archive_authorization_requests:
     new:
-      title: Suppression de la demande d'habilitation %{authorization_request_name}
+      title: Suppression de la demande %{authorization_request_name}
       disclaimer: |
         <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous ne supprimez pas une demande légitime.
       disclaimer_next_stage:
         Cette demande d'autorisation est associée à au moins une demande précédente déjà validée, archiver cette demande archivera aussi toutes les demandes associées validées.
       cancel: Annuler
-      archive: Supprimer la demande d'habilitation
+      archive: Supprimer la demande
     create:
-      success: La demande d'habilitation %{name} a été supprimée avec succès
+      success: La demande %{name} a été supprimée avec succès
   reopen_authorizations:
     new:
       title: Mettre à jour la demande d'habilitation %{authorization_name}
@@ -695,11 +695,11 @@ fr:
   transfer_authorization_requests:
     new_to_another:
       title:
-        demande: Transférer ma demande d’habilitation
+        demande: Transférer ma demande
         habilitation: Transférer mon habilitation
       disclaimer:
         demande: |
-          Vous êtes sur le point de transférer votre demande d’habilitation n°%{formatted_id} vers le compte d’un autre usager.
+          Vous êtes sur le point de transférer votre demande %{formatted_id} vers le compte d’un autre usager.
           <br />
           Une fois le transfert validé, votre demande sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert vers votre compte.
         habilitation: |
@@ -708,20 +708,25 @@ fr:
           Une fois le transfert validé, votre habilitation sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert vers votre compte.
       cancel: Annuler
       transfer: Valider le transfert
-      email_disclaimer: |
-        Pour que le transfert soit autorisé, il faut :
-        <p class="fr-info-text fr-mt-1w">Que l'utilisateur possède un compte sur DataPass</p>
-        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (« %{organization_name} », numéro de siret : %{organization_siret})</p>
+      email_disclaimer:
+        demande: |
+          Pour que le transfert soit autorisé, il faut :
+          <p class="fr-info-text fr-mt-1w">Que l’utilisateur possède un compte sur DataPass</p>
+          <p class="fr-info-text">Que l’utilisateur appartienne à la même organisation que la demande (« %{organization_name} », numéro de siret : %{organization_siret})</p>
+        habilitation: |
+          Pour que le transfert soit autorisé, il faut :
+          <p class="fr-info-text fr-mt-1w">Que l’utilisateur possède un compte sur DataPass</p>
+          <p class="fr-info-text">Que l’utilisateur appartienne à la même organisation que l’habilitation (« %{organization_name} », numéro de siret : %{organization_siret})</p>
       error:
         title: Transfert de la demande impossible
     create:
       to_me:
         success:
-          demande: La demande d’habilitation %{name} a bien été transférée sur votre compte.
+          demande: La demande %{name} a bien été transférée sur votre compte.
           habilitation: L’habilitation %{name} a bien été transférée sur votre compte.
       to_another:
         success:
-          demande: Votre demande d’habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
+          demande: Votre demande %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
           habilitation: Votre habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
         error:
           email_not_found: |
@@ -731,17 +736,17 @@ fr:
           different_user: |
             Vous ne pouvez pas transférer cette demande à la même personne
           invalid_new_applicant: |
-            Le destinataire n'appartient pas à la même organisation « %{organization_name} » (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
+            Le destinataire n'appartient pas à la même organisation « %{organization_name} » (numéro de siret %{organization_siret}) que la demande. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
 
     new_to_me:
       title:
-        demande: Transfert d’une demande d’habilitation
+        demande: Transfert d’une demande
         habilitation: Transfert d’une habilitation
       disclaimer:
         demande: |
-          Vous êtes sur le point de transférer la demande d’habilitation n°%{formatted_id} vers votre compte.
+          Vous êtes sur le point de transférer la demande %{formatted_id} vers votre compte.
           <br />
-          Une fois le transfert validé, la demande d’habilitation sera associée à votre compte, vous pourrez toujours refaire un transfert vers un autre utilisateur.
+          Une fois le transfert validé, la demande sera associée à votre compte, vous pourrez toujours refaire un transfert vers un autre utilisateur.
         habilitation: |
           Vous êtes sur le point de transférer l’habilitation n°%{formatted_id} vers votre compte.
           <br />
@@ -848,7 +853,7 @@ fr:
     new:
       title: "Transfert manuel requis"
       feature_unavailable: "La fonctionnalité de transfert automatique n'est pas disponible pour « %{definition_name} »."
-      transfer_instructions: "Pour transférer la demande d'habilitation n°%{authorization_request_id}, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge."
+      transfer_instructions: "Pour transférer la demande %{authorization_request_id}, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge."
       important_notice:
         title: "Important :"
         content: "La nouvelle personne doit s'être connectée au moins une fois sur DataPass avec l'organisation %{organization_name} (siret: %{siret}) pour que le transfert soit possible."
@@ -863,7 +868,7 @@ fr:
           title: Une erreur est survenue lors de la création de la demande d'habilitation
         not_same_user:
           title: Vous ne pouvez pas créer cette demande d'habilitation
-          description: Cette demande d'habilitation a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
+          description: Cette demande a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
         already_claimed:
           title: Vous ne pouvez pas créer cette demande d'habilitation
           description: Cette demande d'habilitation a déjà été créée par un autre usager.

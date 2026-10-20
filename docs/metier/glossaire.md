@@ -22,6 +22,9 @@ décision de l’instructeur. Numéro : **D…** (ex. D123).
 - Une demande est refusée, validée, supprimée, transférée.
 - On dit : « Votre demande D123 a été refusée. »
 - On évite : « Votre habilitation a été refusée. »
+- Quand le texte désigne **une** demande précise (par son numéro ou son nom), on écrit « votre
+  demande D123 » ou « la demande « nom » ». « Demande d’habilitation » reste pour l’action générique :
+  « Démarrer ma demande d’habilitation », « une nouvelle demande d’habilitation pour l’API … ».
 - Nom technique : `AuthorizationRequest`.
 
 ### Habilitation

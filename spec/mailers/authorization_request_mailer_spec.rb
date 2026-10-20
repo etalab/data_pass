@@ -143,6 +143,10 @@ RSpec.describe AuthorizationRequestMailer do
       expect(text).to match(authorization_request.denial.reason)
     end
 
+    it 'names the refused request by its number in the subject' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} a été refusée")
+    end
+
     it 'speaks of the refused request, not of an authorization' do
       expect(decoded_text_body(mail)).to include("Votre demande « #{authorization_request.name} » (numéro #{authorization_request.formatted_id}) a été refusée", 'consulter votre demande')
     end
@@ -217,6 +221,10 @@ RSpec.describe AuthorizationRequestMailer do
       text = decoded_text_body(mail)
       expect(text).to match('des modifications')
       expect(text).to match(authorization_request.modification_request.reason)
+    end
+
+    it 'names the request to modify by its number in the subject' do
+      expect(mail.subject).to eq("Votre demande #{authorization_request.formatted_id} requiert des modifications")
     end
 
     it 'speaks of the request to modify, not of an authorization' do
