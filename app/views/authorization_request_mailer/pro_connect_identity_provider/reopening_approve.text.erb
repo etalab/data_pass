@@ -1,6 +1,6 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-Votre mise à jour a été validée.
+Votre demande de mise à jour a été validée : elle a donné lieu à l’habilitation <%= @authorization_request.latest_authorization.formatted_id %>.
 Vous pouvez maintenant vous rendre sur le site demarches-simplifiees.fr afin de remplir le formulaire de demande d'enrôlement : https://www.demarches-simplifiees.fr/commencer/demande-creation-fi-fca
 Une fois ce formulaire rempli, nous pourrons procéder au raccordement.
 

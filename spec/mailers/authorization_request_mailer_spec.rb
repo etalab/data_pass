@@ -260,12 +260,24 @@ RSpec.describe AuthorizationRequestMailer do
       expect([decoded_text_body(mail), decoded_html_body(mail)]).to all(include("elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}"))
     end
 
+    %i[france_connect pro_connect_service_provider pro_connect_identity_provider api_ingres api_r2p_sandbox].each do |kind|
+      describe "#{kind} custom template" do
+        let(:authorization_request) { create(:authorization_request, kind, :validated) }
+
+        it 'names the new authorization and links to it' do
+          authorization = authorization_request.latest_authorization
+
+          expect(decoded_text_body(mail)).to include('Votre demande de mise à jour', "a été validée : elle a donné lieu à l’habilitation #{authorization.formatted_id}", "/habilitations/#{authorization.id}")
+        end
+      end
+    end
+
     describe 'FranceConnect' do
       let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
 
       it 'renders valid custom template for reopening' do
         text = decoded_text_body(mail)
-        expect(text).to match('La mise à jour de votre habilitation a été validée')
+        expect(text).to match("Votre demande de mise à jour a été validée : elle a donné lieu à l’habilitation #{authorization_request.latest_authorization.formatted_id}")
         expect(text).to match('demande-modification-fs-fc')
         expect(text).to match('demarches-simplifiees.fr')
       end

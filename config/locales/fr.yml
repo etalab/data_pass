@@ -671,7 +671,7 @@ fr:
       success: La demande %{name} a été supprimée avec succès
   reopen_authorizations:
     new:
-      title: Mettre à jour la demande d'habilitation %{authorization_name}
+      title: Mettre à jour l’habilitation %{authorization_name}
       disclaimer: |
         Si votre habilitation nécessite des modifications (changement de contacts, de documents), vous pouvez la mettre à jour en cliquant sur le bouton ci-dessous.
         <br />

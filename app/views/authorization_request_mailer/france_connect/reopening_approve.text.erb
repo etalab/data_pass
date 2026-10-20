@@ -1,6 +1,6 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-La mise à jour de votre habilitation a été validée.
+Votre demande de mise à jour a été validée : elle a donné lieu à l’habilitation <%= @authorization_request.latest_authorization.formatted_id %>.
 Si vous avez modifié les données (scopes) auxquelles vous souhaitez avoir accès et que votre fournisseur de service est en production (et uniquement dans ce cas), nous vous invitons à demander la modification de votre fournisseur de service via le lien suivant :
 https://www.demarches-simplifiees.fr/commencer/demande-modification-fs-fc
 
