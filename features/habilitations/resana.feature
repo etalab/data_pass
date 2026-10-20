@@ -56,7 +56,7 @@ Fonctionnalité: Demande du rôle d’administrateur Resana
     Et j'adhère aux conditions générales
     Et je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
     Et je clique sur "Soumettre la demande d'habilitation"
-    Alors un email est envoyé contenant "a soumis une nouvelle demande d'habilitation"
+    Alors un email est envoyé contenant "a soumis une nouvelle demande d'habilitation pour Attribution du rôle d’administrateur d’une organisation dans Resana sur DataPass"
 
   Scénario: La certification suffit à valider le cadre juridique
     Quand je démarre une nouvelle demande d'habilitation "Attribution du rôle d’administrateur d’une organisation dans Resana"
