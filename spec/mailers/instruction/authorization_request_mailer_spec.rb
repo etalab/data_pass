@@ -20,6 +20,10 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
       expect(mail.body.encoded).to match(authorization_request.applicant.email)
     end
 
+    it 'names the form without prefixing it with « l’API »' do
+      expect(mail.body.encoded).to include("demande d'habilitation pour API Entreprise sur DataPass")
+    end
+
     context 'when the authorization request has a modification request' do
       before do
         create(:instructor_modification_request, authorization_request: authorization_request)
