@@ -127,7 +127,11 @@ class SessionsController < ApplicationController
   end
 
   def failure_message_key(organizer)
-    organizer.error&.dig(:key) == :user_email_mismatch ? 'email_mismatch' : 'generic'
+    failure_error_key(organizer.error) == :user_email_mismatch ? 'email_mismatch' : 'generic'
+  end
+
+  def failure_error_key(error)
+    error.is_a?(Hash) ? error[:key] : error
   end
 
   def reject_failed_authentication(error)

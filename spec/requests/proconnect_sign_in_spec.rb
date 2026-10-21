@@ -12,9 +12,9 @@ RSpec.describe 'ProConnect sign-in' do
     OmniAuth.config.mock_auth[:proconnect] = OmniAuth::AuthHash.new(payload)
   end
 
-  def failed_context
+  def failed_context(error: { key: :something_else })
     Interactor::Context.build.tap do |context|
-      context.fail!(error: { key: :something_else })
+      context.fail!(error:)
     rescue Interactor::Failure
       nil
     end
@@ -32,6 +32,15 @@ RSpec.describe 'ProConnect sign-in' do
   it 'redirects to the home page with a generic error for any other failure' do
     failed_result = failed_context
     allow(AuthenticateUserThroughProConnect).to receive(:call).and_return(failed_result)
+
+    get '/auth/proconnect/callback'
+
+    expect(response).to redirect_to(root_path)
+    expect(flash[:error]['title']).to eq('La connexion a échoué. Veuillez réessayer.')
+  end
+
+  it 'redirects to the home page with a generic error when the error is a bare symbol, as with an unknown SIRET' do
+    allow(AuthenticateUserThroughProConnect).to receive(:call).and_return(failed_context(error: :insee_entity_not_found))
 
     get '/auth/proconnect/callback'
 
