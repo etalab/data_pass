@@ -50,7 +50,7 @@ RSpec.describe ExecuteAuthorizationRequestBridge do
       let(:authorization_request) { AuthorizationRequest.const_get(habilitation_type.uid.classify).new }
 
       it 'enqueues the HubEE proactivité bridge regardless of the class name' do
-        expect(HubEEProactiviteBridge).to receive(:perform_later).with(authorization_request, :approve)
+        expect(HubEEProactiviteBridge).to receive(:perform_later).with(authorization_request, :approve) # rubocop:disable RSpecRails/ReceivePerformLater
 
         execute
       end

@@ -18,8 +18,6 @@ RSpec.describe AuthenticatedUserController do
   end
 
   it 'refresh current organization INSEE payload through job' do
-    expect(UpdateOrganizationINSEEPayloadJob).to receive(:perform_later).with(user.current_organization.id)
-
-    get :show
+    expect { get :show }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob).with(user.current_organization.id)
   end
 end
