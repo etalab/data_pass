@@ -151,8 +151,10 @@ La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeu
 ### Réponses possibles
 
 - `201 Created` — la demande est créée en état `draft`, la réponse contient la `Demande` complète.
-- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, ou le scope `write_authorizations` manque.
-- `422 Unprocessable Content` — le payload ne respecte pas la définition, ou les données ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »). Un payload accepté auparavant peut désormais être rejeté.
+- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, le scope `write_authorizations` manque, ou le compte propriétaire du jeton a été banni de DataPass (erreur « Compte banni »). Un jeton émis avant le bannissement cesse alors aussi de fonctionner, sur tous les endpoints de l’API.
+- `422 Unprocessable Content` — le payload ne respecte pas la définition, ou les données ne passent pas les validations d’une demande en brouillon (erreur « Demande invalide »). Un payload accepté auparavant peut désormais être rejeté.
+
+Une demande créée par l’API est un brouillon : seules les validations d’un brouillon s’appliquent, comme sur le formulaire web, ce qui permet de la créer incomplète. Les données sont validées en totalité lorsque le demandeur soumet la demande depuis DataPass.
 
 La création applique aussi les règles d’accès du formulaire web. Elle est refusée en `422` dans les cas suivants :
 

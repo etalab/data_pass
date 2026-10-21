@@ -692,7 +692,10 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     ForbiddenError:
-      description: Accès interdit (titre « Droit API manquant ») - le jeton ne porte pas le scope exigé, ou l'application n'a pas le droit actif correspondant pour le fournisseur de données concerné.
+      description: >-
+        Accès interdit - le jeton ne porte pas le scope exigé, ou l'application n'a pas le droit actif correspondant
+        pour le fournisseur de données concerné (titre « Droit API manquant »), ou le compte propriétaire du jeton
+        a été banni de DataPass (erreur « Compte banni »).
       content:
         application/json:
           schema:
@@ -701,8 +704,8 @@ components:
     ValidationError:
       description: >-
         La sauvegarde ou la mise à jour a échoué : le payload ne respecte pas la définition, ou les données
-        ne passent pas les mêmes validations que le formulaire web (erreur « Demande invalide »).
-        Un payload accepté auparavant peut désormais être rejeté. Les règles d’accès du formulaire web
+        ne passent pas les validations d’une demande en brouillon (erreur « Demande invalide »). Les validations
+        complètes ont lieu à la soumission. Un payload accepté auparavant peut désormais être rejeté. Les règles d’accès du formulaire web
         s’appliquent aussi : formulaire non ouvert aux demandeurs, organisation fermée, demande unique
         déjà existante pour l’organisation, demandeur exclu, et demande modifiable uniquement en état
         `draft` ou `changes_requested` (erreur « État non modifiable » sinon).
