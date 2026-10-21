@@ -1,8 +1,4 @@
 module FixturesHelpers
-  def fixture_exists?(path)
-    Rails.root.join('spec', 'fixtures', path).exist?
-  end
-
   def fixture_path(path)
     File.join(File.dirname(__FILE__), '..', 'fixtures', path)
   end

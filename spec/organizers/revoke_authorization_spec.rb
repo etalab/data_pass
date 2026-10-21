@@ -34,14 +34,8 @@ RSpec.describe RevokeAuthorization, type: :organizer do
       end
 
       context 'when there is a bridge' do
-        before do
-          allow(HubEECertDCBridge).to receive(:perform_later)
-        end
-
         it 'executes the bridge asynchronously with revoke event' do
-          revoke_authorization
-
-          expect(HubEECertDCBridge).to have_received(:perform_later).with(authorization_request, :revoke)
+          expect { revoke_authorization }.to have_enqueued_job(HubEECertDCBridge).with(authorization_request, :revoke)
         end
       end
 
