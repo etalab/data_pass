@@ -1,6 +1,8 @@
 class API::V1Controller < APIController
   include APIPagination
 
+  before_action :reject_banned_token_owner
+
   rescue_from Doorkeeper::Errors::BaseResponseError, with: :render_generic_error
   rescue_from Doorkeeper::Errors::TokenUnknown, with: :render_unauthorized_error
   rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
@@ -8,6 +10,16 @@ class API::V1Controller < APIController
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing_error
 
   protected
+
+  def reject_banned_token_owner
+    return unless token_owner&.banned?
+
+    render_error(403, title: 'Compte banni', detail: 'Le compte propriétaire de ce jeton d’accès a été banni de DataPass.')
+  end
+
+  def token_owner
+    doorkeeper_token&.application&.owner
+  end
 
   def render_not_found_error
     render_error(404, title: 'Non trouvé', detail: 'La ressource demandée est introuvable.')
