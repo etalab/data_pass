@@ -42,10 +42,10 @@ RSpec.describe Admin::RevokeAPIAccess do
   context 'when the application had no explicit scopes before its grant' do
     before { application.update_column(:scopes, '') }
 
-    it 'is left with the default scopes written explicitly' do
+    it 'is left with every non-API scope written explicitly' do
       organizer
 
-      expect(application.reload.scopes.to_s).to eq('public read_authorizations')
+      expect(application.reload.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks])
     end
   end
 

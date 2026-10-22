@@ -52,7 +52,7 @@ Les noms vivent à un seul endroit : `config/initializers/api_scopes.rb` (`APISc
 2. ajouter une migration de données qui renomme l’ancien scope dans `oauth_applications.scopes` (voir `ScopeMigrationService`) ;
 3. mettre à jour `config/openapi/v1.yaml` et `docs/developers/tutorials/ecriture.md`.
 
-Une application sans scopes explicites (colonne vide) hérite des scopes par défaut de Doorkeeper à l’émission du jeton : la synchronisation part alors de ces scopes par défaut et les écrit explicitement, pour qu’elle ne les perde pas.
+Une application sans scopes explicites (colonne vide) obtient, à l’émission du jeton, tous les scopes du serveur Doorkeeper (et non les seuls scopes par défaut) : la synchronisation part alors de cet ensemble, retire les scopes de droits API puis ajoute ceux des droits actifs, et les écrit explicitement pour que l’application ne perde ni `write_authorizations` ni `read_webhooks`.
 
 La synchronisation supprime les scopes qui ne sont plus déclarés dans Doorkeeper : un scope obsolète présent sur l’application disparaît à la prochaine synchronisation, au lieu de faire échouer la mise à jour.
 

@@ -19,7 +19,7 @@ class Admin::SyncAPIAccessScopes < ApplicationInteractor
   def starting_scopes(application)
     explicit_scopes = application.scopes.to_a
 
-    explicit_scopes.presence || Doorkeeper.config.default_scopes.to_a
+    explicit_scopes.presence || configured_scopes
   end
 
   def configured_scopes

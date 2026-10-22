@@ -44,10 +44,17 @@ RSpec.describe Admin::GrantAPIAccess do
   context 'when the application has no explicit scopes' do
     before { application.update_column(:scopes, '') }
 
-    it 'starts from the Doorkeeper default scopes' do
+    it 'keeps every scope the application could obtain without explicit scopes' do
       organizer
 
-      expect(application.reload.scopes.to_s).to eq('public read_authorizations submit_authorizations')
+      expect(application.reload.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks submit_authorizations])
+    end
+
+    it 'keeps the non-API scopes after the right is revoked' do
+      organizer
+      Admin::RevokeAPIAccess.call(admin:, grant: APIAccessGrant.last, reason: 'Fin de besoin')
+
+      expect(application.reload.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks])
     end
   end
 
