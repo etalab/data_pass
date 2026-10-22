@@ -1,6 +1,6 @@
 RSpec.describe SubmitAuthorizationRequestFromAPI, type: :organizer do
   describe '.call' do
-    subject(:result) { described_class.call(authorization_request:, consentement:) }
+    subject(:result) { described_class.call(authorization_request:, consentement:, oauth_application:) }
 
     let(:consentement) do
       ActionController::Parameters.new(
@@ -8,6 +8,7 @@ RSpec.describe SubmitAuthorizationRequestFromAPI, type: :organizer do
         data_protection_officer_informed: true
       )
     end
+    let(:oauth_application) { create(:oauth_application, name: 'API Entreprise') }
     let!(:instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
     context 'with a complete draft and every consent given' do
@@ -27,6 +28,12 @@ RSpec.describe SubmitAuthorizationRequestFromAPI, type: :organizer do
         result
 
         expect(authorization_request.events.where(name: 'submit').last.user).to eq(authorization_request.applicant)
+      end
+
+      it 'records the calling application on the submit event' do
+        result
+
+        expect(authorization_request.events.where(name: 'submit').last.api_application_name).to eq('API Entreprise')
       end
 
       it_behaves_like 'creates an event', event_name: :submit
