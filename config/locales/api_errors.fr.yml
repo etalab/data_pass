@@ -33,3 +33,18 @@ fr:
     generic:
       title: Entité non traitable
       detail: Un problème est survenu lors du traitement de la requête.
+    banned_token_owner:
+      title: Compte banni
+      detail: Le compte propriétaire de ce jeton d’accès a été banni de DataPass.
+    not_found:
+      title: Non trouvé
+      detail: La ressource demandée est introuvable.
+    token_missing:
+      title: Non autorisé
+      detail: Un jeton d’accès est requis mais absent dans les en-têtes de la requête.
+    token_expired:
+      title: Jeton expiré
+      detail: Le jeton d’accès a expiré. Veuillez en obtenir un nouveau.
+    parameter_missing:
+      title: Paramètre manquant
+      detail: "Le paramètre « %{param} » est requis mais absent de la requête."
