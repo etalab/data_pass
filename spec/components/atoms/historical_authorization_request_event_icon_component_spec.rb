@@ -1,4 +1,4 @@
-RSpec.describe HistoricalAuthorizationRequestEventIconComponent, type: :component do
+RSpec.describe Atoms::HistoricalAuthorizationRequestEventIconComponent, type: :component do
   describe '#call' do
     context "when event_name is 'approve'" do
       it 'renders the correct icon and color class' do
