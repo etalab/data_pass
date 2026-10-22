@@ -5,11 +5,11 @@
         <%= form_with(model: @authorization_request_transfer, url: authorization_request_transfer_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content', action: 'modified-form#submit form-dirtied->modified-form#update form-cleaned->modified-form#update', controller: 'modified-form' }) do |f| %>
           <div class="fr-modal__content">
             <h1 class="fr-modal__title">
-              <%= t('.title') %>
+              <%= t(".title.#{@authorization_request.decorate.transferred_object}") %>
             </h1>
 
             <p>
-              <%= t('.disclaimer', authorization_request_id: @authorization_request.formatted_id).html_safe %>
+              <%= t(".disclaimer.#{@authorization_request.decorate.transferred_object}", formatted_id: @authorization_request.decorate.transferred_object_formatted_id).html_safe %>
             </p>
 
             <% if @error.present? %>
@@ -24,7 +24,7 @@
 
             <%= f.dsfr_email_field :to, value: params[:authorization_request_transfer].try(:[], 'to'), required: true %>
 
-            <%= t('.email_disclaimer', organization_name: @authorization_request.organization.name, organization_siret: @authorization_request.organization.siret).html_safe %>
+            <%= t(".email_disclaimer.#{@authorization_request.decorate.transferred_object}", organization_name: @authorization_request.organization.name, organization_siret: @authorization_request.organization.siret).html_safe %>
           </div>
 
           <div class="fr-modal__footer">

@@ -8,7 +8,7 @@ fr:
       impersonate: Impersonner un utilisateur
       transfer_authorization_request: Transférer une demande vers une autre organisation
       user_organization_verification: "Vérification lien utilisateur / organisation"
-      habilitation_types: Types d’habilitation
+      habilitation_types: Formulaires
       data_providers: Fournisseurs de données
       bans: Bannir un utilisateur
     bans:
@@ -139,7 +139,7 @@ fr:
           description: "La demande #%{authorization_request_id} a été transférée avec succès vers l'organisation %{siret}"
       errors:
         title: "Erreur lors du transfert"
-        authorization_request_not_found: "Aucune demande d'habilitation trouvée avec l'ID %{authorization_request_id}"
+        authorization_request_not_found: "Aucune demande trouvée avec l'ID %{authorization_request_id}"
         new_organization_not_found: "Aucune organisation trouvée avec le SIRET %{siret}"
         new_applicant_not_found: "Aucun utilisateur trouvé avec l'email %{email}"
         applicant_not_in_organization: "L'utilisateur %{email} n'appartient pas à l'organisation %{siret}"
@@ -192,11 +192,11 @@ fr:
         error: "Une erreur est survenue"
 
     habilitation_types:
-      not_authorized: "Ce type d'habilitation a des demandes liées, seuls les champs éditoriaux peuvent être modifiés"
+      not_authorized: "Ce formulaire a des demandes liées, seuls les champs éditoriaux peuvent être modifiés"
       index:
-        title: "Types d’habilitation"
-        skip_to_list: "Aller au tableau des types d’habilitation"
-        empty: "Aucun type d’habilitation créé."
+        title: "Formulaires"
+        skip_to_list: "Aller au tableau des formulaires"
+        empty: "Aucun formulaire créé."
         new: Nouveau type
         new_request: Nouvelle demande
         edit: Modifier
@@ -210,10 +210,10 @@ fr:
           requests_count: Demandes
           actions: Actions
       show:
-        title: "Détail du type d’habilitation"
+        title: "Détail du formulaire"
         skip_to_details: Aller aux détails
       new:
-        title: &habilitation_type_new_title "Nouveau type d’habilitation"
+        title: &habilitation_type_new_title "Nouveau formulaire"
         skip_to_form: &habilitation_type_skip_to_form Aller au formulaire
       create:
         title: *habilitation_type_new_title
@@ -221,7 +221,7 @@ fr:
         success: "« %{name} » créé avec succès"
         error: "Une erreur est survenue lors de la création"
       edit:
-        title: &habilitation_type_edit_title "Modifier le type d’habilitation"
+        title: &habilitation_type_edit_title "Modifier le formulaire"
         skip_to_form: *habilitation_type_skip_to_form
       update:
         title: *habilitation_type_edit_title
@@ -271,7 +271,7 @@ fr:
       unsaved_changes: "Les modifications sur authorization_request doivent être sauvegardées dans le bloc (utiliser update!/save!)"
 
     data_providers:
-      not_authorized: "Ce fournisseur de données ne peut pas être supprimé car des types d'habilitation y sont rattachés"
+      not_authorized: "Ce fournisseur de données ne peut pas être supprimé car des formulaires y sont rattachés"
       index:
         title: Fournisseurs de données
         new: Ajouter un fournisseur

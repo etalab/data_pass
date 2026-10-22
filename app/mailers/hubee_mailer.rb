@@ -14,11 +14,12 @@ class HubEEMailer < ApplicationMailer
     return report_missing_formulaire_qf_recipients if formulaire_qf_recipients.blank?
 
     @editor = @authorization_request.editor
+    @authorization = @authorization_request.latest_authorization
     @validated_at = formulaire_qf_validation_date
 
     mail(
       to: formulaire_qf_recipients,
-      subject: t('.subject', authorization_request_id: @authorization_request.formatted_id, organization_name: @authorization_request.organization.name)
+      subject: t('.subject', authorization_id: @authorization.formatted_id, organization_name: @authorization_request.organization.name)
     )
   end
 
