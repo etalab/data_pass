@@ -88,5 +88,18 @@ RSpec.describe FindOrCreateUserThroughProConnect do
       it_behaves_like 'an identity attribute synchronized only when filled', 'given_name', 'given_name', 'Dominique'
       it_behaves_like 'an identity attribute synchronized only when filled', 'family_name', 'usual_name', 'Durand'
     end
+
+    context 'when the identity provider sends an email that cannot be saved' do
+      let(:payload_overrides) { { email: 'not-an-email' } }
+
+      it 'fails with a dedicated error instead of raising' do
+        expect(find_or_create_user).to be_a_failure
+        expect(find_or_create_user.error[:key]).to eq(:user_invalid)
+      end
+
+      it 'does not create a user' do
+        expect { find_or_create_user }.not_to change(User, :count)
+      end
+    end
   end
 end

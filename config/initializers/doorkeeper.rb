@@ -243,7 +243,7 @@ Doorkeeper.configure do
   # https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   #
   default_scopes  :public, :read_authorizations
-  optional_scopes :write_authorizations, :read_webhooks
+  optional_scopes :write_authorizations, :read_webhooks, *APIScopes::ALL.map(&:to_sym)
 
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.

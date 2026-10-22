@@ -7,6 +7,7 @@ class DataProvider < ApplicationRecord
 
   has_paper_trail
   has_one_attached :logo, dependent: :purge_later
+  has_many :api_access_grants, dependent: :destroy
 
   attr_writer :linked_habilitation_types
 

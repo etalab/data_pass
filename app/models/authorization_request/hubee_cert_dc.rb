@@ -1,5 +1,5 @@
 class AuthorizationRequest::HubEECertDC < AuthorizationRequest
-  validate :only_one_authorization_of_this_type_exists, on: :create
+  validate :no_other_active_request_of_this_type, on: :create
 
   contact :administrateur_metier, validation_condition: ->(record) { record.need_complete_validation? }, options: { required_personal_email: true }
 
@@ -7,16 +7,9 @@ class AuthorizationRequest::HubEECertDC < AuthorizationRequest
 
   private
 
-  def only_one_authorization_of_this_type_exists
-    return unless another_authorization_of_this_type_exists?
+  def no_other_active_request_of_this_type
+    return unless AuthorizationRequestCreationRules.for_request_class(self.class, organization:).unicity_violated?
 
     errors.add(:base, :already_exists)
-  end
-
-  def another_authorization_of_this_type_exists?
-    self.class
-      .where(organization:, type:)
-      .where.not(state: 'archived')
-      .exists?
   end
 end

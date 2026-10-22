@@ -65,10 +65,10 @@ sequenceDiagram
 
     N->>DP: POST /auth/proconnect (clic sur le bouton)
     Note over DP: Découvre les endpoints ProConnect<br/>Génère state + nonce
-    DP-->>N: Redirige vers ProConnect<br/>client_id, redirect_uri, scope, state, nonce
+    DP-->>N: Redirige vers ProConnect<br/>client_id, redirect_uri, scope, state, nonce,<br/>claims (acr MFA essentiel)
     N->>PC: authorization_endpoint
     PC->>FI: Demande d'authentifier l'agent
-    FI-->>N: L'agent s'authentifie (mot de passe, MFA…)
+    FI-->>N: L'agent s'authentifie avec double authentification<br/>(MFA du FI, TOTP ProConnect Identité ou code par email)
     PC-->>N: Redirige vers /auth/proconnect/callback?code=XXX&state=…
     N->>DP: GET /auth/proconnect/callback
     Note over DP: Vérifie le state
@@ -76,7 +76,7 @@ sequenceDiagram
     PC-->>DP: access_token + id_token + refresh_token
     DP->>PC: GET userinfo (Bearer access_token)
     PC-->>DP: Infos de l'agent (un JWT)
-    Note over DP: Crée user + organisation<br/>+ session DataPass
+    Note over DP: Vérifie l'acr de l'id_token (MFA ?)<br/>Crée user + organisation<br/>+ session DataPass
     DP-->>N: Redirige vers le dashboard (connecté)
 ```
 
@@ -87,9 +87,11 @@ sequenceDiagram
    interroge ProConnect pour découvrir ses endpoints (`discover_endpoint!` sur
    `.well-known/openid-configuration`), génère un `state` et un `nonce` stockés en session.
 2. **Redirection.** La gem renvoie le navigateur vers l'`authorization_endpoint` de
-   ProConnect avec `client_id`, `redirect_uri`, `scope`, `state`, `nonce`.
-3. **Authentification chez ProConnect.** L'agent choisit son organisation, s'authentifie,
-   fait éventuellement une double authentification. DataPass ne voit rien de cette étape.
+   ProConnect avec `client_id`, `redirect_uri`, `scope`, `state`, `nonce`, et un paramètre
+   `claims` qui exige une double authentification (voir « La double authentification
+   obligatoire » plus bas).
+3. **Authentification chez ProConnect.** L'agent choisit son organisation, s'authentifie, puis
+   valide sa double authentification. DataPass ne voit rien de cette étape.
 4. **Retour avec un code.** ProConnect renvoie le navigateur vers
    `/auth/proconnect/callback` avec un `code` à usage unique et le `state`. DataPass vérifie
    d'abord que le `state` correspond à celui qu'il avait émis (`verify_state!`).
@@ -101,12 +103,14 @@ sequenceDiagram
    l'`access_token`. Particularité ProConnect : la réponse est un **JWT** (jeton signé), pas
    du JSON brut. Il est décodé dans `@userinfo`. Claims utiles : `sub` (identifiant unique),
    `email`, `given_name`, `usual_name`, `siret`, `idp_id` (quel FI a servi), `phone_number`.
+   L'`acr` de l'`id_token` (niveau de garantie atteint) est exposé à côté, dans
+   `extra.acr` du hash OmniAuth.
 7. **Construction côté DataPass.** Voir la section suivante.
 
 ## Traitement côté DataPass (étape 7)
 
 Le `SessionsController#create` reçoit le callback OmniAuth, aiguille vers
-`create_from_proconnect`, vérifie le MFA (voir plus bas), puis appelle l'organizer
+`create_from_proconnect`, vérifie la double authentification (voir plus bas), puis appelle l'organizer
 `AuthenticateUserThroughProConnect` :
 
 ```mermaid
@@ -199,18 +203,27 @@ l'intérieur de l'`id_token` qu'il délivre. DataPass vérifie ainsi que le jeto
 émis pour cette demande précise, et non rejoué à partir d'un échange antérieur intercepté. Là où
 le `state` protège l'aller-retour de la requête, le `nonce` protège le contenu du jeton.
 
-**Le MFA conditionnel — exiger la double authentification quand le fournisseur l'impose.**
-(Ajouté en janvier 2026.) Certains fournisseurs d'identité imposent une authentification à deux
-facteurs, mais ProConnect ne l'applique pas systématiquement. Au retour, DataPass lit dans
-l'`id_token` le champ `amr` (`proconnect_id_token_amr`) — la liste des méthodes d'authentification
-réellement employées. Si le fournisseur exige le MFA (`identity_provider.mfa_required?`) alors que
-`amr` n'en porte pas la trace, DataPass relance une tentative ProConnect en réclamant explicitement
-ce niveau de garantie (`authorization_uri_with_mfa`, qui force les valeurs attendues listées dans
-`MFA_ACR_VALUES`). L'agent doit alors compléter sa double authentification avant d'accéder à
-DataPass. C'est la partie la plus subtile de `config/initializers/omniauth.rb`.
+**La double authentification obligatoire — pour tous les agents.**
+(Janvier 2026 : réservée aux agents MonComptePro via un aller-retour de réauthentification ;
+octobre 2026 : étendue à tous, DPP-166.) Dès la requête d'autorisation, DataPass réclame à
+ProConnect un `acr` MFA comme claim essentiel de l'`id_token` :
+`claims={"id_token":{"acr":{"essential":true,"values":["eidas0-mfa","eidas1-mfa","eidas2","eidas3"]}}}`
+(`MFA_ACR_VALUES`, `mfa_claims`). ProConnect fait alors faire le second facteur à l'agent : le
+MFA de son fournisseur d'identité s'il en a un, le TOTP pour ProConnect Identité, sinon un code
+à usage unique envoyé par email (`eidas1-mfa`).
 
-> Repères : `amr` (*Authentication Methods References*) = les méthodes d'authentification
-> employées ; `acr` (*Authentication Context Class Reference*) = le niveau de garantie atteint.
+Au retour, comme l'exige la documentation ProConnect, DataPass vérifie l'`acr` de l'`id_token`
+(`extra.acr`, `mfa_performed?`). S'il ne fait pas partie des valeurs MFA — ou s'il est absent —
+la connexion est refusée (`reject_sign_in_without_mfa`) : aucune session n'est ouverte, l'agent
+revient sur la page d'accueil avec le message recommandé par ProConnect, et l'événement remonte
+dans Sentry en `error` (un vrai agent est bloqué, quelqu'un doit regarder). Ce cas se produira
+là où ProConnect ne peut pas relayer de code par email : services sur le RIE, et tout le monde
+après la fin du relais email, le 28/02/2027.
+
+Référence : https://partenaires.proconnect.gouv.fr/docs/fournisseur-service/double_authentification
+
+> Repère : `acr` (*Authentication Context Class Reference*) = le niveau de garantie atteint ;
+> les valeurs suffixées `-mfa`, `eidas2` et `eidas3` attestent d'un second facteur.
 
 **La rotation de session — empêcher la fixation de session.**
 Au moment du login (`sign_in`), DataPass régénère l'identifiant de session (`rotate_session` →
@@ -245,16 +258,25 @@ flowchart TD
 ## Provider legacy MonComptePro
 
 Un second provider existe dans `config/initializers/omniauth.rb` : `mon_compte_pro` (l'ancêtre,
-AgentConnect/MonComptePro). Même logique générale, mais c'est l'ancienne porte d'entrée, en voie
-d'extinction — les utilisateurs sont migrés vers ProConnect (cf. le commit de forçage MFA de
-janvier 2026). C'est ce provider qui demande le scope `organization`. Le
-`SessionsController#create` aiguille entre les deux providers selon `params[:provider]`
-(`mon_compte_pro_connect?`).
+AgentConnect/MonComptePro, aujourd'hui ProConnect Identité interrogé en direct, hors fédération
+ProConnect). Il ne sert plus à se connecter : il ne reste que pour changer d'organisation avec
+le prompt `select_organization`, que la fédération ProConnect ne propose pas encore. Les boutons
+« Rejoindre une autre organisation » (`user/organizations/index`, agents ProConnect Identité) et
+« Changer d'organisation » (`authorization_requests/closed_organization`) l'utilisent.
 
-Chaîne MonComptePro équivalente : `AuthenticateUserThroughMonComptePro`, avec
-`FindOrCreateOrganizationThroughMonComptePro` et `FindOrCreateUserThroughMonComptePro`. Deux
-prompts spécifiques MonComptePro sont gérés au retour : `select_organization` (changer
-d'organisation courante) et `update_userinfo` (rafraîchir les infos de l'agent).
+Comme ce provider ne passe pas par la double authentification ProConnect, son callback n'ouvre
+jamais de session. `SessionsController#create_from_mon_compte_pro` exige :
+
+- un agent déjà connecté, via ProConnect (`identity_federator` de la session à `proconnect`) ;
+- le même email côté MonComptePro que celui de l'agent connecté.
+
+Si c'est le cas, `ChangeCurrentOrganizationThroughMonComptePro` change l'organisation courante
+(lien vérifié, « from MonComptePro identity ») et la session ProConnect est conservée. Sinon :
+message d'erreur, `Sentry.capture_message` en `warning`, redirection vers l'accueil.
+
+`AuthenticateUserThroughMonComptePro` et `FindOrCreateUserThroughMonComptePro` n'ont plus
+d'appelant ; leur retrait, avec celui du provider, attend que ProConnect propose le choix
+d'organisation.
 
 ## En une phrase
 
@@ -280,7 +302,7 @@ depuis la connexion, sans prolongation par l'activité).
 | Lien agent ↔ organisation | `app/interactors/add_user_to_organization.rb` |
 | Organisation courante | `app/interactors/change_user_current_organization.rb` |
 | Caractéristiques d'un FI | `app/models/identity_provider.rb` + `config/identity_providers.yml` |
-| Provider legacy | `app/organizers/authenticate_user_through_mon_compte_pro.rb` |
+| Provider legacy (changement d'organisation) | `app/organizers/change_current_organization_through_mon_compte_pro.rb` |
 
 ## Glossaire
 
@@ -295,6 +317,6 @@ depuis la connexion, sans prolongation par l'activité).
 | **SIRET** | Le numéro qui identifie officiellement l'organisation (l'employeur) de l'agent. DataPass s'en sert pour reconnaître l'organisation. |
 | **INSEE Sirene** | Le registre officiel des entreprises et administrations. DataPass y récupère les informations détaillées d'une organisation à partir de son SIRET. |
 | **Session** | L'état de connexion maintenu par DataPass après authentification (plafond absolu 12 h depuis la connexion, sans prolongation), qui évite de repasser par ProConnect à chaque page. |
-| **MFA (double authentification)** | Une vérification supplémentaire (code sur téléphone, application…) exigée par certains fournisseurs d'identité en plus du mot de passe. |
+| **MFA (double authentification)** | Une vérification supplémentaire (code sur téléphone, application, code reçu par email…) en plus du mot de passe. DataPass l'exige pour tous les agents qui se connectent via ProConnect. |
 | **Back-channel** | Un échange direct de serveur à serveur entre DataPass et ProConnect, sans passer par le navigateur de l'agent — donc non exposé côté client. |
 | **state / nonce** | Deux identifiants aléatoires générés par DataPass pour s'assurer que la réponse reçue de ProConnect est authentique et n'est pas rejouée. |

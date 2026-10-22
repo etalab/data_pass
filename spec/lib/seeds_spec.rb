@@ -26,6 +26,25 @@ RSpec.describe Seeds do
       expect(Doorkeeper::Application.find_by!(uid: 'client_id').owner.email).to eq('dev-apie@yopmail.com')
     end
 
+    it 'grants submission and validation by API to the seeded OAuth application on API Entreprise', :aggregate_failures do
+      application = Doorkeeper::Application.find_by!(uid: 'client_id')
+      grants = APIAccessGrant.active.where(oauth_application: application)
+
+      expect(grants.pluck(:action)).to contain_exactly('submission', 'validation')
+      expect(grants.pluck(:granted_by_email).uniq).to eq(['admin-instructeur@yopmail.com'])
+      expect(application.reload.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks submit_authorizations validate_authorizations])
+    end
+
+    it 'seeds an application covering two data providers with an active grant, a revoked one and rights left to grant', :aggregate_failures do
+      application = Doorkeeper::Application.find_by!(uid: 'multi_provider_client_id')
+      grants = APIAccessGrant.where(oauth_application: application).includes(:data_provider)
+
+      expect(application.owner.email).to eq('dev-multi-fd@yopmail.com')
+      expect(grants.active.map { |grant| [grant.data_provider.slug, grant.action] }).to eq([%w[dinum submission]])
+      expect(grants.where.not(revoked_at: nil).map { |grant| [grant.data_provider.slug, grant.action] }).to eq([%w[cnam validation]])
+      expect(application.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks submit_authorizations])
+    end
+
     describe 'test accounts with roles only' do
       let(:expected_roles_by_email) do
         {
@@ -39,6 +58,7 @@ RSpec.describe Seeds do
           'manager-fd-dgfip@yopmail.com' => %w[dgfip:*:manager],
           'dev-apie@yopmail.com' => %w[dinum:api_entreprise:developer],
           'dev-apip@yopmail.com' => %w[dinum:api_particulier:developer],
+          'dev-multi-fd@yopmail.com' => %w[dinum:api_particulier:developer cnam:api_droits_cnam:developer],
           'dev-manager-dgfip@yopmail.com' => %w[dgfip:*:developer dgfip:*:manager],
           'admin@yopmail.com' => %w[admin],
           'interne-sans-droit@yopmail.com' => [],

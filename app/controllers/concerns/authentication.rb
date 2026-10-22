@@ -37,6 +37,10 @@ module Authentication
     @current_user = user
   end
 
+  def ensure_not_banned!(user)
+    raise ApplicationController::BannedUserError if user.banned?
+  end
+
   def sign_out
     session.delete(:user_id)
     @current_user = nil
@@ -52,7 +56,7 @@ module Authentication
 
   def authenticate_user!
     if user_signed_in?
-      raise ApplicationController::BannedUserError if current_user.banned?
+      ensure_not_banned!(current_user)
 
       return
     end

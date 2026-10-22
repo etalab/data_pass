@@ -582,6 +582,26 @@ Lors de l'événement `approve` (validation d'une habilitation), votre système 
 
 Ce `token_id` sera stocké dans le champ `external_provider_id` de l'habilitation et peut servir de référence entre DataPass et votre système.
 
+### Soumission et validation par API
+
+Une demande soumise par `POST /api/v1/demandes/{id}/soumettre` ou validée par `POST /api/v1/demandes/{id}/valider` déclenche les événements `submit` et `approve`, comme une soumission ou une validation faite dans l'interface : vos abonnements existants continuent de fonctionner, y compris l'échange du `token_id` à la validation. L'origine par API apparaît dans l'historique de la demande ; les métadonnées posées sur la demande permettent de la reconnaître dans vos traitements.
+
+### Différences entre la charge utile des webhooks et l'API REST
+
+La charge utile d'un webhook reprend l'objet `Demande` de l'API (`GET /api/v1/demandes/{id}`), avec ces différences volontaires :
+
+| Sujet | Webhook | API REST |
+| --- | --- | --- |
+| Enveloppe | `event`, `fired_at`, `model_type`, `model_id`, `notifications`, puis la demande dans `data` | La demande seule |
+| Habilitations | clé `authorizations` | clé `habilitations` |
+| Organisation | clé `organization` | clé `organisation` |
+| `data` | valeurs résolues du formulaire | `data` stockée de la demande |
+| `definition_id`, `reopening`, `reopened_at`, `events` | absents | présents |
+
+`notifications` vaut `false` lorsque l'appel API à l'origine de l'événement a désactivé les emails DataPass et que le contrat du fournisseur de données l'autorise (voir le paramètre `notifications` de l'API) ; il vaut `true` dans tous les autres cas, y compris pour les événements déclenchés depuis l'interface.
+
+Les champs `applicant.uid` (identifiant ProConnect, `sub`), `applicant.job_title`, `organisation.name` et `service_provider` sont présents des deux côtés.
+
 ### Serializer utilisé
 
 Le payload complet est généré par le serializer `WebhookSerializer` qui utilise `WebhookAuthorizationRequestSerializer`. Vous pouvez consulter ces fichiers dans le code source pour voir tous les champs disponibles.

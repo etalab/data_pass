@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_15_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -46,10 +46,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
 
   create_table "admin_changes", force: :cascade do |t|
     t.bigint "authorization_request_id", null: false
-    t.datetime "created_at", null: false
-    t.json "diff", default: {}
-    t.text "private_reason"
     t.text "public_reason", null: false
+    t.text "private_reason"
+    t.json "diff", default: {}
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["authorization_request_id"], name: "index_admin_changes_on_authorization_request_id"
   end
@@ -65,6 +65,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_admin_events_on_admin_id"
     t.index ["entity_type", "entity_id"], name: "index_admin_events_on_entity"
+  end
+
+  create_table "api_access_grants", force: :cascade do |t|
+    t.bigint "oauth_application_id", null: false
+    t.string "oauth_application_name", null: false
+    t.bigint "data_provider_id", null: false
+    t.string "action", null: false
+    t.bigint "granted_by_id"
+    t.string "granted_by_email", null: false
+    t.text "grant_reason", null: false
+    t.datetime "granted_at", null: false
+    t.bigint "revoked_by_id"
+    t.string "revoked_by_email"
+    t.boolean "revoked_automatically", default: false, null: false
+    t.text "revoke_reason"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data_provider_id"], name: "index_api_access_grants_on_data_provider_id"
+    t.index ["oauth_application_id", "data_provider_id", "action"], name: "index_api_access_grants_on_active_grant", unique: true, where: "(revoked_at IS NULL)"
+    t.index ["oauth_application_id"], name: "index_api_access_grants_on_oauth_application_id"
+    t.check_constraint "(revoked_at IS NULL) = (revoked_by_email IS NULL AND NOT revoked_automatically)", name: "api_access_grants_revocation_is_complete"
   end
 
   create_table "authorization_documents", force: :cascade do |t|
@@ -159,14 +181,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
     t.string "authorization_request_class", null: false
     t.datetime "created_at", null: false
     t.hstore "data", default: {}, null: false
-    t.string "form_uid"
-    t.text "message"
-    t.bigint "parent_authorization_id"
     t.bigint "request_id", null: false
     t.boolean "revoked", default: false
     t.string "slug"
     t.string "state"
     t.datetime "updated_at", null: false
+    t.text "message"
+    t.bigint "parent_authorization_id"
+    t.string "form_uid"
     t.index "((data -> 'france_connect_authorization_id'::text))", name: "idx_authorizations_fc_auth_id", where: "(data ? 'france_connect_authorization_id'::text)"
     t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
     t.index ["parent_authorization_id"], name: "index_authorizations_on_parent_authorization_id"
@@ -199,6 +221,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
     t.string "name", null: false
     t.string "slug", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "api_contract_options", default: {}, null: false
     t.index ["slug"], name: "index_data_providers_on_slug", unique: true
   end
 
@@ -211,23 +234,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "form_templates", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.boolean "default", default: false, null: false
-    t.text "description"
-    t.bigint "habilitation_type_id", null: false
-    t.jsonb "initialize_with", default: {}, null: false
-    t.text "introduction"
-    t.string "name"
-    t.boolean "public", default: true, null: false
-    t.jsonb "scopes_config", default: {}, null: false
-    t.string "service_provider_id"
-    t.boolean "single_page_view", default: false, null: false
     t.string "slug", null: false
-    t.boolean "startable_by_applicant", default: true, null: false
-    t.jsonb "static_blocks", default: [], null: false
-    t.jsonb "steps", default: [], null: false
-    t.datetime "updated_at", null: false
+    t.bigint "habilitation_type_id", null: false
+    t.string "service_provider_id"
+    t.string "name"
+    t.text "description"
+    t.text "introduction"
     t.string "use_case"
+    t.boolean "default", default: false, null: false
+    t.boolean "public", default: true, null: false
+    t.boolean "startable_by_applicant", default: true, null: false
+    t.boolean "single_page_view", default: false, null: false
+    t.jsonb "steps", default: [], null: false
+    t.jsonb "static_blocks", default: [], null: false
+    t.jsonb "scopes_config", default: {}, null: false
+    t.jsonb "initialize_with", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["habilitation_type_id"], name: "index_form_templates_on_habilitation_type_id"
     t.index ["habilitation_type_id"], name: "index_one_default_form_template_per_habilitation_type", unique: true, where: "\"default\""
     t.index ["slug"], name: "index_form_templates_on_slug", unique: true
@@ -322,22 +345,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "habilitation_types", force: :cascade do |t|
-    t.string "access_link"
-    t.jsonb "blocks", default: [], null: false
-    t.string "cgu_link"
-    t.jsonb "contact_types", default: [], null: false
-    t.datetime "created_at", null: false
-    t.jsonb "custom_labels", default: {}, null: false
-    t.bigint "data_provider_id", null: false
-    t.text "description"
-    t.jsonb "features", default: {}, null: false
-    t.text "form_introduction"
-    t.string "kind", default: "api", null: false
-    t.string "link"
-    t.string "name", null: false
-    t.jsonb "scopes", default: [], null: false
     t.string "slug", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.string "link"
+    t.string "access_link"
+    t.string "cgu_link"
     t.string "support_email"
+    t.string "kind", default: "api", null: false
+    t.bigint "data_provider_id", null: false
+    t.jsonb "scopes", default: [], null: false
+    t.jsonb "blocks", default: [], null: false
+    t.jsonb "features", default: {}, null: false
+    t.jsonb "contact_types", default: [], null: false
+    t.jsonb "custom_labels", default: {}, null: false
+    t.text "form_introduction"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["data_provider_id"], name: "index_habilitation_types_on_data_provider_id"
     t.index ["slug"], name: "index_habilitation_types_on_slug", unique: true
@@ -409,10 +432,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
 
   create_table "message_templates", force: :cascade do |t|
     t.string "authorization_definition_uid", null: false
-    t.text "content", null: false
-    t.datetime "created_at", null: false
     t.integer "template_type", null: false
     t.string "title", limit: 50, null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["authorization_definition_uid", "template_type"], name: "idx_on_authorization_definition_uid_template_type_7b33b333b3"
   end
@@ -477,7 +500,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.jsonb "extra_legal_entity_infos"
-    t.integer "insee_consecutive_failures", default: 0, null: false
     t.jsonb "insee_payload"
     t.datetime "last_insee_payload_updated_at"
     t.datetime "last_mon_compte_pro_updated_at"
@@ -488,6 +510,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
     t.jsonb "proconnect_payload", default: {}
     t.string "siret"
     t.datetime "updated_at", null: false
+    t.integer "insee_consecutive_failures", default: 0, null: false
     t.index "((((insee_payload -> 'etablissement'::text) -> 'uniteLegale'::text) ->> 'denominationUniteLegale'::text))", name: "index_organizations_on_denomination_unite_legale"
     t.index ["legal_entity_id", "legal_entity_registry"], name: "idx_on_legal_entity_id_legal_entity_registry_7d149bf422", unique: true
   end
@@ -511,19 +534,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "rails_pulse_job_runs", force: :cascade do |t|
-    t.string "adapter", comment: "Queue adapter"
-    t.text "arguments", comment: "Serialized arguments"
-    t.integer "attempts", default: 0, null: false, comment: "Retry attempts"
-    t.datetime "created_at", null: false
+    t.bigint "job_id", null: false, comment: "Link to job definition"
+    t.string "run_id", null: false, comment: "Adapter specific run id"
     t.decimal "duration", precision: 15, scale: 6, comment: "Execution duration in milliseconds"
-    t.datetime "enqueued_at", precision: nil, comment: "When the job was enqueued"
+    t.string "status", null: false, comment: "Execution status"
     t.string "error_class", comment: "Error class name"
     t.text "error_message", comment: "Error message"
-    t.bigint "job_id", null: false, comment: "Link to job definition"
+    t.integer "attempts", default: 0, null: false, comment: "Retry attempts"
     t.datetime "occurred_at", precision: nil, null: false, comment: "When the job started"
-    t.string "run_id", null: false, comment: "Adapter specific run id"
-    t.string "status", null: false, comment: "Execution status"
+    t.datetime "enqueued_at", precision: nil, comment: "When the job was enqueued"
+    t.text "arguments", comment: "Serialized arguments"
+    t.string "adapter", comment: "Queue adapter"
     t.text "tags", comment: "Execution tags"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["job_id", "occurred_at"], name: "index_rails_pulse_job_runs_on_job_and_occurred"
     t.index ["job_id", "status"], name: "index_rails_pulse_job_runs_on_job_and_status"
@@ -534,39 +557,39 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "rails_pulse_jobs", force: :cascade do |t|
-    t.decimal "avg_duration", precision: 15, scale: 6, comment: "Average duration in milliseconds"
-    t.datetime "created_at", null: false
-    t.text "description", comment: "Optional description"
-    t.integer "failures_count", default: 0, null: false, comment: "Cache of failed runs"
     t.string "name", null: false, comment: "Job class name"
+    t.string "queue_name", comment: "Default queue"
+    t.text "description", comment: "Optional description"
+    t.integer "runs_count", default: 0, null: false, comment: "Cache of total runs"
+    t.integer "failures_count", default: 0, null: false, comment: "Cache of failed runs"
+    t.integer "retries_count", default: 0, null: false, comment: "Cache of retried runs"
+    t.decimal "avg_duration", precision: 15, scale: 6, comment: "Average duration in milliseconds"
+    t.text "tags", comment: "JSON array of tags"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.decimal "p95_duration", precision: 15, scale: 6, comment: "95th percentile duration in milliseconds"
     t.decimal "p99_duration", precision: 15, scale: 6, comment: "99th percentile duration in milliseconds"
-    t.string "queue_name", comment: "Default queue"
-    t.integer "retries_count", default: 0, null: false, comment: "Cache of retried runs"
-    t.integer "runs_count", default: 0, null: false, comment: "Cache of total runs"
-    t.text "tags", comment: "JSON array of tags"
-    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_rails_pulse_jobs_on_name", unique: true
     t.index ["queue_name"], name: "index_rails_pulse_jobs_on_queue"
     t.index ["runs_count"], name: "index_rails_pulse_jobs_on_runs_count"
   end
 
   create_table "rails_pulse_operations", force: :cascade do |t|
-    t.boolean "cache_hit", default: false, null: false
-    t.string "codebase_location", comment: "File and line number (e.g., app/models/user.rb:25)"
-    t.datetime "created_at", null: false
-    t.decimal "duration", precision: 15, scale: 6, null: false, comment: "Operation duration in milliseconds"
+    t.bigint "request_id", comment: "Link to the request"
     t.bigint "job_run_id", comment: "Link to a background job execution"
-    t.string "label", null: false, comment: "Descriptive name (e.g., SELECT FROM users WHERE id = 1, render layout)"
-    t.datetime "occurred_at", precision: nil, null: false, comment: "When the request started"
-    t.string "operation_type", null: false, comment: "Type of operation (e.g., database, view, gem_call)"
     t.bigint "query_id", comment: "Link to the normalized SQL query"
+    t.string "operation_type", null: false, comment: "Type of operation (e.g., database, view, gem_call)"
+    t.string "label", null: false, comment: "Descriptive name (e.g., SELECT FROM users WHERE id = 1, render layout)"
+    t.decimal "duration", precision: 15, scale: 6, null: false, comment: "Operation duration in milliseconds"
+    t.string "codebase_location", comment: "File and line number (e.g., app/models/user.rb:25)"
+    t.float "start_time", default: 0.0, null: false, comment: "Operation start time in milliseconds"
+    t.datetime "occurred_at", precision: nil, null: false, comment: "When the request started"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "row_count"
+    t.boolean "cache_hit", default: false, null: false
     t.text "repeated_query_group"
     t.integer "repetition_count"
-    t.bigint "request_id", comment: "Link to the request"
-    t.integer "row_count"
-    t.float "start_time", default: 0.0, null: false, comment: "Operation start time in milliseconds"
-    t.datetime "updated_at", null: false
     t.index ["created_at", "query_id"], name: "idx_operations_for_aggregation"
     t.index ["job_run_id"], name: "index_rails_pulse_operations_on_job_run_id"
     t.index ["occurred_at", "duration", "operation_type"], name: "index_rails_pulse_operations_on_time_duration_type"
@@ -578,35 +601,35 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "rails_pulse_queries", force: :cascade do |t|
-    t.datetime "analyzed_at", comment: "When query analysis was last performed"
-    t.text "backtrace_analysis", comment: "JSON object with call chain and N+1 detection"
-    t.datetime "created_at", null: false
-    t.text "explain_plan", comment: "EXPLAIN output from actual SQL execution"
     t.string "hashed_sql", limit: 32, null: false, comment: "MD5 hash of normalized SQL for indexing"
-    t.text "index_recommendations", comment: "JSON array of database index recommendations"
+    t.text "normalized_sql", null: false, comment: "Normalized SQL query string (e.g., SELECT * FROM users WHERE id = ?)"
+    t.datetime "analyzed_at", comment: "When query analysis was last performed"
+    t.text "explain_plan", comment: "EXPLAIN output from actual SQL execution"
     t.text "issues", comment: "JSON array of detected performance issues"
     t.text "metadata", comment: "JSON object containing query complexity metrics"
-    t.text "n_plus_one_analysis", comment: "JSON object with enhanced N+1 query detection results"
-    t.text "normalized_sql", null: false, comment: "Normalized SQL query string (e.g., SELECT * FROM users WHERE id = ?)"
     t.text "query_stats", comment: "JSON object with query characteristics analysis"
+    t.text "backtrace_analysis", comment: "JSON object with call chain and N+1 detection"
+    t.text "index_recommendations", comment: "JSON array of database index recommendations"
+    t.text "n_plus_one_analysis", comment: "JSON object with enhanced N+1 query detection results"
     t.text "suggestions", comment: "JSON array of optimization recommendations"
     t.text "tags", comment: "JSON array of tags for filtering and categorization"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hashed_sql"], name: "index_rails_pulse_queries_on_hashed_sql", unique: true
   end
 
   create_table "rails_pulse_requests", force: :cascade do |t|
-    t.string "controller_action", comment: "Controller and action handling the request (e.g., PostsController#show)"
-    t.datetime "created_at", null: false
-    t.decimal "duration", precision: 15, scale: 6, null: false, comment: "Total request duration in milliseconds"
-    t.boolean "is_error", default: false, null: false, comment: "True if status >= 500"
-    t.datetime "occurred_at", precision: nil, null: false, comment: "When the request started"
-    t.string "request_uuid", null: false, comment: "Unique identifier for the request (e.g., UUID)"
-    t.integer "response_size_bytes"
     t.bigint "route_id", null: false, comment: "Link to the route"
+    t.decimal "duration", precision: 15, scale: 6, null: false, comment: "Total request duration in milliseconds"
     t.integer "status", null: false, comment: "HTTP status code (e.g., 200, 500)"
+    t.boolean "is_error", default: false, null: false, comment: "True if status >= 500"
+    t.string "request_uuid", null: false, comment: "Unique identifier for the request (e.g., UUID)"
+    t.string "controller_action", comment: "Controller and action handling the request (e.g., PostsController#show)"
+    t.datetime "occurred_at", precision: nil, null: false, comment: "When the request started"
     t.text "tags", comment: "JSON array of tags for filtering and categorization"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "response_size_bytes"
     t.index ["created_at", "route_id"], name: "idx_requests_for_aggregation"
     t.index ["occurred_at"], name: "index_rails_pulse_requests_on_occurred_at"
     t.index ["request_uuid"], name: "index_rails_pulse_requests_on_request_uuid", unique: true
@@ -615,37 +638,37 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "rails_pulse_routes", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.string "method", null: false, comment: "HTTP method (e.g., GET, POST)"
     t.string "path", null: false, comment: "Request path (e.g., /posts/index)"
     t.text "tags", comment: "JSON array of tags for filtering and categorization"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["method", "path"], name: "index_rails_pulse_routes_on_method_and_path", unique: true
     t.index ["path"], name: "index_rails_pulse_routes_on_path"
   end
 
   create_table "rails_pulse_summaries", force: :cascade do |t|
-    t.float "avg_duration", comment: "Average duration in milliseconds"
+    t.datetime "period_start", null: false, comment: "Start of the aggregation period"
+    t.datetime "period_end", null: false, comment: "End of the aggregation period"
+    t.string "period_type", null: false, comment: "Aggregation period type: hour, day, week, month"
+    t.string "summarizable_type", null: false
+    t.bigint "summarizable_id", null: false, comment: "Link to Route or Query"
     t.integer "count", default: 0, null: false, comment: "Total number of requests/operations"
-    t.datetime "created_at", null: false
-    t.integer "error_count", default: 0, comment: "Number of error responses (5xx)"
-    t.float "max_duration", comment: "Maximum duration in milliseconds"
+    t.float "avg_duration", comment: "Average duration in milliseconds"
     t.float "min_duration", comment: "Minimum duration in milliseconds"
+    t.float "max_duration", comment: "Maximum duration in milliseconds"
     t.float "p50_duration", comment: "50th percentile duration"
     t.float "p95_duration", comment: "95th percentile duration"
     t.float "p99_duration", comment: "99th percentile duration"
-    t.datetime "period_end", null: false, comment: "End of the aggregation period"
-    t.datetime "period_start", null: false, comment: "Start of the aggregation period"
-    t.string "period_type", null: false, comment: "Aggregation period type: hour, day, week, month"
+    t.float "total_duration", comment: "Total duration in milliseconds"
+    t.float "stddev_duration", comment: "Standard deviation of duration"
+    t.integer "error_count", default: 0, comment: "Number of error responses (5xx)"
+    t.integer "success_count", default: 0, comment: "Number of successful responses"
     t.integer "status_2xx", default: 0, comment: "Number of 2xx responses"
     t.integer "status_3xx", default: 0, comment: "Number of 3xx responses"
     t.integer "status_4xx", default: 0, comment: "Number of 4xx responses"
     t.integer "status_5xx", default: 0, comment: "Number of 5xx responses"
-    t.float "stddev_duration", comment: "Standard deviation of duration"
-    t.integer "success_count", default: 0, comment: "Number of successful responses"
-    t.bigint "summarizable_id", null: false, comment: "Link to Route or Query"
-    t.string "summarizable_type", null: false
-    t.float "total_duration", comment: "Total duration in milliseconds"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_rails_pulse_summaries_on_created_at"
     t.index ["period_start"], name: "index_rails_pulse_summaries_on_period_start"
@@ -655,26 +678,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "revocation_of_authorizations", force: :cascade do |t|
-    t.bigint "authorization_id"
     t.bigint "authorization_request_id", null: false
     t.datetime "created_at", null: false
     t.string "reason", null: false
     t.datetime "updated_at", null: false
+    t.bigint "authorization_id"
     t.index ["authorization_id"], name: "index_revocation_of_authorizations_on_authorization_id"
     t.index ["authorization_request_id"], name: "index_revocation_of_authorizations_on_authorization_request_id"
   end
 
   create_table "settings", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.string "key", null: false
-    t.datetime "updated_at", null: false
     t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["key"], name: "index_settings_on_key", unique: true
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "ban_reason"
-    t.datetime "banned_at"
     t.datetime "created_at", null: false
     t.integer "current_organization_id"
     t.string "email", null: false
@@ -688,6 +709,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
     t.string "roles", default: [], array: true
     t.jsonb "settings", default: {}
     t.datetime "updated_at", null: false
+    t.datetime "banned_at"
+    t.text "ban_reason"
     t.index ["current_organization_id"], name: "index_users_on_current_organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["external_id"], name: "index_users_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
@@ -705,25 +728,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "versions", force: :cascade do |t|
+    t.string "whodunnit"
     t.datetime "created_at"
-    t.string "event", null: false
     t.bigint "item_id", null: false
     t.string "item_type", null: false
+    t.string "event", null: false
     t.jsonb "object"
     t.jsonb "object_changes"
-    t.string "whodunnit"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "webhook_attempts", force: :cascade do |t|
-    t.bigint "authorization_request_id", null: false
-    t.datetime "created_at", null: false
-    t.string "event_name", null: false
-    t.jsonb "payload", default: {}, null: false
-    t.text "response_body"
-    t.integer "status_code"
-    t.datetime "updated_at", null: false
     t.bigint "webhook_id", null: false
+    t.bigint "authorization_request_id", null: false
+    t.string "event_name", null: false
+    t.integer "status_code"
+    t.text "response_body"
+    t.jsonb "payload", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["authorization_request_id"], name: "index_webhook_attempts_on_authorization_request_id"
     t.index ["created_at"], name: "index_webhook_attempts_on_created_at"
     t.index ["event_name"], name: "index_webhook_attempts_on_event_name"
@@ -732,15 +755,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   end
 
   create_table "webhooks", force: :cascade do |t|
-    t.datetime "activated_at"
     t.string "authorization_definition_id", null: false
-    t.datetime "created_at", null: false
-    t.boolean "enabled", default: false, null: false
-    t.jsonb "events", default: [], null: false
-    t.text "secret", null: false
-    t.datetime "updated_at", null: false
     t.string "url", null: false
+    t.jsonb "events", default: [], null: false
+    t.boolean "enabled", default: false, null: false
     t.boolean "validated", default: false, null: false
+    t.text "secret", null: false
+    t.datetime "activated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["authorization_definition_id", "enabled", "validated"], name: "index_webhooks_on_definition_enabled_validated"
     t.index ["authorization_definition_id"], name: "index_webhooks_on_authorization_definition_id"
   end
@@ -749,6 +772,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_120000) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_changes", "authorization_requests"
   add_foreign_key "admin_events", "users", column: "admin_id"
+  add_foreign_key "api_access_grants", "data_providers"
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorization_request_events", "authorization_requests"
