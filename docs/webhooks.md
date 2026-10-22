@@ -592,11 +592,13 @@ La charge utile d'un webhook reprend l'objet `Demande` de l'API (`GET /api/v1/de
 
 | Sujet | Webhook | API REST |
 | --- | --- | --- |
-| Enveloppe | `event`, `fired_at`, `model_type`, `model_id`, puis la demande dans `data` | La demande seule |
+| Enveloppe | `event`, `fired_at`, `model_type`, `model_id`, `notifications`, puis la demande dans `data` | La demande seule |
 | Habilitations | clé `authorizations` | clé `habilitations` |
 | Organisation | clé `organization` | clé `organisation` |
 | `data` | valeurs résolues du formulaire | `data` stockée de la demande |
 | `definition_id`, `reopening`, `reopened_at`, `events` | absents | présents |
+
+`notifications` vaut `false` lorsque l'appel API à l'origine de l'événement a désactivé les emails DataPass et que le contrat du fournisseur de données l'autorise (voir le paramètre `notifications` de l'API) ; il vaut `true` dans tous les autres cas, y compris pour les événements déclenchés depuis l'interface.
 
 Les champs `applicant.uid` (identifiant ProConnect, `sub`), `applicant.job_title`, `organisation.name` et `service_provider` sont présents des deux côtés.
 
