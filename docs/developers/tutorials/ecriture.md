@@ -232,6 +232,7 @@ request.body = {
 
 - Le demandeur reste la personne indiquée à la création : l'API ne soumet jamais au nom du FD.
 - Vous déclarez avoir recueilli le consentement du demandeur en transmettant dans `consentement` chaque case que le demandeur doit cocher dans l'interface (CGU, information du DPO, cases propres à certains types…), à `true`. La liste des cases exigées pour un type est dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission, avec une erreur par case (`source.pointer` : `/consentement/<case>`).
+- Si vous avez vous-même vérifié les emails de contact de la demande, transmettez `"verified_email": true` : DataPass n'effectue alors pas sa propre vérification de joignabilité (le format reste contrôlé).
 - La demande est contrôlée comme dans l'interface. Si elle est incomplète, elle reste en `draft` et la réponse `422` contient **une erreur par champ**, avec `source.pointer` (ex. `/data/delegue_protection_donnees_family_name`).
 - Seules les demandes `draft` ou `changes_requested` sont soumettables. Les autres renvoient une erreur « État non modifiable ».
 - Après la soumission, la demande est `submitted`, avec les mêmes effets qu'une soumission classique (webhook `submit`). L'historique indique qu'elle a été soumise par API, avec le nom de votre application.
@@ -255,7 +256,7 @@ request.body = {
 
 ### Désactiver les emails DataPass
 
-Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés.
+Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés ; leur charge utile reprend la valeur effectivement appliquée dans le champ `notifications`.
 
 ## Rediriger l'utilisateur vers sa demande
 

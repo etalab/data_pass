@@ -224,7 +224,7 @@ components:
 
         Si le contrat rend ces notifications obligatoires, le paramètre est ignoré : l'appel aboutit, les emails sont envoyés et la réponse contient un avertissement dans `meta.warnings`.
 
-        Les webhooks sont toujours envoyés, quelle que soit la valeur. L'historique de la demande indique que les notifications ont été désactivées.
+        Les webhooks sont toujours envoyés, quelle que soit la valeur. L'historique de la demande indique que les notifications ont été désactivées. La valeur effectivement appliquée (après prise en compte du contrat du fournisseur de données) est reprise dans le champ `notifications` de la charge utile du webhook déclenché par l'appel.
 
     Warning:
       type: object
@@ -312,20 +312,20 @@ components:
       description: Prestataire de service associé au formulaire de la demande (Typiquement l'éditeur de logiciel au service d'une collectivité). `null` lorsque le formulaire n'est pas porté par un prestataire.
       properties:
         id:
-          type: integer
-          example: 456
+          type: string
+          example: "mgdis"
           description: Identifiant unique du prestataire de service
         siret:
           type: string
           example: "12345678901234"
-          description: Numéro SIRET du prestataire
+          description: Numéro SIRET du prestataire. Absent pour les prestataires qui n'en ont pas (par exemple une plateforme mutualisée).
+          nullable: true
         type:
           type: string
-          example: "SoftwareVendor"
-          description: Type de prestataire de service
+          example: "editor"
+          description: Type de prestataire de service (`editor` ou `saas`)
       required:
         - id
-        - siret
         - type
 
     Habilitation:
@@ -1036,7 +1036,7 @@ paths:
 
         La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que le fournisseur choisit d'enchaîner ou non.
 
-        La demande est contrôlée avec les mêmes règles que la soumission dans l'interface (champs obligatoires, emails de contact vérifiés, pièces jointes). Si elle est incomplète, rien n'est soumis : elle reste dans son état et la réponse `422` liste les erreurs, une par champ, avec leur `source.pointer`.
+        La demande est contrôlée avec les mêmes règles que la soumission dans l'interface (champs obligatoires, emails de contact vérifiés, pièces jointes). Le fournisseur de données peut toutefois déclarer avoir lui-même vérifié les emails de contact en transmettant `verified_email: true` : la vérification de joignabilité effectuée par DataPass est alors ignorée. Si elle est incomplète, rien n'est soumis : elle reste dans son état et la réponse `422` liste les erreurs, une par champ, avec leur `source.pointer`.
 
         La soumission n'est possible que depuis les états où le demandeur peut soumettre dans l'interface : `draft` ou `changes_requested`. Dans tout autre état, la réponse est une erreur `422` et l'état ne change pas.
 
@@ -1073,6 +1073,10 @@ paths:
                   example:
                     terms_of_service_accepted: true
                     data_protection_officer_informed: true
+                verified_email:
+                  type: boolean
+                  default: false
+                  description: Le fournisseur de données déclare avoir vérifié les emails de contact de la demande. À `true`, DataPass n'effectue pas sa propre vérification de joignabilité de ces emails ; le format reste contrôlé. L'historique de la demande indique que les emails ont été déclarés vérifiés par le fournisseur de données.
                 notifications:
                   $ref: '#/components/schemas/Notifications'
       responses:
