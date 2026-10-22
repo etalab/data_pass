@@ -153,6 +153,16 @@ fr:
         contact_technique_email: Email du RSSI
         contact_technique_phone_number: Téléphone du RSSI
         contact_technique_job_title: Fonction du RSSI
+      authorization_request/resana:
+        nature_juridique: Nature juridique de votre structure
+        organisations_resana: Organisations Resana concernées
+        contact_metier_family_name: Nom de famille du responsable métier
+        contact_metier_given_name: Prénom du responsable métier
+        contact_metier_email: Email du responsable métier
+        contact_metier_phone_number: Téléphone du responsable métier
+        contact_metier_job_title: Fonction du responsable métier
+        habilitation_certifiee: Certification de votre habilitation
+        lettre_habilitation_document: Lettre de votre DSI ou DNUM
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -269,6 +279,12 @@ fr:
           attributes:
             contact_technique_phone_number:
               invalid_french_phone_mobile_format: "n'est pas un numéro de téléphone valide : afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
+        authorization_request/resana:
+          attributes:
+            habilitation_certifiee:
+              certification_or_letter_missing: "manquante : cochez la certification ou fournissez une lettre de votre DSI ou DNUM."
+            lettre_habilitation_document:
+              certification_or_letter_missing: "manquante : cochez la certification ou fournissez une lettre de votre DSI ou DNUM."
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:
