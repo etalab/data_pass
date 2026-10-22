@@ -22,6 +22,25 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     end
   end
 
+  describe 'approve event done through the API' do
+    subject { described_class.new(authorization_request_event:) }
+
+    let(:authorization_request_event) { create(:authorization_request_event, :approve, api_application_name: 'API Entreprise') }
+
+    it 'mentions the instructor, the API and the calling application' do
+      page = render_inline(subject)
+
+      expect(page).to have_text('Demande validée par API par DUPONT Jean, via l’application API Entreprise.')
+    end
+
+    it 'keeps the usual wording when the approval was made in the interface' do
+      authorization_request_event.update!(api_application_name: nil)
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_text('DUPONT Jean a approuvé la demande.')
+    end
+  end
+
   describe 'render' do
     context 'when event_name is create' do
       let(:authorization_request_event) { create(:authorization_request_event, :create) }

@@ -416,6 +416,8 @@ fr:
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.
+          message_summary_by_api: |
+            Demande validée par API par <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong>.
           message_details: |
             <blockquote>
               %{message_details_text}
