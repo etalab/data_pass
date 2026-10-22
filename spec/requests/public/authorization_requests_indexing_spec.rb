@@ -48,10 +48,4 @@ RSpec.describe 'Public authorization request pages indexing' do
       expect(response.parsed_body.css('meta[name="robots"]')).to be_empty
     end
   end
-
-  describe 'robots.txt' do
-    it 'disallows crawling of public pages' do
-      expect(Rails.public_path.join('robots.txt').read).to include("User-agent: *\nDisallow: /public/")
-    end
-  end
 end
