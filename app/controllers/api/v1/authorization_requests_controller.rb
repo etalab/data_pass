@@ -1,7 +1,8 @@
 class API::V1::AuthorizationRequestsController < API::V1Controller
   before_action -> { doorkeeper_authorize! :read_authorizations }, only: %i[index show]
   before_action -> { doorkeeper_authorize! :write_authorizations }, only: %i[create update]
-  before_action :set_authorization_request, only: %i[show update]
+  before_action -> { doorkeeper_authorize! :validate_authorizations }, only: :validate
+  before_action :set_authorization_request, only: %i[show update validate]
 
   def index
     authorization_requests = AuthorizationRequest
@@ -43,6 +44,23 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     if result.success?
       render_authorization_request(result.authorization_request.reload)
+    else
+      render_interactor_errors(result)
+    end
+  end
+
+  def validate
+    authorize @authorization_request.definition, :validate?, policy_class: APIAccessPolicy
+
+    result = ApproveAuthorizationRequestFromAPI.call(
+      authorization_request: @authorization_request,
+      instructor_email: params.dig(:instructeur, :email),
+      authorization_message: params[:message],
+      oauth_application: doorkeeper_token.application
+    )
+
+    if result.success?
+      render_authorization_request(@authorization_request.reload)
     else
       render_interactor_errors(result)
     end
