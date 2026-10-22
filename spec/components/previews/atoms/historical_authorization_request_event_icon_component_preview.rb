@@ -17,7 +17,7 @@ class Atoms::HistoricalAuthorizationRequestEventIconComponentPreview < Applicati
   # @param name select { choices: ['approve', 'request_changes', 'refuse', 'revoke', 'admin_change'] } "Type d’événement"
   #
   # Scénario unique, piloté par le sélecteur « Type d’événement » : chaque nom change l’icône et sa
-  # couleur — validation en vert, demande de modifications en orange, refus et révocation en rouge,
+  # couleur : validation en vert, demande de modifications en orange, refus et révocation en rouge,
   # modification administrative en bleu. Les cinq noms proposés sont les seuls présents dans la
   # table du composant ; tout autre événement de `AuthorizationRequestEvent::NAMES` retomberait sur
   # l’icône générique bleue `error-warning-line`.

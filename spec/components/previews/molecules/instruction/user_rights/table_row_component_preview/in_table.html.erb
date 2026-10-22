@@ -1,0 +1,11 @@
+<div class="fr-table fr-table--bordered">
+  <div class="fr-table__container">
+    <div class="fr-table__content">
+      <table class="fr-table--align-middle">
+        <tbody>
+          <%= render Molecules::Instruction::UserRights::TableRowComponent.new(user:, authority:, current_user:) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
