@@ -20,7 +20,7 @@ class APIAccessGrant < ApplicationRecord
     owner = application&.owner
     return [] unless owner
 
-    owner.roles_for(:developer).authorization_definitions.map(&:provider_slug).uniq
+    owner.roles_for(:developer).provider_slugs
   end
 
   def self.active_for?(application:, data_provider_id:, action:)
