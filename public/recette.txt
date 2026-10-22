@@ -1,0 +1,10 @@
+Recette sandbox : recette/2026-10-22
+Base : develop @ 2c56c7198
+
+2026-10-22 18:04 — construction
+  DPP-155    #1812   a20815d2b  feature/dpp-155-us-demander-le-role-dadministrateur-resana-via-un-formulaire
+  DPP-43     #1815   3870af9c5  feature/dpp-43-us-harmoniser-les-termes-demande-habilitation-dans-les
+  DPP-174    #1830   0d1e06998  feature/dpp-174-demande-externe-modification-du-formulaire-pre-rempli
+  DPP-190    #1829   710517f69  feature/dpp-190-ts-bloquer-lindexation-des-pages-publiques-des-demandes-par
+  DPP-186    #1814   347889bfd  feature/dpp-186-ts-completer-les-apercus-lookbook-des-composants-qui-nen-ont
+  DPP-166    #1809   24d4d7fc0  feature/dpp-166-exiger-la-2fa-proconnect-pour-tous-les-agents-retrait-du
