@@ -285,7 +285,8 @@ En plus de `write_authorizations` (création et mise à jour, inchangé), deux s
 
 ### Réponses `403`
 
-Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ».
+Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ». L’endpoint de validation applique les deux cas ci-dessous ; celui de soumission est livré séparément.
+
 
 - le jeton ne porte pas le scope exigé : « Le jeton d’accès ne permet pas cette action. Si un droit vient d’être accordé à votre application, demandez un nouveau jeton d’accès. » Ce cas s’applique désormais à **tous** les endpoints qui exigent un scope (il renvoyait auparavant une erreur `422`) ;
 - le jeton porte le scope mais l’application n’a pas de droit actif pour le fournisseur de données du type d’habilitation : « Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données. » (ou « valider » pour la validation).
@@ -305,6 +306,52 @@ Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre �
 ### Révocation
 
 Un administrateur peut révoquer un droit à tout moment. La révocation est effective **immédiatement**, même avec un jeton qui porte encore le scope : le droit est revérifié à chaque appel. La suppression d’une application révoque automatiquement ses droits.
+
+## Valider une demande
+
+`POST /api/v1/demandes/{id}/valider` valide une demande « En cours d’instruction » au nom d’un **instructeur identifié**, qui en prend la responsabilité. Peu importe que la décision vienne de règles automatiques ou de votre propre portail, tant qu’une personne en porte la responsabilité.
+
+Il exige le scope `validate_authorizations` et un droit de validation actif pour le fournisseur de données du type de la demande (voir [Droits de soumission et de validation](#droits-de-soumission-et-de-validation)).
+
+```bash
+curl -X POST https://datapass.api.gouv.fr/api/v1/demandes/123/valider \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "instructeur": { "email": "instructeur@example.com" },
+    "message": "Demande conforme au cadre juridique."
+  }'
+```
+
+- `instructeur.email` (obligatoire) : adresse d’un compte DataPass existant qui a le rôle d’instructeur sur le type de la demande.
+- `message` (facultatif) : message de validation, comme dans l’interface.
+
+La validation produit **exactement les mêmes effets** qu’une validation dans l’interface : création de l’habilitation, passage des habilitations précédentes en « Obsolète » pour une mise à jour, passerelles, webhook `approve` et habilitation FranceConnect liée le cas échéant. La réponse `200` contient la demande à jour (état `validated`) avec l’habilitation active dans `habilitations`.
+
+L’historique de la demande affiche « Demande validée par API par *nom de l’instructeur*, via l’application *nom de votre application* ».
+
+### Erreurs `422`
+
+La demande ne change pas dans les cas suivants, au format `errors[]` habituel :
+
+| Titre | Cause |
+| --- | --- |
+| « Instructeur invalide » | `instructeur.email` absent, inconnu, ou sans rôle d’instructeur sur ce type |
+| « État non modifiable » | la demande n’est pas « En cours d’instruction » (brouillon, à modifier, refusée ou validée) |
+
+```json
+{
+  "errors": [
+    {
+      "status": "422",
+      "title": "Instructeur invalide",
+      "detail": "Les informations de l’instructeur sont manquantes ou invalides."
+    }
+  ]
+}
+```
+
+Le refus, la demande de modification et la révocation ne sont pas possibles par API : ils se font dans l’interface DataPass.
 
 ## Rediriger l'utilisateur vers sa demande
 
