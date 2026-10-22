@@ -18,6 +18,12 @@ authorize definition, :submit?, policy_class: APIAccessPolicy
 
 `definition` est la définition d’habilitation visée. Pour la validation, utiliser `:validate_authorizations` et `:validate?`. Le `pundit_user` de l’API est un `APIUserContext` (utilisateur propriétaire plus application Doorkeeper).
 
+## Validation par API
+
+`POST /api/v1/demandes/:id/valider` (`API::V1::AuthorizationRequestsController#validate`) applique `APIAccessPolicy#validate?` puis appelle `ApproveAuthorizationRequestFromAPI`. Cet organizer vérifie que `instructeur.email` désigne un instructeur du type, puis que la demande est `submitted` et approuvable par cet instructeur selon `Instruction::AuthorizationRequestPolicy#approve?` (la même règle que dans l’interface, restreinte par l’API aux demandes `submitted`), puis délègue à `ApproveAuthorizationRequest` avec cet instructeur comme `user` : les effets sont donc ceux de la validation dans l’interface.
+
+L’origine par API est portée par `authorization_request_events.api_application_name` (nom recopié, sans clé étrangère), alimenté par `context.api_application_name`. L’événement garde le nom `approve` : aucun événement `approve_by_api` n’est émis, pour ne pas modifier les abonnements webhook. `HistoricalAuthorizationRequestEventComponent` affiche la clé `message_summary_by_api` quand le nom d’application est présent.
+
 ## Réponses 403 et changement de comportement
 
 `API::V1Controller` rend toujours un `403` au format `errors[]` avec le titre « Droit API manquant » (textes dans `config/locales/api_errors.fr.yml`) :
