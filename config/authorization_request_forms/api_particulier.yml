@@ -1001,6 +1001,11 @@ api-particulier-capdemat-capdemat-evolution:
   scopes_config:
     disabled:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_regime_pensionnat
 
       # Scopes FranceConnect
       - family_name
@@ -1013,6 +1018,9 @@ api-particulier-capdemat-capdemat-evolution:
     displayed:
       - cnaf_quotient_familial
       - cnav_allocation_enfant_handicape
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
       - men_regime_pensionnat
 
       # Scopes FranceConnect
@@ -1030,6 +1038,11 @@ api-particulier-capdemat-capdemat-evolution:
     cadre_juridique_nature: &api_particulier_cadre_juridique_nature_cantines "- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.\n- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire."
     scopes:
       - cnaf_quotient_familial
+      - cnav_allocation_enfant_handicape
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_regime_pensionnat
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_email || 'tech-capdemat@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_family_name || 'Dupont' %>"
