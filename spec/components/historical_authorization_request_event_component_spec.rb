@@ -41,6 +41,37 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     end
   end
 
+  describe 'submit event done through the API' do
+    let(:authorization_request_event) { create(:authorization_request_event, :submit, api_application_name: 'API Entreprise') }
+
+    it 'mentions the applicant on whose behalf it was submitted, the API and the calling application' do
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_text('Demande soumise par API au nom de DUPONT Jean, via l’application API Entreprise')
+    end
+
+    it 'keeps the usual wording when the request was submitted in the interface' do
+      authorization_request_event.update!(api_application_name: nil)
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_text('DUPONT Jean a soumis la demande')
+    end
+
+    %w[
+      initial_submit_without_prefilled_data
+      initial_submit_without_changes_on_prefilled_data
+      initial_submit_with_changes_on_prefilled_data
+      submit_with_changes
+      submit_without_changes
+      legacy_submit_with_changes
+      legacy_submit_without_changes
+    ].each do |submit_wording|
+      it "has a wording through the API for #{submit_wording}" do
+        expect(I18n.exists?("instruction.authorization_request_events.authorization_request_event.#{submit_wording}.message_summary_by_api")).to be(true)
+      end
+    end
+  end
+
   describe 'render' do
     context 'when event_name is create' do
       let(:authorization_request_event) { create(:authorization_request_event, :create) }

@@ -55,6 +55,12 @@ RSpec.describe 'API: Authorization request submission' do
         expect(authorization_request.events.where(name: 'submit').last.user).to eq(authorization_request.applicant)
       end
 
+      it 'records which application submitted the request' do
+        submit_request
+
+        expect(authorization_request.events.where(name: 'submit').last.api_application_name).to eq(application.name)
+      end
+
       it_behaves_like 'delivers a webhook', event_name: :submit do
         subject { submit_request }
       end

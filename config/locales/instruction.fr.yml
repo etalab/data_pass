@@ -374,12 +374,18 @@ fr:
           message_summary: |
             <strong>%{user_full_name}</strong> a supprimé la demande.
         initial_submit_without_prefilled_data:
+          message_summary_by_api: |
+            Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong>.
           message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande.
         initial_submit_without_changes_on_prefilled_data:
+          message_summary_by_api: |
+            Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong>.
           message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
         initial_submit_with_changes_on_prefilled_data:
+          message_summary_by_api: |
+            Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong> :
           message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande :
           message_details: |
@@ -388,6 +394,10 @@ fr:
               %{message_details_text}
             </p>
         submit_with_changes:
+          message_summary_by_api: |
+            <p class="fr-mb-2w">
+              Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong> :
+            </p>
           message_summary: |
             <p class="fr-mb-2w">
               <strong>%{user_full_name}</strong> a soumis la demande :
@@ -398,9 +408,15 @@ fr:
               %{message_details_text}
             </p>
         submit_without_changes:
+          message_summary_by_api: |
+            Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong>.
           message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement :
         legacy_submit_with_changes:
+          message_summary_by_api: |
+            <p class="fr-mb-2w">
+              Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong> :
+            </p>
           message_summary: |
             <p class="fr-mb-2w">
               <strong>%{user_full_name}</strong> a soumis la demande :
@@ -411,6 +427,8 @@ fr:
               %{message_details_text}
             </p>
         legacy_submit_without_changes:
+          message_summary_by_api: |
+            Demande soumise par API au nom de <strong>%{user_full_name}</strong>, via l’application <strong>%{api_application_name}</strong>.
           message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande (certains changements ont pu être effectués, mais sont absents de cet événement car provenant d'une ancienne version du logiciel).
         approve:
