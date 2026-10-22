@@ -54,12 +54,21 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def message_summary
     I18n.t(
-      "instruction.authorization_request_events.authorization_request_event.#{name}.message_summary",
+      "instruction.authorization_request_events.authorization_request_event.#{name}.#{message_summary_key}",
       user_full_name: event.user_full_name,
+      api_application_name: event.api_application_name,
       copied_from_authorization_request_id:,
       transfer_text:,
       definition_name: event.entity.try(:definition)&.name
     ).html_safe
+  end
+
+  def message_summary_key
+    if event.api_application_name.present? && I18n.exists?("instruction.authorization_request_events.authorization_request_event.#{name}.message_summary_by_api")
+      'message_summary_by_api'
+    else
+      'message_summary'
+    end
   end
 
   def message_details
