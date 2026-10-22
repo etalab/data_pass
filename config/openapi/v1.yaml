@@ -545,6 +545,16 @@ components:
         - id
         - email
 
+    Notifications:
+      type: boolean
+      default: true
+      description: |
+        Mettre à `false` pour ne pas envoyer les emails DataPass liés à cet appel (accusé de réception au demandeur, « nouvelle demande » aux instructeurs, emails aux contacts…), lorsque le contrat du fournisseur de données le permet.
+
+        Si le contrat rend ces notifications obligatoires, le paramètre est ignoré : l'appel aboutit, les emails sont envoyés et la réponse contient un avertissement dans `meta.warnings`.
+
+        Les webhooks sont toujours envoyés, quelle que soit la valeur. L'historique de la demande indique que les notifications ont été désactivées. La valeur effectivement appliquée (après prise en compte du contrat du fournisseur de données) est reprise dans le champ `notifications` de la charge utile du webhook déclenché par l'appel.
+
     AuthorizationDefinition:
       type: object
       description: Définition d'habilitation décrivant un type d'habilitation disponible

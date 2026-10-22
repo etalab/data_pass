@@ -3,6 +3,7 @@ class API::V1::AuthorizationDefinitionSerializer < ActiveModel::Serializer
     :name,
     :multi_stage?,
     :authorization_request_class,
+    :consentements,
     :scopes
 
   def name
@@ -11,6 +12,10 @@ class API::V1::AuthorizationDefinitionSerializer < ActiveModel::Serializer
 
   def authorization_request_class
     object.authorization_request_class.to_s
+  end
+
+  def consentements
+    object.authorization_request_class.new.required_consents
   end
 
   def scopes
