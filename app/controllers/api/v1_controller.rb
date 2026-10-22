@@ -14,7 +14,7 @@ class API::V1Controller < APIController
   def reject_banned_token_owner
     return unless token_owner&.banned?
 
-    render_error(403, title: 'Compte banni', detail: 'Le compte propriétaire de ce jeton d’accès a été banni de DataPass.')
+    render_error(403, :banned_token_owner)
   end
 
   def token_owner
@@ -22,37 +22,32 @@ class API::V1Controller < APIController
   end
 
   def render_not_found_error
-    render_error(404, title: 'Non trouvé', detail: 'La ressource demandée est introuvable.')
+    render_error(404, :not_found)
   end
 
   def render_unauthorized_error
-    render_error(401, title: 'Non autorisé', detail: "Un jeton d'accès est requis mais absent dans les en-têtes de la requête.", source: { pointer: 'headers/Authorization' })
+    render_error(401, :token_missing, source: { pointer: 'headers/Authorization' })
   end
 
   def render_expired_token_error
-    render_error(401, title: 'Jeton expiré', detail: 'Le jeton d’accès a expiré. Veuillez en obtenir un nouveau.', source: { pointer: 'headers/Authorization' })
+    render_error(401, :token_expired, source: { pointer: 'headers/Authorization' })
   end
 
   def render_generic_error
-    render_error(422, title: 'Entité non traitable', detail: 'Un problème est survenu lors du traitement de la requête.')
+    render_error(422, :generic)
   end
 
   def render_parameter_missing_error(exception)
-    render_error(
-      400,
-      title: 'Paramètre manquant',
-      detail: "Le paramètre « #{exception.param} » est requis mais absent de la requête.",
-      source: { pointer: "/#{exception.param}" },
-    )
+    render_error(400, :parameter_missing, interpolations: { param: exception.param }, source: { pointer: "/#{exception.param}" })
   end
 
-  def render_error(http_code, title:, detail:, source: nil)
+  def render_error(http_code, key, source: nil, interpolations: {})
     render json: {
       errors: [
         {
           status: http_code.to_s,
-          title:,
-          detail:,
+          title: I18n.t("api_errors.#{key}.title"),
+          detail: I18n.t("api_errors.#{key}.detail", **interpolations),
           source:,
         }.compact
       ]
