@@ -32,7 +32,7 @@ RSpec.describe Seeds do
 
       expect(grants.pluck(:action)).to contain_exactly('submission', 'validation')
       expect(grants.pluck(:granted_by_email).uniq).to eq(['admin-instructeur@yopmail.com'])
-      expect(application.reload.scopes.to_a).to match_array(%w[public read_authorizations submit_authorizations validate_authorizations])
+      expect(application.reload.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks submit_authorizations validate_authorizations])
     end
 
     it 'seeds an application covering two data providers with an active grant, a revoked one and rights left to grant', :aggregate_failures do
@@ -42,7 +42,7 @@ RSpec.describe Seeds do
       expect(application.owner.email).to eq('dev-multi-fd@yopmail.com')
       expect(grants.active.map { |grant| [grant.data_provider.slug, grant.action] }).to eq([%w[dinum submission]])
       expect(grants.where.not(revoked_at: nil).map { |grant| [grant.data_provider.slug, grant.action] }).to eq([%w[cnam validation]])
-      expect(application.scopes.to_a).to match_array(%w[public read_authorizations submit_authorizations])
+      expect(application.scopes.to_a).to match_array(%w[public read_authorizations write_authorizations read_webhooks submit_authorizations])
     end
 
     describe 'test accounts with roles only' do
