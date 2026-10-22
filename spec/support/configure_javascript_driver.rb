@@ -27,6 +27,29 @@ remote_options = remote_chrome ? { ws_url: REMOTE_CHROME_URL } : {}
 
 inspector = ENV['INSPECTOR'] == 'true'
 
+class IsolatedCupriteBrowser < Capybara::Cuprite::Browser
+  def default_context
+    @default_context ||= contexts.create
+  end
+
+  def reset
+    super
+  ensure
+    @default_context = nil
+  end
+
+  def quit
+    super
+    @default_context = nil
+  end
+end
+
+class IsolatedCupriteDriver < Capybara::Cuprite::Driver
+  def browser
+    @browser ||= IsolatedCupriteBrowser.new(@options)
+  end
+end
+
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
@@ -38,7 +61,7 @@ Capybara.register_driver(:cuprite) do |app|
     opts['no-sandbox'] = nil if remote_chrome
   end
 
-  Capybara::Cuprite::Driver.new(
+  IsolatedCupriteDriver.new(
     app,
     browser_options:,
     inspector:,
