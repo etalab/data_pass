@@ -25,7 +25,7 @@
 # Les seeds ne créent ni nouvelle soumission avec changements ni `admin_change` : les scénarios
 # appliquent `DiffPresenter` à la demande « Référence — Validée » du compte
 # `dem-commune@yopmail.com`, avec un `diff` construit sur ses vraies valeurs.
-class DiffListComponentPreview < ApplicationPreview
+class Atoms::DiffListComponentPreview < ApplicationPreview
   # @label 1. Correction d’un champ
   #
   # Un seul champ modifié, avec son ancienne et sa nouvelle valeur : forme d’une correction par un
@@ -53,7 +53,7 @@ class DiffListComponentPreview < ApplicationPreview
   private
 
   def render_diff(diff)
-    render DiffListComponent.new(entries: DiffPresenter.new(diff, authorization_request).entries)
+    render Atoms::DiffListComponent.new(entries: DiffPresenter.new(diff, authorization_request).entries)
   end
 
   def authorization_request

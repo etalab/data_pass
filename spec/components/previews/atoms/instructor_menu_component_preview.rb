@@ -20,7 +20,7 @@
 #
 # Le composant ne rend que les éléments `li` : l’aperçu les place dans l’enveloppe `nav` et `ul` du
 # partiel, sans laquelle le HTML serait invalide.
-class InstructorMenuComponentPreview < ApplicationPreview
+class Atoms::InstructorMenuComponentPreview < ApplicationPreview
   # @label 1. Menu complet
   #
   # Toutes les entrées, dans l’ordre réel : vue d’une personne manager et lectrice, instructrice
@@ -46,7 +46,7 @@ class InstructorMenuComponentPreview < ApplicationPreview
 
   def render_in_navigation(**flags)
     render_with_template(
-      template: 'instructor_menu_component_preview/in_navigation',
+      template: 'atoms/instructor_menu_component_preview/in_navigation',
       locals: { flags: }
     )
   end
