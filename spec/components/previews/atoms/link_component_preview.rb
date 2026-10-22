@@ -12,7 +12,7 @@
 # **Quand** : l’événement est une validation (`approve`) ou une création automatique d’habilitation
 # (`auto_generate`), condition portée par `HistoricalAuthorizationRequestEventComponent#external_link?`.
 # Le lien mène à l’habilitation produite par cet événement.
-class LinkComponentPreview < ApplicationPreview
+class Atoms::LinkComponentPreview < ApplicationPreview
   # @label Lien vers l’habilitation d’un événement de validation
   #
   # L’usage réel : le texte de l’événement `approve`, avec le nom du type d’habilitation et son
@@ -20,7 +20,7 @@ class LinkComponentPreview < ApplicationPreview
   #
   # **Où** : historique d’une demande, côté demandeur comme côté instruction.
   def default
-    render LinkComponent.new(
+    render Atoms::LinkComponent.new(
       text: approve_event_link_text,
       path: authorization_path(authorization)
     )
