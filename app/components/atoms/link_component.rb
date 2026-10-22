@@ -1,4 +1,4 @@
-class LinkComponent < ApplicationComponent
+class Atoms::LinkComponent < ApplicationComponent
   def initialize(text:, path:, **options)
     @text = text
     @path = path
