@@ -1,18 +1,20 @@
 class Admin::UserRightsController < AdminController
   before_action :build_authority
   before_action :authorize_user_rights!, only: %i[index new create]
-  before_action :set_target_user, only: %i[edit update destroy confirm_destroy]
+  before_action :set_target_user, only: %i[edit update destroy confirm_destroy droits]
 
   def index
-    search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:)
+    search = Instruction::UserRightsSearch.new(scope: managed_users_scope, params:, authority: @authority)
     @search_engine = search.engine
     @search_term = search.term
-    @users = search.results.page(params[:page]).per(50)
+    @role_filter = search.role_type
+    @droit_filter = search.droit
+    @users = search.results.page(params[:page]).per(10)
     render template: 'instruction/user_rights/index'
   end
 
   def new
-    @form = Instruction::UserRightForm.new(authority: @authority, rights: [blank_right])
+    @form = Instruction::UserRightForm.new(authority: @authority, email: params[:email], rights: [blank_right])
     render template: 'instruction/user_rights/new'
   end
 
@@ -37,6 +39,11 @@ class Admin::UserRightsController < AdminController
 
     success_message(title: t('instruction.user_rights.update.success', email: @target_user.email))
     redirect_to admin_user_rights_path
+  end
+
+  def droits
+    @rights_by_definition = @target_user.rights_by_definition
+    render partial: 'instruction/user_rights/droits', layout: false
   end
 
   def confirm_destroy
@@ -71,8 +78,7 @@ class Admin::UserRightsController < AdminController
   end
 
   def managed_users_scope
-    User.with_any_role_on(@authority.managed_definitions.map(&:id))
-      .or(User.with_role_matching(['admin']))
+    User.includes(:organizations)
   end
 
   def authorize_user_rights!
