@@ -197,9 +197,9 @@ GEM
       cucumber (>= 7, < 12)
       railties (>= 6.1, < 9)
     cucumber-tag-expressions (8.1.0)
-    cuprite (0.17)
+    cuprite (0.19)
       capybara (~> 3.0)
-      ferrum (~> 0.17.0)
+      ferrum (~> 0.19.1)
     database_cleaner-active_record (2.2.2)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
@@ -259,11 +259,10 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
-    ferrum (0.17.1)
+    ferrum (0.19.1)
       addressable (~> 2.5)
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
-      webrick (~> 1.7)
       websocket-driver (~> 0.7)
     ffi (1.17.4-aarch64-linux-gnu)
     ffi (1.17.4-arm64-darwin)
@@ -766,7 +765,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webrick (1.9.1)
     websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
@@ -821,7 +819,7 @@ DEPENDENCIES
   faraday-multipart
   faraday-net_http
   faraday-retry
-  ferrum (< 0.18)
+  ferrum (>= 0.19.1)
   foreman
   friendly_id (~> 5.7.0)
   gaffe
