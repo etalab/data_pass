@@ -241,6 +241,10 @@ Rails.application.routes.draw do
       get '/me', to: 'credentials#me'
 
       resources :authorization_requests, path: 'demandes', only: %i[index show create update] do
+        member do
+          post :validate, path: 'valider'
+        end
+
         resources :authorization_request_events, only: [:index], path: 'events', as: :events
       end
 
