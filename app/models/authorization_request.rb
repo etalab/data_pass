@@ -211,6 +211,13 @@ class AuthorizationRequest < ApplicationRecord
     validate :all_terms_accepted
   end
 
+  def required_consents
+    consents = []
+    consents << :terms_of_service_accepted if cgu_required?
+    consents << :data_protection_officer_informed unless skip_data_protection_officer_informed_check_box?
+    consents + extra_checkboxes.reject { |checkbox| skip_extra_checkbox?(checkbox) }
+  end
+
   def skip_data_protection_officer_informed_check_box?
     self.class.contacts.none? { |c| c.type == :delegue_protection_donnees }
   end
