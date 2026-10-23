@@ -197,8 +197,8 @@ RSpec.describe ApproveAuthorizationRequest do
           expect(text_body).to match('espace.partenaires.franceconnect.gouv.fr')
         end
 
-        it 'does not deliver an HTML part when only the text view is customised' do
-          expect(delivered_mail.html_part).to be_nil
+        it 'derives the HTML part from the custom text view' do
+          expect(delivered_mail.html_part.body.decoded).to match('espace.partenaires.franceconnect.gouv.fr')
         end
       end
     end

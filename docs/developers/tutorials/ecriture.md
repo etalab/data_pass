@@ -5,7 +5,7 @@ Ce tutoriel couvre la **création** et la **mise à jour** de demandes d'habilit
 ## Prérequis
 
 - Avoir lu [le tutoriel lecture](/developpeurs/tutoriels/lecture) pour obtenir un token OAuth2.
-- Avoir le rôle **« développeur »** pour le type d'habilitation visé. Sans ce rôle, les endpoints d'écriture renvoient `403 Forbidden`.
+- Avoir le rôle **« développeur »** pour le formulaire visé. Sans ce rôle, les endpoints d'écriture renvoient `403 Forbidden`.
 - Demander le scope `write_authorizations` lors de la requête `/oauth/token` (en plus de `read_authorizations` si vous souhaitez aussi lire).
 
 ```ruby
@@ -143,10 +143,10 @@ demande = response.json()
 
 Ces deux clés sont mutuellement exclusives :
 
-- **`type`** (recommandé par défaut) : identifiant du type d'habilitation, avec underscores (ex. `api_entreprise`, `api_impot_particulier`). Le formulaire par défaut du type est utilisé.
-- **`form_uid`** : identifiant d'un formulaire spécifique, avec tirets (ex. `api-entreprise-socle-de-base`). À utiliser uniquement si vous ciblez un cas d'usage précis avec un formulaire distinct du formulaire par défaut.
+- **`type`** (recommandé par défaut) : identifiant du formulaire, avec underscores (ex. `api_entreprise`, `api_impot_particulier`). Le cas d’usage par défaut du formulaire est utilisé.
+- **`form_uid`** : identifiant d'un cas d’usage spécifique, avec tirets (ex. `api-entreprise-socle-de-base`). À utiliser uniquement si vous ciblez un cas d'usage précis avec un formulaire distinct du formulaire par défaut.
 
-La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeurs/documentation) via `GET /definitions/{id}` (chaque définition expose ses formulaires).
+La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeurs/documentation) via `GET /definitions/{id}` (chaque formulaire expose ses cas d’usage).
 
 ### Réponses possibles
 
@@ -186,7 +186,7 @@ Voir la [spec OpenAPI de `POST /demandes`](/developpeurs/documentation) pour la 
 
 - Le champ `applicant.email` identifie le demandeur : s'il n'existe pas, il est créé.
 - Le champ `organization.siret` identifie l'organisation : si elle n'existe pas, elle est créée et rafraîchie depuis l'INSEE de façon asynchrone.
-- Fournissez soit `type` (type d'habilitation, formulaire par défaut) soit `form_uid` (identifiant d'un formulaire spécifique).
+- Fournissez soit `type` (formulaire, cas d’usage par défaut) soit `form_uid` (identifiant d'un cas d’usage spécifique).
 - Les demandes créées par l'API génèrent un événement `create_by_api` (utile pour filtrer vos demandes dans les webhooks).
 
 ## Cas d'usage : mise à jour programmée (CRM → DataPass)
