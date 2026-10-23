@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   helper ActiveLinks
 
-  helper_method :namespace?, :displayed_on_a_public_page?, :impersonating?
+  helper_method :namespace?, :displayed_on_a_public_page?, :search_engines_indexing_forbidden?, :impersonating?
 
   rescue_from BannedUserError, with: :reject_banned_user
 
@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
   end
 
   def displayed_on_a_public_page?
+    false
+  end
+
+  def search_engines_indexing_forbidden?
     false
   end
 
