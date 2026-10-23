@@ -8,7 +8,7 @@
     <nav class="fr-nav" id="navigation-header-menu" aria-label="Menu principal">
       <ul class="fr-nav__list">
         <% if namespace?(:instruction) %>
-          <%= render InstructorMenuComponent.new(
+          <%= render Atoms::InstructorMenuComponent.new(
             show_drafts: policy([:instruction, :instructor_draft_request]).enabled?,
             show_templates: policy([:instruction, :message_template]).index?,
             show_user_rights: policy([:instruction, :user_right]).index?,

@@ -1,4 +1,4 @@
-class DiffListComponent < ApplicationComponent
+class Atoms::DiffListComponent < ApplicationComponent
   attr_reader :entries
 
   def initialize(entries:)

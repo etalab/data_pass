@@ -1,4 +1,4 @@
-RSpec.describe DiffListComponent, type: :component do
+RSpec.describe Atoms::DiffListComponent, type: :component do
   describe '#call' do
     context 'with entries' do
       let(:entries) { ['Le champ X a changé', 'Le champ Y a changé'] }
