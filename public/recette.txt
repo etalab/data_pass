@@ -1,0 +1,7 @@
+Recette sandbox : recette/2026-10-23
+Base : develop @ 8fbe341de
+
+2026-10-23 18:24 — construction
+  DPP-155    #1812   c8b3fff21  feature/dpp-155-us-demander-le-role-dadministrateur-resana-via-un-formulaire
+  DPP-43     #1815   3870af9c5  feature/dpp-43-us-harmoniser-les-termes-demande-habilitation-dans-les
+  DPP-174    #1830   fa9b928ab  feature/dpp-174-demande-externe-modification-du-formulaire-pre-rempli
