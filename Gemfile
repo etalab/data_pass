@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '4.0.1'
+ruby '4.0.8'
 
 gem 'active_hash'
 gem 'active_model_serializers', '~> 0.10.16'
