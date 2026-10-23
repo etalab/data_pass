@@ -8,6 +8,7 @@ class ClaimInstructorDraftRequest < ApplicationOrganizer
 
   organize EnsureInstructorDraftNotClaimed,
     EnsureUserIsOrganizationMember,
+    EnsureInstructorDraftCanBeClaimed,
     CreateAuthorizationRequestFromInstructorDraft,
     CreateAuthorizationRequestEventModel,
     CopyDocumentsFromInstructorDraft,

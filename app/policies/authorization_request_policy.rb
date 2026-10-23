@@ -1,6 +1,14 @@
 class AuthorizationRequestPolicy < ApplicationPolicy
   include CommonAuthorizationModelsPolicies
 
+  def new?
+    creation_rules.access_violation.nil?
+  end
+
+  def create?
+    creation_rules.creation_violation.nil?
+  end
+
   def show?
     same_user_and_organization? &&
       record.draft?
@@ -20,7 +28,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def update?
     same_user_and_organization? &&
-      record.filling?
+      record.editable_by_applicant?
   end
 
   def submit?
@@ -131,10 +139,6 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.draft?
   end
 
-  def authorization_request_class
-    record.to_s
-  end
-
   def authorization_definition
     record.definition
   end
@@ -144,6 +148,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   private
+
+  def creation_rules
+    @creation_rules ||= AuthorizationRequestCreationRules.for_request_class(record, organization: current_organization, applicant: user)
+  end
 
   def changed_since_latest_approval?
     ReopeningChangesChecker.new(original_record).changed?

@@ -24,6 +24,7 @@
 * [Synchronisation DataGouv — habilitations](./technique/datagouv-habilitations-sync.md)
 * [Données géographiques (geo.api.gouv.fr)](./technique/geo_data.md)
 * [Utiliser notre API](./technique/api.md)
+* [Droits API par fournisseur de données (soumission, validation)](./technique/droits_api.md)
 * [Pré-remplissage d'une demande via query params](./technique/pre_remplissage_query_params.md)
 * [Migration de l'ancienne stack (v1 -> v2)](./../app/migration/)
 

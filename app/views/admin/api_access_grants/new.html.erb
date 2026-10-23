@@ -1,0 +1,28 @@
+<% content_for(:admin_page_title, t('admin.api_access_grants.new.title')) %>
+<div class="fr-container fr-mt-5w">
+  <div class="fr-grid-row">
+    <div class="fr-col-md-8">
+      <%= form_with model: @grant, url: admin_api_access_grants_path, builder: DsfrFormBuilder, data: { controller: 'api-access-provider-filter' } do |f| %>
+        <%= f.dsfr_select :oauth_application_id,
+            @oauth_applications.map { |application| ["#{application.name} (#{application.owner&.email})", application.id] },
+            include_blank: t('admin.api_access_grants.new.blank'),
+            required: true,
+            input_options: { data: { api_access_provider_filter_target: 'application', action: 'change->api-access-provider-filter#filter' } } %>
+        <%= f.dsfr_select :data_provider_id,
+            @data_providers.map { |data_provider| [data_provider.name, data_provider.id, { data: { application_ids: @covered_application_ids_by_data_provider.fetch(data_provider.id).to_json } }] },
+            include_blank: t('admin.api_access_grants.new.blank'),
+            required: true,
+            input_options: { data: { api_access_provider_filter_target: 'dataProvider' } } %>
+        <%= f.dsfr_select :action,
+            APIAccessGrant.actions.keys.map { |action| [t("admin.api_access_grants.index.actions.#{action}"), action] },
+            include_blank: t('admin.api_access_grants.new.blank'),
+            required: true %>
+        <%= f.dsfr_text_area :grant_reason, required: true, rows: 4 %>
+        <div class="fr-btns-group">
+          <%= f.submit t('admin.api_access_grants.new.cta'), class: 'fr-btn' %>
+          <%= link_to t('admin.api_access_grants.new.cancel'), admin_api_access_grants_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

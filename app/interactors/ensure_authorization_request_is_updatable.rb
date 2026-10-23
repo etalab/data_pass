@@ -1,6 +1,6 @@
 class EnsureAuthorizationRequestIsUpdatable < ApplicationInteractor
   def call
-    return unless context.authorization_request.in_terminal_state?
+    return if context.authorization_request.editable_by_applicant?
 
     fail_with_error(:dead_end_state)
   end

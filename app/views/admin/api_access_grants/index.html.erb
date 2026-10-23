@@ -1,0 +1,58 @@
+<% set_title! t('.title') %>
+<%= content_for(:header_action) do %>
+  <%= link_to t('.new'), new_admin_api_access_grant_path, class: %w[fr-btn fr-btn--icon-left fr-icon-add-circle-line] %>
+<% end %>
+
+<div class="fr-table fr-table--bordered">
+  <div class="fr-table__container">
+    <div class="fr-table__content">
+      <table>
+        <caption class="fr-sr-only"><%= t('.title') %></caption>
+        <thead>
+          <tr>
+            <% %w[application data_provider action granted status actions].each do |attr| %>
+              <th scope="col"><%= t(".table.#{attr}") %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @grants.empty? %>
+            <tr>
+              <td colspan="6"><%= t('.empty') %></td>
+            </tr>
+          <% else %>
+            <% @grants.each do |grant| %>
+              <tr>
+                <td><%= grant.oauth_application_name %></td>
+                <td><%= grant.data_provider.name %></td>
+                <td><%= t(".actions.#{grant.action}") %></td>
+                <td>
+                  <p class="fr-mb-0"><%= t('.granted_by', email: grant.granted_by_email, date: l(grant.granted_at, format: :long)) %></p>
+                  <p class="fr-mb-0"><strong><%= t('.reason') %></strong> <%= grant.grant_reason %></p>
+                </td>
+                <td>
+                  <% if grant.active? %>
+                    <p class="fr-badge fr-badge--success fr-badge--sm"><%= t('.status.active') %></p>
+                  <% else %>
+                    <p class="fr-badge fr-badge--sm"><%= t('.status.revoked') %></p>
+                    <p class="fr-mb-0"><%= grant.revoked_automatically? ? t('.revoked_automatically', date: l(grant.revoked_at, format: :long)) : t('.revoked_by', email: grant.revoked_by_email, date: l(grant.revoked_at, format: :long)) %></p>
+                    <p class="fr-mb-0"><strong><%= t('.reason') %></strong> <%= grant.revoke_reason %></p>
+                  <% end %>
+                </td>
+                <td class="fr-cell--center">
+                  <% if grant.active? %>
+                    <%= link_to t('.revoke'), new_admin_api_access_grant_revocation_path(grant),
+                        class: %w[fr-btn fr-btn--sm fr-btn--tertiary],
+                        aria: { label: t('.revoke_aria', application: grant.oauth_application_name, data_provider: grant.data_provider.name, action: t(".actions.#{grant.action}")) } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= paginate @grants %>
