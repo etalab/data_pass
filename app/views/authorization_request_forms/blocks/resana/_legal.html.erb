@@ -1,0 +1,58 @@
+<%= f.info_for(:legal) %>
+
+<div class="legal-border-card">
+  <p class="fr-h5 legal-subtitle">
+    <%= f.wording_for('legal.nature.title') %>
+  </p>
+
+  <div class="fr-fieldset__element">
+    <%=
+      f.dsfr_select :nature_juridique,
+        options_for_select(
+          AuthorizationRequest::Resana::NATURES_JURIDIQUES.map { |value| [f.wording_for("nature_juridique.values.#{value}"), value] },
+          selected: @authorization_request.nature_juridique
+        ),
+        required: true,
+        include_blank: f.wording_for('nature_juridique.prompt')
+    %>
+  </div>
+</div>
+
+<div class="legal-border-card fr-mt-3w">
+  <p class="fr-h5 legal-subtitle">
+    <%= f.wording_for('legal.organisations.title') %>
+  </p>
+
+  <p>
+    <%= f.wording_for('legal.organisations.documentation_html').html_safe %>
+  </p>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_area :organisations_resana, required: true, rows: 4 %>
+  </div>
+</div>
+
+<div class="legal-border-card fr-mt-3w">
+  <fieldset class="fr-fieldset fr-mb-0">
+    <legend class="fr-fieldset__legend">
+      <span class="fr-h5 legal-subtitle"><%= f.wording_for('legal.habilitation.title') %></span>
+      <span class="fr-hint-text"><%= f.wording_for('legal.habilitation.hint') %></span>
+    </legend>
+
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_check_box :habilitation_certifiee, required: false %>
+    </div>
+
+    <div class="legal-bloc-separation fr-fieldset__element">
+      <div class="legal-line"></div>
+      <div class="legal-centered__element">
+        <p class="fr-h5"><%= f.wording_for('legal.habilitation.separator') %></p>
+      </div>
+      <div class="legal-line"></div>
+    </div>
+
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_file_field :lettre_habilitation_document, multiple: true, required: false %>
+    </div>
+  </fieldset>
+</div>
