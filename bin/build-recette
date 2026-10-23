@@ -5,13 +5,12 @@ set -euo pipefail
 repository=etalab/data_pass
 sandbox_url=https://sandbox.datapass.api.gouv.fr
 manifest=public/recette.txt
-seed_task=lib/tasks/db_seed.rake
 
 usage() {
   cat <<EOF
 Usage:
-  $0 new [--keep-data] [--no-push] <branche>...
-  $0 add [--keep-data] [--no-push] <branche-de-recette> <branche>...
+  $0 new [--no-push] <branche>...
+  $0 add [--no-push] <branche-de-recette> <branche>...
 
 Construit une branche de recette pour le sandbox, sans jamais réécrire de branche distante.
 
@@ -19,15 +18,14 @@ Construit une branche de recette pour le sandbox, sans jamais réécrire de bran
   add  fusionne des branches (nouvelles ou mises à jour) par-dessus une recette existante
 
 Options :
-  --keep-data  neutralise db_seed:sandbox : le déploiement conserve la base
-  --no-push    construit sans pousser et laisse une branche locale pour inspection
+  --no-push  construit sans pousser et laisse une branche locale pour inspection
 
 Seules les versions poussées sur origin sont fusionnées : le script s’arrête si une
 branche locale a des commits non poussés. Au premier conflit, rien n’est poussé.
 Le contenu de la recette est écrit dans $manifest, servi sur $sandbox_url/recette.txt.
 
 Exemples :
-  $0 new --keep-data feature/dpp-72-… feature/dpp-95-…
+  $0 new feature/dpp-72-… feature/dpp-95-…
   $0 add recette/2026-10-08 feature/dpp-99-…
 EOF
   exit 1
@@ -67,12 +65,10 @@ mode=${1:-}
 [ "$mode" = new ] || [ "$mode" = add ] || usage
 shift
 
-keep_data=false
 push=true
 positionals=()
 for argument in "$@"; do
   case "$argument" in
-    --keep-data) keep_data=true ;;
     --no-push) push=false ;;
     -*) usage ;;
     *) positionals+=("${argument#origin/}") ;;
@@ -136,21 +132,6 @@ for branch in "${branches[@]}"; do
   fi
 done
 
-if $keep_data; then
-  [ -f "$workdir/$seed_task" ] || fail "$seed_task introuvable, impossible de conserver la base"
-  cat >"$workdir/$seed_task" <<'RUBY'
-namespace :db_seed do
-  desc 'Seeds database in sandbox'
-
-  task sandbox: :environment do
-    puts '[db_seed:sandbox] ignoré : la base du sandbox est conservée pour la recette'
-  end
-end
-RUBY
-  wt add "$seed_task"
-  wt diff --cached --quiet || wt commit --quiet -m "Conserve la base du sandbox pendant la recette"
-fi
-
 [ "$mode" = new ] && action=construction || action=ajout
 [ -f "$workdir/$manifest" ] || {
   echo "Recette sandbox : $target"
@@ -158,7 +139,7 @@ fi
 } >"$workdir/$manifest"
 {
   echo
-  echo "$(date '+%F %H:%M') — $action$($keep_data && echo ', base conservée')"
+  echo "$(date '+%F %H:%M') — $action"
   for branch in "${branches[@]}"; do
     printf '  %-10s %-7s %s  %s\n' "$(ticket_of "$branch")" "$(pull_request_of "$branch")" \
       "$(git rev-parse --short "origin/$branch")" "$branch"

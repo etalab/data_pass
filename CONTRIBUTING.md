@@ -222,15 +222,20 @@ bin/build-recette add recette/2026-10-08 feature/dpp-56-…
 
 Chaque construction est une nouvelle branche : on ne réécrit jamais une
 branche de recette déjà poussée, donc jamais de push force. Pour retirer une
-branche d’une recette, on en reconstruit une nouvelle, en sachant que les
-migrations de la branche retirée restent appliquées sur la base de sandbox.
+branche d’une recette, on en reconstruit une nouvelle.
 
 On n’ouvre jamais de pull request sur cette branche et on ne la merge pas.
 
-Chaque déploiement relance les seeds de sandbox, qui vident la base : les
-données préparées pour la recette disparaissent. Si la recette dure plusieurs
-jours, on prévient avant de redéployer, ou on construit la recette avec
-`--keep-data`, qui désactive ce rechargement dans la branche de recette.
+Chaque déploiement sur sandbox recrée la base à partir de `db/schema.rb`
+(`db:schema:load`), puis recharge les seeds (`db_seed:sandbox`). Cela ne se
+règle pas depuis l’application : c’est le déploiement, géré par les ops, qui
+l’impose. En pratique :
+
+- les données préparées pour la recette disparaissent à chaque déploiement :
+  on les prépare après le dernier, et si la recette dure plusieurs jours, on
+  prévient avant de redéployer ;
+- les migrations ne sont jamais jouées sur sandbox : une migration de données
+  ne s’y recette pas.
 
 Avant de remplacer une recette en cours, on prévient la personne qui l’a
 construite.
