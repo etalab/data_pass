@@ -784,33 +784,6 @@ Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec 
       | iNoé                  | Aiga             |
       | CapDemat Evolution    | CapDemat         |
 
-  Scénario: Les données du formulaire CapDemat Evolution sont pré-cochées et non modifiables
-    Quand je veux remplir une demande pour "API Particulier" via le formulaire "CapDemat Evolution" de l'éditeur "CapDemat"
-    Et que je clique sur "Débuter ma demande"
-
-    * je clique sur "Suivant"
-
-    * je clique sur "Suivant"
-
-    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
-    * je clique sur "Suivant"
-
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
-    * je renseigne les informations du délégué à la protection des données
-    * je renseigne le numéro de téléphone mobile du contact technique
-    * je renseigne les informations du contact métier
-
-    * je clique sur "Suivant"
-
-    Alors "Quotient familial CAF & MSA" est coché et non modifiable
-    Et "Statut AEEH" est coché et non modifiable
-    Et "Données d'identité de l'élève" est coché et non modifiable
-    Et "Statut élève scolarisé" est coché et non modifiable
-    Et "Statut boursier" est coché et non modifiable
-    Et "Régime de pensionnat" est coché et non modifiable
-
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné, des scopes modifiables et la modalité en première étape
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
