@@ -244,6 +244,16 @@ Sachantque("je me connecte via ProConnect avec l'identité {string} sans double 
   )
 end
 
+Sachantque("ProConnect Identité renvoie l'organisation {string}") do |organization_name|
+  user = User.find_by(email: @current_user_email)
+
+  OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new(
+    provider: :mon_compte_pro,
+    uid: user.external_id,
+    info: attributes_for(:mon_compte_pro_payload, email: user.email, siret: organization_name_to_siret(organization_name))
+  )
+end
+
 Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l'organisation {string}") do |identity_provider_name, organization_name|
   @current_user_email = 'demandeur@gouv.fr'
 
