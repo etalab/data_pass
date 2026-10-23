@@ -1,0 +1,171 @@
+#!/bin/bash
+
+set -euo pipefail
+
+repository=etalab/data_pass
+sandbox_url=https://sandbox.datapass.api.gouv.fr
+manifest=public/recette.txt
+
+usage() {
+  cat <<EOF
+Usage:
+  $0 new [--no-push] <branche>...
+  $0 add [--no-push] <branche-de-recette> <branche>...
+
+Construit une branche de recette pour le sandbox, sans jamais réécrire de branche distante.
+
+  new  crée recette/AAAA-MM-JJ depuis origin/develop et y fusionne les branches dans l’ordre donné
+  add  fusionne des branches (nouvelles ou mises à jour) par-dessus une recette existante
+
+Options :
+  --no-push  construit sans pousser et laisse une branche locale pour inspection
+
+Seules les versions poussées sur origin sont fusionnées : le script s’arrête si une
+branche locale a des commits non poussés. Au premier conflit, rien n’est poussé.
+Le contenu de la recette est écrit dans $manifest, servi sur $sandbox_url/recette.txt.
+
+Exemples :
+  $0 new feature/dpp-72-… feature/dpp-95-…
+  $0 add recette/2026-10-08 feature/dpp-99-…
+EOF
+  exit 1
+}
+
+fail() {
+  echo "Erreur : $*" >&2
+  exit 1
+}
+
+ref_exists() {
+  git rev-parse -q --verify "$1" >/dev/null
+}
+
+next_recette_name() {
+  local name candidate index=2
+  name="recette/$(date +%F)"
+  candidate=$name
+  while ref_exists "refs/remotes/origin/$candidate" || ref_exists "refs/heads/$candidate"; do
+    candidate="$name-$index"
+    index=$((index + 1))
+  done
+  echo "$candidate"
+}
+
+ticket_of() {
+  echo "$1" | grep -o -i -E 'dpp?-[0-9]+' | head -1 | tr '[:lower:]' '[:upper:]' || true
+}
+
+pull_request_of() {
+  command -v gh >/dev/null || return 0
+  gh pr list --repo "$repository" --head "$1" --state all --json number --jq '.[0].number // empty' 2>/dev/null |
+    sed 's/^/#/' || true
+}
+
+mode=${1:-}
+[ "$mode" = new ] || [ "$mode" = add ] || usage
+shift
+
+push=true
+positionals=()
+for argument in "$@"; do
+  case "$argument" in
+    --no-push) push=false ;;
+    -*) usage ;;
+    *) positionals+=("${argument#origin/}") ;;
+  esac
+done
+
+if [ "$mode" = add ]; then
+  [ ${#positionals[@]} -ge 2 ] || usage
+  target=${positionals[0]}
+  branches=("${positionals[@]:1}")
+else
+  [ ${#positionals[@]} -ge 1 ] || usage
+  branches=("${positionals[@]}")
+fi
+
+echo "--- Récupération d’origin"
+git fetch origin --prune --quiet
+
+unpushed=()
+for branch in "${branches[@]}"; do
+  ref_exists "refs/remotes/origin/$branch" || fail "origin/$branch introuvable (branche jamais poussée ?)"
+  if ref_exists "refs/heads/$branch"; then
+    ahead=$(git rev-list --count "origin/$branch..refs/heads/$branch")
+    [ "$ahead" -eq 0 ] || unpushed+=("  $branch : $ahead commit(s) local(aux) non poussé(s)")
+  fi
+done
+if [ ${#unpushed[@]} -gt 0 ]; then
+  printf '%s\n' "${unpushed[@]}" >&2
+  fail "pousser ces branches d’abord : la recette ne prend que ce qui est sur origin."
+fi
+
+if [ "$mode" = add ]; then
+  ref_exists "refs/remotes/origin/$target" || fail "origin/$target introuvable"
+  base="origin/$target"
+else
+  target=$(next_recette_name)
+  base=origin/develop
+fi
+
+workdir=$(mktemp -d)
+cleanup() {
+  git worktree remove --force "$workdir" 2>/dev/null || true
+  rm -rf "$workdir"
+}
+trap cleanup EXIT
+
+wt() {
+  git -C "$workdir" "$@"
+}
+
+echo "--- Construction de $target depuis $base"
+git worktree add --quiet --detach "$workdir" "$base"
+
+for branch in "${branches[@]}"; do
+  echo "    fusion de $branch"
+  if ! output=$(wt merge --no-edit -m "Fusionne $branch dans $target" "origin/$branch" 2>&1); then
+    conflicts=$(wt diff --name-only --diff-filter=U)
+    echo "${conflicts:-$output}" | sed 's/^/      /' >&2
+    wt merge --abort 2>/dev/null || true
+    fail "conflit en fusionnant $branch. Rien n’a été poussé."
+  fi
+done
+
+[ "$mode" = new ] && action=construction || action=ajout
+[ -f "$workdir/$manifest" ] || {
+  echo "Recette sandbox : $target"
+  echo "Base : develop @ $(git rev-parse --short origin/develop)"
+} >"$workdir/$manifest"
+{
+  echo
+  echo "$(date '+%F %H:%M') — $action"
+  for branch in "${branches[@]}"; do
+    printf '  %-10s %-7s %s  %s\n' "$(ticket_of "$branch")" "$(pull_request_of "$branch")" \
+      "$(git rev-parse --short "origin/$branch")" "$branch"
+  done
+} >>"$workdir/$manifest"
+wt add "$manifest"
+wt commit --quiet -m "Décrit le contenu de la recette"
+
+sha=$(wt rev-parse HEAD)
+if $push; then
+  echo "--- Push de $target (sans force)"
+  wt push --quiet origin "HEAD:refs/heads/$target" ||
+    fail "push refusé : origin/$target a peut-être bougé entre-temps, relancer le script."
+else
+  [ "$mode" = new ] && local_branch=$target || local_branch="$target-apercu-$(date +%H%M%S)"
+  git branch "$local_branch" "$sha"
+fi
+
+echo
+cat "$workdir/$manifest"
+echo
+echo "Branche : $target"
+echo "SHA     : $sha"
+if $push; then
+  echo "Déployer : gh workflow run https-deploy-sandbox.yaml --repo $repository --ref $target"
+  echo "Contenu  : $sandbox_url/recette.txt (après déploiement)"
+else
+  echo "Rien n’a été poussé. Branche locale pour inspection : $local_branch"
+fi
