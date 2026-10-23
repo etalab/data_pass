@@ -26,13 +26,15 @@ RSpec.describe InstructorDraftRequestMailer do
     end
 
     it 'includes the claim link in the body' do
-      expect(mail.body.encoded).to include(
+      expect(decoded_text_body(mail)).to include(
         claim_instructor_draft_request_path(instructor_draft_request.public_id)
       )
     end
 
     it 'includes the project name in the body' do
-      expect(mail.body.encoded).to include(instructor_draft_request.project_name)
+      expect(decoded_text_body(mail)).to include(instructor_draft_request.project_name)
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end

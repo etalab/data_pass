@@ -56,7 +56,7 @@ fr:
       revoked: "Révoquée"
       obsolete: "Obsolète"
       draft: Brouillon
-      changes_requested: A modifier
+      changes_requested: Modifications demandées
       submitted: En cours d'instruction
       validated: Validée
       refused: Refusée
@@ -299,8 +299,8 @@ fr:
         reopen_date: Fait le
         show_cta: Consulter
       stage_footer:
-        next_stage_title: Votre demande d’accès au bac à sable a été validée !
-        next_stage_reopening_title: Votre demande de réouverture d’accès au bac à sable a été validée !
+        next_stage_title: Votre habilitation bac à sable est active !
+        next_stage_reopening_title: Votre habilitation bac à sable a été mise à jour !
         next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         next_stage_reopening_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         start_next_stage_cta: Démarrer ma demande d’habilitation en production
@@ -336,19 +336,19 @@ fr:
     index:
       title: Historique des habilitations
       show_cta: Consulter
-      validated_by: Habilitation %{type} validée par <strong>%{email}</strong>
+      validated_by: Habilitation %{type} délivrée par <strong>%{email}</strong>
       auto_generated: Habilitation %{type} automatiquement délivrée
     instruction_header_info:
-      with_form_and_instructor_html: "Cette habilitation a été créée par la %{request_link} via le formulaire « %{form_name} » et a été validée par <strong>%{email}</strong>"
-      with_form_html: "Cette habilitation a été créée par la %{request_link} via le formulaire « %{form_name} »"
-      without_form_and_instructor_html: "Cette habilitation est liée à la %{request_link} et a été validée par <strong>%{email}</strong>"
+      with_form_and_instructor_html: "Cette habilitation a été créée par la %{request_link} via le cas d’usage « %{form_name} » et a été délivrée par <strong>%{email}</strong>"
+      with_form_html: "Cette habilitation a été créée par la %{request_link} via le cas d’usage « %{form_name} »"
+      without_form_and_instructor_html: "Cette habilitation est liée à la %{request_link} et a été délivrée par <strong>%{email}</strong>"
       without_form_html: "Cette habilitation est liée à la %{request_link}"
-      auto_generated_with_form_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le formulaire « %{form_name} » et a été validée par <strong>%{email}</strong>"
-      auto_generated_with_form_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le formulaire « %{form_name} »"
-      auto_generated_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} et a été validée par <strong>%{email}</strong>"
+      auto_generated_with_form_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le cas d’usage « %{form_name} » et a été délivrée par <strong>%{email}</strong>"
+      auto_generated_with_form_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le cas d’usage « %{form_name} »"
+      auto_generated_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} et a été délivrée par <strong>%{email}</strong>"
       auto_generated_html: "Cette habilitation a été automatiquement délivrée par la %{request_link}"
     card:
-      validated_at: Validée le %{date}
+      validated_at: Délivrée le %{date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"
       current_user_is_applicant: "vous êtes le demandeur"
       applicant_request: "%{applicant_full_name} est le demandeur"
@@ -356,19 +356,19 @@ fr:
       access_link_cta: Récupérer mon accès
       reopen_cta: Mettre à jour
       title: Habilitation à %{definition_name}
-      description: Via le formulaire %{form_name}
+      description: Via le cas d’usage %{form_name}
 
   authorization_requests:
     card:
       created_at: Créée le %{created_date}
       created_and_updated_at: Créée le %{created_date} et mise à jour le %{updated_date}
-      reopened_at: Réouverte le %{reopened_date}
+      reopened_at: Mise à jour demandée le %{reopened_date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"
       current_user_is_applicant: "vous êtes le demandeur"
       applicant_request: "%{applicant_full_name} est le demandeur"
       show_cta: Consulter
       access_link_cta: Récupérer mon accès
-      description: Demande d'habilitation à %{definition_name} via le formulaire %{form_name}
+      description: Demande d'habilitation à %{definition_name} via le cas d’usage %{form_name}
     unauthenticated_start:
       sub_title:
         service: |
@@ -392,13 +392,13 @@ fr:
       default:
         title: &start_new_habilitation_title "Demander une habilitation à : %{authorization_name}"
         multiple_forms:
-          description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+          description: "Il existe plusieurs cas d’usage pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre projet :"
         use_case:
-          title: Des formulaires sont disponibles pour vous aider
+          title: Des cas d’usage sont disponibles pour vous aider
           description: Nous vous proposons un ou des modèles(s) correspondant à un cas d'usage similaire au votre, en choisissant un modèle, certaines parties du formulaire peuvent être pré-remplies.
         no_france_connect_callout:
           title: Vous ne possédez pas d'habilitation à FranceConnect
-          content: Pour pouvoir soumettre une demande « %{definition_name} » vous devez posséder une habilitation à FranceConnect validée. Vous pouvez en demander une en cliquant sur le lien ci-dessous
+          content: Pour pouvoir soumettre une demande « %{definition_name} » vous devez posséder une habilitation FranceConnect active. Vous pouvez en demander une en cliquant sur le lien ci-dessous
           link: Demander une habilitation FranceConnect
 
       step1:
@@ -415,20 +415,20 @@ fr:
         no_editor: Aucun de ces éditeurs
       step3:
         single_use_case_intro_html:
-          Il n’existe qu’un seul formulaire pour obtenir une habilitation à
+          Il n’existe qu’un seul cas d’usage pour obtenir une habilitation à
           %{name}, vous pouvez le remplir ci-dessous.
           <br/>
         use_case_intro_html:
-          Il existe plusieurs formulaires pour obtenir une habilitation à
-          %{name}, vos réponses ont permis de réduire le choix aux formulaires
+          Il existe plusieurs cas d’usage pour obtenir une habilitation à
+          %{name}, vos réponses ont permis de réduire le choix aux cas d’usage
           ci-dessous.
           <br/>
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usage</a>.
         use_case_intro_without_use_case_url_html:
-          Il existe plusieurs formulaires pour obtenir une habilitation à
-          %{name}, vos réponses ont permis de réduire le choix aux formulaires
+          Il existe plusieurs cas d’usage pour obtenir une habilitation à
+          %{name}, vos réponses ont permis de réduire le choix aux cas d’usage
           ci-dessous.
           <br/>
           <br/>
@@ -444,12 +444,12 @@ fr:
             - label: Non, nous n’avons pas d’éditeur qui a finalisé et validé ses développements en bac à sable
               value: false
         choose_form_title:
-          sandbox: "Choisissez le formulaire d’accès en bac à sable qui correspond le mieux à votre cas d’usage :"
-          editor: "Choisissez le formulaire d’accès en production qui correspond le mieux à votre cas d’usage :"
+          sandbox: "Choisissez le cas d’usage d’accès en bac à sable qui correspond le mieux à votre projet :"
+          editor: "Choisissez le cas d’usage d’accès en production qui correspond le mieux à votre projet :"
       api_sfip:
         page_title: "Choix du type de données - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
         data_choice:
           title: "Quelles sont les données dont vous avez besoin ?"
           options:
@@ -457,15 +457,15 @@ fr:
             r2p: "Les données relatives à la recherche de personnes physiques (API SFiP R2P)"
       api_sfip_r2p:
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
       api_infinoe:
         page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
       api_ficoba:
         page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le cas d’usage correspondant le mieux à votre projet :"
       api_droits_cnam:
         page_title: "Habilitation France Connect manquante - %{authorization_name}"
       api_r2p:
@@ -487,16 +487,16 @@ fr:
 
     show:
       refused:
-        title: Votre demande d'habilitation a été refusée
+        title: Votre demande %{formatted_id} a été refusée
         description: &authorization_request_refused_description "La raison évoquée par l'équipe d'instruction est la suivante :"
       reopening_refused:
-        title: Votre demande de mise à jour a été refusée
+        title: Votre demande de mise à jour %{formatted_id} a été refusée
         description: *authorization_request_refused_description
       changes_requested:
-        title: Votre demande d'habilitation nécessite des modifications avant d'être validée
+        title: Votre demande %{formatted_id} nécessite des modifications avant d’être validée
         description: *authorization_request_refused_description
       reopening_changes_requested:
-        title: Votre demande de mise à jour nécessite des modifications avant d'être validée
+        title: Votre demande de mise à jour %{formatted_id} nécessite des modifications avant d’être validée
         description: *authorization_request_refused_description
       access_callout:
         title: Votre accès est disponible
@@ -514,7 +514,7 @@ fr:
         through_saas: "Via %{service_provider_name}"
       blocks:
         scopes:
-          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
+          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le cas d’usage sélectionné :"
     bulk_update_modal:
       title: Une mise à jour a été effectuée sur votre demande d'habilitation
       description: |
@@ -531,15 +531,15 @@ fr:
       text: Vous avez été référencé comme %{contact_types}.
 
   authorization_request_forms:
-    form_not_found: Le formulaire demandé n'existe pas
+    form_not_found: Le cas d’usage demandé n'existe pas
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
       organization:
         start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a>.
-        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
+        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le cas d’usage <strong>%{authorization_request_form_name}</strong>.
       intro:
-        title: Les objectifs de ce formulaire
+        title: Les objectifs de ce cas d’usage
       single_form:
         title: Les étapes de votre formulaire
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
@@ -581,7 +581,7 @@ fr:
 
     submit:
       success:
-        title: La demande d'habilitation %{name} a été soumise avec succès
+        title: La demande %{name} a été soumise avec succès
       error:
         title: Nous n’avons pas pu transmettre votre demande
         description: *common_authorization_requests_error_description
@@ -620,9 +620,9 @@ fr:
       save: Enregistrer les modifications
       start: Démarrer
       submit: Soumettre la demande d'habilitation
-      submit_reopening: Envoyer ma demande de modification
+      submit_reopening: Envoyer ma demande de mise à jour
       submit_reopening_disabled_tooltip: Vous devez effectuer à minima un changement si vous voulez soumettre cette demande
-      cancel_reopening: Annuler ma demande de modification
+      cancel_reopening: Annuler ma demande de mise à jour
       review: Continuer vers le résumé
       save_and_review: Enregistrer et continuer vers le résumé
       previous: Précédent
@@ -663,18 +663,18 @@ fr:
         reopening_error: *authorization_requests_update_reopening_error
   archive_authorization_requests:
     new:
-      title: Suppression de la demande d'habilitation %{authorization_request_name}
+      title: Suppression de la demande %{authorization_request_name}
       disclaimer: |
         <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous ne supprimez pas une demande légitime.
       disclaimer_next_stage:
         Cette demande d'autorisation est associée à au moins une demande précédente déjà validée, archiver cette demande archivera aussi toutes les demandes associées validées.
       cancel: Annuler
-      archive: Supprimer la demande d'habilitation
+      archive: Supprimer la demande
     create:
-      success: La demande d'habilitation %{name} a été supprimée avec succès
+      success: La demande %{name} a été supprimée avec succès
   reopen_authorizations:
     new:
-      title: Mettre à jour la demande d'habilitation %{authorization_name}
+      title: Mettre à jour l’habilitation %{authorization_name}
       disclaimer: |
         Si votre habilitation nécessite des modifications (changement de contacts, de documents), vous pouvez la mettre à jour en cliquant sur le bouton ci-dessous.
         <br />
@@ -693,44 +693,67 @@ fr:
         production: Mettre à jour l’habilitation de production
     create:
       error:
-        title: Une erreur est survenue lors de la réouverture de l’habilitation %{name}
+        title: Une erreur est survenue lors de la demande de mise à jour de l’habilitation %{name}
 
   transfer_authorization_requests:
     new_to_another:
-      title: Transférer ma demande d’habilitation
-      disclaimer: |
-        Vous êtes sur le point de transférer votre demande d’habilitation n°%{authorization_request_id} vers le compte d’un autre usager.
-        <br />
-        Une fois la demande envoyée, votre habilitation sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert vers votre compte.
+      title:
+        demande: Transférer ma demande
+        habilitation: Transférer mon habilitation
+      disclaimer:
+        demande: |
+          Vous êtes sur le point de transférer votre demande %{formatted_id} vers le compte d’un autre usager.
+          <br />
+          Une fois le transfert validé, votre demande sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert vers votre compte.
+        habilitation: |
+          Vous êtes sur le point de transférer votre habilitation n°%{formatted_id} vers le compte d’un autre usager.
+          <br />
+          Une fois le transfert validé, votre habilitation sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert vers votre compte.
       cancel: Annuler
       transfer: Valider le transfert
-      email_disclaimer: |
-        Pour que le transfert soit autorisé, il faut :
-        <p class="fr-info-text fr-mt-1w">Que l'utilisateur possède un compte sur DataPass</p>
-        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (« %{organization_name} », numéro de siret : %{organization_siret})</p>
+      email_disclaimer:
+        demande: |
+          Pour que le transfert soit autorisé, il faut :
+          <p class="fr-info-text fr-mt-1w">Que l’utilisateur possède un compte sur DataPass</p>
+          <p class="fr-info-text">Que l’utilisateur appartienne à la même organisation que la demande (« %{organization_name} », numéro de siret : %{organization_siret})</p>
+        habilitation: |
+          Pour que le transfert soit autorisé, il faut :
+          <p class="fr-info-text fr-mt-1w">Que l’utilisateur possède un compte sur DataPass</p>
+          <p class="fr-info-text">Que l’utilisateur appartienne à la même organisation que l’habilitation (« %{organization_name} », numéro de siret : %{organization_siret})</p>
       error:
         title: Transfert de la demande impossible
     create:
       to_me:
-        success: La demande d’habilitation %{name} a bien été transférée sur votre compte.
+        success:
+          demande: La demande %{name} a bien été transférée sur votre compte.
+          habilitation: L’habilitation %{name} a bien été transférée sur votre compte.
       to_another:
-        success: Votre demande d’habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
+        success:
+          demande: Votre demande %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
+          habilitation: Votre habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
         error:
           email_not_found: |
             Le destinataire ne possède pas de compte sur DataPass, il doit d'abord se connecter sur DataPass et sélectionner la même organisation « %{organization_name} » (numero de siret %{organization_siret}) que celle rattachée à cette demande.
             <br />
-            Une fois son compte créé, vous pourrez alors réaliser le transfert de votre habilitation.
+            Une fois son compte créé, vous pourrez alors réaliser le transfert.
           different_user: |
             Vous ne pouvez pas transférer cette demande à la même personne
           invalid_new_applicant: |
-            Le destinataire n'appartient pas à la même organisation « %{organization_name} » (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
+            Le destinataire n'appartient pas à la même organisation « %{organization_name} » (numéro de siret %{organization_siret}) que la demande. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
 
     new_to_me:
-      title: Transfert d’une demande d’habilitation
-      disclaimer: |
-        Vous êtes sur le point de transférer la demande d’habilitation n°%{authorization_request_id} vers votre compte.
-        <br />
-        Une fois la demande envoyée, la demande d’habilitation sera associée à votre compte, vous pourrez toujours refaire un transfert vers un autre utilisateur.
+      title:
+        demande: Transfert d’une demande
+        habilitation: Transfert d’une habilitation
+      disclaimer:
+        demande: |
+          Vous êtes sur le point de transférer la demande %{formatted_id} vers votre compte.
+          <br />
+          Une fois le transfert validé, la demande sera associée à votre compte, vous pourrez toujours refaire un transfert vers un autre utilisateur.
+        habilitation: |
+          Vous êtes sur le point de transférer l’habilitation n°%{formatted_id} vers votre compte.
+          <br />
+          Une fois le transfert validé, l’habilitation sera associée à votre compte, vous pourrez toujours refaire un transfert vers un autre utilisateur.
       cancel: Annuler
       transfer: Valider le transfert vers mon compte
 
@@ -749,12 +772,12 @@ fr:
           disclaimer: |
             <strong>Cette action est irréversible</strong>.
         cancel: Annuler
-        cancel_reopening: Annuler ma demande de modification
+        cancel_reopening: Annuler ma demande de mise à jour
     create:
       reopening_success:
-        title: La réouverture de l'habilitation %{name} a été annulée.
+        title: La demande de mise à jour de l’habilitation %{name} a été annulée.
       success:
-        title: La réouverture de l'habilitation %{name} a été annulée.
+        title: La demande de mise à jour de l’habilitation %{name} a été annulée.
       error: Une erreur s'est produite, merci de contacter le support
 
   cancel_next_authorization_request_stage:
@@ -799,7 +822,7 @@ fr:
       description: Vous consultez des données antérieures à 2025. Une partie de ces données a été migrée depuis une ancienne version de l’application et peut présenter des anomalies, notamment sur les durées calculées.
     summary:
       submitted: Demandes soumises
-      validated: Demandes validées
+      validated: Habilitations délivrées
       refused: Demandes refusées
       reopenings_prefix: dont
       reopenings_suffix: demandes de mises à jour
@@ -812,10 +835,10 @@ fr:
     chart:
       aria_label: Graphique d’évolution des demandes en attente de réponse (description détaillée disponible ci-après)
       transcription_title: Évolution des demandes en attente de réponse
-      transcription_description: "Ce graphique présente l'évolution des demandes sur la période sélectionnée. Quatre séries sont représentées : les demandes soumises (barres bleues), les demandes validées (barres vertes empilées), les demandes refusées (barres rouges empilées) et les demandes en attente de réponse (ligne grise)."
+      transcription_description: "Ce graphique présente l'évolution des demandes sur la période sélectionnée. Quatre séries sont représentées : les demandes soumises (barres bleues), les habilitations délivrées (barres vertes empilées), les demandes refusées (barres rouges empilées) et les demandes en attente de réponse (ligne grise)."
       labels:
         submitted: Demandes soumises
-        validated: Demandes validées
+        validated: Habilitations délivrées
         refused: Demandes refusées
         pending: Demandes en attente de réponse
     transcription:
@@ -833,7 +856,7 @@ fr:
     new:
       title: "Transfert manuel requis"
       feature_unavailable: "La fonctionnalité de transfert automatique n'est pas disponible pour « %{definition_name} »."
-      transfer_instructions: "Pour transférer la demande d'habilitation n°%{authorization_request_id}, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge."
+      transfer_instructions: "Pour transférer la demande %{authorization_request_id}, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge."
       important_notice:
         title: "Important :"
         content: "La nouvelle personne doit s'être connectée au moins une fois sur DataPass avec l'organisation %{organization_name} (siret: %{siret}) pour que le transfert soit possible."
@@ -848,7 +871,7 @@ fr:
           title: Une erreur est survenue lors de la création de la demande d'habilitation
         not_same_user:
           title: Vous ne pouvez pas créer cette demande d'habilitation
-          description: Cette demande d'habilitation a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
+          description: Cette demande a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
         already_claimed:
           title: Vous ne pouvez pas créer cette demande d'habilitation
           description: Cette demande d'habilitation a déjà été créée par un autre usager.

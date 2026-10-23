@@ -15,7 +15,7 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Abstrac
     )
 
     if organizer.success?
-      success_message_for_authorization_request(@authorization_request, key: 'instruction.approve_authorization_requests.create')
+      success_message(title: approval_success_title(organizer))
 
       redirect_to instruction_dashboard_show_path(id: 'demandes'),
         status: :see_other
@@ -25,6 +25,16 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Abstrac
   end
 
   private
+
+  def approval_success_title(organizer)
+    outcome = organizer.authorization_request_notifier_params[:within_reopening] ? 'reopening_success' : 'success'
+
+    t(
+      "instruction.approve_authorization_requests.create.#{outcome}.title",
+      name: @authorization_request.name,
+      authorization_id: organizer.authorization.formatted_id
+    )
+  end
 
   def authorization_params
     params.fetch(:authorization, {}).permit(:message)
