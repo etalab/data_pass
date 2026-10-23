@@ -8,7 +8,4 @@ Before do
     body: { authorization_endpoint: 'https://test.proconnect.gouv.fr/authorize' }.to_json,
     headers: { 'Content-Type' => 'application/json' }
   )
-
-  OmniAuth::Strategies::Proconnect.instance_variable_set(:@discovered_configuration, nil)
-  OmniAuth::Strategies::Proconnect.instance_variable_set(:@authorization_endpoint, nil)
 end
