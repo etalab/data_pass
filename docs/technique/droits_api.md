@@ -74,7 +74,26 @@ La synchronisation supprime les scopes qui ne sont plus déclarés dans Doorkeep
 
 ## Options de contrat par FD
 
-`data_providers.api_contract_options` est une colonne `jsonb` (défaut `{}`), vide pour l’instant. Le contrat est unique par FD (« un contrat par FD ») ; DPP-148 la remplira, clés par type d’e-mail.
+`data_providers.api_contract_options` est une colonne `jsonb` (défaut `{}`). Le contrat est unique par FD (« un contrat par FD »). Il n’y a pas d’écran d’administration : un développeur le renseigne depuis la console.
+
+### Notifications facultatives
+
+La clé `optional_notifications` liste les types d’e-mail que le FD peut désactiver avec `"notifications": false` (voir `NotificationPolicy::TYPES_BY_ACTION`). Par défaut, aucun : tous les e-mails sont obligatoires.
+
+| Action | Types d’e-mail |
+| --- | --- |
+| Soumission | `applicant_submit_receipt`, `instructors_new_request` |
+| Validation | `applicant_approval`, `gdpr_contacts_approval`, `france_connect_team`, `linked_france_connect`, `dgfip_approval`, `hubee_qf_approval`, `hubee_business_admin`, `produits_dinum_convention` |
+
+La création n’envoie aucun e-mail : le paramètre y est accepté sans effet.
+
+```ruby
+DataProvider.find_by!(slug: 'dinum').update!(
+  api_contract_options: { 'optional_notifications' => %w[applicant_submit_receipt instructors_new_request] }
+)
+```
+
+Quand l’appelant envoie `notifications: false`, les types facultatifs ne sont pas envoyés. Les types restés obligatoires sont listés dans `meta.warnings` de la réponse, que ces e-mails s’appliquent ou non à la demande. Les webhooks partent toujours, avec `notifications: false` dans leur enveloppe lorsqu’au moins un e-mail a été retenu ; l’événement d’historique porte alors `notifications_disabled`.
 
 ## Limites connues
 
