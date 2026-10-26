@@ -21,12 +21,14 @@ class BaseNotifier < ApplicationNotifier
     notify_dgfip_apim(params) if dgfip_provider?
     notify_hubee_formulaire_qf(params)
 
+    return if notification_policy.suppress?('applicant_approval')
+
     email_notification_with_reopening('approve', params)
   end
 
   def submit(params)
-    notify_instructors_individually('submit', params)
-    email_notification_with_reopening('submit', params)
+    notify_instructors_individually('submit', params) unless notification_policy.suppress?('instructors_new_request')
+    email_notification_with_reopening('submit', params) unless notification_policy.suppress?('applicant_submit_receipt')
   end
 
   def revoke(params)
@@ -36,10 +38,14 @@ class BaseNotifier < ApplicationNotifier
   private
 
   def notify_france_connect
+    return if notification_policy.suppress?('france_connect_team')
+
     FranceConnectMailer.with(authorization_request:).new_scopes.deliver_later
   end
 
   def notify_dgfip_apim(params)
+    return if notification_policy.suppress?('dgfip_approval')
+
     DGFIP::APIMMailer.with(
       authorization: authorization_request.latest_authorization,
       reopening: params[:within_reopening]
@@ -48,6 +54,7 @@ class BaseNotifier < ApplicationNotifier
 
   def notify_hubee_formulaire_qf(params)
     return unless authorization_request.formulaire_qf?
+    return if notification_policy.suppress?('hubee_qf_approval')
     return if params[:within_reopening] && formulaire_qf_before_reopening?
 
     HubEEMailer.with(authorization_request:).formulaire_qf_validation.deliver_later

@@ -1,6 +1,7 @@
 class DeliverLinkedFranceConnectNotification < ApplicationInteractor
   def call
     return if context.linked_france_connect_authorization.blank?
+    return if context.notification_policy&.suppress?('linked_france_connect')
 
     deliver_applicant_email
     deliver_fc_support_email if should_notify_fc_support?

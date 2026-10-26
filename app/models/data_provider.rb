@@ -47,6 +47,10 @@ class DataProvider < ApplicationRecord
     end
   end
 
+  def optional_notification_types
+    Array(api_contract_options['optional_notifications'])
+  end
+
   def reporters
     users_for_roles(%w[instructor reporter])
   end

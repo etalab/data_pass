@@ -2,7 +2,7 @@ class ProduitsDinumNotifier < BaseNotifier
   def approve(params)
     super
 
-    transmit_convention
+    transmit_convention unless notification_policy.suppress?('produits_dinum_convention')
   end
 
   private

@@ -1,0 +1,5 @@
+fr:
+  notification_policy:
+    mandatory_notifications:
+      title: Notifications obligatoires
+      detail: "Le contrat de votre fournisseur de données rend certaines notifications obligatoires : le paramètre `notifications` n’a pas été appliqué à %{types}."

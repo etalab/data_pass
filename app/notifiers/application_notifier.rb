@@ -1,8 +1,9 @@
 class ApplicationNotifier
-  attr_reader :authorization_request
+  attr_reader :authorization_request, :notification_policy
 
-  def initialize(authorization_request)
+  def initialize(authorization_request, notification_policy = NotificationPolicy.allow_all)
     @authorization_request = authorization_request
+    @notification_policy = notification_policy
   end
 
   def self.notifier_event_names
@@ -18,6 +19,8 @@ class ApplicationNotifier
   protected
 
   def deliver_gdpr_emails
+    return if notification_policy.suppress?('gdpr_contacts_approval')
+
     DeliverGDPRContactsMails.call(authorization_request:)
   end
 
