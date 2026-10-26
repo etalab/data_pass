@@ -141,6 +141,29 @@ RSpec.describe 'API: Authorization request submission' do
       end
     end
 
+    context 'when the consentement is not an object' do
+      let(:params) { { consentement: 'oui' } }
+
+      it 'answers 400' do
+        submit_request
+
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'when the consentement holds keys which are not consents' do
+      let(:params) do
+        { consentement: { terms_of_service_accepted: true, data_protection_officer_informed: true, state: 'validated' } }
+      end
+
+      it 'submits the request and ignores them' do
+        submit_request
+
+        expect(response).to have_http_status(:ok)
+        expect(authorization_request.reload.state).to eq('submitted')
+      end
+    end
+
     context 'when the request is already under instruction' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
 

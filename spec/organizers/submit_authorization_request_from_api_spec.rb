@@ -93,6 +93,31 @@ RSpec.describe SubmitAuthorizationRequestFromAPI, type: :organizer do
       it { is_expected.to be_failure }
     end
 
+    context 'with a banned applicant' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+      before { authorization_request.applicant.update!(banned_at: Time.zone.now, ban_reason: 'Test') }
+
+      it 'fails with the banned applicant error' do
+        expect(result.error[:key]).to eq(:applicant_banned)
+      end
+
+      it 'does not submit the request' do
+        expect { result }.not_to(change { authorization_request.reload.state })
+      end
+    end
+
+    context 'when the request was already submitted by a previous call' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+      before { described_class.call!(authorization_request:, consentement:, oauth_application:) }
+
+      it 'fails instead of recording a second submission' do
+        expect { result }.not_to(change { authorization_request.events.where(name: 'submit').count })
+        expect(result).to be_failure
+      end
+    end
+
     context 'with an incomplete draft' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft) }
 
