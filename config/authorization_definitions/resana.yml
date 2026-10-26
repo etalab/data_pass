@@ -1,0 +1,11 @@
+resana:
+  name: "Attribution du rôle d’administrateur d’une organisation dans Resana"
+  description: "Ce formulaire permet à un agent de demander le rôle d’administrateur de son organisation dans Resana."
+  provider: "dinum"
+  kind: 'service'
+  support_email: "support-resana@numerique.gouv.fr"
+  cgu_link: "https://resana.numerique.gouv.fr/public/utilisateur/afficherPageConnexionAnnexe?page=cgu"
+  public: true
+  blocks:
+    - name: "legal"
+    - name: "contacts"
