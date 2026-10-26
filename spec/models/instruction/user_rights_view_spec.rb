@@ -1,6 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe Instruction::UserRightsView do
+  describe '#out_of_scope' do
+    subject(:result) { described_class.new(authority: Rights::ManagerAuthority.new(manager), user: target).out_of_scope }
+
+    let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+
+    context 'when the target holds rights beyond the manager perimeter' do
+      let(:target) do
+        create(:user, roles: %w[dinum:api_entreprise:instructor dgfip:api_impot_particulier:reporter])
+      end
+
+      it 'returns the rights the manager cannot touch, and only those' do
+        expect(result).to contain_exactly({ scope: 'dgfip:api_impot_particulier', role_type: 'reporter' })
+      end
+    end
+
+    context 'when the target is an administrator' do
+      let(:target) { create(:user, roles: ['admin', 'dgfip:api_impot_particulier:reporter']) }
+
+      it 'never leaks the admin role, even as a non-editable line' do
+        expect(result.pluck(:role_type)).not_to include('admin')
+        expect(result).to contain_exactly({ scope: 'dgfip:api_impot_particulier', role_type: 'reporter' })
+      end
+    end
+  end
+
   describe '#grouped_visible' do
     subject(:result) { described_class.new(authority: Rights::ManagerAuthority.new(manager), user: target).grouped_visible }
 

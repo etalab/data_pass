@@ -1,23 +1,39 @@
 class Molecules::Instruction::UserRights::RightFieldComponent < ApplicationComponent
   FORM_NAME = 'instruction_user_right_form'.freeze
 
-  def initialize(index:, scope:, role_type:, permissions:)
+  def initialize(index:, scope:, role_type:, permissions:, editable: true)
     @index = index
     @scope = scope
     @role_type = role_type
     @permissions = permissions
+    @editable = editable
   end
 
   private
 
   attr_reader :index, :scope, :role_type, :permissions
 
+  def editable?
+    @editable
+  end
+
+  def scope_label
+    Instruction::Scope.new(scope).label
+  end
+
+  def role_label
+    t("instruction.user_rights.roles.#{role_type}")
+  end
+
+  def readonly_hint_id
+    "#{FORM_NAME}_rights_#{index}_readonly"
+  end
+
   def legend_label
-    if index == 'NEW'
-      t('instruction.user_rights.new.right_legend_new')
-    else
-      t('instruction.user_rights.new.right_legend', position: index.to_i + 1)
-    end
+    return t('instruction.user_rights.new.right_legend_new') if index == 'NEW'
+    return t('instruction.user_rights.new.right_legend_readonly', position: index.to_s.split('-').last.to_i + 1) unless editable?
+
+    t('instruction.user_rights.new.right_legend', position: index.to_i + 1)
   end
 
   def name_for(attr)

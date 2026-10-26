@@ -16,6 +16,17 @@ class Instruction::UserRightsView
     covered_rights
   end
 
+  def out_of_scope
+    @user.roles.filter_map do |role_string|
+      next if @authority.covers_role?(role_string)
+
+      parsed = ParsedRole.parse(role_string)
+      next if parsed.admin? || parsed.role.nil?
+
+      { scope: "#{parsed.provider_slug}:#{parsed.definition_id}", role_type: parsed.role }
+    end
+  end
+
   def grouped_visible
     entries = covered_rights.group_by { |right| right[:scope] }.map do |scope_string, rights|
       {
