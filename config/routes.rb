@@ -243,6 +243,7 @@ Rails.application.routes.draw do
       resources :authorization_requests, path: 'demandes', only: %i[index show create update] do
         member do
           post :validate, path: 'valider'
+          post :submit, path: 'soumettre'
         end
 
         resources :authorization_request_events, only: [:index], path: 'events', as: :events

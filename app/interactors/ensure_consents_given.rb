@@ -6,6 +6,6 @@ class EnsureConsentsGiven < ApplicationInteractor
 
     return if missing_consents.empty?
 
-    fail_with_error(:consent_missing, errors: missing_consents)
+    fail_with_error(:consent_missing, errors: missing_consents, format: :consents)
   end
 end

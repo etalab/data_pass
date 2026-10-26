@@ -39,6 +39,9 @@ fr:
       title: Organisation invalide
     authorization_request_invalid:
       title: Demande invalide
+    consent_missing:
+      title: Consentement manquant
+      detail: "La case « %{key} » doit être cochée pour soumettre cette demande."
     generic:
       title: Entité non traitable
       detail: Un problème est survenu lors du traitement de la requête.
