@@ -313,7 +313,7 @@ RSpec.describe Dsfr::MultiSelectComponent, type: :component do
         ))
 
         disabled_option = page.find('[role="option"][data-value="value2"]')
-        checkbox = disabled_option.find('input[type="checkbox"]')
+        checkbox = disabled_option.find_field(type: 'checkbox', disabled: :all)
         expect(checkbox[:disabled]).to be_present
       end
     end
