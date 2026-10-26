@@ -35,6 +35,25 @@ RSpec.describe Atoms::HistoricalAuthorizationRequestEventComponent, type: :compo
     end
   end
 
+  describe 'event whose notifications were disabled by the API caller' do
+    let(:authorization_request_event) do
+      create(:authorization_request_event, :approve, api_application_name: 'API Entreprise', notifications_disabled: true)
+    end
+
+    it 'says that the notifications were disabled' do
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_text('Les notifications DataPass ont été désactivées pour cet appel API.')
+    end
+
+    it 'says nothing when the notifications were sent' do
+      authorization_request_event.update!(notifications_disabled: false)
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_no_text('notifications DataPass ont été désactivées')
+    end
+  end
+
   describe 'approve event done through the API' do
     subject { described_class.new(authorization_request_event:) }
 

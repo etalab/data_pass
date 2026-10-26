@@ -21,6 +21,13 @@ class Seeds::OauthApplication
     )
 
     API_ENTREPRISE_ACTIONS.each { |action| grant_api_access(application, provider_slug('api_entreprise'), action) }
+    make_applicant_and_instructor_emails_optional(provider_slug('api_entreprise'))
+  end
+
+  def make_applicant_and_instructor_emails_optional(slug)
+    DataProvider.find_by!(slug:).update!(
+      api_contract_options: { 'optional_notifications' => %w[applicant_submit_receipt instructors_new_request] },
+    )
   end
 
   def create_multi_provider_application

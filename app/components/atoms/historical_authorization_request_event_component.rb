@@ -53,6 +53,10 @@ class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def message_summary
+    "#{translated_message_summary}#{notifications_disabled_note}".html_safe
+  end
+
+  def translated_message_summary
     I18n.t(
       "instruction.authorization_request_events.authorization_request_event.#{name}.#{message_summary_key}",
       default: :"instruction.authorization_request_events.authorization_request_event.#{name}.message_summary",
@@ -60,7 +64,13 @@ class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
       copied_from_authorization_request_id:,
       transfer_text:,
       definition_name: event.entity.try(:definition)&.name
-    ).html_safe
+    ).strip
+  end
+
+  def notifications_disabled_note
+    return '' unless event.notifications_disabled?
+
+    " #{I18n.t('instruction.authorization_request_events.notifications_disabled')}"
   end
 
   def escaped_author_texts

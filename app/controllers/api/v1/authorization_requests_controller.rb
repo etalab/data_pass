@@ -57,14 +57,11 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       authorization_request: @authorization_request,
       instructor_email: validation_params.dig(:instructeur, :email),
       authorization_message: validation_params[:message],
-      oauth_application: doorkeeper_token.application
+      oauth_application: doorkeeper_token.application,
+      notifications: params[:notifications]
     )
 
-    if result.success?
-      render_authorization_request(@authorization_request.reload)
-    else
-      render_interactor_errors(result)
-    end
+    render_write_result(result)
   end
 
   def submit
@@ -73,14 +70,11 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     result = SubmitAuthorizationRequestFromAPI.call(
       authorization_request: @authorization_request,
       consentement: params.expect(consentement: @authorization_request.required_consents),
-      oauth_application: doorkeeper_token.application
+      oauth_application: doorkeeper_token.application,
+      notifications: params[:notifications]
     )
 
-    if result.success?
-      render_authorization_request(result.authorization_request.reload)
-    else
-      render_interactor_errors(result)
-    end
+    render_write_result(result)
   end
 
   private
@@ -132,11 +126,20 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     )
   end
 
-  def render_authorization_request(authorization_request, status: :ok)
+  def render_authorization_request(authorization_request, status: :ok, warnings: [])
     render json: authorization_request,
       serializer: API::V1::AuthorizationRequestSerializer,
       include: %w[habilitations organisation applicant service_provider events],
+      warnings:,
       status:
+  end
+
+  def render_write_result(result)
+    if result.success?
+      render_authorization_request(@authorization_request.reload, warnings: result.notification_policy.warnings)
+    else
+      render_interactor_errors(result)
+    end
   end
 
   def render_interactor_errors(result)

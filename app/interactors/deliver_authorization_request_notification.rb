@@ -1,6 +1,6 @@
 class DeliverAuthorizationRequestNotification < ApplicationInteractor
   def call
-    notifier_klass.new(context.authorization_request).public_send(
+    notifier_klass.new(context.authorization_request, notification_policy).public_send(
       event_name,
       params,
     )
@@ -17,6 +17,10 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
 
   def params
     context.authorization_request_notifier_params || {}
+  end
+
+  def notification_policy
+    context.notification_policy || NotificationPolicy.allow_all
   end
 
   def notifier_klass
@@ -41,7 +45,8 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
   def webhook_payload
     WebhookSerializer.new(
       context.authorization_request,
-      event_name
+      event_name,
+      notifications: !notification_policy.suppressed_any?
     ).serializable_hash
   end
 end

@@ -12,6 +12,8 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
     :reopening,
     :reopened_at
 
+  attribute :meta, if: -> { warnings.present? }
+
   has_many :authorizations, serializer: API::V1::AuthorizationSerializer, key: :habilitations
   has_one :organization, serializer: API::V1::OrganizationSerializer, key: :organisation
   has_one :applicant, serializer: API::V1::UserSerializer, key: :applicant
@@ -20,6 +22,14 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   def reopening
     object.reopening?
+  end
+
+  def meta
+    { warnings: }
+  end
+
+  def warnings
+    instance_options[:warnings]
   end
 
   def definition_id
