@@ -54,6 +54,28 @@ RSpec.describe 'API: Authorization requests validation' do
         end
       end
 
+      context 'when the transition fails' do
+        before { allow_any_instance_of(AuthorizationRequest).to receive(:approve).and_return(false) } # rubocop:disable RSpec/AnyInstance
+
+        it 'answers with an explicit error and writes nothing' do
+          expect { validate_request }.not_to(change(Authorization, :count))
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(error['title']).to eq('Transition impossible')
+        end
+      end
+
+      context 'with an instructor email which is not a string' do
+        let(:params) { { instructeur: { email: [instructor.email] }, message: 'Demande conforme' } }
+
+        it 'is rejected as an invalid instructor' do
+          validate_request
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(error['title']).to eq('Instructeur invalide')
+        end
+      end
+
       context 'without instructor' do
         let(:params) { {} }
 
