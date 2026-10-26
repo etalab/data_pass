@@ -32,6 +32,6 @@ end
 
 Quand('le demandeur soumet la demande de mise à jour') do
   using_last_applicant_session do
-    step 'je clique sur "Envoyer ma demande de modification"'
+    step 'je clique sur "Envoyer ma demande de mise à jour"'
   end
 end

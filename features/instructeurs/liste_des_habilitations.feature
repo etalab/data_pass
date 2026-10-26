@@ -40,7 +40,7 @@ Fonctionnalité: Instruction: liste des habilitations
     Et qu'il y a 1 habilitation "API Particulier" active
     Et qu'il y a 1 habilitation "API Entreprise" révoquée
     Et que je me rends sur mon tableau de bord instructeur habilitations
-    Et que je sélectionne "API Entreprise" dans le multi-select "Type d'habilitation"
+    Et que je sélectionne "API Entreprise" dans le multi-select "Formulaire"
     Et que je sélectionne "Active" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 2 habilitations

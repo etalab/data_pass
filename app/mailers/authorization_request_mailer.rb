@@ -5,23 +5,27 @@ class AuthorizationRequestMailer < ApplicationMailer
 
       define_method(mth) do
         @authorization_request = params[:authorization_request]
+        @authorization = event == :revoke ? revoked_authorization : @authorization_request.latest_authorization
 
         mail(
           to: @authorization_request.applicant.email,
           subject: t(
             '.subject',
             authorization_request_id: @authorization_request.formatted_id,
+            authorization_id: @authorization&.formatted_id,
           )
         ) do |format|
           format.text { render text_template_path_for(@authorization_request.kind, mth) }
-          html_path = html_template_path_for(@authorization_request.kind, mth)
-          format.html { render html_path } if html_path
         end
       end
     end
   end
 
   private
+
+  def revoked_authorization
+    @authorization_request.revocation.try(:authorization) || @authorization_request.latest_authorization
+  end
 
   def text_template_path_for(kind, action)
     return "authorization_request_mailer/#{kind}/#{action}" if text_template_exists?(kind, action)
@@ -36,34 +40,6 @@ class AuthorizationRequestMailer < ApplicationMailer
       false,
       [],
       formats: [:text],
-    )
-  end
-
-  def html_template_path_for(kind, action)
-    return "authorization_request_mailer/#{kind}/#{action}" if html_template_exists?(kind, action)
-    return nil if text_template_exists?(kind, action)
-    return "authorization_request_mailer/#{action}" if generic_html_template_exists?(action)
-
-    nil
-  end
-
-  def html_template_exists?(kind, action)
-    lookup_context.exists?(
-      "#{kind}/#{action}",
-      ['authorization_request_mailer'],
-      false,
-      [],
-      formats: [:html],
-    )
-  end
-
-  def generic_html_template_exists?(action)
-    lookup_context.exists?(
-      action,
-      ['authorization_request_mailer'],
-      false,
-      [],
-      formats: [:html],
     )
   end
 end

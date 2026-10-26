@@ -38,6 +38,18 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
     Et que je clique sur "Transférer"
     Alors la page contient "La fonctionnalité de transfert automatique n'est pas disponible"
 
+  Scénario: Je vois que je transfère une demande tant qu'aucune habilitation n'a été délivrée
+    Quand je me rends sur une demande d'habilitation "API Entreprise" soumise
+    Et que je clique sur "Transférer"
+    Alors la page contient "Transférer ma demande"
+    Et la page contient "Que l’utilisateur appartienne à la même organisation que la demande"
+
+  Scénario: Je vois que je transfère une habilitation une fois qu'elle a été délivrée
+    Quand je me rends sur une demande d'habilitation "API Entreprise" validée
+    Et que je clique sur "Transférer"
+    Alors la page contient "Transférer mon habilitation"
+    Et la page contient "Que l’utilisateur appartienne à la même organisation que l’habilitation"
+
   @AvecCourriels
   Scénario: Je transfère une de mes habilitations à un autre utilisateur de mon organisation
     Sachant que "nouveau-demandeur@api.gouv.fr" appartient à mon organisation

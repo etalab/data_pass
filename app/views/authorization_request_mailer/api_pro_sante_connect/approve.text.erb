@@ -1,6 +1,6 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-Votre habilitation a été validée. Votre numéro de demande DataPass est <%= @authorization_request.formatted_id %>.
+Votre demande DataPass <%= @authorization_request.formatted_id %> a été validée : elle a donné lieu à l’habilitation <%= @authorization_request.latest_authorization.formatted_id %>.
 
 Ce numéro devra être renseigné lors de vos prochaines démarches dans le cadre de votre parcours de raccordement à Pro Santé Connect : https://esante.gouv.fr/ens/offre/pro-sante-connect#paragraph-id--34273
 Le compte <%= @authorization_request.contact_technique_email %> de votre responsable technique sur le portail de la e-santé pour les Entreprises du Numérique en Santé (https://esante.gouv.fr/ens) vous permet désormais de gérer l’enregistrement de votre service sur Pro Santé Connect.
@@ -8,9 +8,9 @@ Le compte <%= @authorization_request.contact_technique_email %> de votre respons
 Depuis ce compte, vous avez accès à l'onglet « Mon raccordement à Pro Santé Connect », puis au formulaire « Gérez vos services Pro Santé Connect », où vous pouvez notamment effectuer une demande d'accès au BAS de PSC.
 
 <% if @authorization_request.latest_authorization&.message.present? %>
-Message associé à la validation de votre habilitation :
+Message associé à la validation de votre demande :
 <%= @authorization_request.latest_authorization.message %>
 <% end %>
-Pour consulter cette habilitation, veuillez cliquer sur le lien suivant : <%= authorization_request_url(@authorization_request) %>
+Pour consulter cette habilitation, veuillez cliquer sur le lien suivant : <%= authorization_url(@authorization_request.latest_authorization) %>
 
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

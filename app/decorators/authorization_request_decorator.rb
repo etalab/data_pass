@@ -111,6 +111,14 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     end
   end
 
+  def transferred_object
+    latest_authorization.present? ? :habilitation : :demande
+  end
+
+  def transferred_object_formatted_id
+    transferred_object == :habilitation ? latest_authorization.formatted_id : formatted_id
+  end
+
   def next_stage_already_started?
     return false unless definition.multi_stage?
 

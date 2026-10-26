@@ -110,7 +110,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         authorization_request_event.entity.reason = cancellation_reason
         page = render_inline(subject)
 
-        expect(page).to have_text('a annulé la réouverture de l\'habilitation pour la raison suivante')
+        expect(page).to have_text('a annulé la demande de mise à jour de l’habilitation pour la raison suivante')
         expect(page).to have_text(cancellation_reason)
       end
     end
@@ -121,7 +121,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
       it 'renders only the summary without expandable reason' do
         page = render_inline(subject)
 
-        expect(page).to have_text('a annulé la réouverture de l\'habilitation')
+        expect(page).to have_text('a annulé la demande de mise à jour de l’habilitation')
         expect(page).to have_no_text('pour la raison suivante')
         expect(page).to have_no_css('button[data-action="click->show-and-hide#trigger"]')
       end
