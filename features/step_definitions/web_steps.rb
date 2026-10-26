@@ -32,16 +32,16 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
     end
   end
 rescue Capybara::ElementNotFound
-  find(:element, 'aria-label': label, visible: true).click
+  find(:element, 'aria-label': label, visible: :visible).click
 end
 
 Quand('je clique sur {string} et confirme dans la modale') do |label|
   modal_content = 'turbo-frame#main-modal-content'
   3.times do
-    break if has_css?(modal_content, visible: true, wait: false)
+    break if has_css?(modal_content, visible: :visible, wait: false)
 
     find('a[aria-controls="main-modal"]', text: label).click
-    break if has_css?(modal_content, visible: true, wait: 2)
+    break if has_css?(modal_content, visible: :visible, wait: 2)
   end
   within(modal_content) do
     click_link_or_button label
