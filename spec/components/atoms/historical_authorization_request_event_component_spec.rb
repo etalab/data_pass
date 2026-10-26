@@ -22,6 +22,19 @@ RSpec.describe Atoms::HistoricalAuthorizationRequestEventComponent, type: :compo
     end
   end
 
+  describe 'event whose texts hold HTML' do
+    let(:authorization_request_event) do
+      create(:authorization_request_event, :approve, api_application_name: '<img src=x onerror=alert(1)>')
+    end
+
+    it 'escapes the application name' do
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_no_css('img[onerror]')
+      expect(page).to have_text('<img src=x onerror=alert(1)>')
+    end
+  end
+
   describe 'approve event done through the API' do
     subject { described_class.new(authorization_request_event:) }
 
