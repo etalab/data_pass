@@ -27,6 +27,9 @@ fr:
     not_approvable_from_api:
       title: État non modifiable
       detail: Seule une demande en cours d’instruction peut être validée par API.
+    trigger_event_failed:
+      title: Transition impossible
+      detail: La demande n’a pas pu changer d’état, aucune modification n’a été enregistrée.
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."
