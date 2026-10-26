@@ -54,8 +54,8 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     result = ApproveAuthorizationRequestFromAPI.call(
       authorization_request: @authorization_request,
-      instructor_email: params.dig(:instructeur, :email),
-      authorization_message: params[:message],
+      instructor_email: validation_params.dig(:instructeur, :email),
+      authorization_message: validation_params[:message],
       oauth_application: doorkeeper_token.application
     )
 
@@ -73,6 +73,10 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       .includes(:authorizations, :organization, :events_without_bulk_update, :applicant)
       .where(type: current_user_authorization_request_types)
       .find(params[:authorization_request_id] || params[:id])
+  end
+
+  def validation_params
+    @validation_params ||= params.permit(:message, instructeur: [:email])
   end
 
   def state_filter
