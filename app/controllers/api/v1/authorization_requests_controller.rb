@@ -72,7 +72,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     result = SubmitAuthorizationRequestFromAPI.call(
       authorization_request: @authorization_request,
-      consentement: params.require(:consentement),
+      consentement: params.expect(consentement: @authorization_request.required_consents),
       oauth_application: doorkeeper_token.application
     )
 
