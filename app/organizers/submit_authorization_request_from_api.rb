@@ -4,7 +4,12 @@ class SubmitAuthorizationRequestFromAPI < ApplicationOrganizer
     context.api_application_name = context.oauth_application.name
   end
 
-  organize EnsureAuthorizationRequestIsSubmittable,
+  around do |organizer|
+    context.authorization_request.with_lock { organizer.call }
+  end
+
+  organize EnsureApplicantIsNotBanned,
+    EnsureAuthorizationRequestIsSubmittable,
     EnsureConsentsGiven,
     AssignConsentsToAuthorizationRequest,
     SubmitAuthorizationRequest
