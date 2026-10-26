@@ -125,6 +125,20 @@ RSpec.describe 'API: disabling DataPass notifications' do
     end
   end
 
+  describe 'a notifications value which is not a boolean' do
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+    it 'is rejected instead of being read as true' do
+      post "/api/v1/demandes/#{authorization_request.id}/soumettre",
+        params: { consentement: { terms_of_service_accepted: true, data_protection_officer_informed: true }, notifications: 'flase' },
+        headers:, as: :json
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.parsed_body['errors'].first['title']).to eq('Paramètre invalide')
+      expect(authorization_request.reload.state).to eq('draft')
+    end
+  end
+
   describe 'POST /api/v1/demandes/:id/valider' do
     subject(:validate_request) do
       post "/api/v1/demandes/#{authorization_request.id}/valider", params:, headers:, as: :json
@@ -138,17 +152,32 @@ RSpec.describe 'API: disabling DataPass notifications' do
         expect { validate_request }.not_to have_enqueued_mail(GDPRContactMailer)
       end
 
-      it 'warns about the other mandatory notifications' do
+      it 'does not warn about emails this request never sends' do
         validate_request
 
         expect(response).to have_http_status(:ok)
-        expect(response.parsed_body.dig('meta', 'warnings', 0, 'detail')).to include('france_connect_team')
+        expect(response.parsed_body).not_to have_key('meta')
       end
 
       it 'records in the history that notifications were disabled' do
         validate_request
 
         expect(authorization_request.events.find_by(name: 'approve')).to be_notifications_disabled
+      end
+    end
+
+    context 'when the optional emails are not the ones this request sends' do
+      let(:optional_notifications) { %w[dgfip_approval] }
+
+      it 'does not flag the history' do
+        validate_request
+
+        expect(authorization_request.events.find_by(name: 'approve')).not_to be_notifications_disabled
+      end
+
+      it 'still emails the GDPR contacts and warns about it' do
+        expect { validate_request }.to have_enqueued_mail(GDPRContactMailer, :delegue_protection_donnees)
+        expect(response.parsed_body.dig('meta', 'warnings', 0, 'detail')).to include('gdpr_contacts_approval')
       end
     end
 

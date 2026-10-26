@@ -8,8 +8,10 @@ class ApproveAuthorizationRequestFromAPI < ApplicationOrganizer
     context.authorization_request.with_lock { organizer.call }
   end
 
-  organize ResolveNotificationPolicy,
+  organize ValidateNotificationsParam,
+    ResolveNotificationPolicy,
     FindInstructorForAPIApproval,
     EnsureAuthorizationRequestIsApprovableFromAPI,
-    ApproveAuthorizationRequest
+    ApproveAuthorizationRequest,
+    RecordNotificationPolicyOnEvent
 end

@@ -6,7 +6,6 @@ class CreateAuthorizationRequestEventModel < ApplicationInteractor
       entity:,
       authorization_request:,
       api_application_name: context.api_application_name,
-      notifications_disabled: context.notification_policy&.suppressed_any? || false,
     )
   end
 

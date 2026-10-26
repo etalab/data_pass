@@ -7,12 +7,18 @@ class DeliverGDPRContactsMails < ApplicationInteractor
 
   private
 
+  def notification_policy
+    context.notification_policy || NotificationPolicy.allow_all
+  end
+
   def gdpr_contacts
     AuthorizationExtensions::GDPRContacts::NAMES
   end
 
   def notify(gdpr_contact)
-    GDPRContactMailer.with(params).public_send(gdpr_contact).deliver_later
+    notification_policy.deliver('gdpr_contacts_approval') do
+      GDPRContactMailer.with(params).public_send(gdpr_contact).deliver_later
+    end
   end
 
   def params

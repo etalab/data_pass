@@ -172,7 +172,7 @@ RSpec.describe BaseNotifier, type: :notifier do
   describe 'with a notification policy' do
     subject(:notifier) { described_class.new(authorization_request, policy) }
 
-    let(:policy) { NotificationPolicy.new(suppressed_types:) }
+    let(:policy) { NotificationPolicy.new(requested: true, optional_types: suppressed_types) }
 
     before { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 

@@ -224,6 +224,8 @@ components:
 
         Si le contrat rend ces notifications obligatoires, le paramètre est ignoré : l'appel aboutit, les emails sont envoyés et la réponse contient un avertissement dans `meta.warnings`.
 
+        Une valeur autre que `true` ou `false` est refusée avec une erreur `422`.
+
         Les webhooks sont toujours envoyés, quelle que soit la valeur. L'historique de la demande indique que les notifications ont été désactivées. La valeur effectivement appliquée (après prise en compte du contrat du fournisseur de données) est reprise dans le champ `notifications` de la charge utile du webhook déclenché par l'appel.
 
     Warning:

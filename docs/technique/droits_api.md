@@ -93,7 +93,9 @@ DataProvider.find_by!(slug: 'dinum').update!(
 )
 ```
 
-Quand l’appelant envoie `notifications: false`, les types facultatifs ne sont pas envoyés. Les types restés obligatoires sont listés dans `meta.warnings` de la réponse, que ces e-mails s’appliquent ou non à la demande. Les webhooks partent toujours, avec `notifications: false` dans leur enveloppe lorsqu’au moins un e-mail a été retenu ; l’événement d’historique porte alors `notifications_disabled`.
+Quand l’appelant envoie `notifications: false`, les types facultatifs ne sont pas envoyés. `NotificationPolicy#deliver` entoure chaque envoi, au moment où l’e-mail partirait vraiment : un type facultatif est alors sauté et mémorisé, un type obligatoire est envoyé et, si l’appelant avait demandé `notifications: false`, signalé dans `meta.warnings`. Un e-mail qui ne s’applique pas à la demande n’est donc ni sauté ni signalé. Les webhooks partent toujours, avec `notifications: false` dans leur enveloppe lorsqu’au moins un e-mail a réellement été sauté ; l’événement d’historique porte alors `notifications_disabled`. Une valeur autre que `true` ou `false` donne une 422 « Paramètre invalide ».
+
+La limite : l’enveloppe du webhook principal est construite avant l’envoi de l’e-mail FranceConnect lié à la validation. Si c’est le seul e-mail sauté, l’événement d’historique le dit mais ce webhook porte `notifications: true`.
 
 ## Limites connues
 

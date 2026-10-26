@@ -2,10 +2,9 @@ class HubEENotifier < BaseNotifier
   def approve(params)
     super
 
-    return if notification_policy.suppress?('hubee_business_admin')
     return unless applicant_and_administrateur_metier_are_different?
 
-    notify_administrateur_metier
+    notification_policy.deliver('hubee_business_admin') { notify_administrateur_metier }
   end
 
   protected

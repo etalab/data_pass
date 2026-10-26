@@ -16,9 +16,10 @@ class NotificationPolicy
     ]
   }.freeze
 
-  TYPES = TYPES_BY_ACTION.values.flatten.freeze
+  DISABLED_VALUES = [false, 'false'].freeze
+  ENABLED_VALUES = [true, 'true'].freeze
 
-  attr_reader :suppressed_types, :mandatory_types
+  attr_reader :suppressed_types, :kept_types
 
   def self.allow_all
     new
@@ -27,23 +28,35 @@ class NotificationPolicy
   def self.for_api_call(data_provider:, action:, notifications:)
     return allow_all unless notifications_disabled?(notifications)
 
-    types = TYPES_BY_ACTION.fetch(action.to_s, [])
-    optional_types = Array(data_provider&.optional_notification_types) & types
+    optional_types = Array(data_provider&.optional_notification_types) & TYPES_BY_ACTION.fetch(action.to_s, [])
 
-    new(suppressed_types: optional_types, mandatory_types: types - optional_types)
+    new(requested: true, optional_types:)
   end
 
   def self.notifications_disabled?(notifications)
-    !notifications.nil? && !ActiveModel::Type::Boolean.new.cast(notifications)
+    DISABLED_VALUES.include?(notifications)
   end
 
-  def initialize(suppressed_types: [], mandatory_types: [])
-    @suppressed_types = suppressed_types
-    @mandatory_types = mandatory_types
+  def self.valid_value?(notifications)
+    notifications.nil? || DISABLED_VALUES.include?(notifications) || ENABLED_VALUES.include?(notifications)
   end
 
-  def suppress?(type)
-    suppressed_types.include?(type.to_s)
+  def initialize(requested: false, optional_types: [])
+    @requested = requested
+    @optional_types = optional_types
+    @suppressed_types = []
+    @kept_types = []
+  end
+
+  def deliver(type)
+    type = type.to_s
+
+    if @optional_types.include?(type)
+      suppressed_types << type unless suppressed_types.include?(type)
+    else
+      kept_types << type if @requested && kept_types.exclude?(type)
+      yield
+    end
   end
 
   def suppressed_any?
@@ -51,11 +64,11 @@ class NotificationPolicy
   end
 
   def warnings
-    return [] if mandatory_types.empty?
+    return [] if kept_types.empty?
 
     [{
       title: I18n.t('notification_policy.mandatory_notifications.title'),
-      detail: I18n.t('notification_policy.mandatory_notifications.detail', types: mandatory_types.join(', '))
+      detail: I18n.t('notification_policy.mandatory_notifications.detail', types: kept_types.join(', '))
     }]
   end
 end

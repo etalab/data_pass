@@ -19,9 +19,7 @@ class ApplicationNotifier
   protected
 
   def deliver_gdpr_emails
-    return if notification_policy.suppress?('gdpr_contacts_approval')
-
-    DeliverGDPRContactsMails.call(authorization_request:)
+    DeliverGDPRContactsMails.call(authorization_request:, notification_policy:)
   end
 
   def email_notification(event_name, params)
@@ -46,8 +44,10 @@ class ApplicationNotifier
     event = params[:within_reopening] ? "reopening_#{base_event}" : base_event
 
     Instruction::NotificationRecipients.submit(authorization_request).each do |user|
-      Instruction::AuthorizationRequestMailer
-        .with(authorization_request:, user:).public_send(event).deliver_later
+      notification_policy.deliver('instructors_new_request') do
+        Instruction::AuthorizationRequestMailer
+          .with(authorization_request:, user:).public_send(event).deliver_later
+      end
     end
   end
 end

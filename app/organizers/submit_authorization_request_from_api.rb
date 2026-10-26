@@ -9,11 +9,13 @@ class SubmitAuthorizationRequestFromAPI < ApplicationOrganizer
     context.authorization_request.with_lock { organizer.call }
   end
 
-  organize ResolveNotificationPolicy,
+  organize ValidateNotificationsParam,
+    ResolveNotificationPolicy,
     EnsureApplicantIsNotBanned,
     EnsureAuthorizationRequestCreatedByAPI,
     EnsureAuthorizationRequestIsSubmittable,
     EnsureConsentsGiven,
     AssignConsentsToAuthorizationRequest,
-    SubmitAuthorizationRequest
+    SubmitAuthorizationRequest,
+    RecordNotificationPolicyOnEvent
 end

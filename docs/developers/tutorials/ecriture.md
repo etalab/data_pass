@@ -310,7 +310,7 @@ request.body = {
 
 Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés ; leur charge utile reprend la valeur effectivement appliquée dans le champ `notifications`.
 
-Le contrat liste, type d’e-mail par type d’e-mail, ce que vous pouvez désactiver. Si seule une partie est facultative, celle-là n’est pas envoyée et `meta.warnings` nomme les types qui restent obligatoires :
+Le contrat liste, type d’e-mail par type d’e-mail, ce que vous pouvez désactiver. Si seule une partie est facultative, celle-là n’est pas envoyée et `meta.warnings` nomme les types obligatoires effectivement envoyés pour cet appel. Une valeur autre que `true` ou `false` est refusée avec une 422 :
 
 ```json
 {
