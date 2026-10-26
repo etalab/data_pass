@@ -1,6 +1,6 @@
 class FindInstructorForAPIApproval < ApplicationInteractor
   def call
-    instructor = context.authorization_request.definition.instructors.find_by(email: normalized_email)
+    instructor = context.authorization_request.definition.instructors.not_banned.find_by(email: normalized_email)
 
     return fail_with_error(:instructor_invalid) unless instructor
 

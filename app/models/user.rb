@@ -58,6 +58,7 @@ class User < ApplicationRecord
 
   scope :with_roles, -> { where("roles <> '{}'") }
   scope :banned, -> { where.not(banned_at: nil) }
+  scope :not_banned, -> { where(banned_at: nil) }
 
   scope :with_role_matching, lambda { |role_strings|
     where(
