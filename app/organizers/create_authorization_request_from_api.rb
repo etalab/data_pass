@@ -3,6 +3,7 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     context.authorization_request_params ||= ActionController::Parameters.new
     context.event_name = 'create_by_api'
     context.event_entity = :changelog
+    context.event_source = 'api'
   end
 
   organize ResolveAuthorizationRequestForm,

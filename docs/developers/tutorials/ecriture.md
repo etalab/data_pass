@@ -187,7 +187,7 @@ Voir la [spec OpenAPI de `POST /demandes`](/developpeurs/documentation) pour la 
 - Le champ `applicant.email` identifie le demandeur : s'il n'existe pas, il est créé.
 - Le champ `organization.siret` identifie l'organisation : si elle n'existe pas, elle est créée et rafraîchie depuis l'INSEE de façon asynchrone.
 - Fournissez soit `type` (type d'habilitation, formulaire par défaut) soit `form_uid` (identifiant d'un formulaire spécifique).
-- Les demandes créées par l'API génèrent un événement `create_by_api` (utile pour filtrer vos demandes dans les webhooks).
+- Les demandes créées par l'API déclenchent le webhook `create` avec `"source": "api"` (utile pour filtrer vos demandes dans les webhooks) et génèrent un événement `create_by_api` dans l'historique.
 
 ## Cas d'usage : mise à jour programmée (CRM → DataPass)
 
@@ -211,7 +211,7 @@ request.body = {
 Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(request) }
 ```
 
-Chaque mise à jour génère un événement `update_by_api` consultable via `GET /demandes/{id}/events` ou via un webhook.
+Chaque mise à jour génère un événement `update_by_api` consultable via `GET /demandes/{id}/events`, et déclenche le webhook `update` avec `"source": "api"`.
 
 ## Cas d'usage : soumission et validation par un fournisseur de données
 

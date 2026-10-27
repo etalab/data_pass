@@ -43,6 +43,24 @@ RSpec.describe 'API: Authorization requests write' do
       expect(response.parsed_body['organisation']['siret']).to eq('13002526500013')
     end
 
+    context 'with webhooks' do
+      let!(:create_webhook) do
+        create(:webhook, authorization_definition_id: 'api_entreprise', events: %w[create], validated: true, enabled: true)
+      end
+      let!(:update_webhook) do
+        create(:webhook, authorization_definition_id: 'api_entreprise', events: %w[update], validated: true, enabled: true)
+      end
+
+      it 'sends the create webhook with the API as source, and not the update one' do
+        create_request
+
+        expect(DeliverAuthorizationRequestWebhookJob).to have_been_enqueued.with(
+          create_webhook.id, AuthorizationRequest.last.id, 'create', hash_including(event: 'create', source: 'api')
+        )
+        expect(DeliverAuthorizationRequestWebhookJob).not_to have_been_enqueued.with(update_webhook.id, any_args)
+      end
+    end
+
     it 'creates a new user without external_id' do
       create_request
 
@@ -331,6 +349,24 @@ RSpec.describe 'API: Authorization requests write' do
         update_request
 
         expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'with webhooks' do
+      let!(:create_webhook) do
+        create(:webhook, authorization_definition_id: 'api_entreprise', events: %w[create], validated: true, enabled: true)
+      end
+      let!(:update_webhook) do
+        create(:webhook, authorization_definition_id: 'api_entreprise', events: %w[update], validated: true, enabled: true)
+      end
+
+      it 'sends the update webhook with the API as source, and not the create one' do
+        update_request
+
+        expect(DeliverAuthorizationRequestWebhookJob).to have_been_enqueued.with(
+          update_webhook.id, authorization_request.id, 'update', hash_including(event: 'update', source: 'api')
+        )
+        expect(DeliverAuthorizationRequestWebhookJob).not_to have_been_enqueued.with(create_webhook.id, any_args)
       end
     end
 

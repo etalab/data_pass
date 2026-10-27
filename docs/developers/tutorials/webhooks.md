@@ -34,6 +34,7 @@ Exemple de payload reçu pour un événement `approve` :
 ```json
 {
   "event": "approve",
+  "source": "web",
   "occurred_at": "2026-04-22T10:15:32Z",
   "data": {
     "id": 123,
@@ -149,12 +150,9 @@ Les webhooks attendent une réponse `2xx` sous quelques secondes. Si votre trait
 
 ## Cas d'usage : distinguer les événements initiés par l'API
 
-Si votre CRM pousse des demandes via `POST /demandes` (voir [le tutoriel écriture](/developpeurs/tutoriels/ecriture)), les événements générés sont typés :
+Si votre CRM pousse des demandes via `POST /demandes` (voir [le tutoriel écriture](/developpeurs/tutoriels/ecriture)), les webhooks `create` et `update` partent comme pour une action faite dans l'interface, avec le champ `source` à `api` (`web` pour une action faite dans l'interface). Il en va de même pour `submit` et `approve` quand la demande est soumise ou validée par API. Vous n'avez aucun abonnement à modifier.
 
-- `create_by_api` — création via l'API
-- `update_by_api` — mise à jour via l'API
-
-Concrètement : si votre système est à la fois émetteur (push vers DataPass) **et** consommateur (écoute webhooks), filtrer ces événements évite de retraiter une création que vous venez vous-même d'émettre — typique des boucles de synchronisation CRM qui se déclenchent en cascade.
+Concrètement : si votre système est à la fois émetteur (push vers DataPass) **et** consommateur (écoute webhooks), filtrer sur `source: "api"` évite de retraiter une création que vous venez vous-même d'émettre — typique des boucles de synchronisation CRM qui se déclenchent en cascade.
 
 ## Cas d'usage : rejouer un appel en échec
 
@@ -174,10 +172,8 @@ Les détails exacts (délais entre tentatives, codes qui déclenchent un retry) 
 
 | Événement | Déclenché par |
 | --- | --- |
-| `create` | Création d'une demande depuis l'interface |
-| `create_by_api` | Création d'une demande via l'API |
-| `update` | Mise à jour d'une demande depuis l'interface |
-| `update_by_api` | Mise à jour d'une demande via l'API |
+| `create` | Création d'une demande, depuis l'interface ou via l'API |
+| `update` | Mise à jour d'une demande, depuis l'interface ou via l'API |
 | `submit` | Soumission d'une demande par le demandeur |
 | `approve` | Validation par un instructeur |
 | `refuse` | Refus par un instructeur |
@@ -202,8 +198,8 @@ Les noms d'événements ne reprennent pas toujours le nom de l'état cible de la
 | `request_changes` | `changes_requested` |
 | `archive` | `archived` |
 | `revoke` | `revoked` (côté habilitation) |
-| `create` / `create_by_api` | `draft` |
-| `update` / `update_by_api` | inchangé |
+| `create` | `draft` |
+| `update` | inchangé |
 
 Le détail complet du cycle de vie est documenté dans [lifecycle_documentation.md](https://github.com/etalab/data_pass/blob/main/docs/lifecycle_documentation.md).
 
