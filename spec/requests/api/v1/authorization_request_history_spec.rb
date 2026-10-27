@@ -114,13 +114,13 @@ RSpec.describe 'API: Authorization request history' do
     end
 
     it 'renders the create_by_api event' do
-      page = render_inline(HistoricalAuthorizationRequestEventComponent.new(authorization_request_event: api_event(authorization_request, 'create_by_api')))
+      page = render_inline(Atoms::HistoricalAuthorizationRequestEventComponent.new(authorization_request_event: api_event(authorization_request, 'create_by_api')))
 
       expect(page).to have_text(/La demande a été créée via l.API/)
     end
 
     it 'renders the update_by_api event' do
-      page = render_inline(HistoricalAuthorizationRequestEventComponent.new(authorization_request_event: api_event(authorization_request, 'update_by_api')))
+      page = render_inline(Atoms::HistoricalAuthorizationRequestEventComponent.new(authorization_request_event: api_event(authorization_request, 'update_by_api')))
 
       expect(page).to have_text(/La demande a été mise à jour via l.API/)
     end

@@ -1,4 +1,4 @@
-class HistoricalAuthorizationRequestEventIconComponent < IconComponent
+class Atoms::HistoricalAuthorizationRequestEventIconComponent < IconComponent
   private
 
   def available_icons

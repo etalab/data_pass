@@ -1,4 +1,4 @@
-class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
+class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   with_collection_parameter :authorization_request_event
 
   REASON_EVENTS = %w[request_changes revoke refuse bulk_update cancel_reopening_from_instructor].freeze

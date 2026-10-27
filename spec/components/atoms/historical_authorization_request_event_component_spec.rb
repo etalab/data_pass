@@ -1,4 +1,4 @@
-RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
+RSpec.describe Atoms::HistoricalAuthorizationRequestEventComponent, type: :component do
   subject { described_class.new(authorization_request_event: authorization_request_event) }
 
   describe '#message_content' do
