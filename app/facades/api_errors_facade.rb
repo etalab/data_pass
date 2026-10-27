@@ -1,6 +1,6 @@
 class APIErrorsFacade
   DEFAULT_STATUS = 422
-  STATUS_OVERRIDES = { unauthorized_type: 403 }.freeze
+  STATUS_OVERRIDES = { unauthorized_type: 403, not_created_by_api: 403 }.freeze
   GENERIC_KEY = :generic
 
   attr_reader :status, :errors

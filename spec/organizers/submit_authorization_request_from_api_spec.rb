@@ -11,6 +11,8 @@ RSpec.describe SubmitAuthorizationRequestFromAPI, type: :organizer do
     let(:oauth_application) { create(:oauth_application, name: 'API Entreprise') }
     let!(:instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
+    before { create(:authorization_request_event, :create_by_api, authorization_request:) }
+
     context 'with a complete draft and every consent given' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
 
@@ -125,6 +127,22 @@ RSpec.describe SubmitAuthorizationRequestFromAPI, type: :organizer do
 
       it 'reports the invalid request' do
         expect(result.error[:key]).to eq(:authorization_request_invalid)
+      end
+
+      it 'keeps the draft' do
+        expect { result }.not_to change { authorization_request.reload.state }
+      end
+    end
+
+    context 'with a draft started in the portal' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+      before { authorization_request.events_without_bulk_update.destroy_all }
+
+      it { is_expected.to be_failure }
+
+      it 'reports a request that was not created by API' do
+        expect(result.error[:key]).to eq(:not_created_by_api)
       end
 
       it 'keeps the draft' do

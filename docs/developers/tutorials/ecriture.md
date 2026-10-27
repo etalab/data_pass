@@ -256,8 +256,13 @@ Une case exigée absente ou à `false` empêche la soumission, même si elle a d
 
 - La demande est contrôlée avec **les mêmes règles que la soumission dans l’interface** (champs obligatoires, emails de contact vérifiés, pièces jointes).
 - Seules les demandes `draft` ou `changes_requested` sont soumettables.
+- Seules les demandes **créées par API** (`POST /demandes`) sont soumettables par API. Un brouillon commencé par l’usager dans le portail lui reste réservé : le consentement recueilli par le fournisseur de données porte sur les demandes qu’il a créées, pas sur celles de l’usager.
 - Après la soumission, la demande est `submitted`, avec les mêmes effets qu’une soumission dans l’interface : webhook `submit`, emails aux instructeurs. La réponse `200` contient la demande à jour.
 - L’historique indique « Demande soumise par API au nom de *nom du demandeur*, via l’application *nom de votre application* ». L’événement garde le nom `submit`.
+
+#### Erreur `403`
+
+Une demande qui n’a pas été créée par API est refusée en `403` avec l’erreur « Demande non créée par API ». Elle ne change pas.
 
 #### Erreurs `422`
 

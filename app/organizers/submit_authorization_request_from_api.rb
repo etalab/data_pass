@@ -9,6 +9,7 @@ class SubmitAuthorizationRequestFromAPI < ApplicationOrganizer
   end
 
   organize EnsureApplicantIsNotBanned,
+    EnsureAuthorizationRequestCreatedByAPI,
     EnsureAuthorizationRequestIsSubmittable,
     EnsureConsentsGiven,
     AssignConsentsToAuthorizationRequest,

@@ -16,6 +16,8 @@ RSpec.describe 'API: Authorization request submission' do
     }
   end
 
+  before { create(:authorization_request_event, :create_by_api, authorization_request:) }
+
   before(:all) do
     Bullet.enable = false
   end
@@ -31,6 +33,18 @@ RSpec.describe 'API: Authorization request submission' do
   describe 'POST /api/v1/demandes/:id/soumettre' do
     subject(:submit_request) do
       post "/api/v1/demandes/#{authorization_request.id}/soumettre", params:, headers:, as: :json
+    end
+
+    context 'with a draft started in the portal' do
+      before { authorization_request.events_without_bulk_update.destroy_all }
+
+      it 'refuses with a 403 and leaves the draft to its applicant' do
+        submit_request
+
+        expect(response).to have_http_status(:forbidden)
+        expect(errors.first['title']).to eq('Demande non créée par API')
+        expect(authorization_request.reload.state).to eq('draft')
+      end
     end
 
     context 'with a complete draft and every consent given' do

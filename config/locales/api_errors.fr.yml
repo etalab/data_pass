@@ -9,6 +9,9 @@ fr:
     dead_end_state:
       title: État non modifiable
       detail: La demande ne peut pas être modifiée dans l’état actuel.
+    not_created_by_api:
+      title: Demande non créée par API
+      detail: Seules les demandes créées par API peuvent être soumises par API ; un brouillon commencé dans DataPass reste soumis par son demandeur.
     form_not_startable:
       title: Formulaire non disponible
       detail: Ce formulaire ne peut pas être utilisé pour créer une demande.
