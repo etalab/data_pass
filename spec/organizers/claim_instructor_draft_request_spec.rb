@@ -134,4 +134,45 @@ RSpec.describe ClaimInstructorDraftRequest, type: :organizer do
       expect(file.download).to eq(Rails.root.join('spec/fixtures/dummy.pdf').binread)
     end
   end
+
+  context 'when the organization is closed' do
+    before do
+      organization.update!(insee_payload: { 'etablissement' => { 'periodesEtablissement' => [{ 'dateFin' => nil, 'etatAdministratifEtablissement' => 'F' }] } })
+    end
+
+    it { is_expected.to be_failure }
+
+    it 'fails with organization_closed and creates nothing' do
+      expect { organizer }.not_to change(AuthorizationRequest, :count)
+      expect(organizer.error).to eq(:organization_closed)
+    end
+
+    it 'does not mark the draft as claimed' do
+      expect { organizer }.not_to(change { instructor_draft_request.reload.claimed })
+    end
+  end
+
+  context 'when the applicant is banned' do
+    before { instructor_draft_request.applicant.update!(banned_at: Time.zone.now, ban_reason: 'Abus') }
+
+    it 'fails with applicant_banned' do
+      expect(organizer).to be_failure
+      expect(organizer.error).to eq(:applicant_banned)
+    end
+  end
+
+  context 'when the habilitation type is unique and one is already active in the organization' do
+    let!(:instructor_draft_request) do
+      create(:instructor_draft_request, :complete, organization:, claimed: false, authorization_request_class: 'AuthorizationRequest::HubEEDila')
+    end
+
+    before do
+      create(:authorization_request, :hubee_dila, organization:, applicant: create(:user, current_organization: organization))
+    end
+
+    it 'fails with unicity_violated' do
+      expect(organizer).to be_failure
+      expect(organizer.error).to eq(:unicity_violated)
+    end
+  end
 end

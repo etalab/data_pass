@@ -151,8 +151,17 @@ La liste des `form_uid` existants est visible dans la [spec OpenAPI](/developpeu
 ### Réponses possibles
 
 - `201 Created` — la demande est créée en état `draft`, la réponse contient la `Demande` complète.
-- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, ou le scope `write_authorizations` manque.
-- `422 Unprocessable Content` — le payload ne respecte pas la définition.
+- `403 Forbidden` — vous n'avez pas le rôle développeur pour ce type, le scope `write_authorizations` manque (titre « Droit API manquant » dans ce cas, voir [Droits de soumission et de validation](#droits-de-soumission-et-de-validation)), ou le compte propriétaire du jeton a été banni de DataPass (erreur « Compte banni »). Un jeton émis avant le bannissement cesse alors aussi de fonctionner, sur tous les endpoints de l’API.
+- `422 Unprocessable Content` — le payload ne respecte pas la définition, ou les données ne passent pas les validations d’une demande en brouillon (erreur « Demande invalide »). Un payload accepté auparavant peut désormais être rejeté.
+
+Une demande créée par l’API est un brouillon : seules les validations d’un brouillon s’appliquent, comme sur le formulaire web, ce qui permet de la créer incomplète. Les données sont validées en totalité lorsque le demandeur soumet la demande depuis DataPass.
+
+La création applique aussi les règles d’accès du formulaire web. Elle est refusée en `422` dans les cas suivants :
+
+- le formulaire n’est pas ouvert aux demandeurs (par exemple une étape de production, qui ne se démarre qu’à partir de la demande de bac à sable) : erreur « Formulaire non disponible » ;
+- l’organisation est fermée selon l’INSEE : erreur « Organisation fermée » ;
+- le type d’habilitation est unique par organisation et une demande est déjà en cours ou validée : erreur « Demande déjà existante » ;
+- le demandeur a été exclu de DataPass : erreur « Demandeur invalide », sans plus de précision.
 
 Le format des erreurs suit la convention JSON:API. Exemple de réponse `422` :
 
@@ -182,7 +191,7 @@ Voir la [spec OpenAPI de `POST /demandes`](/developpeurs/documentation) pour la 
 
 ## Cas d'usage : mise à jour programmée (CRM → DataPass)
 
-`PATCH /demandes/{id}` permet de mettre à jour une demande **en état `draft`** depuis l'API. Les demandes déjà soumises ne sont pas modifiables via cet endpoint.
+`PATCH /demandes/{id}` permet de mettre à jour une demande **en état `draft` ou `changes_requested`** depuis l'API, comme le demandeur sur le formulaire web. Dès qu’une demande est soumise (`submitted`) ou traitée, elle n’est plus modifiable via cet endpoint : l’API répond `422` avec l’erreur « État non modifiable ».
 
 ```ruby
 uri = URI("https://datapass.api.gouv.fr/api/v1/demandes/#{demande_id}")
@@ -203,6 +212,99 @@ Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req
 ```
 
 Chaque mise à jour génère un événement `update_by_api` consultable via `GET /demandes/{id}/events` ou via un webhook.
+
+## Cas d'usage : soumission et validation par un fournisseur de données
+
+Un fournisseur de données (FD) qui a recueilli lui-même le consentement du demandeur peut créer, soumettre puis valider une demande sans renvoyer le demandeur sur DataPass. Ces deux actions sont des **droits distincts**, accordés par un administrateur DataPass à votre application, FD par FD, après qualification de votre parcours.
+
+| Action | Endpoint | Scope du jeton |
+| --- | --- | --- |
+| Soumettre | `POST /demandes/{id}/soumettre` | `submit_authorizations` |
+| Valider | `POST /demandes/{id}/valider` | `validate_authorizations` |
+
+Ces scopes ne se demandent pas librement : une fois le droit accordé, demandez un **nouveau jeton** avec le scope correspondant. Sans droit actif, ou avec un jeton antérieur à l'octroi, la réponse est `403` (titre « Droit API manquant »).
+
+### Soumettre
+
+```ruby
+uri = URI("https://datapass.api.gouv.fr/api/v1/demandes/#{demande_id}/soumettre")
+request = Net::HTTP::Post.new(uri)
+request['Authorization'] = "Bearer #{access_token}"
+request['Content-Type'] = 'application/json'
+request.body = {
+  consentement: {
+    terms_of_service_accepted: true,
+    data_protection_officer_informed: true
+  }
+}.to_json
+```
+
+- Le demandeur reste la personne indiquée à la création : l'API ne soumet jamais au nom du FD.
+- Vous déclarez avoir recueilli le consentement du demandeur en transmettant dans `consentement` chaque case que le demandeur doit cocher dans l'interface (CGU, information du DPO, cases propres à certains types…), à `true`. La liste des cases exigées pour un type est dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission, avec une erreur par case (`source.pointer` : `/consentement/<case>`).
+- Si vous avez vous-même vérifié les emails de contact de la demande, transmettez `"verified_email": true` : DataPass n'effectue alors pas sa propre vérification de joignabilité (le format reste contrôlé).
+- La demande est contrôlée comme dans l'interface. Si elle est incomplète, elle reste en `draft` et la réponse `422` contient **une erreur par champ**, avec `source.pointer` (ex. `/data/delegue_protection_donnees_family_name`).
+- Seules les demandes `draft` ou `changes_requested` sont soumettables. Les autres renvoient une erreur « État non modifiable ».
+- Après la soumission, la demande est `submitted`, avec les mêmes effets qu'une soumission classique (webhook `submit`). L'historique indique qu'elle a été soumise par API, avec le nom de votre application.
+
+### Valider
+
+```ruby
+request.body = {
+  instructeur: { email: 'instructeur@example.com' },
+  message: 'Demande conforme au cadre juridique.'
+}.to_json
+```
+
+- `instructeur.email` désigne un compte DataPass existant qui a le rôle d'instructeur sur ce type. Une personne nommément identifiée doit porter la responsabilité de la décision.
+- Seules les demandes `submitted` sont validables par API. Le refus, la demande de modification et la révocation restent dans l'interface DataPass.
+- La validation a les mêmes effets qu'une validation dans l'interface (habilitation créée, anciennes habilitations `obsolete`, passerelles, webhook `approve`). La réponse contient la demande avec l'habilitation active dans `habilitations`.
+
+### Métadonnées
+
+À la création et à la mise à jour, `demande.metadata` accepte un objet libre (ex. `{ "campagne": "migration-editeur-x", "source": "api" }`). Il est restitué dans les réponses de l'API et dans la charge utile de chaque webhook de la demande, ce qui permet de reconnaître vos demandes et de ne pas rejouer vos propres traitements. Il n'est visible que des applications du FD et des administrateurs DataPass, et ne doit contenir aucune donnée personnelle.
+
+### Désactiver les emails DataPass
+
+Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés ; leur charge utile reprend la valeur effectivement appliquée dans le champ `notifications`.
+
+## Droits de soumission et de validation
+
+En plus de `write_authorizations` (création et mise à jour, inchangé), deux scopes optionnels distinguent la **soumission** et la **validation** de demandes par l’API :
+
+| Scope | Droit |
+| --- | --- |
+| `submit_authorizations` | Soumettre des demandes pour les fournisseurs de données autorisés |
+| `validate_authorizations` | Valider des demandes pour les fournisseurs de données autorisés |
+
+### Comment obtenir un droit
+
+- Ces droits ne se demandent pas depuis « Mes clefs d’accès API » : à la création d’une clef, vous n’obtenez que `public`, `read_authorizations` et `read_webhooks`.
+- Un administrateur DataPass les accorde à votre application, **fournisseur de données par fournisseur de données**, après qualification du parcours du fournisseur. Contactez-nous pour en faire la demande.
+- Les types d’habilitation sur lesquels votre application peut agir restent limités par les rôles « développeur » de son propriétaire.
+- Un droit accordé n’apparaît pas dans les jetons déjà émis : demandez un **nouveau jeton** en incluant le scope voulu. Les jetons `client_credentials` durent 2 heures.
+
+### Réponses `403`
+
+Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ».
+
+- le jeton ne porte pas le scope exigé : « Le jeton d’accès ne permet pas cette action. Si un droit vient d’être accordé à votre application, demandez un nouveau jeton d’accès. » Ce cas s’applique désormais à **tous** les endpoints qui exigent un scope (il renvoyait auparavant une erreur `422`) ;
+- le jeton porte le scope mais l’application n’a pas de droit actif pour le fournisseur de données du type d’habilitation : « Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données. » (ou « valider » pour la validation).
+
+```json
+{
+  "errors": [
+    {
+      "status": "403",
+      "title": "Droit API manquant",
+      "detail": "Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données."
+    }
+  ]
+}
+```
+
+### Révocation
+
+Un administrateur peut révoquer un droit à tout moment. La révocation est effective **immédiatement**, même avec un jeton qui porte encore le scope : le droit est revérifié à chaque appel. La suppression d’une application révoque automatiquement ses droits.
 
 ## Rediriger l'utilisateur vers sa demande
 
@@ -267,6 +369,14 @@ Cette page est accessible sans authentification et ne permet aucune action : ni 
 L'utilisateur arrive sur sa demande pré-remplie ; s'il est connecté (ou après authentification via ProConnect), il peut compléter les champs restants puis soumettre. Cela évite de dupliquer le formulaire DataPass dans votre interface — votre rôle se limite au pré-remplissage initial à partir des données déjà connues de votre CRM.
 
 > **Pré-requis côté utilisateur** : l'email passé dans `applicant.email` doit correspondre au compte ProConnect de la personne qui sera redirigée, sinon elle ne verra pas la demande dans son espace.
+
+## Rattachement du demandeur à son organisation
+
+Lorsque `POST /demandes` crée le demandeur, il est rattaché à l'organisation (identifiée par `organisation.siret`) par un lien **non vérifié** : DataPass n'a, à ce stade, aucune preuve que cette personne appartient à cette organisation.
+
+- **Vérification** : le lien ne devient vérifié qu'à la première connexion ProConnect du demandeur, et seulement si le fournisseur d'identité utilisé garantit le SIRET (`siret_verified`). Avec un fournisseur d'identité qui ne le garantit pas, le lien reste non vérifié, selon les règles habituelles de DataPass.
+- **Effet pour le demandeur** : tant que le lien n'est pas vérifié, le demandeur retrouve sur son tableau de bord les demandes dont il est lui-même le demandeur, y compris celle créée par votre appel. En revanche, il ne voit pas les autres demandes et habilitations de l'organisation (filtre « Organisation » indisponible), et un bandeau d'information lui indique : « Nous n’avons pas pu vérifier votre lien avec l’organisation que vous avez sélectionnée, vous ne pourrez pas consulter l’ensemble des demandes et habilitations de l’organisation. »
+- **Continuité du compte** : après sa première connexion ProConnect, la demande reste rattachée au même compte, retrouvé grâce à l'email. Un identifiant ProConnect (`sub`) déjà associé à un compte ayant un autre email est refusé à la connexion.
 
 ## Workflow recommandé
 

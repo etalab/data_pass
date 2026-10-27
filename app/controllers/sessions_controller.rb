@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
   include Authentication
 
+  class AuthenticationFailedError < StandardError; end
+
   allow_unauthenticated_access only: %i[create failure]
+
+  rescue_from AuthenticationFailedError, with: :reject_failed_authentication
 
   def create
     if mon_compte_pro_connect?
@@ -27,34 +31,45 @@ class SessionsController < ApplicationController
   private
 
   def create_from_mon_compte_pro
-    authenticate_user(identity_federator: 'mon_compte_pro')
+    return reject_mon_compte_pro_organization_change unless mon_compte_pro_organization_change_allowed?
 
-    case request.env['omniauth.params']['prompt']
-    when 'select_organization'
-      change_current_organization
-    when 'update_userinfo'
-      update_user
-    else
-      post_sign_in
-    end
+    ensure_not_banned!(current_user)
+
+    change_current_organization
+  end
+
+  def mon_compte_pro_organization_change_allowed?
+    user_signed_in? &&
+      current_identity_federator == 'proconnect' &&
+      current_user.email.casecmp?(mon_compte_pro_email.to_s)
+  end
+
+  def mon_compte_pro_email
+    request.env['omniauth.auth'].dig('info', 'email')
+  end
+
+  def reject_mon_compte_pro_organization_change
+    report_mon_compte_pro_organization_change_rejected
+
+    flash[:error] = { 'title' => t('sessions.mon_compte_pro_organization_change_rejected.title') }
+    redirect_to root_path
+  end
+
+  def report_mon_compte_pro_organization_change_rejected
+    Sentry.capture_message(
+      'MonComptePro organization change rejected: no matching ProConnect session',
+      level: :warning,
+      extra: {
+        signed_in: user_signed_in?,
+        identity_federator: current_identity_federator
+      }
+    )
   end
 
   def create_from_proconnect
-    return redirect_to_mfa_reauthentication if requires_mfa_reauthentication?
+    return reject_sign_in_without_mfa unless mfa_performed?
 
-    complete_proconnect_sign_in
-  end
-
-  def redirect_to_mfa_reauthentication
-    uri = OmniAuth::Strategies::Proconnect.authorization_uri_with_mfa(
-      session:,
-      login_hint: proconnect_raw_info['email']
-    )
-    redirect_to uri, allow_other_host: true
-  end
-
-  def complete_proconnect_sign_in
-    organizer = authenticate_user(identity_federator: 'proconnect')
+    organizer = authenticate_user
 
     user = organizer.user
 
@@ -65,49 +80,71 @@ class SessionsController < ApplicationController
     end
   end
 
+  def mfa_performed?
+    OmniAuth::Strategies::Proconnect::MFA_ACR_VALUES.include?(proconnect_acr)
+  end
+
+  def proconnect_acr
+    request.env['omniauth.auth'].dig('extra', 'acr')
+  end
+
+  def reject_sign_in_without_mfa
+    report_sign_in_without_mfa
+
+    flash[:error] = { 'title' => t('sessions.mfa_required.title') }
+    redirect_to root_path
+  end
+
+  def report_sign_in_without_mfa
+    Sentry.capture_message(
+      'ProConnect sign in rejected: acr is not MFA',
+      level: :error,
+      extra: {
+        acr: proconnect_acr,
+        identity_provider_uid: request.env['omniauth.auth'].dig('extra', 'raw_info', 'idp_id')
+      }
+    )
+  end
+
   def mon_compte_pro_connect?
     params[:provider] == 'mon_compte_pro'
   end
 
-  def requires_mfa_reauthentication?
-    identity_provider = IdentityProvider.find(proconnect_raw_info['idp_id'])
-
-    identity_provider.mfa_required? && proconnect_id_token_amr.exclude?('mfa')
-  end
-
-  def proconnect_id_token_amr
-    id_token = session['omniauth.pc.id_token']
-    return [] unless id_token
-
-    claims = JSON::JWT.decode(id_token, :skip_verification)
-    claims['amr'] || []
-  end
-
-  def proconnect_raw_info
-    request.env['omniauth.auth'].dig('extra', 'raw_info') || {}
-  end
-
-  def authenticate_user(identity_federator: 'mon_compte_pro')
+  def authenticate_user
     sign_out if user_signed_in?
 
-    organizer = call_authenticator(identity_federator)
+    organizer = AuthenticateUserThroughProConnect.call(pro_connect_omniauth_payload: request.env['omniauth.auth'])
 
-    raise ApplicationController::BannedUserError if organizer.user.banned?
+    reject_authentication(organizer, 'proconnect') if organizer.failure?
 
-    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
+    ensure_not_banned!(organizer.user)
+
+    sign_in(organizer.user, identity_federator: 'proconnect', identity_provider_uid: organizer.identity_provider_uid)
 
     organizer
   end
 
-  def call_authenticator(identity_federator)
-    case identity_federator
-    when 'mon_compte_pro'
-      AuthenticateUserThroughMonComptePro.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
-    when 'proconnect'
-      AuthenticateUserThroughProConnect.call(pro_connect_omniauth_payload: request.env['omniauth.auth'])
-    else
-      raise ArgumentError, "Unknown identity federator: #{identity_federator}"
-    end
+  def reject_authentication(organizer, identity_federator)
+    Sentry.capture_message(
+      'Authentication failed',
+      level: :warning,
+      extra: { identity_federator:, error: organizer.error }
+    )
+
+    raise AuthenticationFailedError, failure_message_key(organizer)
+  end
+
+  def failure_message_key(organizer)
+    failure_error_key(organizer.error) == :user_email_mismatch ? 'email_mismatch' : 'generic'
+  end
+
+  def failure_error_key(error)
+    error.is_a?(Hash) ? error[:key] : error
+  end
+
+  def reject_failed_authentication(error)
+    flash[:error] = { 'title' => I18n.t("sessions.authenticate_user.errors.#{error.message}") }
+    redirect_to root_path
   end
 
   def post_sign_in
@@ -125,18 +162,6 @@ class SessionsController < ApplicationController
     success_message(
       title: t('sessions.change_current_organization.success.title'),
       description: t('sessions.change_current_organization.success.description', organization_name: current_organization.name, organization_siret: current_organization.siret),
-    )
-
-    redirect_to after_prompt_path
-  end
-
-  def update_user
-    FindOrCreateUserThroughMonComptePro.call(
-      mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
-    )
-
-    success_message(
-      title: t('sessions.update_user.success.title')
     )
 
     redirect_to after_prompt_path

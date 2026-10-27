@@ -8,4 +8,8 @@ class AuthorizationDefinitionPolicy < ApplicationPolicy
       end
     end
   end
+
+  def new?
+    AuthorizationRequestCreationRules.for_definition(record, organization: current_organization, applicant: user).access_violation.nil?
+  end
 end

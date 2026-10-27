@@ -199,6 +199,12 @@ class AuthorizationDefinition < StaticApplicationRecord
     authorization_request_class.to_s
   end
 
+  def active_authorization_requests_for(organization)
+    organization
+      .active_authorization_requests
+      .where(type: authorization_request_class_as_string)
+  end
+
   def provider
     DataProvider.friendly.find(@provider_slug)
   rescue ActiveRecord::RecordNotFound

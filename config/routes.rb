@@ -183,6 +183,9 @@ Rails.application.routes.draw do
         get :confirm_destroy
       end
     end
+    resources :api_access_grants, only: %i[index new create], path: 'acces-api' do
+      resource :revocation, only: %i[new create], path: 'revocation', controller: 'api_access_grant_revocations'
+    end
     resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
       member do
         get :confirm_destroy, path: 'confirmer-suppression'

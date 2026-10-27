@@ -255,4 +255,29 @@ RSpec.describe User do
 
     it { is_expected.to contain_exactly(banned_user) }
   end
+
+  describe '#destroy!' do
+    let(:user) { create(:user) }
+    let!(:application) { create(:oauth_application, owner: user) }
+
+    before do
+      create(:access_token, application:, resource_owner_id: user.id)
+      Doorkeeper::AccessGrant.create!(
+        application:,
+        resource_owner_id: user.id,
+        redirect_uri: application.redirect_uri,
+        expires_in: 10.minutes,
+        scopes: 'public'
+      )
+    end
+
+    it 'destroys the user with its OAuth applications, access tokens and access grants' do
+      expect { user.destroy! }.not_to raise_error
+
+      expect(described_class.exists?(user.id)).to be false
+      expect(Doorkeeper::Application.exists?(application.id)).to be false
+      expect(Doorkeeper::AccessToken.where(resource_owner_id: user.id)).to be_empty
+      expect(Doorkeeper::AccessGrant.where(resource_owner_id: user.id)).to be_empty
+    end
+  end
 end

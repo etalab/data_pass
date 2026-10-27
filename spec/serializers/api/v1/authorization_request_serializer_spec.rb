@@ -29,6 +29,16 @@ RSpec.describe API::V1::AuthorizationRequestSerializer, type: :serializer do
         insee_payload: authorization_request.organization.insee_payload
       )
     end
+
+    it 'includes the service provider of the form' do
+      service_provider = authorization_request.service_provider
+
+      expect(serializable_hash[:service_provider]).to include(
+        id: service_provider.id,
+        siret: service_provider.siret,
+        type: service_provider.type
+      )
+    end
   end
 
   describe 'geographic perimeter contract (relais)' do
@@ -51,7 +61,7 @@ RSpec.describe API::V1::AuthorizationRequestSerializer, type: :serializer do
       klass.new(
         organization:,
         applicant: create(:user),
-        form_uid: habilitation_type.uid,
+        form_uid: habilitation_type.form_templates.find_by(default: true).slug,
         manual_code_insee_communes: %w[75056]
       ).tap { |request| request.save(validate: false) }.reload
     end

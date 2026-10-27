@@ -44,4 +44,16 @@ RSpec.describe ContactDefinition do
       expect(contact_definition.required_personal_email?).to be(true)
     end
   end
+
+  describe '#optional_attributes' do
+    it 'returns no attribute by default' do
+      contact_definition = described_class.new(:contact_metier)
+      expect(contact_definition.optional_attributes).to eq([])
+    end
+
+    it 'returns the attributes listed in options' do
+      contact_definition = described_class.new(:contact_metier, optional: %i[phone_number])
+      expect(contact_definition.optional_attributes).to eq(%w[phone_number])
+    end
+  end
 end

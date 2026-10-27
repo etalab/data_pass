@@ -1,18 +1,15 @@
 class AuthorizationRequestFormPolicy < ApplicationPolicy
-  include CommonAuthorizationModelsPolicies
-
   def new?
-    record.startable_by_applicant &&
-      super
+    creation_rules.access_violation.nil?
   end
 
-  protected
-
-  def authorization_request_class
-    record.authorization_request_class.to_s
+  def create?
+    creation_rules.creation_violation.nil?
   end
 
-  def authorization_definition
-    record.authorization_definition
+  private
+
+  def creation_rules
+    @creation_rules ||= AuthorizationRequestCreationRules.for_form(record, organization: current_organization, applicant: user)
   end
 end

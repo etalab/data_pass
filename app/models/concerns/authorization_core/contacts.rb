@@ -25,11 +25,12 @@ module AuthorizationCore::Contacts
 
       def self.contact(kind, validation_condition:, options: {})
         except = Array(options[:except]).map(&:to_s)
+        optional = Array(options[:optional]).map(&:to_s)
 
         class_eval do
           define_contact_type_methods(kind)
-          define_common_contact_attributes(kind, validation_condition:, except:)
-          define_contact_person_attributes(kind, validation_condition:, except:)
+          define_common_contact_attributes(kind, validation_condition:, except: except + optional)
+          define_contact_person_attributes(kind, validation_condition:, except: except + optional)
 
           contacts << ContactDefinition.new(kind, options)
         end

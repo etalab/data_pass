@@ -1286,6 +1286,54 @@ fr:
       responsable_traitement_informed:
         label: Je confirme que le responsable de l’administration de mon organisation est informé de ma demande.
 
+    resana:
+      legal:
+        title: Le cadre juridique
+        subtitle: |
+          La DINUM attribue le rôle d’administrateur Resana aux seuls agents habilités par leur hiérarchie à l’exercer pour leur organisation.
+
+          Veillez à fournir toutes les informations qui vous sembleraient utiles à porter à notre connaissance.
+        nature:
+          title: Quelle est la nature juridique de votre structure ?
+        organisations:
+          title: Pour quelle(s) organisation(s) Resana demandez-vous le rôle d’administrateur ?
+          documentation_html: Consultez la documentation Resana <a href="https://resana.zendesk.com/hc/fr/articles/38451019801245-Comprendre-le-fonctionnement-des-organisations-et-le-multi-organisation" target="_blank" rel="noopener">« Comprendre le fonctionnement des organisations et le multi-organisation »<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.
+        habilitation:
+          title: Votre habilitation à exercer ce rôle
+          hint: Cochez la certification ou fournissez une lettre de votre DSI ou DNUM.
+          separator: OU
+          summary_title: Habilitation à exercer le rôle
+      nature_juridique:
+        label: Nature juridique de votre structure
+        prompt: Sélectionnez une option
+        values:
+          administration_centrale: Administration centrale de l’État
+          service_deconcentre: Service déconcentré de l’État
+          etablissement_public_administratif: Établissement public administratif
+          etablissement_public_scientifique_culturel_professionnel: Établissement public à caractère scientifique, culturel et professionnel
+          autre: Autre
+      organisations_resana:
+        label: Organisations Resana concernées
+        hint: Une organisation par ligne
+      habilitation_certifiee:
+        label: Je certifie être habilité par ma hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation
+        summary: Le demandeur certifie être habilité par sa hiérarchie à exercer le rôle d’administrateur Resana pour cette organisation.
+      lettre_habilitation_document:
+        label: Fournissez une lettre de votre DSI ou DNUM attestant ce droit
+        hint: *pdf_input_hint
+      delegue_protection_donnees:
+        title: Délégué à la protection des données
+        info: Le délégué à la protection des données de votre organisation, informé de votre accès aux données personnelles des utilisateurs Resana.
+      contact_metier:
+        title: Responsable métier
+        summary_title: Responsable métier · reçoit les accès administrateur
+        mention: responsable métier
+        info: "C’est la personne qui <strong>recevra les accès administrateur</strong> dans Resana : vous-même ou votre responsable DNUM, DSI ou équivalent."
+      contact_metier_job_title:
+        label: Poste occupé
+      terms_of_service_accepted:
+        label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation de Resana<span class="fr-sr-only"> - nouvelle fenêtre</span></a>&nbsp;et je les valide.
+
     # FormTemplate defined in database
     proactivite_pour_les_etudiants_boursiers_dyn:
       contact_metier:

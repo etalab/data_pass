@@ -1,4 +1,4 @@
-RSpec.describe InstructorMenuComponent, type: :component do
+RSpec.describe Atoms::InstructorMenuComponent, type: :component do
   include Rails.application.routes.url_helpers
 
   describe '#render?' do

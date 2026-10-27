@@ -3,7 +3,7 @@ class ReviewAuthorizationRequest < ApplicationOrganizer
     context.authorization_request_params ||= ActionController::Parameters.new
     context.save_context = :review
     context.skip_validation = true
-    context.fail! unless context.authorization_request.filling?
+    context.fail! unless context.authorization_request.editable_by_applicant?
   end
 
   organize AssignParamsToAuthorizationRequest,

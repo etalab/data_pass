@@ -46,45 +46,11 @@ module OmniAuth
         'eidas3'
       ].freeze
 
-      def self.authorization_uri_with_mfa(session:, login_hint:)
-        new_state = SecureRandom.hex(16)
-        new_nonce = SecureRandom.hex(16)
-        session['omniauth.state'] = new_state
-        session['omniauth.nonce'] = new_nonce
-
-        params = {
-          response_type: 'code',
-          client_id: ProConnectConfig.client_id,
-          redirect_uri: ProConnectConfig.redirect_uri,
-          scope: ProConnectConfig.scope,
-          state: new_state,
-          nonce: new_nonce,
-          login_hint: login_hint,
-          claims: mfa_claims.to_json
-        }
-
-        URI(authorization_endpoint).tap { |uri|
-          uri.query = URI.encode_www_form(params)
-        }.to_s
-      end
-
-      def self.mfa_claims
+      extra do
         {
-          id_token: {
-            amr: { essential: true },
-            acr: { essential: true, values: MFA_ACR_VALUES }
-          }
+          raw_info: @userinfo,
+          acr: id_token_claims['acr']
         }
-      end
-
-      def self.authorization_endpoint
-        @authorization_endpoint ||= discovered_configuration['authorization_endpoint']
-      end
-
-      def self.discovered_configuration
-        @discovered_configuration ||= Faraday.new(url: ProConnectConfig.domain) { |c|
-          c.response :json
-        }.get('.well-known/openid-configuration').body
       end
 
       private
@@ -98,9 +64,24 @@ module OmniAuth
             scope: options[:scope],
             state: store_new_state!,
             nonce: store_new_nonce!,
-            claims: { id_token: { amr: { essential: true } } }.to_json
+            claims: mfa_claims.to_json
           )
         end
+      end
+
+      def id_token_claims
+        id_token = session['omniauth.pc.id_token']
+        return {} if id_token.blank?
+
+        JSON::JWT.decode(id_token, :skip_verification)
+      end
+
+      def mfa_claims
+        {
+          id_token: {
+            acr: { essential: true, values: MFA_ACR_VALUES }
+          }
+        }
       end
     end
   end
@@ -145,7 +126,7 @@ setup_proc = lambda do |env|
 
   prompt_param = Rack::Utils.parse_nested_query(env['QUERY_STRING'])['prompt']
 
-  if %w[select_organization update_userinfo].include?(prompt_param)
+  if prompt_param == 'select_organization'
     env['omniauth.strategy'].options[:authorize_params] = {
       prompt: prompt_param,
     }

@@ -35,7 +35,7 @@ RSpec.describe 'Page titles coverage' do
 
         next if page.has_content?('Se connecter') || page.has_content?('ProConnect')
 
-        title = normalize_title(page.find('title', visible: false).text(:all))
+        title = normalize_title(page.find('title', visible: :all).text(:all))
 
         if title == 'DataPass'
           missing_titles << route
@@ -81,7 +81,7 @@ RSpec.describe 'Page titles coverage' do
 
       authenticated_routes.each do |route, expected_pattern|
         visit route
-        title = page.find('title', visible: false).text(:all)
+        title = page.find('title', visible: :all).text(:all)
 
         expect(title).to match(expected_pattern),
           "Route #{route} has unexpected title: '#{title}'"

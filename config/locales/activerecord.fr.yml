@@ -32,6 +32,15 @@ fr:
               role_type_not_allowed: contiennent un rôle non autorisé (seuls reporter, instructeur, manager et développeur sont autorisés)
   activerecord:
     attributes:
+      api_access_grant:
+        oauth_application: Application
+        oauth_application_id: Application
+        oauth_application_name: Nom de l’application
+        data_provider: Fournisseur de données
+        data_provider_id: Fournisseur de données
+        action: Droit
+        grant_reason: Motif de l’octroi
+        revoke_reason: Motif du retrait
       user:
         job_title: Poste occupé
         email: Email
@@ -153,6 +162,16 @@ fr:
         contact_technique_email: Email du RSSI
         contact_technique_phone_number: Téléphone du RSSI
         contact_technique_job_title: Fonction du RSSI
+      authorization_request/resana:
+        nature_juridique: Nature juridique de votre structure
+        organisations_resana: Organisations Resana concernées
+        contact_metier_family_name: Nom de famille du responsable métier
+        contact_metier_given_name: Prénom du responsable métier
+        contact_metier_email: Email du responsable métier
+        contact_metier_phone_number: Téléphone du responsable métier
+        contact_metier_job_title: Fonction du responsable métier
+        habilitation_certifiee: Certification de votre habilitation
+        lettre_habilitation_document: Lettre de votre DSI ou DNUM
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -250,6 +269,12 @@ fr:
     errors:
       messages: *active_record_messages_errors
       models:
+        api_access_grant:
+          attributes:
+            base:
+              already_granted: Ce droit est déjà accordé à cette application pour ce fournisseur de données
+              already_revoked: Ce droit a déjà été retiré
+              not_covered_by_owner: Le fournisseur de données ne correspond à aucun rôle développeur du propriétaire de l’application
         authorization_request:
           all_terms_not_accepted: Vous devez acceptez les conditions générales avant de continuer
           attributes:
@@ -269,6 +294,12 @@ fr:
           attributes:
             contact_technique_phone_number:
               invalid_french_phone_mobile_format: "n'est pas un numéro de téléphone valide : afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
+        authorization_request/resana:
+          attributes:
+            habilitation_certifiee:
+              certification_or_letter_missing: "manquante : cochez la certification ou fournissez une lettre de votre DSI ou DNUM."
+            lettre_habilitation_document:
+              certification_or_letter_missing: "manquante : cochez la certification ou fournissez une lettre de votre DSI ou DNUM."
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:

@@ -110,7 +110,7 @@ module AuthorizationRequestsHelpers
   def authorization_request_can_be_updated?(authorization_request)
     return false if namespace?(:instruction)
 
-    authorization_request.filling?
+    authorization_request.editable_by_applicant?
   end
 
   def skip_france_connect_authorization?(authorization_request)

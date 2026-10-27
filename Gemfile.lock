@@ -126,10 +126,10 @@ GEM
     bindex (0.8.1)
     bootsnap (1.26.0)
       msgpack (~> 1.5)
-    brakeman (8.0.6)
+    brakeman (8.1.0)
       racc
     builder (3.3.0)
-    bullet (8.2.0)
+    bullet (8.3.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (13.0.0)
@@ -162,7 +162,7 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     css_parser (3.1.0)
       addressable
       base64
@@ -250,7 +250,7 @@ GEM
       logger
     faraday-follow_redirects (0.5.0)
       faraday (>= 1, < 3)
-    faraday-gzip (3.1.0)
+    faraday-gzip (3.2.0)
       faraday (>= 2.0, < 3)
       zlib (~> 3.0)
     faraday-multipart (1.2.0)
@@ -449,7 +449,7 @@ GEM
     net-http (0.10.0)
       net-protocol (>= 0.3.0)
       uri (>= 0.11.1)
-    net-imap (0.6.7)
+    net-imap (0.6.8)
       date
       net-protocol
     net-pop (0.1.2)
@@ -494,22 +494,19 @@ GEM
       omniauth (~> 2.0)
     openapi3_parser (0.10.1)
       commonmarker (>= 1.0)
-    openapi_first (3.4.3)
+    openapi_first (4.2.0)
       drb (~> 2.0)
       hana (~> 1.3)
       json_schemer (>= 2.1, < 3.0)
-      openapi_parameters (>= 0.12.0, < 2.0)
       rack (>= 2.2, < 4.0)
-    openapi_parameters (0.12.0)
-      rack (>= 2.2)
     ostruct (0.6.3)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
       request_store (~> 1.4)
     parallel (2.3.0)
-    parallel_tests (5.7.0)
+    parallel_tests (5.8.0)
       parallel
-    parser (3.3.12.0)
+    parser (3.3.13.0)
       ast (~> 2.4.1)
       racc
     pg (1.7.0-aarch64-linux)
@@ -546,7 +543,7 @@ GEM
     rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
-    rack-test (2.2.0)
+    rack-test (2.3.0)
       rack (>= 1.3)
     rack_session_access (0.2.0)
       builder (>= 2.0.0)
@@ -585,10 +582,10 @@ GEM
       actionview (> 3.1)
       activesupport (> 3.1)
       railties (> 3.1)
-    rails_pulse (0.4.2)
-      rails (>= 7.1.0, < 9.0.0)
+    rails_pulse (0.5.0)
+      rails (>= 7.2.0, < 9.0.0)
       ransack (>= 4.0, < 6)
-      request_store (~> 1.5)
+      thor (~> 1.0)
     railties (8.1.4)
       actionpack (= 8.1.4)
       activesupport (= 8.1.4)
@@ -600,7 +597,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    ransack (5.0.2)
+    ransack (5.0.3)
       activerecord (>= 7.2)
       activesupport (>= 7.2)
       i18n
@@ -670,9 +667,9 @@ GEM
     rubocop-ast (1.50.0)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-capybara (3.0.0)
+    rubocop-capybara (3.1.0)
       lint_roller (~> 1.1)
-      rubocop (~> 1.81)
+      rubocop (~> 1.89)
     rubocop-factory_bot (2.28.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
@@ -706,14 +703,14 @@ GEM
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
     shellany (0.0.1)
-    simplecov (1.3.0)
-    simpleidn (0.2.3)
+    simplecov (1.3.2)
+    simpleidn (0.3.0)
     snaky_hash (2.0.7)
       hashie (>= 0.1.0, < 6)
       version_gem (~> 1.1, >= 1.1.14)
-    sqlite3 (2.9.6-aarch64-linux-gnu)
-    sqlite3 (2.9.6-arm64-darwin)
-    sqlite3 (2.9.6-x86_64-linux-gnu)
+    sqlite3 (2.10.0-aarch64-linux-gnu)
+    sqlite3 (2.10.0-arm64-darwin)
+    sqlite3 (2.10.0-x86_64-linux-gnu)
     ssrf_filter (1.6.0)
     state_machines (0.201.0)
     state_machines-activemodel (0.200.0)
@@ -749,11 +746,11 @@ GEM
     unicode-display_width (3.3.0)
       unicode-emoji (~> 4.3)
     unicode-emoji (4.3.0)
-    uniform_notifier (1.18.0)
+    uniform_notifier (1.18.1)
     uri (1.1.2)
     useragent (0.16.11)
     version_gem (1.1.14)
-    view_component (4.15.0)
+    view_component (4.16.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
@@ -761,7 +758,7 @@ GEM
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
       railties (>= 8.0.0)
-    webmock (3.26.4)
+    webmock (3.34.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -776,7 +773,7 @@ GEM
     yajl-ruby (1.4.3)
     yard (0.9.45)
     zeitwerk (2.8.3)
-    zlib (3.2.3)
+    zlib (3.2.4)
 
 PLATFORMS
   aarch64-linux
@@ -859,7 +856,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rails_autolink
-  rails_pulse (= 0.4.2)
+  rails_pulse (= 0.5.0)
   ransack
   redcarpet
   redis (>= 4.0.1)
@@ -889,7 +886,7 @@ DEPENDENCIES
   wicked
 
 RUBY VERSION
-   ruby 4.0.1p0
+   ruby 4.0.9p0
 
 BUNDLED WITH
    2.6.6

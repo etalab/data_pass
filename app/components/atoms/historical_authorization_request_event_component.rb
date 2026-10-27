@@ -150,7 +150,7 @@ class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def render_diff_list(entries)
-    helpers.render(DiffListComponent.new(entries:))
+    helpers.render(Atoms::DiffListComponent.new(entries:))
   end
 
   def name_for_cancel_reopening

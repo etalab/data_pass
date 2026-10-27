@@ -12,7 +12,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def new
     if user_signed_in?
-      authorize :authorization_request, :new?
+      authorize @authorization_definition, :new?
 
       custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
 
@@ -27,7 +27,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
       new_as_guest_user
     end
   rescue Pundit::NotAuthorizedError
-    render 'closed_organization'
+    render_refusal
   end
 
   def show
@@ -45,6 +45,12 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   private
+
+  def render_refusal
+    raise unless current_organization&.closed?
+
+    render 'closed_organization'
+  end
 
   def find_authorization_definition
     @authorization_definition = AuthorizationDefinition.find(id_sanitized)

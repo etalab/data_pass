@@ -1,7 +1,11 @@
 class API::V1::UserSerializer < ActiveModel::Serializer
   attributes :id,
+    :uid,
     :email,
     :given_name,
     :family_name,
-    :phone_number
+    :phone_number,
+    :job_title
+
+  def uid = object.external_id
 end

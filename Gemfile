@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '4.0.1'
+ruby '4.0.9'
 
 gem 'active_hash'
 gem 'active_model_serializers', '~> 0.10.16'
@@ -50,7 +50,7 @@ gem 'rails_autolink'
 gem 'ransack'
 gem 'redcarpet'
 gem 'redis', '>= 4.0.1'
-gem 'rails_pulse', '0.4.2'
+gem 'rails_pulse', '0.5.0'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'sqlite3'
