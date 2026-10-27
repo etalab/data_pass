@@ -30,9 +30,23 @@ RSpec.describe DeliverLinkedFranceConnectWebhook do
           'approve',
           hash_including(
             event: 'approve',
-            model_type: 'authorization_request/france_connect'
+            model_type: 'authorization_request/france_connect',
+            source: 'web'
           )
         )
+      end
+
+      context 'when the event comes from the API' do
+        let(:context_params) { super().merge(event_source: 'api') }
+
+        it 'tells the webhook that the event comes from the API' do
+          expect { interactor }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+            webhook.id,
+            authorization_request.id,
+            'approve',
+            hash_including(source: 'api')
+          )
+        end
       end
     end
 

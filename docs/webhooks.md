@@ -78,10 +78,8 @@ Vous pouvez vérifier vos rôles développeur en vous connectant à DataPass et 
 
 Vous pouvez souscrire aux événements suivants (sélection multiple possible) :
 
-- `create` : Une nouvelle demande d'habilitation a été créée via l'interface
-- `update` : Une demande d'habilitation a été mise à jour par le demandeur via l'interface
-- `create_by_api` : Une nouvelle demande d'habilitation a été créée via l'API (`POST /api/v1/demandes`)
-- `update_by_api` : Une demande d'habilitation a été mise à jour via l'API (`PATCH /api/v1/demandes/:id`)
+- `create` : Une nouvelle demande d'habilitation a été créée, via l'interface ou via l'API (`POST /api/v1/demandes`)
+- `update` : Une demande d'habilitation a été mise à jour, via l'interface ou via l'API (`PATCH /api/v1/demandes/:id`)
 - `submit` : Une demande d'habilitation a été soumise pour instruction
 - `approve` : Une demande d'habilitation a été validée par un instructeur
 - `refuse` : Une demande d'habilitation a été refusée
@@ -330,6 +328,7 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
 ```json
 {
   "event": "approve",
+  "source": "web",
   "fired_at": 1628253953,
   "model_type": "authorization_request/api_entreprise",
   "data": {
@@ -388,7 +387,8 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
 
 ### Description des champs
 
-- **`event`** (string) : Nom de l'événement (`create`, `update`, `create_by_api`, `update_by_api`, `submit`, `approve`, etc.)
+- **`event`** (string) : Nom de l'événement (`create`, `update`, `submit`, `approve`, etc.)
+- **`source`** (string) : Origine de l'événement. `web` lorsqu'il est déclenché depuis l'interface DataPass, `api` lorsqu'il l'est par un appel à l'API d'écriture (création, mise à jour, soumission, validation). Ce champ est présent sur tous les événements
 - **`fired_at`** (timestamp) : Horodatage Unix du moment où le webhook a été déclenché
 - **`model_type`** (string) : Type de la demande (format snake_case, ex: `authorization_request/api_particulier`)
 - **`data`** (object) : Données complètes de la demande d'habilitation (voir le serializer `WebhookAuthorizationRequestSerializer`)
@@ -582,9 +582,9 @@ Lors de l'événement `approve` (validation d'une habilitation), votre système 
 
 Ce `token_id` sera stocké dans le champ `external_provider_id` de l'habilitation et peut servir de référence entre DataPass et votre système.
 
-### Soumission et validation par API
+### Écritures par API
 
-Une demande soumise par `POST /api/v1/demandes/{id}/soumettre` ou validée par `POST /api/v1/demandes/{id}/valider` déclenche les événements `submit` et `approve`, comme une soumission ou une validation faite dans l'interface : vos abonnements existants continuent de fonctionner, y compris l'échange du `token_id` à la validation. L'origine par API apparaît dans l'historique de la demande ; les métadonnées posées sur la demande permettent de la reconnaître dans vos traitements.
+Une demande créée par `POST /api/v1/demandes`, modifiée par `PATCH /api/v1/demandes/{id}`, soumise par `POST /api/v1/demandes/{id}/soumettre` ou validée par `POST /api/v1/demandes/{id}/valider` déclenche les événements `create`, `update`, `submit` et `approve`, comme la même action faite dans l'interface : vos abonnements existants continuent de fonctionner sans changement, y compris l'échange du `token_id` à la validation. Ces envois portent `"source": "api"` : filtrez dessus pour ne pas retraiter une écriture que vous venez vous-même d'émettre. L'origine par API apparaît aussi dans l'historique de la demande ; les métadonnées posées sur la demande permettent de la reconnaître dans vos traitements.
 
 ### Différences entre la charge utile des webhooks et l'API REST
 
@@ -592,7 +592,7 @@ La charge utile d'un webhook reprend l'objet `Demande` de l'API (`GET /api/v1/de
 
 | Sujet | Webhook | API REST |
 | --- | --- | --- |
-| Enveloppe | `event`, `fired_at`, `model_type`, `model_id`, `notifications`, puis la demande dans `data` | La demande seule |
+| Enveloppe | `event`, `source`, `fired_at`, `model_type`, `model_id`, `notifications`, puis la demande dans `data` | La demande seule |
 | Habilitations | clé `authorizations` | clé `habilitations` |
 | Organisation | clé `organization` | clé `organisation` |
 | `data` | valeurs résolues du formulaire | `data` stockée de la demande |

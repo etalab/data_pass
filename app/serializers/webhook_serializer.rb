@@ -3,15 +3,17 @@ class WebhookSerializer
     :event,
     :extra_data
 
-  def initialize(authorization_request, event, notifications: true)
+  def initialize(authorization_request, event, notifications: true, source: 'web')
     @authorization_request = authorization_request
     @event = event
+    @source = source
     @notifications = notifications
   end
 
   def serializable_hash
     {
       event: event.to_s,
+      source: @source,
       fired_at: now.to_i,
       model_type: authorization_request.type.underscore,
       model_id: authorization_request.id,

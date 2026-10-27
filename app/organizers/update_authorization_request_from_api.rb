@@ -2,6 +2,7 @@ class UpdateAuthorizationRequestFromAPI < ApplicationOrganizer
   before do
     context.event_name = 'update_by_api'
     context.event_entity = :changelog
+    context.event_source = 'api'
     context.save_context ||= :update
   end
 
