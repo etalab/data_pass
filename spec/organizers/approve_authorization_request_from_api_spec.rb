@@ -31,6 +31,18 @@ RSpec.describe ApproveAuthorizationRequestFromAPI do
         expect(authorization_request.events.find_by(name: 'approve').user).to eq(instructor)
       end
 
+      context 'with an active approve webhook' do
+        let!(:webhook) do
+          create(:webhook, authorization_definition_id: 'api_scolarite', events: %w[approve], enabled: true, validated: true)
+        end
+
+        it 'tells the webhook that the approval comes from the API' do
+          expect { approve_from_api }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+            webhook.id, authorization_request.id, 'approve', hash_including(source: 'api')
+          )
+        end
+      end
+
       it 'records the calling application on the approve event' do
         approve_from_api
 

@@ -12,6 +12,7 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     EnsureAuthorizationRequestCanBeCreated,
     CreateAuthorizationRequestModel,
     CreateAuthorizationRequestChangelog,
+    RefreshOrganizationINSEENow,
     AfterCreateAuthorizationRequest,
     EnqueueOrganizationINSEERefresh
 end
