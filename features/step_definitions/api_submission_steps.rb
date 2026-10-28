@@ -15,6 +15,11 @@ end
 
 Quand('la demande est soumise par API via l’application {string} sans notifications') do |application_name|
   authorization_request = AuthorizationRequest.last
+  FactoryBot.create(
+    :authorization_request_event, :create_by_api,
+    authorization_request:,
+    entity: CreateAuthorizationRequestChangelog.call!(authorization_request:).changelog
+  )
   provider_slug = authorization_request.definition.provider_slug
   data_provider = DataProvider.find_by(slug: provider_slug) || FactoryBot.create(:data_provider, slug: provider_slug)
   data_provider.update!(

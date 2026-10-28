@@ -29,6 +29,8 @@ RSpec.describe 'API: disabling DataPass notifications' do
     let(:consentement) { { terms_of_service_accepted: true, data_protection_officer_informed: true } }
     let(:params) { { consentement:, notifications: false } }
 
+    before { create(:authorization_request_event, :create_by_api, authorization_request:) }
+
     context 'when the contract makes the emails optional' do
       it 'sends no email to the applicant nor to the instructors' do
         expect { submit_request }.not_to have_enqueued_mail
