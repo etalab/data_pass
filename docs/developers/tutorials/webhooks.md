@@ -35,7 +35,11 @@ Exemple de payload reçu pour un événement `approve` :
 {
   "event": "approve",
   "source": "web",
-  "occurred_at": "2026-04-22T10:15:32Z",
+  "fired_at": 1776852932,
+  "updated_at": "2026-04-22T10:15:32.000000Z",
+  "model_type": "authorization_request/api_entreprise",
+  "model_id": 123,
+  "notifications": true,
   "data": {
     "id": 123,
     "public_id": "D123",
@@ -150,9 +154,9 @@ Les webhooks attendent une réponse `2xx` sous quelques secondes. Si votre trait
 
 ## Cas d'usage : distinguer les événements initiés par l'API
 
-Si votre CRM pousse des demandes via `POST /demandes` (voir [le tutoriel écriture](/developpeurs/tutoriels/ecriture)), les webhooks `create` et `update` partent comme pour une action faite dans l'interface, avec le champ `source` à `api` (`web` pour une action faite dans l'interface). Il en va de même pour `submit` et `approve` quand la demande est soumise ou validée par API. Vous n'avez aucun abonnement à modifier.
+Si votre CRM pousse des demandes via `POST /demandes` (voir [le tutoriel écriture](/developpeurs/tutoriels/ecriture)), les webhooks `create` et `update` partent comme pour une action faite dans l’interface, avec le champ `source` à `api` (`web` pour une action faite dans l’interface). Il en va de même pour `submit` et `approve` quand la demande est soumise ou validée par API. Vous n’avez aucun abonnement à modifier, mais vos abonnements `create` et `update` existants recevront ces écritures.
 
-Concrètement : si votre système est à la fois émetteur (push vers DataPass) **et** consommateur (écoute webhooks), filtrer sur `source: "api"` évite de retraiter une création que vous venez vous-même d'émettre — typique des boucles de synchronisation CRM qui se déclenchent en cascade.
+Concrètement : si votre système est à la fois émetteur (push vers DataPass) **et** consommateur (écoute webhooks), filtrer sur `source: "api"` évite de retraiter une création que vous venez vous-même d’émettre (à condition d’être le seul écrivain par API sur ce type d’habilitation, et sans filtrer `approve` si vous répondez avec un `token_id`) — typique des boucles de synchronisation CRM qui se déclenchent en cascade.
 
 ## Cas d'usage : rejouer un appel en échec
 
@@ -172,8 +176,8 @@ Les détails exacts (délais entre tentatives, codes qui déclenchent un retry) 
 
 | Événement | Déclenché par |
 | --- | --- |
-| `create` | Création d'une demande, depuis l'interface ou via l'API |
-| `update` | Mise à jour d'une demande, depuis l'interface ou via l'API |
+| `create` | Création d’une demande, depuis l’interface ou via l’API |
+| `update` | Mise à jour d’une demande, depuis l’interface ou via l’API |
 | `submit` | Soumission d'une demande par le demandeur |
 | `approve` | Validation par un instructeur |
 | `refuse` | Refus par un instructeur |

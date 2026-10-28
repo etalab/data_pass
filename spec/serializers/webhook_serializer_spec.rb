@@ -10,6 +10,7 @@ RSpec.describe WebhookSerializer, type: :serializer do
         event: 'whatever',
         source: 'web',
         fired_at: instance_of(Integer),
+        updated_at: authorization_request.updated_at.iso8601(6),
         model_type: 'authorization_request/api_entreprise',
         model_id: authorization_request.id,
         data: hash_including(

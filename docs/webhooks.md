@@ -78,8 +78,8 @@ Vous pouvez vérifier vos rôles développeur en vous connectant à DataPass et 
 
 Vous pouvez souscrire aux événements suivants (sélection multiple possible) :
 
-- `create` : Une nouvelle demande d'habilitation a été créée, via l'interface ou via l'API (`POST /api/v1/demandes`)
-- `update` : Une demande d'habilitation a été mise à jour, via l'interface ou via l'API (`PATCH /api/v1/demandes/:id`)
+- `create` : Une nouvelle demande d’habilitation a été créée, via l’interface ou via l’API (`POST /api/v1/demandes`)
+- `update` : Une demande d’habilitation a été mise à jour, via l’interface ou via l’API (`PATCH /api/v1/demandes/:id`)
 - `submit` : Une demande d'habilitation a été soumise pour instruction
 - `approve` : Une demande d'habilitation a été validée par un instructeur
 - `refuse` : Une demande d'habilitation a été refusée
@@ -330,6 +330,7 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
   "event": "approve",
   "source": "web",
   "fired_at": 1628253953,
+  "updated_at": "2021-08-06T12:25:53.000000Z",
   "model_type": "authorization_request/api_entreprise",
   "data": {
     "id": 9001,
@@ -387,9 +388,10 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
 
 ### Description des champs
 
-- **`event`** (string) : Nom de l'événement (`create`, `update`, `submit`, `approve`, etc.)
-- **`source`** (string) : Origine de l'événement. `web` lorsqu'il est déclenché depuis l'interface DataPass, `api` lorsqu'il l'est par un appel à l'API d'écriture (création, mise à jour, soumission, validation). Ce champ est présent sur tous les événements
+- **`event`** (string) : Nom de l’événement (`create`, `update`, `submit`, `approve`, etc.)
+- **`source`** (string) : Origine de l’événement. `web` lorsqu’il est déclenché depuis l’interface DataPass, `api` lorsqu’il l’est par un appel à l’API d’écriture (création, mise à jour, soumission, validation). Ce champ est présent sur tous les événements envoyés après la mise en ligne de cette fonctionnalité ; une absence de `source` (rejeu d’une ancienne tentative, envoi en file d’attente au moment du déploiement) ne signifie pas `web`
 - **`fired_at`** (timestamp) : Horodatage Unix du moment où le webhook a été déclenché
+- **`updated_at`** (string) : Date de dernière modification de la demande, au format ISO 8601 avec les microsecondes. La charge utile est un instantané complet de la demande : si deux webhooks arrivent dans le désordre, conservez celui dont `updated_at` est le plus récent et ignorez l’autre
 - **`model_type`** (string) : Type de la demande (format snake_case, ex: `authorization_request/api_particulier`)
 - **`data`** (object) : Données complètes de la demande d'habilitation (voir le serializer `WebhookAuthorizationRequestSerializer`)
   - **`organization`** (object) : Organisation associée à la demande. Contient notamment :
@@ -584,7 +586,15 @@ Ce `token_id` sera stocké dans le champ `external_provider_id` de l'habilitatio
 
 ### Écritures par API
 
-Une demande créée par `POST /api/v1/demandes`, modifiée par `PATCH /api/v1/demandes/{id}`, soumise par `POST /api/v1/demandes/{id}/soumettre` ou validée par `POST /api/v1/demandes/{id}/valider` déclenche les événements `create`, `update`, `submit` et `approve`, comme la même action faite dans l'interface : vos abonnements existants continuent de fonctionner sans changement, y compris l'échange du `token_id` à la validation. Ces envois portent `"source": "api"` : filtrez dessus pour ne pas retraiter une écriture que vous venez vous-même d'émettre. L'origine par API apparaît aussi dans l'historique de la demande ; les métadonnées posées sur la demande permettent de la reconnaître dans vos traitements.
+Une demande créée par `POST /api/v1/demandes`, modifiée par `PATCH /api/v1/demandes/{id}`, soumise par `POST /api/v1/demandes/{id}/soumettre` ou validée par `POST /api/v1/demandes/{id}/valider` déclenche les événements `create`, `update`, `submit` et `approve`, comme la même action faite dans l’interface : vos abonnements existants continuent de fonctionner sans changement, y compris l’échange du `token_id` à la validation. Ces envois portent `"source": "api"`.
+
+Points d’attention :
+
+- `source` indique que l’écriture vient de l’API, pas quelle application l’a faite. Filtrer sur `api` pour ne pas retraiter une écriture que vous venez d’émettre suppose que votre application est la seule à écrire par API pour ce type d’habilitation ; sinon vous ignorez aussi les écritures des autres.
+- Ne filtrez jamais l’événement `approve` : si vous répondez avec un `token_id`, il doit l’être aussi pour une validation faite par API.
+- Les abonnements `create` et `update` existants reçoivent désormais les écritures par API. Si votre récepteur réécrit dans DataPass en réaction à un webhook, ignorez les événements `source: "api"` pour ne pas créer de boucle.
+- À la création par API, l’organisation est rafraîchie depuis l’INSEE avant l’envoi de `create` ; si l’INSEE est indisponible, l’organisation peut être incomplète dans ce webhook (nom provisoire, `insee_payload` vide).
+- Une mise à jour par API qui ne change aucune donnée déclenche tout de même `update`. L’origine par API apparaît aussi dans l’historique de la demande ; les métadonnées posées sur la demande permettent de la reconnaître dans vos traitements.
 
 ### Différences entre la charge utile des webhooks et l'API REST
 

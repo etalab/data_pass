@@ -33,6 +33,8 @@ RSpec.describe 'API: Authorization requests write' do
       }
     end
 
+    before { mock_insee_sirene_api_etablissement_valid(siret: '13002526500013') }
+
     it 'creates an authorization request and returns 201' do
       expect { create_request }.to change(AuthorizationRequest, :count).by(1)
 
@@ -59,6 +61,15 @@ RSpec.describe 'API: Authorization requests write' do
         )
         expect(DeliverAuthorizationRequestWebhookJob).not_to have_been_enqueued.with(update_webhook.id, any_args)
       end
+
+      it 'carries the organization refreshed from INSEE in the create webhook' do
+        create_request
+
+        expect(DeliverAuthorizationRequestWebhookJob).to have_been_enqueued.with(
+          create_webhook.id, AuthorizationRequest.last.id, 'create',
+          hash_including(data: hash_including(organization: hash_including(insee_payload: be_present)))
+        )
+      end
     end
 
     it 'creates a new user without external_id' do
@@ -72,11 +83,11 @@ RSpec.describe 'API: Authorization requests write' do
       expect(created_user.family_name).to eq('Dupont')
     end
 
-    it 'creates a new organization and schedules INSEE refresh' do
+    it 'creates a new organization and refreshes its INSEE payload' do
       create_request
 
-      expect(Organization.find_by(legal_entity_id: '13002526500013')).to be_present
-      expect(UpdateOrganizationINSEEPayloadJob).to have_been_enqueued
+      organization = Organization.find_by(legal_entity_id: '13002526500013')
+      expect(organization.last_insee_payload_updated_at).to be_present
     end
 
     it 'creates an unverified link between user and organization' do
