@@ -54,12 +54,24 @@ class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def message_summary
     I18n.t(
-      "instruction.authorization_request_events.authorization_request_event.#{name}.message_summary",
-      user_full_name: event.user_full_name,
+      "instruction.authorization_request_events.authorization_request_event.#{name}.#{message_summary_key}",
+      default: :"instruction.authorization_request_events.authorization_request_event.#{name}.message_summary",
+      **escaped_author_texts,
       copied_from_authorization_request_id:,
       transfer_text:,
       definition_name: event.entity.try(:definition)&.name
     ).html_safe
+  end
+
+  def escaped_author_texts
+    {
+      user_full_name: ERB::Util.html_escape(event.user_full_name),
+      api_application_name: ERB::Util.html_escape(event.api_application_name)
+    }
+  end
+
+  def message_summary_key
+    event.api_application_name.present? ? :message_summary_by_api : :message_summary
   end
 
   def message_details

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_15_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_22_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -114,6 +114,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_15_100000) do
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "api_application_name"
     t.index ["authorization_request_id"], name: "index_authorization_request_events_on_authorization_request_id"
     t.index ["entity_type", "entity_id"], name: "index_authorization_request_events_on_entity"
     t.index ["name", "authorization_request_id", "created_at"], name: "idx_auth_req_events_name_request_id_created_at"

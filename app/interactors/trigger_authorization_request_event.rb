@@ -2,7 +2,7 @@ class TriggerAuthorizationRequestEvent < ApplicationInteractor
   def call
     return if trigger_or_event_valid
 
-    context.fail!(error: :trigger_event_failed)
+    fail_with_error(:trigger_event_failed)
   end
 
   private

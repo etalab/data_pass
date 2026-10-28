@@ -1045,6 +1045,8 @@ paths:
 
         La soumission n'est possible que depuis les états où le demandeur peut soumettre dans l'interface : `draft` ou `changes_requested`. Dans tout autre état, la réponse est une erreur `422` et l'état ne change pas.
 
+        Seules les demandes créées par API (`POST /demandes`) peuvent être soumises par API : un brouillon commencé par le demandeur dans DataPass lui reste réservé, car le consentement recueilli par le fournisseur de données porte sur les demandes qu'il a créées. Sinon, la réponse est une erreur `403` (titre « Demande non créée par API ») et la demande ne change pas.
+
         Après la soumission, la demande est en état `submitted` et déclenche les mêmes effets qu'une soumission dans l'interface : webhook `submit`, et notifications selon le paramètre `notifications` et le contrat du fournisseur de données. L'historique indique que la demande a été soumise par API, au nom du demandeur, et par quelle application.
 
         Requiert le scope OAuth2 `submit_authorizations` et un droit de soumission actif pour le fournisseur de données du type de demande, accordé par un administrateur DataPass. Sinon, la réponse est `403`.

@@ -5,6 +5,7 @@ class CreateAuthorizationRequestEventModel < ApplicationInteractor
       user: context.user,
       entity:,
       authorization_request:,
+      api_application_name: context.api_application_name,
     )
   end
 

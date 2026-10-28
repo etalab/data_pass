@@ -47,6 +47,30 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '#required_consents' do
+    subject { authorization_request.required_consents }
+
+    context 'with a type that requires terms of service and data protection officer information' do
+      let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+      it { is_expected.to eq(%i[terms_of_service_accepted data_protection_officer_informed]) }
+    end
+
+    context 'with a type that has an extra checkbox' do
+      let(:authorization_request) { build(:authorization_request, :api_r2p_production) }
+
+      it { is_expected.to include(:dpd_homologation_checkbox) }
+    end
+
+    context 'with a type that has no terms of service' do
+      let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+      before { allow(authorization_request).to receive(:cgu_required?).and_return(false) }
+
+      it { is_expected.not_to include(:terms_of_service_accepted) }
+    end
+  end
+
   describe 'factories' do
     it 'saves the authorization request with state submitted and then changes it to draft' do
       authorization_request = build(:authorization_request, :api_entreprise, state: 'submitted')

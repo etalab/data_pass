@@ -18,6 +18,22 @@ authorize definition, :submit?, policy_class: APIAccessPolicy
 
 `definition` est la définition d’habilitation visée. Pour la validation, utiliser `:validate_authorizations` et `:validate?`. Le `pundit_user` de l’API est un `APIUserContext` (utilisateur propriétaire plus application Doorkeeper).
 
+## Validation par API
+
+`POST /api/v1/demandes/:id/valider` (`API::V1::AuthorizationRequestsController#validate`) applique `APIAccessPolicy#validate?` puis appelle `ApproveAuthorizationRequestFromAPI`. Cet organizer vérifie que `instructeur.email` désigne un instructeur du type, puis que la demande est `submitted` et approuvable par cet instructeur selon `Instruction::AuthorizationRequestPolicy#approve?` (la même règle que dans l’interface, restreinte par l’API aux demandes `submitted`), puis délègue à `ApproveAuthorizationRequest` avec cet instructeur comme `user` : les effets sont donc ceux de la validation dans l’interface.
+
+L’origine par API est portée par `authorization_request_events.api_application_name` (nom recopié, sans clé étrangère), alimenté par `context.api_application_name`. L’événement garde le nom `approve` : aucun événement `approve_by_api` n’est émis, pour ne pas modifier les abonnements webhook. `HistoricalAuthorizationRequestEventComponent` affiche la clé `message_summary_by_api` quand le nom d’application est présent.
+
+## Soumission par API
+
+`POST /api/v1/demandes/:id/soumettre` (`API::V1::AuthorizationRequestsController#submit`) applique `APIAccessPolicy#submit?` puis appelle `SubmitAuthorizationRequestFromAPI`. Cet organizer vérifie que la demande a été créée par API (`EnsureAuthorizationRequestCreatedByAPI` : présence d’un événement `create_by_api`, sinon `403` « Demande non créée par API » — un brouillon commencé dans le portail reste à son demandeur), que la demande est soumettable (`can_submit?`), que chaque case de `AuthorizationRequest#required_consents` est transmise à `true` dans `consentement` (`EnsureConsentsGiven`), puis délègue à `SubmitAuthorizationRequest` avec le **demandeur** comme `user` : l’API ne soumet jamais au nom du fournisseur de données et les effets sont ceux de la soumission dans l’interface.
+
+Une case déjà cochée sur le brouillon ne vaut pas consentement : le fournisseur de données doit la déclarer à chaque soumission. `required_consents` alimente aussi le champ `consentements` des définitions ; pour une définition, la liste est calculée sur une instance vierge, donc les cases conditionnelles (ex. l’alternative FranceConnect, qui dépend de la modalité) n’y figurent que si la demande les exige, et l’erreur « Consentement manquant » donne la liste exacte.
+
+Les erreurs par champ sont construites par `APIErrorsFacade` : `/data/<champ>` à partir des erreurs du modèle (`authorization_request_invalid`), `/consentement/<case>` pour `consent_missing`. Elles sont produites pour tout échec `authorization_request_invalid` dont la demande porte des erreurs de modèle ; une erreur de base (par exemple les conditions non acceptées) n’a pas de `source.pointer`.
+
+L’origine par API est portée par `authorization_request_events.api_application_name`, comme pour la validation. L’événement garde le nom `submit` ; `HistoricalAuthorizationRequestEventComponent` affiche la variante `message_summary_by_api` de chaque formulation de soumission (le nom affiché dépend du journal des modifications, d’où sept variantes).
+
 ## Réponses 403 et changement de comportement
 
 `API::V1Controller` rend toujours un `403` au format `errors[]` avec le titre « Droit API manquant » (textes dans `config/locales/api_errors.fr.yml`) :

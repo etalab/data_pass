@@ -226,25 +226,68 @@ Ces scopes ne se demandent pas librement : une fois le droit accordé, demandez 
 
 ### Soumettre
 
-```ruby
-uri = URI("https://datapass.api.gouv.fr/api/v1/demandes/#{demande_id}/soumettre")
-request = Net::HTTP::Post.new(uri)
-request['Authorization'] = "Bearer #{access_token}"
-request['Content-Type'] = 'application/json'
-request.body = {
-  consentement: {
-    terms_of_service_accepted: true,
-    data_protection_officer_informed: true
-  }
-}.to_json
+`POST /api/v1/demandes/{id}/soumettre` soumet pour instruction un brouillon complet, **au nom du demandeur indiqué à la création** : l’API ne soumet jamais au nom du fournisseur de données. La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que vous choisissez d’enchaîner ou non.
+
+Il exige le scope `submit_authorizations` et un droit de soumission actif pour le fournisseur de données du type de la demande (voir [Droits de soumission et de validation](#droits-de-soumission-et-de-validation)).
+
+#### Déclarer le consentement du demandeur
+
+Vous déclarez avoir recueilli le consentement du demandeur en transmettant, dans l’objet `consentement`, **chaque case à cocher** que le demandeur doit cocher dans l’interface avant de soumettre, à `true`. Les cases exigées dépendent du type d’habilitation : elles sont listées dans `consentements` de `GET /definitions/{id}`.
+
+```bash
+curl https://datapass.api.gouv.fr/api/v1/definitions/api_entreprise \
+  -H "Authorization: Bearer $TOKEN"
+# { ..., "consentements": ["terms_of_service_accepted", "data_protection_officer_informed"], ... }
+
+curl -X POST https://datapass.api.gouv.fr/api/v1/demandes/123/soumettre \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "consentement": {
+      "terms_of_service_accepted": true,
+      "data_protection_officer_informed": true
+    }
+  }'
 ```
 
-- Le demandeur reste la personne indiquée à la création : l'API ne soumet jamais au nom du FD.
-- Vous déclarez avoir recueilli le consentement du demandeur en transmettant dans `consentement` chaque case que le demandeur doit cocher dans l'interface (CGU, information du DPO, cases propres à certains types…), à `true`. La liste des cases exigées pour un type est dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission, avec une erreur par case (`source.pointer` : `/consentement/<case>`).
-- Si vous avez vous-même vérifié les emails de contact de la demande, transmettez `"verified_email": true` : DataPass n'effectue alors pas sa propre vérification de joignabilité (le format reste contrôlé).
-- La demande est contrôlée comme dans l'interface. Si elle est incomplète, elle reste en `draft` et la réponse `422` contient **une erreur par champ**, avec `source.pointer` (ex. `/data/delegue_protection_donnees_family_name`).
-- Seules les demandes `draft` ou `changes_requested` sont soumettables. Les autres renvoient une erreur « État non modifiable ».
-- Après la soumission, la demande est `submitted`, avec les mêmes effets qu'une soumission classique (webhook `submit`). L'historique indique qu'elle a été soumise par API, avec le nom de votre application.
+Une case exigée absente ou à `false` empêche la soumission, même si elle a déjà été cochée sur le brouillon : le consentement doit être transmis à chaque soumission.
+
+#### Ce qui est contrôlé
+
+- La demande est contrôlée avec **les mêmes règles que la soumission dans l’interface** (champs obligatoires, emails de contact vérifiés, pièces jointes).
+- Seules les demandes `draft` ou `changes_requested` sont soumettables.
+- Seules les demandes **créées par API** (`POST /demandes`) sont soumettables par API. Un brouillon commencé par l’usager dans le portail lui reste réservé : le consentement recueilli par le fournisseur de données porte sur les demandes qu’il a créées, pas sur celles de l’usager.
+- Après la soumission, la demande est `submitted`, avec les mêmes effets qu’une soumission dans l’interface : webhook `submit`, emails aux instructeurs. La réponse `200` contient la demande à jour.
+- L’historique indique « Demande soumise par API au nom de *nom du demandeur*, via l’application *nom de votre application* ». L’événement garde le nom `submit`.
+
+#### Erreur `403`
+
+Une demande qui n’a pas été créée par API est refusée en `403` avec l’erreur « Demande non créée par API ». Elle ne change pas.
+
+#### Erreurs `422`
+
+La demande ne change pas et reste dans son état dans les cas suivants, au format `errors[]` habituel :
+
+| Titre | Cause | `source.pointer` |
+| --- | --- | --- |
+| « Demande invalide » | une donnée est manquante ou invalide : une erreur par champ | `/data/<champ>` |
+| « Consentement manquant » | une case exigée n’est pas transmise à `true` | `/consentement/<case>` |
+| « État non modifiable » | la demande n’est pas `draft` ou `changes_requested` | — |
+
+```json
+{
+  "errors": [
+    {
+      "status": "422",
+      "title": "Demande invalide",
+      "detail": "Nom de famille du délégué à la protection des données doit être rempli(e)",
+      "source": { "pointer": "/data/delegue_protection_donnees_family_name" }
+    }
+  ]
+}
+```
+
+Un objet `consentement` absent de la requête renvoie une erreur `400`.
 
 ### Valider
 
@@ -285,7 +328,8 @@ En plus de `write_authorizations` (création et mise à jour, inchangé), deux s
 
 ### Réponses `403`
 
-Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ».
+Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre « Droit API manquant ». Les deux cas ci-dessous s’appliquent aux endpoints de soumission et de validation, comme aux endpoints existants.
+
 
 - le jeton ne porte pas le scope exigé : « Le jeton d’accès ne permet pas cette action. Si un droit vient d’être accordé à votre application, demandez un nouveau jeton d’accès. » Ce cas s’applique désormais à **tous** les endpoints qui exigent un scope (il renvoyait auparavant une erreur `422`) ;
 - le jeton porte le scope mais l’application n’a pas de droit actif pour le fournisseur de données du type d’habilitation : « Votre application n’est pas autorisée à soumettre des demandes pour ce fournisseur de données. » (ou « valider » pour la validation).
@@ -305,6 +349,52 @@ Dans tous les cas, l’erreur suit le format `errors[]` habituel avec le titre �
 ### Révocation
 
 Un administrateur peut révoquer un droit à tout moment. La révocation est effective **immédiatement**, même avec un jeton qui porte encore le scope : le droit est revérifié à chaque appel. La suppression d’une application révoque automatiquement ses droits.
+
+## Valider une demande
+
+`POST /api/v1/demandes/{id}/valider` valide une demande « En cours d’instruction » au nom d’un **instructeur identifié**, qui en prend la responsabilité. Peu importe que la décision vienne de règles automatiques ou de votre propre portail, tant qu’une personne en porte la responsabilité.
+
+Il exige le scope `validate_authorizations` et un droit de validation actif pour le fournisseur de données du type de la demande (voir [Droits de soumission et de validation](#droits-de-soumission-et-de-validation)).
+
+```bash
+curl -X POST https://datapass.api.gouv.fr/api/v1/demandes/123/valider \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "instructeur": { "email": "instructeur@example.com" },
+    "message": "Demande conforme au cadre juridique."
+  }'
+```
+
+- `instructeur.email` (obligatoire) : adresse d’un compte DataPass existant qui a le rôle d’instructeur sur le type de la demande.
+- `message` (facultatif) : message de validation, comme dans l’interface.
+
+La validation produit **exactement les mêmes effets** qu’une validation dans l’interface : création de l’habilitation, passage des habilitations précédentes en « Obsolète » pour une mise à jour, passerelles, webhook `approve` et habilitation FranceConnect liée le cas échéant. La réponse `200` contient la demande à jour (état `validated`) avec l’habilitation active dans `habilitations`.
+
+L’historique de la demande affiche « Demande validée par API par *nom de l’instructeur*, via l’application *nom de votre application* ».
+
+### Erreurs `422`
+
+La demande ne change pas dans les cas suivants, au format `errors[]` habituel :
+
+| Titre | Cause |
+| --- | --- |
+| « Instructeur invalide » | `instructeur.email` absent, inconnu, ou sans rôle d’instructeur sur ce type |
+| « État non modifiable » | la demande n’est pas « En cours d’instruction » (brouillon, à modifier, refusée ou validée) |
+
+```json
+{
+  "errors": [
+    {
+      "status": "422",
+      "title": "Instructeur invalide",
+      "detail": "Les informations de l’instructeur sont manquantes ou invalides."
+    }
+  ]
+}
+```
+
+Le refus, la demande de modification et la révocation ne sont pas possibles par API : ils se font dans l’interface DataPass.
 
 ## Rediriger l'utilisateur vers sa demande
 
@@ -381,7 +471,7 @@ Lorsque `POST /demandes` crée le demandeur, il est rattaché à l'organisation 
 ## Workflow recommandé
 
 1. **Créer** la demande en `draft` depuis votre formulaire/CRM (`POST /demandes`).
-2. **Rediriger** l'utilisateur vers `https://datapass.api.gouv.fr/demandes/{id}` pour qu'il finalise et soumette.
+2. **Rediriger** l'utilisateur vers `https://datapass.api.gouv.fr/demandes/{id}` pour qu'il finalise et soumette, ou, si votre fournisseur de données a le droit de soumission et recueille lui-même le consentement, **soumettre** par API (`POST /demandes/{id}/soumettre`).
 3. **Suivre** les transitions d'état (soumission, validation, refus) via les webhooks — voir [le tutoriel webhooks](/developpeurs/tutoriels/webhooks).
 4. **Synchroniser** l'habilitation délivrée dans votre système interne à réception de l'événement `approve`.
 

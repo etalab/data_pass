@@ -16,7 +16,8 @@ class CreateLinkedFranceConnectAuthorizationEvent < ApplicationInteractor
       name: 'auto_generate',
       user: context.user,
       entity: context.linked_france_connect_authorization,
-      authorization_request: context.authorization_request
+      authorization_request: context.authorization_request,
+      api_application_name: context.api_application_name
     )
   end
 end

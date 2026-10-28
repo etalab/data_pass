@@ -9,6 +9,9 @@ fr:
     dead_end_state:
       title: État non modifiable
       detail: La demande ne peut pas être modifiée dans l’état actuel.
+    not_created_by_api:
+      title: Demande non créée par API
+      detail: Seules les demandes créées par API peuvent être soumises par API ; un brouillon commencé dans DataPass reste soumis par son demandeur.
     form_not_startable:
       title: Formulaire non disponible
       detail: Ce formulaire ne peut pas être utilisé pour créer une demande.
@@ -21,6 +24,15 @@ fr:
     unicity_violated:
       title: Demande déjà existante
       detail: Une autre demande d’habilitation de ce type est déjà en cours ou validée pour cette organisation, elle ne peut en avoir qu’une seule.
+    instructor_invalid:
+      title: Instructeur invalide
+      detail: Les informations de l’instructeur sont manquantes ou invalides.
+    not_approvable_from_api:
+      title: État non modifiable
+      detail: Seule une demande en cours d’instruction peut être validée par API.
+    trigger_event_failed:
+      title: Transition impossible
+      detail: La demande n’a pas pu changer d’état, aucune modification n’a été enregistrée.
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."
@@ -30,6 +42,9 @@ fr:
       title: Organisation invalide
     authorization_request_invalid:
       title: Demande invalide
+    consent_missing:
+      title: Consentement manquant
+      detail: "La case « %{key} » doit être cochée pour soumettre cette demande."
     generic:
       title: Entité non traitable
       detail: Un problème est survenu lors du traitement de la requête.

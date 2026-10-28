@@ -5,12 +5,18 @@ class API::V1::AuthorizationDefinitionSerializer < ActiveModel::Serializer
     :authorization_request_class,
     :scopes
 
+  attribute :required_consents, key: :consentements
+
   def name
     object.name_with_stage
   end
 
   def authorization_request_class
     object.authorization_request_class.to_s
+  end
+
+  def required_consents
+    object.authorization_request_class.new.required_consents
   end
 
   def scopes
