@@ -381,6 +381,10 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
       "contact_technique_phone_number": "08366666666",
       "contact_technique_job_title": "DSI",
       "contact_technique_email": "tech@beta.gouv.fr"
+    },
+    "metadata": {
+      "campagne": "migration-editeur-x",
+      "source": "api"
     }
   }
 }
@@ -404,6 +408,7 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
     - `data` : Données de l'habilitation au moment de sa création
     - `authorization_request_class` : Type de demande d'habilitation associée
     - `definition_id` : Identifiant de la définition d'habilitation
+  - **`metadata`** (object) : Métadonnées posées par votre application sur la demande via l'API (`demande.metadata` à la création ou à la mise à jour). Objet vide si aucune. Elles permettent de reconnaître vos propres demandes, par exemple pour ne pas renvoyer vos emails. Voir le [tutoriel d'écriture](/developpeurs/tutoriels/ecriture) pour les limites.
 
 ---
 
@@ -600,7 +605,7 @@ La charge utile d'un webhook reprend l'objet `Demande` de l'API (`GET /api/v1/de
 
 `notifications` vaut `false` lorsque l'appel API à l'origine de l'événement a désactivé les emails DataPass et que le contrat du fournisseur de données l'autorise (voir le paramètre `notifications` de l'API) ; il vaut `true` dans tous les autres cas, y compris pour les événements déclenchés depuis l'interface.
 
-Les champs `applicant.uid` (identifiant ProConnect, `sub`), `applicant.job_title`, `organisation.name` et `service_provider` sont présents des deux côtés.
+Les champs `applicant.uid` (identifiant ProConnect, `sub`), `applicant.job_title`, `organisation.name`, `service_provider` et `metadata` sont présents des deux côtés.
 
 ### Serializer utilisé
 
