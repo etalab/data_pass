@@ -4,6 +4,7 @@ class UpdateAuthorizationRequestFromAPI < ApplicationOrganizer
     context.event_entity = :changelog
     context.event_source = 'api'
     context.save_context ||= :update
+    context.skip_empty_changelog = true
   end
 
   around do |organizer|
@@ -16,5 +17,5 @@ class UpdateAuthorizationRequestFromAPI < ApplicationOrganizer
     UpdateAuthorizationRequestModel,
     AssignAPIMetadataToAuthorizationRequest,
     CreateAuthorizationRequestChangelog,
-    AfterUpdateAuthorizationRequest
+    TriggerAfterUpdateIfChanged
 end
