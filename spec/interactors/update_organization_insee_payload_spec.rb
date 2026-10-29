@@ -43,6 +43,30 @@ RSpec.describe UpdateOrganizationINSEEPayload, type: :interactor do
     end
   end
 
+  context 'when the SIRET does not exist and the caller tolerates it' do
+    subject(:interactor) do
+      described_class.call(organization:, update_organization_insee_payload_now: true, tolerate_insee_entity_not_found: true)
+    end
+
+    before do
+      allow(insee_sirene_api_client).to receive(:etablissement).and_raise(INSEESireneAPIClient::EntityNotFoundError)
+    end
+
+    it { is_expected.to be_a_success }
+  end
+
+  context 'when the refresh is synchronous' do
+    before do
+      allow(insee_sirene_api_client).to receive(:etablissement).and_return({})
+    end
+
+    it 'reloads the organization with the fresh payload' do
+      interactor
+
+      expect(interactor.organization.last_insee_payload_updated_at).to be_present
+    end
+  end
+
   context 'when INSEE is unavailable' do
     before do
       allow(insee_sirene_api_client).to receive(:etablissement).and_raise(AbstractINSEEAPIClient::UnavailableError)

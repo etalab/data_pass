@@ -4,6 +4,8 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     context.event_name = 'create_by_api'
     context.event_entity = :changelog
     context.event_source = 'api'
+    context.update_organization_insee_payload_now = true
+    context.tolerate_insee_entity_not_found = true
   end
 
   organize ResolveAuthorizationRequestForm,
@@ -12,7 +14,6 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     EnsureAuthorizationRequestCanBeCreated,
     CreateAuthorizationRequestModel,
     CreateAuthorizationRequestChangelog,
-    RefreshOrganizationINSEENow,
-    AfterCreateAuthorizationRequest,
-    EnqueueOrganizationINSEERefresh
+    UpdateOrganizationINSEEPayload,
+    AfterCreateAuthorizationRequest
 end
