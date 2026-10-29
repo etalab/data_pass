@@ -34,4 +34,4 @@ Fonctionnalité: Historique d’une demande soumise par API
     Et que la demande est soumise par API via l’application "Portail API Entreprise" sans notifications
     Et que je me rends sur la dernière demande à instruire
     Et que je clique sur "Historique"
-    Alors la page contient "Les notifications DataPass ont été désactivées pour cet appel API."
+    Alors la page contient "Certaines notifications DataPass ont été désactivées pour cet appel API."

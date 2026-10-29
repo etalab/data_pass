@@ -43,7 +43,7 @@ RSpec.describe Atoms::HistoricalAuthorizationRequestEventComponent, type: :compo
     it 'says that the notifications were disabled' do
       page = render_inline(described_class.new(authorization_request_event:))
 
-      expect(page).to have_text('Les notifications DataPass ont été désactivées pour cet appel API.')
+      expect(page).to have_text('Certaines notifications DataPass ont été désactivées pour cet appel API.')
     end
 
     it 'says nothing when the notifications were sent' do

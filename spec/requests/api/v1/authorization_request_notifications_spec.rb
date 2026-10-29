@@ -191,4 +191,45 @@ RSpec.describe 'API: disabling DataPass notifications' do
       end
     end
   end
+
+  describe 'POST /api/v1/demandes/:id/valider when only the linked FranceConnect email is skipped' do
+    subject(:validate_request) do
+      post "/api/v1/demandes/#{authorization_request.id}/valider", params:, headers:, as: :json
+    end
+
+    let(:owner) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
+    let(:instructor) { create(:user, :instructor, authorization_request_types: %w[api_particulier]) }
+    let(:data_provider) do
+      slug = AuthorizationDefinition.find('api_particulier').provider_slug
+      DataProvider.find_by(slug:) || create(:data_provider, slug:)
+    end
+    let(:optional_notifications) { %w[linked_france_connect] }
+    let(:authorization_request) { create(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields, :submitted, fill_all_attributes: true) }
+    let(:params) { { instructeur: { email: instructor.email }, message: 'Conforme', notifications: false } }
+
+    let!(:webhook) do
+      create(:webhook, authorization_definition_id: authorization_request.definition.id, events: %w[approve], validated: true, enabled: true)
+    end
+
+    around do |example|
+      ServiceProvider.find('entrouvert').apipfc_enabled = true
+      example.run
+    ensure
+      ServiceProvider.find('entrouvert').apipfc_enabled = false
+    end
+
+    it 'records in the history that notifications were disabled' do
+      validate_request
+
+      expect(authorization_request.events.find_by(name: 'approve')).to be_notifications_disabled
+    end
+
+    it 'still tells the main webhook that notifications were sent, because its payload is built before the linked email is skipped' do
+      validate_request
+
+      expect(DeliverAuthorizationRequestWebhookJob).to have_been_enqueued.with(
+        webhook.id, authorization_request.id, 'approve', hash_including(notifications: true)
+      )
+    end
+  end
 end

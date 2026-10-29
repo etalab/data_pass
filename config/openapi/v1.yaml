@@ -932,8 +932,6 @@ paths:
                       additionalProperties: true
                     metadata:
                       $ref: '#/components/schemas/Metadata'
-                notifications:
-                  $ref: '#/components/schemas/Notifications'
       responses:
         201:
           description: Demande d'habilitation créée avec succès
@@ -1015,8 +1013,6 @@ paths:
                       additionalProperties: true
                     metadata:
                       $ref: '#/components/schemas/Metadata'
-                notifications:
-                  $ref: '#/components/schemas/Notifications'
       responses:
         200:
           description: Demande d'habilitation mise à jour avec succès

@@ -95,7 +95,9 @@ DataProvider.find_by!(slug: 'dinum').update!(
 
 Quand l’appelant envoie `notifications: false`, les types facultatifs ne sont pas envoyés. `NotificationPolicy#deliver` entoure chaque envoi, au moment où l’e-mail partirait vraiment : un type facultatif est alors sauté et mémorisé, un type obligatoire est envoyé et, si l’appelant avait demandé `notifications: false`, signalé dans `meta.warnings`. Un e-mail qui ne s’applique pas à la demande n’est donc ni sauté ni signalé. Les webhooks partent toujours, avec `notifications: false` dans leur enveloppe lorsqu’au moins un e-mail a réellement été sauté ; l’événement d’historique porte alors `notifications_disabled`. Une valeur autre que `true` ou `false` donne une 422 « Paramètre invalide ».
 
-La limite : l’enveloppe du webhook principal est construite avant l’envoi de l’e-mail FranceConnect lié à la validation. Si c’est le seul e-mail sauté, l’événement d’historique le dit mais ce webhook porte `notifications: true`.
+La limite : l’enveloppe du webhook principal est construite avant l’envoi de l’e-mail FranceConnect lié à la validation. Si c’est le seul e-mail sauté, l’événement d’historique le dit mais ce webhook porte `notifications: true` (comportement figé par un test dans `spec/requests/api/v1/authorization_request_notifications_spec.rb`).
+
+L’historique affiche « Certaines notifications DataPass ont été désactivées » dès qu’au moins un e-mail a été sauté : le détail des types sautés n’est pas conservé.
 
 ## Limites connues
 

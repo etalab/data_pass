@@ -348,7 +348,7 @@ fr:
       create:
         success: Votre message a été envoyé avec succès
     authorization_request_events:
-      notifications_disabled: Les notifications DataPass ont été désactivées pour cet appel API.
+      notifications_disabled: Certaines notifications DataPass ont été désactivées pour cet appel API.
       index:
         title: Derniers événements liés à cette demande
       authorization_request_event:
