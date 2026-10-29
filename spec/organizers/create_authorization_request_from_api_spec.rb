@@ -7,10 +7,12 @@ RSpec.describe CreateAuthorizationRequestFromAPI, type: :organizer do
         authorization_request_params: ActionController::Parameters.new(data),
         applicant_params:,
         siret: '13002526500013',
-        user: oauth_user
+        user: oauth_user,
+        **metadata_context
       )
     end
 
+    let(:metadata_context) { {} }
     let!(:oauth_user) { create(:user, :developer, authorization_request_types: %w[api_entreprise]) }
     let(:applicant_params) do
       { email: 'applicant@example.com', given_name: 'Jean', family_name: 'Dupont' }
@@ -26,6 +28,30 @@ RSpec.describe CreateAuthorizationRequestFromAPI, type: :organizer do
 
       it 'enqueues the INSEE refresh job' do
         expect { result }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
+      end
+    end
+
+    context 'with metadata' do
+      let(:metadata_context) { { api_metadata: { 'campagne' => 'migration-editeur-x', 'lot' => 3 }, api_metadata_provided: true } }
+
+      it 'stores them in the api namespace' do
+        expect(result.authorization_request.reload.metadata).to eq('api' => { 'campagne' => 'migration-editeur-x', 'lot' => 3 })
+      end
+
+      it 'keeps them out of the changelog' do
+        expect(result.authorization_request.changelogs.sole.diff).not_to have_key('metadata')
+      end
+    end
+
+    context 'with invalid metadata' do
+      let(:metadata_context) { { api_metadata: { 'commentaire' => 'v' * 501 }, api_metadata_provided: true } }
+
+      it 'fails with invalid_metadata' do
+        expect(result.error[:key]).to eq(:invalid_metadata)
+      end
+
+      it 'creates neither the request, the applicant nor the organization' do
+        expect { result }.not_to change { [AuthorizationRequest.count, User.count, Organization.count] }
       end
     end
 
