@@ -480,6 +480,19 @@ RSpec.describe 'API: Authorization requests write' do
         end
       end
 
+      context 'when sending only metadata on a request with a changelog' do
+        let(:params) { { demande: { metadata: { source: 'api' } } } }
+
+        before { CreateAuthorizationRequestChangelog.call(authorization_request:) }
+
+        it 'creates neither an empty changelog nor an update_by_api event' do
+          expect { update_request }.not_to change { [authorization_request.changelogs.count, authorization_request.events_without_bulk_update.count] }
+
+          expect(response).to have_http_status(:ok)
+          expect(authorization_request.reload.metadata_for(:api)).to eq('source' => 'api')
+        end
+      end
+
       context 'when sending null' do
         let(:params) { { demande: { metadata: nil } } }
 

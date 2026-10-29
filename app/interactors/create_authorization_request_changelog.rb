@@ -16,14 +16,20 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def create_changelog_with_diff
-    create_changelog(
-      reified_data.each_with_object({}) do |(key, old_value), diff|
-        next unless authorization_request.respond_to?(key)
-        next if authorization_request_value_for_diff(key) == old_value
+    diff = diff_since_last_changelog
 
-        diff[key] = [old_value, authorization_request_value_for_diff(key)]
-      end
-    )
+    return if diff.empty? && context.skip_empty_changelog
+
+    create_changelog(diff)
+  end
+
+  def diff_since_last_changelog
+    reified_data.each_with_object({}) do |(key, old_value), diff|
+      next unless authorization_request.respond_to?(key)
+      next if authorization_request_value_for_diff(key) == old_value
+
+      diff[key] = [old_value, authorization_request_value_for_diff(key)]
+    end
   end
 
   def authorization_request_initial_diff
