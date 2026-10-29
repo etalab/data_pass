@@ -35,6 +35,15 @@ RSpec.describe StartNextAuthorizationRequestStage, type: :organizer do
             expect { start_next_stage }.to change { AuthorizationRequest.find(authorization_request.id).state }.from('validated').to('draft')
           end
 
+          it 'keeps the metadata of every namespace' do
+            metadata = { 'api' => { 'campagne' => 'migration-editeur-x' }, 'datapass' => { 'note' => 'interne' } }
+            authorization_request.update!(metadata:)
+
+            start_next_stage
+
+            expect(AuthorizationRequest.find(authorization_request.id).metadata).to eq(metadata)
+          end
+
           context 'when there is an existing production authorization' do
             let!(:existing_production_authorization) do
               create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulier')
