@@ -7,12 +7,17 @@ class WebhookAuthorizationRequestSerializer < ApplicationSerializer
     :data,
     :created_at,
     :last_submitted_at,
-    :last_validated_at
+    :last_validated_at,
+    :metadata
 
   has_one :organization, serializer: WebhookOrganizationSerializer
   has_one :applicant, serializer: WebhookUserSerializer
   has_one :service_provider, serializer: WebhookServiceProviderSerializer
   has_many :authorizations, serializer: WebhookAuthorizationSerializer
+
+  def metadata
+    object.metadata_for(:api)
+  end
 
   def data
     object.data.keys.index_with { |key|

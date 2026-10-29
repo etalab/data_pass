@@ -42,5 +42,22 @@ RSpec.describe WebhookSerializer, type: :serializer do
         )
       end
     end
+
+    describe 'metadata' do
+      before do
+        authorization_request.update!(metadata: { 'api' => { 'campagne' => 'migration-editeur-x' }, 'datapass' => { 'note' => 'interne' } })
+      end
+
+      Webhook::VALID_EVENTS.each do |event_name|
+        context "with the #{event_name} event" do
+          let(:webhook_serializer) { described_class.new(authorization_request, event_name) }
+
+          it 'carries the api metadata only' do
+            expect(serializable_hash[:data][:metadata]).to eq('campagne' => 'migration-editeur-x')
+            expect(serializable_hash.to_json).not_to include('interne')
+          end
+        end
+      end
+    end
   end
 end
