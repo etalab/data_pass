@@ -47,6 +47,18 @@ RSpec.describe CreateAuthorizationRequestFromAPI, type: :organizer do
       end
     end
 
+    context 'when the SIRET is unknown to INSEE' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/}).to_return(status: 404)
+      end
+
+      it { is_expected.to be_a_success }
+
+      it 'does not enqueue a refresh that would fail again' do
+        expect { result }.not_to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
+      end
+    end
+
     context 'with a FranceConnect-certified api-particulier form' do
       subject(:result) do
         described_class.call(
