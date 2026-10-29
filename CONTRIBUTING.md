@@ -196,21 +196,46 @@ PO puisse tester seule, sans avoir à nous demander comment faire :
 ### Recetter plusieurs branches en même temps
 
 Sandbox ne déploie qu’une seule branche à la fois. Pour faire recetter
-plusieurs tickets ensemble, on construit une branche de recette jetable :
+plusieurs tickets ensemble, on construit une branche de recette jetable avec
+`bin/build-recette` :
 
-- on part de `develop` à jour et on y fusionne les branches à recetter ;
-- on la nomme avec la date, par exemple `recette/2026-10-08` ;
-- on ajoute un fichier `public/recette.txt` qui liste ce qu’elle contient
-  (ticket, pull request, commit, branche), pour savoir ce qui tourne sur
-  sandbox ;
-- on la déploie avec l’action GitHub « Deployment via HTTPS (sandbox) », en
-  choisissant la branche de recette.
+```sh
+bin/build-recette new feature/dpp-12-… feature/dpp-34-…
+```
+
+Le script part de `develop` à jour, fusionne les branches dans l’ordre donné
+et pousse une branche datée, par exemple `recette/2026-10-08`. Il y ajoute un
+fichier `public/recette.txt` qui liste ce qu’elle contient (ticket, pull
+request, commit, branche) : on le lit sur `/recette.txt` pour savoir ce qui
+tourne sur sandbox. Il affiche à la fin la commande de déploiement, qu’on
+lance soi-même (action GitHub « Deployment via HTTPS (sandbox) »).
+
+Il ne prend que ce qui est poussé : il s’arrête si une branche a des commits
+locaux non poussés, et au premier conflit, sans rien pousser.
+
+Pour ajouter une branche, ou la nouvelle version d’une branche, à une recette
+en cours, on fusionne par-dessus au lieu de reconstruire :
+
+```sh
+bin/build-recette add recette/2026-10-08 feature/dpp-56-…
+```
+
+Chaque construction est une nouvelle branche : on ne réécrit jamais une
+branche de recette déjà poussée, donc jamais de push force. Pour retirer une
+branche d’une recette, on en reconstruit une nouvelle.
 
 On n’ouvre jamais de pull request sur cette branche et on ne la merge pas.
 
-Chaque déploiement relance les seeds de sandbox, qui vident la base : les
-données préparées pour la recette disparaissent. Si la recette dure plusieurs
-jours, on prévient avant de redéployer.
+Chaque déploiement sur sandbox recrée la base à partir de `db/schema.rb`
+(`db:schema:load`), puis recharge les seeds (`db_seed:sandbox`). Cela ne se
+règle pas depuis l’application : c’est le déploiement, géré par les ops, qui
+l’impose. En pratique :
+
+- les données préparées pour la recette disparaissent à chaque déploiement :
+  on les prépare après le dernier, et si la recette dure plusieurs jours, on
+  prévient avant de redéployer ;
+- les migrations ne sont jamais jouées sur sandbox : une migration de données
+  ne s’y recette pas.
 
 Avant de remplacer une recette en cours, on prévient la personne qui l’a
 construite.
