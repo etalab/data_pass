@@ -7,6 +7,7 @@ class AuthorizationRequest < ApplicationRecord
   include AuthorizationCore::Scopes
   include AuthorizationCore::Checkboxes
   include DemandesHabilitationsSearchable
+  include NamespacedMetadata
 
   after_initialize do
     self[:data] ||= {}
