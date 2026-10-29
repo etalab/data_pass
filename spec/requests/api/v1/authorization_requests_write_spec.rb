@@ -81,6 +81,58 @@ RSpec.describe 'API: Authorization requests write' do
       expect(event).to be_present
     end
 
+    context 'with metadata' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params:, headers: auth_headers, as: :json
+      end
+
+      let(:params) do
+        {
+          demande: {
+            form_uid: 'api-entreprise',
+            applicant: { email: 'new-user@example.com', given_name: 'Jean', family_name: 'Dupont' },
+            organization: { siret: '13002526500013' },
+            data: { intitule: 'Mon projet de test' },
+            metadata: { campagne: 'migration-editeur-x', lot: 3, prioritaire: true }
+          }
+        }
+      end
+
+      it 'stores them under the api namespace and returns them as sent' do
+        create_request
+
+        expect(response).to have_http_status(:created)
+        expect(response.parsed_body['metadata']).to eq('campagne' => 'migration-editeur-x', 'lot' => 3, 'prioritaire' => true)
+        expect(AuthorizationRequest.last.metadata).to eq('api' => { 'campagne' => 'migration-editeur-x', 'lot' => 3, 'prioritaire' => true })
+      end
+    end
+
+    context 'with invalid metadata' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params:, headers: auth_headers, as: :json
+      end
+
+      let(:params) do
+        {
+          demande: {
+            form_uid: 'api-entreprise',
+            applicant: { email: 'new-user@example.com', given_name: 'Jean', family_name: 'Dupont' },
+            organization: { siret: '13002526500013' },
+            metadata: { source: { canal: 'api' } }
+          }
+        }
+      end
+
+      it 'returns 422 with a source pointer and creates nothing' do
+        expect { create_request }.not_to change { [AuthorizationRequest.count, User.where(email: 'new-user@example.com').count] }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors']).to contain_exactly(
+          hash_including('title' => 'Métadonnées invalides', 'source' => { 'pointer' => '/metadata/source' })
+        )
+      end
+    end
+
     context 'with existing user and organization' do
       let!(:existing_user) { create(:user, email: 'new-user@example.com') }
       let!(:existing_org) { create(:organization, legal_entity_id: '13002526500013', legal_entity_registry: 'insee_sirene') }
@@ -404,6 +456,89 @@ RSpec.describe 'API: Authorization requests write' do
 
       it 'leaves the authorization request unchanged' do
         expect { update_request }.not_to change { authorization_request.reload.modalities }
+      end
+    end
+
+    context 'with metadata' do
+      subject(:update_request) do
+        patch "/api/v1/demandes/#{authorization_request.id}", params:, headers: auth_headers, as: :json
+      end
+
+      before do
+        authorization_request.update!(metadata: { 'api' => { 'campagne' => 'ancienne', 'lot' => 1 }, 'datapass' => { 'note' => 'interne' } })
+      end
+
+      context 'when sending an object' do
+        let(:params) { { demande: { metadata: { source: 'api' } } } }
+
+        it 'replaces the api metadata, keeps the datapass ones and does not expose them' do
+          update_request
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['metadata']).to eq('source' => 'api')
+          expect(authorization_request.reload.metadata).to eq('api' => { 'source' => 'api' }, 'datapass' => { 'note' => 'interne' })
+        end
+      end
+
+      context 'when sending only metadata on a request with a changelog' do
+        let(:params) { { demande: { metadata: { source: 'api' } } } }
+
+        before { CreateAuthorizationRequestChangelog.call(authorization_request:) }
+
+        it 'creates neither an empty changelog nor an update_by_api event' do
+          expect { update_request }.not_to change { [authorization_request.changelogs.count, authorization_request.events_without_bulk_update.count] }
+
+          expect(response).to have_http_status(:ok)
+          expect(authorization_request.reload.metadata_for(:api)).to eq('source' => 'api')
+        end
+      end
+
+      context 'when sending null' do
+        let(:params) { { demande: { metadata: nil } } }
+
+        it 'removes the api metadata only' do
+          update_request
+
+          expect(response.parsed_body['metadata']).to eq({})
+          expect(authorization_request.reload.metadata).to eq('datapass' => { 'note' => 'interne' })
+        end
+      end
+
+      context 'when not sending metadata' do
+        let(:params) { { demande: { data: { intitule: 'Projet mis à jour' } } } }
+
+        it 'leaves them untouched' do
+          update_request
+
+          expect(response.parsed_body['metadata']).to eq('campagne' => 'ancienne', 'lot' => 1)
+        end
+      end
+
+      context 'when sending too many keys' do
+        let(:params) { { demande: { metadata: (1..21).to_h { |index| ["cle_#{index}", 'valeur'] } } } }
+
+        it 'returns 422 and keeps the previous metadata' do
+          update_request
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/metadata')
+          expect(authorization_request.reload.metadata_for(:api)).to eq('campagne' => 'ancienne', 'lot' => 1)
+        end
+      end
+
+      context 'when sending a number out of JSON bounds' do
+        subject(:update_request) do
+          patch "/api/v1/demandes/#{authorization_request.id}",
+            params: '{"demande":{"data":{"intitule":"Projet mis à jour"},"metadata":{"lot":1e400}}}',
+            headers: auth_headers.merge('CONTENT_TYPE' => 'application/json')
+        end
+
+        it 'returns 422 on the metadata key and leaves the authorization request unchanged' do
+          expect { update_request }.not_to change { authorization_request.reload.intitule }
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/metadata/lot')
+        end
       end
     end
 

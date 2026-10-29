@@ -10,7 +10,8 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
     :last_submitted_at,
     :last_validated_at,
     :reopening,
-    :reopened_at
+    :reopened_at,
+    :metadata
 
   has_many :authorizations, serializer: API::V1::AuthorizationSerializer, key: :habilitations
   has_one :organization, serializer: API::V1::OrganizationSerializer, key: :organisation
@@ -20,6 +21,10 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   def reopening
     object.reopening?
+  end
+
+  def metadata
+    object.metadata_for(:api)
   end
 
   def definition_id

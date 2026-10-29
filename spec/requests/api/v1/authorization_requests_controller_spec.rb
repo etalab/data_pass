@@ -164,6 +164,20 @@ RSpec.describe 'API: Authorization requests' do
         validate_request_and_response!
       end
 
+      context 'when authorization request has metadata' do
+        before do
+          authorization_request.update!(metadata: { 'api' => { 'campagne' => 'migration-editeur-x' }, 'datapass' => { 'note' => 'interne' } })
+        end
+
+        it 'exposes the api metadata only' do
+          get_show
+
+          expect(response.parsed_body['metadata']).to eq('campagne' => 'migration-editeur-x')
+
+          validate_request_and_response!
+        end
+      end
+
       context 'when authorization request has authorizations' do
         let!(:authorization) { create(:authorization, request: authorization_request) }
 

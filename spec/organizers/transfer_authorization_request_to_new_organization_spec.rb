@@ -26,6 +26,15 @@ RSpec.describe TransferAuthorizationRequestToNewOrganization, type: :organizer d
         )
       end
 
+      it 'keeps the metadata of every namespace' do
+        metadata = { 'api' => { 'campagne' => 'migration-editeur-x' }, 'datapass' => { 'note' => 'interne' } }
+        authorization_request.update!(metadata:)
+
+        subject
+
+        expect(authorization_request.reload.metadata).to eq(metadata)
+      end
+
       it_behaves_like 'creates an event', event_name: 'transfer', entity_type: :authorization_request_transfer
       it_behaves_like 'delivers a webhook', event_name: 'transfer'
     end

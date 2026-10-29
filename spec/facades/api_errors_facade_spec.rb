@@ -55,6 +55,23 @@ RSpec.describe APIErrorsFacade, type: :facade do
       end
     end
 
+    context 'with invalid_metadata' do
+      let(:error) do
+        {
+          key: :invalid_metadata,
+          format: :metadata,
+          errors: AuthorizationRequestMetadata.new((1..21).to_h { |index| ["cle_#{index}", 'v'] }.merge('cle_1' => 'v' * 501)).tap(&:validate).errors.objects
+        }
+      end
+
+      it 'renders one JSON:API error per violation, with a pointer under /metadata' do
+        expect(api_error.errors).to eq([
+          { status: '422', title: 'Métadonnées invalides', detail: 'Les métadonnées ne peuvent pas dépasser 20 clés.', source: { pointer: '/metadata' } },
+          { status: '422', title: 'Métadonnées invalides', detail: 'La valeur de « cle_1 » dépasse 500 caractères.', source: { pointer: '/metadata/cle_1' } }
+        ])
+      end
+    end
+
     context 'with a messages-format error' do
       let(:error) do
         { key: :applicant_invalid, errors: ['Email est invalide', 'Prénom est obligatoire'] }

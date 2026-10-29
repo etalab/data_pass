@@ -40,7 +40,8 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       authorization_request: @authorization_request,
       authorization_request_form: @authorization_request.form,
       authorization_request_params: data_params,
-      user: current_user
+      user: current_user,
+      **metadata_attributes
     )
 
     if result.success?
@@ -128,8 +129,21 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       authorization_request_params: data_params,
       applicant_params: applicant_params.to_h.symbolize_keys,
       siret: demande_params.dig(:organization, :siret),
-      user: current_user
+      user: current_user,
+      **metadata_attributes
     )
+  end
+
+  def metadata_attributes
+    return {} unless demande_params.key?(:metadata)
+
+    { api_metadata: raw_metadata, api_metadata_provided: true }
+  end
+
+  def raw_metadata
+    metadata = demande_params[:metadata]
+
+    metadata.respond_to?(:permit!) ? metadata.permit!.to_h : metadata
   end
 
   def render_authorization_request(authorization_request, status: :ok)

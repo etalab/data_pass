@@ -61,6 +61,7 @@ fr:
       doorkeeper/application:
         name: "Nom de l'application"
       authorization_request:
+        metadata: Les métadonnées
         terms_of_service_accepted: J’ai pris connaissance des conditions générales d’utilisation et je les valide.
         data_protection_officer_informed: Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande.
 
@@ -290,6 +291,15 @@ fr:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:
               inclusion: n'est pas incluse dans la liste des habilitations validées de votre organization
+            metadata:
+              not_an_object: "doivent être un objet clé / valeur."
+              unknown_namespace: "utilisent un espace inconnu : « %{namespace} »."
+              content_not_an_object: "de l’espace « %{namespace} » doivent être un objet clé / valeur."
+              content_too_long: "de l’espace « %{namespace} » dépassent %{count} clés."
+              key_too_long: "de l’espace « %{namespace} » : la clé « %{key} » dépasse %{count} caractères."
+              key_invalid: "de l’espace « %{namespace} » : la clé « %{key} » ne doit contenir que des lettres sans accent, des chiffres, « _ », « - » ou « . »."
+              value_not_scalar: "de l’espace « %{namespace} » : la valeur de « %{key} » doit être un texte, un nombre ou un booléen."
+              value_too_long: "de l’espace « %{namespace} » : la valeur de « %{key} » dépasse %{count} caractères."
         authorization_request/france_connect:
           attributes:
             contact_technique_phone_number:

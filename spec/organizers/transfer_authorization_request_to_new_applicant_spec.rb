@@ -28,6 +28,15 @@ RSpec.describe TransferAuthorizationRequestToNewApplicant, type: :organizer do
         )
       end
 
+      it 'keeps the metadata of every namespace' do
+        metadata = { 'api' => { 'campagne' => 'migration-editeur-x' }, 'datapass' => { 'note' => 'interne' } }
+        authorization_request.update!(metadata:)
+
+        subject
+
+        expect(authorization_request.reload.metadata).to eq(metadata)
+      end
+
       it 'delivers an email' do
         expect { subject }.to have_enqueued_mail(AuthorizationRequestTransferMailer, :success)
       end

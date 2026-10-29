@@ -203,9 +203,9 @@ components:
 
         Elles ne sont visibles que des applications du fournisseur de données et des administrateurs DataPass, jamais du demandeur. Elles ne doivent contenir aucune donnée personnelle.
 
-        Limites proposées, à confirmer à l'implémentation : 20 clés au maximum, clés de 40 caractères au maximum, valeurs textuelles de 500 caractères au maximum.
+        Limites : 20 clés au maximum ; clés de 40 caractères au maximum, composées de lettres sans accent, de chiffres, de `_`, `-` ou `.` ; valeurs de type texte, nombre ou booléen (ni objet, ni tableau, ni `null`), de 500 caractères au maximum pour un texte. Une métadonnée hors limites renvoie une erreur `422` « Métadonnées invalides », avec une erreur par clé en cause (`source.pointer` : `/metadata/<clé>`, ou `/metadata` pour l'objet entier).
 
-        À la mise à jour (`PATCH`), l'objet transmis remplace intégralement les métadonnées existantes ; `null` les supprime.
+        Si `metadata` est absent du corps, les métadonnées existantes ne changent pas. À la mise à jour (`PATCH`), un objet remplace intégralement les métadonnées existantes ; `null` ou `{}` les supprime. Une demande sans métadonnées renvoie `{}`.
       nullable: true
       additionalProperties:
         oneOf:
@@ -708,7 +708,8 @@ components:
         complètes ont lieu à la soumission. Un payload accepté auparavant peut désormais être rejeté. Les règles d’accès du formulaire web
         s’appliquent aussi : formulaire non ouvert aux demandeurs, organisation fermée, demande unique
         déjà existante pour l’organisation, demandeur exclu, et demande modifiable uniquement en état
-        `draft` ou `changes_requested` (erreur « État non modifiable » sinon).
+        `draft` ou `changes_requested` (erreur « État non modifiable » sinon). Des métadonnées hors limites
+        renvoient l’erreur « Métadonnées invalides ».
       content:
         application/json:
           schema:

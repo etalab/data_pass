@@ -36,6 +36,14 @@ fr:
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."
+    invalid_metadata:
+      title: Métadonnées invalides
+      detail_content_not_an_object: Les métadonnées doivent être un objet clé / valeur, ou null pour les supprimer.
+      detail_content_too_long: Les métadonnées ne peuvent pas dépasser %{count} clés.
+      detail_key_too_long: "La clé « %{key} » dépasse %{count} caractères."
+      detail_key_invalid: "La clé « %{key} » ne doit contenir que des lettres sans accent, des chiffres, « _ », « - » ou « . »."
+      detail_value_not_scalar: "La valeur de « %{key} » doit être un texte, un nombre ou un booléen."
+      detail_value_too_long: "La valeur de « %{key} » dépasse %{count} caractères."
     applicant_invalid:
       title: Demandeur invalide
     organization_invalid:

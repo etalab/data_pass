@@ -211,7 +211,7 @@ request.body = {
 Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(request) }
 ```
 
-Chaque mise à jour génère un événement `update_by_api` consultable via `GET /demandes/{id}/events` ou via un webhook.
+Chaque mise à jour qui modifie `data` génère un événement `update_by_api` consultable via `GET /demandes/{id}/events` ou via un webhook. Une mise à jour qui ne change que les métadonnées, ou qui renvoie les mêmes valeurs, ne crée ni événement ni entrée dans l’historique.
 
 ## Cas d'usage : soumission et validation par un fournisseur de données
 
@@ -304,7 +304,22 @@ request.body = {
 
 ### Métadonnées
 
-À la création et à la mise à jour, `demande.metadata` accepte un objet libre (ex. `{ "campagne": "migration-editeur-x", "source": "api" }`). Il est restitué dans les réponses de l'API et dans la charge utile de chaque webhook de la demande, ce qui permet de reconnaître vos demandes et de ne pas rejouer vos propres traitements. Il n'est visible que des applications du FD et des administrateurs DataPass, et ne doit contenir aucune donnée personnelle.
+À la création et à la mise à jour, `demande.metadata` accepte un objet libre (ex. `{ "campagne": "migration-editeur-x", "source": "api" }`). Il est restitué dans les réponses de l'API (`metadata`) et dans la charge utile de chaque webhook de la demande (`data.metadata`), ce qui permet de reconnaître vos demandes et de ne pas rejouer vos propres traitements. Il n'est visible que des applications du FD et des administrateurs DataPass, jamais du demandeur.
+
+```ruby
+request.body = {
+  demande: {
+    form_uid: 'api-entreprise',
+    # applicant, organization, data…
+    metadata: { campagne: 'migration-editeur-x', source: 'api', lot: 3 }
+  }
+}.to_json
+```
+
+- **Limites** : 20 clés au maximum ; clés de 40 caractères au maximum, composées de lettres sans accent, de chiffres, de `_`, `-` ou `.` ; valeurs texte, nombre ou booléen (ni objet, ni tableau), de 500 caractères au maximum pour un texte.
+- **Aucune donnée personnelle** (nom, email, téléphone, numéro de sécurité sociale…) : les métadonnées servent à classer vos demandes, pas à décrire le demandeur. DataPass ne le contrôle pas automatiquement ; le respect de cette règle relève de votre responsabilité.
+- **Mise à jour** : sans clé `metadata`, rien ne change ; un objet remplace intégralement les métadonnées existantes ; `null` (ou `{}`) les supprime.
+- **Erreurs** : une métadonnée hors limites renvoie une `422` « Métadonnées invalides », avec une erreur par clé en cause (`source.pointer` : `/metadata/<clé>`). Rien n'est créé ni modifié.
 
 ### Désactiver les emails DataPass
 
