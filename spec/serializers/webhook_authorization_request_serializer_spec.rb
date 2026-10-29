@@ -23,6 +23,13 @@ RSpec.describe WebhookAuthorizationRequestSerializer, type: :serializer do
       )
     end
 
+    it 'exposes the api metadata only, next to data' do
+      authorization_request.update!(metadata: { 'api' => { 'campagne' => 'migration-editeur-x' }, 'datapass' => { 'note' => 'interne' } })
+
+      expect(serializable_hash[:metadata]).to eq('campagne' => 'migration-editeur-x')
+      expect(serializable_hash[:data]).not_to have_key(:metadata)
+    end
+
     it 'includes the authorizations' do
       expect(serializable_hash).to have_key(:authorizations)
       expect(serializable_hash[:authorizations]).to be_an(Array)
