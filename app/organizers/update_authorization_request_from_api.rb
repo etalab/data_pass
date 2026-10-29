@@ -6,9 +6,15 @@ class UpdateAuthorizationRequestFromAPI < ApplicationOrganizer
     context.save_context ||= :update
   end
 
+  around do |organizer|
+    ActiveRecord::Base.transaction { organizer.call }
+  end
+
   organize EnsureAuthorizationRequestIsUpdatable,
     ValidateAPIDataKeys,
+    ValidateAPIMetadata,
     UpdateAuthorizationRequestModel,
+    AssignAPIMetadataToAuthorizationRequest,
     CreateAuthorizationRequestChangelog,
     AfterUpdateAuthorizationRequest
 end

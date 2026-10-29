@@ -8,11 +8,17 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
     context.tolerate_insee_entity_not_found = true
   end
 
+  around do |organizer|
+    ActiveRecord::Base.transaction { organizer.call }
+  end
+
   organize ResolveAuthorizationRequestForm,
     ValidateAPIDataKeys,
+    ValidateAPIMetadata,
     ProvisionApplicantFromAPI,
     EnsureAuthorizationRequestCanBeCreated,
     CreateAuthorizationRequestModel,
+    AssignAPIMetadataToAuthorizationRequest,
     CreateAuthorizationRequestChangelog,
     UpdateOrganizationINSEEPayload,
     AfterCreateAuthorizationRequest
