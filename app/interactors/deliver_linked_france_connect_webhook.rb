@@ -9,13 +9,16 @@ class DeliverLinkedFranceConnectWebhook < ApplicationInteractor
 
   def deliver_fc_webhook
     webhooks = Webhook.active_for_event(event_name, france_connect_definition_id)
+    return if webhooks.empty?
+
+    payload = webhook_payload
 
     webhooks.each do |webhook|
       DeliverAuthorizationRequestWebhookJob.perform_later(
         webhook.id,
         context.authorization_request.id,
         event_name.to_s,
-        webhook_payload
+        payload
       )
     end
   end
@@ -32,7 +35,8 @@ class DeliverLinkedFranceConnectWebhook < ApplicationInteractor
     WebhookSerializer.new(
       france_connect_request,
       event_name,
-      notifications: !context.notification_policy&.suppressed_any?
+      notifications: !context.notification_policy&.suppressed_any?,
+      source: context.event_source
     ).serializable_hash
   end
 

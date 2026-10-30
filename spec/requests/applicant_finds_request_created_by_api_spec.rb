@@ -16,6 +16,8 @@ RSpec.describe 'Applicant finds a request created through the API' do
     }
   end
 
+  before { mock_insee_sirene_api_etablissement_valid(siret:) }
+
   after { OmniAuth.config.mock_auth[:proconnect] = nil }
 
   def create_request_through_api

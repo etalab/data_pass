@@ -30,9 +30,38 @@ RSpec.describe DeliverLinkedFranceConnectWebhook do
           'approve',
           hash_including(
             event: 'approve',
-            model_type: 'authorization_request/france_connect'
+            model_type: 'authorization_request/france_connect',
+            source: 'web'
           )
         )
+      end
+
+      context 'when notifications are suppressed' do
+        let(:notification_policy) do
+          NotificationPolicy.new(requested: true, optional_types: %w[linked_france_connect]).tap do |policy|
+            policy.deliver(:linked_france_connect) { nil }
+          end
+        end
+        let(:context_params) { super().merge(notification_policy:) }
+
+        it 'tells the webhook that notifications were suppressed' do
+          expect { interactor }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+            webhook.id, authorization_request.id, 'approve', hash_including(notifications: false)
+          )
+        end
+      end
+
+      context 'when the event comes from the API' do
+        let(:context_params) { super().merge(event_source: 'api') }
+
+        it 'tells the webhook that the event comes from the API' do
+          expect { interactor }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+            webhook.id,
+            authorization_request.id,
+            'approve',
+            hash_including(source: 'api')
+          )
+        end
       end
     end
 

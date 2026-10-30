@@ -861,7 +861,9 @@ paths:
         Crée une nouvelle demande d'habilitation en état `draft`.
 
         Le demandeur (applicant) est créé s'il n'existe pas, identifié par email.
-        L'organisation est créée si elle n'existe pas, identifiée par SIRET, et un rafraîchissement des données INSEE est planifié.
+        L'organisation est créée si elle n'existe pas, identifiée par SIRET, et rafraîchie depuis l'INSEE avant l'envoi du webhook `create` ; si l'INSEE est indisponible, le rafraîchissement est reporté.
+
+        Le webhook `create` est déclenché avec `source: "api"`. Les abonnements `create` existants reçoivent donc les créations faites par API.
         Si aucun lien n'existe entre le demandeur et l'organisation, un lien non vérifié est créé.
         Ce lien ne devient vérifié qu'à la première connexion ProConnect du demandeur, si le fournisseur d'identité vérifie le SIRET ; tant qu'il ne l'est pas, le demandeur ne voit pas les autres demandes de l'organisation.
 
@@ -977,6 +979,8 @@ paths:
         Met à jour les données d'une demande d'habilitation existante.
 
         Seules les données et les documents peuvent être modifiés. Le demandeur et l'organisation ne peuvent pas être changés.
+
+        Une mise à jour déclenche le webhook `update` avec `source: "api"`, même si aucune donnée ne change.
 
         La mise à jour n'est autorisée que si la demande est en état `draft` ou `changes_requested`, comme dans l'interface. Dans tout autre état, notamment `submitted`, la réponse est une erreur `422` « État non modifiable ».
         La liste de l'ensemble des états possibles d'une demande sont documentés ici https://datapass.api.gouv.fr/developpeurs/webhooks/documentation#tats-possibles-dune-demande-dhabilitation
