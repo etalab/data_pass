@@ -308,7 +308,25 @@ request.body = {
 
 ### Désactiver les emails DataPass
 
-Les appels de création, de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés ; leur charge utile reprend la valeur effectivement appliquée dans le champ `notifications`.
+Les appels de soumission et de validation acceptent `"notifications": false` à la racine du corps. Le paramètre n'est appliqué que si le contrat de votre FD le permet ; sinon, l'appel aboutit, les emails partent, et la réponse contient `meta.warnings`. Les webhooks sont toujours envoyés ; leur charge utile reprend la valeur effectivement appliquée dans le champ `notifications`.
+
+Le contrat liste, type d’e-mail par type d’e-mail, ce que vous pouvez désactiver. Si seule une partie est facultative, celle-là n’est pas envoyée et `meta.warnings` nomme les types obligatoires effectivement envoyés pour cet appel. Une valeur autre que `true` ou `false` est refusée avec une 422 :
+
+```json
+{
+  "state": "submitted",
+  "meta": {
+    "warnings": [
+      {
+        "title": "Notifications obligatoires",
+        "detail": "Le contrat de votre fournisseur de données rend certaines notifications obligatoires : le paramètre `notifications` n’a pas été appliqué à instructors_new_request."
+      }
+    ]
+  }
+}
+```
+
+À la création, aucun e-mail n’est envoyé : le paramètre est accepté sans effet.
 
 ## Droits de soumission et de validation
 

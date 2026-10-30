@@ -33,6 +33,9 @@ fr:
     trigger_event_failed:
       title: Transition impossible
       detail: La demande n’a pas pu changer d’état, aucune modification n’a été enregistrée.
+    invalid_notifications:
+      title: Paramètre invalide
+      detail: Le paramètre `notifications` doit valoir `true` ou `false`.
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."

@@ -168,4 +168,47 @@ RSpec.describe BaseNotifier, type: :notifier do
       }.not_to have_enqueued_mail(HubEEMailer, :formulaire_qf_validation)
     end
   end
+
+  describe 'with a notification policy' do
+    subject(:notifier) { described_class.new(authorization_request, policy) }
+
+    let(:policy) { NotificationPolicy.new(requested: true, optional_types: suppressed_types) }
+
+    before { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+
+    context 'when the applicant receipt is suppressed' do
+      let(:suppressed_types) { %w[applicant_submit_receipt] }
+
+      it 'still notifies the instructors' do
+        expect { notifier.submit({}) }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit).at_least(:once)
+      end
+
+      it 'does not notify the applicant' do
+        expect { notifier.submit({}) }.not_to have_enqueued_mail(AuthorizationRequestMailer, :submit)
+      end
+    end
+
+    context 'when the new request email is suppressed' do
+      let(:suppressed_types) { %w[instructors_new_request] }
+
+      it 'does not notify the instructors' do
+        expect { notifier.submit({}) }.not_to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
+      end
+
+      it 'still notifies the applicant' do
+        expect { notifier.submit({}) }.to have_enqueued_mail(AuthorizationRequestMailer, :submit)
+      end
+    end
+
+    context 'when the approval emails are suppressed' do
+      let(:suppressed_types) { %w[applicant_approval gdpr_contacts_approval] }
+
+      it 'sends neither the applicant nor the GDPR emails' do
+        expect { notifier.approve({ within_reopening: false }) }
+          .not_to have_enqueued_mail(AuthorizationRequestMailer, :approve)
+        expect { notifier.approve({ within_reopening: false }) }
+          .not_to have_enqueued_mail(GDPRContactMailer)
+      end
+    end
+  end
 end

@@ -31,7 +31,8 @@ class DeliverLinkedFranceConnectWebhook < ApplicationInteractor
   def webhook_payload
     WebhookSerializer.new(
       france_connect_request,
-      event_name
+      event_name,
+      notifications: !context.notification_policy&.suppressed_any?
     ).serializable_hash
   end
 
