@@ -41,6 +41,19 @@ RSpec.describe UpdateOrganizationINSEEPayload, type: :interactor do
     it 'returns an error related to INSEE not found error' do
       expect(interactor.error).to eq(:insee_entity_not_found)
     end
+
+    it 'reports to Sentry as a warning' do
+      interactor
+
+      expect(Sentry).to have_received(:capture_exception).with(
+        an_instance_of(INSEESireneAPIClient::EntityNotFoundError),
+        level: :warning,
+      )
+    end
+
+    it 'counts the failure on the organization' do
+      expect { interactor }.to change { organization.reload.insee_consecutive_failures }.by(1)
+    end
   end
 
   context 'when the SIRET does not exist and the caller tolerates it' do
@@ -53,6 +66,19 @@ RSpec.describe UpdateOrganizationINSEEPayload, type: :interactor do
     end
 
     it { is_expected.to be_a_success }
+
+    it 'reports to Sentry as a warning' do
+      interactor
+
+      expect(Sentry).to have_received(:capture_exception).with(
+        an_instance_of(INSEESireneAPIClient::EntityNotFoundError),
+        level: :warning,
+      )
+    end
+
+    it 'counts the failure on the organization' do
+      expect { interactor }.to change { organization.reload.insee_consecutive_failures }.by(1)
+    end
   end
 
   context 'when the refresh is synchronous' do

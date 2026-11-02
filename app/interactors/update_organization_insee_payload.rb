@@ -4,7 +4,8 @@ class UpdateOrganizationINSEEPayload < ApplicationInteractor
     return unless organization.insee_refresh_due?
 
     update_organization_insee_payload
-  rescue INSEESireneAPIClient::EntityNotFoundError
+  rescue INSEESireneAPIClient::EntityNotFoundError => e
+    UpdateOrganizationINSEEPayloadJob.record_insee_failure(organization, e, level: :warning)
     context.fail!(error: :insee_entity_not_found) unless tolerate_insee_entity_not_found?
   rescue AbstractINSEEAPIClient::UnavailableError, INSEESireneAPIClient::InvalidResponseError, Faraday::Error => e
     postpone_insee_payload_update(e)
