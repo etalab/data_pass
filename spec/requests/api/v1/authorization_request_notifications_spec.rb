@@ -62,7 +62,7 @@ RSpec.describe 'API: disabling DataPass notifications' do
           submit_request
 
           expect(DeliverAuthorizationRequestWebhookJob).to have_been_enqueued.with(
-            webhook.id, authorization_request.id, 'submit', hash_including(notifications: false)
+            webhook.id, authorization_request.id, 'submit', hash_including(notifications: false, source: 'api')
           )
         end
       end

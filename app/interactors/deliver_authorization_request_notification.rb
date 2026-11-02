@@ -30,23 +30,31 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
   end
 
   def deliver_webhooks
-    webhooks = Webhook.active_for_event(event_name, context.authorization_request.definition.id)
+    webhooks = Webhook.active_for_event(webhook_event_name, context.authorization_request.definition.id)
+    return if webhooks.empty?
+
+    payload = webhook_payload
 
     webhooks.each do |webhook|
       DeliverAuthorizationRequestWebhookJob.perform_later(
         webhook.id,
         context.authorization_request.id,
-        event_name.to_s,
-        webhook_payload
+        webhook_event_name,
+        payload
       )
     end
+  end
+
+  def webhook_event_name
+    event_name.to_s.delete_suffix('_by_api')
   end
 
   def webhook_payload
     WebhookSerializer.new(
       context.authorization_request,
-      event_name,
-      notifications: !notification_policy.suppressed_any?
+      webhook_event_name,
+      notifications: !notification_policy.suppressed_any?,
+      source: context.event_source
     ).serializable_hash
   end
 end

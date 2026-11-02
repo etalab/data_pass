@@ -45,9 +45,13 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   end
   # rubocop:enable Lint/SuppressedException
 
-  def record_insee_failure(error, level:)
+  def self.record_insee_failure(organization, error, level:)
     organization&.increment!(:insee_consecutive_failures) # rubocop:disable Rails/SkipsModelValidations
     Sentry.capture_exception(error, level:)
+  end
+
+  def record_insee_failure(error, level:)
+    self.class.record_insee_failure(organization, error, level:)
   end
 
   private

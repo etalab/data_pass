@@ -17,6 +17,8 @@ RSpec.describe CreateAuthorizationRequestFromAPI, type: :organizer do
     end
     let(:data) { { intitule: 'Mon projet' } }
 
+    before { mock_insee_sirene_api_etablissement_valid(siret: '13002526500013') }
+
     context 'when everything succeeds' do
       it { is_expected.to be_a_success }
 
@@ -24,8 +26,36 @@ RSpec.describe CreateAuthorizationRequestFromAPI, type: :organizer do
         expect { result }.to change(AuthorizationRequest, :count).by(1)
       end
 
-      it 'enqueues the INSEE refresh job' do
+      it 'refreshes the organization from INSEE before the create webhook is built' do
+        expect(result.authorization_request.organization.reload.last_insee_payload_updated_at).to be_present
+      end
+
+      it 'does not enqueue a second INSEE refresh' do
+        expect { result }.not_to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
+      end
+    end
+
+    context 'when INSEE is unavailable' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/}).to_return(status: 503)
+      end
+
+      it { is_expected.to be_a_success }
+
+      it 'enqueues the INSEE refresh job for later' do
         expect { result }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
+      end
+    end
+
+    context 'when the SIRET is unknown to INSEE' do
+      before do
+        stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/}).to_return(status: 404)
+      end
+
+      it { is_expected.to be_a_success }
+
+      it 'does not enqueue a refresh that would fail again' do
+        expect { result }.not_to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
       end
     end
 

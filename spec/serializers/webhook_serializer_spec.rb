@@ -8,7 +8,9 @@ RSpec.describe WebhookSerializer, type: :serializer do
     it 'contains valid keys/values' do
       expect(serializable_hash).to include(
         event: 'whatever',
+        source: 'web',
         fired_at: instance_of(Integer),
+        updated_at: authorization_request.updated_at.iso8601(6),
         model_type: 'authorization_request/api_entreprise',
         model_id: authorization_request.id,
         data: hash_including(
@@ -41,6 +43,12 @@ RSpec.describe WebhookSerializer, type: :serializer do
           state: authorization.state,
         )
       end
+    end
+
+    context 'when the event comes from the API' do
+      let(:webhook_serializer) { described_class.new(authorization_request, 'submit', source: 'api') }
+
+      it { expect(serializable_hash).to include(event: 'submit', source: 'api') }
     end
   end
 end

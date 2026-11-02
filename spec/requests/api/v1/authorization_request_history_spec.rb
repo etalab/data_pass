@@ -17,6 +17,8 @@ RSpec.describe 'API: Authorization request history' do
     }
   end
 
+  before { mock_insee_sirene_api_etablissement_valid(siret: '13002526500013') }
+
   before(:all) do
     Bullet.enable = false
   end
