@@ -203,9 +203,9 @@ components:
 
         Elles ne sont visibles que des applications du fournisseur de données et des administrateurs DataPass, jamais du demandeur. Elles ne doivent contenir aucune donnée personnelle.
 
-        Limites proposées, à confirmer à l'implémentation : 20 clés au maximum, clés de 40 caractères au maximum, valeurs textuelles de 500 caractères au maximum.
+        Limites : 20 clés au maximum ; clés de 40 caractères au maximum, composées de lettres sans accent, de chiffres, de `_`, `-` ou `.` ; valeurs de type texte, nombre ou booléen (ni objet, ni tableau, ni `null`), de 500 caractères au maximum pour un texte, sans caractère nul ; nombres compris entre -9007199254740991 et 9007199254740991. Une métadonnée hors limites renvoie une erreur `422` « Métadonnées invalides », avec une erreur par clé en cause (`source.pointer` : `/metadata/<clé>`, ou `/metadata` pour l’objet entier).
 
-        À la mise à jour (`PATCH`), l'objet transmis remplace intégralement les métadonnées existantes ; `null` les supprime.
+        Si `metadata` est absent du corps, les métadonnées existantes ne changent pas. À la mise à jour (`PATCH`), un objet remplace intégralement les métadonnées existantes ; `null` ou `{}` les supprime. Une demande sans métadonnées renvoie `{}`.
       nullable: true
       additionalProperties:
         oneOf:
@@ -710,7 +710,8 @@ components:
         complètes ont lieu à la soumission. Un payload accepté auparavant peut désormais être rejeté. Les règles d’accès du formulaire web
         s’appliquent aussi : formulaire non ouvert aux demandeurs, organisation fermée, demande unique
         déjà existante pour l’organisation, demandeur exclu, et demande modifiable uniquement en état
-        `draft` ou `changes_requested` (erreur « État non modifiable » sinon).
+        `draft` ou `changes_requested` (erreur « État non modifiable » sinon). Des métadonnées hors limites
+        renvoient l’erreur « Métadonnées invalides ».
       content:
         application/json:
           schema:
@@ -980,7 +981,7 @@ paths:
 
         Seules les données et les documents peuvent être modifiés. Le demandeur et l'organisation ne peuvent pas être changés.
 
-        Une mise à jour déclenche le webhook `update` avec `source: "api"`, même si aucune donnée ne change.
+        Une mise à jour qui modifie les données déclenche le webhook `update` avec `source: "api"`. Une mise à jour sans `data`, aux données identiques ou qui ne change que les métadonnées ne crée ni événement ni entrée dans l’historique, et ne déclenche aucun webhook.
 
         La mise à jour n'est autorisée que si la demande est en état `draft` ou `changes_requested`, comme dans l'interface. Dans tout autre état, notamment `submitted`, la réponse est une erreur `422` « État non modifiable ».
         La liste de l'ensemble des états possibles d'une demande sont documentés ici https://datapass.api.gouv.fr/developpeurs/webhooks/documentation#tats-possibles-dune-demande-dhabilitation

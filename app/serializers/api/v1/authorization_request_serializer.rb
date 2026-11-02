@@ -10,7 +10,8 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
     :last_submitted_at,
     :last_validated_at,
     :reopening,
-    :reopened_at
+    :reopened_at,
+    :metadata
 
   attribute :meta, if: -> { warnings.present? }
 
@@ -30,6 +31,10 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   def warnings
     instance_options[:warnings]
+  end
+
+  def metadata
+    object.metadata_for(:api)
   end
 
   def definition_id

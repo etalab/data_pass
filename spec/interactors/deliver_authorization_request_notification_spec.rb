@@ -49,4 +49,19 @@ RSpec.describe DeliverAuthorizationRequestNotification, type: :interactor do
       expect(WebhookSerializer).to have_received(:new).once
     end
   end
+
+  context 'when the authorization request carries metadata' do
+    before do
+      authorization_request.update!(metadata: { 'api' => { 'source' => 'api' }, 'datapass' => { 'note' => 'interne' } })
+    end
+
+    it 'enqueues a webhook whose payload carries the api metadata only' do
+      expect { interactor }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+        webhook.id,
+        authorization_request.id,
+        'submit',
+        hash_including(data: hash_including(metadata: { 'source' => 'api' }))
+      )
+    end
+  end
 end

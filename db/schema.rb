@@ -169,6 +169,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_26_100000) do
     t.boolean "terms_of_service_accepted", default: false, null: false
     t.string "type", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "metadata", default: {}, null: false
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
     t.index ["copied_from_request_id"], name: "idx_authorization_requests_copied_from_request_id"
     t.index ["form_uid"], name: "index_authorization_requests_on_form_uid"

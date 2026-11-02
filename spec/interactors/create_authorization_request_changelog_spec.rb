@@ -81,6 +81,21 @@ RSpec.describe CreateAuthorizationRequestChangelog, type: :interactor do
             end
           end
 
+          context 'when nothing changed since the last changelog' do
+            it 'stores an empty diff' do
+              expect(changelog.diff).to eq({})
+            end
+
+            context 'when empty changelogs are skipped' do
+              subject(:changelog) { described_class.call(authorization_request:, skip_empty_changelog: true).changelog }
+
+              it 'does not create a changelog' do
+                expect { changelog }.not_to change { authorization_request.changelogs.count }
+                expect(changelog).to be_nil
+              end
+            end
+          end
+
           context 'when there is an old attribute present in changelog but no longer present in the authorization request' do
             before do
               latest_changelog = authorization_request.changelogs.last
@@ -273,6 +288,18 @@ RSpec.describe CreateAuthorizationRequestChangelog, type: :interactor do
             end
           end
         end
+      end
+    end
+
+    context 'when empty changelogs are skipped and no data is submitted' do
+      subject(:changelog) do
+        described_class.call(authorization_request:, authorization_request_params: ActionController::Parameters.new, skip_empty_changelog: true).changelog
+      end
+
+      let!(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+      it 'does not create the first changelog either' do
+        expect { changelog }.not_to change { authorization_request.changelogs.count }.from(0)
       end
     end
   end

@@ -34,8 +34,13 @@ class APIErrorsFacade
     case error[:format]
     when :data_keys then names.map { |data_key| data_key_error(key, data_key) }
     when :consents then names.map { |consent| consent_error(key, consent) }
-    else model_errors?(key) ? model_errors(key) : message_errors(key, names)
+    when :metadata then names.map { |validation_error| metadata_error(key, validation_error) }
+    else unformatted_errors(key, names)
     end
+  end
+
+  def unformatted_errors(key, messages)
+    model_errors?(key) ? model_errors(key) : message_errors(key, messages)
   end
 
   def message_errors(key, messages)
@@ -82,6 +87,15 @@ class APIErrorsFacade
       title: translate(key, :title),
       detail: translate(key, :detail, key: consent),
       source: { pointer: "/consentement/#{consent}" }
+    }
+  end
+
+  def metadata_error(key, error)
+    {
+      status: @status.to_s,
+      title: translate(key, :title),
+      detail: translate(key, "detail_#{error.attribute}_#{error.type}", **error.options.slice(:key, :count)),
+      source: { pointer: ['/metadata', error.options[:key]].compact.join('/') }
     }
   end
 

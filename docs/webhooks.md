@@ -381,6 +381,10 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
       "contact_technique_phone_number": "08366666666",
       "contact_technique_job_title": "DSI",
       "contact_technique_email": "tech@beta.gouv.fr"
+    },
+    "metadata": {
+      "campagne": "migration-editeur-x",
+      "source": "api"
     }
   }
 }
@@ -406,6 +410,7 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
     - `data` : Données de l'habilitation au moment de sa création
     - `authorization_request_class` : Type de demande d'habilitation associée
     - `definition_id` : Identifiant de la définition d'habilitation
+  - **`metadata`** (object) : Métadonnées posées par votre application sur la demande via l’API (`demande.metadata` à la création ou à la mise à jour). Objet vide si aucune. Elles permettent de reconnaître vos propres demandes, par exemple pour ne pas renvoyer vos emails. Voir le [tutoriel d’écriture](/developpeurs/tutoriels/ecriture) pour les limites.
 
 ---
 
@@ -592,6 +597,7 @@ Points d’attention :
 
 - `source` indique que l’écriture vient de l’API, pas quelle application l’a faite. Filtrer sur `api` pour ne pas retraiter une écriture que vous venez d’émettre suppose que votre application est la seule à écrire par API pour ce type d’habilitation ; sinon vous ignorez aussi les écritures des autres.
 - Ne filtrez jamais l’événement `approve` : si vous répondez avec un `token_id`, il doit l’être aussi pour une validation faite par API.
+- Un `PATCH` ne déclenche `update` que s’il modifie les données : sans `data`, avec des données identiques ou avec seulement des métadonnées, aucun webhook n’est envoyé.
 - Les abonnements `create` et `update` existants reçoivent désormais les écritures par API. Si votre récepteur réécrit dans DataPass en réaction à un webhook, ignorez les événements `source: "api"` pour ne pas créer de boucle.
 - À la création par API, l’organisation est rafraîchie depuis l’INSEE avant l’envoi de `create` ; si l’INSEE est indisponible, l’organisation peut être incomplète dans ce webhook (nom provisoire, `insee_payload` vide).
 - Une mise à jour par API qui ne change aucune donnée déclenche tout de même `update`. L’origine par API apparaît aussi dans l’historique de la demande ; les métadonnées posées sur la demande permettent de la reconnaître dans vos traitements.
@@ -610,7 +616,7 @@ La charge utile d'un webhook reprend l'objet `Demande` de l'API (`GET /api/v1/de
 
 `notifications` vaut `false` lorsque l'appel API à l'origine de l'événement a désactivé les emails DataPass et que le contrat du fournisseur de données l'autorise (voir le paramètre `notifications` de l'API) ; il vaut `true` dans tous les autres cas, y compris pour les événements déclenchés depuis l'interface.
 
-Les champs `applicant.uid` (identifiant ProConnect, `sub`), `applicant.job_title`, `organisation.name` et `service_provider` sont présents des deux côtés.
+Les champs `applicant.uid` (identifiant ProConnect, `sub`), `applicant.job_title`, `organisation.name`, `service_provider` et `metadata` sont présents des deux côtés.
 
 ### Serializer utilisé
 
