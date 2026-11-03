@@ -18,21 +18,42 @@ Fonctionnalité: Instruction — Gestion des droits — lister les utilisateurs 
   Scénario: Lorsque personne d’autre n’a de droits, je ne vois que ma propre ligne
     Quand je me rends sur la page de gestion des droits
     Alors le tableau des utilisateurs contient mon email
-    Et la page contient "Ajouter des droits à un utilisateur sans droits"
+    Et la page contient "Ajouter des droits"
+
+  Scénario: L’écran d’instruction s’appelle « Gestion des rôles »
+    Quand je me rends sur la page de gestion des droits
+    Alors la page contient "Gestion des rôles"
+    Et la page contient "Les personnes qui ont un rôle sur vos services"
+    Et la page ne contient pas "Utilisateurs et rôles"
 
   Scénario: Je me vois dans ma propre liste, sans bouton d’édition
     Quand je me rends sur la page de gestion des droits
     Alors le tableau des utilisateurs contient mon email
     Et ma ligne n’affiche aucun bouton de modification ni de suppression
+    Et ma ligne indique que seul un autre manager ou un administrateur peut modifier mes droits
 
-  Scénario: Le champ de recherche est prêt à la saisie et auto-soumis
+  Scénario: Un droit sur tous les services du fournisseur n’est modifiable que par son manager
+    Quand il y a l'utilisateur "fd@gouv.fr" avec le rôle brut "dinum:*:reporter"
+    Et que je me rends sur la page de gestion des droits
+    Alors la ligne de "fd@gouv.fr" n’affiche pas de bouton de modification
+    Et la ligne de "fd@gouv.fr" indique que ses droits relèvent d’un manager du fournisseur
+
+  Scénario: Le champ de recherche est auto-soumis sans prendre le focus de lui-même
     Quand je me rends sur la page de gestion des droits
-    Alors le champ de recherche porte les attributs de focus et d’auto-soumission
+    Alors le champ de recherche est auto-soumis sans prendre le focus
+
+  @javascript
+  Scénario: La recherche garde le focus quand la liste se met à jour
+    Quand il y a l'utilisateur "alice@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"
+    Et que je me rends sur la page de gestion des droits
+    Et que je tape "alice" dans le champ de recherche
+    Alors le tableau des utilisateurs ne contient plus mon email
+    Et le champ de recherche a toujours le focus
 
   Scénario: Un reporter n'a pas accès à la gestion des droits
     Étant donné que je suis un rapporteur "API Entreprise"
-    Quand je me rends sur le chemin "/instruction/gestion-des-droits"
-    Alors la page ne contient pas "Gestion des droits"
+    Quand je me rends sur le chemin "/instruction/utilisateurs-et-roles"
+    Alors la page ne contient pas "Gestion des rôles"
 
   Scénario: Je peux filtrer la liste avec une recherche
     Quand il y a l'utilisateur "alice@gouv.fr" avec le rôle "Rapporteur" pour "API Entreprise"

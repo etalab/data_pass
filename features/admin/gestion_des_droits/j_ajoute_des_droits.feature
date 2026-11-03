@@ -12,7 +12,7 @@ Fonctionnalité: Admin — Gestion des droits — ajouter des droits à un utili
     Quand il y a l'utilisateur "dev@gouv.fr" sans rôle
     Et que je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "dev@gouv.fr"
-    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "API Entreprise" pour "Périmètre des droits"
     Et que je sélectionne "Développeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
@@ -20,8 +20,8 @@ Fonctionnalité: Admin — Gestion des droits — ajouter des droits à un utili
 
   Scénario: La liste de portées contient toutes les définitions
     Quand je me rends sur la page d'ajout de droits
-    Alors le select "Portée des droits" contient "API Entreprise"
-    Et le select "Portée des droits" contient "API Particulier"
+    Alors le select "Périmètre des droits" contient "API Entreprise"
+    Et le select "Périmètre des droits" contient "API Particulier"
 
   Scénario: La liste des rôles contient développeur mais pas admin
     Quand je me rends sur la page d'ajout de droits
@@ -33,4 +33,4 @@ Fonctionnalité: Admin — Gestion des droits — ajouter des droits à un utili
 
   Scénario: Je peux accorder le rôle FD-wildcard sur n’importe quel provider
     Quand je me rends sur la page d'ajout de droits
-    Alors le select "Portée des droits" contient "Tous les services DINUM"
+    Alors le select "Périmètre des droits" contient "Tous les services DINUM"
