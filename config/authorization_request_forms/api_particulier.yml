@@ -995,9 +995,15 @@ api-particulier-capdemat-capdemat-evolution:
   use_case: cantines-colleges-lycees-tarification
   service_provider_id: capdemat
   public: true
-  introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: scopes
+    - name: legal
+    - name: personal_data
+    - name: contacts
+  static_blocks: []
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -1013,6 +1019,9 @@ api-particulier-capdemat-capdemat-evolution:
     displayed:
       - cnaf_quotient_familial
       - cnav_allocation_enfant_handicape
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
       - men_regime_pensionnat
 
       # Scopes FranceConnect
