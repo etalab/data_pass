@@ -1,23 +1,40 @@
 class Molecules::Instruction::UserRights::RightFieldComponent < ApplicationComponent
   FORM_NAME = 'instruction_user_right_form'.freeze
+  TEMPLATE_INDEX = 'NEW_RECORD'.freeze
 
-  def initialize(index:, scope:, role_type:, permissions:)
+  def initialize(index:, scope:, role_type:, permissions:, editable: true)
     @index = index
     @scope = scope
     @role_type = role_type
     @permissions = permissions
+    @editable = editable
   end
 
   private
 
   attr_reader :index, :scope, :role_type, :permissions
 
+  def editable?
+    @editable
+  end
+
+  def scope_label
+    Instruction::Scope.new(scope).label
+  end
+
+  def role_label
+    t("instruction.user_rights.roles.#{role_type}")
+  end
+
+  def readonly_hint_id
+    "#{FORM_NAME}_rights_#{index}_readonly"
+  end
+
   def legend_label
-    if index == 'NEW'
-      t('instruction.user_rights.new.right_legend_new')
-    else
-      t('instruction.user_rights.new.right_legend', position: index.to_i + 1)
-    end
+    return t('instruction.user_rights.new.right_legend_new') if index == TEMPLATE_INDEX
+    return t('instruction.user_rights.new.right_legend_readonly', position: index.to_s.split('-').last.to_i + 1) unless editable?
+
+    t('instruction.user_rights.new.right_legend', position: index.to_i + 1)
   end
 
   def name_for(attr)
@@ -40,6 +57,24 @@ class Molecules::Instruction::UserRights::RightFieldComponent < ApplicationCompo
     pairs << [t('instruction.user_rights.new.scope_fd_option', provider: provider_name(slug)), "#{slug}:*"] if permissions.fd_manager_for?(slug)
     definitions.sort_by(&:name).each { |ad| pairs << [ad.name, "#{slug}:#{ad.id}"] }
     pairs
+  end
+
+  def role_description_attributes
+    tag.attributes(
+      data: {
+        new_record: true,
+        controller: 'role-description',
+        role_description_descriptions_value: role_descriptions.to_json
+      }
+    )
+  end
+
+  def role_descriptions
+    permissions.allowed_role_types.index_with { |type| t("instruction.user_rights.new.roles_help.#{type}") }
+  end
+
+  def role_description
+    role_descriptions[role_type.to_s]
   end
 
   def role_pairs

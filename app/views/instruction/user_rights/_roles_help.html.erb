@@ -1,10 +1,54 @@
 <%= dsfr_accordion t('instruction.user_rights.new.roles_help.title'),
                        id: 'user-rights-roles-help',
                        class: ['fr-mb-3w'] do %>
-  <h3 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.new.roles_help.scope_section') %></h3>
+  <p class="fr-mb-3w"><%= t('instruction.user_rights.new.roles_help.composition') %></p>
+
+  <h4 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.new.roles_help.scope_section') %></h4>
   <p class="fr-mb-3w"><%= t('instruction.user_rights.new.roles_help.scope_description') %></p>
 
-  <h3 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.new.roles_help.roles_section') %></h3>
+  <h4 class="fr-h6 fr-mb-1w"><%= t('instruction.user_rights.new.roles_help.roles_section') %></h4>
+
+  <div class="fr-table fr-table--bordered fr-mb-2w">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <caption class="fr-sr-only"><%= t('instruction.user_rights.new.roles_help.matrix.caption') %></caption>
+          <thead>
+            <tr>
+              <th scope="col"><%= t('instruction.user_rights.new.roles_help.matrix.level') %></th>
+              <% user_rights_help_capabilities.each do |capability| %>
+                <th scope="col"><%= t("instruction.user_rights.new.roles_help.matrix.#{capability}") %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% user_rights_help_matrix.each do |role_type, granted| %>
+              <tr>
+                <th scope="row"><%= t("instruction.user_rights.roles.#{role_type}") %></th>
+                <% user_rights_help_capabilities.each do |capability| %>
+                  <td>
+                    <% if granted.include?(capability) %>
+                      <span class="fr-icon-check-line" aria-hidden="true"></span>
+                      <span class="fr-sr-only"><%= t('instruction.user_rights.new.roles_help.matrix.granted') %></span>
+                    <% else %>
+                      <span aria-hidden="true">&mdash;</span>
+                      <span class="fr-sr-only"><%= t('instruction.user_rights.new.roles_help.matrix.denied') %></span>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ul class="fr-mb-3w">
+    <li><%= t('instruction.user_rights.new.roles_help.nested_rule') %></li>
+    <li><%= t('instruction.user_rights.new.roles_help.api_rule') %></li>
+  </ul>
+
   <dl class="fr-mb-0">
     <% %w[reporter instructor manager developer].each do |role_type| %>
       <dt class="fr-text--bold"><%= t("instruction.user_rights.roles.#{role_type}") %></dt>
