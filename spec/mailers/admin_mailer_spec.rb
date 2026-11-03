@@ -12,9 +12,11 @@ RSpec.describe AdminMailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to include(user.email)
-      expect(mail.body.encoded).to include('dinum:api_entreprise:instructor')
-      expect(mail.body.encoded).to include('dinum:api_entreprise:reporter')
+      expect(decoded_text_body(mail)).to include(user.email)
+      expect(decoded_text_body(mail)).to include('dinum:api_entreprise:instructor')
+      expect(decoded_text_body(mail)).to include('dinum:api_entreprise:reporter')
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end

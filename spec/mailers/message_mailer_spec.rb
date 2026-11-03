@@ -8,9 +8,11 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      expect(decoded_text_body(mail)).to match('un nouveau message')
+      expect(decoded_text_body(mail)).to match('concernant votre demande')
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 
   describe '#reopening_to_applicant' do
@@ -22,9 +24,11 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      expect(decoded_text_body(mail)).to match('un nouveau message')
+      expect(decoded_text_body(mail)).to match('demande de mise à jour de l’habilitation')
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 
   describe '#to_instructors' do
@@ -39,23 +43,25 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      expect(decoded_text_body(mail)).to match('un nouveau message')
+      expect(decoded_text_body(mail)).to match('concernant la demande')
     end
 
     context 'with the unsubscribe footer' do
       it "mentionne le nom de l'API" do
-        expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
+        expect(decoded_text_body(mail)).to include(authorization_request.definition.name_with_stage)
       end
 
       it 'mentionne le texte de gestion des préférences' do
-        expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+        expect(decoded_text_body(mail)).to include('ne plus recevoir ces notifications')
       end
 
       it 'inclut le lien de désinscription 1 clic' do
-        expect(mail.body.encoded).to include('/desabonnement-notifications?token=')
+        expect(decoded_text_body(mail)).to include('/desabonnement-notifications?token=')
       end
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 
   describe '#reopening_to_instructors' do
@@ -70,22 +76,24 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      expect(decoded_text_body(mail)).to match('un nouveau message')
+      expect(decoded_text_body(mail)).to match('demande de mise à jour de l’habilitation')
     end
 
     context 'with the unsubscribe footer' do
       it "mentionne le nom de l'API" do
-        expect(mail.body.encoded).to include(authorization_request.definition.name_with_stage)
+        expect(decoded_text_body(mail)).to include(authorization_request.definition.name_with_stage)
       end
 
       it 'mentionne le texte de gestion des préférences' do
-        expect(mail.body.encoded).to include('ne plus recevoir ces notifications')
+        expect(decoded_text_body(mail)).to include('ne plus recevoir ces notifications')
       end
 
       it 'inclut le lien de désinscription 1 clic' do
-        expect(mail.body.encoded).to include('/desabonnement-notifications?token=')
+        expect(decoded_text_body(mail)).to include('/desabonnement-notifications?token=')
       end
     end
+
+    it_behaves_like 'a mail whose html part mirrors its text part'
   end
 end

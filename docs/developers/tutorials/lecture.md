@@ -4,10 +4,10 @@ Ce tutoriel s'adresse aux fournisseurs de données qui souhaitent **consulter** 
 
 ## Prérequis
 
-Avant toute chose, l'utilisateur dont dépend votre application OAuth2 doit avoir le rôle **« développeur »** (`developer`) pour le ou les types d'habilitation concernés.
+Avant toute chose, l'utilisateur dont dépend votre application OAuth2 doit avoir le rôle **« développeur »** (`developer`) pour le ou les formulaires concernés.
 
 - Ce rôle conditionne **tout** l'accès à l'API : un utilisateur sans rôle développeur reçoit `403 Forbidden` même avec un token valide.
-- Le rôle est attribué manuellement par un administrateur DataPass pour chaque type d'habilitation (ex : `api_entreprise:developer`, `api_impot_particulier:developer`).
+- Le rôle est attribué manuellement par un administrateur DataPass pour chaque formulaire (ex : `api_entreprise:developer`, `api_impot_particulier:developer`).
 - La liste des types sur lesquels vous avez ce rôle est consultable sur [/developpeurs/applications](/developpeurs/applications).
 
 Une application OAuth2 est également nécessaire (un `client_id` + `client_secret`). Elle est gérée depuis [/developpeurs/applications](/developpeurs/applications).
@@ -97,7 +97,7 @@ Objectif : afficher en interne le nombre de demandes en cours, validées, refus�
 
 L'endpoint `GET /demandes` accepte les filtres `state`, `siret`, pagine via `limit` + `offset`, et retourne les résultats triés par date de création décroissante (les plus récentes en premier). Voir [la documentation OpenAPI](/developpeurs/documentation) pour la liste complète des paramètres et du schéma `Demande`.
 
-### Récupérer toutes les demandes validées d'un SIRET
+### Récupérer les demandes d'un SIRET ayant donné lieu à une habilitation
 
 ```python
 import os, requests
@@ -161,7 +161,7 @@ par_etat = demandes.group_by { |d| d['state'] }.transform_values(&:count)
 | Endpoint | Usage |
 | --- | --- |
 | `GET /me` | Informations sur l'utilisateur lié au token (scope `public`) |
-| `GET /definitions` | Types d'habilitation accessibles (avec la liste des clés `data` acceptées) |
+| `GET /definitions` | Formulaires accessibles (avec la liste des clés `data` acceptées) |
 | `GET /definitions/{id}` | Détail d'une définition (scopes, étapes sandbox/production) |
 | `GET /demandes` | Liste des demandes (filtres `state`, `siret`) |
 | `GET /demandes/{id}` | Détail d'une demande avec ses événements et habilitations |
@@ -173,7 +173,7 @@ par_etat = demandes.group_by { |d| d['state'] }.transform_values(&:count)
 
 ## Comprendre la clé `data`
 
-Chaque type d'habilitation possède un jeu d'attributs métier qui vivent sous la clé `data` d'une demande. La liste des clés acceptées pour un type donné est **dynamique** et exposée par `GET /definitions/{id}` sous le champ `data` :
+Chaque formulaire possède un jeu d'attributs métier qui vivent sous la clé `data` d'une demande. La liste des clés acceptées pour un formulaire donné est **dynamique** et exposée par `GET /definitions/{id}` sous le champ `data` :
 
 ```json
 {
@@ -240,9 +240,9 @@ Détail des champs renvoyés pour chaque scope :
 
 - **`value`** — identifiant technique, utilisé dans `data.scopes` d'une demande.
 - **`name`** / **`group`** / **`link`** — libellé humain, regroupement métier et lien documentation pour l'affichage.
-- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation validée, faites l'union de `data.scopes` et des `value` `included: true`.
+- **`included`** — quand `true`, scope toujours accordé par le fournisseur même absent de `data.scopes`. Pour la liste effective des scopes accordés à une habilitation, faites l'union de `data.scopes` et des `value` `included: true`.
 - **`deprecated`** (+ **`deprecated_date`**) — scope conservé pour l'historique des anciennes demandes mais à exclure d'une UI de création.
-- **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une demande validée peut tout de même en contenir.
+- **`disabled`** — scope visible mais non cochable (par ex. réservé à certains profils d'usagers). Une habilitation peut tout de même en contenir.
 
 > **Note** — une `value` présente dans `data.scopes` mais absente de la définition correspond à une suppression côté config : à conserver pour l'historique, à ne plus proposer à la modification.
 

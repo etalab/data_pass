@@ -22,7 +22,7 @@ class DGFIP::APIMMailer < ApplicationMailer
     else
       I18n.t(
         'dgfip_apim_mailer.approve.subject',
-        authorization_request_id: @authorization_request.formatted_id
+        authorization_id: @authorization.formatted_id
       )
     end
   end

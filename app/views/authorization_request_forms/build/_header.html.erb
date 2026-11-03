@@ -46,7 +46,7 @@
         <div class="fr-pb-2w fr-pl-1w">
           Cette habilitation est liée à la <%= link_to "demande #{@authorization_request.formatted_id}", instruction_authorization_request_authorizations_path(@authorization_request), class: 'fr-link' %>
           <% if @authorization.approving_instructor %>
-            et a été validée par
+            et a été délivrée par
             <strong><%=@authorization.approving_instructor.email%></strong>
           <% end %>
 

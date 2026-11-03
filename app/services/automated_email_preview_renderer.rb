@@ -9,6 +9,7 @@ class AutomatedEmailPreviewRenderer
   ADMIN_EMAIL = '[administrateur métier]'.freeze
   ORGANIZATION = '[nom de l’organisation]'.freeze
   REQUEST_ID = '[numéro de la demande]'.freeze
+  AUTHORIZATION_ID = '[numéro de l’habilitation]'.freeze
   REQUEST_NAME = '[nom de la démarche]'.freeze
   MESSAGE = '[message de l’instructeur]'.freeze
   DENIAL_REASON = '[motif du refus]'.freeze
@@ -28,11 +29,19 @@ class AutomatedEmailPreviewRenderer
   Org = Data.define(:name, :siret)
   FormHolder = Data.define(:name)
   ReasonHolder = Data.define(:reason)
-  MessageHolder = Data.define(:message)
+  LatestAuthorizationHolder = Data.define(:message, :formatted_id) do
+    def to_param
+      'exemple'
+    end
+  end
   ServiceProviderHolder = Data.define(:name)
   RequestHolder = Data.define(:request)
   LinkedAuthorization = Data.define(:request, :formatted_id)
-  AuthorizationHolder = Data.define(:applicant, :request, :request_as_validated, :message, :formatted_id)
+  AuthorizationHolder = Data.define(:applicant, :request, :request_as_validated, :message, :formatted_id) do
+    def to_param
+      'exemple'
+    end
+  end
 
   ModificationRequestHolder = Data.define(:reason) do
     def present?
@@ -113,7 +122,7 @@ class AutomatedEmailPreviewRenderer
   end
 
   def stub_workflow(req)
-    stub(req, reopening?: reopening?, latest_authorization: MessageHolder.new(message: MESSAGE),
+    stub(req, reopening?: reopening?, latest_authorization: LatestAuthorizationHolder.new(message: MESSAGE, formatted_id: AUTHORIZATION_ID),
       denial: ReasonHolder.new(reason: DENIAL_REASON),
       modification_request: ModificationRequestHolder.new(reason: CHANGES),
       revocation: ReasonHolder.new(reason: REVOCATION_REASON),
@@ -142,7 +151,7 @@ class AutomatedEmailPreviewRenderer
   end
 
   def authorization
-    AuthorizationHolder.new(applicant: applicant, request:, request_as_validated: request, message: MESSAGE, formatted_id: REQUEST_ID)
+    AuthorizationHolder.new(applicant: applicant, request:, request_as_validated: request, message: MESSAGE, formatted_id: AUTHORIZATION_ID)
   end
 
   def linked_authorization

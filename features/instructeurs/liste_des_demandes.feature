@@ -67,7 +67,7 @@ Fonctionnalité: Instruction: liste des demandes
     Et qu'il y a 1 demande d'habilitation "API Particulier" en attente
     Et qu'il y a 1 demande d'habilitation "API Entreprise" en brouillon
     Et que je vais sur la page instruction
-    Et que je sélectionne "API Entreprise" dans le multi-select "Type de demande"
+    Et que je sélectionne "API Entreprise" dans le multi-select "Formulaire"
     Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 2 demandes d'habilitation

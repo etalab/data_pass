@@ -64,18 +64,18 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
 
     @javascript
     Scénario: Soumission d'une habilitation réouverte avec suppression de document
-      Et il n'y a pas de bouton "Envoyer ma demande de modification"
+      Et il n'y a pas de bouton "Envoyer ma demande de mise à jour"
       Quand je supprime le document "another_dummy.pdf"
       Et que je clique sur "Enregistrer les modifications"
       Alors la page ne contient pas "another_dummy.pdf"
       Et la page contient "dummy.pdf"
-      Alors il y a un bouton "Envoyer ma demande de modification"
+      Alors il y a un bouton "Envoyer ma demande de mise à jour"
 
     @javascript
     Scénario: Annulation d'une réouverture avec suppression de document dans l'étape de modification
       Quand je supprime le document "another_dummy.pdf"
       Et que je clique sur "Retour à la synthèse"
-      Et que je clique sur "Annuler ma demande de modification" et confirme dans la modale
+      Et que je clique sur "Annuler ma demande de mise à jour" et confirme dans la modale
       Et que je me rends sur mon tableau de bord demandeur habilitations
       Et que je clique sur le premier "Consulter"
       Alors la page contient "dummy.pdf"

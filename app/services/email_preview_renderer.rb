@@ -1,5 +1,6 @@
 class EmailPreviewRenderer
   PLACEHOLDER_MESSAGE = '{{MESSAGE_PERSONNALISE}}'.freeze
+  PREVIEW_AUTHORIZATION_ID = 9001
 
   ACTION_TO_MAILER_ACTION = {
     approval: 'approve',
@@ -59,7 +60,7 @@ class EmailPreviewRenderer
       request.define_singleton_method(:denial) { DenialOfAuthorization.new(reason: PLACEHOLDER_MESSAGE) }
       request.define_singleton_method(:modification_request) { InstructorModificationRequest.new(reason: PLACEHOLDER_MESSAGE) }
 
-      authorization = Authorization.new(message: PLACEHOLDER_MESSAGE)
+      authorization = Authorization.new(id: PREVIEW_AUTHORIZATION_ID, message: PLACEHOLDER_MESSAGE)
       request.define_singleton_method(:latest_authorization) { authorization }
     end
   end

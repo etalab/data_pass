@@ -16,7 +16,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
       end
 
       it 'renders the changes requested title' do
-        expect(page).to have_text(I18n.t('authorization_requests.show.changes_requested.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.changes_requested.title', formatted_id: authorization_request.formatted_id))
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
       end
 
       it 'renders the refused title' do
-        expect(page).to have_text(I18n.t('authorization_requests.show.refused.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.refused.title', formatted_id: authorization_request.formatted_id))
       end
     end
 
@@ -100,7 +100,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       it 'renders the reopening changes requested banner' do
         expect(page).to have_css('.fr-notice.fr-notice--warning')
-        expect(page).to have_text(I18n.t('authorization_requests.show.reopening_changes_requested.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.reopening_changes_requested.title', formatted_id: authorization_request.formatted_id))
       end
     end
 
@@ -118,7 +118,7 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       it 'renders the reopening refused banner' do
         expect(page).to have_css('.fr-notice.fr-notice--alert')
-        expect(page).to have_text(I18n.t('authorization_requests.show.reopening_refused.title'))
+        expect(page).to have_text(I18n.t('authorization_requests.show.reopening_refused.title', formatted_id: authorization_request.formatted_id))
       end
     end
   end

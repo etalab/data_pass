@@ -27,7 +27,7 @@ fr:
 
   auto_generated_france_connect_mailer:
     approve:
-      subject: Votre habilitation FranceConnect associée à la demande numéro %{authorization_request_id} a été créée
+      subject: Votre habilitation FranceConnect %{authorization_id} a été délivrée (demande %{authorization_request_id})
       description: |
         Pour obtenir l'accès FranceConnect, il faut habituellement suivre cette documentation :
         https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
@@ -39,30 +39,30 @@ fr:
 
         Le client_id sera communiqué par mail et le client_secret sera communiqué par sms au responsable technique défini dans votre habilitation Datapass.
       additional_message: |
-        Message associé à la validation de votre habilitation :
+        Message associé à la validation de votre demande :
 
         %{message}
       consultation: |
-        Pour consulter cette habilitation, veuillez cliquer sur le lien suivant %{authorization_request_url}.
+        Pour consulter cette habilitation, veuillez cliquer sur le lien suivant %{authorization_url}.
 
         Bien cordialement,
     new_scopes:
       subject: "[DataPass] nouveaux scopes pour « %{organization_name} - %{authorization_request_id} »"
       description: |
-        Une %{request_type} %{definition_name} pour le FS %{organization_name} vient d'être validée.
-        Identifiant DataPass de l'habilitation FranceConnect associée : %{linked_authorization_url} (%{linked_authorization_id}).
+        Une habilitation %{definition_name} pour le FS %{organization_name} vient d’être %{outcome}.
+        Habilitation FranceConnect associée : %{linked_authorization_id} (%{linked_authorization_url}).
 
         En conséquence, merci d'autoriser les scopes suivants pour le sus-mentionné FS :
       consultation: |
-        Pour consulter cette %{request_type}, veuillez cliquer sur le lien suivant %{authorization_request_url} .
+        Pour consulter la demande, veuillez cliquer sur le lien suivant %{authorization_request_url} .
     revoke:
-      subject: Votre habilitation FranceConnect associée à la demande numéro %{authorization_request_id} a été révoquée
+      subject: Votre habilitation FranceConnect %{authorization_id} a été révoquée (demande %{authorization_request_id})
       description: |
-        Votre habilitation FranceConnect associée à « %{authorization_request_name} » (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
+        Votre habilitation FranceConnect associée à « %{authorization_request_name} » (numéro %{authorization_id}) a été révoquée par nos équipes pour la raison suivante :
 
         %{authorization_request_revocation_reason}
 
-        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre habilitation en suivant le lien suivant : %{authorization_url}
 
   authorization_request_mailer:
     shared:
@@ -72,11 +72,11 @@ fr:
         delay: 7 jours à compter de cette date pour télécharger le fichier
         deletion: Une fois ce délai passé, le fichier sera automatiquement supprimé de HubEE.
     approve:
-      subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
+      subject: "Votre demande %{authorization_request_id} a été validée : habilitation %{authorization_id} délivrée"
       description: |
-        Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes.
+        Votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes : elle a donné lieu à l’habilitation %{authorization_id}.
 
-        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre habilitation en suivant le lien suivant : %{authorization_url}
 
       additional_message: |
         L'instructeur a ajouté le message suivant :
@@ -88,37 +88,37 @@ fr:
 
         *L’ANSSI vous accompagne dans la sécurisation de vos applications : https://www.monservicesecurise.cyber.gouv.fr
     refuse:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} a été refusée
+      subject: Votre demande %{authorization_request_id} a été refusée
       description: |
-        Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
+        Votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante :
 
         %{reason}
 
-        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre demande en suivant le lien suivant : %{authorization_request_url}
     revoke:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} a été révoquée.
+      subject: Votre habilitation %{authorization_id} a été révoquée
       description: |
-        Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
+        Votre habilitation « %{authorization_request_name} » (numéro %{authorization_id}) a été révoquée par nos équipes pour la raison suivante :
 
         %{authorization_request_revocation_reason}
 
-        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre habilitation en suivant le lien suivant : %{authorization_url}
     request_changes:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} requiert des modifications
+      subject: Votre demande %{authorization_request_id} requiert des modifications
       description: |
-        Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
+        Votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
 
         Les modifications attendues sont les suivantes:
 
         %{reason}
 
-        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre demande en suivant le lien suivant : %{authorization_request_url}
     reopening_approve:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} vient d'être validée
+      subject: "Votre demande de mise à jour %{authorization_request_id} a été validée : habilitation %{authorization_id} délivrée"
       description: |
-        Votre réouverture d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes.
+        Votre demande de mise à jour « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes : elle a donné lieu à l’habilitation %{authorization_id}, qui remplace la précédente.
 
-        Vous pouvez consulter votre habilitation mise à jour en suivant le lien suivant: %{authorization_request_url}
+        Vous pouvez consulter votre habilitation mise à jour en suivant le lien suivant : %{authorization_url}
 
       additional_message: |
         L'instructeur a ajouté le message suivant :
@@ -126,18 +126,18 @@ fr:
         %{message}
 
     reopening_refuse:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} a été refusée
+      subject: Votre demande de mise à jour %{authorization_request_id} a été refusée
       description: |
-        Votre réouverture habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
+        Votre demande de mise à jour « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante :
 
         %{reason}
 
-        Les modifications apportées ont donc été annulées. Votre ancienne habilitation est toujours valide, vous pouvez la consulter en suivant le lien suivant: %{authorization_request_url}
+        Les modifications apportées ont donc été annulées. Votre habilitation en cours reste valide, vous pouvez la consulter en suivant le lien suivant : %{authorization_request_url}
 
     reopening_request_changes:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} requiert des modifications
+      subject: Votre demande de mise à jour %{authorization_request_id} requiert des modifications
       description: |
-        Votre réouverture d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
+        Votre demande de mise à jour « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
 
         Les modifications attendues sont les suivantes:
 
@@ -145,9 +145,9 @@ fr:
 
         Vous pouvez consulter votre demande de mise à jour en suivant le lien suivant: %{authorization_request_url}
     submit:
-      subject: Nous accusons réception de votre demande d'habilitation n°%{authorization_request_id} sur DataPass
-      description: Nous accusons réception de votre demande d'habilitation n°%{authorization_request_id} du %{submitted_at} pour accéder à %{api_name}.
-      contact_sentence: "Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via la messagerie sur votre demande d'habilitation : %{messages_url}"
+      subject: Nous accusons réception de votre demande %{authorization_request_id} sur DataPass
+      description: Nous accusons réception de votre demande %{authorization_request_id} du %{submitted_at} pour accéder à %{api_name}.
+      contact_sentence: "Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via la messagerie de votre demande : %{messages_url}"
       contact_sentence_without_messaging: Des instructeurs du fournisseur de données « %{provider_name} » se chargent de la traiter. Vous pouvez les contacter via l'email %{support_email}.
       legal_paragraphs: |
         Si votre demande est incomplète, nous vous informerons via la plateforme DataPass des pièces et informations manquantes à fournir. Vous disposerez d'un délai de deux mois pour nous fournir ces pièces et informations.
@@ -157,17 +157,17 @@ fr:
         Dans le cas d'une telle décision implicite de rejet, vous pouvez contester cette décision dans un délai de deux mois à compter de la date à laquelle naît la décision en formant un recours gracieux, hiérarchique ou en saisissant le tribunal administratif de Paris, en application des dispositions des articles L. 411-2 et L. 431-1 du CRPA et L. 211-1, R. 312-1, R. 421-1 du code de justice administrative.
     
     reopening_submit:
-      subject: Nous accusons réception de votre demande de modification d'habilitation n°%{authorization_request_id} sur DataPass
-      description: Nous accusons réception de votre demande de modification de l'habilitation n°%{authorization_request_id} du %{submitted_at} pour %{api_name}.
+      subject: Nous accusons réception de votre demande de mise à jour n°%{authorization_request_id} sur DataPass
+      description: Nous accusons réception de votre demande de mise à jour de l’habilitation n°%{authorization_request_id} du %{submitted_at} pour %{api_name}.
   gdpr_contact_mailer:
     responsable_traitement: &shared_gdpr
       subject: &gdpr_subject Vous avez été désigné %{authorization_request_contact_kind} pour la démarche « %{authorization_request_name} ».
       description: &gdpr_description |
-        Nous vous informons que %{authorization_request_applicant_email}, de l'organisation %{authorization_request_organization}, vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre de la démarche « %{authorization_request_name} ». Les détails de cette habilitation sont disponibles via le lien suivant: %{authorization_request_url}.
+        Nous vous informons que %{authorization_request_applicant_email}, de l'organisation %{authorization_request_organization}, vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre de la démarche « %{authorization_request_name} ». Les détails de cette demande sont disponibles via le lien suivant : %{authorization_request_url}.
 
         Vous n'avez rien de plus à faire!
 
-        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin que celui-ci effectue les modifications sur son habilitation : %{applicant_email}
+        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin qu’il demande une mise à jour de son habilitation : %{applicant_email}
 
         En cas de question, vous pouvez nous contacter à l'adresse suivante : %{support_email}.
 
@@ -181,67 +181,67 @@ fr:
         description: |
           %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande d'habilitation pour %{api_name} sur DataPass pour le compte de l'organisation %{organization_name}
 
-          Vous pouvez modérer cette demande d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+          Vous pouvez instruire cette demande en suivant le lien suivant : %{authorization_request_instruction_url}
         changes_requested_submit: |
-          Cette demande fait suite à une demande de modification.
+          Cette demande fait suite à des modifications demandées.
       reopening_submit:
-        subject: Demande de réouverture d'habilitation sur DataPass
+        subject: Demande de mise à jour d’habilitation sur DataPass
         description: |
-          %{applicant_full_name} (%{applicant_email}) a soumis une demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_name}
+          %{applicant_full_name} (%{applicant_email}) a soumis une demande de mise à jour d’habilitation sur DataPass pour le compte de l'organisation %{organization_name}
 
-          Vous pouvez modérer cette demande de réouverture d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+          Vous pouvez instruire cette demande de mise à jour en suivant le lien suivant : %{authorization_request_instruction_url}
 
   message_mailer:
     to_applicant:
-      subject: Vous avez reçu un nouveau message concernant votre demande d'habilitation %{authorization_request_name}
+      subject: Vous avez reçu un nouveau message concernant votre demande « %{authorization_request_name} »
       description: |
-        Vous avez reçu un nouveau message concernant votre demande d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        Vous avez reçu un nouveau message concernant votre demande « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
     reopening_to_applicant:
-      subject: Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation %{authorization_request_name}
+      subject: Vous avez reçu un nouveau message concernant votre demande de mise à jour de l’habilitation %{authorization_request_name}
       description: |
-        Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        Vous avez reçu un nouveau message concernant votre demande de mise à jour de l’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
     to_instructors:
-      subject: Nouveau message concernant la demande d'habilitation %{authorization_request_name}
+      subject: Nouveau message concernant la demande « %{authorization_request_name} »
       description: |
-        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
 
     reopening_to_instructors:
-      subject: Nouveau message concernant la demande de réouverture de l'habilitation %{authorization_request_name}
+      subject: Nouveau message concernant la demande de mise à jour de l’habilitation %{authorization_request_name}
       description: |
-        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande de réouverture de l'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande de mise à jour de l’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
   authorization_request_transfer_mailer:
     success:
-      subject: Transfert de la demande d'habilitation n°%{authorization_request_id} réussie
+      subject: Transfert de la demande %{authorization_request_id} réussi
       description: |
-        La demande d'habilitation n°%{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
+        La demande %{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
 
         Vous pouvez consulter la demande en suivant le lien suivant: %{authorization_request_url}
   hubee_mailer:
     formulaire_qf_validation:
-      subject: "[DataPass] Demande FQF %{authorization_request_id} validée — %{organization_name}"
+      subject: "[DataPass] Habilitation FQF %{authorization_id} délivrée — %{organization_name}"
       description: |
-        Nous vous informons que la demande %{authorization_request_id} d’accès au formulaire de collecte du quotient familial (FQF) vient d’être validée sur DataPass.
+        Nous vous informons que la demande %{authorization_request_id} d’accès au formulaire de collecte du quotient familial (FQF) a été validée sur DataPass : elle a donné lieu à l’habilitation %{authorization_id}.
 
         Voici les informations nécessaires à l’activation de l’abonnement HubEE :
       intitule: "Intitulé de la demande : %{intitule}"
-      form_name: "Formulaire : %{form_name}"
+      form_name: "Cas d’usage : %{form_name}"
       editor_name: "Éditeur : %{editor_name}"
       organization: "Organisation : %{organization_name} (SIRET %{siret})"
       validated_at: "Date de validation : %{validated_at}"
       consultation: "Consulter la demande : %{authorization_request_url}"
   produits_dinum_mailer:
     transmit_convention:
-      subject: "Votre habilitation numéro %{authorization_request_id} vient d’être validée"
+      subject: "Votre demande %{authorization_request_id} a été validée : habilitation %{authorization_id} délivrée"
       greeting: "Madame, Monsieur,"
       description: |
         Nous vous informons que votre organisme est éligible à la mise à disposition des produits opérés par la DINUM, suite à votre demande faite sur Datapass n°%{authorization_request_id} le %{demande_date}.
@@ -251,7 +251,7 @@ fr:
         Dans le cas où vous ne souhaitez pas que vos agents utilisent un ou plusieurs de ces produits, il vous appartient d’en limiter l’accès.
   dgfip_apim_mailer:
     approve:
-      subject: "Nouvelle habilitation %{authorization_request_id} validée"
+      subject: "Nouvelle habilitation %{authorization_id} délivrée"
       reopening_subject: "Mise à jour de l'habilitation %{authorization_request_id} validée"
   dgfip:
     apim_mailer:
@@ -268,7 +268,7 @@ fr:
     fail:
       subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"
       description: |
-        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n'y parvient plus. Une habilitation DataPass n'a donc pas été transmise automatiquement à vos services.
+        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n'y parvient plus. Des événements DataPass (demandes et habilitations) n'ont donc pas été transmis automatiquement à vos services.
 
         Les informations techniques sont les suivantes:
 

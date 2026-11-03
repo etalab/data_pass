@@ -35,7 +35,7 @@ class Molecules::InstructorBannerNoticeComponent < ApplicationComponent
   end
 
   def title
-    I18n.t("#{i18n_key}.title")
+    I18n.t("#{i18n_key}.title", formatted_id: authorization_request.formatted_id)
   end
 
   def description

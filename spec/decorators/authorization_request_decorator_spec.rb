@@ -74,4 +74,24 @@ RSpec.describe AuthorizationRequestDecorator, type: :decorator do
       it { is_expected.to eq(['contact technique']) }
     end
   end
+
+  describe '#transferred_subject' do
+    subject(:decorated) { authorization_request.decorate }
+
+    context 'when the request never gave rise to an authorization' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
+
+      it 'transfers a request identified by its request number' do
+        expect(decorated.transferred_subject).to have_attributes(kind: :demande, formatted_id: authorization_request.formatted_id)
+      end
+    end
+
+    context 'when the request gave rise to an authorization' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+      it 'transfers an authorization identified by its authorization number' do
+        expect(decorated.transferred_subject).to have_attributes(kind: :habilitation, formatted_id: authorization_request.latest_authorization.formatted_id)
+      end
+    end
+  end
 end

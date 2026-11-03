@@ -61,7 +61,7 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Et que je clique sur "Toutes les habilitations"
     Et que je clique sur "Consulter l'habilitation"
     Alors la page contient "créée par la"
-    Et la page contient "via le formulaire"
+    Et la page contient "via le cas d’usage"
     Et la page contient "demande D"
     Et que je clique sur "demande D"
     Alors la page contient "Toutes les habilitations"
