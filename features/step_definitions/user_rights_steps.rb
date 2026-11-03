@@ -127,8 +127,8 @@ Alors("la page contient l'accordéon {string} replié par défaut") do |title|
   expect(button['aria-expanded']).to eq('false')
 end
 
-Alors('le champ de recherche porte les attributs de focus et d’auto-soumission') do
-  expect(page).to have_css('input[type="search"][autofocus]')
+Alors('le champ de recherche est auto-soumis sans prendre le focus') do
+  expect(page).to have_css('input[type="search"]:not([autofocus])')
   expect(page).to have_css("form[data-auto-submit-form-debounce-interval-value='800']")
 end
 
@@ -144,13 +144,72 @@ end
 
 Alors('ma ligne n’affiche aucun bouton de modification ni de suppression') do
   within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
-    expect(page).to have_no_css('.fr-icon-edit-line')
-    expect(page).to have_no_css('.fr-icon-delete-line')
+    expect(page).to have_no_link(I18n.t('instruction.user_rights.index.table.manage_cta'))
+  end
+end
+
+Alors('ma ligne indique que seul un autre manager ou un administrateur peut modifier mes droits') do
+  within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
+    expect(page).to have_text(I18n.t('instruction.user_rights.index.table.self_edit_notice'))
   end
 end
 
 Alors('ma ligne affiche un bouton de modification') do
   within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
-    expect(page).to have_css('.fr-icon-edit-line')
+    expect(page).to have_link(I18n.t('instruction.user_rights.index.table.manage_cta'))
   end
+end
+
+Alors('le tableau des utilisateurs a les colonnes {string}, {string}, {string}, {string} et {string}') do |c1, c2, c3, c4, c5|
+  within('#user-rights-table thead') do
+    [c1, c2, c3, c4, c5].each { |column| expect(page).to have_css('th', text: column) }
+  end
+end
+
+Quand('je sélectionne {string} dans le filtre {string}') do |option, filter_label|
+  select(option, from: filter_label)
+end
+
+Sachantque('je suis aussi administrateur') do
+  user = current_user!
+  user.grant_admin_role
+  user.save!
+end
+
+Quand("je me rends sur la page d'ajout de droits d'instruction") do
+  visit new_instruction_user_right_path
+end
+
+Quand('il y a {int} utilisateurs avec un droit sur {string}') do |count, definition_name|
+  def_id = find_factory_trait_from_name(definition_name)
+
+  count.times do |index|
+    user = FactoryBot.create(:user, email: format('utilisateur-%02d@gouv.fr', index + 1))
+    user.grant_role(:reporter, def_id)
+    user.save!
+  end
+end
+
+Alors('la description du rôle indique {string}') do |text|
+  expect(page).to have_css('[data-role-description-target="description"]', text:)
+end
+
+Quand('je tape {string} dans le champ de recherche') do |text|
+  find_field(type: 'search').send_keys(text)
+end
+
+Alors('le tableau des utilisateurs ne contient plus mon email') do
+  within('#user-rights-table') do
+    expect(page).to have_no_text(current_user!.email)
+  end
+end
+
+Alors('le champ de recherche a toujours le focus') do
+  expect(page).to have_css('input[type="search"]:focus')
+end
+
+Alors('chaque champ de droit a un identifiant unique, relié à son étiquette') do
+  ids = all('select[name$="[role_type]"]', minimum: 3).pluck(:id)
+  expect(ids.uniq.size).to eq(ids.size)
+  ids.each { |id| expect(page).to have_css("label[for='#{id}']", count: 1) }
 end
