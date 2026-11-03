@@ -44,6 +44,8 @@ module UserRoles
   end
 
   def managed_fd_slugs
+    return all_provider_slugs if admin?
+
     roles.filter_map { |role_string|
       parsed = ParsedRole.parse(role_string)
       parsed.provider_slug if parsed.fd_level? && parsed.role == 'manager'
@@ -53,6 +55,7 @@ module UserRoles
   def manages_role?(role_string)
     parsed = ParsedRole.parse(role_string)
     return false if parsed.admin? || parsed.role.nil?
+    return true if admin?
 
     if parsed.fd_level?
       managed_fd_slugs.include?(parsed.provider_slug)
@@ -107,5 +110,11 @@ module UserRoles
 
   def authorization_definition_roles_as(kind)
     roles_for(kind).authorization_definitions
+  end
+
+  private
+
+  def all_provider_slugs
+    AuthorizationDefinition.all.filter_map(&:provider_slug).uniq
   end
 end
