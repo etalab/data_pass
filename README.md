@@ -6,7 +6,7 @@
 L'outil de gestion des habilitations juridiques pour les données à accès restreint.
 
 Version en ligne:
-[https://sandbox.v2.datapass.api.gouv.fr/](https://sandbox.v2.datapass.api.gouv.fr/)
+[https://sandbox.datapass.api.gouv.fr/](https://sandbox.datapass.api.gouv.fr/)
 
 Les comptes disponibles en simili-production (couple email/password sur
 ProConnect) :
@@ -34,7 +34,7 @@ ajouter des organisations :
 La conséquence pour le compte ci-dessus est que l'usager ne peut pas consulter
 les autres demandes de la DINUM.
 
-Le lien pour l'instruction: [https://sandbox.v2.datapass.api.gouv.fr/instruction](https://sandbox.v2.datapass.api.gouv.fr/instruction)
+Le lien pour l'instruction: [https://sandbox.datapass.api.gouv.fr/instruction](https://sandbox.datapass.api.gouv.fr/instruction)
 
 A noter qu'à chaque déploiement la base de données est vidée et re-remplie avec
 les seeds disponible [ici](app/lib/seeds.rb)
