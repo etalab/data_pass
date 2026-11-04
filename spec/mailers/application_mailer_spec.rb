@@ -12,7 +12,10 @@ RSpec.describe ApplicationMailer do
       'sandbox' => 'https://sandbox.datapass.api.gouv.fr'
     }.each do |environment, expected_host|
       context "when in #{environment}" do
-        before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new(environment)) }
+        before do
+          Rails.application.reload_routes_unless_loaded
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new(environment))
+        end
 
         it 'builds links on the canonical domain, without provider subdomain' do
           expect(decoded_text_body(mail)).to include("#{expected_host}/developpeurs/webhooks/#{webhook.id}/tentatives")
