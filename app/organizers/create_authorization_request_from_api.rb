@@ -14,6 +14,7 @@ class CreateAuthorizationRequestFromAPI < ApplicationOrganizer
 
   organize ResolveAuthorizationRequestForm,
     ValidateAPIDataKeys,
+    ValidateAPIDocumentValues,
     ValidateAPIMetadata,
     ProvisionApplicantFromAPI,
     EnsureAuthorizationRequestCanBeCreated,
