@@ -39,6 +39,9 @@ fr:
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."
+    invalid_document_values:
+      title: Document invalide
+      detail: "La clé « %{key} » doit contenir des fichiers envoyés en `multipart/form-data`, et non du texte (base64, URL…)."
     invalid_metadata:
       title: Métadonnées invalides
       detail_content_not_an_object: Les métadonnées doivent être un objet clé / valeur, ou null pour les supprimer.
