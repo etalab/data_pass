@@ -63,6 +63,8 @@ Seules les clés listées dans `definition.data` seront acceptées. Toute clé s
 
 Les clés de documents (par exemple `maquette_projet`) n’acceptent que des fichiers envoyés en `multipart/form-data`. Un texte (contenu base64, URL…) est refusé avec une erreur `422` « Document invalide », dont `source.pointer` désigne la clé en cause. Une valeur vide (par exemple `null`, `""` ou `[]`) est ignorée.
 
+Le paramètre `data` doit être un objet clé / valeur : un texte ou un tableau est refusé avec une erreur `422` « Données invalides ».
+
 ## Cas d'usage : création depuis un formulaire / CRM
 
 Scénario : un agent saisit une demande dans votre CRM ; vous la poussez vers DataPass en `draft`, puis l'agent continue sur l'interface DataPass pour soumission.
@@ -275,6 +277,7 @@ La demande ne change pas et reste dans son état dans les cas suivants, au forma
 | --- | --- | --- |
 | « Demande invalide » | une donnée est manquante ou invalide : une erreur par champ | `/data/<champ>` |
 | « Consentement manquant » | une case exigée n’est pas transmise à `true` | `/consentement/<case>` |
+| « Données invalides » | `data` n’est pas un objet clé / valeur | — |
 | « Document invalide » | une clé de document ne reçoit pas un fichier `multipart/form-data` | `/data/<champ>` |
 | « État non modifiable » | la demande n’est pas `draft` ou `changes_requested` | — |
 

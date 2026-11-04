@@ -12,6 +12,7 @@ class UpdateAuthorizationRequestFromAPI < ApplicationOrganizer
   end
 
   organize EnsureAuthorizationRequestIsUpdatable,
+    ValidateAPIDataObject,
     ValidateAPIDataKeys,
     ValidateAPIDocumentValues,
     ValidateAPIMetadata,
