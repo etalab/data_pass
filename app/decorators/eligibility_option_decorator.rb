@@ -7,6 +7,8 @@ class EligibilityOptionDecorator < ApplicationDecorator
     'maybe' => 'fr-callout--yellow-tournesol'
   }.freeze
 
+  CTA_BASE_OPTIONS = { class: 'fr-btn fr-btn--secondary' }.freeze
+
   def id
     "#{type}-option"
   end
@@ -24,7 +26,7 @@ class EligibilityOptionDecorator < ApplicationDecorator
   end
 
   def label
-    t("eligibility.user_types.#{type}")
+    custom_label || t("eligibility.user_types.#{type}")
   end
 
   def shows_request_access_button?
@@ -41,5 +43,19 @@ class EligibilityOptionDecorator < ApplicationDecorator
 
   def cta_url
     cta['url']
+  end
+
+  def cta_opens_in_new_tab?
+    ActiveModel::Type::Boolean.new.cast(cta['new_tab']) == true
+  end
+
+  def cta_html_options
+    return CTA_BASE_OPTIONS unless cta_opens_in_new_tab?
+
+    CTA_BASE_OPTIONS.merge(
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      title: "#{cta_content} - #{t('shared.new_window')}"
+    )
   end
 end

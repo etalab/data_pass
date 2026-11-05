@@ -72,6 +72,14 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
       expect(decorator.label).to eq('Un particulier')
     end
 
+    context 'with a custom label' do
+      let(:option_attributes) { { 'type' => 'particulier', 'label' => 'Un éditeur', 'eligible' => 'no', 'body' => 'Test' } }
+
+      it 'uses the custom label' do
+        expect(decorator.label).to eq('Un éditeur')
+      end
+    end
+
     context 'when collectivite_ou_administration' do
       let(:option_attributes) { { 'type' => 'collectivite_ou_administration', 'eligible' => 'yes', 'body' => 'Test' } }
 
@@ -164,6 +172,22 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
   describe '#cta_url' do
     it 'returns the cta url' do
       expect(decorator.cta_url).to eq('https://example.com/learn-more')
+    end
+  end
+
+  describe '#cta_html_options' do
+    it 'does not open a new tab by default' do
+      expect(decorator.cta_html_options).not_to include(:target)
+    end
+
+    context 'when the cta opens in a new tab' do
+      let(:option_attributes) do
+        { 'type' => 'particulier', 'eligible' => 'no', 'body' => 'Test', 'cta' => { 'content' => 'Go', 'url' => 'https://example.com', 'new_tab' => true } }
+      end
+
+      it 'announces the new window and secures the link' do
+        expect(decorator.cta_html_options).to include(target: '_blank', rel: 'noopener noreferrer', title: 'Go - nouvelle fenêtre')
+      end
     end
   end
 end
