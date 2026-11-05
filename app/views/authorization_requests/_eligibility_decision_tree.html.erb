@@ -41,9 +41,12 @@
             </div>
           <% elsif option.shows_custom_cta? %>
             <div class='fr-mt-3w'>
-              <%= link_to option.cta_content,
-                option.cta_url,
-                option.cta_html_options %>
+              <%= link_to option.cta_url, option.cta_html_options do %>
+                <%= option.cta_content %>
+                <% if option.cta_opens_in_new_tab? %>
+                  <span class='fr-sr-only'> - <%= t('shared.new_window') %></span>
+                <% end %>
+              <% end %>
             </div>
           <% end %>
         </div>

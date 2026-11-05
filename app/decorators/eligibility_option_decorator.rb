@@ -52,10 +52,6 @@ class EligibilityOptionDecorator < ApplicationDecorator
   def cta_html_options
     return CTA_BASE_OPTIONS unless cta_opens_in_new_tab?
 
-    CTA_BASE_OPTIONS.merge(
-      target: '_blank',
-      rel: 'noopener noreferrer',
-      title: "#{cta_content} - #{t('shared.new_window')}"
-    )
+    CTA_BASE_OPTIONS.merge(target: '_blank', rel: 'noopener noreferrer')
   end
 end

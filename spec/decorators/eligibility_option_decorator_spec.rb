@@ -185,8 +185,8 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
         { 'type' => 'particulier', 'eligible' => 'no', 'body' => 'Test', 'cta' => { 'content' => 'Go', 'url' => 'https://example.com', 'new_tab' => true } }
       end
 
-      it 'announces the new window and secures the link' do
-        expect(decorator.cta_html_options).to include(target: '_blank', rel: 'noopener noreferrer', title: 'Go - nouvelle fenêtre')
+      it 'opens a new window and secures the link' do
+        expect(decorator.cta_html_options).to include(target: '_blank', rel: 'noopener noreferrer')
       end
     end
   end

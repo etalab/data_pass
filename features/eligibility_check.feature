@@ -90,6 +90,7 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
     Et je choisis "Une entreprise ou une association souhaitant intégrer API Entreprise en tant qu’éditeur"
     Alors la page contient "Vous n’avez pas besoin de faire une demande sur DataPass"
     Et la page contient un lien vers "form.typeform.com"
+    Et la page contient "nouvelle fenêtre"
     Et il y a un bouton "Répondre au questionnaire éditeur"
     Et la page ne contient pas "Demander l'accès aux données"
     Et la page ne contient pas "Déposer une demande Editeur"
