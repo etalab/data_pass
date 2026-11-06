@@ -47,9 +47,11 @@
       <button type="button" class="fr-btn fr-btn--secondary" aria-controls="main-modal">
         <%= t('instruction.user_rights.droits.close') %>
       </button>
-      <%= link_to t('instruction.user_rights.index.table.manage_cta'),
-            edit_user_right_path(@target_user),
-            class: 'fr-btn' %>
+      <% if @authority.edits?(@target_user) %>
+        <%= link_to t('instruction.user_rights.index.table.manage_cta'),
+              edit_user_right_path(@target_user),
+              class: 'fr-btn' %>
+      <% end %>
     </div>
   </div>
 </turbo-frame>

@@ -120,7 +120,7 @@
   padding-bottom: 0.25rem;
 }
 
-.dp-user-rights-table__self-edit-notice {
+.dp-user-rights-table__edit-notice {
   color: var(--text-mention-grey);
 }
 

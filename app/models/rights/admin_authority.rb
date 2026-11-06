@@ -28,6 +28,18 @@ class Rights::AdminAuthority < Rights::Authority
     true
   end
 
+  def visible_users
+    User.all
+  end
+
+  def sees?(_target)
+    true
+  end
+
+  def edits?(_target)
+    true
+  end
+
   def audit_event_name
     'user_rights_changed_by_admin'
   end

@@ -31,6 +31,22 @@ RSpec.describe Molecules::Instruction::UserRights::TableRowComponent, type: :com
     end
   end
 
+  context 'when the row only holds an FD wildcard role the manager does not manage' do
+    let(:fd_reporter) { create(:user, email: 'fd-reporter@gouv.fr', roles: ['dinum:*:reporter']) }
+
+    before do
+      render_row(user: fd_reporter, authority: Rights::ManagerAuthority.new(manager), current_user: manager)
+    end
+
+    it 'hides the manage action' do
+      expect(page).to have_no_link('Modifier')
+    end
+
+    it 'explains who can edit these rights' do
+      expect(page).to have_text('Ses droits relèvent d’un manager du fournisseur ou d’un administrateur.')
+    end
+  end
+
   context 'when the user belongs to an organization with a SIRET' do
     it 'announces that the directory link opens a new window' do
       render_row(user: other_user, authority: Rights::ManagerAuthority.new(manager), current_user: manager)

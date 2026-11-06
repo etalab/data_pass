@@ -154,6 +154,18 @@ Alors('ma ligne indique que seul un autre manager ou un administrateur peut modi
   end
 end
 
+Alors('la ligne de {string} n’affiche pas de bouton de modification') do |email|
+  within("##{ActionView::RecordIdentifier.dom_id(User.find_by!(email:))}") do
+    expect(page).to have_no_link(I18n.t('instruction.user_rights.index.table.manage_cta'))
+  end
+end
+
+Alors('la ligne de {string} indique que ses droits relèvent d’un manager du fournisseur') do |email|
+  within("##{ActionView::RecordIdentifier.dom_id(User.find_by!(email:))}") do
+    expect(page).to have_text(I18n.t('instruction.user_rights.index.table.provider_edit_notice'))
+  end
+end
+
 Alors('ma ligne affiche un bouton de modification') do
   within("##{ActionView::RecordIdentifier.dom_id(current_user!)}") do
     expect(page).to have_link(I18n.t('instruction.user_rights.index.table.manage_cta'))

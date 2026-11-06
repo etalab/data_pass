@@ -49,6 +49,24 @@ RSpec.describe 'Instruction::UserRights index' do
 
       expect(response.body).not_to include('Admin')
     end
+
+    it 'refuses a user outside of the manager list' do
+      outsider = create(:user, email: 'outsider@gouv.fr', roles: %w[dgfip:api_impot_particulier:reporter])
+
+      get droits_instruction_user_right_path(outsider)
+
+      expect(response).to redirect_to(dashboard_path)
+      expect(response.body).not_to include('API Impôt particulier')
+    end
+
+    it 'offers no edit link for a user listed through an FD wildcard role the manager does not manage' do
+      fd_reporter = create(:user, email: 'fd-reporter@gouv.fr', roles: %w[dinum:*:reporter dinum:api_particulier:reporter])
+
+      get droits_instruction_user_right_path(fd_reporter)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).not_to include(edit_instruction_user_right_path(fd_reporter))
+    end
   end
 
   describe 'GET /instruction/utilisateurs-et-roles with filters' do

@@ -78,7 +78,7 @@ class Admin::UserRightsController < AdminController
   end
 
   def managed_users_scope
-    User.includes(:organizations)
+    @authority.visible_users.includes(:organizations)
   end
 
   def authorize_user_rights!

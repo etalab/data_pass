@@ -68,6 +68,11 @@ class Molecules::Instruction::UserRights::TableRowComponent < ApplicationCompone
   end
 
   def editable?
-    !own_row? || authority.can_self_edit?
+    authority.edits?(user)
+  end
+
+  def edit_notice
+    key = own_row? ? 'self_edit_notice' : 'provider_edit_notice'
+    t("instruction.user_rights.index.table.#{key}")
   end
 end

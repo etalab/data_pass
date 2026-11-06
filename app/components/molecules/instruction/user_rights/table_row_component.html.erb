@@ -82,7 +82,7 @@
             class: 'fr-btn fr-btn--secondary fr-btn--sm',
             aria: { label: t('instruction.user_rights.index.table.edit_aria', email: user.email) } %>
     <% else %>
-      <p class="fr-text--xs fr-mb-0 dp-user-rights-table__self-edit-notice"><%= t('instruction.user_rights.index.table.self_edit_notice') %></p>
+      <p class="fr-text--xs fr-mb-0 dp-user-rights-table__edit-notice"><%= edit_notice %></p>
     <% end %>
   </td>
 </tr>

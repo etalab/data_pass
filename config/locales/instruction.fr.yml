@@ -704,6 +704,7 @@ fr:
           add_cta: Ajouter des droits
           add_aria: Ajouter des droits à %{email}
           self_edit_notice: Seul un autre manager ou un administrateur peut modifier vos droits.
+          provider_edit_notice: Ses droits relèvent d’un manager du fournisseur ou d’un administrateur.
       droits:
         title: "Droits de %{name}"
         api: API

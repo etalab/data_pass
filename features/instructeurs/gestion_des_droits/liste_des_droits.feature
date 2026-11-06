@@ -32,6 +32,12 @@ Fonctionnalité: Instruction — Gestion des droits — lister les utilisateurs 
     Et ma ligne n’affiche aucun bouton de modification ni de suppression
     Et ma ligne indique que seul un autre manager ou un administrateur peut modifier mes droits
 
+  Scénario: Un droit sur tous les services du fournisseur n’est modifiable que par son manager
+    Quand il y a l'utilisateur "fd@gouv.fr" avec le rôle brut "dinum:*:reporter"
+    Et que je me rends sur la page de gestion des droits
+    Alors la ligne de "fd@gouv.fr" n’affiche pas de bouton de modification
+    Et la ligne de "fd@gouv.fr" indique que ses droits relèvent d’un manager du fournisseur
+
   Scénario: Le champ de recherche est auto-soumis sans prendre le focus de lui-même
     Quand je me rends sur la page de gestion des droits
     Alors le champ de recherche est auto-soumis sans prendre le focus
