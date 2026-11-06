@@ -145,6 +145,25 @@ shared_event_lists:
     - *request_changes
     - *refuse
     - *revoke
+  with_hubee_and_dpo: &with_hubee_and_dpo
+    - *submit
+    - event_name: approve
+      authorization_request_states:
+        - state:
+            reopening: false
+          emails:
+            - AuthorizationRequestMailer#approve
+            - GDPRContactMailer#delegue_protection_donnees
+            - HubEEMailer#administrateur_metier
+        - state:
+            reopening: true
+          emails:
+            - AuthorizationRequestMailer#reopening_approve
+            - GDPRContactMailer#delegue_protection_donnees
+            - HubEEMailer#administrateur_metier
+    - *request_changes
+    - *refuse
+    - *revoke
 
 authorization_definitions:
   - definition_id: annuaire_des_entreprises
@@ -310,6 +329,8 @@ authorization_definitions:
     events: *with_hubee
   - definition_id: hubee_dila
     events: *with_hubee
+  - definition_id: hubee_impayes_loyer
+    events: *with_hubee_and_dpo
   - definition_id: le_taxi
     events: *with_gdpr
   - definition_id: pro_connect_identity_provider

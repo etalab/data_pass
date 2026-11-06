@@ -1,0 +1,12 @@
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/prefilled_banner_for_single_page_form' %>
+
+  <div class="fr-mt-4w">
+    <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>
+  </div>
+
+  <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :contacts } %>
+  <%= render partial: 'authorization_request_forms/blocks/default/contacts', locals: { f: } %>
+
+  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: } %>
+<% end %>

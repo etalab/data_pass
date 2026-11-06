@@ -27,6 +27,8 @@ class HubEEMailer < ApplicationMailer
     case kind
     when :cert_dc
       'Vous avez été désigné administrateur local HubEE pour une démarche CertDC'
+    when :impayes_loyer
+      'Vous avez été désigné administrateur local HubEE pour la démarche Signalements impayés de loyer'
     when :dila
       'Vous avez été désigné administrateur local HubEE pour des démarches service-public.fr'
     else
