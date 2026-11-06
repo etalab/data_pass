@@ -229,6 +229,19 @@ RSpec.describe 'API: Authorization requests write' do
       end
     end
 
+    context 'with a string instead of an object as demande' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params: { demande: 'x' }, headers: auth_headers, as: :json
+      end
+
+      it 'returns 422 with the demande pointer' do
+        create_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/demande')
+      end
+    end
+
     context 'with a string instead of an object as data' do
       subject(:create_request) do
         post '/api/v1/demandes', params:, headers: auth_headers, as: :json
@@ -542,6 +555,19 @@ RSpec.describe 'API: Authorization requests write' do
 
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/data/unknown_key')
+      end
+    end
+
+    context 'with a string instead of an object as demande' do
+      subject(:update_request) do
+        patch "/api/v1/demandes/#{authorization_request.id}", params: { demande: 'x' }, headers: auth_headers, as: :json
+      end
+
+      it 'returns 422 with the demande pointer' do
+        update_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/demande')
       end
     end
 

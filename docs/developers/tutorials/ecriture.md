@@ -61,9 +61,9 @@ Ignorez les scopes dont `deprecated` est à `true`.
 
 Seules les clés listées dans `definition.data` seront acceptées. Toute clé supplémentaire est ignorée silencieusement ou produit une erreur `422` selon la définition.
 
-Les clés de documents (par exemple `maquette_projet`) n’acceptent que des fichiers envoyés en `multipart/form-data`. Un texte (contenu base64, URL…) est refusé avec une erreur `422` « Document invalide », dont `source.pointer` désigne la clé en cause. Une valeur vide (par exemple `null`, `""` ou `[]`) est ignorée.
+Les clés de documents (par exemple `maquette_projet`) n’acceptent que des fichiers envoyés en `multipart/form-data`. Un texte (contenu base64, URL…) est refusé avec une erreur `422` « Document invalide », dont `source.pointer` désigne la clé en cause. Attention : envoyer une clé de document remplace l’ensemble des fichiers déjà présents sur cette clé. Une valeur vide (par exemple `null`, `""`, `[]` ou `[" "]`) supprime donc tous les fichiers existants de la clé ; n’envoyez que les clés de documents que vous souhaitez réellement remplacer, et omettez les autres.
 
-Le paramètre `data` doit être un objet clé / valeur : un texte ou un tableau est refusé avec une erreur `422` « Données invalides ».
+Les paramètres `demande` et `data` doivent être des objets clé / valeur : un texte ou un tableau est refusé avec une erreur `422` « Paramètre invalide » (`demande`) ou « Données invalides » (`data`).
 
 ## Cas d'usage : création depuis un formulaire / CRM
 
@@ -277,6 +277,7 @@ La demande ne change pas et reste dans son état dans les cas suivants, au forma
 | --- | --- | --- |
 | « Demande invalide » | une donnée est manquante ou invalide : une erreur par champ | `/data/<champ>` |
 | « Consentement manquant » | une case exigée n’est pas transmise à `true` | `/consentement/<case>` |
+| « Paramètre invalide » | `demande` n’est pas un objet clé / valeur | `/demande` |
 | « Données invalides » | `data` n’est pas un objet clé / valeur | — |
 | « Document invalide » | une clé de document ne reçoit pas un fichier `multipart/form-data` | `/data/<champ>` |
 | « État non modifiable » | la demande n’est pas `draft` ou `changes_requested` | — |

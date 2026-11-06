@@ -4,6 +4,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
   before_action -> { doorkeeper_authorize! :validate_authorizations }, only: :validate
   before_action -> { doorkeeper_authorize! :submit_authorizations }, only: :submit
   before_action :set_authorization_request, only: %i[show update validate submit]
+  before_action :ensure_demande_is_an_object, only: %i[create update]
 
   def index
     authorization_requests = AuthorizationRequest
@@ -101,6 +102,12 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     return AuthorizationRequest.all if params[:siret].blank?
 
     AuthorizationRequest.joins(:organization).where(organizations: { legal_entity_id: params[:siret] })
+  end
+
+  def ensure_demande_is_an_object
+    return if params.fetch(:demande, ActionController::Parameters.new).is_a?(ActionController::Parameters)
+
+    render_error(422, :invalid_demande, source: { pointer: '/demande' })
   end
 
   def demande_params
