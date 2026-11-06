@@ -61,12 +61,6 @@ annuaire-des-entreprises-subventions-associations:
   scopes_config:
     disabled:
       - chiffre_affaires
-      - bilans_bdf
-      - liasses_fiscales
-      - conformite_fiscale
-      - conformite_sociale
-      - travaux_publics
-      - liens_capitalistiques
       - beneficiaires
 
 annuaire-des-entreprises-traitement-aides-financieres:
