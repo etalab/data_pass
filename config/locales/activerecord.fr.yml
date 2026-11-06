@@ -142,6 +142,12 @@ fr:
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
 
+        rssi_family_name: Nom de famille du RSSI
+        rssi_given_name: Prénom du RSSI
+        rssi_email: Email du RSSI
+        rssi_phone_number: Téléphone du RSSI
+        rssi_job_title: Fonction du RSSI
+
         extra_organization_contact_name: Nom du contact supplémentaire
         extra_organization_contact_email: Email du contact supplémentaire
 

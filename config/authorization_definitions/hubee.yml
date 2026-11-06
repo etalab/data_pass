@@ -46,3 +46,16 @@ hubee_dila:
       value: "depot_dossier_mariage"
       group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
       feature_flag: depot_dossier_mariage
+
+hubee_impayes_loyer:
+  name: "Signalements impayés de loyer"
+  description: "Formulaire d’abonnement à la démarche Signalements impayés de loyer (CNAF)"
+  cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
+  access_link: https://portail.hubee.numerique.gouv.fr
+  support_email: "production_numerique_echanges@cnaf.fr"
+  kind: 'service'
+  provider: "cnaf"
+  public: false
+  unique: true
+  blocks:
+    - name: "contacts"
