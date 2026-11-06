@@ -6,6 +6,10 @@
   padding: 0.5rem 1rem;
 }
 
+.instruction-actions .fr-translate__language {
+  justify-content: flex-start;
+}
+
 .instruction-actions .fr-translate__language::before {
   width: 25px;
   margin-right: 10px;
