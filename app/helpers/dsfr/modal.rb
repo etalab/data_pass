@@ -10,6 +10,8 @@ module Dsfr::Modal
     url = opts.delete(:url)
     turbo_frame = opts.delete(:turbo_frame)
     css_classes = opts.delete(:class)
+    id = opts.delete(:id) || [modal_id, 'button'].join('_')
+    aria = opts.delete(:aria) || {}
 
     content_tag(
       url ? :a : :button,
@@ -18,10 +20,8 @@ module Dsfr::Modal
         class: css_classes,
         type: 'button',
         href: url,
-        id: [modal_id, 'button'].join('_'),
-        aria: {
-          controls: modal_id,
-        },
+        id:,
+        aria: aria.merge(controls: modal_id),
         data: {
           'fr-opened': false,
           'turbo-frame': turbo_frame,

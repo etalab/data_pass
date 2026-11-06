@@ -103,6 +103,68 @@ RSpec.describe Rights::ManagerAuthority do
     end
   end
 
+  describe '#visible_users' do
+    let(:user) { create(:user, roles: ['dinum:api_entreprise:manager']) }
+    let!(:in_scope) { create(:user, roles: ['dinum:api_entreprise:reporter']) }
+    let!(:fd_wildcard_only) { create(:user, roles: ['dinum:*:reporter']) }
+    let!(:out_of_scope) { create(:user, roles: ['dinum:api_particulier:instructor']) }
+    let!(:without_roles) { create(:user, roles: []) }
+
+    it 'lists the users holding a role on a managed definition, FD wildcards included' do
+      expect(authority.visible_users).to include(user, in_scope, fd_wildcard_only)
+    end
+
+    it 'leaves out the users without any role on a managed definition' do
+      expect(authority.visible_users).not_to include(out_of_scope, without_roles)
+    end
+  end
+
+  describe '#sees?' do
+    let(:user) { create(:user, roles: ['dinum:api_entreprise:manager']) }
+
+    it 'sees a user listed on the page' do
+      expect(authority.sees?(create(:user, roles: ['dinum:*:reporter']))).to be true
+    end
+
+    it 'does not see a user outside of the list' do
+      expect(authority.sees?(create(:user, roles: ['dinum:api_particulier:instructor']))).to be false
+    end
+  end
+
+  describe '#edits?' do
+    let(:user) { create(:user, roles: ['dinum:api_entreprise:manager']) }
+
+    it 'edits a user holding at least one role it covers' do
+      target = create(:user, roles: %w[dinum:api_entreprise:reporter dinum:api_particulier:instructor])
+
+      expect(authority.edits?(target)).to be true
+    end
+
+    it 'does not edit a user only holding an FD wildcard role it does not manage' do
+      expect(authority.edits?(create(:user, roles: ['dinum:*:reporter']))).to be false
+    end
+
+    it 'does not edit a user without any role it covers' do
+      expect(authority.edits?(create(:user, roles: ['dinum:api_particulier:instructor']))).to be false
+    end
+
+    it 'does not edit a user without any role' do
+      expect(authority.edits?(create(:user, roles: []))).to be false
+    end
+
+    it 'does not edit its own rights' do
+      expect(authority.edits?(user)).to be false
+    end
+
+    context 'when the user is FD-manager' do
+      let(:user) { create(:user, roles: ['dinum:*:manager']) }
+
+      it 'edits a user only holding an FD wildcard role on its provider' do
+        expect(authority.edits?(create(:user, roles: ['dinum:*:reporter']))).to be true
+      end
+    end
+  end
+
   describe '#authorized_scopes' do
     context 'when the user is FD-manager and definition-manager' do
       let(:user) { create(:user, roles: ['dinum:*:manager', 'dgfip:api_ficoba:manager']) }

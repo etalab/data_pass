@@ -3,7 +3,9 @@ class Admin::UserRightPolicy < Instruction::UserRightPolicy
     user.admin?
   end
 
-  def edit?
-    enabled?
+  private
+
+  def authority
+    @authority ||= Rights::AdminAuthority.new(user)
   end
 end

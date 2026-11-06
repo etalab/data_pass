@@ -12,9 +12,9 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
   Scénario: J'ajoute un premier rôle à un utilisateur sans droits
     Quand il y a l'utilisateur "nouveau@gouv.fr" sans rôle
     Et que je me rends sur la page de gestion des droits
-    Et que je clique sur le premier "Ajouter des droits à un utilisateur sans droits"
+    Et que je clique sur le premier "Ajouter des droits"
     Et que je remplis "Email de l’utilisateur" avec "nouveau@gouv.fr"
-    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "API Entreprise" pour "Périmètre des droits"
     Et que je sélectionne "Observateur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
@@ -24,19 +24,19 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
   Scénario: Je ne peux pas ajouter des droits à un utilisateur inexistant
     Quand je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "inconnu@gouv.fr"
-    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "API Entreprise" pour "Périmètre des droits"
     Et que je sélectionne "Observateur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors la page contient "ne correspond à aucun utilisateur existant"
 
   Scénario: La liste de portées ne contient que les définitions que je manage
     Quand je me rends sur la page d'ajout de droits
-    Alors le select "Portée des droits" contient "API Entreprise"
-    Et le select "Portée des droits" ne contient pas "API Particulier"
+    Alors le select "Périmètre des droits" contient "API Entreprise"
+    Et le select "Périmètre des droits" ne contient pas "API Particulier"
 
   Scénario: Un manager de définition ne peut pas accorder un droit FD-wildcard
     Quand je me rends sur la page d'ajout de droits
-    Alors le select "Portée des droits" ne contient pas "Tous les services DINUM"
+    Alors le select "Périmètre des droits" ne contient pas "Tous les services DINUM"
 
   Scénario: L’aide sur les droits est disponible via un accordéon
     Quand je me rends sur la page d'ajout de droits
@@ -58,7 +58,7 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Quand il y a l'utilisateur "dev@gouv.fr" sans rôle
     Et que je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "dev@gouv.fr"
-    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "API Entreprise" pour "Périmètre des droits"
     Et que je sélectionne "Développeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
@@ -68,7 +68,7 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Quand il y a l'utilisateur "existant@gouv.fr" avec le rôle "Rapporteur" pour "API Particulier"
     Et que je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "existant@gouv.fr"
-    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "API Entreprise" pour "Périmètre des droits"
     Et que je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
@@ -79,8 +79,23 @@ Fonctionnalité: Instruction — Gestion des droits — ajouter des droits à un
     Quand il y a l'utilisateur "collegue@gouv.fr" avec le rôle "Rapporteur" pour "API Particulier"
     Et que je me rends sur la page d'ajout de droits
     Et que je remplis "Email de l’utilisateur" avec "collegue@gouv.fr"
-    Et que je sélectionne "API Entreprise" pour "Portée des droits"
+    Et que je sélectionne "API Entreprise" pour "Périmètre des droits"
     Et que je sélectionne "Instructeur" pour "Rôle"
     Et que je clique sur "Valider les modifications"
     Alors il y a un message de succès contenant "mis à jour"
     Et l'utilisateur "collegue@gouv.fr" a les rôles "dinum:api_particulier:reporter,dinum:api_entreprise:instructor"
+
+  @javascript
+  Scénario: Le choix d’un rôle affiche ce qu’il permet
+    Quand je me rends sur la page d'ajout de droits
+    Et que je sélectionne "Instructeur" pour "Rôle"
+    Alors la description du rôle indique "Peut instruire les demandes"
+    Quand je sélectionne "Développeur" pour "Rôle"
+    Alors la description du rôle indique "via l’API"
+
+  @javascript
+  Scénario: Chaque droit ajouté a ses propres champs
+    Quand je me rends sur la page d'ajout de droits
+    Et que je clique sur "Ajouter un droit"
+    Et que je clique sur "Ajouter un droit"
+    Alors chaque champ de droit a un identifiant unique, relié à son étiquette
