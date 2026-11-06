@@ -15,32 +15,55 @@ fonctionne assez bien (grid, button etc etc .. tout ça fonctionne)
 * [Helpers `Dsfr`](.../../app/helpers/dsfr/) : composants
 * [Feuille de style d'extensions](.../../app/assets/stylesheets/dsfr-extensions.css)
 
-## Installation de la dernière version du DSFR
+## Version du DSFR
 
-Avant toute chose, [téléchargez la dernière version
-disponible](https://github.com/GouvernementFR/dsfr/releases)
+Le DSFR est servi par la gem [`dsfr-assets`](https://github.com/betagouv/dsfr-assets),
+dont le numéro de version suit celui du DSFR. CSS, JavaScript, icônes,
+pictogrammes et polices viennent de la gem : le dépôt n’en garde aucune copie.
 
-Il y a quelques manipulations à respecter pour que cela fonctionne:
+### Mise à jour
 
-Concernant le CSS:
+Dependabot propose les nouvelles versions de `dsfr-assets`, déclarée en
+dépendance directe dans le `Gemfile`. Avant de fusionner :
 
-1. Remplacer le fichier `app/assets/stylesheets/dsfr.css` par le fichier du même nom dans `dist/dsfr`
-2. Chercher l'ensemble des déclarations des font-face de Marianne et Spectral
-   dans le fichier, et le supprimer. En effet c'est le fichier
-   `app/assets/stylesheets/dsfr-fonts.scss` qui s'occupe de déclarer les fonts
+1. lire les [notes de version](https://github.com/GouvernementFR/dsfr/releases) ;
+2. relancer RSpec et Cucumber ;
+3. comparer les pages principales à 1440 et 390 px : la gem change tout le rendu
+   d’un coup.
 
-Concernant le js:
+### Licence
 
-1. Remplacer le fichier `app/javascripts/dsfr.module.js` par le fichier
-   du même nom dans `dist/dsfr`
+La gem bloque le démarrage de l’application tant que ses modalités d’utilisation
+ne sont pas acceptées. L’acceptation vit dans
+[`config/initializers/dsfr_assets.rb`](../../config/initializers/dsfr_assets.rb).
+Si une nouvelle version de la gem exige de nouvelles modalités, l’application
+refuse de démarrer : relire les modalités, puis y reporter le numéro demandé.
 
-Concernant les [icônes](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone):
+### Chargement
 
-1. Remplacer le fichier `app/assets/stylesheets/dsfr-utility.css` par le fichier `dist/utility/utility.css`
-2. Remplacer le dossier `app/assets/icons` par le dossier `dist/icons`
-3. Dans les fichiers `dsfr-utility.css` et `dsfr.css`, remplacez tous les liens
-   des icones de `../icons/whatever` en `icons/whatever`
+Dans [`application.html.erb`](../../app/views/layouts/application.html.erb) :
 
-Concernant les [pictogrammes](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/pictogramme):
+- les CSS sont dans le `<head>` : `dsfr.min`, `dsfr.print.min` (`media: "print"`)
+  et `utility/dsfr-utility.min` ;
+- le JavaScript est en fin de `<body>` : `dsfr.module.min` en `type="module"` et
+  `dsfr.nomodule.min` en `nomodule`, comme le demande la documentation du DSFR.
 
-1. Remplacer le dossier `app/assets/images/artwork` par le dossier `dist/artwork`
+Un script `type="module"` ne doit jamais être placé avant
+`javascript_importmap_tags` : l’importmap devient inopérante et Stimulus démarre
+avec environ 3 secondes de retard.
+
+Dans les tests Cucumber, un clic envoyé juste après le chargement sur un bouton
+de `fr-collapse` peut être perdu : le DSFR 1.15 ignore un clic reçu dans l’image
+qui suit l’initialisation du bouton. L’étape « je clique sur » attend donc cette
+initialisation (`wait_for_dsfr_collapse_button`).
+
+### Ce qui reste dans le dépôt
+
+- `app/assets/stylesheets/dsfr-extensions.css`, `components/` et `pages/` : le CSS
+  propre à DataPass ;
+- `app/assets/images/pictograms/` : les pictogrammes propres à DataPass ;
+- `app/assets/images/favicons/` et `public/` : les favicons.
+
+À chemin égal, Propshaft sert le fichier du dépôt avant celui de la gem. Ne pas
+recopier d’icône ni de pictogramme du DSFR dans `app/assets/images` : la copie
+masquerait les dessins des versions suivantes.
