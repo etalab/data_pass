@@ -26,7 +26,9 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
     page.first('a', text: label).click
   else
     if javascript?
-      find(:link_or_button, label).trigger('click')
+      element = find(:link_or_button, label)
+      wait_for_dsfr_collapse_button(element)
+      element.trigger('click')
     else
       click_link_or_button(label)
     end
