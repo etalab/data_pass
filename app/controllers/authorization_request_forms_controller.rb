@@ -28,9 +28,13 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       save_redirect_path
       render 'authorization_requests/unauthenticated_start'
     end
+  rescue Pundit::NotAuthorizedError
+    redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
   end
 
   def start
+    authorize @authorization_request_form, :create?
+
     @authorization_request = BuildAuthorizationRequest.call(
       authorization_request_form: @authorization_request_form,
       applicant: current_user,
