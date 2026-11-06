@@ -33,6 +33,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def start
+    authorize @authorization_request_form, :create?
+
     @authorization_request = BuildAuthorizationRequest.call(
       authorization_request_form: @authorization_request_form,
       applicant: current_user,

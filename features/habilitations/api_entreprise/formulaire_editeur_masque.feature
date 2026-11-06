@@ -12,3 +12,8 @@ Fonctionnalité: Formulaire éditeur d’API Entreprise masqué
     Quand je vais sur la page formulaires/api-entreprise-editeur/demande/nouveau
     Alors la page ne contient pas "Formulaire spécifique aux éditeurs de logiciels"
     Et il y a un message d'erreur contenant "Ce formulaire n’est plus disponible pour déposer une nouvelle demande"
+
+  Scénario: La première page du formulaire éditeur n’est pas affichée par lien direct
+    Quand je vais sur la page formulaires/api-entreprise-editeur/demande/commencer
+    Alors la page ne contient pas "Formulaire spécifique aux éditeurs de logiciels"
+    Et il y a un message d'erreur contenant "Vous n'avez pas le droit d'accéder à cette page"
