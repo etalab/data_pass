@@ -47,5 +47,14 @@ RSpec.describe 'Dashboard' do
 
       expect(response).to have_http_status(:ok)
     end
+
+    it 'renders the blank state when no request matches the filters' do
+      get dashboard_show_path(id: 'demandes'), params: {
+        search_query: { within_data_or_id_cont: 'aucun résultat', user_relationship_eq: 'applicant' }
+      }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(I18n.t('dashboard.show.no_filter_results.demandes.message'))
+    end
   end
 end

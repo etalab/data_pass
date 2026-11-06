@@ -96,7 +96,7 @@ class AbstractDashboardFacade
     return nil unless empty_with_filter?
 
     Dashboard::BlankStateComponent.new(
-      pictogram_path: 'artwork/pictograms/digital/information.svg',
+      pictogram_path: 'artwork/pictograms/system/information.svg',
       message: I18n.t("dashboard.show.no_filter_results.#{tab_type}.message")
     )
   end

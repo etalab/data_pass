@@ -177,12 +177,6 @@ fr-badge--grey {
   line-height: 2rem;
 }
 
-.fr-notice--warning .fr-notice__body::before {
-  -webkit-mask-image: url("icons/system/alarm-warning-fill.svg") !important;
-  mask-image: url("icons/system/alarm-warning-fill.svg") !important;
-  content: "";
-}
-
 .fr-notice--warning {
   background-color: var(--background-contrast-warning);
 
