@@ -61,7 +61,7 @@ Ignorez les scopes dont `deprecated` est à `true`.
 
 Seules les clés listées dans `definition.data` seront acceptées. Toute clé supplémentaire est ignorée silencieusement ou produit une erreur `422` selon la définition.
 
-Les clés de documents (par exemple `maquette_projet`) n’acceptent que des fichiers envoyés en `multipart/form-data`. Un texte (contenu base64, URL…) est refusé avec une erreur `422` « Document invalide », dont `source.pointer` désigne la clé en cause. Attention : envoyer une clé de document remplace l’ensemble des fichiers déjà présents sur cette clé. Une valeur vide (par exemple `null`, `""`, `[]` ou `[" "]`) supprime donc tous les fichiers existants de la clé ; n’envoyez que les clés de documents que vous souhaitez réellement remplacer, et omettez les autres.
+Les clés de documents (par exemple `maquette_projet`) n’acceptent que des fichiers envoyés en `multipart/form-data`. Un texte (contenu base64, URL…) est refusé avec une erreur `422` « Document invalide », dont `source.pointer` désigne la clé en cause. Attention : envoyer des fichiers sur une clé de document remplace l’ensemble des fichiers déjà présents sur cette clé. Un tableau vide ou ne contenant que des valeurs vides (par exemple `[]`, `[""]` ou `[" "]`) supprime tous les fichiers existants de la clé. En revanche, `null` et `""` sont ignorés et ne modifient rien. N’envoyez que les clés de documents que vous souhaitez réellement remplacer, et omettez les autres.
 
 Les paramètres `demande` et `data` doivent être des objets clé / valeur : un texte ou un tableau est refusé avec une erreur `422` « Paramètre invalide » (`demande`) ou « Données invalides » (`data`).
 
