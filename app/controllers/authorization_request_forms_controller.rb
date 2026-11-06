@@ -18,8 +18,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   before_action :capture_prefill_data, only: %i[new]
 
   def new
-    return reject_unavailable_form unless @authorization_request_form.startable_by_applicant
-
     authorize @authorization_request_form, :new?
 
     if user_signed_in?
@@ -30,6 +28,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       save_redirect_path
       render 'authorization_requests/unauthenticated_start'
     end
+  rescue Pundit::NotAuthorizedError
+    redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
   end
 
   def start
@@ -326,12 +326,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def authorization_request_class
     @authorization_request_form.authorization_request_class
-  end
-
-  def reject_unavailable_form
-    flash[:error] = { 'title' => t('authorization_request_forms.form_not_available') }
-
-    redirect_to dashboard_path
   end
 
   def extract_authorization_request_form

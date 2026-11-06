@@ -532,7 +532,6 @@ fr:
 
   authorization_request_forms:
     form_not_found: Le cas d’usage demandé n'existe pas
-    form_not_available: Ce formulaire n’est plus disponible pour déposer une nouvelle demande.
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
