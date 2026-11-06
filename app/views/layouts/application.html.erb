@@ -25,8 +25,6 @@
       <%= stylesheet_link_tag "pages/#{File.basename(path)}", "data-turbo-track": "reload" %>
     <% end %>
 
-    <%= javascript_include_tag "dsfr.module", "data-turbo-track": "reload" %>
-
     <%= javascript_importmap_tags %>
 
     <%= render partial: 'shared/favicons' %>
@@ -67,5 +65,8 @@
         <% end %>
       -->
     <% end %>
+
+    <%= javascript_include_tag "dsfr.module.min", type: "module" %>
+    <%= javascript_include_tag "dsfr.nomodule.min", nomodule: true %>
   </body>
 </html>
