@@ -6,7 +6,7 @@ class PISTEAPIClient
   class InvalidResponseError < StandardError; end
 
   OPEN_TIMEOUT_IN_SECONDS = 5
-  TIMEOUT_IN_SECONDS = 30
+  TIMEOUT_IN_SECONDS = 120
 
   def self.create_subscription(authorization_request)
     new.create_subscription(authorization_request)
