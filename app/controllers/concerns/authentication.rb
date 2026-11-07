@@ -19,7 +19,7 @@ module Authentication
     alias_method :api_mode!, :allow_unauthenticated_access
   end
 
-  def sign_in_path = root_path
+  def sign_in_path = connexion_path
   def sign_out_path = root_path
   def after_sign_in_path = dashboard_path
 
@@ -72,6 +72,11 @@ module Authentication
   def redirect_to_sign_in
     info_message(title: t('sessions.authenticate_user.session_expired')) if session_expired?
     save_redirect_path
+    redirect_to sign_in_path
+  end
+
+  def redirect_to_sign_in_with_error(title)
+    flash[:error] = { 'title' => title }
     redirect_to sign_in_path
   end
 
