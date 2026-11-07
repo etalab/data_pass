@@ -1,0 +1,23 @@
+<div class="fr-tile fr-enlarge-link">
+  <div class="fr-tile__body">
+    <div class="fr-tile__content">
+      <h2 class="fr-tile__title">
+        <%= link_to title, url %>
+      </h2>
+      <p class="fr-tile__desc"><%= description %></p>
+      <p class="fr-tile__detail"><%= detail %></p>
+      <% if local_assigns[:badge] %>
+        <div class="fr-tile__start">
+          <%= render DsfrComponent::BadgeComponent.new(status: :new, size: :sm) do %>
+            <%= badge %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="fr-tile__header">
+    <div class="fr-tile__pictogram">
+      <%= render partial: 'pages/home/pictogram', locals: { name: pictogram } %>
+    </div>
+  </div>
+</div>

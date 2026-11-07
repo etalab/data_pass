@@ -15,6 +15,14 @@
             show_definitions: authorization_definitions_feature_enabled? && policy([:instruction, :authorization_definition]).index?
           ) %>
         <% end %>
+        <% if public_header? %>
+          <li class="fr-nav__item">
+            <%= link_to t('.public.home'), root_path, class: 'fr-nav__link', aria: { current: current_page?(root_path) ? 'page' : nil } %>
+          </li>
+          <li class="fr-nav__item">
+            <%= link_to t('.public.european_wallet'), european_wallet_page_path, class: 'fr-nav__link' %>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>

@@ -4,4 +4,12 @@
   Bienvenue sur DataPass
 <% end %>
 
-<%= render partial: 'pages/sign_in' %>
+<%= render DsfrComponent::NoticeComponent.new(
+  title: t('.notice.title'),
+  description: '',
+  link_label: t('.notice.link'),
+  link_href: european_wallet_page_path,
+  link_blank: false
+) %>
+
+<%= render partial: 'pages/home/hero' %>

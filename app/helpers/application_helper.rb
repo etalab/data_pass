@@ -33,6 +33,14 @@ module ApplicationHelper
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
   end
 
+  def public_header?
+    !user_signed_in? && !registered_subdomain?
+  end
+
+  def european_wallet_page_path
+    root_path(anchor: 'portefeuille-europeen')
+  end
+
   def latest_authorization_path(authorization_request)
     authorization_path(authorization_request.latest_authorization)
   end

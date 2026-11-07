@@ -1,0 +1,5 @@
+<svg aria-hidden="true" class="fr-artwork" viewBox="0 0 80 80" width="80" height="80">
+  <% %w[decorative minor major].each do |layer| %>
+    <use class="fr-artwork-<%= layer %>" href="<%= asset_path("artwork/pictograms/#{name}.svg") %>#artwork-<%= layer %>"></use>
+  <% end %>
+</svg>
