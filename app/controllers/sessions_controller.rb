@@ -16,8 +16,7 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    flash[:error] = { 'title' => t('sessions.failure.title') }
-    redirect_to root_path
+    redirect_to_sign_in_with_error(t('sessions.failure.title'))
   end
 
   def destroy
@@ -51,8 +50,7 @@ class SessionsController < ApplicationController
   def reject_mon_compte_pro_organization_change
     report_mon_compte_pro_organization_change_rejected
 
-    flash[:error] = { 'title' => t('sessions.mon_compte_pro_organization_change_rejected.title') }
-    redirect_to root_path
+    redirect_to_sign_in_with_error(t('sessions.mon_compte_pro_organization_change_rejected.title'))
   end
 
   def report_mon_compte_pro_organization_change_rejected
@@ -91,8 +89,7 @@ class SessionsController < ApplicationController
   def reject_sign_in_without_mfa
     report_sign_in_without_mfa
 
-    flash[:error] = { 'title' => t('sessions.mfa_required.title') }
-    redirect_to root_path
+    redirect_to_sign_in_with_error(t('sessions.mfa_required.title'))
   end
 
   def report_sign_in_without_mfa
@@ -143,8 +140,7 @@ class SessionsController < ApplicationController
   end
 
   def reject_failed_authentication(error)
-    flash[:error] = { 'title' => I18n.t("sessions.authenticate_user.errors.#{error.message}") }
-    redirect_to root_path
+    redirect_to_sign_in_with_error(I18n.t("sessions.authenticate_user.errors.#{error.message}"))
   end
 
   def post_sign_in

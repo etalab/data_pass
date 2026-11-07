@@ -63,7 +63,7 @@ RSpec.describe 'GET /auth/proconnect/callback' do
   context 'when ProConnect did not perform MFA' do
     let(:acr) { 'eidas1' }
 
-    it 'redirects to the home page without signing the user in' do
+    it 'redirects to the sign-in page without signing the user in' do
       callback
       follow_redirect!
 
@@ -88,7 +88,7 @@ RSpec.describe 'GET /auth/proconnect/callback' do
     it 'does not sign the user in' do
       callback
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(connexion_path)
     end
   end
 end
