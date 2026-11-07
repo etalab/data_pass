@@ -1,0 +1,23 @@
+fr:
+  pages:
+    home:
+      notice:
+        title: Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026.
+        link: Découvrir le registre du portefeuille européen
+      hero:
+        kicker: DataPass, à quoi ça sert ?
+        title: Demander et accorder l’accès aux données publiques protégées
+        lead: Certaines données publiques sont protégées par la loi. Les organisations qui en ont besoin demandent l’accès à l’administration qui les détient, et celle-ci instruit leurs demandes. DataPass réunit ces demandes et ces décisions au même endroit.
+        applicants:
+          title: Vous cherchez des données pour votre service
+          description: "Collectivité, administration, entreprise ou éditeur de solution logicielle : trouvez les données protégées et apprenez comment en demander l’accès."
+          detail: Accéder à des données protégées
+        administrations:
+          title: Vous êtes une administration qui détient des données
+          description: Recevez et instruisez au même endroit les demandes d’accès à vos données.
+          detail: Ce que DataPass vous apporte
+        european_wallet:
+          title: Votre organisation va utiliser le portefeuille européen ou y contribuer
+          description: "Vous demanderez des données à vos usagers depuis leur portefeuille, ou vous y délivrerez des attestations : une autre démarche."
+          detail: Découvrir le registre du portefeuille européen
+          badge: Nouveau

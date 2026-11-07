@@ -1,0 +1,50 @@
+.lp-section--blue {
+  background-color: var(--background-alt-blue-france);
+}
+
+.lp-kicker {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-mention-grey);
+}
+
+.lp-hero {
+  padding-block: 4.5rem 5rem;
+}
+
+.lp-hero .lp-kicker {
+  margin-bottom: 1rem;
+  color: var(--text-title-blue-france);
+}
+
+.lp-hero h1 {
+  max-width: 50rem;
+  margin-bottom: 1.5rem;
+}
+
+.lp-hero .fr-text--lead {
+  max-width: 48rem;
+}
+
+.lp-orient {
+  margin-top: 3.5rem;
+}
+
+.lp-orient .fr-tile__title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+@media (max-width: 47.99em) {
+  .lp-hero {
+    padding-block: 2.5rem 3rem;
+  }
+
+  .lp-orient {
+    margin-top: 2rem;
+  }
+}

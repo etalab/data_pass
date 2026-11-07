@@ -32,6 +32,8 @@
 
             <% if registered_subdomain? && registered_subdomain.tagline.present? %>
               <% tagline = registered_subdomain.tagline %>
+            <% elsif public_header? %>
+              <% tagline = t('.public_tagline') %>
             <% else %>
               <% tagline = t('.tagline') %>
             <% end %>
@@ -48,7 +50,7 @@
 
         </div>
         <div class="fr-header__tools">
-          <%= render partial: 'layouts/header/tools' %>
+          <%= render partial: public_header? ? 'layouts/header/public_tools' : 'layouts/header/tools' %>
         </div>
       </div>
     </div>

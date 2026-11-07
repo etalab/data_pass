@@ -1,0 +1,38 @@
+<section class="lp-hero lp-section--blue">
+  <div class="fr-container">
+    <p class="lp-kicker"><%= t('.kicker') %></p>
+    <h1><%= t('.title') %></h1>
+    <p class="fr-text--lead"><%= t('.lead') %></p>
+
+    <div class="fr-grid-row fr-grid-row--gutters lp-orient">
+      <div class="fr-col-12 fr-col-lg-4">
+        <%= render partial: 'pages/home/tile', locals: {
+          title: t('.applicants.title'),
+          description: t('.applicants.description'),
+          detail: t('.applicants.detail'),
+          url: '#acceder',
+          pictogram: 'digital/search'
+        } %>
+      </div>
+      <div class="fr-col-12 fr-col-lg-4">
+        <%= render partial: 'pages/home/tile', locals: {
+          title: t('.administrations.title'),
+          description: t('.administrations.description'),
+          detail: t('.administrations.detail'),
+          url: '#administrations',
+          pictogram: 'buildings/city-hall'
+        } %>
+      </div>
+      <div class="fr-col-12 fr-col-lg-4">
+        <%= render partial: 'pages/home/tile', locals: {
+          title: t('.european_wallet.title'),
+          description: t('.european_wallet.description'),
+          detail: t('.european_wallet.detail'),
+          url: european_wallet_page_path,
+          pictogram: 'digital/application',
+          badge: t('.european_wallet.badge')
+        } %>
+      </div>
+    </div>
+  </div>
+</section>
