@@ -9,6 +9,10 @@ Fonctionnalité: Titres de page des pages publiques
     Quand je me rends sur le chemin "/"
     Alors le titre de la page est "Accueil - DataPass"
 
+  Scénario: Le titre de la page de connexion est Connexion - DataPass
+    Quand je me rends sur la page de connexion
+    Alors le titre de la page est "Connexion - DataPass"
+
   Scénario: Le titre de la page de demande d'habilitation est Demander une habilitation - DataPass
     Sachant que je suis un demandeur
     Et que je me connecte

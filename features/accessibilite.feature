@@ -12,6 +12,14 @@ Fonctionnalité: Accessibilité
     Et le lien d'évitement "Menu" doit mener à l'élément "#header"
     Et le lien d'évitement "Pied de page" doit mener à l'élément "#footer"
 
+  @public
+  Scénario: Les liens d'évitement fonctionnent correctement sur la page de connexion
+    Sachant que je me rends sur la page de connexion
+    Alors je dois voir des liens d'évitement
+    Et le lien d'évitement "Bienvenue sur DataPass" doit mener à l'élément "#content"
+    Et le lien d'évitement "Menu" doit mener à l'élément "#header"
+    Et le lien d'évitement "Pied de page" doit mener à l'élément "#footer"
+
   @demandeur
   Scénario: Les liens d'évitement fonctionnent correctement sur la page tableau de bord
     Sachant que je suis un demandeur
