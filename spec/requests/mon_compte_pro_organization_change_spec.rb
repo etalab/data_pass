@@ -52,10 +52,10 @@ RSpec.describe 'GET /auth/mon_compte_pro/callback' do
         expect { organization_change }.not_to change { user.reload.current_organization }
       end
 
-      it 'redirects to the home page' do
+      it 'redirects to the sign-in page' do
         organization_change
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(connexion_path)
       end
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe 'GET /auth/mon_compte_pro/callback' do
     it 'does not open a session' do
       organization_change
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(connexion_path)
       expect(session[:user_id]).to be_nil
     end
 

@@ -65,8 +65,7 @@ class ApplicationController < ActionController::Base
 
   def reject_banned_user
     sign_out if user_signed_in?
-    flash[:error] = { 'title' => I18n.t('sessions.authenticate_user.errors.banned') }
-    redirect_to root_path
+    redirect_to_sign_in_with_error(I18n.t('sessions.authenticate_user.errors.banned'))
   end
 
   def flash_message(kind, **options)
