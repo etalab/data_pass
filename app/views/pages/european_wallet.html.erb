@@ -1,0 +1,16 @@
+<% set_title! t('page_titles.european_wallet') %>
+
+<div class="fr-container">
+  <%= render DsfrComponent::BreadcrumbsComponent.new do |breadcrumbs| %>
+    <% breadcrumbs.with_breadcrumb(label: t('.breadcrumb.home'), href: root_path) %>
+    <% breadcrumbs.with_breadcrumb(label: t('.breadcrumb.current')) %>
+  <% end %>
+</div>
+
+<%= render partial: 'pages/european_wallet/hero' %>
+<%= render partial: 'pages/european_wallet/actors' %>
+<%= render partial: 'pages/european_wallet/tabs' %>
+<%= render partial: 'pages/european_wallet/calendar' %>
+<%= render partial: 'pages/european_wallet/registry' %>
+<%= render partial: 'pages/european_wallet/faq' %>
+<%= render partial: 'pages/european_wallet/notify' %>
