@@ -1,0 +1,7 @@
+<%= render DsfrComponent::AccordionComponent.new(header_level: 4) do |accordion| %>
+  <% questions.each do |item| %>
+    <% accordion.with_section(title: item[:question]) do %>
+      <p><%= sanitize(item[:answer], attributes: %w[href target rel title]) %></p>
+    <% end %>
+  <% end %>
+<% end %>
