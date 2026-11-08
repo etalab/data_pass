@@ -232,7 +232,7 @@ fr:
           - question: "Quelle différence entre certificat d’accès et certificat d’enregistrement ?"
             answer: "Le certificat d’accès identifie votre organisation auprès du portefeuille européen ; l’ANTS le délivre. Le certificat d’enregistrement décrit un usage, les données demandées et leur finalité : le portefeuille s’en sert pour vérifier que votre demande reste dans ce que vous avez déclaré. Vous recevez un certificat d’enregistrement par usage."
           - question: "Comment tester avant l’ouverture ?"
-            answer: 'La Commission européenne propose un service de test qui délivre des certificats de test : <a href="https://registry.serviceproviders.eudiw.dev/" target="_blank" rel="noopener" title="registry.serviceproviders.eudiw.dev, service de test de la Commission - nouvelle fenêtre">registry.serviceproviders.eudiw.dev<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.'
+            answer: 'La Commission européenne propose un service de test qui délivre des certificats de test : <a href="https://registry.serviceproviders.eudiw.dev/" target="_blank" rel="noopener" title="registry.serviceproviders.eudiw.dev - nouvelle fenêtre">registry.serviceproviders.eudiw.dev<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.'
           - question: "Que se passe-t-il si mes informations changent, ou si mon enregistrement est suspendu ?"
             answer: "Vous déclarez tout changement sans délai depuis DataPass. Si vous ne modifiez que vos usages, le registre ne vous vérifie pas à nouveau. Si l’identité de votre organisation change (SIRET, nom, adresse), vous demandez la suppression de votre enregistrement, puis vous déposez une nouvelle demande."
           - question: "Que se passe-t-il si ma demande est rejetée ?"
