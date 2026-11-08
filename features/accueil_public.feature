@@ -18,7 +18,7 @@ Fonctionnalité: Accueil public
     Quand je me rends sur la page d'accueil
     Alors la tuile "Vous cherchez des données pour votre service" mène à "#acceder"
     Et la tuile "Vous êtes une administration qui détient des données" mène à "#administrations"
-    Et la tuile "Votre organisation et le portefeuille européen" mène à "/#portefeuille-europeen"
+    Et la tuile "Votre organisation et le portefeuille européen" mène à "/portefeuille-europeen"
 
   Scénario: Le lien « Se connecter » mène à la page de connexion
     Quand je me rends sur la page d'accueil

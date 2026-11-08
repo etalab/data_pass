@@ -1,0 +1,38 @@
+<section class="lp-band" aria-labelledby="portefeuille-titre">
+  <div class="fr-container">
+    <div class="lp-compo">
+      <div class="lp-compo__text">
+        <h1 class="fr-h2" id="portefeuille-titre"><%= t('.title') %></h1>
+        <% t('.paragraphs').each do |paragraph| %>
+          <p><%= paragraph %></p>
+        <% end %>
+        <%= render partial: 'pages/european_wallet/actions' %>
+        <p class="fr-mb-1w">
+          <%= link_to t('.registry_link'), european_wallet_public_registry_path, class: 'fr-link fr-icon-arrow-right-line fr-link--icon-right' %>
+        </p>
+        <% unless european_wallet_registry_open? %>
+          <p class="fr-text--sm fr-mb-0"><%= t('.opening_date') %></p>
+        <% end %>
+      </div>
+      <div class="lp-compo__img">
+        <figure class="fr-m-0" aria-labelledby="portefeuille-telephone-legende">
+          <div class="lp-phone" aria-hidden="true">
+            <div class="lp-phone__notch"></div>
+            <p class="lp-phone__app">
+              <span class="lp-avatar"><%= t('.phone.avatar') %></span>
+              <span><strong><%= t('.phone.organization') %></strong><br><%= t('.phone.request') %></span>
+            </p>
+            <p class="lp-phone__row"><b><%= t('.phone.data_label') %></b><%= t('.phone.data_value') %></p>
+            <p class="lp-phone__row"><b><%= t('.phone.purpose_label') %></b><%= t('.phone.purpose_value') %></p>
+            <p class="lp-phone__ok"><%= t('.phone.registered') %></p>
+            <div class="lp-phone__btns">
+              <span><%= t('.phone.refuse') %></span>
+              <span><%= t('.phone.share') %></span>
+            </div>
+          </div>
+          <figcaption id="portefeuille-telephone-legende" class="fr-sr-only"><%= t('.phone.caption') %></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
