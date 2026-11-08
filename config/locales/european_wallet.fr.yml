@@ -258,15 +258,20 @@ fr:
           - question: "Une organisation me demande des données qu’elle n’a pas déclarées : que faire ?"
             answer: "Refusez le partage. Depuis votre portefeuille, vous pouvez la signaler à la CNIL."
       notify:
-        title: "Être prévenu de l’ouverture du registre"
-        text: "Nous vous écrirons à l’ouverture du registre, à la publication de la politique d’enregistrement, et quand le parcours qui vous concerne ouvrira."
+        before_opening:
+          title: "Être prévenu de l’ouverture du registre"
+          text: "Nous vous écrirons à l’ouverture du registre, à la publication de la politique d’enregistrement, et quand le parcours qui vous concerne ouvrira."
+          submit_title: "M’inscrire pour être prévenu de l’ouverture"
+        after_opening:
+          title: "Être prévenu de l’ouverture de votre formulaire"
+          text: "Le registre est ouvert aux organisations qui demandent des données. Nous vous écrirons quand le formulaire des intermédiaires ou celui des fournisseurs d’attestations ouvrira."
+          submit_title: "M’inscrire pour être prévenu de l’ouverture de mon formulaire"
         legend: "Vous êtes"
         profiles:
-          - "Une entreprise ou une administration qui demandera des données"
-          - "Un intermédiaire ou un éditeur de logiciel"
-          - "Un fournisseur d’attestations"
+          organization: "Une entreprise ou une administration qui demandera des données"
+          intermediary: "Un intermédiaire ou un éditeur de logiciel"
+          attestation_provider: "Un fournisseur d’attestations"
         email_label: "Votre adresse électronique"
         email_hint: "Format attendu : nom@example.com"
         submit: "M’inscrire"
-        submit_title: "M’inscrire pour être prévenu de l’ouverture"
         unsubscribe: "Vous pourrez vous désinscrire à tout moment avec le lien présent dans chaque message."

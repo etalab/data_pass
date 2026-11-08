@@ -30,6 +30,11 @@ Fonctionnalité: Page publique Portefeuille européen
     Alors la page contient un lien "Enregistrer mon organisation" vers "/portefeuille-europeen#etapes"
     Et la page ne contient pas "Le registre ouvre le 24 décembre 2026."
     Et la page ne contient pas de lien "Être prévenu de l’ouverture"
+    Et la page contient un lien "Être prévenu" vers "/portefeuille-europeen#etre-prevenu"
+    Et il y a un titre contenant "Être prévenu de l’ouverture de votre formulaire"
+    Et la page ne contient pas "Une entreprise ou une administration qui demandera des données"
+    Et la page contient "Un intermédiaire ou un éditeur de logiciel"
+    Et la page contient "Un fournisseur d’attestations"
 
   Scénario: Les trois liens de l’accueil mènent à la page Portefeuille européen
     Quand je me rends sur la page d'accueil
