@@ -1,9 +1,5 @@
 <% set_title! t('page_titles.home') %>
 
-<% content_for :content_skip_link_text do %>
-  Bienvenue sur DataPass
-<% end %>
-
 <%= render DsfrComponent::NoticeComponent.new(
   title: t('.notice.title'),
   description: '',
