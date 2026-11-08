@@ -1,0 +1,48 @@
+<section class="fr-py-8w" id="administrations" aria-labelledby="adm-titre">
+  <div class="fr-container">
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+      <div class="fr-col-12 fr-col-lg-6">
+        <p class="lp-kicker"><%= t('.kicker') %></p>
+        <h2 id="adm-titre"><%= t('.title') %></h2>
+        <p class="fr-text--lg"><%= t('.lead') %></p>
+        <%= render partial: 'pages/home/checks', locals: { items: t('.points') } %>
+      </div>
+      <div class="fr-col-12 fr-col-lg-6">
+        <div class="lp-visual lp-visual--cumulus">
+          <div class="lp-visual__shape" aria-hidden="true"></div>
+          <div class="lp-visual__img">
+            <%= render partial: 'pages/home/instruction_preview' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="fr-mt-8w"><%= t('.features_title') %></h3>
+    <div class="fr-grid-row fr-grid-row--gutters lp-groups">
+      <%= render partial: 'pages/home/group', locals: { title: t('.receive.title'), items: t('.receive.items'), pictogram: 'document/document-add' } %>
+      <%= render partial: 'pages/home/group', locals: { title: t('.instruct.title'), items: t('.instruct.items'), pictogram: 'document/document-search' } %>
+      <%= render partial: 'pages/home/group', locals: { title: t('.follow.title'), items: t('.follow.items'), pictogram: 'digital/data-visualization' } %>
+    </div>
+
+    <div class="lp-cta-band fr-mt-8w">
+      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+        <div class="fr-col-12 fr-col-lg-7">
+          <p class="lp-kicker"><%= t('.contact.kicker') %></p>
+          <h3><%= t('.contact.title') %></h3>
+          <p class="fr-text--lg"><%= t('.contact.text') %></p>
+          <%= mail_to t('mailer.shared.support.email'), t('.contact.button'), class: 'fr-btn fr-icon-arrow-right-line fr-btn--icon-right' %>
+        </div>
+        <div class="fr-col-12 fr-col-lg-5">
+          <div class="fr-callout lp-cta-callout">
+            <h4 class="fr-callout__title"><%= t('.contact.hints_title') %></h4>
+            <ul>
+              <% t('.contact.hints').each do |hint| %>
+                <li><%= hint %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
