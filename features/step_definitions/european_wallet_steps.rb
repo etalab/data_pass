@@ -1,9 +1,10 @@
 Sachantque('le registre du portefeuille européen est ouvert') do
+  @registry_open_before_scenario = ENV.fetch('EUROPEAN_WALLET_REGISTRY_OPEN', nil)
   ENV['EUROPEAN_WALLET_REGISTRY_OPEN'] = 'true'
 end
 
-After do
-  ENV.delete('EUROPEAN_WALLET_REGISTRY_OPEN')
+After('@registre_ouvert') do
+  ENV['EUROPEAN_WALLET_REGISTRY_OPEN'] = @registry_open_before_scenario
 end
 
 Alors('le fil d’Ariane mène de « {} » à « {} »') do |home, current|
@@ -33,11 +34,23 @@ Alors("l'en-tête contient un lien {string} vers {string}") do |label, href|
   end
 end
 
+Alors('l’encart de l’accueil mène à {string}') do |href|
+  within('#portefeuille-europeen') do
+    expect(page).to have_link('Découvrir le registre du portefeuille européen', href:)
+  end
+end
+
+Alors('l’onglet « Organisations » contient une mise en avant {string}') do |text|
+  within('#tab-organisations-panel') do
+    expect(page).to have_css('.fr-callout', text:)
+  end
+end
+
 Alors('l’onglet « {} » est sélectionné') do |label|
   expect(page).to have_css('.fr-tabs__tab[aria-selected="true"]', text: label)
 end
 
-Alors('le bloc « Être prévenu » ne contient ni formulaire ni champ nommé') do
+Alors('le bloc « Être prévenu » ne contient pas de formulaire et son champ d’adresse n’a pas de nom') do
   within('#etre-prevenu') do
     expect(page).to have_no_css('form')
     expect(page).to have_field('Votre adresse électronique', type: 'email')

@@ -23,6 +23,7 @@ Fonctionnalité: Page publique Portefeuille européen
     Et la page ne contient pas "Enregistrer mon organisation"
     Et la page ne contient pas "Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026."
 
+  @registre_ouvert
   Scénario: À l’ouverture, le bouton « Enregistrer mon organisation » remplace « Être prévenu »
     Sachant que le registre du portefeuille européen est ouvert
     Quand je me rends sur le chemin "/portefeuille-europeen"
@@ -34,12 +35,12 @@ Fonctionnalité: Page publique Portefeuille européen
     Quand je me rends sur la page d'accueil
     Alors l'en-tête contient un lien "Portefeuille européen" vers "/portefeuille-europeen"
     Et la tuile "Votre organisation et le portefeuille européen" mène à "/portefeuille-europeen"
-    Et la page contient un lien "Découvrir le registre du portefeuille européen" vers "/portefeuille-europeen"
+    Et l’encart de l’accueil mène à "/portefeuille-europeen"
 
   Scénario: L’onglet Organisations est ouvert par défaut et rappelle l’habilitation
     Quand je me rends sur le chemin "/portefeuille-europeen"
     Alors l’onglet « Organisations » est sélectionné
-    Et il y a une mise en avant contenant "vous demandez toujours l’habilitation correspondante"
+    Et l’onglet « Organisations » contient une mise en avant "vous demandez toujours l’habilitation correspondante"
 
   @javascript
   Scénario: Un lien vers l’onglet Particuliers ouvre cet onglet
@@ -54,4 +55,4 @@ Fonctionnalité: Page publique Portefeuille européen
 
   Scénario: Le bloc « Être prévenu » ne transmet aucune adresse
     Quand je me rends sur le chemin "/portefeuille-europeen"
-    Alors le bloc « Être prévenu » ne contient ni formulaire ni champ nommé
+    Alors le bloc « Être prévenu » ne contient pas de formulaire et son champ d’adresse n’a pas de nom

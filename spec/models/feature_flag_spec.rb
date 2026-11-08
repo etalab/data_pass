@@ -88,6 +88,14 @@ RSpec.describe FeatureFlag do
           expect(described_class.enabled?(:european_wallet_registry_open)).to be false
         end
       end
+
+      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is false' do
+        it 'returns false' do
+          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return('false')
+
+          expect(described_class.enabled?(:european_wallet_registry_open)).to be false
+        end
+      end
     end
   end
 end

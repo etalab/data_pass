@@ -33,7 +33,7 @@
     </div>
     <div class="fr-col-12 fr-col-lg-6">
       <figure class="fr-m-0" aria-labelledby="fiche-legende">
-        <div class="lp-entry" aria-hidden="true">
+        <div class="lp-entry">
           <p class="lp-entry__kicker"><%= t('.published.entry.kicker') %></p>
           <p class="lp-entry__name"><%= t('.published.entry.name') %></p>
           <dl>
@@ -63,7 +63,7 @@
 
 <div class="lp-tab-block">
   <h3 class="fr-h4" id="etapes"><%= t('.steps.title') %></h3>
-  <ol class="lp-steps">
+  <ol class="lp-steps" role="list">
     <% t('.steps.items').each do |step| %>
       <li>
         <p class="lp-steps__title"><%= step[:title] %></p>
