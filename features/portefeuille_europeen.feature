@@ -20,6 +20,7 @@ Fonctionnalité: Page publique Portefeuille européen
       | Être prévenu de l’ouverture du registre       |
     Et la page contient un lien "Être prévenu de l’ouverture" vers "/portefeuille-europeen#etre-prevenu"
     Et la page contient "Le registre ouvre le 24 décembre 2026."
+    Et la page contient "Une entreprise ou une administration qui demandera des données"
     Et la page ne contient pas "Enregistrer mon organisation"
     Et la page ne contient pas "Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026."
 
