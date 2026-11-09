@@ -150,6 +150,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
       'volumetrie' => %w[
         volumetrie_appels_par_minute
         volumetrie_justification
+        adresse_ip_publique_production
       ],
     }
   end

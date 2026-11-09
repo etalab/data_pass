@@ -76,7 +76,8 @@ fr:
         fc_alternative_connexion: Connexion alternative à FranceConnect
         date_prevue_mise_en_production: Date de mise en production prévue
         volumetrie_approximative: Volumétrie approximative
-        adresse_ip_publique: Adresse IP publique de connexion
+        adresse_ip_publique: Adresse IP publique de connexion – bac à sable
+        adresse_ip_publique_production: Adresse IP publique de connexion – production
 
         technical_team_type: La typologie de l'équipe technique
         technical_team_value: L'intitulé de l'équipe technique
