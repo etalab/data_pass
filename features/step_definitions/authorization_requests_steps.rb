@@ -73,6 +73,12 @@ Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramèt
   visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(string).id, key => value)
 end
 
+Quand("j'ouvre le lien direct du formulaire de la démarche {string}") do |name|
+  form_uid = find_authorization_definition_from_name(name, nil).available_forms.first.uid
+
+  visit new_authorization_request_form_path(form_uid:)
+end
+
 Quand('je visite le formulaire {string} avec le paramètre {string} égal à {string}') do |form_uid, key, value|
   visit new_authorization_request_form_path(form_uid:, key => value)
 end

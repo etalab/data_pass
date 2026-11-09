@@ -367,6 +367,11 @@ FactoryBot.define do
       form_uid { 'hubee-cert-dc' }
     end
 
+    trait :hubee_impayes_loyer do
+      type { 'AuthorizationRequest::HubEEImpayesLoyer' }
+      form_uid { 'hubee-impayes-loyer' }
+    end
+
     trait :hubee_dila do
       type { 'AuthorizationRequest::HubEEDila' }
       form_uid { 'hubee-dila' }
