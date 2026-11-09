@@ -170,7 +170,7 @@ Pour la configuration d'un [formulaire (2.)](../../config/authorization_request_
     startable_by_applicant: true
     # Optionnel. Identifiant (actuellement lié à aucune autre modèle) permettant
     # de potentiellement effectuer des filtres avec des liens directs
-    # (exemple : https://api-entreprise.v2.datapass.api.gouv.fr/demandes/api_entreprise/formulaires?use_case=marches_publics)
+    # (exemple : https://datapass.api.gouv.fr/demandes/api_entreprise/formulaires?use_case=marches_publics)
     # Celui-ci sera plus exploité dans des itérations futures (en l'associant à
     # un vrai modèle)
     use_case: 'marches_publics'
