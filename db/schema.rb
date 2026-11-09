@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_26_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_06_100001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -176,6 +176,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_26_100000) do
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
     t.index ["public_id"], name: "index_authorization_requests_on_public_id"
     t.index ["type", "organization_id"], name: "index_authorization_requests_on_type_and_organization_id", unique: true, where: "(((type)::text = 'AuthorizationRequest::HubEECertDC'::text) AND ((state)::text <> 'archived'::text))"
+    t.index ["type", "organization_id"], name: "index_authorization_requests_unicity_hubee_impayes_loyer", unique: true, where: "(((type)::text = 'AuthorizationRequest::HubEEImpayesLoyer'::text) AND ((state)::text <> 'archived'::text))"
     t.index ["type"], name: "index_authorization_requests_on_type"
   end
 

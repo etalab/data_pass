@@ -38,16 +38,20 @@ class Seeds
 
       provider.save!(validate: false)
 
-      provider.logo.attach(
-        io: Rails.root.join('app', 'assets', 'images', 'data_providers', attributes[:logo]).open,
-        filename: attributes[:logo],
-      )
+      attach_logo(provider, attributes[:logo]) if attributes[:logo]
 
       provider.save!
     end
   end
 
   private
+
+  def attach_logo(provider, logo)
+    provider.logo.attach(
+      io: Rails.root.join('app', 'assets', 'images', 'data_providers', logo).open,
+      filename: logo,
+    )
+  end
 
   def organizations
     @organizations ||= Seeds::ReferenceOrganizations.new

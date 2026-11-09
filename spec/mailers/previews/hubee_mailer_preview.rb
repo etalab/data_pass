@@ -7,6 +7,10 @@ class HubEEMailerPreview < ActionMailer::Preview
     HubEEMailer.with(authorization_request:).administrateur_metier(:dila)
   end
 
+  def administrateur_metier_impayes_loyer
+    HubEEMailer.with(authorization_request: AuthorizationRequest::HubEEImpayesLoyer.first).administrateur_metier(:impayes_loyer)
+  end
+
   def formulaire_qf_validation
     HubEEMailer.with(
       authorization_request: formulaire_qf_authorization_request,

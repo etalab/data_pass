@@ -20,6 +20,7 @@ shared:
     authorization_definition_ids:
       - "hubee_cert_dc"
       - "hubee_dila"
+      - "hubee_impayes_loyer"
   annuaire-entreprises:
     name: "Annuaire des Entreprises"
     title: "DataPass - Annuaire des Entreprises"

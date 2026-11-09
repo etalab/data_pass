@@ -8,6 +8,18 @@ hubee-cert-dc:
   authorization_request: "HubEECertDC"
   service_provider_id: hubee
 
+hubee-impayes-loyer:
+  introduction: |
+    La démarche « Signalements impayés de loyer » permet à votre organisation de recevoir, via le portail HubEE, les fichiers relatifs aux impayés de loyer transmis par la Caisse nationale des allocations familiales (CNAF).
+    <br />
+    <br />
+    En remplissant ce formulaire, vous demandez l’ouverture de l’abonnement à ce flux. Vous désignerez l’administrateur local qui gérera l’accès au portail HubEE, le délégué à la protection des données et le responsable de la sécurité des systèmes d’information (RSSI) de votre organisation.
+    <br />
+    <br />
+    Pour toute question concernant cette démarche, vous pouvez contacter le support dédié à l’adresse e-mail suivante : <a href="mailto:production_numerique_echanges@cnaf.fr">production_numerique_echanges@cnaf.fr</a>.
+  authorization_request: "HubEEImpayesLoyer"
+  service_provider_id: hubee
+
 hubee-dila:
   introduction: |
     En complétant ce formulaire, vous allez demander l'accès à une ou plusieurs des démarches suivantes de la Direction de l'information légale et administrative (DILA) :
