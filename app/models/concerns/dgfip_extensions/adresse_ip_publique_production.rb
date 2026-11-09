@@ -13,4 +13,8 @@ module DGFIPExtensions::AdresseIpPubliqueProduction
       public_ip_address: true,
       if: -> { need_complete_validation?(:volumetrie) }
   end
+
+  def adresse_ip_publique_editable? = false
+
+  def adresse_ip_publique_displayed? = adresse_ip_publique.present?
 end

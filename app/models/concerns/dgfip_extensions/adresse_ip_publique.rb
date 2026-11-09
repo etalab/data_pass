@@ -12,4 +12,8 @@ module DGFIPExtensions::AdresseIpPublique
       public_ip_address: true,
       if: -> { need_complete_validation?(:basic_infos) }
   end
+
+  def adresse_ip_publique_editable? = true
+
+  def adresse_ip_publique_displayed? = true
 end

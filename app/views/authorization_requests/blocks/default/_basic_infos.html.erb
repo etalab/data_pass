@@ -37,7 +37,7 @@
     </p>
   <% end %>
 
-  <% if authorization_request.respond_to?(:adresse_ip_publique) && (authorization_request.adresse_ip_publique.present? || !authorization_request.respond_to?(:adresse_ip_publique_production)) %>
+  <% if authorization_request.try(:adresse_ip_publique_displayed?) %>
     <p>
       <strong><%= f.label_value(:adresse_ip_publique) %></strong> : <%= authorization_request.adresse_ip_publique || 'Non renseigné' %>
     </p>
