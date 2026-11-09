@@ -9,3 +9,6 @@ Base : develop @ a622a3c6a
   DPP-251    #1856   ce7229313  feature/dpp-251-ts-deplacer-la-connexion-proconnect-sur-une
   DPP-221    #1857   0db65702c  feature/dpp-221-accueil-public
   DPP-216    #1858   a6a8beb4d  feature/dpp-216-page-portefeuille-europeen
+
+2026-11-09 13:55 — ajout manuel (PR de fork)
+  DPP-235    #1855   69dc72b38  HAEKADI:patch-1 (pull/1855/head, branche locale review/pr-1855-annuaire-scopes)
