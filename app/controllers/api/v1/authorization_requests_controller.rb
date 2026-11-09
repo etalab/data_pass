@@ -4,6 +4,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
   before_action -> { doorkeeper_authorize! :validate_authorizations }, only: :validate
   before_action -> { doorkeeper_authorize! :submit_authorizations }, only: :submit
   before_action :set_authorization_request, only: %i[show update validate submit]
+  before_action :ensure_demande_is_an_object, only: %i[create update]
 
   def index
     authorization_requests = AuthorizationRequest
@@ -56,7 +57,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     result = ApproveAuthorizationRequestFromAPI.call(
       authorization_request: @authorization_request,
-      instructor_email: validation_params.dig(:instructeur, :email),
+      instructor_email:,
       authorization_message: validation_params[:message],
       oauth_application: doorkeeper_token.application,
       notifications: params[:notifications]
@@ -87,6 +88,12 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       .find(params[:authorization_request_id] || params[:id])
   end
 
+  def instructor_email
+    instructor = validation_params[:instructeur]
+
+    instructor[:email] if instructor.is_a?(ActionController::Parameters)
+  end
+
   def validation_params
     @validation_params ||= params.permit(:message, instructeur: [:email])
   end
@@ -101,6 +108,12 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     return AuthorizationRequest.all if params[:siret].blank?
 
     AuthorizationRequest.joins(:organization).where(organizations: { legal_entity_id: params[:siret] })
+  end
+
+  def ensure_demande_is_an_object
+    return if params.fetch(:demande, ActionController::Parameters.new).is_a?(ActionController::Parameters)
+
+    render_error(422, :invalid_demande, source: { pointer: '/demande' })
   end
 
   def demande_params
