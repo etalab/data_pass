@@ -44,6 +44,10 @@ class PagesController < ApplicationController
 
   private
 
+  def layout_name
+    action_name == 'home' ? 'wide_container' : super
+  end
+
   def ensure_html_format
     head :not_acceptable unless request.format.html?
   end

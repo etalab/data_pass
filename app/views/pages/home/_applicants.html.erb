@@ -1,0 +1,71 @@
+<section class="fr-py-8w" id="acceder" aria-labelledby="acceder-titre">
+  <div class="fr-container">
+    <div class="lp-acceder-intro">
+      <p class="lp-kicker"><%= t('.kicker') %></p>
+      <h2 id="acceder-titre"><%= t('.title') %></h2>
+      <p class="fr-text--lg fr-mb-0"><%= t('.lead') %></p>
+    </div>
+
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mt-6w">
+      <div class="fr-col-12 fr-col-lg-5">
+        <h3 class="fr-h4" id="roles-titre"><%= t('.roles.title') %></h3>
+        <p><%= t('.roles.summary') %></p>
+        <p class="fr-mb-0"><strong><%= t('.roles.software_vendor_title') %></strong> <%= t('.roles.software_vendor_text') %></p>
+      </div>
+      <div class="fr-col-12 fr-col-lg-6 fr-col-offset-lg-1">
+        <div class="lp-visual">
+          <div class="lp-visual__shape" aria-hidden="true"></div>
+          <div class="lp-visual__img">
+            <figure class="fr-m-0" aria-labelledby="roles-titre">
+              <div class="lp-roles">
+                <%= render partial: 'pages/home/role', locals: { title: t('.roles.organization_title'), text: t('.roles.organization_text') } %>
+                <p class="lp-arrow"><%= t('.roles.first_arrow') %></p>
+                <%= render partial: 'pages/home/role', locals: { title: t('.roles.datapass_title'), text: t('.roles.datapass_text'), modifier: 'lp-role--datapass' } %>
+                <p class="lp-arrow"><%= t('.roles.second_arrow') %></p>
+                <%= render partial: 'pages/home/role', locals: { title: t('.roles.administration_title'), text: t('.roles.administration_text') } %>
+                <p class="lp-arrow"><%= t('.roles.third_arrow') %></p>
+                <%= render partial: 'pages/home/role', locals: { title: t('.roles.access_title'), text: t('.roles.access_text'), modifier: 'lp-role--access' } %>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-examples-box fr-mt-6w">
+      <h3 class="fr-h4 lp-examples-box__title"><%= t('.examples.title') %></h3>
+      <div class="fr-grid-row fr-grid-row--gutters lp-examples">
+        <%= render partial: 'pages/home/example', locals: { title: t('.examples.people.title'), text: t('.examples.people.text'), pictogram: 'digital/avatar' } %>
+        <%= render partial: 'pages/home/example', locals: { title: t('.examples.companies.title'), text: t('.examples.companies.text'), pictogram: 'buildings/companie' } %>
+        <%= render partial: 'pages/home/example', locals: { title: t('.examples.identification.title'), text: t('.examples.identification.text'), pictogram: 'digital/application' } %>
+        <%= render partial: 'pages/home/example', locals: { title: t('.examples.procedures.title'), text: t('.examples.procedures.text'), pictogram: 'document/document' } %>
+      </div>
+    </div>
+
+    <h3 class="fr-h4 fr-mt-8w"><%= t('.steps.title') %></h3>
+    <ol class="lp-steps">
+      <li>
+        <p class="lp-steps__title"><%= t('.steps.find.title') %></p>
+        <p class="lp-steps__desc"><%= t('.steps.find.text') %></p>
+        <p class="lp-steps__desc"><%= t('.steps.find.open_data') %></p>
+        <ul class="lp-steps__links">
+          <li>
+            <%= link_to t('.steps.find.simplifions'), 'https://simplifions.data.gouv.fr/', class: 'fr-link', target: '_blank', rel: 'noopener', title: t('.steps.find.simplifions_title') %>
+          </li>
+          <li>
+            <%= link_to t('.steps.find.data_gouv'), 'https://www.data.gouv.fr/dataservices', class: 'fr-link', target: '_blank', rel: 'noopener', title: t('.steps.find.data_gouv_title') %>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p class="lp-steps__title"><%= t('.steps.request.title') %></p>
+        <p class="lp-steps__desc"><%= t('.steps.request.text') %></p>
+        <p class="lp-steps__desc"><%= t('.steps.request.legal_text') %></p>
+      </li>
+      <li>
+        <p class="lp-steps__title"><%= t('.steps.decision.title') %></p>
+        <p class="lp-steps__desc"><%= t('.steps.decision.text_html') %></p>
+      </li>
+    </ol>
+  </div>
+</section>

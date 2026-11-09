@@ -1,0 +1,31 @@
+<section class="lp-band lp-teaser" id="portefeuille-europeen" aria-labelledby="teaser-titre">
+  <div class="fr-container">
+    <div class="lp-compo">
+      <div class="lp-compo__text">
+        <p class="lp-kicker"><%= t('.kicker') %></p>
+        <h2 class="fr-h3" id="teaser-titre"><%= t('.title') %></h2>
+        <p><%= t('.text') %></p>
+        <%= link_to t('.button'), european_wallet_page_path, class: 'fr-btn fr-icon-arrow-right-line fr-btn--icon-right' %>
+      </div>
+      <div class="lp-compo__img">
+        <figure class="fr-m-0" aria-labelledby="phone-legende">
+          <div class="lp-phone" aria-hidden="true">
+            <div class="lp-phone__notch"></div>
+            <p class="lp-phone__app">
+              <span class="lp-avatar"><%= t('.phone.avatar') %></span>
+              <span><strong><%= t('.phone.organization') %></strong><br><%= t('.phone.request') %></span>
+            </p>
+            <p class="lp-phone__row"><b><%= t('.phone.data_label') %></b><%= t('.phone.data_value') %></p>
+            <p class="lp-phone__row"><b><%= t('.phone.purpose_label') %></b><%= t('.phone.purpose_value') %></p>
+            <p class="lp-phone__ok"><%= t('.phone.registered') %></p>
+            <div class="lp-phone__btns">
+              <span><%= t('.phone.refuse') %></span>
+              <span><%= t('.phone.share') %></span>
+            </div>
+          </div>
+          <figcaption id="phone-legende" class="fr-sr-only"><%= t('.phone.caption') %></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
