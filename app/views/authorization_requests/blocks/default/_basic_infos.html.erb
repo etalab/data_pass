@@ -37,9 +37,9 @@
     </p>
   <% end %>
 
-  <% if authorization_request.try(:adresse_ip_publique_displayed?) %>
+  <% if authorization_request.try(:adresse_ip_publique_sandbox_displayed?) %>
     <p>
-      <strong><%= f.label_value(:adresse_ip_publique) %></strong> : <%= authorization_request.adresse_ip_publique || 'Non renseigné' %>
+      <strong><%= f.label_value(:adresse_ip_publique) %></strong> : <%= authorization_request.adresse_ip_publique_sandbox || 'Non renseigné' %>
     </p>
   <% end %>
 <% end %>

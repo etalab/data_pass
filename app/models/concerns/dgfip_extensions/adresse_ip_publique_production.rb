@@ -14,7 +14,9 @@ module DGFIPExtensions::AdresseIpPubliqueProduction
       if: -> { need_complete_validation?(:volumetrie) }
   end
 
-  def adresse_ip_publique_editable? = false
+  def adresse_ip_publique_sandbox = adresse_ip_publique
 
-  def adresse_ip_publique_displayed? = adresse_ip_publique.present?
+  def adresse_ip_publique_sandbox_editable? = false
+
+  def adresse_ip_publique_sandbox_displayed? = adresse_ip_publique_sandbox.present?
 end
