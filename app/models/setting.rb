@@ -20,6 +20,7 @@ class Setting < ApplicationRecord
     insee_refresh_max_organizations_per_run: { type: :integer, default: 11_000 },
     insee_refresh_stale_after: { type: :duration, default: 30.days },
     insee_skipped_identifiers: { type: :list, default: [] },
+    piste_api_name: { type: :string, env: 'PISTE_API_NAME', default: 'CaptchEtat v2' },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze

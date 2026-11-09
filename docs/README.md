@@ -23,6 +23,7 @@
 * [Templates de messages pour l'instruction](./technique/templates_messages.md)
 * [Synchronisation DataGouv — habilitations](./technique/datagouv-habilitations-sync.md)
 * [Données géographiques (geo.api.gouv.fr)](./technique/geo_data.md)
+* [Bridge CaptchEtat → PISTE (AIFE)](./technique/bridge_captchetat_piste.md)
 * [Utiliser notre API](./technique/api.md)
 * [Droits API par fournisseur de données (soumission, validation)](./technique/droits_api.md)
 * [Métadonnées des demandes (espaces `api` / `datapass`)](./technique/metadonnees_demandes.md)

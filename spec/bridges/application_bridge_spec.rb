@@ -34,6 +34,35 @@ RSpec.describe ApplicationBridge, type: :job do
 
         dummy_bridge
       end
+
+      it 'tags the error with the bridge and the authorization request id' do
+        allow(Sentry).to receive(:capture_exception)
+
+        dummy_bridge
+
+        expect(Sentry).to have_received(:capture_exception).with(
+          an_instance_of(StandardError),
+          hash_including(tags: { bridge: 'DummyBridge', demande_id: authorization_request.id }),
+        )
+      end
+    end
+
+    describe 'when the error carries an HTTP response' do
+      let(:attempts) { ApplicationBridge::THRESHOLD_TO_TRACK_ERROR }
+
+      before do
+        allow(job_instance).to receive(:on_approve).and_raise(Faraday::TooManyRequestsError.new(nil, { status: 429, body: 'quota exceeded' }))
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'adds the HTTP status and body to the error context' do
+        dummy_bridge
+
+        expect(Sentry).to have_received(:capture_exception).with(
+          an_instance_of(Faraday::TooManyRequestsError),
+          hash_including(contexts: { bridge: hash_including(demande_id: authorization_request.id, evenement: 'approve', http_status: 429, http_body: 'quota exceeded') }),
+        )
+      end
     end
   end
 end
