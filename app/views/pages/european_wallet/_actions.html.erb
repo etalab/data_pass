@@ -1,0 +1,14 @@
+<ul class="fr-btns-group fr-btns-group--inline-lg fr-btns-group--icon-right <%= local_assigns[:classes] %>">
+  <li>
+    <% if european_wallet_registry_open? %>
+      <%= link_to t('pages.european_wallet.actions.register'), european_wallet_registration_path, class: 'fr-btn' %>
+    <% else %>
+      <%= link_to t('pages.european_wallet.actions.notify'), european_wallet_notify_path, class: 'fr-btn' %>
+    <% end %>
+  </li>
+  <% if local_assigns[:with_policy] %>
+    <li>
+      <%= link_to t('pages.european_wallet.actions.policy'), european_wallet_registration_policy_path, class: 'fr-btn fr-btn--secondary fr-icon-arrow-right-line' %>
+    </li>
+  <% end %>
+</ul>

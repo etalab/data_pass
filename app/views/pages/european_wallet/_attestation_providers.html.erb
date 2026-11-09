@@ -1,0 +1,42 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <div class="fr-col-12 fr-col-lg-7">
+    <p class="lp-kicker"><%= t('.kicker') %></p>
+    <h3 class="fr-h4"><%= t('.title') %></h3>
+    <p class="fr-mb-2w"><%= t('.intro') %></p>
+    <ul class="lp-wallet-cases">
+      <% t('.cases').each do |item| %>
+        <li>
+          <%= render partial: 'pages/home/pictogram', locals: { name: item[:pictogram] } %>
+          <span><%= item[:text] %></span>
+        </li>
+      <% end %>
+    </ul>
+    <% t('.paragraphs').each do |paragraph| %>
+      <p><%= paragraph %></p>
+    <% end %>
+    <ul class="fr-links-group fr-mb-0">
+      <li><%= link_to t('.role_link'), '#acteurs', class: 'fr-link fr-icon-arrow-right-line fr-link--icon-right' %></li>
+      <li><%= link_to t('.notify_link'), european_wallet_notify_path, class: 'fr-link fr-icon-arrow-right-line fr-link--icon-right' %></li>
+    </ul>
+  </div>
+  <div class="fr-col-12 fr-col-lg-5">
+    <div class="lp-visual lp-visual--cumulus lp-wallet-visual">
+      <div class="lp-visual__shape" aria-hidden="true"></div>
+      <div class="lp-visual__img">
+        <figure class="fr-m-0" aria-labelledby="fournisseurs-legende">
+          <div class="lp-phone" aria-hidden="true">
+            <div class="lp-phone__notch"></div>
+            <p class="lp-phone__app">
+              <span class="lp-avatar"><%= t('.phone.avatar') %></span>
+              <span><strong><%= t('.phone.title') %></strong><br><%= t('.phone.subtitle') %></span>
+            </p>
+            <% t('.phone.rows').each do |row| %>
+              <p class="lp-phone__row"><b><%= row[:label] %></b><%= row[:value] %></p>
+            <% end %>
+          </div>
+          <figcaption id="fournisseurs-legende" class="fr-sr-only"><%= t('.phone.caption') %></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>

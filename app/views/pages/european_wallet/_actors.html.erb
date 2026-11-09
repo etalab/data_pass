@@ -1,0 +1,69 @@
+<section class="fr-py-8w" id="acteurs" aria-labelledby="acteurs-titre">
+  <div class="fr-container">
+    <h2 class="fr-h3" id="acteurs-titre"><%= t('.title') %></h2>
+    <p class="lp-narrow"><%= t('.intro') %></p>
+    <figure class="fr-m-0 lp-eco-panel" aria-labelledby="acteurs-legende">
+      <div class="lp-eco">
+        <div class="lp-eco__actor lp-eco__providers">
+          <span class="lp-eco__picto"><%= render partial: 'pages/home/pictogram', locals: { name: 'document/national-identity-card-passport' } %></span>
+          <h3><%= t('.providers.title') %></h3>
+          <p><%= t('.providers.text') %></p>
+        </div>
+        <div class="lp-eco__link" aria-hidden="true"><span class="lp-eco__label"><%= t('.labels.issue') %></span></div>
+        <div class="lp-eco__actor lp-eco__user">
+          <div class="lp-eco__circle">
+            <span class="lp-eco__app"><%= render partial: 'pages/home/pictogram', locals: { name: 'digital/application' } %></span>
+            <span class="lp-eco__card"><%= render partial: 'pages/home/pictogram', locals: { name: 'document/national-identity-card' } %></span>
+          </div>
+          <div class="lp-eco__arrow lp-eco__arrow--issue" aria-hidden="true">
+            <span class="lp-eco__label"><%= t('.labels.issue') %></span>
+            <svg class="lp-eco__curve" viewBox="0 0 160 96"><path vector-effect="non-scaling-stroke" d="M24 72C62 40 99.3333 34 136 54"/><path vector-effect="non-scaling-stroke" d="M117.6 54.2L136 54L126.3 38.4"/></svg>
+          </div>
+          <div class="lp-eco__arrow lp-eco__arrow--request" aria-hidden="true">
+            <span class="lp-eco__label"><%= t('.labels.request') %></span>
+            <svg class="lp-eco__curve" viewBox="0 0 160 96"><path vector-effect="non-scaling-stroke" d="M136 72C98 40 60.6667 34 24 54"/><path vector-effect="non-scaling-stroke" d="M33.7 38.4L24 54L42.4 54.2"/></svg>
+          </div>
+          <h3><%= t('.user.title') %></h3>
+          <p><%= t('.user.text') %></p>
+        </div>
+        <div class="lp-eco__link lp-eco__link--up" aria-hidden="true"><span class="lp-eco__label"><%= t('.labels.request') %></span></div>
+        <div class="lp-eco__actor lp-eco__organization">
+          <span class="lp-eco__picto"><%= render partial: 'pages/home/pictogram', locals: { name: 'digital/internet' } %></span>
+          <h3><%= t('.organization.title') %></h3>
+          <p><%= t('.organization.text') %></p>
+          <div class="lp-eco__arrow lp-eco__arrow--register" aria-hidden="true">
+            <span class="lp-eco__label"><%= t('.labels.register') %></span>
+            <svg class="lp-eco__curve" viewBox="0 0 342 216" preserveAspectRatio="none"><path vector-effect="non-scaling-stroke" d="M318 24C311.333 120.667 213.333 176.667 24 192"/></svg>
+            <svg class="lp-eco__head lp-eco__head--left" viewBox="0 0 20 20"><path vector-effect="non-scaling-stroke" d="M15 3L2 10L15 17"/></svg>
+          </div>
+        </div>
+        <div class="lp-eco__link" aria-hidden="true"><span class="lp-eco__label"><%= t('.labels.register') %></span></div>
+        <div class="lp-eco__actor lp-eco__registry">
+          <div class="lp-eco__arrow lp-eco__arrow--verify" aria-hidden="true">
+            <span class="lp-eco__label"><%= t('.labels.verify') %></span>
+            <svg class="lp-eco__curve" viewBox="0 0 58 110"><path vector-effect="non-scaling-stroke" d="M34 24C27.3333 45.3333 27.3333 66 34 86"/><path vector-effect="non-scaling-stroke" d="M20.4 73.7L34 86L37.5 68"/></svg>
+          </div>
+          <span class="lp-eco__picto"><%= render partial: 'pages/home/pictogram', locals: { name: 'leisure/catalog' } %></span>
+          <h3><%= t('.registry.title') %></h3>
+          <p><%= t('.registry.text') %><span class="lp-eco__mobile" aria-hidden="true"> <%= t('.registry.mobile_text') %></span></p>
+        </div>
+        <div class="lp-eco__link" aria-hidden="true"><span class="lp-eco__label"><%= t('.labels.transmit') %></span></div>
+        <div class="lp-eco__actor lp-eco__ants">
+          <div class="lp-eco__arrow lp-eco__arrow--transmit" aria-hidden="true">
+            <span class="lp-eco__label"><%= t('.labels.transmit') %></span>
+            <svg class="lp-eco__curve" viewBox="0 0 160 40" preserveAspectRatio="none"><path vector-effect="non-scaling-stroke" d="M8 26C52 12 104 12 150 24"/></svg>
+            <svg class="lp-eco__head lp-eco__head--right" viewBox="0 0 20 20"><path vector-effect="non-scaling-stroke" d="M5 3L18 10L5 17"/></svg>
+          </div>
+          <div class="lp-eco__arrow lp-eco__arrow--certificates" aria-hidden="true">
+            <span class="lp-eco__label"><%= t('.labels.certificates') %></span>
+            <svg class="lp-eco__curve" viewBox="0 0 58 110"><path vector-effect="non-scaling-stroke" d="M29 86C22.3333 64.6667 22.3333 44 29 24"/><path vector-effect="non-scaling-stroke" d="M15.5 42L29 24L40.6 43.6"/></svg>
+          </div>
+          <span class="lp-eco__picto"><%= render partial: 'pages/home/pictogram', locals: { name: 'document/document-signature' } %></span>
+          <h3><%= t('.ants.title') %></h3>
+          <p><%= t('.ants.text') %></p>
+        </div>
+      </div>
+      <figcaption id="acteurs-legende" class="fr-sr-only"><%= t('.caption') %></figcaption>
+    </figure>
+  </div>
+</section>
