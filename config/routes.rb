@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
+  get 'connexion', to: 'pages#connexion', as: :connexion
+
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: 'sessions#failure'
 
