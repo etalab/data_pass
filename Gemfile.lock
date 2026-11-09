@@ -227,7 +227,7 @@ GEM
       request_store (>= 1.0)
       ruby2_keywords
     drb (2.2.3)
-    dsfr-assets (1.15.3)
+    dsfr-assets (1.15.4)
     dsfr-view-components (5.1.0)
       dsfr-assets (~> 1.15)
       html-attributes-utils (~> 1)
@@ -810,6 +810,7 @@ DEPENDENCIES
   doorkeeper-i18n
   dotenv-rails
   draper
+  dsfr-assets
   dsfr-view-components
   emailable
   factory_bot_rails

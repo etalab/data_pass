@@ -39,7 +39,7 @@ class Dashboard::BlankStateComponentPreview < ApplicationPreview
   # **Où** : tableau de bord demandeur, via `no_results_component` de `AbstractDashboardFacade`.
   def with_button_action
     render Dashboard::BlankStateComponent.new(
-      pictogram_path: 'artwork/pictograms/digital/information.svg',
+      pictogram_path: 'artwork/pictograms/system/information.svg',
       message: 'Nous n’avons pas trouvé de demande avec les filtres que vous avez sélectionnés'
     ) do |component|
       component.with_action do
@@ -56,7 +56,7 @@ class Dashboard::BlankStateComponentPreview < ApplicationPreview
   # aujourd’hui, les deux états du tableau de bord fournissant tous les deux une action.
   def without_action
     render Dashboard::BlankStateComponent.new(
-      pictogram_path: 'artwork/pictograms/digital/information.svg',
+      pictogram_path: 'artwork/pictograms/system/information.svg',
       message: 'Aucune donnée disponible'
     )
   end

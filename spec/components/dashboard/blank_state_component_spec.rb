@@ -85,7 +85,7 @@ RSpec.describe Dashboard::BlankStateComponent, type: :component do
   describe 'with button action' do
     let(:component) do
       render_inline(described_class.new(
-        pictogram_path: 'artwork/pictograms/digital/information.svg',
+        pictogram_path: 'artwork/pictograms/system/information.svg',
         message: 'Aucun résultat trouvé'
       )) do |c|
         c.with_action do
