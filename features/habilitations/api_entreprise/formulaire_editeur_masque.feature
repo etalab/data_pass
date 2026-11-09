@@ -11,9 +11,17 @@ Fonctionnalité: Formulaire éditeur d’API Entreprise masqué
     Alors la page ne contient pas "Formulaire spécifique aux éditeurs de logiciels"
     Et je suis sur la page "Demander une habilitation à : API Entreprise"
 
+  Scénario: Un lien direct vers le formulaire éditeur explique où trouver le questionnaire
+    Sachant que je suis un demandeur
+    Et que je me connecte
+    Quand je vais sur la page formulaires/api-entreprise-editeur/demande/nouveau
+    Alors la page contient "Le formulaire éditeur n’est plus disponible sur DataPass"
+    Et la page contient un lien vers "form.typeform.com/to/aDFr3Cg9"
+
   Scénario: Un lien direct vers le formulaire éditeur ramène un visiteur non connecté vers l’arbre d’éligibilité
     Quand je vais sur la page formulaires/api-entreprise-editeur/demande/nouveau
     Alors la page contient "Êtes-vous :"
+    Et la page contient "Le formulaire éditeur n’est plus disponible sur DataPass"
 
   Scénario: La première page du formulaire éditeur n’est pas affichée par lien direct
     Sachant que je suis un demandeur

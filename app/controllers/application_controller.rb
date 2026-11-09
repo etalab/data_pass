@@ -41,8 +41,8 @@ class ApplicationController < ActionController::Base
     flash_message(:success, title:, description:, id:, tiny:)
   end
 
-  def info_message(title:, description: nil, id: nil, tiny: false)
-    flash_message(:info, title:, description:, id:, tiny:)
+  def info_message(title:, description: nil, link: nil, id: nil, tiny: false)
+    flash_message(:info, title:, description:, link:, id:, tiny:)
   end
 
   def warning_message(title:, description: nil, id: nil, tiny: false)
