@@ -8,7 +8,7 @@ class AuthorizationRequest::APISFiP < AuthorizationRequest
   include AuthorizationExtensions::Volumetrie
   include DGFIPExtensions::APIImpotParticulierScopes
   include DGFIPExtensions::ExtraContactsInfos
-  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdresseIpPubliqueProduction
   include DGFIPExtensions::AdressePostaleContactTechnique
 
   VOLUMETRIES = {

@@ -7,7 +7,7 @@ class AuthorizationRequest::APIRial < AuthorizationRequest
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
   include DGFIPExtensions::ExtraContactsInfos
-  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdresseIpPubliqueProduction
   include DGFIPExtensions::AdressePostaleContactTechnique
 
   VOLUMETRIES = {
