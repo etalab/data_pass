@@ -1,0 +1,11 @@
+Recette sandbox : recette/2026-11-09
+Base : develop @ a622a3c6a
+
+2026-11-09 13:54 — construction
+  DPP-108    #1849   937efbbef  feature/dpp-108-migrer-les-urls-v2datapassapigouvfr-des-emails-vers
+  DPP-175    #1850   744441345  feature/dpp-175-us-orienter-les-editeurs-vers-le-typeform-de-qualification
+  DPP-4      #1852   a51654097  feature/dpp-4-us-formulaire-impayes-de-loyer-cnaf-dpo-rssi-requis
+  DPP-238    #1853   09aa19452  feature/dpp-238-montee-dsfr-1-15
+  DPP-251    #1856   ce7229313  feature/dpp-251-ts-deplacer-la-connexion-proconnect-sur-une
+  DPP-221    #1857   0db65702c  feature/dpp-221-accueil-public
+  DPP-216    #1858   a6a8beb4d  feature/dpp-216-page-portefeuille-europeen
