@@ -1,4 +1,4 @@
-RSpec.describe DGFIPExtensions::AdresseIpPublique do
+RSpec.describe DGFIPExtensions::AdresseIpPubliqueSandbox do
   subject(:authorization_request) do
     build(:authorization_request, :api_ficoba_sandbox, fill_all_attributes: true)
   end
@@ -160,10 +160,19 @@ RSpec.describe DGFIPExtensions::AdresseIpPublique do
     end
   end
 
+  describe 'alias adresse_ip_publique_sandbox' do
+    it 'lit et écrit la clé stockée adresse_ip_publique, pour ne pas changer les données ni les payloads' do
+      authorization_request.adresse_ip_publique_sandbox = '192.0.2.10'
+
+      expect(authorization_request.data['adresse_ip_publique']).to eq('192.0.2.10')
+      expect(authorization_request.adresse_ip_publique_sandbox).to eq('192.0.2.10')
+    end
+  end
+
   describe 'affichage du champ bac à sable' do
     it 'est saisissable et affiché sur un formulaire de bac à sable' do
-      expect(authorization_request.adresse_ip_publique_editable?).to be(true)
-      expect(authorization_request.adresse_ip_publique_displayed?).to be(true)
+      expect(authorization_request.adresse_ip_publique_sandbox_editable?).to be(true)
+      expect(authorization_request.adresse_ip_publique_sandbox_displayed?).to be(true)
     end
 
     context 'when the request is a production one' do
@@ -172,19 +181,19 @@ RSpec.describe DGFIPExtensions::AdresseIpPublique do
       end
 
       it 'n’est jamais saisissable' do
-        expect(authorization_request.adresse_ip_publique_editable?).to be(false)
+        expect(authorization_request.adresse_ip_publique_sandbox_editable?).to be(false)
       end
 
       it 'est affiché quand une valeur a été saisie en bac à sable' do
         authorization_request.adresse_ip_publique = '192.0.2.10'
 
-        expect(authorization_request.adresse_ip_publique_displayed?).to be(true)
+        expect(authorization_request.adresse_ip_publique_sandbox_displayed?).to be(true)
       end
 
       it 'est masqué quand aucune valeur n’a été saisie, par exemple sur un formulaire éditeur' do
         authorization_request.adresse_ip_publique = nil
 
-        expect(authorization_request.adresse_ip_publique_displayed?).to be(false)
+        expect(authorization_request.adresse_ip_publique_sandbox_displayed?).to be(false)
       end
     end
   end

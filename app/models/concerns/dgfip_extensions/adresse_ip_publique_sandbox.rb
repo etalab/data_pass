@@ -1,4 +1,4 @@
-module DGFIPExtensions::AdresseIpPublique
+module DGFIPExtensions::AdresseIpPubliqueSandbox
   extend ActiveSupport::Concern
 
   included do
@@ -13,7 +13,13 @@ module DGFIPExtensions::AdresseIpPublique
       if: -> { need_complete_validation?(:basic_infos) }
   end
 
-  def adresse_ip_publique_editable? = true
+  def adresse_ip_publique_sandbox = adresse_ip_publique
 
-  def adresse_ip_publique_displayed? = true
+  def adresse_ip_publique_sandbox=(value)
+    self.adresse_ip_publique = value
+  end
+
+  def adresse_ip_publique_sandbox_editable? = true
+
+  def adresse_ip_publique_sandbox_displayed? = true
 end
