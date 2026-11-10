@@ -9,8 +9,10 @@ DPO et RSSI.
 1. Le modèle `AuthorizationRequest::HubEE<Nom>` avec ses contacts. L’adresse
    e-mail nominative se demande avec `required_personal_email: true`, la fonction
    se retire avec `except: %w[job_title]`.
-2. Le pont `HubEE<Nom>Bridge` (hérite de `HubEEBaseBridge`) qui crée
-   l’organisation puis l’abonnement avec le `processCode` de la démarche.
+2. Le pont `HubEE<Nom>Bridge` (hérite de `HubEESingleSubscriptionBridge`) qui
+   crée l’organisation puis l’abonnement. Il suffit de définir `PROCESS_CODE`.
+   Si HubEE a déjà un abonnement pour la demande (`AlreadyExistsError`), le pont
+   le récupère par `datapassId`, prévient Sentry et stocke son identifiant.
 3. Le notifier `HubEE<Nom>Notifier` (`kind`), le gabarit
    `app/views/hubee_mailer/administrateur_metier_<kind>.text.erb`, le sujet dans
    `HubEEMailer#subject_for` et les gabarits `approve` / `reopening_approve`.
