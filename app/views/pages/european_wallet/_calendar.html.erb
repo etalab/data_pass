@@ -1,0 +1,13 @@
+<section class="fr-py-8w" id="calendrier" aria-labelledby="calendrier-titre">
+  <div class="fr-container">
+    <h2 class="fr-h3" id="calendrier-titre"><%= t('.title') %></h2>
+    <ol class="lp-wallet-calendar" role="list">
+      <% t('.items').each do |item| %>
+        <li>
+          <span class="lp-wallet-calendar__date"><%= item[:date] %></span>
+          <span><%= item[:text] %></span>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</section>

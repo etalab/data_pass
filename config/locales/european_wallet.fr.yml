@@ -1,0 +1,277 @@
+fr:
+  pages:
+    european_wallet:
+      breadcrumb:
+        home: "Accueil"
+        current: "Portefeuille européen"
+      hero:
+        title: "Le portefeuille européen et son registre"
+        paragraphs:
+          - "Le portefeuille européen d’identité numérique est une application mobile, gratuite et facultative, où chacun conserve ses attestations : identité, permis de conduire, diplôme, droits. En France, France Titres (ANTS) le développe à partir de France Identité."
+          - "Avant de demander des données à un usager via son portefeuille, une organisation s’enregistre au registre des parties utilisatrices. La DINUM tient ce registre dans DataPass et publie la fiche de chaque organisation enregistrée."
+        registry_link: "Consulter le registre public"
+        opening_date: "Le registre ouvre le 24 décembre 2026."
+        phone:
+          avatar: "E"
+          organization: "Exemple Vélos"
+          request: "souhaite accéder à vos données"
+          data_label: "Données demandées"
+          data_value: "Nom, prénoms, date de naissance"
+          purpose_label: "Pourquoi"
+          purpose_value: "Créer votre compte client"
+          registered: "Organisation enregistrée au registre"
+          refuse: "Refuser"
+          share: "Partager"
+          caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité déclarés au registre, puis accepte ou refuse."
+      actions:
+        notify: "Être prévenu de l’ouverture"
+        register: "Enregistrer mon organisation"
+        policy: "Lire la politique d’enregistrement"
+      actors:
+        title: "Les acteurs du portefeuille européen"
+        intro: "Cinq acteurs interviennent quand votre service demande des données à un usager. Les données partagées vont directement du portefeuille à votre service, sans passer par DataPass."
+        providers:
+          title: "Fournisseurs d’attestations"
+          text: "Ils délivrent l’identité, le permis de conduire ou un diplôme dans le portefeuille."
+        user:
+          title: "L’usager et son portefeuille"
+          text: "Il conserve ses attestations sur son téléphone, voit qui demande quoi et pourquoi, puis choisit ce qu’il partage."
+        organization:
+          title: "Votre organisation"
+          text: "Partie utilisatrice. Elle demande les données utiles à son service, dans la limite de ce qu’elle a déclaré."
+        registry:
+          title: "Registre des parties utilisatrices"
+          text: "Tenu par la DINUM dans DataPass, il vérifie votre organisation et publie ce qu’elle demandera et pourquoi."
+          mobile_text: "Le portefeuille vérifie que votre organisation y est enregistrée."
+        ants:
+          title: "France Titres (ANTS)"
+          text: "Elle délivre à votre organisation son certificat d’accès et un certificat d’enregistrement par usage."
+        labels:
+          issue: "délivrent les attestations"
+          request: "demande des données"
+          register: "s’enregistre"
+          verify: "vérifie l’enregistrement"
+          transmit: "transmet l’enregistrement"
+          certificates: "délivre les certificats"
+        caption: "Les fournisseurs d’attestations délivrent les attestations dans le portefeuille de l’usager. Votre organisation s’enregistre au registre des parties utilisatrices, qui transmet l’enregistrement à France Titres (ANTS). France Titres délivre à votre organisation ses certificats. Votre organisation demande ensuite des données au portefeuille, qui vérifie l’enregistrement, et l’usager choisit ce qu’il partage."
+      tabs:
+        title: "Ce qui vous concerne"
+        intro: "Choisissez votre situation."
+        label: "Ce qui vous concerne, selon votre situation"
+        organizations: "Organisations"
+        intermediaries: "Intermédiaires"
+        attestation_providers: "Fournisseurs d’attestations"
+        individuals: "Particuliers"
+      organizations:
+        concerned:
+          title: "Êtes-vous concerné ?"
+          intro: "Votre organisation s’enregistre si elle demandera des données au portefeuille de ses usagers, ou si elle y délivrera des attestations. Elle doit être établie en France."
+          entities:
+            - title: "Entreprises"
+              text: "Un dirigeant inscrit l’entreprise en se connectant avec ProConnect."
+              pictogram: "buildings/companie"
+            - title: "Administrations et collectivités"
+              text: "Un agent inscrit son administration en se connectant avec ProConnect."
+              pictogram: "buildings/city-hall"
+            - title: "Organisations établies hors de France"
+              text: "Votre organisation s’enregistre dans le pays de l’Union où elle est établie."
+              pictogram: "document/document"
+          intermediaries_hint: "Vous passez par un éditeur de logiciel ou un prestataire pour demander ces données ? Lisez aussi l’onglet « Intermédiaires »."
+        data:
+          title: "Ce que vous pourrez demander"
+          text: "À l’ouverture, vous pourrez demander les données d’identité de la personne et celles de son permis de conduire. D’autres attestations s’ajouteront dans une version suivante."
+          callout: "Si un texte impose une autorisation pour accéder à une source de données de l’administration, vous demandez toujours l’habilitation correspondante."
+        published:
+          title: "Ce que le registre publie"
+          paragraphs:
+            - "Le registre vérifie que votre organisation existe et que vous avez le pouvoir de la représenter. Il ne juge ni les données que vous demandez ni vos finalités."
+            - "Votre fiche publique indique le nom et l’identifiant de votre organisation, vos services, leurs usages, les données demandées, leurs finalités et un contact générique. L’adresse de votre établissement et vos autres contacts restent privés."
+            - "Votre fiche apparaît dès l’inscription, avec la mention « certificats en cours d’émission » jusqu’à leur délivrance. Le registre est aussi publié en open data sur data.gouv.fr."
+          entry:
+            kicker: "Registre des parties utilisatrices · fiche publique"
+            name: "Exemple Vélos"
+            fields:
+              - label: "Nom officiel"
+                value: "EXEMPLE VÉLOS SAS"
+              - label: "SIREN"
+                value: "123 456 789"
+              - label: "Service"
+                value: "Exemple Vélos Libre-service"
+              - label: "Contact"
+                value: "assistance@exemple-velos.example"
+            status_label: "Statut"
+            status: "Enregistrée"
+            uses:
+              - title: "Usage 1 : ouvrir un compte client"
+                text: "Données demandées : nom, prénoms, date de naissance. Finalité : créer votre compte client et établir le contrat de location à votre nom."
+              - title: "Usage 2 : livrer un vélo à domicile"
+                text: "Données demandées : nom, prénoms, adresse de résidence. Finalité : livrer le vélo réservé à votre domicile."
+            caption: "Exemple fictif de fiche publique : une demande porte sur un service, qui déclare un ou plusieurs usages. Chaque usage reçoit son certificat d’enregistrement."
+        steps:
+          title: "Les étapes"
+          items:
+            - title: "S’identifier avec ProConnect"
+              description: "Votre organisation est retrouvée à partir de votre connexion."
+            - title: "Déclarer votre service et vos usages"
+              description: "Un aperçu vous montre ce que lira l’usager dans son portefeuille."
+            - title: "Être vérifié par le registre"
+              description: "Le registre vérifie votre organisation. Vos usages ne sont pas examinés."
+          after: "Ensuite, déclarez sans délai tout changement de vos informations."
+      intermediaries:
+        kicker: "Intermédiaires et éditeurs"
+        title: "Vous agissez pour d’autres organisations"
+        paragraphs:
+          - "Vous êtes intermédiaire si vous demandez des données au portefeuille pour le compte d’une autre organisation, votre client. Par exemple, un éditeur dont le portail périscolaire, utilisé par une mairie, demande l’identité des parents, ou un prestataire de vérification d’identité qui travaille pour une banque."
+          - "Le règlement européen vous considère comme une partie utilisatrice : vous vous enregistrez vous aussi. Vous ne gardez aucune donnée sur le contenu des échanges que vous relayez."
+          - "Votre client reste celui qui demande les données. Son enregistrement décrit ses usages et indique qu’il passe par vous."
+          - "Les modalités de votre inscription, et la façon d’y rattacher vos clients, sont en cours de définition avec les acteurs du marché. Inscrivez-vous pour être prévenu."
+        notify_link: "Être prévenu"
+        own_service_hint: "Vous demandez des données pour votre propre service ? Lisez l’onglet « Organisations »."
+        roles:
+          client:
+            title: "Votre client"
+            text: "Une mairie, par exemple."
+          intermediary:
+            title: "Vous, l’intermédiaire"
+            text: "L’éditeur de son portail périscolaire, par exemple."
+          wallet:
+            title: "Portefeuille de l’usager"
+            text: "L’usager voit la demande et choisit ce qu’il partage."
+          on_behalf: "vous agissez pour son compte"
+          request: "vous demandez des données au"
+        caption: "Exemple : un éditeur agit pour le compte d’une mairie, son client, et demande des données au portefeuille de l’usager, qui choisit ce qu’il partage."
+      attestation_providers:
+        kicker: "Fournisseurs d’attestations"
+        title: "Vous délivrez des attestations dans le portefeuille"
+        intro: "Vous êtes fournisseur d’attestations si votre organisation dépose des attestations dans le portefeuille de ses usagers :"
+        cases:
+          - text: "Les données d’identité de la personne"
+            pictogram: "document/national-identity-card"
+          - text: "Une attestation délivrée par une administration à partir de ses propres registres, comme un diplôme ou un droit"
+            pictogram: "buildings/city-hall"
+          - text: "Une attestation qualifiée, délivrée par un prestataire de services de confiance qualifié"
+            pictogram: "document/document-signature"
+          - text: "Toute autre attestation, comme une carte d’abonnement ou un justificatif d’assurance"
+            pictogram: "document/document"
+        paragraphs:
+          - "Vous vous enregistrerez au registre, dans DataPass. Vous y présenterez votre organisation et les attestations que vous délivrez ; selon votre statut, une preuve pourra vous être demandée. Votre enregistrement permet au portefeuille de vous reconnaître comme fournisseur d’attestations."
+          - "L’enregistrement ne vous autorise pas à délivrer une attestation : si un texte encadre cette délivrance, il continue de s’appliquer."
+          - "Le formulaire qui vous est destiné est en préparation. Inscrivez-vous pour être prévenu de son ouverture."
+        role_link: "Voir le rôle des fournisseurs d’attestations"
+        notify_link: "Être prévenu"
+        phone:
+          avatar: "4"
+          title: "Mes attestations"
+          subtitle: "dans mon portefeuille"
+          rows:
+            - label: "Identité"
+              value: "Données d’identité de la personne"
+            - label: "Diplôme"
+              value: "Licence, Université d’Exemple"
+            - label: "Attestation qualifiée"
+              value: "Prestataire de confiance Exemple"
+            - label: "Abonnement"
+              value: "Carte Exemple Vélos"
+          caption: "Exemple fictif : un portefeuille qui contient quatre attestations délivrées par quatre fournisseurs différents."
+      individuals:
+        kicker: "Particuliers"
+        title: "Qui peut vous demander accès à vos données ?"
+        rights:
+          registered:
+            title: "L’organisation doit être enregistrée"
+            text: "Pour vous demander des données via votre portefeuille, une organisation doit s’enregistrer. En France, la DINUM tient ce registre dans DataPass, la vérifie et publie ce qu’elle demandera et pourquoi."
+            link: "Consulter le registre public"
+          choice:
+            title: "Vous choisissez ce que vous partagez"
+            text: "Votre portefeuille vous montre qui demande quoi et pourquoi. Vous choisissez ce que vous partagez, ou vous refusez. Vos données vont de votre téléphone à l’organisation, sans passer par DataPass."
+            link: "Découvrir France Identité"
+            link_title: "Découvrir France Identité - nouvelle fenêtre"
+          report:
+            title: "Vous pouvez la signaler"
+            text: "Si une organisation demande plus que ce qu’elle a déclaré, son enregistrement peut être suspendu. Depuis votre portefeuille, vous pouvez demander l’effacement de vos données et la signaler à la CNIL."
+            link: "Adresser une plainte à la CNIL"
+            link_title: "Adresser une plainte à la CNIL - nouvelle fenêtre"
+        who:
+          title: "Qui fait quoi"
+          items:
+            - term: "La DINUM"
+              description: "Coordonne les dispositifs qui encadrent le portefeuille et tient le registre."
+            - term: "France Titres (ANTS)"
+              description: "Développe le portefeuille français."
+            - term: "L’ANSSI"
+              description: "Évalue sa sécurité."
+            - term: "La CNIL"
+              description: "Veille à la protection de vos données."
+        dinum_link: "Tout savoir sur le portefeuille européen"
+        dinum_link_title: "Tout savoir sur le portefeuille européen - nouvelle fenêtre"
+      calendar:
+        title: "Calendrier"
+        items:
+          - date: "24 décembre 2026"
+            text: "Le registre ouvre."
+          - date: "Courant 2027"
+            text: "Chaque État membre propose son portefeuille européen."
+          - date: "24 décembre 2027"
+            text: "Les services privés tenus à une authentification forte (banque, énergie, transports, santé, télécommunications, entre autres) acceptent le portefeuille quand l’usager le demande. Les micro et petites entreprises ne sont pas concernées."
+          - date: "11 août 2028"
+            text: "Les portefeuilles contrôlent les certificats d’enregistrement."
+      registry:
+        title: "Le registre public"
+        text: "Consultez la fiche de chaque organisation enregistrée : ses services, les données qu’elle demande et pourquoi. Le registre est aussi publié en open data sur data.gouv.fr."
+        link: "Consulter le registre public"
+      faq:
+        title: "Questions fréquentes"
+        organizations_title: "Votre organisation"
+        organizations:
+          - question: "Mon organisation doit-elle accepter le portefeuille ?"
+            answer: "Une administration qui demande une identification en ligne accepte le portefeuille. Une entreprise tenue à une authentification forte l’accepte à partir du 24 décembre 2027, à la demande de l’usager."
+          - question: "Où sont conservées les données de mes usagers ?"
+            answer: "Sur leur téléphone, dans leur portefeuille, et non sur un serveur central. Chaque attestation porte une signature qui permet d’en vérifier l’origine, l’intégrité et la validité."
+          - question: "Le registre peut-il refuser les données que je demande ?"
+            answer: "Le registre vérifie votre organisation et votre pouvoir de la représenter. Il publie les données que vous demandez et vos finalités, sans les soumettre à autorisation. Il peut suspendre votre enregistrement si vous demandez à un usager plus de données que vous n’en avez déclaré."
+          - question: "Quelle différence entre certificat d’accès et certificat d’enregistrement ?"
+            answer: "Le certificat d’accès identifie votre organisation auprès du portefeuille européen ; l’ANTS le délivre. Le certificat d’enregistrement décrit un usage, les données demandées et leur finalité : le portefeuille s’en sert pour vérifier que votre demande reste dans ce que vous avez déclaré. Vous recevez un certificat d’enregistrement par usage."
+          - question: "Comment tester avant l’ouverture ?"
+            answer: 'La Commission européenne propose un service de test qui délivre des certificats de test : <a href="https://registry.serviceproviders.eudiw.dev/" target="_blank" rel="noopener" title="registry.serviceproviders.eudiw.dev - nouvelle fenêtre">registry.serviceproviders.eudiw.dev<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.'
+          - question: "Que se passe-t-il si mes informations changent, ou si mon enregistrement est suspendu ?"
+            answer: "Vous déclarez tout changement sans délai depuis DataPass. Si vous ne modifiez que vos usages, le registre ne vous vérifie pas à nouveau. Si l’identité de votre organisation change (SIRET, nom, adresse), vous demandez la suppression de votre enregistrement, puis vous déposez une nouvelle demande."
+          - question: "Que se passe-t-il si ma demande est rejetée ?"
+            answer: "Vous pouvez créer une nouvelle demande, préremplie à partir de la demande rejetée."
+        partners_title: "Intermédiaires et fournisseurs d’attestations"
+        partners:
+          - question: "Je développe un logiciel pour des organisations qui demanderont des données : dois-je m’enregistrer ?"
+            answer: "Oui, comme intermédiaire. Les modalités de votre inscription sont en préparation."
+          - question: "Je délivre des attestations : où m’enregistrer ?"
+            answer: "Dans DataPass, quand le formulaire qui vous est destiné ouvrira."
+        individuals_title: "Vous êtes un particulier"
+        individuals:
+          - question: "Suis-je obligé d’utiliser le portefeuille européen ?"
+            answer: "Non. Vous pouvez toujours faire vos démarches par les moyens habituels, et ne pas l’utiliser ne vous désavantage pas."
+          - question: "Le portefeuille est-il payant ?"
+            answer: "Non, il est gratuit pour les particuliers."
+          - question: "Où sont conservées mes données ?"
+            answer: "Sur votre téléphone, dans votre portefeuille, et non sur un serveur central."
+          - question: "DataPass voit-il mes données ?"
+            answer: "Non. DataPass tient le registre des organisations ; les données que vous partagez vont de votre portefeuille à l’organisation."
+          - question: "Comment savoir si une organisation est enregistrée ?"
+            answer: 'Cherchez-la dans le <a href="#registre-public">registre public</a> par son nom ou son SIREN.'
+          - question: "Une organisation me demande des données qu’elle n’a pas déclarées : que faire ?"
+            answer: "Refusez le partage. Depuis votre portefeuille, vous pouvez la signaler à la CNIL."
+      notify:
+        before_opening:
+          title: "Être prévenu de l’ouverture du registre"
+          text: "Nous vous écrirons à l’ouverture du registre, à la publication de la politique d’enregistrement, et quand le parcours qui vous concerne ouvrira."
+          submit_title: "M’inscrire pour être prévenu de l’ouverture"
+        after_opening:
+          title: "Être prévenu de l’ouverture de votre formulaire"
+          text: "Le registre est ouvert aux organisations qui demandent des données. Nous vous écrirons quand le formulaire des intermédiaires ou celui des fournisseurs d’attestations ouvrira."
+          submit_title: "M’inscrire pour être prévenu de l’ouverture de mon formulaire"
+        legend: "Vous êtes"
+        profiles:
+          organization: "Une entreprise ou une administration qui demandera des données"
+          intermediary: "Un intermédiaire ou un éditeur de logiciel"
+          attestation_provider: "Un fournisseur d’attestations"
+        email_label: "Votre adresse électronique"
+        email_hint: "Format attendu : nom@example.com"
+        submit: "M’inscrire"
+        unsubscribe: "Vous pourrez vous désinscrire à tout moment avec le lien présent dans chaque message."
