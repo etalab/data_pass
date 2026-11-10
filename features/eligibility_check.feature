@@ -71,3 +71,26 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
     Quand je démarre une nouvelle demande d'habilitation "API Mobilic"
     Alors la page ne contient pas "Êtes-vous :"
     Et la page contient "S’identifier avec ProConnect"
+
+  Scénario: API Entreprise affiche ses propres libellés d’éligibilité
+    Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Alors la page contient "Un particulier"
+    Et la page contient "Une entité publique ou un organisme privé investi d’une mission de service public"
+    Et la page contient "Une entreprise ou une association souhaitant intégrer API Entreprise en tant qu’éditeur"
+    Et la page ne contient pas "Une collectivité ou une administration"
+
+  Scénario: Une entité publique d’API Entreprise est éligible et continue le parcours habituel
+    Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Et je choisis "Une entité publique ou un organisme privé investi d’une mission de service public"
+    Alors la page contient "vous êtes éligible à l'utilisation de l'API Entreprise"
+    Et il y a un bouton "Demander l'accès aux données"
+
+  Scénario: Un éditeur est orienté vers le questionnaire de qualification
+    Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Et je choisis "Une entreprise ou une association souhaitant intégrer API Entreprise en tant qu’éditeur"
+    Alors la page contient "Vous n’avez pas besoin de faire une demande sur DataPass"
+    Et la page contient un lien vers "form.typeform.com"
+    Et la page contient "nouvelle fenêtre"
+    Et il y a un bouton "Répondre au questionnaire éditeur"
+    Et la page ne contient pas "Demander l'accès aux données"
+    Et la page ne contient pas "Déposer une demande Editeur"

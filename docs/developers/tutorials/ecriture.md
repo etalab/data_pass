@@ -158,7 +158,7 @@ Une demande créée par l’API est un brouillon : seules les validations d’un
 
 La création applique aussi les règles d’accès du formulaire web. Elle est refusée en `422` dans les cas suivants :
 
-- le formulaire n’est pas ouvert aux demandeurs (par exemple une étape de production, qui ne se démarre qu’à partir de la demande de bac à sable) : erreur « Formulaire non disponible » ;
+- le formulaire n’est pas ouvert aux demandeurs (par exemple une étape de production, qui ne se démarre qu’à partir de la demande de bac à sable, ou le formulaire éditeur d’API Entreprise `api-entreprise-editeur`, retiré au profit du questionnaire de qualification de l’équipe API Entreprise) : erreur « Formulaire non disponible » ;
 - l’organisation est fermée selon l’INSEE : erreur « Organisation fermée » ;
 - le type d’habilitation est unique par organisation et une demande est déjà en cours ou validée : erreur « Demande déjà existante » ;
 - le demandeur a été exclu de DataPass : erreur « Demandeur invalide », sans plus de précision.

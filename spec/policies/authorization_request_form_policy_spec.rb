@@ -23,6 +23,13 @@ RSpec.describe AuthorizationRequestFormPolicy do
     end
   end
 
+  describe 'API Entreprise editeur form, hidden in favour of the qualification questionnaire' do
+    let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-editeur') }
+
+    it { expect(instance.new?).to be(false) }
+    it { expect(instance.create?).to be(false) }
+  end
+
   describe '#create?' do
     subject { instance.create? }
 
