@@ -211,7 +211,7 @@ end
 
 Sachantque('je me connecte') do
   steps %(
-    Quand je me rends sur la page d'accueil
+    Quand je me rends sur la page de connexion
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
@@ -225,7 +225,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identi
   mock_proconnect(user, identity_provider_uid: identity_provider.id)
 
   steps %(
-    Quand je me rends sur la page d'accueil
+    Quand je me rends sur la page de connexion
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
@@ -239,7 +239,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string} sans double 
   mock_proconnect(user, identity_provider_uid: identity_provider.id, acr: 'eidas1')
 
   steps %(
-    Quand je me rends sur la page d'accueil
+    Quand je me rends sur la page de connexion
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
@@ -265,7 +265,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l
   mock_proconnect(user, identity_provider_uid: identity_provider.id, siret: organization.siret)
 
   steps %(
-    Quand je me rends sur la page d'accueil
+    Quand je me rends sur la page de connexion
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
