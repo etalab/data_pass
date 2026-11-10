@@ -1,0 +1,10 @@
+Recette sandbox : recette/2026-11-10
+Base : develop @ 1a277e28d
+
+2026-11-10 14:39 — construction
+  DPP-175    #1850   5f8fce0ae  feature/dpp-175-us-orienter-les-editeurs-vers-le-typeform-de-qualification
+  DPP-215    #1848   71d3b9443  feature/dpp-215-api-une-chaine-dans-un-champ-document-renvoie-une-500-au
+  DPP-217    #1862   96e6a1e30  feature/dpp-217-demande-externe-dgfip-distinguer-adresse-ip
+  DPP-251    #1856   22e0271c9  feature/dpp-251-ts-deplacer-la-connexion-proconnect-sur-une
+  DPP-221    #1857   0effc16ec  feature/dpp-221-accueil-public
+  DPP-216    #1858   8882c9fd6  feature/dpp-216-page-portefeuille-europeen
