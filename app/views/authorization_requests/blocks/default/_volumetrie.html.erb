@@ -20,4 +20,16 @@
       </p>
     </div>
   <% end%>
+
+  <% if authorization_request.respond_to?(:adresse_ip_publique_production) %>
+    <div class="summary-block__container">
+      <strong>
+        <%= f.label_value(:adresse_ip_publique_production) %>
+      </strong>
+
+      <p>
+        <%= authorization_request.adresse_ip_publique_production || 'Non renseigné' %>
+      </p>
+    </div>
+  <% end %>
 <% end %>
