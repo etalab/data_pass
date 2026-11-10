@@ -215,6 +215,8 @@ api-entreprise-editeur:
     Demande permettant aux éditeurs d'intégrer API Entreprise pour leurs clients publics.
   introduction: |
     Ce formulaire est exclusivement destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics et ne vaut pas habilitation à être destinataire des données de l'API Entreprise.
+  public: false
+  startable_by_applicant: false
   authorization_request: "APIEntreprise"
   use_case: "specific_editeurs"
   steps:

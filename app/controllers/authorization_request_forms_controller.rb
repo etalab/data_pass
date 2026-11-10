@@ -28,9 +28,14 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       save_redirect_path
       render 'authorization_requests/unauthenticated_start'
     end
+  rescue Pundit::NotAuthorizedError
+    explain_unavailable_form
+    redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
   end
 
   def start
+    authorize @authorization_request_form, :create?
+
     @authorization_request = BuildAuthorizationRequest.call(
       authorization_request_form: @authorization_request_form,
       applicant: current_user,
@@ -85,6 +90,18 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   private
+
+  def explain_unavailable_form
+    return unless @authorization_request_form.uid == 'api-entreprise-editeur'
+
+    editor_option = EligibilityRule.find_by(definition_id: 'api_entreprise').options.find { |option| option.type == 'entreprise_ou_association' }
+
+    info_message(
+      title: t('authorization_request_forms.new.editor_form_unavailable.title'),
+      description: t('authorization_request_forms.new.editor_form_unavailable.description'),
+      link: { label: t('authorization_request_forms.new.editor_form_unavailable.link'), url: editor_option.cta['url'] },
+    )
+  end
 
   def redirect_on_unauthorized_summary
     flash.keep

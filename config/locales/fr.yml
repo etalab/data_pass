@@ -533,6 +533,10 @@ fr:
   authorization_request_forms:
     form_not_found: Le cas d’usage demandé n'existe pas
     new:
+      editor_form_unavailable:
+        title: Le formulaire éditeur n’est plus disponible sur DataPass
+        description: Si vous êtes éditeur de logiciel, répondez au questionnaire de l’équipe API Entreprise.
+        link: Répondre au questionnaire éditeur
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
       organization:
