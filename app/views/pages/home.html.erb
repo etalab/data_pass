@@ -1,7 +1,16 @@
 <% set_title! t('page_titles.home') %>
 
-<% content_for :content_skip_link_text do %>
-  Bienvenue sur DataPass
-<% end %>
+<%= render DsfrComponent::NoticeComponent.new(
+  title: t('.notice.title'),
+  description: '',
+  link_label: t('.notice.link'),
+  link_href: european_wallet_page_path,
+  link_blank: false
+) %>
 
-<%= render partial: 'pages/sign_in' %>
+<%= render partial: 'pages/home/hero' %>
+<%= render partial: 'pages/home/administrations' %>
+<%= render partial: 'pages/home/wallet_teaser' %>
+<%= render partial: 'pages/home/applicants' %>
+<%= render partial: 'pages/home/why' %>
+<%= render partial: 'pages/home/faq' %>
