@@ -61,6 +61,10 @@ Ignorez les scopes dont `deprecated` est à `true`.
 
 Seules les clés listées dans `definition.data` seront acceptées. Toute clé supplémentaire est ignorée silencieusement ou produit une erreur `422` selon la définition.
 
+Les clés de documents (par exemple `maquette_projet`) n’acceptent que des fichiers envoyés en `multipart/form-data`. Un texte (contenu base64, URL…) est refusé avec une erreur `422` « Document invalide », dont `source.pointer` désigne la clé en cause. Attention : envoyer des fichiers sur une clé de document remplace l’ensemble des fichiers déjà présents sur cette clé. Un tableau vide ou ne contenant que des valeurs vides (par exemple `[]`, `[""]` ou `[" "]`) supprime tous les fichiers existants de la clé. En revanche, `null` et `""` sont ignorés et ne modifient rien. N’envoyez que les clés de documents que vous souhaitez réellement remplacer, et omettez les autres.
+
+Les paramètres `demande` et `data` doivent être des objets clé / valeur : un texte ou un tableau est refusé avec une erreur `422` « Paramètre invalide » (`demande`) ou « Données invalides » (`data`).
+
 ## Cas d'usage : création depuis un formulaire / CRM
 
 Scénario : un agent saisit une demande dans votre CRM ; vous la poussez vers DataPass en `draft`, puis l'agent continue sur l'interface DataPass pour soumission.
@@ -161,6 +165,7 @@ La création applique aussi les règles d’accès du formulaire web. Elle est r
 - le formulaire n’est pas ouvert aux demandeurs (par exemple une étape de production, qui ne se démarre qu’à partir de la demande de bac à sable, ou le formulaire éditeur d’API Entreprise `api-entreprise-editeur`, retiré au profit du questionnaire de qualification de l’équipe API Entreprise) : erreur « Formulaire non disponible » ;
 - l’organisation est fermée selon l’INSEE : erreur « Organisation fermée » ;
 - le type d’habilitation est unique par organisation et une demande est déjà en cours ou validée : erreur « Demande déjà existante » ;
+- une clé de document reçoit du texte au lieu d’un fichier : erreur « Document invalide » ;
 - le demandeur a été exclu de DataPass : erreur « Demandeur invalide », sans plus de précision.
 
 Le format des erreurs suit la convention JSON:API. Exemple de réponse `422` :
@@ -272,6 +277,9 @@ La demande ne change pas et reste dans son état dans les cas suivants, au forma
 | --- | --- | --- |
 | « Demande invalide » | une donnée est manquante ou invalide : une erreur par champ | `/data/<champ>` |
 | « Consentement manquant » | une case exigée n’est pas transmise à `true` | `/consentement/<case>` |
+| « Paramètre invalide » | `demande` n’est pas un objet clé / valeur | `/demande` |
+| « Données invalides » | `data` n’est pas un objet clé / valeur | — |
+| « Document invalide » | une clé de document ne reçoit pas un fichier `multipart/form-data` | `/data/<champ>` |
 | « État non modifiable » | la demande n’est pas `draft` ou `changes_requested` | — |
 
 ```json
