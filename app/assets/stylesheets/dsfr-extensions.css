@@ -309,3 +309,10 @@ code.code-inline {
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
 }
+
+@media print {
+  .fr-tabs {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+}
