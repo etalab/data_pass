@@ -120,7 +120,7 @@ fr:
       tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
       external_links:
         - info.gouv.fr
-        - service-public.fr
+        - service-public.gouv.fr
         - legifrance.gouv.fr
         - data.gouv.fr
     claim_instructor_draft_request:

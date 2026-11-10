@@ -10,9 +10,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "dsfr-fonts", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "dsfr", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "dsfr-utility", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "dsfr.min", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "dsfr.print.min", media: "print", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "utility/dsfr-utility.min", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "dsfr-extensions", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -24,8 +24,6 @@
     <%  Dir[Rails.root.join("app/assets/stylesheets/pages/*.css")].each do |path| %>
       <%= stylesheet_link_tag "pages/#{File.basename(path)}", "data-turbo-track": "reload" %>
     <% end %>
-
-    <%= javascript_include_tag "dsfr.module", "data-turbo-track": "reload" %>
 
     <%= javascript_importmap_tags %>
 
@@ -67,5 +65,8 @@
         <% end %>
       -->
     <% end %>
+
+    <%= javascript_include_tag "dsfr.module.min", type: "module" %>
+    <%= javascript_include_tag "dsfr.nomodule.min", nomodule: true %>
   </body>
 </html>
