@@ -1,4 +1,4 @@
-RSpec.describe DGFIPExtensions::AdresseIpPublique do
+RSpec.describe DGFIPExtensions::AdresseIpPubliqueSandbox do
   subject(:authorization_request) do
     build(:authorization_request, :api_ficoba_sandbox, fill_all_attributes: true)
   end
@@ -107,8 +107,94 @@ RSpec.describe DGFIPExtensions::AdresseIpPublique do
       expect(authorization_request.static_data_already_filled?(:basic_infos)).to be(true)
     end
 
-    it 'porte tout de même l’attribut, pour afficher la valeur saisie en bac à sable' do
+    it 'porte tout de même l’attribut bac à sable, pour afficher la valeur saisie en bac à sable' do
       expect(authorization_request).to respond_to(:adresse_ip_publique)
+    end
+
+    it 'n’exige pas l’adresse IP de bac à sable' do
+      authorization_request.adresse_ip_publique = nil
+
+      expect(authorization_request.valid?(:submit)).to be(true)
+    end
+
+    describe 'adresse IP de production' do
+      it 'bloque la soumission tant qu’elle est vide' do
+        authorization_request.adresse_ip_publique_production = nil
+
+        expect(authorization_request.valid?(:submit)).to be(false)
+        expect(authorization_request.errors[:adresse_ip_publique_production]).to be_present
+      end
+
+      it 'refuse une adresse privée' do
+        authorization_request.adresse_ip_publique_production = '192.168.1.10'
+
+        expect(authorization_request.valid?(:submit)).to be(false)
+      end
+
+      it 'accepte une adresse et une plage publiques' do
+        authorization_request.adresse_ip_publique_production = '192.0.2.10, 203.0.113.0/24'
+
+        expect(authorization_request.valid?(:submit)).to be(true)
+      end
+
+      it 'ne bloque pas l’enregistrement d’un bloc depuis la synthèse' do
+        authorization_request.state = 'changes_requested'
+        authorization_request.adresse_ip_publique_production = nil
+
+        expect(authorization_request.valid?(:review)).to be(true)
+      end
+
+      it 'laisse valide une demande déjà validée sans adresse de production' do
+        authorization_request.adresse_ip_publique_production = nil
+        authorization_request.state = 'validated'
+        authorization_request.last_validated_at = 1.month.ago
+
+        expect(authorization_request).to be_valid
+      end
+    end
+  end
+
+  describe 'formulaire de bac à sable' do
+    it 'ne porte pas l’adresse IP de production' do
+      expect(authorization_request).not_to respond_to(:adresse_ip_publique_production)
+    end
+  end
+
+  describe 'alias adresse_ip_publique_sandbox' do
+    it 'lit et écrit la clé stockée adresse_ip_publique, pour ne pas changer les données ni les payloads' do
+      authorization_request.adresse_ip_publique_sandbox = '192.0.2.10'
+
+      expect(authorization_request.data['adresse_ip_publique']).to eq('192.0.2.10')
+      expect(authorization_request.adresse_ip_publique_sandbox).to eq('192.0.2.10')
+    end
+  end
+
+  describe 'affichage du champ bac à sable' do
+    it 'est saisissable et affiché sur un formulaire de bac à sable' do
+      expect(authorization_request.adresse_ip_publique_sandbox_editable?).to be(true)
+      expect(authorization_request.adresse_ip_publique_sandbox_displayed?).to be(true)
+    end
+
+    context 'when the request is a production one' do
+      subject(:authorization_request) do
+        build(:authorization_request, :api_ficoba_production, fill_all_attributes: true)
+      end
+
+      it 'n’est jamais saisissable' do
+        expect(authorization_request.adresse_ip_publique_sandbox_editable?).to be(false)
+      end
+
+      it 'est affiché quand une valeur a été saisie en bac à sable' do
+        authorization_request.adresse_ip_publique = '192.0.2.10'
+
+        expect(authorization_request.adresse_ip_publique_sandbox_displayed?).to be(true)
+      end
+
+      it 'est masqué quand aucune valeur n’a été saisie, par exemple sur un formulaire éditeur' do
+        authorization_request.adresse_ip_publique = nil
+
+        expect(authorization_request.adresse_ip_publique_sandbox_displayed?).to be(false)
+      end
     end
   end
 end
