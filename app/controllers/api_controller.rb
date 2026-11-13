@@ -24,13 +24,17 @@ class APIController < ActionController::API
   def set_authorization_request
     @authorization_request = AuthorizationRequest
       .where(type: current_user_authorization_request_types)
-      .find(params[:authorization_request_id] || params[:id])
+      .find(without_prefix(params[:authorization_request_id] || params[:id], 'D'))
   end
 
   def set_authorization
     @authorization = Authorization
       .where(authorization_request_class: current_user_authorization_request_types)
-      .find(params[:authorization_id] || params[:id])
+      .find(without_prefix(params[:authorization_id] || params[:id], 'H'))
+  end
+
+  def without_prefix(id, prefix)
+    id.to_s.delete_prefix(prefix)
   end
 
   def set_authorization_definition

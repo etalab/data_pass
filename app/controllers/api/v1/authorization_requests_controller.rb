@@ -85,7 +85,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     @authorization_request = AuthorizationRequest
       .includes(:authorizations, :organization, :events_without_bulk_update, :applicant)
       .where(type: current_user_authorization_request_types)
-      .find(params[:authorization_request_id] || params[:id])
+      .find(without_prefix(params[:authorization_request_id] || params[:id], 'D'))
   end
 
   def consent_params
