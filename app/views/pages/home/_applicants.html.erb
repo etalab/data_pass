@@ -50,10 +50,14 @@
         <p class="lp-steps__desc"><%= t('.steps.find.open_data') %></p>
         <ul class="lp-steps__links">
           <li>
-            <%= link_to t('.steps.find.simplifions'), 'https://simplifions.data.gouv.fr/', class: 'fr-link', target: '_blank', rel: 'noopener', title: t('.steps.find.simplifions_title') %>
+            <%= link_to 'https://simplifions.data.gouv.fr/', class: 'fr-link', target: '_blank', rel: 'noopener', title: t('.steps.find.simplifions_title') do %>
+              <%= t('.steps.find.simplifions') %><span class="fr-sr-only"> - <%= t('shared.new_window') %></span>
+            <% end %>
           </li>
           <li>
-            <%= link_to t('.steps.find.data_gouv'), 'https://www.data.gouv.fr/dataservices', class: 'fr-link', target: '_blank', rel: 'noopener', title: t('.steps.find.data_gouv_title') %>
+            <%= link_to 'https://www.data.gouv.fr/dataservices', class: 'fr-link', target: '_blank', rel: 'noopener', title: t('.steps.find.data_gouv_title') do %>
+              <%= t('.steps.find.data_gouv') %><span class="fr-sr-only"> - <%= t('shared.new_window') %></span>
+            <% end %>
           </li>
         </ul>
       </li>
