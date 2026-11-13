@@ -2215,11 +2215,13 @@ api-particulier-arpege-concerto-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2230,6 +2232,7 @@ api-particulier-arpege-concerto-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2248,6 +2251,7 @@ api-particulier-aiga-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
 
       # Scopes FranceConnect
       - family_name
@@ -2262,6 +2266,7 @@ api-particulier-aiga-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
 
       # Scopes FranceConnect
       - family_name
@@ -2281,6 +2286,7 @@ api-particulier-aiga-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     contact_technique_type: "organization"
     contact_technique_email: "api-particulier@aiga.fr"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_aiga_petite_enfance_contact_technique_phone_number || '0472532200' %>"
@@ -2302,11 +2308,13 @@ api-particulier-teamnet-axel-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2317,6 +2325,7 @@ api-particulier-teamnet-axel-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2660,6 +2669,7 @@ api-particulier-tarification-eaje:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed: *tarification_eaje_fixed_scopes
   steps:
     - name: basic_infos
@@ -2726,11 +2736,13 @@ api-particulier-technocarte-babicarte:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2741,6 +2753,7 @@ api-particulier-technocarte-babicarte:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2759,11 +2772,13 @@ api-particulier-sigec-maelis-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2774,6 +2789,7 @@ api-particulier-sigec-maelis-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2792,11 +2808,13 @@ api-particulier-city-family-mushroom-software-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2807,6 +2825,7 @@ api-particulier-city-family-mushroom-software-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2825,11 +2844,13 @@ api-particulier-carte-plus-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2840,6 +2861,7 @@ api-particulier-carte-plus-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2858,11 +2880,13 @@ api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2873,6 +2897,7 @@ api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     <<: *api_particulier_familea_contact_technique
 
 api-particulier-abelium-petite-enfance:
@@ -2894,11 +2919,13 @@ api-particulier-hoptis-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2909,6 +2936,7 @@ api-particulier-hoptis-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     <<: *api_particulier_hoptis_contact_technique
     modalities:
       - params
@@ -2928,11 +2956,13 @@ api-particulier-agora-baby:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2943,6 +2973,7 @@ api-particulier-agora-baby:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2961,11 +2992,13 @@ api-particulier-bl-enfance-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -2976,6 +3009,7 @@ api-particulier-bl-enfance-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -2994,6 +3028,7 @@ api-particulier-civil-petite-enfance-ciril-group:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
 
       # Scopes FranceConnect
       - family_name
@@ -3008,6 +3043,7 @@ api-particulier-civil-petite-enfance-ciril-group:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
 
       # Scopes FranceConnect
       - family_name
@@ -3027,6 +3063,7 @@ api-particulier-civil-petite-enfance-ciril-group:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -3045,11 +3082,13 @@ api-particulier-docaposte-fast-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -3060,6 +3099,7 @@ api-particulier-docaposte-fast-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -3078,11 +3118,13 @@ api-particulier-entrouvert-publik-famille-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -3093,6 +3135,7 @@ api-particulier-entrouvert-publik-famille-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -3111,11 +3154,13 @@ api-particulier-opticreche-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
@@ -3126,6 +3171,7 @@ api-particulier-opticreche-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_email || 'tech-opticreche@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_opticreche_petite_enfance_contact_technique_family_name || 'Dupont' %>"
@@ -3149,11 +3195,13 @@ api-particulier-capcreche-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
@@ -3164,6 +3212,7 @@ api-particulier-capcreche-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_capcreche_petite_enfance_contact_technique_email || 'tech-capcreche@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_capcreche_petite_enfance_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_capcreche_petite_enfance_contact_technique_family_name || 'Dupont' %>"
@@ -3187,11 +3236,13 @@ api-particulier-daycare-app-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
@@ -3202,6 +3253,7 @@ api-particulier-daycare-app-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_daycare_app_petite_enfance_contact_technique_email || 'tech-daycare-app@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_daycare_app_petite_enfance_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_daycare_app_petite_enfance_contact_technique_family_name || 'Dupont' %>"
@@ -3225,11 +3277,13 @@ api-particulier-clartec-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -3240,6 +3294,7 @@ api-particulier-clartec-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     modalities:
       - params
 
@@ -3258,11 +3313,13 @@ api-particulier-studio1247-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     displayed:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
   initialize_with:
     intitule: Tarification d’accueil du jeune enfant par un EAJE bénéficiant de la PSU
     description: |
@@ -3273,6 +3330,7 @@ api-particulier-studio1247-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+      - cnav_participation_familiale_eaje_dossier_allocataire
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_email || 'tech-gertrude@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_studio1247_contact_technique_family_name || 'Dupont' %>"
