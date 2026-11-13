@@ -6,8 +6,6 @@ fr:
         rights: Les droits
     errors:
       messages: &active_record_messages_errors
-        email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation pour que l'on valide manuellement cette adresse."
-        email_deliverability_unknown: "n'a pas pu être vérifiée : merci de vérifier que cette adresse email est bien valide. Si tel est le cas, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation ainsi que l'email pour que celle-ci soit validée manuellement."
         url_format: "n'est pas un lien valide"
         already_exists: "Votre organisation a déjà une demande en cours ou une habilitation pour ce service : il ne peut y en avoir qu’une."
         invalid_french_phone_format: "doit être un numéro de téléphone français. Exemple : 0199001234 ou +33199001234."

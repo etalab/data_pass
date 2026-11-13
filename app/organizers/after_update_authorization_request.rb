@@ -1,5 +1,4 @@
 class AfterUpdateAuthorizationRequest < ApplicationOrganizer
-  organize VerifyContactsEmailsAsynchronously,
-    CreateAuthorizationRequestEventModel,
+  organize CreateAuthorizationRequestEventModel,
     DeliverAuthorizationRequestNotification
 end

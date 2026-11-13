@@ -12,19 +12,20 @@ Fonctionnalité: Soumission depuis la page de résumé d'une demande en attente 
     Et que je me connecte
 
   @javascript
-  Scénario: L'erreur d'email non joignable est affichée ainsi que les onglets lors de la soumission depuis la page de résumé d'une demande à modifier
+  Scénario: L'erreur de soumission est affichée ainsi que les onglets lors de la soumission depuis la page de résumé d'une demande à modifier
     Quand j'ai 1 demande d'habilitation "API Entreprise" en attente de modification
-    Et qu'il y a l'email "jean.dupont.contact_technique@gouv.fr" marqué en tant que "non délivrable"
+    Et que les conditions générales d’utilisation de cette demande ne sont pas acceptées
     Et que je me rends sur cette demande d'habilitation
     Et que je clique sur "Soumettre la demande d'habilitation"
     Alors il y a un message d'erreur contenant "Nous n’avons pas pu transmettre votre demande"
     Et je vois l'onglet "Demande"
 
   @javascript
-  Scénario: L'erreur d'email non joignable est affichée ainsi que les onglets lors de la soumission depuis la page de résumé d'un draft
+  Scénario: L'erreur de soumission est affichée ainsi que les onglets lors de la soumission depuis la page de résumé d'un draft
     Quand j'ai 1 demande d'habilitation "API Entreprise" en brouillon et rempli
-    Et qu'il y a l'email "jean.dupont.contact_technique@gouv.fr" marqué en tant que "non délivrable"
+    Et que les conditions générales d’utilisation de cette demande ne sont pas acceptées
     Et que je me rends sur la page résumé de cette demande
+    Et que le navigateur ne bloque pas la soumission des cases à cocher obligatoires
     Et que je clique sur "Soumettre la demande d'habilitation"
     Alors il y a un message d'erreur contenant "Nous n’avons pas pu transmettre votre demande"
     Et je ne vois pas l'onglet "Demande"
