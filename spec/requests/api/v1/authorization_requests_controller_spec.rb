@@ -152,6 +152,29 @@ RSpec.describe 'API: Authorization requests' do
 
     let(:id) { authorization_request.id }
 
+    context 'when the id carries the interface prefix' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+      let(:id) { authorization_request.formatted_id }
+
+      it 'finds the request like with the bare id' do
+        get_show
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body['id']).to eq(authorization_request.id)
+      end
+    end
+
+    context 'when the id carries the prefix of habilitations' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+      let(:id) { "H#{authorization_request.id}" }
+
+      it 'responds 404' do
+        get_show
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context 'when the user is a developer for the authorization request' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise) }
 

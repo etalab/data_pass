@@ -11,6 +11,19 @@ RSpec.describe 'API: Authorizations' do
 
     let!(:authorization) { create(:authorization, request: authorization_request) }
 
+    context 'when the id carries the interface prefix' do
+      subject(:get_show) do
+        get "/api/v1/habilitations/#{authorization.formatted_id}", headers: { 'Authorization' => "Bearer #{access_token.token}" }
+      end
+
+      it 'finds the authorization like with the bare id' do
+        get_show
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body['id']).to eq(authorization.id)
+      end
+    end
+
     context 'when the authorization exists and user has access to it' do
       it 'responds OK with data' do
         get_show
