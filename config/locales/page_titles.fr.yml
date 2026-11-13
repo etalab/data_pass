@@ -34,6 +34,7 @@ fr:
 
     admin_home: Espace administrateur
     admin_users_with_roles: Utilisateurs avec rôles
+    admin_user_rights: Utilisateurs et rôles
     admin_whitelisted_emails: Emails en liste blanche
     admin_user_organization_verifications: Vérification lien utilisateur / organisation
 
@@ -48,7 +49,7 @@ fr:
     instruction_initiated_requests: Demandes initiées par les instructeurs
     instruction_draft_requests_new: Initier une demande d’habilitation
     instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
-    instruction_user_rights: Gestion des droits
+    instruction_user_rights: Gestion des rôles
     admin_habilitation_types: "Formulaires"
 
     notification_unsubscription_show: Désinscription des notifications

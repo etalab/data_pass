@@ -30,6 +30,14 @@ class Rights::ManagerAuthority < Rights::Authority
     false
   end
 
+  def visible_users
+    User.with_any_role_on(managed_definitions.map(&:id))
+  end
+
+  def edits?(target)
+    target != user && target.roles.any? { |role_string| covers_role?(role_string) }
+  end
+
   def audit_event_name
     'user_rights_changed_by_manager'
   end
