@@ -36,13 +36,13 @@
           <%= link_to "Politique de confidentialité", politique_confidentialite_path, class: "fr-footer__bottom-link" %>
         </li>
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" target="_blank" href="https://datapass.api.gouv.fr/cgus/cgu_datapass.pdf">Conditions Générales d’Utilisation</a>
+          <a class="fr-footer__bottom-link" target="_blank" href="https://datapass.api.gouv.fr/cgus/cgu_datapass.pdf">Conditions Générales d’Utilisation<span class="fr-sr-only"> - <%= t('shared.new_window') %></span></a>
         </li>
         <li class="fr-footer__bottom-item">
           <a class="fr-footer__bottom-link" href="<%= stats_path %>">Statistiques publiques</a>
         </li>
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" target="_blank" href="https://www.data.gouv.fr/products/datapass?tab=roadmap">Feuille de route publique</a>
+          <a class="fr-footer__bottom-link" target="_blank" href="https://www.data.gouv.fr/products/datapass?tab=roadmap">Feuille de route publique<span class="fr-sr-only"> - <%= t('shared.new_window') %></span></a>
         </li>
         <li class="fr-footer__bottom-item">
           <a class="fr-footer__bottom-link" href="<%= faq_path %>">Aide</a>
@@ -50,7 +50,7 @@
       </ul>
       <div class="fr-footer__bottom-copy">
         <p>
-        Sauf mention contraire, tous les textes de ce site sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a>
+        Sauf mention contraire, tous les textes de ce site sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0<span class="fr-sr-only"> - <%= t('shared.new_window') %></span></a>
         </p>
       </div>
     </div>
