@@ -12,12 +12,6 @@ RSpec.describe Seeds do
       described_class.new.flushdb
     end
 
-    it 'verifies the contact emails of every seeded request' do
-      contact_emails = AuthorizationRequest.all.flat_map { |request| request.class.contact_types.map { |contact_type| request.public_send(:"#{contact_type}_email") } }.compact_blank
-
-      expect(contact_emails.uniq - VerifiedEmail.pluck(:email)).to be_empty
-    end
-
     it 'exposes only perform, flushdb and create_data_providers' do
       expect(described_class.public_instance_methods(false)).to contain_exactly(:perform, :flushdb, :create_data_providers)
     end

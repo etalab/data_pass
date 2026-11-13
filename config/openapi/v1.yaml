@@ -1044,7 +1044,7 @@ paths:
 
         La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que le fournisseur choisit d'enchaîner ou non.
 
-        La demande est contrôlée avec les mêmes règles que la soumission dans l'interface (champs obligatoires, emails de contact vérifiés, pièces jointes). Le fournisseur de données peut toutefois déclarer avoir lui-même vérifié les emails de contact en transmettant `verified_email: true` : la vérification de joignabilité effectuée par DataPass est alors ignorée. Si elle est incomplète, rien n'est soumis : elle reste dans son état et la réponse `422` liste les erreurs, une par champ, avec leur `source.pointer`.
+        La demande est contrôlée avec les mêmes règles que la soumission dans l'interface (champs obligatoires, format des emails de contact, pièces jointes). DataPass ne vérifie pas que les adresses email de contact existent : seul leur format est contrôlé, la vérification revient aux instructeurs. Si elle est incomplète, rien n'est soumis : elle reste dans son état et la réponse `422` liste les erreurs, une par champ, avec leur `source.pointer`.
 
         La soumission n'est possible que depuis les états où le demandeur peut soumettre dans l'interface : `draft` ou `changes_requested`. Dans tout autre état, la réponse est une erreur `422` et l'état ne change pas.
 
@@ -1086,7 +1086,7 @@ paths:
                 verified_email:
                   type: boolean
                   default: false
-                  description: Le fournisseur de données déclare avoir vérifié les emails de contact de la demande. À `true`, DataPass n'effectue pas sa propre vérification de joignabilité de ces emails ; le format reste contrôlé. L'historique de la demande indique que les emails ont été déclarés vérifiés par le fournisseur de données.
+                  description: Le fournisseur de données déclare avoir vérifié les emails de contact de la demande. DataPass ne vérifie plus lui-même la joignabilité des emails de contact, seul le format est contrôlé, que ce champ soit à `true` ou non. L'historique de la demande indique que les emails ont été déclarés vérifiés par le fournisseur de données.
                 notifications:
                   $ref: '#/components/schemas/Notifications'
       responses:
