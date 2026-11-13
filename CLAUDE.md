@@ -105,6 +105,18 @@ def down = service.down
 
 The service handles both models, the SQL filtering, and JSON parsing. Specs live in `spec/services/scope_migration_service_spec.rb`.
 
+When a new scope must be added to records that already carry related scopes,
+without removing any, use `ScopeBackfillService`
+(`app/services/scope_backfill_service.rb`):
+
+```ruby
+ScopeBackfillService.new(
+  %w[AuthorizationRequest::MyAPI],
+  added_scope: 'new_scope',
+  when_any_of: %w[existing_scope_a existing_scope_b]
+)
+```
+
 ## Worktrees
 
 Multiple worktrees can run simultaneously with isolated databases and ports.

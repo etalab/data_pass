@@ -140,6 +140,9 @@ api_particulier_demarche_numerique:
       - name: "Paramètres pris en compte pour le calcul du tarif"
         value: "cnav_participation_familiale_eaje_parametres_calcul"
         group: "API Participation familiale EAJE "
+      - name: "Dossier allocataire (matricule et code organisme CAF)"
+        value: "cnav_participation_familiale_eaje_dossier_allocataire"
+        group: "API Participation familiale EAJE "
 
 api_particulier:
   name: "API Particulier"
