@@ -1,6 +1,6 @@
 <div class="fr-col-12 fr-col-lg-4">
   <div class="lp-group">
-    <%= render partial: 'pages/home/pictogram', locals: { name: pictogram } %>
+    <%= render Atoms::PictogramComponent.new(name: pictogram) %>
     <h4 class="fr-h5 fr-mt-1w"><%= title %></h4>
     <%= render partial: 'pages/home/checks', locals: { items: items } %>
   </div>

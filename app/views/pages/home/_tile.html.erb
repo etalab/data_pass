@@ -17,7 +17,7 @@
   </div>
   <div class="fr-tile__header">
     <div class="fr-tile__pictogram">
-      <%= render partial: 'pages/home/pictogram', locals: { name: pictogram } %>
+      <%= render Atoms::PictogramComponent.new(name: pictogram) %>
     </div>
   </div>
 </div>
