@@ -1,4 +1,17 @@
 fr:
+  shared:
+    european_wallet_phone:
+      avatar: E
+      organization: Exemple Vélos
+      request: souhaite accéder à vos données
+      data_label: Données demandées
+      data_value: Nom, prénoms, date de naissance
+      purpose_label: Pourquoi
+      purpose_value: Créer votre compte client
+      registered: Organisation enregistrée au registre français
+      refuse: Refuser
+      share: Partager
+      caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, puis accepte ou refuse."
   pages:
     home:
       notice:
@@ -86,18 +99,6 @@ fr:
         title: Votre organisation va utiliser le portefeuille européen ou y contribuer ?
         text: Le portefeuille européen d’identité numérique est une application mobile où chacun conserve ses attestations électroniques et choisit ce qu’il partage. Une organisation qui veut demander ces données à ses usagers s’enregistre d’abord au registre des parties utilisatrices. Les organisations qui délivrent des attestations dans le portefeuille s’y enregistreront aussi.
         button: Découvrir le registre du portefeuille européen
-        phone:
-          avatar: E
-          organization: Exemple Vélos
-          request: souhaite accéder à vos données
-          data_label: Données demandées
-          data_value: Nom, prénoms, date de naissance
-          purpose_label: Pourquoi
-          purpose_value: Créer votre compte client
-          registered: Organisation enregistrée au registre français
-          refuse: Refuser
-          share: Partager
-          caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, puis accepte ou refuse."
       applicants:
         kicker: Vous cherchez des données pour votre service
         title: Accéder à des données publiques protégées
