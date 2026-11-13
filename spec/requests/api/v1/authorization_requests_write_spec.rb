@@ -305,6 +305,10 @@ RSpec.describe 'API: Authorization requests write' do
     end
 
     context 'without an applicant key' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params:, headers: auth_headers, as: :json
+      end
+
       let(:params) do
         {
           demande: {
@@ -324,6 +328,7 @@ RSpec.describe 'API: Authorization requests write' do
           'source' => { 'pointer' => '/applicant' },
         )
         expect(response.parsed_body['errors'].first['detail']).to include('applicant')
+        validate_response!
       end
     end
 

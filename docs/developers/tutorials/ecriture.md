@@ -232,7 +232,7 @@ Il exige le scope `submit_authorizations` et un droit de soumission actif pour l
 
 #### Déclarer le consentement du demandeur
 
-Vous déclarez avoir recueilli le consentement du demandeur en transmettant, dans l’objet `consentement`, **chaque case à cocher** que le demandeur doit cocher dans l’interface avant de soumettre, à `true`. Les cases exigées dépendent du type d’habilitation : elles sont listées dans `consentements` de `GET /definitions/{id}`.
+Vous déclarez avoir recueilli le consentement du demandeur en transmettant, dans l’objet `consentement`, **chaque case à cocher** que le demandeur doit cocher dans l’interface avant de soumettre, à `true`. Les cases exigées dépendent du type d’habilitation : elles sont listées dans `consentements` de `GET /definitions/{id}`. Cette liste est calculée pour une demande vierge : elle peut être incomplète, car certaines cases (par exemple l’alternative FranceConnect) ne s’appliquent qu’à une demande dont les données le demandent. Si une case manque, la soumission renvoie une erreur `422` « Consentement manquant » qui désigne la case : ajoutez-la et soumettez de nouveau.
 
 ```bash
 curl https://datapass.api.gouv.fr/api/v1/definitions/api_entreprise \
@@ -255,6 +255,7 @@ Une case exigée absente ou à `false` empêche la soumission, même si elle a d
 #### Ce qui est contrôlé
 
 - La demande est contrôlée avec **les mêmes règles que la soumission dans l’interface** (champs obligatoires, emails de contact vérifiés, pièces jointes).
+- Si vous avez vous-même vérifié les emails de contact, transmettez `"verified_email": true` : DataPass n’effectue alors pas sa propre vérification de joignabilité (le format reste contrôlé) et l’historique le mentionne.
 - Seules les demandes `draft` ou `changes_requested` sont soumettables.
 - Seules les demandes **créées par API** (`POST /demandes`) sont soumettables par API. Un brouillon commencé par l’usager dans le portail lui reste réservé : le consentement recueilli par le fournisseur de données porte sur les demandes qu’il a créées, pas sur celles de l’usager.
 - Après la soumission, la demande est `submitted`, avec les mêmes effets qu’une soumission dans l’interface : webhook `submit`, emails aux instructeurs. La réponse `200` contient la demande à jour.

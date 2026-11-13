@@ -54,6 +54,25 @@ RSpec.describe Atoms::HistoricalAuthorizationRequestEventComponent, type: :compo
     end
   end
 
+  describe 'event whose emails were declared verified by the data provider' do
+    let(:authorization_request_event) do
+      create(:authorization_request_event, :submit, api_application_name: 'API Entreprise', emails_verified_by_provider: true)
+    end
+
+    it 'says that the deliverability check was skipped' do
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_text('Les emails de contact ont été déclarés vérifiés par le fournisseur de données.')
+    end
+
+    it 'says nothing otherwise' do
+      authorization_request_event.update!(emails_verified_by_provider: false)
+      page = render_inline(described_class.new(authorization_request_event:))
+
+      expect(page).to have_no_text('déclarés vérifiés')
+    end
+  end
+
   describe 'approve event done through the API' do
     subject { described_class.new(authorization_request_event:) }
 

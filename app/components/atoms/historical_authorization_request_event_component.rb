@@ -53,7 +53,7 @@ class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def message_summary
-    "#{translated_message_summary}#{notifications_disabled_note}".html_safe
+    "#{translated_message_summary}#{notifications_disabled_note}#{emails_verified_by_provider_note}".html_safe
   end
 
   def translated_message_summary
@@ -71,6 +71,12 @@ class Atoms::HistoricalAuthorizationRequestEventComponent < ApplicationComponent
     return '' unless event.notifications_disabled?
 
     " #{I18n.t('instruction.authorization_request_events.notifications_disabled')}"
+  end
+
+  def emails_verified_by_provider_note
+    return '' unless event.emails_verified_by_provider?
+
+    " #{I18n.t('instruction.authorization_request_events.emails_verified_by_provider')}"
   end
 
   def escaped_author_texts

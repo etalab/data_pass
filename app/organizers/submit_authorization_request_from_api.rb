@@ -11,6 +11,7 @@ class SubmitAuthorizationRequestFromAPI < ApplicationOrganizer
   end
 
   organize ValidateNotificationsParam,
+    ApplyVerifiedEmailParam,
     ResolveNotificationPolicy,
     EnsureApplicantIsNotBanned,
     EnsureAuthorizationRequestCreatedByAPI,
@@ -18,5 +19,6 @@ class SubmitAuthorizationRequestFromAPI < ApplicationOrganizer
     EnsureConsentsGiven,
     AssignConsentsToAuthorizationRequest,
     SubmitAuthorizationRequest,
-    RecordNotificationPolicyOnEvent
+    RecordNotificationPolicyOnEvent,
+    RecordEmailsVerifiedByProviderOnEvent
 end

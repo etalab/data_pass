@@ -1,6 +1,7 @@
 class APIErrorsFacade
   DEFAULT_STATUS = 422
   STATUS_OVERRIDES = { unauthorized_type: 403, not_created_by_api: 403 }.freeze
+  FIXED_SOURCE_POINTERS = { instructor_invalid: '/instructeur/email' }.freeze
   GENERIC_KEY = :generic
 
   attr_reader :status, :errors
@@ -69,7 +70,13 @@ class APIErrorsFacade
       status: @status.to_s,
       title: translate(key, :title),
       detail: detail || translate(key, :detail)
-    }
+    }.merge(fixed_source(key))
+  end
+
+  def fixed_source(key)
+    pointer = FIXED_SOURCE_POINTERS[key]
+
+    pointer ? { source: { pointer: } } : {}
   end
 
   def data_key_error(key, data_key)

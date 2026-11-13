@@ -9,6 +9,18 @@ RSpec.describe 'API: Authorization Request Events' do
       get "/api/v1/demandes/#{authorization_request.id}/events", headers: { 'Authorization' => "Bearer #{access_token.token}" }
     end
 
+    context 'when the id carries the interface prefix' do
+      subject(:get_index) do
+        get "/api/v1/demandes/#{authorization_request.formatted_id}/events", headers: { 'Authorization' => "Bearer #{access_token.token}" }
+      end
+
+      it 'responds OK' do
+        get_index
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
     context 'when the user is not a developer for the authorization request' do
       let(:authorization_request) { create(:authorization_request, :api_particulier) }
 

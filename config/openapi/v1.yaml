@@ -570,7 +570,8 @@ components:
           deprecated: true
         consentements:
           type: array
-          description: Cases de consentement à transmettre dans `consentement` à la soumission par API (`POST /demandes/{id}/soumettre`). Vide si le type d'habilitation n'en exige aucune.
+          description: >-
+            Cases de consentement à transmettre dans `consentement` à la soumission par API (`POST /demandes/{id}/soumettre`). Vide si le type d'habilitation n'en exige aucune. La liste est calculée pour une demande vierge : elle peut être incomplète, car certaines cases ne s'appliquent qu'à une demande dont les données le demandent (par exemple l'alternative FranceConnect, qui dépend de la modalité choisie). La liste exacte pour une demande donnée est celle de l'erreur `422` « Consentement manquant » à la soumission : transmettez toutes les cases connues, et ajoutez celles que cette erreur réclame.
           items:
             type: string
           example:
@@ -620,7 +621,7 @@ components:
           description: Identifiant de la définition d'habilitation associée à ce formulaire. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
         data:
           type: object
-          description: Données préremplies du formulaire. Présent uniquement pour les formulaires avec prefilled? = true. Contient les valeurs par défaut pour certains champs du formulaire.
+          description: Données préremplies du formulaire, c'est-à-dire les valeurs par défaut de certains champs et les `scopes` inclus d'office par la définition. Objet vide quand le formulaire ne pré-remplit rien.
           additionalProperties: true
           example:
             cadre_juridique_nature: "Marchés publics"
@@ -628,7 +629,6 @@ components:
             scopes:
               - "entreprises"
               - "etablissements"
-          nullable: true
 
     WebhookAttempt:
       type: object
@@ -687,7 +687,7 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     UnauthorizedError:
-      description: Accès non autorisé - le jeton n'est pas valide ou absent.
+      description: Accès non autorisé - le jeton est absent, inconnu, expiré (titre « Jeton expiré ») ou révoqué (titre « Jeton révoqué »). Dans tous les cas, le client doit abandonner ce jeton et en obtenir un nouveau.
       content:
         application/json:
           schema:
@@ -702,6 +702,23 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorResponse"
+
+    ParameterMissingError:
+      description: >-
+        Un paramètre obligatoire est absent de la requête, vide (hors `consentement: {}` pour un type sans case exigée) ou d'un type inattendu (titre « Paramètre manquant »).
+        Le pointeur de l'erreur désigne le paramètre : `/consentement` à la soumission, `/applicant` à la création
+        d'une demande. La demande ne change pas.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            errors:
+              - status: "400"
+                title: "Paramètre manquant"
+                detail: "Le paramètre « consentement » est requis mais absent de la requête."
+                source:
+                  pointer: "/consentement"
 
     ValidationError:
       description: >-
@@ -942,6 +959,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Demande"
+        400:
+          $ref: "#/components/responses/ParameterMissingError"
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:
@@ -1040,7 +1059,7 @@ paths:
       description: |
         Soumet pour instruction une demande complète, au nom du demandeur indiqué à la création. L'API ne soumet jamais au nom du fournisseur de données.
 
-        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission.
+        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission (erreur `422`). Si l'objet `consentement` lui-même est absent, la réponse est une erreur `400` « Paramètre manquant » ; il est aussi refusé s'il est vide alors que le type exige au moins une case. Un type qui n'exige aucune case se soumet avec `consentement: {}`.
 
         La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que le fournisseur choisit d'enchaîner ou non.
 
@@ -1096,6 +1115,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Demande"
+        400:
+          $ref: "#/components/responses/ParameterMissingError"
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:
@@ -1569,36 +1590,31 @@ paths:
                 items:
                   $ref: '#/components/schemas/AuthorizationRequestForm'
               examples:
-                single_stage_forms:
-                  summary: Formulaires pour définition simple (API Entreprise)
+                formulaire_sans_prefill:
+                  summary: Formulaire sans données pré-remplies (API Ingres)
                   value:
-                    - uid: "api-entreprise"
-                      name: "API Entreprise"
-                      description: "Accédez aux informations et aux documents administratifs des entreprises"
+                    - uid: "api-ingres"
+                      name: "API Ingres"
+                      description: "Récupérez l'ensemble des référentiels utilisés par les Systèmes d'Information des Ressources Humaines de la Fonction Publique d'Etat"
                       use_case: null
-                      prefilled?: false
-                      data: ["cadre_juridique_nature", "cadre_juridique_url", "scopes"]
+                      definition_id: "api_ingres"
+                      authorization_request_class: "AuthorizationRequest::APIIngres"
+                      data: {}
+                formulaires_prefilled:
+                  summary: Formulaires avec données pré-remplies (API Entreprise)
+                  value:
                     - uid: "api-entreprise-marches-publics"
-                      name: "API Entreprise - Marchés publics"
-                      description: "Formulaire spécialisé pour les marchés publics"
-                      use_case: "Marchés publics"
-                      prefilled?: true
+                      name: "Marchés publics"
+                      description: "Simplifier le dépôt des candidatures et récupérer les justificatifs administratifs des entreprises/associations."
+                      use_case: "marches_publics"
+                      definition_id: "api_entreprise"
+                      authorization_request_class: "AuthorizationRequest::APIEntreprise"
                       data:
-                        cadre_juridique_nature: "Marchés publics"
-                        cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703425/"
+                        cadre_juridique_nature: "R2143-13 Code de la commande publique"
+                        cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
                         scopes:
-                          - "entreprises"
-                          - "etablissements"
-                multi_stage_forms:
-                  summary: Formulaires pour définition multi-étapes (API Impôt Particulier Sandbox)
-                  value:
-                    - uid: "api-impot-particulier-sandbox"
-                      name: "API Impôt Particulier"
-                      description: "Accédez aux données fiscales des particuliers en mode bac à sable"
-                      use_case: null
-                      prefilled?: false
-                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
+                          - "unites_legales_etablissements_insee"
+                          - "attestation_fiscale_dgfip"
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '403':

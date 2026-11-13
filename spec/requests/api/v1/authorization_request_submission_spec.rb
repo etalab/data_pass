@@ -121,6 +121,58 @@ RSpec.describe 'API: Authorization request submission' do
       end
     end
 
+    context 'when a contact email is undeliverable' do
+      let(:undeliverable_email) { authorization_request.contact_metier_email }
+
+      before { create(:verified_email, email: undeliverable_email, status: 'undeliverable', verified_at: 1.hour.ago) }
+
+      it 'answers 422 and points at the contact email' do
+        submit_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(errors).to include(a_hash_including('source' => { 'pointer' => '/data/contact_metier_email' }))
+      end
+
+      context 'with verified_email set to true' do
+        let(:params) { super().merge(verified_email: true) }
+
+        it 'submits the request without checking the email deliverability' do
+          submit_request
+
+          expect(response).to have_http_status(:ok)
+          expect(authorization_request.reload.state).to eq('submitted')
+        end
+
+        it 'records on the history that the data provider vouched for the emails' do
+          submit_request
+
+          expect(authorization_request.events.where(name: 'submit').last).to be_emails_verified_by_provider
+        end
+      end
+
+      context 'with a verified_email which is neither true nor false' do
+        let(:params) { super().merge(verified_email: 'flase') }
+
+        it 'refuses the request instead of skipping the check' do
+          submit_request
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(errors.first['title']).to eq('Paramètre invalide')
+          expect(authorization_request.reload.state).to eq('draft')
+        end
+      end
+
+      context 'with verified_email set to false' do
+        let(:params) { super().merge(verified_email: false) }
+
+        it 'still refuses the request' do
+          submit_request
+
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+    end
+
     context 'when a consent is missing' do
       let(:params) { { consentement: { terms_of_service_accepted: true } } }
 
@@ -150,6 +202,41 @@ RSpec.describe 'API: Authorization request submission' do
 
       it 'answers 400' do
         submit_request
+
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'points at the consentement and matches the OpenAPI contract' do
+        submit_request
+
+        expect(errors).to eq(
+          [
+            {
+              'status' => '400',
+              'title' => 'Paramètre manquant',
+              'detail' => 'Le paramètre « consentement » est requis mais absent de la requête.',
+              'source' => { 'pointer' => '/consentement' }
+            }
+          ]
+        )
+        validate_response!
+      end
+    end
+
+    context 'when the type requires no consent' do
+      let(:params) { { consentement: {} } }
+
+      before { allow_any_instance_of(AuthorizationRequest).to receive(:required_consents).and_return([]) } # rubocop:disable RSpec/AnyInstance
+
+      it 'submits the request with an empty consentement' do
+        submit_request
+
+        expect(response).to have_http_status(:ok)
+        expect(authorization_request.reload.state).to eq('submitted')
+      end
+
+      it 'still answers 400 when the consentement is absent' do
+        post "/api/v1/demandes/#{authorization_request.id}/soumettre", params: {}, headers:, as: :json
 
         expect(response).to have_http_status(:bad_request)
       end
@@ -238,6 +325,28 @@ RSpec.describe 'API: Authorization request submission' do
         submit_request
 
         expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'with a revoked token' do
+      let(:token) { create(:access_token, application:, scopes: token_scopes, revoked_at: 1.minute.ago) }
+
+      it 'answers 401 so that the client stops reusing the token' do
+        submit_request
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(errors.first).to include('status' => '401', 'title' => 'Jeton révoqué')
+      end
+
+      it 'matches the OpenAPI contract' do
+        submit_request
+
+        expect(response).to have_http_status(:unauthorized)
+        validate_response!
+      end
+
+      it 'changes nothing' do
+        expect { submit_request }.not_to change { authorization_request.reload.state }.from('draft')
       end
     end
 
