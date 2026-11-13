@@ -92,7 +92,7 @@ When a scope value needs to be renamed (or split into multiple scopes) across `A
 # In the migration:
 def service
   ScopeMigrationService.new(
-    'AuthorizationRequest::MyAPI',
+    'AuthorizationRequest::MyAPI',        # or an array of types
     'old_scope' => 'new_scope',           # 1-to-1 rename
     # or:
     'old_scope' => %w[new_a new_b],       # 1-to-many split
@@ -103,11 +103,12 @@ def up   = service.up
 def down = service.down
 ```
 
-The service handles both models, the SQL filtering, and JSON parsing. Specs live in `spec/services/scope_migration_service_spec.rb`.
+`down` applies the reversed mapping. Specs live in
+`spec/services/scope_migration_service_spec.rb`.
 
 When a new scope must be added to records that already carry related scopes,
 without removing any, use `ScopeBackfillService`
-(`app/services/scope_backfill_service.rb`):
+(`app/services/scope_backfill_service.rb`), whose `down` removes the scope:
 
 ```ruby
 ScopeBackfillService.new(
@@ -116,6 +117,28 @@ ScopeBackfillService.new(
   when_any_of: %w[existing_scope_a existing_scope_b]
 )
 ```
+
+Both are thin facades over `ScopeRewriter` (`app/services/scope_rewriter.rb`),
+which any other scope transformation should go through:
+
+```ruby
+ScopeRewriter.new(%w[AuthorizationRequest::MyAPI])
+  .rewrite(when_any_of: %w[trigger_scope]) { |scopes| scopes - %w[dropped_scope] }
+```
+
+It selects `AuthorizationRequest` and `Authorization` records of the given
+types carrying any trigger scope, and for each one:
+
+- writes the transformed scopes like a normal save (sorted array without
+  blanks, serialized by hstore), so `ReopeningChangesChecker`, which compares
+  raw values, does not see an untouched reopening as modified;
+- on requests, adds a changelog without event, built from the scopes of the
+  last changelog carrying some (not the current scopes, which may hold an
+  unsubmitted change of the applicant), so the next submission does not
+  attribute the rewrite to the applicant. Without event, it stays out of the
+  history.
+
+Never write scopes with `update_column` and `to_json` by hand.
 
 ## Worktrees
 

@@ -14,7 +14,7 @@ RSpec.describe ProduitsDinumNotifier, type: :notifier do
       approve
 
       convention_mail = ActionMailer::Base.deliveries.find do |delivery|
-        delivery.body.encoded.include?('/conventions/convention_mise_a_disposition_produits_dinum.pdf')
+        delivery.parts.any? { |part| part.decoded.include?('/conventions/convention_mise_a_disposition_produits_dinum.pdf') }
       end
 
       expect(convention_mail).to be_present
