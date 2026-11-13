@@ -328,6 +328,28 @@ RSpec.describe 'API: Authorization request submission' do
       end
     end
 
+    context 'with a revoked token' do
+      let(:token) { create(:access_token, application:, scopes: token_scopes, revoked_at: 1.minute.ago) }
+
+      it 'answers 401 so that the client stops reusing the token' do
+        submit_request
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(errors.first).to include('status' => '401', 'title' => 'Jeton révoqué')
+      end
+
+      it 'matches the OpenAPI contract' do
+        submit_request
+
+        expect(response).to have_http_status(:unauthorized)
+        validate_response!
+      end
+
+      it 'changes nothing' do
+        expect { submit_request }.not_to change { authorization_request.reload.state }.from('draft')
+      end
+    end
+
     context 'without a token' do
       let(:headers) { {} }
 

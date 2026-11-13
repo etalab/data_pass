@@ -76,6 +76,9 @@ fr:
     token_expired:
       title: Jeton expiré
       detail: Le jeton d’accès a expiré. Veuillez en obtenir un nouveau.
+    token_revoked:
+      title: Jeton révoqué
+      detail: Le jeton d’accès a été révoqué. Veuillez en obtenir un nouveau.
     parameter_missing:
       title: Paramètre manquant
       detail: "Le paramètre « %{param} » est requis mais absent de la requête."

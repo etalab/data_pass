@@ -687,7 +687,7 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
     UnauthorizedError:
-      description: Accès non autorisé - le jeton n'est pas valide ou absent.
+      description: Accès non autorisé - le jeton est absent, inconnu, expiré (titre « Jeton expiré ») ou révoqué (titre « Jeton révoqué »). Dans tous les cas, le client doit abandonner ce jeton et en obtenir un nouveau.
       content:
         application/json:
           schema:
