@@ -570,7 +570,8 @@ components:
           deprecated: true
         consentements:
           type: array
-          description: Cases de consentement à transmettre dans `consentement` à la soumission par API (`POST /demandes/{id}/soumettre`). Vide si le type d'habilitation n'en exige aucune.
+          description: >-
+            Cases de consentement à transmettre dans `consentement` à la soumission par API (`POST /demandes/{id}/soumettre`). Vide si le type d'habilitation n'en exige aucune. La liste est calculée pour une demande vierge : elle peut être incomplète, car certaines cases ne s'appliquent qu'à une demande dont les données le demandent (par exemple l'alternative FranceConnect, qui dépend de la modalité choisie). La liste exacte pour une demande donnée est celle de l'erreur `422` « Consentement manquant » à la soumission : transmettez toutes les cases connues, et ajoutez celles que cette erreur réclame.
           items:
             type: string
           example:

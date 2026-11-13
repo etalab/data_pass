@@ -232,7 +232,7 @@ Il exige le scope `submit_authorizations` et un droit de soumission actif pour l
 
 #### Déclarer le consentement du demandeur
 
-Vous déclarez avoir recueilli le consentement du demandeur en transmettant, dans l’objet `consentement`, **chaque case à cocher** que le demandeur doit cocher dans l’interface avant de soumettre, à `true`. Les cases exigées dépendent du type d’habilitation : elles sont listées dans `consentements` de `GET /definitions/{id}`.
+Vous déclarez avoir recueilli le consentement du demandeur en transmettant, dans l’objet `consentement`, **chaque case à cocher** que le demandeur doit cocher dans l’interface avant de soumettre, à `true`. Les cases exigées dépendent du type d’habilitation : elles sont listées dans `consentements` de `GET /definitions/{id}`. Cette liste est calculée pour une demande vierge : elle peut être incomplète, car certaines cases (par exemple l’alternative FranceConnect) ne s’appliquent qu’à une demande dont les données le demandent. Si une case manque, la soumission renvoie une erreur `422` « Consentement manquant » qui désigne la case : ajoutez-la et soumettez de nouveau.
 
 ```bash
 curl https://datapass.api.gouv.fr/api/v1/definitions/api_entreprise \
