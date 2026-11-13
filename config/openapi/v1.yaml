@@ -703,6 +703,23 @@ components:
           schema:
             $ref: "#/components/schemas/ErrorResponse"
 
+    ParameterMissingError:
+      description: >-
+        Un paramètre obligatoire est absent de la requête, vide ou d'un type inattendu (titre « Paramètre manquant »).
+        Le pointeur de l'erreur désigne le paramètre : `/consentement` à la soumission, `/applicant` à la création
+        d'une demande. La demande ne change pas.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            errors:
+              - status: "400"
+                title: "Paramètre manquant"
+                detail: "Le paramètre « consentement » est requis mais absent de la requête."
+                source:
+                  pointer: "/consentement"
+
     ValidationError:
       description: >-
         La sauvegarde ou la mise à jour a échoué : le payload ne respecte pas la définition, ou les données
@@ -942,6 +959,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Demande"
+        400:
+          $ref: "#/components/responses/ParameterMissingError"
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:
@@ -1040,7 +1059,7 @@ paths:
       description: |
         Soumet pour instruction une demande complète, au nom du demandeur indiqué à la création. L'API ne soumet jamais au nom du fournisseur de données.
 
-        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission.
+        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission (erreur `422`). Si l'objet `consentement` lui-même est absent ou vide, la réponse est une erreur `400` « Paramètre manquant ».
 
         La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que le fournisseur choisit d'enchaîner ou non.
 
@@ -1096,6 +1115,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Demande"
+        400:
+          $ref: "#/components/responses/ParameterMissingError"
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:

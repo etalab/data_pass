@@ -205,6 +205,22 @@ RSpec.describe 'API: Authorization request submission' do
 
         expect(response).to have_http_status(:bad_request)
       end
+
+      it 'points at the consentement and matches the OpenAPI contract' do
+        submit_request
+
+        expect(errors).to eq(
+          [
+            {
+              'status' => '400',
+              'title' => 'Paramètre manquant',
+              'detail' => 'Le paramètre « consentement » est requis mais absent de la requête.',
+              'source' => { 'pointer' => '/consentement' }
+            }
+          ]
+        )
+        validate_response!
+      end
     end
 
     context 'when the consentement is not an object' do
