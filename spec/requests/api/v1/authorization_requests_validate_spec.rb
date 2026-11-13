@@ -85,6 +85,12 @@ RSpec.describe 'API: Authorization requests validation' do
           expect(response).to have_http_status(:unprocessable_content)
           expect(error['title']).to eq('Instructeur invalide')
         end
+
+        it 'points at the instructor email' do
+          validate_request
+
+          expect(error['source']).to eq({ 'pointer' => '/instructeur/email' })
+        end
       end
 
       context 'with an account which is not instructor on this type' do
