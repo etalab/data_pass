@@ -27,7 +27,7 @@ fr:
         lead: Les organisations vous écrivent par un formulaire construit avec vous, et vous décidez dans un espace réservé à votre administration.
         points:
           - Des demandes complètes, cadrées juridiquement
-          - Chaque décision tracée, et publiée pour vous
+          - Chaque décision tracée et publiée pour vous
           - Vous restez seule juge de qui accède à vos données
         features_title: Ce que DataPass permet
         receive:
@@ -75,7 +75,7 @@ fr:
             organization: Logiciel Enfance (éditeur)
             status: warning
             state: Réponse reçue
-            meta: Modifications demandées, demandeur a répondu
+            meta: Modifications demandées, le demandeur a répondu
           - id: D10302
             organization: Département du Val-Fleuri
             status: success
