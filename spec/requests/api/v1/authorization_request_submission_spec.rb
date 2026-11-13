@@ -223,6 +223,25 @@ RSpec.describe 'API: Authorization request submission' do
       end
     end
 
+    context 'when the type requires no consent' do
+      let(:params) { { consentement: {} } }
+
+      before { allow_any_instance_of(AuthorizationRequest).to receive(:required_consents).and_return([]) } # rubocop:disable RSpec/AnyInstance
+
+      it 'submits the request with an empty consentement' do
+        submit_request
+
+        expect(response).to have_http_status(:ok)
+        expect(authorization_request.reload.state).to eq('submitted')
+      end
+
+      it 'still answers 400 when the consentement is absent' do
+        post "/api/v1/demandes/#{authorization_request.id}/soumettre", params: {}, headers:, as: :json
+
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
     context 'when the consentement is not an object' do
       let(:params) { { consentement: 'oui' } }
 

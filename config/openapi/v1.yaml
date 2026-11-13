@@ -705,7 +705,7 @@ components:
 
     ParameterMissingError:
       description: >-
-        Un paramètre obligatoire est absent de la requête, vide ou d'un type inattendu (titre « Paramètre manquant »).
+        Un paramètre obligatoire est absent de la requête, vide (hors `consentement: {}` pour un type sans case exigée) ou d'un type inattendu (titre « Paramètre manquant »).
         Le pointeur de l'erreur désigne le paramètre : `/consentement` à la soumission, `/applicant` à la création
         d'une demande. La demande ne change pas.
       content:
@@ -1059,7 +1059,7 @@ paths:
       description: |
         Soumet pour instruction une demande complète, au nom du demandeur indiqué à la création. L'API ne soumet jamais au nom du fournisseur de données.
 
-        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission (erreur `422`). Si l'objet `consentement` lui-même est absent ou vide, la réponse est une erreur `400` « Paramètre manquant ».
+        Le fournisseur de données déclare, dans `consentement`, avoir recueilli le consentement du demandeur : chaque case à cocher que le demandeur doit cocher dans l'interface avant de soumettre (conditions générales d'utilisation, information du délégué à la protection des données, cases propres à certains types d'habilitation…) doit être transmise à `true`. Les cases exigées dépendent du type d'habilitation et sont listées dans `consentements` de `GET /definitions/{id}`. Une case exigée absente ou à `false` empêche la soumission (erreur `422`). Si l'objet `consentement` lui-même est absent, la réponse est une erreur `400` « Paramètre manquant » ; il est aussi refusé s'il est vide alors que le type exige au moins une case. Un type qui n'exige aucune case se soumet avec `consentement: {}`.
 
         La création (et les mises à jour du brouillon) et la soumission sont deux appels distincts, que le fournisseur choisit d'enchaîner ou non.
 
