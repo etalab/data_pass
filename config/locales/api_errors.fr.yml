@@ -36,6 +36,9 @@ fr:
     invalid_notifications:
       title: Paramètre invalide
       detail: Le paramètre `notifications` doit valoir `true` ou `false`.
+    invalid_verified_email:
+      title: Paramètre invalide
+      detail: Le paramètre `verified_email` doit valoir `true` ou `false`.
     invalid_data_keys:
       title: Clé invalide
       detail: "La clé « %{key} » n’existe pas pour ce type de demande."

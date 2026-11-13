@@ -349,6 +349,7 @@ fr:
         success: Votre message a été envoyé avec succès
     authorization_request_events:
       notifications_disabled: Certaines notifications DataPass ont été désactivées pour cet appel API.
+      emails_verified_by_provider: Les emails de contact ont été déclarés vérifiés par le fournisseur de données.
       index:
         title: Derniers événements liés à cette demande
       authorization_request_event:

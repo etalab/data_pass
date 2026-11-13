@@ -255,6 +255,7 @@ Une case exigée absente ou à `false` empêche la soumission, même si elle a d
 #### Ce qui est contrôlé
 
 - La demande est contrôlée avec **les mêmes règles que la soumission dans l’interface** (champs obligatoires, emails de contact vérifiés, pièces jointes).
+- Si vous avez vous-même vérifié les emails de contact, transmettez `"verified_email": true` : DataPass n’effectue alors pas sa propre vérification de joignabilité (le format reste contrôlé) et l’historique le mentionne.
 - Seules les demandes `draft` ou `changes_requested` sont soumettables.
 - Seules les demandes **créées par API** (`POST /demandes`) sont soumettables par API. Un brouillon commencé par l’usager dans le portail lui reste réservé : le consentement recueilli par le fournisseur de données porte sur les demandes qu’il a créées, pas sur celles de l’usager.
 - Après la soumission, la demande est `submitted`, avec les mêmes effets qu’une soumission dans l’interface : webhook `submit`, emails aux instructeurs. La réponse `200` contient la demande à jour.

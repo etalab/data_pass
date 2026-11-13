@@ -3,6 +3,8 @@ module AuthorizationCore::Contacts
 
   include AuthorizationCore::Attributes
 
+  attr_accessor :emails_verified_by_provider
+
   included do
     unless respond_to?(:contacts)
       def self.contacts
@@ -59,7 +61,7 @@ module AuthorizationCore::Contacts
         end
 
         validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
-        validates "#{kind}_email", email_recently_verified: true, if: validation_condition, on: :submit
+        validates "#{kind}_email", email_recently_verified: true, if: validation_condition, unless: :emails_verified_by_provider, on: :submit
       end
 
       def self.define_contact_person_attributes(kind, validation_condition:, except: [])

@@ -72,6 +72,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       authorization_request: @authorization_request,
       consentement: params.expect(consentement: @authorization_request.required_consents),
       oauth_application: doorkeeper_token.application,
+      verified_email: params[:verified_email],
       notifications: params[:notifications]
     )
 
