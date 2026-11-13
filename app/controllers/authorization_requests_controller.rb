@@ -79,7 +79,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     save_redirect_path
     @display_provider_logo_in_header = true
 
-    render 'pages/home'
+    render 'pages/connexion'
   end
 
   def new_as_guest_user

@@ -1,0 +1,23 @@
+<figure class="fr-m-0" aria-labelledby="<%= caption_id %>">
+  <div class="lp-phone" aria-hidden="true">
+    <div class="lp-phone__notch"></div>
+    <p class="lp-phone__app">
+      <span class="lp-avatar"><%= avatar %></span>
+      <span><strong><%= title %></strong><br><%= subtitle %></span>
+    </p>
+    <% rows.each do |row| %>
+      <p class="lp-phone__row"><b><%= row[:label] %></b><%= row[:value] %></p>
+    <% end %>
+    <% if status.present? %>
+      <p class="lp-phone__ok"><%= status %></p>
+    <% end %>
+    <% if actions.any? %>
+      <div class="lp-phone__btns">
+        <% actions.each do |action| %>
+          <span><%= action %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <figcaption id="<%= caption_id %>" class="fr-sr-only"><%= caption_text %></figcaption>
+</figure>

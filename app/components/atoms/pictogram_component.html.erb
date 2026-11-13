@@ -1,0 +1,18 @@
+<% if background? %>
+  <svg xmlns="http://www.w3.org/2000/svg" class="fr-responsive-img fr-artwork" aria-hidden="true" width="160" height="200" viewBox="0 0 160 200">
+    <% Atoms::PictogramComponent::BACKGROUND_LAYERS.each do |layer| %>
+      <use class="fr-artwork-<%= layer %>" href="<%= background_href(layer) %>"></use>
+    <% end %>
+    <g transform="translate(40, 60)">
+      <% Atoms::PictogramComponent::LAYERS.each do |layer| %>
+        <use class="fr-artwork-<%= layer %>" href="<%= pictogram_href(layer) %>"></use>
+      <% end %>
+    </g>
+  </svg>
+<% else %>
+  <svg aria-hidden="true" class="fr-artwork" viewBox="0 0 80 80" width="<%= size %>" height="<%= size %>">
+    <% Atoms::PictogramComponent::LAYERS.each do |layer| %>
+      <use class="fr-artwork-<%= layer %>" href="<%= pictogram_href(layer) %>"></use>
+    <% end %>
+  </svg>
+<% end %>

@@ -33,6 +33,24 @@ module ApplicationHelper
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
   end
 
+  def public_header?
+    !user_signed_in? && !registered_subdomain?
+  end
+
+  def european_wallet_page_path
+    root_path(anchor: 'portefeuille-europeen')
+  end
+
+  def european_wallet_phone_mockup(caption_id:)
+    Molecules::PhoneMockupComponent.new(
+      caption: { id: caption_id, text: t('shared.european_wallet_phone.caption') },
+      header: european_wallet_phone_header,
+      rows: european_wallet_phone_rows,
+      status: t('shared.european_wallet_phone.registered'),
+      actions: [t('shared.european_wallet_phone.refuse'), t('shared.european_wallet_phone.share')]
+    )
+  end
+
   def latest_authorization_path(authorization_request)
     authorization_path(authorization_request.latest_authorization)
   end
@@ -51,6 +69,21 @@ module ApplicationHelper
   end
 
   private
+
+  def european_wallet_phone_header
+    {
+      avatar: t('shared.european_wallet_phone.avatar'),
+      title: t('shared.european_wallet_phone.organization'),
+      subtitle: t('shared.european_wallet_phone.request')
+    }
+  end
+
+  def european_wallet_phone_rows
+    [
+      { label: t('shared.european_wallet_phone.data_label'), value: t('shared.european_wallet_phone.data_value') },
+      { label: t('shared.european_wallet_phone.purpose_label'), value: t('shared.european_wallet_phone.purpose_value') }
+    ]
+  end
 
   def france_connected_authorizations?(authorization_request)
     authorization_request.definition.france_connect? &&
