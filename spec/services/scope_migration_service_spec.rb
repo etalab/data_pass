@@ -42,6 +42,75 @@ RSpec.describe ScopeMigrationService do
       end
     end
 
+    context 'with several authorization request types' do
+      subject(:service) do
+        described_class.new(%w[AuthorizationRequest::APIEntreprise AuthorizationRequest::APIParticulier], 'old_scope' => 'new_scope')
+      end
+
+      it 'renames the scope in requests of every given type' do
+        api_entreprise_request = create_request(%w[old_scope])
+        api_particulier_request = create(:authorization_request, :api_particulier, data: { 'scopes' => %w[old_scope].to_json })
+
+        service.up
+
+        expect([api_entreprise_request, api_particulier_request].map { |request| JSON.parse(request.reload.data['scopes']) })
+          .to all(eq(%w[new_scope]))
+      end
+    end
+
+    context 'when the renamed scope was already submitted by the applicant' do
+      subject(:service) { described_class.new(request_type, 'old_scope' => 'new_scope') }
+
+      it 'does not make a reopened authorization look modified when the applicant changed nothing' do
+        authorization = create(:authorization, authorization_request_trait: :api_entreprise)
+        request = authorization.request
+        request.update_column(:data, request.data.merge('scopes' => %w[old_scope other_scope].to_s))
+        authorization.update_column(:data, request.data)
+
+        service.up
+        request.reload.scopes = request.scopes
+        request.save!(validate: false)
+
+        expect(ReopeningChangesChecker.new(request.reload)).not_to be_changed
+      end
+
+      it 'does not attribute the rename to the applicant on their next submission' do
+        request = create(:authorization_request, :api_entreprise, :submitted, scopes: %w[old_scope other_scope])
+
+        service.up
+        changelog = CreateAuthorizationRequestChangelog.call(authorization_request: request.reload).changelog
+
+        expect(changelog.diff).not_to have_key('scopes')
+      end
+
+      it 'keeps an unsubmitted scope change of the applicant in their next submission history' do
+        request = create(:authorization_request, :api_entreprise, :submitted, scopes: %w[old_scope other_scope])
+        request.scopes = %w[old_scope other_scope added_by_applicant]
+        request.save!(validate: false)
+
+        service.up
+        changelog = CreateAuthorizationRequestChangelog.call(authorization_request: request.reload).changelog
+
+        expect(changelog.diff['scopes']).to eq([
+          %w[new_scope other_scope],
+          %w[added_by_applicant new_scope other_scope]
+        ])
+      end
+
+      it 'does not attribute the rename to the applicant when their unsubmitted change had dropped the renamed scope' do
+        request = create(:authorization_request, :api_entreprise, :submitted, scopes: %w[old_scope other_scope])
+        request.scopes = %w[other_scope]
+        request.save!(validate: false)
+
+        service.up
+        request.reload.scopes = %w[new_scope other_scope]
+        request.save!(validate: false)
+        changelog = CreateAuthorizationRequestChangelog.call(authorization_request: request.reload).changelog
+
+        expect(changelog.diff).not_to have_key('scopes')
+      end
+    end
+
     context 'with a 1-to-many scope split' do
       subject(:service) { described_class.new(request_type, 'old_scope' => %w[new_scope_a new_scope_b]) }
 
