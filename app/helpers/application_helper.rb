@@ -42,7 +42,7 @@ module ApplicationHelper
   end
 
   def european_wallet_registration_path
-    european_wallet_page_path(anchor: 'etapes')
+    connexion_path
   end
 
   def european_wallet_notify_path

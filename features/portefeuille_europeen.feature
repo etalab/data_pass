@@ -27,7 +27,7 @@ Fonctionnalité: Page publique Portefeuille européen
   Scénario: À l’ouverture, le bouton « Enregistrer mon organisation » remplace « Être prévenu »
     Sachant que le registre du portefeuille européen est ouvert
     Quand je me rends sur le chemin "/portefeuille-europeen"
-    Alors la page contient un lien "Enregistrer mon organisation" vers "/portefeuille-europeen#etapes"
+    Alors la page contient un lien "Enregistrer mon organisation" vers "/connexion"
     Et la page ne contient pas "Le registre ouvre le 24 décembre 2026."
     Et la page ne contient pas de lien "Être prévenu de l’ouverture"
     Et la page contient un lien "Être prévenu" vers "/portefeuille-europeen#etre-prevenu"
