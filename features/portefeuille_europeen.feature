@@ -4,7 +4,7 @@ Fonctionnalité: Page publique Portefeuille européen
   En tant qu’organisation qui demandera des données au portefeuille européen,
   je comprends si je dois m’enregistrer au registre, comment, et ce qu’il publiera.
 
-  Scénario: Avant l’ouverture, un visiteur voit la page et peut demander à être prévenu
+  Scénario: Avant l’ouverture, un visiteur voit la page et la date d’ouverture du registre
     Quand je me rends sur le chemin "/portefeuille-europeen"
     Alors le titre de la page est "Portefeuille européen - DataPass"
     Et il y a un titre contenant "Le portefeuille européen et son registre"
@@ -16,25 +16,18 @@ Fonctionnalité: Page publique Portefeuille européen
       | Ce qui vous concerne                          |
       | Calendrier                                    |
       | Questions fréquentes                          |
-      | Être prévenu de l’ouverture du registre       |
-    Et la page contient un lien "Être prévenu de l’ouverture" vers "/portefeuille-europeen#etre-prevenu"
     Et la page contient "Le registre ouvre le 24 décembre 2026."
-    Et la page contient "Une entreprise ou une administration qui demandera des données"
+    Et la page ne contient pas "Être prévenu"
     Et la page ne contient pas "Enregistrer mon organisation"
     Et la page ne contient pas "Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026."
 
   @registre_ouvert
-  Scénario: À l’ouverture, le bouton « Enregistrer mon organisation » remplace « Être prévenu »
+  Scénario: À l’ouverture, le bouton « Enregistrer mon organisation » apparaît
     Sachant que le registre du portefeuille européen est ouvert
     Quand je me rends sur le chemin "/portefeuille-europeen"
     Alors la page contient un lien "Enregistrer mon organisation" vers "/connexion"
     Et la page ne contient pas "Le registre ouvre le 24 décembre 2026."
-    Et la page ne contient pas de lien "Être prévenu de l’ouverture"
-    Et la page contient un lien "Être prévenu" vers "/portefeuille-europeen#etre-prevenu"
-    Et il y a un titre contenant "Être prévenu de l’ouverture de votre formulaire"
-    Et la page ne contient pas "Une entreprise ou une administration qui demandera des données"
-    Et la page contient "Un intermédiaire ou un éditeur de logiciel"
-    Et la page contient "Un fournisseur d’attestations"
+    Et la page ne contient pas "Être prévenu"
 
   Scénario: Les trois liens de l’accueil mènent à la page Portefeuille européen
     Quand je me rends sur la page d'accueil
@@ -57,7 +50,3 @@ Fonctionnalité: Page publique Portefeuille européen
     Quand je me rends sur le chemin "/portefeuille-europeen"
     Alors la page ne contient pas de lien "Consulter le registre public"
     Et la page ne contient pas de lien "Lire la politique d’enregistrement"
-
-  Scénario: Le bloc « Être prévenu » ne transmet aucune adresse
-    Quand je me rends sur le chemin "/portefeuille-europeen"
-    Alors le bloc « Être prévenu » ne contient pas de formulaire et son champ d’adresse n’a pas de nom
