@@ -37,8 +37,12 @@ module ApplicationHelper
     !user_signed_in? && !registered_subdomain?
   end
 
-  def european_wallet_page_path
-    root_path(anchor: 'portefeuille-europeen')
+  def european_wallet_registry_open?
+    FeatureFlag.enabled?(:european_wallet_registry_open)
+  end
+
+  def european_wallet_registration_path
+    connexion_path
   end
 
   def european_wallet_phone_mockup(caption_id:)

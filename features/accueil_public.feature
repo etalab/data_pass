@@ -14,11 +14,18 @@ Fonctionnalité: Accueil public
     Et je vois 3 tuiles
     Et il y a un badge "Nouveau"
 
+  @registre_ouvert
+  Scénario: Une fois le registre ouvert, l’accueil n’annonce plus son ouverture
+    Sachant que le registre du portefeuille européen est ouvert
+    Quand je me rends sur la page d'accueil
+    Alors l’accueil n’affiche pas de bandeau d’information
+    Et je vois 3 tuiles
+
   Scénario: Chaque tuile mène à sa section ou à la page Portefeuille européen
     Quand je me rends sur la page d'accueil
     Alors la tuile "Vous cherchez des données pour votre service" mène à "#acceder"
     Et la tuile "Vous êtes une administration qui détient des données" mène à "#administrations"
-    Et la tuile "Votre organisation et le portefeuille européen" mène à "/#portefeuille-europeen"
+    Et la tuile "Votre organisation et le portefeuille européen" mène à "/portefeuille-europeen"
 
   @javascript
   Scénario: Deux clics sur une tuile mènent à sa section sans recharger la page

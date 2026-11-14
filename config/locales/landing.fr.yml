@@ -11,7 +11,7 @@ fr:
       registered: Organisation enregistrée au registre français
       refuse: Refuser
       share: Partager
-      caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, puis accepte ou refuse."
+      caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, tels que déclarés au registre, puis accepte ou refuse."
   pages:
     home:
       notice:

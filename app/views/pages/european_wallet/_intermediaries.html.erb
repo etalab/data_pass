@@ -1,0 +1,36 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <div class="fr-col-12 fr-col-lg-7">
+    <p class="lp-kicker"><%= t('.kicker') %></p>
+    <h3 class="fr-h4"><%= t('.title') %></h3>
+    <% t('.paragraphs').each do |paragraph| %>
+      <p><%= paragraph %></p>
+    <% end %>
+    <p class="fr-mb-0"><%= t('.own_service_hint') %></p>
+  </div>
+  <div class="fr-col-12 fr-col-lg-5">
+    <div class="lp-visual lp-wallet-visual">
+      <div class="lp-visual__shape" aria-hidden="true"></div>
+      <div class="lp-visual__img">
+        <figure class="fr-m-0" aria-labelledby="intermediaires-legende">
+          <div class="lp-roles" aria-hidden="true">
+            <div class="lp-role lp-role--datapass lp-wallet-role">
+              <%= render Atoms::PictogramComponent.new(name: 'buildings/city-hall') %>
+              <p><strong><%= t('.roles.client.title') %></strong><%= t('.roles.client.text') %></p>
+            </div>
+            <p class="lp-arrow"><%= t('.roles.on_behalf') %></p>
+            <div class="lp-role lp-wallet-role">
+              <%= render Atoms::PictogramComponent.new(name: 'digital/ecosystem') %>
+              <p><strong><%= t('.roles.intermediary.title') %></strong><%= t('.roles.intermediary.text') %></p>
+            </div>
+            <p class="lp-arrow"><%= t('.roles.request') %></p>
+            <div class="lp-role lp-role--access lp-wallet-role">
+              <%= render Atoms::PictogramComponent.new(name: 'digital/application') %>
+              <p><strong><%= t('.roles.wallet.title') %></strong><%= t('.roles.wallet.text') %></p>
+            </div>
+          </div>
+          <figcaption id="intermediaires-legende" class="fr-sr-only"><%= t('.caption') %></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>

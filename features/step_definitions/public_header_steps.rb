@@ -46,3 +46,7 @@ end
 Alors("Turbo n'a lancé aucune visite") do
   expect(page.evaluate_script('window.turboVisits')).to eq(0)
 end
+
+Alors('l’accueil n’affiche pas de bandeau d’information') do
+  expect(page).to have_no_css('.fr-notice')
+end

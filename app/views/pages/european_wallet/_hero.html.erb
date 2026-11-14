@@ -1,0 +1,21 @@
+<%= render Organisms::HeroComponent.new(
+  title: t('.title'),
+  heading: { tag: :h1, class: 'fr-h2', id: 'portefeuille-titre' }
+) do |hero| %>
+  <% hero.with_lead do %>
+    <% t('.paragraphs').each do |paragraph| %>
+      <p><%= paragraph %></p>
+    <% end %>
+  <% end %>
+  <% hero.with_actions do %>
+    <%= render partial: 'pages/european_wallet/actions' %>
+  <% end %>
+  <% hero.with_footer do %>
+    <% unless european_wallet_registry_open? %>
+      <p class="fr-text--sm fr-mb-0"><%= t('.opening_date') %></p>
+    <% end %>
+  <% end %>
+  <% hero.with_illustration do %>
+    <%= render european_wallet_phone_mockup(caption_id: 'portefeuille-telephone-legende') %>
+  <% end %>
+<% end %>

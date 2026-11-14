@@ -1,0 +1,33 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <div class="fr-col-12 fr-col-lg-7">
+    <p class="lp-kicker"><%= t('.kicker') %></p>
+    <h3 class="fr-h4"><%= t('.title') %></h3>
+    <p class="fr-mb-2w"><%= t('.intro') %></p>
+    <ul class="lp-wallet-cases">
+      <% t('.cases').each do |item| %>
+        <li>
+          <%= render Atoms::PictogramComponent.new(name: item[:pictogram]) %>
+          <span><%= item[:text] %></span>
+        </li>
+      <% end %>
+    </ul>
+    <% t('.paragraphs').each do |paragraph| %>
+      <p><%= paragraph %></p>
+    <% end %>
+    <ul class="fr-links-group fr-mb-0">
+      <li><%= link_to t('.role_link'), '#acteurs', class: 'fr-link fr-icon-arrow-right-line fr-link--icon-right' %></li>
+    </ul>
+  </div>
+  <div class="fr-col-12 fr-col-lg-5">
+    <div class="lp-visual lp-visual--cumulus lp-wallet-visual">
+      <div class="lp-visual__shape" aria-hidden="true"></div>
+      <div class="lp-visual__img">
+        <%= render Molecules::PhoneMockupComponent.new(
+          caption: { id: 'fournisseurs-legende', text: t('.phone.caption') },
+          header: { avatar: t('.phone.avatar'), title: t('.phone.title'), subtitle: t('.phone.subtitle') },
+          rows: t('.phone.rows')
+        ) %>
+      </div>
+    </div>
+  </div>
+</div>
