@@ -53,10 +53,10 @@ Fonctionnalité: Page publique Portefeuille européen
     Alors l’onglet « Particuliers » est sélectionné
     Et la page contient "Qui peut vous demander accès à vos données ?"
 
-  Scénario: Les liens vers des pages pas encore livrées mènent à une cible provisoire de la page
+  Scénario: La page ne renvoie pas vers les pages pas encore livrées
     Quand je me rends sur le chemin "/portefeuille-europeen"
     Alors la page ne contient pas de lien "Consulter le registre public"
-    Et la page contient un lien "Lire la politique d’enregistrement" vers "/portefeuille-europeen#questions"
+    Et la page ne contient pas de lien "Lire la politique d’enregistrement"
 
   Scénario: Le bloc « Être prévenu » ne transmet aucune adresse
     Quand je me rends sur le chemin "/portefeuille-europeen"

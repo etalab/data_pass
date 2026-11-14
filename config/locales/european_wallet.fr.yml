@@ -13,7 +13,6 @@ fr:
       actions:
         notify: "Être prévenu de l’ouverture"
         register: "Enregistrer mon organisation"
-        policy: "Lire la politique d’enregistrement"
       actors:
         title: "Les acteurs du portefeuille européen"
         intro: "Cinq acteurs interviennent quand votre service demande des données à un usager. Les données partagées vont directement du portefeuille à votre service, sans passer par DataPass."

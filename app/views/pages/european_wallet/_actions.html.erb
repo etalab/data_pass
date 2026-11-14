@@ -6,9 +6,4 @@
       <%= link_to t('pages.european_wallet.actions.notify'), european_wallet_notify_path, class: 'fr-btn' %>
     <% end %>
   </li>
-  <% if local_assigns[:with_policy] %>
-    <li>
-      <%= link_to t('pages.european_wallet.actions.policy'), european_wallet_registration_policy_path, class: 'fr-btn fr-btn--secondary fr-icon-arrow-right-line' %>
-    </li>
-  <% end %>
 </ul>

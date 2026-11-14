@@ -41,10 +41,6 @@ module ApplicationHelper
     FeatureFlag.enabled?(:european_wallet_registry_open)
   end
 
-  def european_wallet_registration_policy_path
-    european_wallet_page_path(anchor: 'questions')
-  end
-
   def european_wallet_registration_path
     european_wallet_page_path(anchor: 'etapes')
   end
