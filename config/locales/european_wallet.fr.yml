@@ -197,7 +197,7 @@ fr:
           - date: "Courant 2027"
             text: "Chaque État membre propose son portefeuille européen."
           - date: "24 décembre 2027"
-            text: "Les services privés tenus à une authentification forte (banque, énergie, transports, santé, télécommunications, entre autres) acceptent le portefeuille quand l’usager le demande. Les micro et petites entreprises ne sont pas concernées."
+            text: "Les services privés tenus à une authentification forte (banque, énergie, transports, santé, télécommunications, entre autres) acceptent le portefeuille quand l’usager le demande."
           - date: "11 août 2028"
             text: "Les portefeuilles contrôlent les certificats d’enregistrement."
       faq:
