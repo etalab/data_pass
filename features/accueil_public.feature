@@ -18,7 +18,7 @@ Fonctionnalité: Accueil public
   Scénario: Une fois le registre ouvert, l’accueil n’annonce plus son ouverture
     Sachant que le registre du portefeuille européen est ouvert
     Quand je me rends sur la page d'accueil
-    Alors la page ne contient pas "Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026."
+    Alors l’accueil n’affiche pas de bandeau d’information
     Et je vois 3 tuiles
 
   Scénario: Chaque tuile mène à sa section ou à la page Portefeuille européen

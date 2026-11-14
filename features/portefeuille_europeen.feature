@@ -28,6 +28,8 @@ Fonctionnalité: Page publique Portefeuille européen
     Alors la page contient un lien "Enregistrer mon organisation" vers "/connexion"
     Et la page ne contient pas "Le registre ouvre le 24 décembre 2026."
     Et la page ne contient pas "Être prévenu"
+    Et la page ne contient pas de lien "Consulter le registre public"
+    Et la page ne contient pas de lien "Lire la politique d’enregistrement"
 
   Scénario: Les trois liens de l’accueil mènent à la page Portefeuille européen
     Quand je me rends sur la page d'accueil
