@@ -15,7 +15,6 @@ Fonctionnalité: Page publique Portefeuille européen
       | Les acteurs du portefeuille européen          |
       | Ce qui vous concerne                          |
       | Calendrier                                    |
-      | Le registre public                            |
       | Questions fréquentes                          |
       | Être prévenu de l’ouverture du registre       |
     Et la page contient un lien "Être prévenu de l’ouverture" vers "/portefeuille-europeen#etre-prevenu"
@@ -56,7 +55,7 @@ Fonctionnalité: Page publique Portefeuille européen
 
   Scénario: Les liens vers des pages pas encore livrées mènent à une cible provisoire de la page
     Quand je me rends sur le chemin "/portefeuille-europeen"
-    Alors la page contient un lien "Consulter le registre public" vers "/portefeuille-europeen#registre-public"
+    Alors la page ne contient pas de lien "Consulter le registre public"
     Et la page contient un lien "Lire la politique d’enregistrement" vers "/portefeuille-europeen#questions"
 
   Scénario: Le bloc « Être prévenu » ne transmet aucune adresse

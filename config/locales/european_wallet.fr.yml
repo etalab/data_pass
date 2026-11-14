@@ -9,7 +9,6 @@ fr:
         paragraphs:
           - "Le portefeuille européen d’identité numérique est une application mobile, gratuite et facultative, où chacun conserve ses attestations : identité, permis de conduire, diplôme, droits. En France, France Titres (ANTS) le développe à partir de France Identité."
           - "Avant de demander des données à un usager via son portefeuille, une organisation s’enregistre au registre des parties utilisatrices. La DINUM tient ce registre dans DataPass et publie la fiche de chaque organisation enregistrée."
-        registry_link: "Consulter le registre public"
         opening_date: "Le registre ouvre le 24 décembre 2026."
       actions:
         notify: "Être prévenu de l’ouverture"
@@ -168,7 +167,6 @@ fr:
           registered:
             title: "L’organisation doit être enregistrée"
             text: "Pour vous demander des données via votre portefeuille, une organisation doit s’enregistrer. En France, la DINUM tient ce registre dans DataPass, la vérifie et publie ce qu’elle demandera et pourquoi."
-            link: "Consulter le registre public"
           choice:
             title: "Vous choisissez ce que vous partagez"
             text: "Votre portefeuille vous montre qui demande quoi et pourquoi. Vous choisissez ce que vous partagez, ou vous refusez. Vos données vont de votre téléphone à l’organisation, sans passer par DataPass."
@@ -203,10 +201,6 @@ fr:
             text: "Les services privés tenus à une authentification forte (banque, énergie, transports, santé, télécommunications, entre autres) acceptent le portefeuille quand l’usager le demande. Les micro et petites entreprises ne sont pas concernées."
           - date: "11 août 2028"
             text: "Les portefeuilles contrôlent les certificats d’enregistrement."
-      registry:
-        title: "Le registre public"
-        text: "Consultez la fiche de chaque organisation enregistrée : ses services, les données qu’elle demande et pourquoi. Le registre est aussi publié en open data sur data.gouv.fr."
-        link: "Consulter le registre public"
       faq:
         title: "Questions fréquentes"
         organizations_title: "Votre organisation"
@@ -242,7 +236,7 @@ fr:
           - question: "DataPass voit-il mes données ?"
             answer: "Non. DataPass tient le registre des organisations ; les données que vous partagez vont de votre portefeuille à l’organisation."
           - question: "Comment savoir si une organisation est enregistrée ?"
-            answer: 'Cherchez-la dans le <a href="#registre-public">registre public</a> par son nom ou son SIREN.'
+            answer: "Une organisation enregistrée figure au registre des parties utilisatrices, que la DINUM tient dans DataPass. Le registre publie, pour chaque organisation, les données qu’elle demande et pourquoi."
           - question: "Une organisation me demande des données qu’elle n’a pas déclarées : que faire ?"
             answer: "Refusez le partage. Depuis votre portefeuille, vous pouvez la signaler à la CNIL."
       notify:

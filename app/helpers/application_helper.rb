@@ -41,10 +41,6 @@ module ApplicationHelper
     FeatureFlag.enabled?(:european_wallet_registry_open)
   end
 
-  def european_wallet_public_registry_path
-    european_wallet_page_path(anchor: 'registre-public')
-  end
-
   def european_wallet_registration_policy_path
     european_wallet_page_path(anchor: 'questions')
   end
