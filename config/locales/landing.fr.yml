@@ -1,4 +1,17 @@
 fr:
+  shared:
+    european_wallet_phone:
+      avatar: E
+      organization: Exemple Vélos
+      request: souhaite accéder à vos données
+      data_label: Données demandées
+      data_value: Nom, prénoms, date de naissance
+      purpose_label: Pourquoi
+      purpose_value: Créer votre compte client
+      registered: Organisation enregistrée au registre français
+      refuse: Refuser
+      share: Partager
+      caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, puis accepte ou refuse."
   pages:
     home:
       notice:
@@ -27,7 +40,7 @@ fr:
         lead: Les organisations vous écrivent par un formulaire construit avec vous, et vous décidez dans un espace réservé à votre administration.
         points:
           - Des demandes complètes, cadrées juridiquement
-          - Chaque décision tracée, et publiée pour vous
+          - Chaque décision tracée et publiée pour vous
           - Vous restez seule juge de qui accède à vos données
         features_title: Ce que DataPass permet
         receive:
@@ -75,7 +88,7 @@ fr:
             organization: Logiciel Enfance (éditeur)
             status: warning
             state: Réponse reçue
-            meta: Modifications demandées, demandeur a répondu
+            meta: Modifications demandées, le demandeur a répondu
           - id: D10302
             organization: Département du Val-Fleuri
             status: success
@@ -86,18 +99,6 @@ fr:
         title: Votre organisation va utiliser le portefeuille européen ou y contribuer ?
         text: Le portefeuille européen d’identité numérique est une application mobile où chacun conserve ses attestations électroniques et choisit ce qu’il partage. Une organisation qui veut demander ces données à ses usagers s’enregistre d’abord au registre des parties utilisatrices. Les organisations qui délivrent des attestations dans le portefeuille s’y enregistreront aussi.
         button: Découvrir le registre du portefeuille européen
-        phone:
-          avatar: E
-          organization: Exemple Vélos
-          request: souhaite accéder à vos données
-          data_label: Données demandées
-          data_value: Nom, prénoms, date de naissance
-          purpose_label: Pourquoi
-          purpose_value: Créer votre compte client
-          registered: Organisation enregistrée au registre français
-          refuse: Refuser
-          share: Partager
-          caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, puis accepte ou refuse."
       applicants:
         kicker: Vous cherchez des données pour votre service
         title: Accéder à des données publiques protégées
@@ -155,7 +156,7 @@ fr:
         before_title: Avant
         before_text: Chaque administration organisait l’accès à ses données protégées à sa façon, souvent par des conventions signées une à une avec chaque organisation.
         framework_title: Un cadre commun
-        framework_text_html: 'Pour les échanges de données entre administrations, le code des relations entre le public et l’administration fixe des règles communes : <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367410/" target="_blank" rel="noopener" title="Articles L114-8 et suivants du CRPA sur Légifrance - nouvelle fenêtre">articles L114-8 et suivants</a>.'
+        framework_text_html: 'Pour les échanges de données entre administrations, le code des relations entre le public et l’administration fixe des règles communes : <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367410/" target="_blank" rel="noopener" title="Articles L114-8 et suivants du CRPA sur Légifrance - nouvelle fenêtre">articles L114-8 et suivants<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.'
         tool_title: Un outil pour l’appliquer
         tool_text: "La DINUM a créé DataPass pour mettre ce cadre en pratique : une demande aux rubriques communes, une décision prise et tracée par l’administration qui détient les données, des habilitations publiées."
       faq:
@@ -163,7 +164,7 @@ fr:
         applicants_title: Vous cherchez des données
         applicants:
           - question: Où trouver les données en accès restreint ?
-            answer: 'Sur <a href="https://simplifions.data.gouv.fr/" target="_blank" rel="noopener" title="Simplifions - nouvelle fenêtre">Simplifions</a>, si vous partez d’une démarche, et sur <a href="https://www.data.gouv.fr/dataservices" target="_blank" rel="noopener" title="data.gouv.fr - nouvelle fenêtre">data.gouv.fr</a>, qui référence les données et API en accès restreint.'
+            answer: 'Sur <a href="https://simplifions.data.gouv.fr/" target="_blank" rel="noopener" title="Simplifions - nouvelle fenêtre">Simplifions<span class="fr-sr-only"> - nouvelle fenêtre</span></a>, si vous partez d’une démarche, et sur <a href="https://www.data.gouv.fr/dataservices" target="_blank" rel="noopener" title="data.gouv.fr - nouvelle fenêtre">data.gouv.fr<span class="fr-sr-only"> - nouvelle fenêtre</span></a>, qui référence les données et API en accès restreint.'
           - question: Comment demander l’accès à une donnée ?
             answer: La fiche de la donnée vous mène au formulaire DataPass de l’administration qui la détient. Vous vous connectez avec ProConnect et vous décrivez votre usage.
           - question: Ai-je le droit de demander cette donnée ?

@@ -11,18 +11,6 @@ fr:
           - "Avant de demander des données à un usager via son portefeuille, une organisation s’enregistre au registre des parties utilisatrices. La DINUM tient ce registre dans DataPass et publie la fiche de chaque organisation enregistrée."
         registry_link: "Consulter le registre public"
         opening_date: "Le registre ouvre le 24 décembre 2026."
-        phone:
-          avatar: "E"
-          organization: "Exemple Vélos"
-          request: "souhaite accéder à vos données"
-          data_label: "Données demandées"
-          data_value: "Nom, prénoms, date de naissance"
-          purpose_label: "Pourquoi"
-          purpose_value: "Créer votre compte client"
-          registered: "Organisation enregistrée au registre"
-          refuse: "Refuser"
-          share: "Partager"
-          caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité déclarés au registre, puis accepte ou refuse."
       actions:
         notify: "Être prévenu de l’ouverture"
         register: "Enregistrer mon organisation"

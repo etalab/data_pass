@@ -20,6 +20,14 @@ Fonctionnalité: Accueil public
     Et la tuile "Vous êtes une administration qui détient des données" mène à "#administrations"
     Et la tuile "Votre organisation et le portefeuille européen" mène à "/portefeuille-europeen"
 
+  @javascript
+  Scénario: Deux clics sur une tuile mènent à sa section sans recharger la page
+    Quand je me rends sur la page d'accueil
+    Et que je compte les visites Turbo
+    Et que je clique deux fois sur la tuile "Vous cherchez des données pour votre service"
+    Alors l'adresse se termine par "#acceder"
+    Et Turbo n'a lancé aucune visite
+
   Scénario: Le lien « Se connecter » mène à la page de connexion
     Quand je me rends sur la page d'accueil
     Et que je clique sur "Se connecter"

@@ -15,17 +15,17 @@
         <figure class="fr-m-0" aria-labelledby="intermediaires-legende">
           <div class="lp-roles" aria-hidden="true">
             <div class="lp-role lp-role--datapass lp-wallet-role">
-              <%= render partial: 'pages/home/pictogram', locals: { name: 'buildings/city-hall' } %>
+              <%= render Atoms::PictogramComponent.new(name:'buildings/city-hall') %>
               <p><strong><%= t('.roles.client.title') %></strong><%= t('.roles.client.text') %></p>
             </div>
             <p class="lp-arrow"><%= t('.roles.on_behalf') %></p>
             <div class="lp-role lp-wallet-role">
-              <%= render partial: 'pages/home/pictogram', locals: { name: 'digital/ecosystem' } %>
+              <%= render Atoms::PictogramComponent.new(name:'digital/ecosystem') %>
               <p><strong><%= t('.roles.intermediary.title') %></strong><%= t('.roles.intermediary.text') %></p>
             </div>
             <p class="lp-arrow"><%= t('.roles.request') %></p>
             <div class="lp-role lp-role--access lp-wallet-role">
-              <%= render partial: 'pages/home/pictogram', locals: { name: 'digital/application' } %>
+              <%= render Atoms::PictogramComponent.new(name:'digital/application') %>
               <p><strong><%= t('.roles.wallet.title') %></strong><%= t('.roles.wallet.text') %></p>
             </div>
           </div>

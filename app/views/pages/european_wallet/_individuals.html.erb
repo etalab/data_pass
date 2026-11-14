@@ -2,7 +2,7 @@
 <h3 class="fr-h4"><%= t('.title') %></h3>
 <ul class="lp-wallet-rights">
   <li>
-    <%= render partial: 'pages/home/pictogram', locals: { name: 'document/document-search' } %>
+    <%= render Atoms::PictogramComponent.new(name:'document/document-search') %>
     <div class="lp-wallet-rights__body">
       <h4><%= t('.rights.registered.title') %></h4>
       <p><%= t('.rights.registered.text') %></p>
@@ -12,7 +12,7 @@
     </div>
   </li>
   <li>
-    <%= render partial: 'pages/home/pictogram', locals: { name: 'digital/application' } %>
+    <%= render Atoms::PictogramComponent.new(name:'digital/application') %>
     <div class="lp-wallet-rights__body">
       <h4><%= t('.rights.choice.title') %></h4>
       <p><%= t('.rights.choice.text') %></p>
@@ -24,7 +24,7 @@
     </div>
   </li>
   <li>
-    <%= render partial: 'pages/home/pictogram', locals: { name: 'system/warning' } %>
+    <%= render Atoms::PictogramComponent.new(name:'system/warning') %>
     <div class="lp-wallet-rights__body">
       <h4><%= t('.rights.report.title') %></h4>
       <p><%= t('.rights.report.text') %></p>

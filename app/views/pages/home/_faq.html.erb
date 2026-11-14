@@ -3,9 +3,9 @@
     <h2 id="questions-titre"><%= t('.title') %></h2>
     <div class="lp-faq">
       <h3 class="fr-h5 fr-mt-4w"><%= t('.applicants_title') %></h3>
-      <%= render partial: 'pages/home/faq_group', locals: { questions: t('.applicants') } %>
+      <%= render partial: 'shared/faq_group', locals: { questions: t('.applicants') } %>
       <h3 class="fr-h5 fr-mt-6w"><%= t('.administrations_title') %></h3>
-      <%= render partial: 'pages/home/faq_group', locals: { questions: t('.administrations') } %>
+      <%= render partial: 'shared/faq_group', locals: { questions: t('.administrations') } %>
     </div>
   </div>
 </section>

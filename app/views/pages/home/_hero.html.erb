@@ -1,9 +1,8 @@
-<section class="lp-hero lp-section--blue">
-  <div class="fr-container">
-    <p class="lp-kicker"><%= t('.kicker') %></p>
-    <h1><%= t('.title') %></h1>
+<%= render Organisms::HeroComponent.new(variant: :blue, kicker: t('.kicker'), title: t('.title'), heading: { tag: :h1 }) do |hero| %>
+  <% hero.with_lead do %>
     <p class="fr-text--lead"><%= t('.lead') %></p>
-
+  <% end %>
+  <% hero.with_footer do %>
     <div class="fr-grid-row fr-grid-row--gutters lp-orient">
       <div class="fr-col-12 fr-col-lg-4">
         <%= render partial: 'pages/home/tile', locals: {
@@ -34,5 +33,5 @@
         } %>
       </div>
     </div>
-  </div>
-</section>
+  <% end %>
+<% end %>

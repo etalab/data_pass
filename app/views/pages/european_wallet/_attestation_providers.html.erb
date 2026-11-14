@@ -6,7 +6,7 @@
     <ul class="lp-wallet-cases">
       <% t('.cases').each do |item| %>
         <li>
-          <%= render partial: 'pages/home/pictogram', locals: { name: item[:pictogram] } %>
+          <%= render Atoms::PictogramComponent.new(name: item[:pictogram]) %>
           <span><%= item[:text] %></span>
         </li>
       <% end %>
@@ -23,19 +23,11 @@
     <div class="lp-visual lp-visual--cumulus lp-wallet-visual">
       <div class="lp-visual__shape" aria-hidden="true"></div>
       <div class="lp-visual__img">
-        <figure class="fr-m-0" aria-labelledby="fournisseurs-legende">
-          <div class="lp-phone" aria-hidden="true">
-            <div class="lp-phone__notch"></div>
-            <p class="lp-phone__app">
-              <span class="lp-avatar"><%= t('.phone.avatar') %></span>
-              <span><strong><%= t('.phone.title') %></strong><br><%= t('.phone.subtitle') %></span>
-            </p>
-            <% t('.phone.rows').each do |row| %>
-              <p class="lp-phone__row"><b><%= row[:label] %></b><%= row[:value] %></p>
-            <% end %>
-          </div>
-          <figcaption id="fournisseurs-legende" class="fr-sr-only"><%= t('.phone.caption') %></figcaption>
-        </figure>
+        <%= render Molecules::PhoneMockupComponent.new(
+          caption: { id: 'fournisseurs-legende', text: t('.phone.caption') },
+          header: { avatar: t('.phone.avatar'), title: t('.phone.title'), subtitle: t('.phone.subtitle') },
+          rows: t('.phone.rows')
+        ) %>
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
     <% t('.concerned.entities').each do |entity| %>
       <div class="fr-col-12 fr-col-sm-6 fr-col-lg">
         <div class="lp-example">
-          <%= render partial: 'pages/home/pictogram', locals: { name: entity[:pictogram] } %>
+          <%= render Atoms::PictogramComponent.new(name: entity[:pictogram]) %>
           <h4><%= entity[:title] %></h4>
           <p><%= entity[:text] %></p>
         </div>
