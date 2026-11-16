@@ -1086,7 +1086,8 @@ paths:
                 verified_email:
                   type: boolean
                   default: false
-                  description: Le fournisseur de données déclare avoir vérifié les emails de contact de la demande. DataPass ne vérifie plus lui-même la joignabilité des emails de contact, seul le format est contrôlé, que ce champ soit à `true` ou non. L'historique de la demande indique que les emails ont été déclarés vérifiés par le fournisseur de données.
+                  deprecated: true
+                  description: Déprécié, sans effet. DataPass ne vérifie plus la joignabilité des emails de contact, seul leur format est contrôlé, que ce champ soit à `true` ou non.
                 notifications:
                   $ref: '#/components/schemas/Notifications'
       responses:
