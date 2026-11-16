@@ -90,4 +90,22 @@ class FlashAlertComponentPreview < ApplicationPreview
       data: { 'title' => 'Information', 'description' => 'Note informative' }
     )
   end
+
+  # @label 6. Information avec lien
+  #
+  # Seul scénario qui exerce la clé `link` : un lien externe, ouvert dans un nouvel onglet, placé
+  # après la description.
+  #
+  # **Où** : après un lien direct vers le formulaire éditeur d’API Entreprise, redirigé vers la
+  # page de choix de l’habilitation (`AuthorizationRequestFormsController#new`).
+  def info_with_link
+    render FlashAlertComponent.new(
+      type: :info,
+      data: {
+        'title' => 'Formulaire indisponible',
+        'description' => 'Répondez au questionnaire de l’équipe.',
+        'link' => { 'label' => 'Répondre au questionnaire', 'url' => 'https://form.typeform.com/to/aDFr3Cg9' }
+      }
+    )
+  end
 end

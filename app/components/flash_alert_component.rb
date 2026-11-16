@@ -30,7 +30,7 @@ class FlashAlertComponent < ApplicationComponent
 
   def render_standard_alert
     helpers.dsfr_alert(type:, title: data['title'], close_button:, html_attributes: { class: 'fr-my-8v' }) do
-      safe_join([description_content, errors_content].compact)
+      safe_join([description_content, link_content, errors_content].compact, ' ')
     end
   end
 
@@ -38,6 +38,12 @@ class FlashAlertComponent < ApplicationComponent
     return if data['description'].blank?
 
     data['description']
+  end
+
+  def link_content
+    return if data['link'].blank?
+
+    link_to(data['link']['label'], data['link']['url'], target: '_blank', rel: 'noopener noreferrer', title: "#{data['link']['label']} - #{t('shared.new_window')}")
   end
 
   def errors_content
