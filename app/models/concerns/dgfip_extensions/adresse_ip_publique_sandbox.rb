@@ -10,7 +10,7 @@ module DGFIPExtensions::AdresseIpPubliqueSandbox
 
     validates :adresse_ip_publique,
       public_ip_address: true,
-      if: -> { need_complete_validation?(:basic_infos) }
+      if: -> { need_complete_validation?(:basic_infos) || adresse_ip_publique_changed? }
   end
 
   def adresse_ip_publique_sandbox = adresse_ip_publique

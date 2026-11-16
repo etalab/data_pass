@@ -11,7 +11,7 @@ module DGFIPExtensions::AdresseIpPubliqueProduction
 
     validates :adresse_ip_publique_production,
       public_ip_address: true,
-      if: -> { need_complete_validation?(:volumetrie) }
+      if: -> { need_complete_validation?(:volumetrie) || adresse_ip_publique_production_changed? }
   end
 
   def adresse_ip_publique_sandbox = adresse_ip_publique

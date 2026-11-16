@@ -51,6 +51,19 @@ RSpec.describe DGFIPExtensions::AdresseIpPubliqueSandbox do
     end
   end
 
+  describe 'mise à jour d’une habilitation validée' do
+    it 'refuse une adresse privée nouvellement saisie' do
+      authorization_request.save!
+      authorization_request.assign_attributes(
+        state: 'draft',
+        last_validated_at: 1.month.ago,
+        adresse_ip_publique: '10.0.0.5',
+      )
+
+      expect(authorization_request.valid?(:update)).to be(false)
+    end
+  end
+
   describe 'à la soumission' do
     it 'exige l’adresse IP quelle que soit l’étape en cours' do
       authorization_request.adresse_ip_publique = nil
@@ -142,6 +155,18 @@ RSpec.describe DGFIPExtensions::AdresseIpPubliqueSandbox do
         authorization_request.adresse_ip_publique_production = nil
 
         expect(authorization_request.valid?(:review)).to be(true)
+      end
+
+      it 'refuse une adresse privée saisie sur une demande de mise à jour' do
+        authorization_request.save!
+        authorization_request.assign_attributes(
+          state: 'draft',
+          last_validated_at: 1.month.ago,
+          adresse_ip_publique_production: '10.0.0.5',
+        )
+
+        expect(authorization_request.valid?(:update)).to be(false)
+        expect(authorization_request.errors[:adresse_ip_publique_production]).to be_present
       end
 
       it 'laisse valide une demande déjà validée sans adresse de production' do
