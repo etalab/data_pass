@@ -153,6 +153,41 @@ RSpec.describe 'API: Authorization request submission' do
 
         expect(response).to have_http_status(:bad_request)
       end
+
+      it 'points at the consentement and matches the OpenAPI contract' do
+        submit_request
+
+        expect(errors).to eq(
+          [
+            {
+              'status' => '400',
+              'title' => 'Paramètre manquant',
+              'detail' => 'Le paramètre « consentement » est requis mais absent de la requête.',
+              'source' => { 'pointer' => '/consentement' }
+            }
+          ]
+        )
+        validate_response!
+      end
+    end
+
+    context 'when the type requires no consent' do
+      let(:params) { { consentement: {} } }
+
+      before { allow_any_instance_of(AuthorizationRequest).to receive(:required_consents).and_return([]) } # rubocop:disable RSpec/AnyInstance
+
+      it 'submits the request with an empty consentement' do
+        submit_request
+
+        expect(response).to have_http_status(:ok)
+        expect(authorization_request.reload.state).to eq('submitted')
+      end
+
+      it 'still answers 400 when the consentement is absent' do
+        post "/api/v1/demandes/#{authorization_request.id}/soumettre", params: {}, headers:, as: :json
+
+        expect(response).to have_http_status(:bad_request)
+      end
     end
 
     context 'when the consentement is not an object' do
@@ -238,6 +273,28 @@ RSpec.describe 'API: Authorization request submission' do
         submit_request
 
         expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'with a revoked token' do
+      let(:token) { create(:access_token, application:, scopes: token_scopes, revoked_at: 1.minute.ago) }
+
+      it 'answers 401 so that the client stops reusing the token' do
+        submit_request
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(errors.first).to include('status' => '401', 'title' => 'Jeton révoqué')
+      end
+
+      it 'matches the OpenAPI contract' do
+        submit_request
+
+        expect(response).to have_http_status(:unauthorized)
+        validate_response!
+      end
+
+      it 'changes nothing' do
+        expect { submit_request }.not_to change { authorization_request.reload.state }.from('draft')
       end
     end
 

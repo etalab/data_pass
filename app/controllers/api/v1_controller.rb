@@ -4,6 +4,7 @@ class API::V1Controller < APIController
   before_action :reject_banned_token_owner
 
   rescue_from Doorkeeper::Errors::BaseResponseError, with: :render_generic_error
+  rescue_from Doorkeeper::Errors::TokenRevoked, with: :render_revoked_token_error
   rescue_from Doorkeeper::Errors::TokenUnknown, with: :render_unauthorized_error
   rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
@@ -33,6 +34,10 @@ class API::V1Controller < APIController
 
   def render_expired_token_error
     render_error(401, :token_expired, source: { pointer: 'headers/Authorization' })
+  end
+
+  def render_revoked_token_error
+    render_error(401, :token_revoked, source: { pointer: 'headers/Authorization' })
   end
 
   def render_generic_error
