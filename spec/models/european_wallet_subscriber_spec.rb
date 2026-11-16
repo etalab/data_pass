@@ -30,6 +30,14 @@ RSpec.describe EuropeanWalletSubscriber do
       expect(duplicate.errors).to be_of_kind(:email, :taken)
     end
 
+    it 'gives a single error when left empty' do
+      subscriber = build(:european_wallet_subscriber, email: '')
+
+      subscriber.validate
+
+      expect(subscriber.errors.details[:email]).to eq([{ error: :blank }])
+    end
+
     it 'must look like an email address' do
       subscriber = build(:european_wallet_subscriber, email: 'jean.dupont')
 

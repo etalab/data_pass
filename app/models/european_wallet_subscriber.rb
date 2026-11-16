@@ -10,7 +10,7 @@ class EuropeanWalletSubscriber < ApplicationRecord
   encrypts :email, deterministic: true
   normalizes :email, with: ->(email) { email.strip.downcase }
 
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
   validates :profile, presence: true
 
   generates_token_for :unsubscribe
