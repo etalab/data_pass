@@ -142,6 +142,16 @@ Alors("il n'y a pas de formulaire en mode résumé") do
   expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization")]')
 end
 
+Quand('les conditions générales d’utilisation de cette demande ne sont pas acceptées') do
+  authorization_request = AuthorizationRequest.last
+  authorization_request.terms_of_service_accepted = false
+  authorization_request.save!(validate: false)
+end
+
+Quand('le navigateur ne bloque pas la soumission des cases à cocher obligatoires') do
+  page.execute_script("document.querySelectorAll('input[type=checkbox][required]').forEach((checkbox) => { checkbox.required = false })")
+end
+
 Quand('je me rends sur cette demande d\'habilitation') do
   authorization_request = @authorization_request || AuthorizationRequest.last
 
