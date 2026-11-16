@@ -36,6 +36,7 @@ end
 
 Alors('le champ « {} » est en erreur avec « {} »') do |label, message|
   field = find_field(label)
+  expect(field[:'aria-invalid']).to eq('true')
   described_ids = field[:'aria-describedby'].split
 
   expect(described_ids.map { |id| find_by_id(id, visible: :all).text }.join(' ')).to include(message)
@@ -44,6 +45,7 @@ end
 Alors('le choix « {} » est en erreur avec « {} »') do |legend, message|
   fieldset = find('fieldset.fr-fieldset--error', text: legend)
   labelled_by_ids = fieldset[:'aria-labelledby'].split
+  expect(fieldset.all('input[type="radio"]').pluck(:'aria-invalid').uniq).to eq(['true'])
 
   expect(labelled_by_ids.map { |id| find_by_id(id, visible: :all).text }.join(' ')).to include(legend, message)
 end

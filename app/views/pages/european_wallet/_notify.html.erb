@@ -30,7 +30,7 @@
                 <% european_wallet_notify_profiles.each_with_index do |(key, label), index| %>
                   <div class="fr-fieldset__element">
                     <div class="fr-radio-group">
-                      <%= f.radio_button :profile, key, id: "etre-prevenu-profil-#{key}", autofocus: first_invalid_attribute == :profile && index.zero? %>
+                      <%= f.radio_button :profile, key, id: "etre-prevenu-profil-#{key}", required: true, autofocus: first_invalid_attribute == :profile && index.zero?, aria: { invalid: subscriber.errors.include?(:profile) || nil } %>
                       <label class="fr-label" for="etre-prevenu-profil-<%= key %>"><%= label %></label>
                     </div>
                   </div>
@@ -51,8 +51,9 @@
                     id: 'etre-prevenu-email',
                     class: "fr-input #{'fr-input--error' if subscriber.errors.include?(:email)}",
                     autocomplete: 'email',
-                    autofocus: first_invalid_attribute == :email,
-                    aria: { describedby: 'etre-prevenu-email-messages etre-prevenu-aide' } %>
+                    required: true,
+                    aria: { invalid: subscriber.errors.include?(:email) || nil, describedby: 'etre-prevenu-email-messages etre-prevenu-aide' },
+                    autofocus: first_invalid_attribute == :email %>
                   <%= f.button t('.submit'), type: 'submit', class: 'fr-btn', title: texts[:submit_title] %>
                 </div>
                 <div class="fr-messages-group" id="etre-prevenu-email-messages" aria-live="polite">
