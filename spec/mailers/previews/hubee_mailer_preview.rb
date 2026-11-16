@@ -8,7 +8,7 @@ class HubEEMailerPreview < ActionMailer::Preview
   end
 
   def administrateur_metier_impayes_loyer
-    HubEEMailer.with(authorization_request: AuthorizationRequest::HubEEImpayesLoyer.first).administrateur_metier(:impayes_loyer)
+    HubEEMailer.with(authorization_request: impayes_loyer_authorization_request).administrateur_metier(:impayes_loyer)
   end
 
   def formulaire_qf_validation
@@ -23,6 +23,10 @@ class HubEEMailerPreview < ActionMailer::Preview
   def formulaire_qf_authorization_request
     AuthorizationRequest::FormulaireQF.where(state: 'validated').first ||
       AuthorizationRequest::APIParticulier.where(state: 'validated').first.tap { |request| request.modalities = %w[params formulaire_qf] }
+  end
+
+  def impayes_loyer_authorization_request
+    AuthorizationRequest::HubEEImpayesLoyer.first || authorization_request
   end
 
   def authorization_request
