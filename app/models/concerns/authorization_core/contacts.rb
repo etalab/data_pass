@@ -59,7 +59,6 @@ module AuthorizationCore::Contacts
         end
 
         validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
-        validates "#{kind}_email", email_recently_verified: true, if: validation_condition, on: :submit
       end
 
       def self.define_contact_person_attributes(kind, validation_condition:, except: [])
