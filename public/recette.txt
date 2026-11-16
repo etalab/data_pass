@@ -1,0 +1,8 @@
+Recette sandbox : recette/2026-11-16-2
+Base : develop @ 219254c8d
+
+2026-11-16 19:53 — construction
+  DPP-220            38aa1aefa  recette-support/dpp-220
+  DPP-254    #1866   954644ca9  feature/dpp-254-demande-externe-api-decriture-ecarts-entre
+  DPP-255    #1863   f4d87a087  feature/dpp-255-fiabiliser-la-reprise-dun-abonnement-hubee
+  DP-1734    #1759   8f7c0ff05  feature/dp-1734-fusionner-les-vues-utilisateurs-avec-roles-et-gestion-des
