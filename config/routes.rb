@@ -96,6 +96,9 @@ Rails.application.routes.draw do
 
     get 'faq', to: 'pages#faq', as: :faq
     get 'portefeuille-europeen', to: 'pages#european_wallet', as: :european_wallet_page
+    post 'portefeuille-europeen/inscription', to: 'european_wallet_subscriptions#create', as: :european_wallet_subscriptions
+    get 'portefeuille-europeen/desinscription', to: 'european_wallet_unsubscriptions#show', as: :european_wallet_unsubscription
+    post 'portefeuille-europeen/desinscription', to: 'european_wallet_unsubscriptions#create'
     get 'accessibilite', to: 'pages#accessibilite', as: :accessibilite
     get 'plan_action_accessibilite', to: 'pages#plan_action_accessibilite', as: :plan_action_accessibilite
     get 'mentions-legales', to: 'pages#mentions_legales', as: :mentions_legales

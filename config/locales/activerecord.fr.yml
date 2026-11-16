@@ -276,6 +276,14 @@ fr:
     errors:
       messages: *active_record_messages_errors
       models:
+        european_wallet_subscriber:
+          attributes:
+            email:
+              blank: "Saisissez votre adresse électronique."
+              invalid: "Saisissez une adresse électronique valide, au format nom@example.com."
+            profile:
+              blank: "Choisissez ce qui vous décrit."
+              inclusion: "Choisissez l’un des profils proposés."
         api_access_grant:
           attributes:
             base:

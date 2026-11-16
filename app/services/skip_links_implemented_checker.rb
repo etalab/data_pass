@@ -43,6 +43,9 @@ class SkipLinksImplementedChecker
     pages#politique_confidentialite
     pages#faq
     pages#european_wallet
+    european_wallet_subscriptions#create
+    european_wallet_unsubscriptions#show
+    european_wallet_unsubscriptions#create
     pages#mentions_legales
     pages#cgu_api_impot_particulier_bas
     pages#cgu_api_impot_particulier_prod

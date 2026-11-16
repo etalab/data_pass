@@ -26,7 +26,8 @@ class SaveEuropeanWalletSubscriber < ApplicationInteractor
   end
 
   def profile_no_longer_offered?
-    context.registry_open && subscriber.organization?
+    subscriber.errors.exclude?(:profile) &&
+      EuropeanWalletSubscriber.offered_profiles(registry_open: context.registry_open).exclude?(subscriber.profile)
   end
 
   def adopt_concurrent_subscriber

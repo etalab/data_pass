@@ -360,6 +360,14 @@ main:has(.fr-follow:last-child) + .fr-footer {
   margin-top: 0 !important;
 }
 
+.lp-wallet-notify__trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .lp-wallet-profile .fr-fieldset__legend {
   font-size: 1rem;
 }

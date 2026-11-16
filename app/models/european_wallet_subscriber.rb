@@ -15,6 +15,10 @@ class EuropeanWalletSubscriber < ApplicationRecord
 
   generates_token_for :unsubscribe
 
+  def self.offered_profiles(registry_open:)
+    registry_open ? profiles.keys - ['organization'] : profiles.keys
+  end
+
   def external_profile
     EXTERNAL_PROFILES.fetch(profile)
   end

@@ -256,3 +256,23 @@ fr:
         email_hint: "Format attendu : nom@example.com"
         submit: "M’inscrire"
         unsubscribe: "Vous pourrez vous désinscrire à tout moment avec le lien présent dans chaque message."
+        honeypot_label: "Ne remplissez pas ce champ"
+        confirmation:
+          title: "Votre inscription est enregistrée"
+          text: "Nous vous écrirons à l’adresse indiquée. Vous pourrez vous désinscrire à tout moment avec le lien présent dans chaque message."
+        not_saved:
+          title: "Votre inscription n’a pas abouti"
+          text: "Une erreur nous empêche de l’enregistrer. Réessayez dans quelques minutes."
+        rate_limited:
+          title: "Votre inscription n’a pas abouti"
+          text: "Nous avons reçu trop d’inscriptions depuis votre connexion. Réessayez dans une minute."
+  european_wallet_unsubscriptions:
+    show:
+      title: "Ne plus être prévenu"
+      description: "Confirmez pour ne plus recevoir de message sur l’ouverture du registre du portefeuille européen. Votre adresse sera supprimée."
+      cta: "Me désinscrire"
+      back: "Retour à la page Portefeuille européen"
+    unsubscribed:
+      title: "Vous n’êtes plus inscrit"
+      description: "Votre adresse ne figure plus dans notre liste : vous ne recevrez plus de message sur l’ouverture du registre."
+      back: "Retour à la page Portefeuille européen"

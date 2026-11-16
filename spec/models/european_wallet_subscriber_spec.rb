@@ -69,6 +69,16 @@ RSpec.describe EuropeanWalletSubscriber do
     end
   end
 
+  describe '.offered_profiles' do
+    it 'offers the three profiles before the registry opens' do
+      expect(described_class.offered_profiles(registry_open: false)).to eq(%w[organization intermediary attestation_provider])
+    end
+
+    it 'no longer offers the organization profile once the registry is open' do
+      expect(described_class.offered_profiles(registry_open: true)).to eq(%w[intermediary attestation_provider])
+    end
+  end
+
   describe '#external_profile' do
     it 'gives the value used by the contact list' do
       expect(build(:european_wallet_subscriber, profile: 'organization').external_profile).to eq('organisation')

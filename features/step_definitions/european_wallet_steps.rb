@@ -49,11 +49,3 @@ end
 Alors('l’onglet « {} » est sélectionné') do |label|
   expect(page).to have_css('.fr-tabs__tab[aria-selected="true"]', text: label)
 end
-
-Alors('le bloc « Être prévenu » ne contient pas de formulaire et son champ d’adresse n’a pas de nom') do
-  within('#etre-prevenu') do
-    expect(page).to have_no_css('form')
-    expect(page).to have_field('Votre adresse électronique', type: 'email')
-    expect(page).to have_no_css('input[type="email"][name]')
-  end
-end
