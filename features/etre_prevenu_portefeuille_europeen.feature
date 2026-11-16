@@ -94,3 +94,10 @@ Fonctionnalité: Être prévenu de l’ouverture du registre du portefeuille eur
     Et je clique sur "M’inscrire"
     Alors il y a un message de succès contenant "Votre inscription est enregistrée"
     Et le focus est sur la confirmation d’inscription
+
+  Scénario: Le bloc renvoie vers la description du traitement dans la politique de confidentialité
+    Quand je me rends sur le chemin "/portefeuille-europeen"
+    Alors la page contient un lien "En savoir plus sur la gestion de vos données" vers "/politique-confidentialite#etre-prevenu-portefeuille-europeen"
+    Quand je me rends sur le chemin "/politique-confidentialite"
+    Alors la page contient "Prévenir la personne inscrite de l’ouverture du registre des parties utilisatrices du portefeuille européen"
+    Et la page contient un lien "https://www.cnil.fr/fr/adresser-une-plainte" vers "https://www.cnil.fr/fr/adresser-une-plainte"

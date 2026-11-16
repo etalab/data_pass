@@ -256,6 +256,7 @@ fr:
         email_hint: "Format attendu : nom@example.com"
         submit: "M’inscrire"
         unsubscribe: "Vous pourrez vous désinscrire à tout moment avec le lien présent dans chaque message."
+        privacy_link: "En savoir plus sur la gestion de vos données"
         honeypot_label: "Ne remplissez pas ce champ"
         confirmation:
           title: "Votre inscription est enregistrée"
