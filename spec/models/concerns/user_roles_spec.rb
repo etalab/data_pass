@@ -19,6 +19,15 @@ RSpec.describe UserRoles do
 
       it { is_expected.to eq([]) }
     end
+
+    context 'when user is an admin (admin ⇒ *:*:*)' do
+      let(:user) { build(:user, roles: %w[admin]) }
+
+      it 'manages every provider, so admins see every FD-wildcard option' do
+        expect(subject).to match_array(AuthorizationDefinition.all.filter_map(&:provider_slug).uniq)
+        expect(subject).to include('dinum', 'dgfip')
+      end
+    end
   end
 
   describe '#manages_role?' do
@@ -75,33 +84,31 @@ RSpec.describe UserRoles do
       it { is_expected.to be false }
     end
 
+    context 'when the actor is an admin (admin ⇒ *:*:*)' do
+      let(:manager) { create(:user, roles: ['admin']) }
+
+      context 'when the role is an FD-wildcard on any provider' do
+        let(:role) { 'dgfip:*:instructor' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is a definition-level role the admin does not literally hold' do
+        let(:role) { 'cnam:api_droits_cnam:manager' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when the role is the admin role itself' do
+        let(:role) { 'admin' }
+
+        it { is_expected.to be false }
+      end
+    end
+
     context 'when the role string is malformed' do
       let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
       let(:role) { 'not-a-valid-role' }
-
-      it { is_expected.to be false }
-    end
-  end
-
-  describe '#managed_by?' do
-    subject(:result) { target.managed_by?(manager) }
-
-    let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
-
-    context 'when the target has at least one role within the manager scope' do
-      let(:target) { create(:user, roles: %w[dinum:api_entreprise:reporter dinum:api_particulier:instructor]) }
-
-      it { is_expected.to be true }
-    end
-
-    context 'when the target has no role within the manager scope' do
-      let(:target) { create(:user, roles: %w[dinum:api_particulier:instructor]) }
-
-      it { is_expected.to be false }
-    end
-
-    context 'when the target has no roles at all' do
-      let(:target) { create(:user, roles: []) }
 
       it { is_expected.to be false }
     end

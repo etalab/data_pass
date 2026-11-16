@@ -159,9 +159,10 @@ Rails.application.routes.draw do
       resources :invite, only: %i[new create], controller: 'instructor_draft_requests/invite'
     end
 
-    resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
+    resources :user_rights, only: %i[index new create edit update destroy], path: 'utilisateurs-et-roles' do
       member do
         get :confirm_destroy, path: 'confirmer-suppression'
+        get :droits
       end
     end
   end
@@ -190,9 +191,10 @@ Rails.application.routes.draw do
     resources :api_access_grants, only: %i[index new create], path: 'acces-api' do
       resource :revocation, only: %i[new create], path: 'revocation', controller: 'api_access_grant_revocations'
     end
-    resources :user_rights, only: %i[index new create edit update destroy], path: 'gestion-des-droits' do
+    resources :user_rights, only: %i[index new create edit update destroy], path: 'utilisateurs-et-roles' do
       member do
         get :confirm_destroy, path: 'confirmer-suppression'
+        get :droits
       end
     end
   end

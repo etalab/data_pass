@@ -59,4 +59,86 @@ RSpec.describe Instruction::UserRightsSearch do
       expect(search({}).results.to_a).to eq([alice, bob])
     end
   end
+
+  describe 'filtering by role type and rights' do
+    let(:manager_entreprise) { create(:user, email: 'a@gouv.fr', roles: %w[dinum:api_entreprise:manager]) }
+    let(:instructor_particulier) { create(:user, email: 'b@gouv.fr', roles: %w[dinum:api_particulier:instructor]) }
+    let(:developer_entreprise) { create(:user, email: 'c@gouv.fr', roles: %w[dinum:api_entreprise:developer]) }
+    let(:fd_manager) { create(:user, email: 'd@gouv.fr', roles: %w[dinum:*:manager]) }
+    let(:admin_user) { create(:user, email: 'e@gouv.fr', roles: %w[admin]) }
+    let(:scope) do
+      User.where(id: [manager_entreprise, instructor_particulier, developer_entreprise, fd_manager, admin_user].map(&:id))
+    end
+
+    context 'when filtering by role type' do
+      it 'matches literal holders of that role, specific and FD-level' do
+        expect(search(filters: { role: 'manager' }).results).to contain_exactly(manager_entreprise, fd_manager)
+      end
+
+      it 'does not include a developer when filtering on instructor' do
+        expect(search(filters: { role: 'instructor' }).results).to contain_exactly(instructor_particulier)
+      end
+
+      it 'matches admins when filtering on admin' do
+        expect(search(filters: { role: 'admin' }).results).to contain_exactly(admin_user)
+      end
+    end
+
+    context 'when filtering by a specific API' do
+      it 'matches only users with an explicit right on that definition' do
+        expect(search(filters: { droit: 'api_entreprise' }).results)
+          .to contain_exactly(manager_entreprise, developer_entreprise)
+      end
+    end
+
+    context 'when combining a role filter and an API filter' do
+      it 'intersects both axes (manager AND api_entreprise)' do
+        expect(search(filters: { role: 'manager', droit: 'api_entreprise' }).results)
+          .to contain_exactly(manager_entreprise)
+      end
+    end
+
+    context 'when filtering on role presence' do
+      let!(:plain_user) { create(:user, email: 'plain@gouv.fr') }
+      let(:scope) { User.where(id: [manager_entreprise.id, plain_user.id]) }
+
+      it 'keeps only the role holders' do
+        expect(search(filters: { role: 'with_roles' }).results).to contain_exactly(manager_entreprise)
+      end
+
+      it 'keeps only the users without any role' do
+        expect(search(filters: { role: 'without_roles' }).results).to contain_exactly(plain_user)
+      end
+
+      it 'returns nobody when crossing "without roles" with an API filter' do
+        expect(search(filters: { role: 'without_roles', droit: 'api_entreprise' }).results).to be_empty
+      end
+    end
+
+    context 'when a manager crafts an admin filter in the URL' do
+      let!(:admin_with_role) do
+        create(:user, email: 'admin-too@gouv.fr', roles: ['admin', 'dinum:api_entreprise:instructor'])
+      end
+      let(:scope) { User.where(id: [manager_entreprise.id, admin_with_role.id]) }
+      let(:authority) { Rights::ManagerAuthority.new(manager_entreprise) }
+
+      def search(params)
+        described_class.new(scope: scope, params: ActionController::Parameters.new(params), authority: authority)
+      end
+
+      it 'ignores the filter rather than enumerating the admins' do
+        expect(search(filters: { role: 'admin' }).results).to contain_exactly(manager_entreprise, admin_with_role)
+      end
+
+      it 'still honours a role filter the authority covers' do
+        expect(search(filters: { role: 'instructor' }).results).to contain_exactly(admin_with_role)
+      end
+    end
+
+    context 'when a crafted param sends a filter as an array' do
+      it 'ignores it and returns the whole scope' do
+        expect(search(filters: { role: ['manager'] }).results).to match_array(scope)
+      end
+    end
+  end
 end
