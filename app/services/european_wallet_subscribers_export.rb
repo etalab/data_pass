@@ -2,6 +2,7 @@ require 'csv'
 
 class EuropeanWalletSubscribersExport
   HEADERS = %w[email profil date_inscription lien_desinscription].freeze
+  FORMULA_TRIGGERS = ['=', '+', '-', '@', "\t", "\r"].freeze
 
   def initialize(profile:, host: DatapassHost.url)
     @profile = profile
@@ -11,7 +12,7 @@ class EuropeanWalletSubscribersExport
   def to_csv
     CSV.generate do |csv|
       csv << HEADERS
-      subscribers.find_each { |subscriber| csv << row(subscriber) }
+      subscribers.find_each { |subscriber| csv << row(subscriber).map { |cell| neutralize_formula(cell) } }
     end
   end
 
@@ -34,6 +35,10 @@ class EuropeanWalletSubscribersExport
       subscriber.created_at.to_date.iso8601,
       unsubscribe_url(subscriber),
     ]
+  end
+
+  def neutralize_formula(cell)
+    cell.start_with?(*FORMULA_TRIGGERS) ? "'#{cell}" : cell
   end
 
   def unsubscribe_url(subscriber)

@@ -20,6 +20,12 @@ RSpec.describe EuropeanWalletSubscribersExport do
     expect(EuropeanWalletSubscriber.find_by_token_for(:unsubscribe, token)).to eq(intermediary)
   end
 
+  it 'neutralizes an address a spreadsheet would read as a formula' do
+    create(:european_wallet_subscriber, email: '=1+2@example.com', profile: 'intermediary')
+
+    expect(rows.pluck('email')).to include("'=1+2@example.com")
+  end
+
   it 'refuses an unknown profile' do
     expect { described_class.new(profile: 'particulier').to_csv }.to raise_error(KeyError)
   end
