@@ -22,6 +22,7 @@ class EuropeanWalletSubscriptionsController < ApplicationController
 
   def render_outcome(result)
     if result.success? || result.spam
+      @saved_subscriber = result.subscriber if result.success?
       render_european_wallet_page(:confirmed)
     elsif result.not_saved
       render_european_wallet_page(:not_saved, status: :unprocessable_content)
@@ -43,5 +44,15 @@ class EuropeanWalletSubscriptionsController < ApplicationController
 
   def layout_name
     'wide_container'
+  end
+
+  def track_impersonation_action
+    return if model_to_track_for_impersonation.nil?
+
+    super
+  end
+
+  def model_to_track_for_impersonation
+    @saved_subscriber
   end
 end

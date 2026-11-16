@@ -24,4 +24,14 @@ class EuropeanWalletUnsubscriptionsController < ApplicationController
   def layout_name
     'notification_unsubscription'
   end
+
+  def track_impersonation_action
+    return if model_to_track_for_impersonation.nil?
+
+    super
+  end
+
+  def model_to_track_for_impersonation
+    @subscriber
+  end
 end
