@@ -49,6 +49,7 @@
       l’API Entreprise est uniquement reservé aux acteurs publics : les administrations,
       les collectivités, leurs opérateurs, les acteurs de santé, etc.'
   - type: collectivite_ou_administration
+    label: Une entité publique ou un organisme privé investi d’une mission de service public
     eligible: 'yes'
     body: |-
       <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Entreprise.</p>
@@ -59,20 +60,14 @@
         <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a>.</li>
       </ul>
   - type: entreprise_ou_association
+    label: Une entreprise ou une association souhaitant intégrer API Entreprise en tant qu’éditeur
     eligible: 'no'
     body: |-
-      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.</p>
-      <br />
-      <p><b>Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations</b>, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics <b>uniquement</b>. </p>
-      <ul>
-        <li>Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usage</a> (marchés publics, aides et subventions, portail GRU...) ;</li>
-        <li>Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a> ;</li>
-      </ul>
-      <br />
-      <p><span aria-label="Attention" role="img">⚠️</span> <b>En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise</b>, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. </p>
+      <p>Vous n’avez pas besoin de faire une demande sur DataPass. Si vous êtes éditeur de logiciel pour des acteurs publics, répondez au questionnaire de l’équipe API Entreprise : elle reviendra vers vous pour étudier l’intégration de l’API dans votre logiciel. Seuls vos clients publics pourront être habilités à recevoir les données.</p>
     cta:
-      content: Déposer une demande Editeur
-      url: https://datapass.api.gouv.fr/api-entreprise?demarche=editeur
+      content: Répondre au questionnaire éditeur
+      url: https://form.typeform.com/to/aDFr3Cg9
+      new_tab: true
 - id: 3
   definition_id: api_sfip
   options:

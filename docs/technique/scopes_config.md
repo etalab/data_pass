@@ -83,6 +83,8 @@ scopes_config:
 
 ### Formulaire éditeur avec scopes obligatoires
 
+> `api-entreprise-editeur` n’est plus proposé ni démarrable (`public: false`, `startable_by_applicant: false`) : les éditeurs sont orientés vers le Typeform de qualification, et la création par l’API est aussi refusée (erreur « Formulaire non disponible »). Il n’est conservé que pour traiter les demandes existantes. L’exemple ci-dessous reste valable comme illustration de la configuration.
+
 ```yaml
 api-entreprise-editeur:
   name: "Formulaire Éditeur"
