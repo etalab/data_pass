@@ -44,11 +44,9 @@ pas abouti ». La limite d’envois est comptée dans Redis
 
 ## Désinscription
 
-Chaque inscrit a un lien signé, sans expiration :
-`/portefeuille-europeen/desinscription?token=…`
-(`generate_token_for(:unsubscribe)`). Le GET affiche une confirmation ; seul le
-POST supprime la ligne. Un lien invalide ou déjà utilisé affiche « Vous
-n’êtes plus inscrit ».
+DataPass n’envoie aucun message et ne propose pas de lien de désinscription :
+la désinscription viendra de l’outil d’envoi (Brevo, DPP-253). D’ici là, une
+demande de suppression adressée au DPD se traite par la purge ou en console.
 
 ## Exporter et purger
 
@@ -60,15 +58,15 @@ bin/rails 'european_wallet:subscribers:purge[intermediary]'
 ```
 
 L’export contient `email`, `profil` (`organisation`, `intermediaire`,
-`fournisseur_attestations`, les valeurs prévues par DPP-253),
-`date_inscription` et `lien_desinscription`. Le fichier contient des
-adresses en clair : le supprimer après usage.
+`fournisseur_attestations`, les valeurs prévues par DPP-253) et
+`date_inscription`. Une cellule qui commence par `=`, `+`, `-` ou `@` est
+préfixée d’une apostrophe, pour qu’un tableur ne la lise pas comme une
+formule. Le fichier contient des adresses en clair : le supprimer après usage.
 
 La purge supprime les inscrits d’un profil après l’annonce de l’ouverture de
 son parcours (RG2 de DPP-220).
 
 ## Migration vers Brevo
 
-DPP-253 importera l’export de chaque profil dans une liste Brevo, reportera
-les désinscriptions faites entre-temps, remplacera le lien signé par celui de
-Brevo, puis videra la table.
+DPP-253 importera l’export de chaque profil dans une liste Brevo, dont les
+messages portent le lien de désinscription, puis videra la table.

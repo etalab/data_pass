@@ -13,12 +13,6 @@ Quand('je remplis le champ piège du bloc « Être prévenu »') do
   find_by_id('etre-prevenu-site', visible: :all).set('https://spam.example.com')
 end
 
-Quand('je suis le lien de désinscription de {string}') do |email|
-  subscriber = EuropeanWalletSubscriber.find_by!(email:)
-
-  visit european_wallet_unsubscription_path(token: subscriber.generate_token_for(:unsubscribe))
-end
-
 Alors('l’adresse {string} est inscrite une seule fois avec le profil « {} »') do |email, profile|
   subscribers = EuropeanWalletSubscriber.where(email:)
 

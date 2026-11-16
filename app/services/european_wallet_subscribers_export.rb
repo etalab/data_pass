@@ -1,12 +1,11 @@
 require 'csv'
 
 class EuropeanWalletSubscribersExport
-  HEADERS = %w[email profil date_inscription lien_desinscription].freeze
+  HEADERS = %w[email profil date_inscription].freeze
   FORMULA_TRIGGERS = ['=', '+', '-', '@', "\t", "\r"].freeze
 
-  def initialize(profile:, host: DatapassHost.url)
+  def initialize(profile:)
     @profile = profile
-    @host = host
   end
 
   def to_csv
@@ -18,7 +17,7 @@ class EuropeanWalletSubscribersExport
 
   private
 
-  attr_reader :profile, :host
+  attr_reader :profile
 
   def subscribers
     EuropeanWalletSubscriber.where(profile: profile_key).order(:created_at)
@@ -33,18 +32,10 @@ class EuropeanWalletSubscribersExport
       subscriber.email,
       subscriber.external_profile,
       subscriber.created_at.to_date.iso8601,
-      unsubscribe_url(subscriber),
     ]
   end
 
   def neutralize_formula(cell)
     cell.start_with?(*FORMULA_TRIGGERS) ? "'#{cell}" : cell
-  end
-
-  def unsubscribe_url(subscriber)
-    Rails.application.routes.url_helpers.european_wallet_unsubscription_url(
-      token: subscriber.generate_token_for(:unsubscribe),
-      host:,
-    )
   end
 end

@@ -67,21 +67,6 @@ Fonctionnalité: Être prévenu de l’ouverture du registre du portefeuille eur
     Alors il y a un message de succès contenant "Votre inscription est enregistrée"
     Et l’adresse "jean.dupont@example.com" est inscrite une seule fois avec le profil « attestation_provider »
 
-  Scénario: Un inscrit se désinscrit avec son lien
-    Sachant que l’adresse "jean.dupont@example.com" est inscrite avec le profil « organization »
-    Quand je suis le lien de désinscription de "jean.dupont@example.com"
-    Alors il y a un titre contenant "Ne plus être prévenu"
-    Et l’adresse "jean.dupont@example.com" est inscrite une seule fois avec le profil « organization »
-    Quand je clique sur "Me désinscrire"
-    Alors il y a un message de succès contenant "Votre adresse ne figure plus dans notre liste"
-    Et l’adresse "jean.dupont@example.com" n’est pas inscrite
-
-  Scénario: Un lien de désinscription invalide ne supprime rien et rassure le visiteur
-    Sachant que l’adresse "jean.dupont@example.com" est inscrite avec le profil « organization »
-    Quand je me rends sur le chemin "/portefeuille-europeen/desinscription?token=invalide"
-    Alors il y a un titre contenant "Vous n’êtes plus inscrit"
-    Et l’adresse "jean.dupont@example.com" est inscrite une seule fois avec le profil « organization »
-
   @javascript
   Scénario: Avec JavaScript, l’erreur s’affiche dans le bloc et le focus va sur le champ en erreur
     Quand je me rends sur le chemin "/portefeuille-europeen"

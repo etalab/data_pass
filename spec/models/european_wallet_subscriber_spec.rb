@@ -94,21 +94,4 @@ RSpec.describe EuropeanWalletSubscriber do
       expect(build(:european_wallet_subscriber, profile: 'attestation_provider').external_profile).to eq('fournisseur_attestations')
     end
   end
-
-  describe 'unsubscribe token' do
-    it 'finds the subscriber back' do
-      subscriber = create(:european_wallet_subscriber)
-      token = subscriber.generate_token_for(:unsubscribe)
-
-      expect(described_class.find_by_token_for(:unsubscribe, token)).to eq(subscriber)
-    end
-
-    it 'finds nothing once the subscriber is deleted' do
-      subscriber = create(:european_wallet_subscriber)
-      token = subscriber.generate_token_for(:unsubscribe)
-      subscriber.destroy!
-
-      expect(described_class.find_by_token_for(:unsubscribe, token)).to be_nil
-    end
-  end
 end

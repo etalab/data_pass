@@ -13,8 +13,6 @@ class EuropeanWalletSubscriber < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
   validates :profile, presence: true
 
-  generates_token_for :unsubscribe
-
   def self.offered_profiles(registry_open:)
     registry_open ? profiles.keys - ['organization'] : profiles.keys
   end

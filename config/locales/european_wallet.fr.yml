@@ -267,13 +267,3 @@ fr:
         rate_limited:
           title: "Votre inscription n’a pas abouti"
           text: "Nous avons reçu trop d’inscriptions depuis votre connexion. Réessayez dans une minute."
-  european_wallet_unsubscriptions:
-    show:
-      title: "Ne plus être prévenu"
-      description: "Confirmez pour ne plus recevoir de message sur l’ouverture du registre du portefeuille européen. Votre adresse sera supprimée."
-      cta: "Me désinscrire"
-      back: "Retour à la page Portefeuille européen"
-    unsubscribed:
-      title: "Vous n’êtes plus inscrit"
-      description: "Votre adresse ne figure plus dans notre liste : vous ne recevrez plus de message sur l’ouverture du registre."
-      back: "Retour à la page Portefeuille européen"
