@@ -3,6 +3,15 @@ RSpec.describe 'POST /portefeuille-europeen/inscription' do
     post european_wallet_subscriptions_path, params: { european_wallet_subscriber: { email:, profile: 'intermediary' } }
   end
 
+  context 'when the subscription parameter is not a form' do
+    it 'answers with the profile and address errors' do
+      post european_wallet_subscriptions_path, params: { european_wallet_subscriber: 'texte' }
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).to include('Choisissez ce qui vous décrit.')
+    end
+  end
+
   context 'when the subscription cannot be saved' do
     before do
       allow(EuropeanWalletSubscriber).to receive(:find_or_initialize_by).and_raise(ActiveRecord::ConnectionNotEstablished)

@@ -39,7 +39,10 @@ class EuropeanWalletSubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.fetch(:european_wallet_subscriber, {}).permit(:email, :profile)
+    submitted = params[:european_wallet_subscriber]
+    submitted = ActionController::Parameters.new unless submitted.is_a?(ActionController::Parameters)
+
+    submitted.permit(:email, :profile)
   end
 
   def layout_name
