@@ -40,13 +40,6 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def build_host_from_env
-    @host = case Rails.env
-            when 'production'
-              'https://datapass.api.gouv.fr'
-            when 'test', 'development'
-              'http://localhost:3000'
-            else
-              "https://#{Rails.env}.datapass.api.gouv.fr"
-            end
+    @host = DatapassHost.url
   end
 end
