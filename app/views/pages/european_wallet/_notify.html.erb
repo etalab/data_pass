@@ -1,10 +1,7 @@
-<% profiles = { intermediary: t('.profiles.intermediary'), attestation_provider: t('.profiles.attestation_provider') } %>
-<% if european_wallet_registry_open? %>
-  <% texts = { title: t('.after_opening.title'), text: t('.after_opening.text'), submit_title: t('.after_opening.submit_title') } %>
-<% else %>
-  <% texts = { title: t('.before_opening.title'), text: t('.before_opening.text'), submit_title: t('.before_opening.submit_title') } %>
-  <% profiles = { organization: t('.profiles.organization') }.merge(profiles) %>
-<% end %>
+<% texts = european_wallet_notify_texts %>
+<% subscriber = @european_wallet_subscriber || EuropeanWalletSubscriber.new %>
+<% outcome = @european_wallet_subscription_outcome %>
+<% first_invalid_attribute = %i[profile email].find { |attribute| subscriber.errors.include?(attribute) } %>
 <div class="fr-follow" id="etre-prevenu">
   <div class="fr-container">
     <div class="fr-grid-row fr-grid-row--gutters">
@@ -13,30 +10,66 @@
         <p class="fr-text--sm fr-mb-0"><%= texts[:text] %></p>
       </div>
       <div class="fr-col-12 fr-col-md-7">
-        <div class="lp-wallet-notify">
-          <fieldset class="fr-fieldset lp-wallet-profile" aria-labelledby="etre-prevenu-profil-legende">
-            <legend class="fr-fieldset__legend fr-fieldset__legend--regular" id="etre-prevenu-profil-legende"><%= t('.legend') %></legend>
-            <% profiles.each do |key, profile| %>
-              <div class="fr-fieldset__element">
-                <div class="fr-radio-group">
-                  <input type="radio" id="etre-prevenu-profil-<%= key %>" name="etre-prevenu-profil">
-                  <label class="fr-label" for="etre-prevenu-profil-<%= key %>"><%= profile %></label>
-                </div>
+        <%= turbo_frame_tag 'etre-prevenu-formulaire' do %>
+          <% if outcome == :confirmed %>
+            <div class="fr-alert fr-alert--success" role="status" tabindex="-1" autofocus id="etre-prevenu-confirmation">
+              <h3 class="fr-alert__title"><%= t('.confirmation.title') %></h3>
+              <p><%= t('.confirmation.text') %></p>
+            </div>
+          <% else %>
+            <% if outcome.in?(%i[not_saved rate_limited]) %>
+              <div class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1" autofocus id="etre-prevenu-echec">
+                <h3 class="fr-alert__title"><%= t(".#{outcome}.title") %></h3>
+                <p><%= t(".#{outcome}.text") %></p>
               </div>
             <% end %>
-          </fieldset>
-          <div class="fr-input-group">
-            <label class="fr-label" for="etre-prevenu-email">
-              <%= t('.email_label') %>
-              <span class="fr-hint-text"><%= t('.email_hint') %></span>
-            </label>
-            <div class="fr-input-wrap fr-input-wrap--addon">
-              <input class="fr-input" type="email" id="etre-prevenu-email" autocomplete="email" aria-describedby="etre-prevenu-aide">
-              <button type="button" class="fr-btn" title="<%= texts[:submit_title] %>"><%= t('.submit') %></button>
-            </div>
-          </div>
-          <p id="etre-prevenu-aide" class="fr-hint-text fr-mb-0"><%= t('.unsubscribe') %></p>
-        </div>
+            <%= form_with model: subscriber, scope: :european_wallet_subscriber, url: european_wallet_subscriptions_path, method: :post, html: { novalidate: true, class: 'lp-wallet-notify' } do |f| %>
+              <% profile_messages_id = 'etre-prevenu-profil-messages' %>
+              <fieldset class="fr-fieldset lp-wallet-profile <%= 'fr-fieldset--error' if subscriber.errors.include?(:profile) %>" role="group" aria-labelledby="etre-prevenu-profil-legende <%= profile_messages_id %>">
+                <legend class="fr-fieldset__legend fr-fieldset__legend--regular" id="etre-prevenu-profil-legende"><%= t('.legend') %></legend>
+                <% european_wallet_notify_profiles.each_with_index do |(key, label), index| %>
+                  <div class="fr-fieldset__element">
+                    <div class="fr-radio-group">
+                      <%= f.radio_button :profile, key, id: "etre-prevenu-profil-#{key}", required: true, autofocus: first_invalid_attribute == :profile && index.zero?, aria: { invalid: subscriber.errors.include?(:profile) || nil } %>
+                      <label class="fr-label" for="etre-prevenu-profil-<%= key %>"><%= label %></label>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="fr-messages-group" id="<%= profile_messages_id %>" aria-live="polite">
+                  <% subscriber.errors.messages_for(:profile).each do |message| %>
+                    <p class="fr-message fr-message--error"><%= message %></p>
+                  <% end %>
+                </div>
+              </fieldset>
+              <div class="fr-input-group <%= 'fr-input-group--error' if subscriber.errors.include?(:email) %>">
+                <label class="fr-label" for="etre-prevenu-email">
+                  <%= t('.email_label') %>
+                  <span class="fr-hint-text"><%= t('.email_hint') %></span>
+                </label>
+                <div class="fr-input-wrap fr-input-wrap--addon">
+                  <%= f.email_field :email,
+                    id: 'etre-prevenu-email',
+                    class: "fr-input #{'fr-input--error' if subscriber.errors.include?(:email)}",
+                    autocomplete: 'email',
+                    required: true,
+                    aria: { invalid: subscriber.errors.include?(:email) || nil, describedby: 'etre-prevenu-email-messages etre-prevenu-aide' },
+                    autofocus: first_invalid_attribute == :email %>
+                  <%= f.button t('.submit'), type: 'submit', class: 'fr-btn', title: texts[:submit_title] %>
+                </div>
+                <div class="fr-messages-group" id="etre-prevenu-email-messages" aria-live="polite">
+                  <% subscriber.errors.messages_for(:email).each do |message| %>
+                    <p class="fr-message fr-message--error"><%= message %></p>
+                  <% end %>
+                </div>
+              </div>
+              <div class="lp-wallet-notify__trap" aria-hidden="true">
+                <label for="etre-prevenu-site"><%= t('.honeypot_label') %></label>
+                <input type="text" name="website" id="etre-prevenu-site" tabindex="-1" autocomplete="off">
+              </div>
+              <p id="etre-prevenu-aide" class="fr-hint-text fr-mb-0"><%= t('.unsubscribe') %></p>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

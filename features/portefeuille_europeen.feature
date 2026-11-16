@@ -59,7 +59,3 @@ Fonctionnalité: Page publique Portefeuille européen
     Quand je me rends sur le chemin "/portefeuille-europeen"
     Alors la page ne contient pas de lien "Consulter le registre public"
     Et la page ne contient pas de lien "Lire la politique d’enregistrement"
-
-  Scénario: Le bloc « Être prévenu » ne transmet aucune adresse
-    Quand je me rends sur le chemin "/portefeuille-europeen"
-    Alors le bloc « Être prévenu » ne contient pas de formulaire et son champ d’adresse n’a pas de nom
