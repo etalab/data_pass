@@ -6,7 +6,7 @@ class AuthorizationRequest::APIINFINOE < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::Volumetrie
   include DGFIPExtensions::ExtraContactsInfos
-  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdresseIpPubliqueProduction
   include DGFIPExtensions::AdressePostaleContactTechnique
 
   VOLUMETRIES = {

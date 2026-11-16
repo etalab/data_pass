@@ -4,7 +4,7 @@ class AuthorizationRequest::APIINFINOESandbox < AuthorizationRequest
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
   include DGFIPExtensions::ExtraContactsInfos
-  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdresseIpPubliqueSandbox
   include DGFIPExtensions::AdressePostaleContactTechnique
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
