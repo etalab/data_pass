@@ -1,0 +1,7 @@
+Recette sandbox : recette/2026-11-16
+Base : develop @ 55d4e360
+
+2026-11-16 16:46 — construction
+  DPP-171    #1867   a3aeec59  feature/dpp-171-ts-retirer-la-verification-automatique-de
+  DPP-175    #1850   5f8fce0a  feature/dpp-175-us-orienter-les-editeurs-vers-le-typeform-de-qualification
+  DPP-217    #1862   537b05a7  feature/dpp-217-demande-externe-dgfip-distinguer-adresse-ip
