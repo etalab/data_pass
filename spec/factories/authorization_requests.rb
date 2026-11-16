@@ -304,6 +304,7 @@ FactoryBot.define do
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           authorization_request.volumetrie_appels_par_minute ||= 50
           authorization_request.volumetrie_justification ||= nil
+          authorization_request.adresse_ip_publique_production ||= '198.51.100.24' if authorization_request.respond_to?(:adresse_ip_publique_production)
         end
       end
     end

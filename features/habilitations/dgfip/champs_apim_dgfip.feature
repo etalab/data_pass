@@ -10,17 +10,17 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     * je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
-    * je remplis "Adresse IP publique de connexion" avec ""
+    * je remplis "Adresse IP publique de connexion – bac à sable" avec ""
     * je clique sur "Suivant"
 
-    Alors il y a un message d'erreur contenant "Adresse IP publique de connexion"
+    Alors il y a un message d'erreur contenant "Adresse IP publique de connexion – bac à sable"
 
   Scénario: Une adresse IP privée est refusée
     Quand je veux remplir une demande pour "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
     * je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
-    * je remplis "Adresse IP publique de connexion" avec "192.168.1.1"
+    * je remplis "Adresse IP publique de connexion – bac à sable" avec "192.168.1.1"
     * je clique sur "Suivant"
 
     Alors il y a un message d'erreur contenant "doit être une adresse IP publique"
@@ -119,7 +119,7 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     Quand je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
 
-    Alors la page ne contient pas le champ "Adresse IP publique de connexion"
+    Alors la page ne contient pas le champ "Adresse IP publique de connexion – bac à sable"
     Et la page ne contient pas le champ "Adresse du contact technique"
 
     * je renseigne la recette fonctionnelle
@@ -139,13 +139,15 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
 
     Quand je clique sur le premier "Consulter"
     Alors la page contient "192.0.2.10"
+    Et la page contient "198.51.100.24"
     Et la page contient "10 rue de la Paix, 75002 Paris"
 
   Scénario: Une API DGFiP hors périmètre n'affiche aucun des deux champs
     Quand je veux remplir une demande pour "API OPALE" via le formulaire "API OPALE" à l'étape "Bac à sable"
     * je clique sur "Débuter ma demande"
 
-    Alors la page ne contient pas le champ "Adresse IP publique de connexion"
+    Alors la page ne contient pas le champ "Adresse IP publique de connexion – bac à sable"
+    Et la page ne contient pas le champ "Adresse IP publique de connexion – production"
 
   @javascript
   Scénario: Une demande à modifier créée avant l'ajout des deux champs peut être complétée bloc par bloc puis re-soumise
@@ -154,7 +156,7 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     Et que je me rends sur cette demande d'habilitation
 
     Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
-    Et que je remplis "Adresse IP publique de connexion" avec "192.0.2.10"
+    Et que je remplis "Adresse IP publique de connexion – bac à sable" avec "192.0.2.10"
     Et que je clique sur "Enregistrer les modifications"
     Alors il y a "192.0.2.10" dans le bloc de résumé "Mon projet"
 
@@ -173,7 +175,7 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     Et que je me rends sur cette demande d'habilitation
 
     Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
-    Et que je remplis "Adresse IP publique de connexion" avec "192.0.2.10"
+    Et que je remplis "Adresse IP publique de connexion – bac à sable" avec "192.0.2.10"
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Soumettre la demande d'habilitation"
 
@@ -189,7 +191,7 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     Alors il n'y a pas de bouton "Envoyer ma demande de mise à jour"
 
     Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
-    Et que je remplis "Adresse IP publique de connexion" avec "192.0.2.10"
+    Et que je remplis "Adresse IP publique de connexion – bac à sable" avec "192.0.2.10"
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis "Adresse du contact technique" avec "10 rue de la Paix, 75002 Paris"
@@ -197,3 +199,12 @@ Fonctionnalité: Adresse IP publique et adresse postale du contact technique sur
     Et que je clique sur "Envoyer ma demande de mise à jour"
 
     Alors il y a un message de succès contenant "soumise avec succès"
+
+  @javascript
+  Scénario: Une demande de production sans adresse IP de production ne peut pas être soumise
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" en attente de modification
+    Et que cette demande n'a ni adresse IP publique ni adresse du contact technique
+    Et que je me rends sur cette demande d'habilitation
+    Et que je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message d'erreur contenant "Adresse IP publique de connexion – production"

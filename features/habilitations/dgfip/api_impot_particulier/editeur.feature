@@ -68,6 +68,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
     * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez-vous pour votre téléservice ?"
     * je remplis "Pour quels motifs souhaitez-vous un débit plus grand que le minimum ? (volumétrie par mois et par jour, pics d'activité, période de disponibilité du téléservice...)" avec "Une super justification"
+    * je remplis "Adresse IP publique de connexion – production" avec "198.51.100.24"
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales

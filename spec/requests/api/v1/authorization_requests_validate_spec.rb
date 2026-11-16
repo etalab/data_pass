@@ -76,6 +76,17 @@ RSpec.describe 'API: Authorization requests validation' do
         end
       end
 
+      context 'with an instructor which is a list instead of an object' do
+        let(:params) { { instructeur: [instructor.email], message: 'Demande conforme' } }
+
+        it 'is rejected as an invalid instructor' do
+          validate_request
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(error['title']).to eq('Instructeur invalide')
+        end
+      end
+
       context 'without instructor' do
         let(:params) { {} }
 

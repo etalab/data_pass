@@ -229,6 +229,79 @@ RSpec.describe 'API: Authorization requests write' do
       end
     end
 
+    context 'with a string instead of an object as demande' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params: { demande: 'x' }, headers: auth_headers, as: :json
+      end
+
+      it 'returns 422 with the demande pointer' do
+        create_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/demande')
+      end
+    end
+
+    context 'with a string instead of an object as data' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params:, headers: auth_headers, as: :json
+      end
+
+      let(:params) do
+        {
+          demande: {
+            form_uid: 'api-entreprise',
+            applicant: { email: 'user@example.com', given_name: 'A', family_name: 'B' },
+            organization: { siret: '13002526500013' },
+            data: 'JVBERi0xLjQK'
+          }
+        }
+      end
+
+      it 'returns 422 with the data title' do
+        create_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['title']).to eq('Données invalides')
+      end
+    end
+
+    context 'with a string on a document key' do
+      subject(:create_request) do
+        post '/api/v1/demandes', params:, headers: auth_headers, as: :json
+      end
+
+      let(:params) do
+        {
+          demande: {
+            form_uid: 'api-entreprise',
+            applicant: { email: 'user@example.com', given_name: 'A', family_name: 'B' },
+            organization: { siret: '13002526500013' },
+            data: { maquette_projet: ['JVBERi0xLjQK'] }
+          }
+        }
+      end
+
+      it 'returns 422 pointing at the document key' do
+        create_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first).to include(
+          'title' => 'Document invalide',
+          'source' => { 'pointer' => '/data/maquette_projet' }
+        )
+      end
+
+      it 'does not create anything' do
+        write_token
+        request_count = AuthorizationRequest.count
+
+        create_request
+
+        expect(AuthorizationRequest.count).to eq(request_count)
+      end
+    end
+
     context 'with data that fails model validation' do
       let(:user) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
       let(:params) do
@@ -482,6 +555,72 @@ RSpec.describe 'API: Authorization requests write' do
 
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/data/unknown_key')
+      end
+    end
+
+    context 'with a string instead of an object as demande' do
+      subject(:update_request) do
+        patch "/api/v1/demandes/#{authorization_request.id}", params: { demande: 'x' }, headers: auth_headers, as: :json
+      end
+
+      it 'returns 422 with the demande pointer' do
+        update_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['source']['pointer']).to eq('/demande')
+      end
+    end
+
+    context 'with a string instead of an object as data' do
+      subject(:update_request) do
+        patch "/api/v1/demandes/#{authorization_request.id}", params:, headers: auth_headers, as: :json
+      end
+
+      let(:params) { { demande: { data: 'JVBERi0xLjQK' } } }
+
+      it 'returns 422 with the data title' do
+        update_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first['title']).to eq('Données invalides')
+      end
+    end
+
+    context 'with a string on a document key' do
+      subject(:update_request) do
+        patch "/api/v1/demandes/#{authorization_request.id}", params:, headers: auth_headers, as: :json
+      end
+
+      let(:params) do
+        { demande: { data: { maquette_projet: ['JVBERi0xLjQK'] } } }
+      end
+
+      it 'returns 422 pointing at the document key' do
+        update_request
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['errors'].first).to include(
+          'title' => 'Document invalide',
+          'source' => { 'pointer' => '/data/maquette_projet' }
+        )
+      end
+    end
+
+    context 'with an uploaded file on a document key' do
+      let(:params) do
+        { demande: { data: { maquette_projet: [Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf')] } } }
+      end
+
+      it 'accepts the file' do
+        update_request
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'attaches the file to the authorization request' do
+        update_request
+
+        expect(authorization_request.reload.maquette_projet.map { |file| file.filename.to_s }).to eq(['dummy.pdf'])
       end
     end
 

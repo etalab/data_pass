@@ -9,7 +9,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   include DGFIPExtensions::APIImpotParticulierScopes
   include DGFIPExtensions::APIImpotParticulierModalities
   include DGFIPExtensions::ExtraContactsInfos
-  include DGFIPExtensions::AdresseIpPublique
+  include DGFIPExtensions::AdresseIpPubliqueProduction
   include DGFIPExtensions::AdressePostaleContactTechnique
 
   VOLUMETRIES = {

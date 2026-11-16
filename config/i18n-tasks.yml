@@ -85,7 +85,7 @@ search:
   # only: ["*.rb", "*.html.slim"]
 
   ## If `strict` is `false`, guess usages such as t("categories.#{category}.title"). The default is `true`.
-  # strict: true
+  strict: false
 
   ## Allows adding ast_matchers for finding translations using the AST-scanners
   ## The available matchers are:

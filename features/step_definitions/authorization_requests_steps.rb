@@ -142,6 +142,16 @@ Alors("il n'y a pas de formulaire en mode résumé") do
   expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization")]')
 end
 
+Quand('les conditions générales d’utilisation de cette demande ne sont pas acceptées') do
+  authorization_request = AuthorizationRequest.last
+  authorization_request.terms_of_service_accepted = false
+  authorization_request.save!(validate: false)
+end
+
+Quand('le navigateur ne bloque pas la soumission des cases à cocher obligatoires') do
+  page.execute_script("document.querySelectorAll('input[type=checkbox][required]').forEach((checkbox) => { checkbox.required = false })")
+end
+
 Quand('je me rends sur cette demande d\'habilitation') do
   authorization_request = @authorization_request || AuthorizationRequest.last
 
@@ -188,7 +198,7 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
 end
 
 Quand("cette demande n'a ni adresse IP publique ni adresse du contact technique") do
-  attributes_added_by_dgfip = %w[adresse_ip_publique contact_technique_adresse contact_technique_adresse_complement]
+  attributes_added_by_dgfip = %w[adresse_ip_publique adresse_ip_publique_production contact_technique_adresse contact_technique_adresse_complement]
   authorization_request = AuthorizationRequest.last
 
   authorization_request.data = authorization_request.data.except(*attributes_added_by_dgfip)
@@ -440,7 +450,7 @@ Quand('je renseigne les infos de bases du projet') do
     * je remplis "Description du projet" avec "Comment chaque soir"
   )
 
-  fill_in 'Adresse IP publique de connexion', with: '192.0.2.10' if page.has_field?('Adresse IP publique de connexion')
+  fill_in 'Adresse IP publique de connexion – bac à sable', with: '192.0.2.10' if page.has_field?('Adresse IP publique de connexion – bac à sable')
 end
 
 Quand('je renseigne les infos logiciel du projet') do
@@ -487,6 +497,7 @@ end
 
 Quand('je renseigne la volumétrie') do
   find_field('Quelle limitation de débit souhaitez-vous pour votre téléservice ?').all('option').find { |option| option.value.present? }.select_option
+  fill_in 'Adresse IP publique de connexion – production', with: '198.51.100.24' if page.has_field?('Adresse IP publique de connexion – production')
 end
 
 Alors('le bloc de contact {string} est affiché') do |title|
