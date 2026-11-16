@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_06_100001) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_16_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -235,6 +235,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_100001) do
     t.string "reason", null: false
     t.datetime "updated_at", null: false
     t.index ["authorization_request_id"], name: "index_denial_of_authorizations_on_authorization_request_id"
+  end
+
+  create_table "european_wallet_subscribers", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "profile", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_european_wallet_subscribers_on_email", unique: true
+    t.index ["profile"], name: "index_european_wallet_subscribers_on_profile"
   end
 
   create_table "form_templates", force: :cascade do |t|
