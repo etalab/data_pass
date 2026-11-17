@@ -40,3 +40,8 @@ fr:
         service_label: "API ou service : "
         provider_label: "Fournisseur : "
         validated_on: Validée le %{date}
+      search_bar_component:
+        label: Rechercher
+        placeholder: Rechercher
+        hint: Une organisation, un SIRET ou un SIREN, une API ou un service, un fournisseur, un numéro
+        button: Rechercher

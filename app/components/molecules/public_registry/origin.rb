@@ -8,6 +8,10 @@ class Molecules::PublicRegistry::Origin
 
   attr_reader :value
 
+  def self.normalize(values)
+    VALUES & Array(values).flat_map { |value| value.to_s.split(',') }
+  end
+
   def initialize(value)
     raise ArgumentError, "origin must be one of #{VALUES}" unless VALUES.include?(value)
 
