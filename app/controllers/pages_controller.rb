@@ -18,6 +18,8 @@ class PagesController < ApplicationController
 
   def faq; end
 
+  def european_wallet; end
+
   def cgu_api_impot_particulier_bas
     render 'static_pages/cgu_api_impot_particulier_bas'
   end
@@ -45,7 +47,7 @@ class PagesController < ApplicationController
   private
 
   def layout_name
-    action_name == 'home' ? 'wide_container' : super
+    %w[home european_wallet].include?(action_name) ? 'wide_container' : super
   end
 
   def ensure_html_format

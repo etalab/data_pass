@@ -1,0 +1,76 @@
+<div class="lp-tab-block">
+  <h3 class="fr-h4"><%= t('.concerned.title') %></h3>
+  <p class="lp-narrow"><%= t('.concerned.intro') %></p>
+  <div class="fr-grid-row fr-grid-row--gutters fr-mt-1w">
+    <% t('.concerned.entities').each do |entity| %>
+      <div class="fr-col-12 fr-col-sm-6 fr-col-lg">
+        <div class="lp-example">
+          <%= render Atoms::PictogramComponent.new(name: entity[:pictogram]) %>
+          <h4><%= entity[:title] %></h4>
+          <p><%= entity[:text] %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <p class="fr-mt-3w fr-mb-0"><%= t('.concerned.intermediaries_hint') %></p>
+</div>
+
+<div class="lp-tab-block lp-narrow">
+  <h3 class="fr-h4"><%= t('.data.title') %></h3>
+  <p><%= t('.data.text') %></p>
+  <%= render DsfrComponent::CalloutComponent.new(icon_name: :none) do %>
+    <%= t('.data.callout') %>
+  <% end %>
+</div>
+
+<div class="lp-tab-block">
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+    <div class="fr-col-12 fr-col-lg-6">
+      <h3 class="fr-h4"><%= t('.published.title') %></h3>
+      <% t('.published.paragraphs').each do |paragraph| %>
+        <p><%= paragraph %></p>
+      <% end %>
+    </div>
+    <div class="fr-col-12 fr-col-lg-6">
+      <figure class="fr-m-0" aria-labelledby="fiche-legende">
+        <div class="lp-entry">
+          <p class="lp-entry__kicker"><%= t('.published.entry.kicker') %></p>
+          <p class="lp-entry__name"><%= t('.published.entry.name') %></p>
+          <dl>
+            <% t('.published.entry.fields').each do |field| %>
+              <dt><%= field[:label] %></dt>
+              <dd><%= field[:value] %></dd>
+            <% end %>
+            <dt><%= t('.published.entry.status_label') %></dt>
+            <dd>
+              <%= render DsfrComponent::BadgeComponent.new(status: :success, size: :sm) do %>
+                <%= t('.published.entry.status') %>
+              <% end %>
+            </dd>
+          </dl>
+          <% t('.published.entry.uses').each do |use| %>
+            <div class="lp-entry__use">
+              <p><strong><%= use[:title] %></strong></p>
+              <p><%= use[:text] %></p>
+            </div>
+          <% end %>
+        </div>
+        <figcaption id="fiche-legende" class="fr-text--xs fr-mt-1w"><%= t('.published.entry.caption') %></figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<div class="lp-tab-block">
+  <h3 class="fr-h4"><%= t('.steps.title') %></h3>
+  <ol class="lp-steps" role="list">
+    <% t('.steps.items').each do |step| %>
+      <li>
+        <p class="lp-steps__title"><%= step[:title] %></p>
+        <p class="lp-steps__desc"><%= step[:description] %></p>
+      </li>
+    <% end %>
+  </ol>
+  <p class="fr-mt-3w"><%= t('.steps.after') %></p>
+  <%= render partial: 'pages/european_wallet/actions', locals: { classes: 'fr-mt-4w' } %>
+</div>
