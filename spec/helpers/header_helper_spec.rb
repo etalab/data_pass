@@ -48,7 +48,7 @@ RSpec.describe HeaderHelper do
     it 'lists the home page and the European wallet page' do
       expect(helper.public_menu_links).to eq([
         { label: 'Accueil', path: '/' },
-        { label: 'Portefeuille européen', path: '/#portefeuille-europeen' }
+        { label: 'Portefeuille européen', path: '/portefeuille-europeen' }
       ])
     end
   end

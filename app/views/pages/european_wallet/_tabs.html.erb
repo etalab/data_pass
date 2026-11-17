@@ -1,0 +1,20 @@
+<section class="fr-py-8w lp-section--grey" id="ce-qui-vous-concerne" aria-labelledby="concerne-titre">
+  <div class="fr-container">
+    <h2 class="fr-h3" id="concerne-titre"><%= t('.title') %></h2>
+    <p class="lp-narrow"><%= t('.intro') %></p>
+    <%= render DsfrComponent::TabsComponent.new(label: t('.label'), html_attributes: { class: 'lp-wallet-tabs' }) do |tabs| %>
+      <% tabs.with_tab(title: t('.organizations'), icon: 'building-line', active: true) do %>
+        <%= render partial: 'pages/european_wallet/organizations' %>
+      <% end %>
+      <% tabs.with_tab(title: t('.intermediaries'), icon: 'team-line') do %>
+        <%= render partial: 'pages/european_wallet/intermediaries' %>
+      <% end %>
+      <% tabs.with_tab(title: t('.attestation_providers'), icon: 'file-text-line') do %>
+        <%= render partial: 'pages/european_wallet/attestation_providers' %>
+      <% end %>
+      <% tabs.with_tab(title: t('.individuals'), icon: 'user-line') do %>
+        <%= render partial: 'pages/european_wallet/individuals' %>
+      <% end %>
+    <% end %>
+  </div>
+</section>
