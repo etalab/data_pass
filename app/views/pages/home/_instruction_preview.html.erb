@@ -1,0 +1,24 @@
+<figure class="fr-m-0" aria-labelledby="app-legende">
+  <div class="lp-app" aria-hidden="true">
+    <div class="lp-app__head">
+      <p class="lp-app__title"><%= t('.title') %></p>
+      <p class="fr-text--xs fr-mb-0"><%= t('.subtitle') %></p>
+    </div>
+    <div class="lp-app__tabs">
+      <b><%= t('.tab_to_instruct') %></b>
+      <span><%= t('.tab_validated') %></span>
+      <span><%= t('.tab_refused') %></span>
+    </div>
+    <% t('.rows').each do |row| %>
+      <div class="lp-app__row">
+        <p class="lp-app__id"><%= row[:id] %></p>
+        <p class="lp-app__org"><%= row[:organization] %></p>
+        <%= render DsfrComponent::BadgeComponent.new(status: row[:status].to_sym, size: :sm, has_icon: false) do %>
+          <%= row[:state] %>
+        <% end %>
+        <p class="lp-app__meta"><%= row[:meta] %></p>
+      </div>
+    <% end %>
+  </div>
+  <figcaption id="app-legende" class="fr-sr-only"><%= t('.caption') %></figcaption>
+</figure>
