@@ -45,3 +45,12 @@ fr:
         placeholder: Rechercher
         hint: Une organisation, un SIRET ou un SIREN, une API ou un service, un fournisseur, un numéro
         button: Rechercher
+      origin_filter_component:
+        title: Origine
+      download_callout_component:
+        title: Télécharger le registre
+        text: Les habilitations du registre sont aussi publiées en open data sur data.gouv.fr, avec les mêmes champs, comme le prévoit l’article L114-8 du code des relations entre le public et l’administration. Le fichier est mis à jour le 1er de chaque mois.
+  organisms:
+    public_registry:
+      sidebar_component:
+        label: Filtres et téléchargement

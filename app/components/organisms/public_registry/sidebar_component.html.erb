@@ -1,0 +1,4 @@
+<aside class="fr-hidden fr-unhidden-lg fr-background-alt--grey fr-p-3w" aria-label="<%= t('.label') %>">
+  <%= render Molecules::PublicRegistry::OriginFilterComponent.new(url:, placement: :sidebar, origins:, query:) %>
+  <%= render Molecules::PublicRegistry::DownloadCalloutComponent.new %>
+</aside>
