@@ -6,8 +6,26 @@ fr:
     origins:
       datapass: Habilitation DataPass
       portefeuille-europeen: Partie utilisatrice du portefeuille européen
+  atoms:
+    public_registry:
+      dataset_link_component:
+        text: Habilitations DataPass validées, sur data.gouv.fr
+        title: Habilitations DataPass validées sur data.gouv.fr - nouvelle fenêtre
   molecules:
     public_registry:
+      authorization_fields_component:
+        labels:
+          denomination: Organisation habilitée
+          siret: SIRET
+          service: API ou service
+          provider: Fournisseur
+          scopes: Données demandées
+          legal_basis: Fondement juridique
+          validated_on: Date de validation
+          number: Numéro au registre
+      source_callout_component:
+        title: Source
+        text: Ces informations sont aussi publiées en open data, mises à jour le 1er de chaque mois. DataPass ne publie ni les contacts, ni les pièces jointes, ni les échanges de l’instruction.
       authorization_tile_component:
         service_label: "API ou service : "
         provider_label: "Fournisseur : "

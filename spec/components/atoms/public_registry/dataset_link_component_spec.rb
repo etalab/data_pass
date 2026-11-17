@@ -1,0 +1,10 @@
+RSpec.describe Atoms::PublicRegistry::DatasetLinkComponent, type: :component do
+  subject(:page_content) { render_inline(described_class.new) }
+
+  it 'links to the data.gouv.fr data set in a new window and says so' do
+    expect(page_content).to have_css(
+      'a.fr-link.fr-link--sm[href="https://www.data.gouv.fr/datasets/habilitations-datapass-validees"][target="_blank"][rel="noopener"][title="Habilitations DataPass validées sur data.gouv.fr - nouvelle fenêtre"]',
+      text: 'Habilitations DataPass validées, sur data.gouv.fr'
+    )
+  end
+end
