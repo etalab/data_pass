@@ -348,22 +348,6 @@
   line-height: 1.75rem;
 }
 
-.lp-wallet-profile {
-  margin-bottom: 1rem;
-}
-
-.fr-follow .fr-grid-row .lp-wallet-notify {
-  align-items: stretch;
-}
-
-main:has(.fr-follow:last-child) + .fr-footer {
-  margin-top: 0 !important;
-}
-
-.lp-wallet-profile .fr-fieldset__legend {
-  font-size: 1rem;
-}
-
 @media (min-width: 62em) {
   .lp-eco-panel {
     padding: 1.75rem 2rem 2rem;
