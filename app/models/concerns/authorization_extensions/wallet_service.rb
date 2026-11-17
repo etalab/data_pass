@@ -68,6 +68,10 @@ module AuthorizationExtensions::WalletService
   end
 
   def organizations_sharing_wallet_service_identifiers
-    organization_id
+    Organization.registered_in_insee_sirene.where('left(legal_entity_id, 9) = ?', organization_siren)
+  end
+
+  def organization_siren
+    organization.siret&.first(9)
   end
 end
