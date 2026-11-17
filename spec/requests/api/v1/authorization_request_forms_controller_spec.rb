@@ -48,6 +48,15 @@ RSpec.describe 'API: Authorization request forms' do
           validate_request_and_response!
         end
 
+        it 'exposes the attributes documented in the OpenAPI examples' do
+          get_index
+
+          expect(response.parsed_body).to all(
+            match(a_hash_including('uid', 'name', 'description', 'use_case', 'definition_id', 'authorization_request_class', 'data' => a_kind_of(Hash)))
+          )
+          expect(response.parsed_body.first.keys).not_to include('prefilled?')
+        end
+
         it 'returns correct authorization_request_class for forms' do
           get_index
 

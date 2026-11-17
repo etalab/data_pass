@@ -71,7 +71,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     result = SubmitAuthorizationRequestFromAPI.call(
       authorization_request: @authorization_request,
-      consentement: params.expect(consentement: @authorization_request.required_consents),
+      consentement: consent_params,
       oauth_application: doorkeeper_token.application,
       notifications: params[:notifications]
     )
@@ -85,13 +85,23 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     @authorization_request = AuthorizationRequest
       .includes(:authorizations, :organization, :events_without_bulk_update, :applicant)
       .where(type: current_user_authorization_request_types)
-      .find(params[:authorization_request_id] || params[:id])
+      .find(without_prefix(params[:authorization_request_id] || params[:id], 'D'))
   end
 
   def instructor_email
     instructor = validation_params[:instructeur]
 
     instructor[:email] if instructor.is_a?(ActionController::Parameters)
+  end
+
+  def consent_params
+    required_consents = @authorization_request.required_consents
+    return params.expect(consentement: required_consents) if required_consents.any?
+
+    given_consents = params[:consentement]
+    raise ActionController::ParameterMissing, :consentement unless given_consents.is_a?(ActionController::Parameters)
+
+    given_consents.permit
   end
 
   def validation_params
