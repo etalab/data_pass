@@ -429,6 +429,17 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
         it { is_expected.to be_valid }
       end
 
+      context 'when another establishment of the same SIREN is submitted with it' do
+        before do
+          create_other_request(:submitted, organization: create(:organization, siret: '21920023500022'))
+          validate_step
+        end
+
+        it 'refuses the identifier' do
+          expect(error_messages_for(:wallet_service_identifier)).to eq([taken_message])
+        end
+      end
+
       context 'when an organization with another SIREN uses it' do
         before do
           create_other_request(:submitted, organization: create(:organization, siret: '32816124500027'))
