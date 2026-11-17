@@ -9,8 +9,8 @@ module AuthorizationCore::DraftFormats
   end
 
   class_methods do
-    def draft_format(attribute, error_type, &check)
-      self.draft_format_rules = draft_format_rules.merge(attribute => { error_type:, check: })
+    def draft_format(attribute, error_type, options: ->(_value) { {} }, &check)
+      self.draft_format_rules = draft_format_rules.merge(attribute => { error_type:, check:, options: })
     end
   end
 
@@ -21,7 +21,7 @@ module AuthorizationCore::DraftFormats
   def reveal_draft_set_aside_values!
     draft_set_aside_values.each do |attribute, value|
       public_send(:"#{attribute}=", value)
-      errors.add(attribute, draft_format_rules.dig(attribute, :error_type))
+      add_draft_format_error(attribute, value)
     end
   end
 
@@ -41,8 +41,14 @@ module AuthorizationCore::DraftFormats
 
   def draft_formats_respected
     badly_formatted_attributes.each do |attribute|
-      errors.add(attribute, draft_format_rules.dig(attribute, :error_type))
+      add_draft_format_error(attribute, public_send(attribute))
     end
+  end
+
+  def add_draft_format_error(attribute, value)
+    rule = draft_format_rules.fetch(attribute)
+
+    errors.add(attribute, rule[:error_type], **rule[:options].call(value))
   end
 
   def set_aside_badly_formatted_values
