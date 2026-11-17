@@ -1,0 +1,8 @@
+Recette sandbox : recette/2026-11-17
+Base : develop @ 0c0c4409
+
+2026-11-17 15:02 — construction
+  DPP-255            f4d87a08  feature/dpp-255-fiabiliser-la-reprise-dun-abonnement-hubee
+  DPP-221    #1857   9361cdca  feature/dpp-221-accueil-public
+  DPP-216    #1858   c518aec4  feature/dpp-216-page-portefeuille-europeen
+  DPP-251    #1856   22e0271c  feature/dpp-251-ts-deplacer-la-connexion-proconnect-sur-une
