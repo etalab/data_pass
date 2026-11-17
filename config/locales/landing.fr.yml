@@ -1,0 +1,14 @@
+fr:
+  shared:
+    european_wallet_phone:
+      avatar: E
+      organization: Exemple Vélos
+      request: souhaite accéder à vos données
+      data_label: Données demandées
+      data_value: Nom, prénoms, date de naissance
+      purpose_label: Pourquoi
+      purpose_value: Créer votre compte client
+      registered: Organisation enregistrée au registre français
+      refuse: Refuser
+      share: Partager
+      caption: "Exemple fictif : dans son portefeuille, l’usager lit le nom de l’organisation, la donnée demandée et la finalité, puis accepte ou refuse."
