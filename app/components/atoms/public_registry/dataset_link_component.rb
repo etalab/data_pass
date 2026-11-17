@@ -3,7 +3,7 @@ class Atoms::PublicRegistry::DatasetLinkComponent < ApplicationComponent
 
   def call
     render Atoms::LinkComponent.new(
-      text: t('.text'),
+      text: safe_join([t('.text'), tag.span(t('.new_window'), class: 'fr-sr-only')]),
       path: DATASET_URL,
       class: 'fr-link--sm',
       target: '_blank',

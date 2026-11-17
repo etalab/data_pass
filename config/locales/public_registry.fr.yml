@@ -11,6 +11,7 @@ fr:
       dataset_link_component:
         text: Habilitations DataPass validées, sur data.gouv.fr
         title: Habilitations DataPass validées sur data.gouv.fr - nouvelle fenêtre
+        new_window: " - nouvelle fenêtre"
       entries_count_component:
         entries:
           one: "%{formatted_count} entrée"

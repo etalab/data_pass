@@ -7,4 +7,9 @@ RSpec.describe Atoms::PublicRegistry::DatasetLinkComponent, type: :component do
       text: 'Habilitations DataPass validées, sur data.gouv.fr'
     )
   end
+
+  it 'announces the new window in the link text for screen readers' do
+    expect(page_content).to have_css('a span.fr-sr-only', text: '- nouvelle fenêtre')
+    expect(page_content).to have_link(exact_text: 'Habilitations DataPass validées, sur data.gouv.fr - nouvelle fenêtre')
+  end
 end
