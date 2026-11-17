@@ -67,5 +67,35 @@ RSpec.describe FeatureFlag do
         end
       end
     end
+
+    context 'when the flag is european_wallet_registry_open' do
+      before do
+        allow(ENV).to receive(:[]).and_call_original
+      end
+
+      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is true' do
+        it 'returns true' do
+          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return('true')
+
+          expect(described_class.enabled?(:european_wallet_registry_open)).to be true
+        end
+      end
+
+      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is missing' do
+        it 'returns false' do
+          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return(nil)
+
+          expect(described_class.enabled?(:european_wallet_registry_open)).to be false
+        end
+      end
+
+      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is false' do
+        it 'returns false' do
+          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return('false')
+
+          expect(described_class.enabled?(:european_wallet_registry_open)).to be false
+        end
+      end
+    end
   end
 end
