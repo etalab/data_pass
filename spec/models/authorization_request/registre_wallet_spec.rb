@@ -289,6 +289,20 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       authorization_request.errors.messages_for(attribute)
     end
 
+    describe 'name of the request' do
+      it 'is the name of the service' do
+        expect(authorization_request.name).to eq('Vélocité Libre-service')
+      end
+
+      context 'without a service name yet' do
+        let(:attributes) { service_attributes.merge(wallet_service_name: nil) }
+
+        it 'is the name of the form' do
+          expect(authorization_request.name).to eq('Enregistrement d’une partie utilisatrice')
+        end
+      end
+    end
+
     describe 'identifier proposal' do
       {
         'Vélo Été' => 'velo-ete',
