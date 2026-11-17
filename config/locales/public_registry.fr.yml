@@ -50,6 +50,10 @@ fr:
       download_callout_component:
         title: Télécharger le registre
         text: Les habilitations du registre sont aussi publiées en open data sur data.gouv.fr, avec les mêmes champs, comme le prévoit l’article L114-8 du code des relations entre le public et l’administration. Le fichier est mis à jour le 1er de chaque mois.
+      opening_alert_component:
+        title: Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026
+        text: Les organisations enregistrées y figureront, avec leurs services, les données qu’elles demandent au portefeuille et pourquoi. Seule l’adresse de leur établissement restera privée.
+        link: Découvrir le registre du portefeuille européen
   organisms:
     public_registry:
       sidebar_component:
