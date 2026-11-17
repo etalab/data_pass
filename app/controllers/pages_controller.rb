@@ -1,11 +1,18 @@
 class PagesController < ApplicationController
   include Authentication
+  include SubdomainsHelper
 
   allow_unauthenticated_access
 
   before_action :ensure_html_format
 
   def home
+    return redirect_to dashboard_path if user_signed_in?
+
+    redirect_to connexion_path if registered_subdomain?
+  end
+
+  def connexion
     redirect_to dashboard_path if user_signed_in?
   end
 
@@ -36,6 +43,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def layout_name
+    action_name == 'home' ? 'wide_container' : super
+  end
 
   def ensure_html_format
     head :not_acceptable unless request.format.html?

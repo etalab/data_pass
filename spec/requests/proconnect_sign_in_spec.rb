@@ -22,29 +22,29 @@ RSpec.describe 'ProConnect sign-in' do
 
   after { OmniAuth.config.mock_auth[:proconnect] = nil }
 
-  it 'redirects to the home page with an error when the sub belongs to an account with another email' do
+  it 'redirects to the sign-in page with an error when the sub belongs to an account with another email' do
     get '/auth/proconnect/callback'
 
-    expect(response).to redirect_to(root_path)
+    expect(response).to redirect_to(connexion_path)
     expect(flash[:error]['title']).to include('déjà associé à une autre adresse e-mail')
   end
 
-  it 'redirects to the home page with a generic error for any other failure' do
+  it 'redirects to the sign-in page with a generic error for any other failure' do
     failed_result = failed_context
     allow(AuthenticateUserThroughProConnect).to receive(:call).and_return(failed_result)
 
     get '/auth/proconnect/callback'
 
-    expect(response).to redirect_to(root_path)
+    expect(response).to redirect_to(connexion_path)
     expect(flash[:error]['title']).to eq('La connexion a échoué. Veuillez réessayer.')
   end
 
-  it 'redirects to the home page with a generic error when the error is a bare symbol, as with an unknown SIRET' do
+  it 'redirects to the sign-in page with a generic error when the error is a bare symbol, as with an unknown SIRET' do
     allow(AuthenticateUserThroughProConnect).to receive(:call).and_return(failed_context(error: :insee_entity_not_found))
 
     get '/auth/proconnect/callback'
 
-    expect(response).to redirect_to(root_path)
+    expect(response).to redirect_to(connexion_path)
     expect(flash[:error]['title']).to eq('La connexion a échoué. Veuillez réessayer.')
   end
 

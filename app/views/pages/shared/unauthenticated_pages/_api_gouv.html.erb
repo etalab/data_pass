@@ -4,10 +4,9 @@
     <%= t('pages.home.api_gouv_title') %>
   </h2>
   <div class="fr-mb-2w">
-    <div class="fr-btn fr-btn--secondary fr-m-auto">
-      <a href="https://www.data.gouv.fr/fr/dataservices/" target="_blank" rel="noopener" title="les apis sur data.gouv.fr - Nouvelle fenêtre">
-        <%= t('pages.home.api_gouv') %>
-      </a>
-    </div>
+    <a href="https://www.data.gouv.fr/fr/dataservices/" target="_blank" rel="noopener" class="fr-btn fr-btn--secondary fr-m-auto" title="<%= t('pages.home.api_gouv') %> - <%= t('shared.new_window') %>">
+      <%= t('pages.home.api_gouv') %>
+      <span class="fr-sr-only"> - <%= t('shared.new_window') %></span>
+    </a>
   </div>
 </div>

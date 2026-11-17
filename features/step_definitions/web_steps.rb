@@ -368,3 +368,15 @@ end
 Quand("j'ouvre l'accordéon {string}") do |accordion_title|
   find('.fr-accordion__btn', text: accordion_title).click
 end
+
+Quand('je me rends sur la page de connexion') do
+  visit connexion_path
+end
+
+Alors('je suis sur la page de connexion') do
+  expect(page).to have_current_path(connexion_path, ignore_query: true)
+end
+
+Alors('je suis sur mon tableau de bord') do
+  expect(page).to have_current_path(%r{\A/tableau-de-bord})
+end

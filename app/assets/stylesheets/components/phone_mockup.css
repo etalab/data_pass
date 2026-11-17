@@ -1,0 +1,83 @@
+.lp-phone {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 16.5rem;
+  max-width: 100%;
+  padding: 1.25rem 1rem 1.5rem;
+  background-color: var(--background-default-grey);
+  border: 0.5rem solid var(--border-plain-grey);
+  border-radius: 2rem;
+}
+
+.lp-phone__notch {
+  width: 4rem;
+  height: 0.375rem;
+  margin: 0 auto 0.25rem;
+  background-color: var(--border-default-grey);
+  border-radius: 1rem;
+}
+
+.lp-phone__app {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}
+
+.lp-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-weight: 700;
+  color: var(--text-inverted-blue-france);
+  background-color: var(--background-action-high-blue-france);
+}
+
+.lp-phone__row {
+  margin: 0;
+  padding: 0.5rem 0.625rem;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  border: 1px solid var(--border-default-grey);
+}
+
+.lp-phone__row b {
+  display: block;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-mention-grey);
+}
+
+.lp-phone__ok {
+  margin: 0;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  color: var(--text-default-success);
+  background-color: var(--background-contrast-success);
+}
+
+.lp-phone__btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lp-phone__btns span {
+  flex: 1;
+  padding: 0.375rem;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--text-action-high-blue-france);
+  border: 1px solid var(--border-action-high-blue-france);
+}
+
+.lp-phone__btns span + span {
+  color: var(--text-inverted-blue-france);
+  background-color: var(--background-action-high-blue-france);
+}
