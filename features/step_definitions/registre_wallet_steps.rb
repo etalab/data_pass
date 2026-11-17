@@ -155,3 +155,31 @@ end
 Quand('je recharge la page') do
   visit current_url
 end
+
+WALLET_REQUEST_STATES = {
+  'en cours de vérification' => :submitted,
+  'en brouillon' => :draft,
+}.freeze
+
+Sachantque('un autre service de mon organisation, {string}, utilise l’identifiant {string}') do |state, identifier|
+  organization = current_user!.current_organization
+  other_applicant = FactoryBot.create(:user)
+  add_current_organization_to_user(other_applicant, organization)
+  other_applicant.save!
+
+  FactoryBot.create(:authorization_request, :registre_wallet, WALLET_REQUEST_STATES.fetch(state), organization:, applicant: other_applicant, wallet_service_identifier: identifier)
+end
+
+Quand('je remplis l’étape « L’organisation » du registre wallet') do
+  steps %(
+    Quand je remplis ce que le registre publie
+    Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
+    Et je clique sur "Suivant"
+  )
+end
+
+Quand('je décris le service {string} avec l’identifiant {string}') do |name, identifier|
+  fill_in 'Nom du service', with: name
+  fill_in 'Identifiant du service', with: identifier
+  fill_in 'Description du service', with: 'Location de vélos en libre-service dans la métropole de Lyon.'
+end

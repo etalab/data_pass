@@ -20,3 +20,4 @@ registre_wallet:
     transfer: false
   blocks:
     - name: "wallet_organization"
+    - name: "wallet_service"

@@ -61,6 +61,9 @@ module WalletRegistryHelper
       https_url: t("#{scope}.wallet_website_url.wallet_https_format"),
       email: t("#{scope}.wallet_support_email.wallet_email_format"),
       phone: t("#{scope}.wallet_support_phone.invalid_french_phone_format"),
+      max_length: t("#{scope}.wallet_service_name.wallet_service_name_too_long", count: '__count__'),
+      service_identifier: t("#{scope}.wallet_service_identifier.wallet_service_identifier_format"),
+      service_description: t("#{scope}.wallet_service_description.wallet_service_description_too_short"),
     }.to_json
   end
 

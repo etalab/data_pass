@@ -3,7 +3,9 @@ import { Controller } from '@hotwired/stimulus'
 const FORMATS = {
   https_url: /^https:\/\/[^\s/.]+(\.[^\s/.]+)+(\/\S*)?$/,
   email: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
-  phone: /^(0[1-9]([\s.-]*\d{2}){4}|\+33[\s.-]*[1-9]([\s.-]*\d{2}){4}|\+(590|594|596)[\s.-]*[1-9]([\s.-]*\d{2}){4}|\+262[\s.-]*\d{2}([\s.-]*\d{2}){3}|\+(508|681|687)[\s.-]*\d{2}([\s.-]*\d{2}){2}|\+689[\s.-]*4\d([\s.-]*\d{2}){2})$/
+  phone: /^(0[1-9]([\s.-]*\d{2}){4}|\+33[\s.-]*[1-9]([\s.-]*\d{2}){4}|\+(590|594|596)[\s.-]*[1-9]([\s.-]*\d{2}){4}|\+262[\s.-]*\d{2}([\s.-]*\d{2}){3}|\+(508|681|687)[\s.-]*\d{2}([\s.-]*\d{2}){2}|\+689[\s.-]*4\d([\s.-]*\d{2}){2})$/,
+  service_identifier: /^[a-z0-9]+(-[a-z0-9]+)*$/,
+  service_description: /^(?=[\s\S]{15,})[\s\S]*[\p{L}\p{N}]/u
 }
 
 export default class extends Controller {
@@ -24,9 +26,15 @@ export default class extends Controller {
     if (!kind) return
 
     const value = this.normalize(kind, input.value)
-    const valid = value === '' || FORMATS[kind].test(value)
+    const valid = value === '' || this.respects(kind, input, value)
 
-    this.display(input, valid ? null : this.messagesValue[kind])
+    this.display(input, valid ? null : this.messagesValue[kind].replace('__count__', input.value.length))
+  }
+
+  respects (kind, input, value) {
+    if (kind === 'max_length') return input.value.length <= Number(input.dataset.fieldFormatMaxLength)
+
+    return FORMATS[kind].test(value)
   }
 
   normalize (kind, value) {

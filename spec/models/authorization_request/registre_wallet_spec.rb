@@ -262,4 +262,199 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       expect(authorization_request.save(context: :save_within_wizard)).to be true
     end
   end
+
+  describe 'step « Le service »' do
+    subject(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, applicant:, **attributes) }
+
+    let(:organization) { create(:organization, siret: '21920023500014') }
+    let(:applicant) { create(:user).tap { |user| user.add_to_organization(organization, current: true) } }
+    let(:service_attributes) do
+      {
+        wallet_privacy_policy_url: 'https://www.clamart.fr/confidentialite',
+        wallet_support_email: 'contact@clamart.fr',
+        wallet_not_registered_elsewhere: true,
+        wallet_service_name: 'Vélocité Libre-service',
+        wallet_service_identifier: 'libre-service',
+        wallet_service_description: 'Location de vélos en libre-service dans la métropole de Lyon.',
+      }
+    end
+    let(:attributes) { service_attributes }
+
+    def validate_step
+      authorization_request.current_build_step = 'wallet_service'
+      authorization_request.validate
+    end
+
+    def error_messages_for(attribute)
+      authorization_request.errors.messages_for(attribute)
+    end
+
+    describe 'identifier proposal' do
+      {
+        'Vélo Été' => 'velo-ete',
+        'Œuvre d’art  & Cie !' => 'oeuvre-d-art-cie',
+        '  Libre-service Lyon ' => 'libre-service-lyon',
+      }.each do |name, identifier|
+        it "proposes « #{identifier} » for « #{name} »" do
+          expect(AuthorizationExtensions::WalletService.propose_identifier(name)).to eq(identifier)
+        end
+      end
+
+      context 'when the identifier is empty' do
+        let(:attributes) { service_attributes.merge(wallet_service_name: 'Vélo Été', wallet_service_identifier: '') }
+
+        it 'fills it from the service name when the draft is saved' do
+          authorization_request.save!(context: :save_within_wizard)
+
+          expect(authorization_request.reload.wallet_service_identifier).to eq('velo-ete')
+        end
+      end
+
+      context 'when the applicant typed an identifier' do
+        let(:attributes) { service_attributes.merge(wallet_service_name: 'Vélo Été Lyon', wallet_service_identifier: 'mon-service') }
+
+        it 'keeps it' do
+          authorization_request.save!(context: :save_within_wizard)
+
+          expect(authorization_request.reload.wallet_service_identifier).to eq('mon-service')
+        end
+      end
+    end
+
+    describe 'validation of the step' do
+      before { validate_step }
+
+      context 'with the three fields filled' do
+        it { is_expected.to be_valid }
+
+        it 'declares the service as a service provider' do
+          expect(authorization_request.wallet_entitlement).to eq('Service_Provider')
+        end
+      end
+
+      context 'with nothing filled' do
+        let(:attributes) { service_attributes.merge(wallet_service_name: nil, wallet_service_identifier: nil, wallet_service_description: nil) }
+
+        it 'lists the three fields' do
+          expect(authorization_request.errors.attribute_names).to contain_exactly(:wallet_service_name, :wallet_service_identifier, :wallet_service_description)
+        end
+      end
+
+      context 'with a name of 51 characters' do
+        let(:attributes) { service_attributes.merge(wallet_service_name: 'V' * 51) }
+
+        it 'asks to shorten it, with its length' do
+          expect(error_messages_for(:wallet_service_name)).to eq(['Le nom du service compte 51 caractères. Raccourcissez-le à 50 caractères au plus : il s’affiche dans le wallet.'])
+        end
+      end
+
+      context 'with a name of 50 characters' do
+        let(:attributes) { service_attributes.merge(wallet_service_name: 'V' * 50) }
+
+        it { is_expected.to be_valid }
+      end
+
+      ['Libre-Service', 'libre_service', '-libre', 'libre-', 'libre--service', 'libre service', 'vélo'].each do |identifier|
+        context "with the identifier « #{identifier} »" do
+          let(:attributes) { service_attributes.merge(wallet_service_identifier: identifier) }
+
+          it 'refuses its format' do
+            expect(error_messages_for(:wallet_service_identifier)).to eq(['L’identifiant ne peut contenir que des lettres minuscules sans accent, des chiffres et des tirets, par exemple libre-service-lyon.'])
+          end
+        end
+      end
+
+      ['test', '.............................', '   ...   !!!   ???   '].each do |description|
+        context "with the description « #{description} »" do
+          let(:attributes) { service_attributes.merge(wallet_service_description: description) }
+
+          it 'asks for a real description' do
+            expect(authorization_request.errors.attribute_names).to include(:wallet_service_description)
+          end
+        end
+      end
+    end
+
+    describe 'saving a draft with a badly formatted name' do
+      let(:attributes) { service_attributes.merge(wallet_service_name: 'V' * 51) }
+
+      it 'saves the rest of the draft and shows the name again with its error' do
+        expect(authorization_request.save(context: :save_within_wizard)).to be true
+
+        authorization_request.reveal_draft_set_aside_values!
+
+        expect(authorization_request.reload.wallet_service_identifier).to eq('libre-service')
+        expect(authorization_request.data['wallet_service_name']).to be_nil
+      end
+    end
+
+    describe 'identifier already used in the organization' do
+      def create_other_request(*traits, organization: self.organization, identifier: 'libre-service')
+        other_applicant = create(:user).tap { |user| user.add_to_organization(organization, current: true) }
+        create(:authorization_request, :registre_wallet, *traits, organization:, applicant: other_applicant, wallet_service_identifier: identifier)
+      end
+
+      let(:taken_message) { 'Un autre service de votre organisation utilise déjà cet identifiant. Choisissez-en un autre.' }
+
+      %i[submitted changes_requested validated].each do |state|
+        context "when another request of the organization is #{state} with it" do
+          before do
+            create_other_request(state)
+            validate_step
+          end
+
+          it 'refuses the identifier' do
+            expect(error_messages_for(:wallet_service_identifier)).to eq([taken_message])
+          end
+        end
+      end
+
+      %i[draft refused archived].each do |state|
+        context "when another request of the organization is #{state} with it" do
+          before do
+            create_other_request(state)
+            validate_step
+          end
+
+          it { is_expected.to be_valid }
+        end
+      end
+
+      context 'when another request with another identifier is submitted' do
+        before do
+          create_other_request(:submitted, identifier: 'autre-service')
+          validate_step
+        end
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'when an organization with another SIREN uses it' do
+        before do
+          create_other_request(:submitted, organization: create(:organization, siret: '32816124500027'))
+          validate_step
+        end
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'when the request itself is submitted' do
+        subject(:authorization_request) { create(:authorization_request, :registre_wallet, :submitted, organization:, applicant:, wallet_service_identifier: 'libre-service') }
+
+        it 'does not compare it with itself' do
+          expect(authorization_request.reload).to be_valid
+        end
+      end
+
+      context 'when a draft only saves' do
+        before { create_other_request(:submitted) }
+
+        it 'does not check the identifier yet' do
+          authorization_request.save(context: :save_within_wizard)
+
+          expect(authorization_request.errors.full_messages).to be_empty
+        end
+      end
+    end
+  end
 end

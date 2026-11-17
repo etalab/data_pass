@@ -27,6 +27,14 @@
 .wx-engage { background-color: var(--background-alt-grey); padding: 1.25rem 1.25rem .5rem; margin-top: 1.5rem; }
 .wx-actions { border-top: 1px solid var(--border-default-grey); z-index: 10; }
 .wx-actions.sticky-shadow { box-shadow: none; }
+.wx-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem 1rem; flex-wrap: wrap; }
+.wx-count { font-variant-numeric: tabular-nums; }
+.wx-count.is-over { color: var(--text-default-error); font-weight: 700; }
+.wx-wallet { background-color: var(--background-alt-blue-france); padding: 1.25rem; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+.wx-wallet__kicker { font-size: .75rem; line-height: 1.25rem; color: var(--text-mention-grey); margin: 0 0 .5rem; }
+.wx-wallet__row { display: flex; gap: .75rem; align-items: center; margin: 0; padding: .75rem; background-color: var(--background-default-grey); filter: drop-shadow(var(--raised-shadow)); }
+.wx-wallet__row strong { overflow-wrap: anywhere; }
+.wx-avatar { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 700; background-color: var(--background-action-high-blue-france); color: var(--text-inverted-blue-france); }
 @media (max-width: 767px) {
   .wx-head__row { flex-wrap: wrap; }
   .wx-panel { padding: 1.25rem 1rem; }

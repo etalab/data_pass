@@ -14,7 +14,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et la page contient "1 place Maurice Gunsbourg, 92140 Clamart"
     Et la page ne contient pas "TVA intracommunautaire"
     Et la page contient "Agent connecté par ProConnect"
-    Et la page contient "Étape 1/1"
+    Et la page contient "Étape 1/2"
 
   Scénario: Une SAS n’est pas un organisme du secteur public, sans badge (CA1)
     Sachant que je suis un demandeur d'une entreprise
@@ -84,7 +84,10 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
     Et je clique sur "Suivant"
     Alors la page ne contient pas "à corriger avant de continuer"
-    Et la page contient "Vérifiez le récapitulatif de votre demande"
+    Et la page contient "Quel service demandera des données au wallet ?"
+    Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
+    Et je clique sur "Suivant"
+    Alors la page contient "Vérifiez le récapitulatif de votre demande"
 
   Scénario: Les informations de l’organisation en cours de chargement s’affichent quand elles arrivent (R10)
     Sachant que je suis dirigeant d’une entreprise privée
@@ -97,6 +100,9 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Quand je clique sur "Enregistrer"
     Et je remplis ce que le registre publie
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
+    Et je clique sur "Suivant"
+    Alors la page contient "Quel service demandera des données au wallet ?"
+    Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Alors la page ne contient pas "à corriger avant de continuer"
     Et la page contient "L’organisation dans le registre"
@@ -252,7 +258,10 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je remplis ce que le registre publie
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
     Et je clique sur "Suivant"
-    Alors il n'y a pas de bouton "Soumettre la demande d'habilitation"
+    Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
+    Et je clique sur "Suivant"
+    Alors la page contient "Le service"
+    Et il n'y a pas de bouton "Soumettre la demande d'habilitation"
 
   Scénario: Le récapitulatif présente l’organisation dans le registre, sans le panneau de l’étape 1 (R4)
     Sachant que je suis un demandeur de la commune de Clamart
@@ -260,6 +269,8 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Quand je démarre une demande au registre wallet
     Et je remplis ce que le registre publie
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
+    Et je clique sur "Suivant"
+    Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Alors la page contient "L’organisation dans le registre"
     Et la page contient "Identification"
@@ -277,6 +288,8 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Quand je démarre une demande au registre wallet
     Et je remplis ce que le registre publie
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
+    Et je clique sur "Suivant"
+    Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Alors la page contient "vous pourrez soumettre votre demande au registre, qui vérifiera votre organisation"
     Et la page ne contient pas "équipe d’instruction"

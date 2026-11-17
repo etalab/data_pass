@@ -167,6 +167,11 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         wallet_support_phone
         wallet_not_registered_elsewhere
       ],
+      'wallet_service' => %w[
+        wallet_service_name
+        wallet_service_identifier
+        wallet_service_description
+      ],
     }
   end
 

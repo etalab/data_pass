@@ -22,6 +22,7 @@ fr:
     supporting_documents: pieces-justificatives
     france_connect: france-connect
     wallet_organization: organisation
+    wallet_service: service
 
   authorization:
     badge: habilitation %{formatted_id}
