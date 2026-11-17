@@ -54,8 +54,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation Signalements impayés d
     Quand j'ouvre le lien direct du formulaire de la démarche "Signalements impayés de loyer"
     Et que je clique sur "Débuter ma demande"
     Et que je remplis les informations du contact "Délégué à la protection des données" avec :
-      | Email          |
-      | dpo@exemple.gouv.fr |
+      | Email                      |
+      | secretariat@exemple.gouv.fr |
     Alors la page ne contient pas "doit être un email nominatif"
 
   @javascript
