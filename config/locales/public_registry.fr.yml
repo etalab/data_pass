@@ -11,6 +11,16 @@ fr:
       dataset_link_component:
         text: Habilitations DataPass validées, sur data.gouv.fr
         title: Habilitations DataPass validées sur data.gouv.fr - nouvelle fenêtre
+      entries_count_component:
+        entries:
+          one: "%{formatted_count} entrée"
+          other: "%{formatted_count} entrées"
+        in_registry: au registre
+        for_query: pour « %{query} »
+      empty_results_component:
+        no_match: Aucune entrée ne correspond. Essayez un autre nom d’organisation.
+        no_match_filtered: Aucune entrée ne correspond. Essayez un autre nom d’organisation ou retirez un filtre.
+        no_wallet_entry: Aucune organisation n’est encore enregistrée.
   molecules:
     public_registry:
       authorization_fields_component:
