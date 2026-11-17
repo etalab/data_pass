@@ -23,6 +23,8 @@ fr:
             wallet_support_channel_missing: "Assistance aux usagers : indiquez au moins un moyen."
           wallet_not_registered_elsewhere:
             accepted: Cochez cette case pour continuer.
+          wallet_service_identifier_format: "%{attribute} : format non valide."
+          wallet_service_description_too_short: "%{attribute} : trop courte."
     wallet_registry:
       organization_summary_component:
         identification: Identification

@@ -6,3 +6,4 @@ registre-wallet:
     <p>Si votre service passe par un intermédiaire, vous ne pouvez pas encore l’enregistrer : écrivez au support du registre à <a class="fr-link" href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>.</p>
   steps:
     - name: wallet_organization
+    - name: wallet_service

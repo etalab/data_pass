@@ -1,0 +1,64 @@
+<% name = @authorization_request.wallet_service_name.to_s %>
+<% max_length = AuthorizationExtensions::WalletService::SERVICE_NAME_MAX_LENGTH %>
+
+<%= tag.div class: 'wx-panel', data: {
+  controller: 'wallet-service',
+  wallet_service_max_length_value: max_length,
+  wallet_service_counter_value: f.wording_for('wallet_service.name_counter', count: '__count__', max: max_length),
+  wallet_service_placeholder_value: f.wording_for('wallet_service.preview.placeholder'),
+} do %>
+  <div class="wx-card-head fr-mb-2w">
+    <h3 class="fr-h5 fr-mb-0" id="wallet-service-card-title"><%= f.wording_for('wallet_service.card_title') %></h3>
+  </div>
+
+  <fieldset class="fr-fieldset fr-mb-0" aria-labelledby="wallet-service-card-title">
+    <div class="fr-fieldset__element">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-12 fr-col-md-7">
+          <%= f.dsfr_text_field :wallet_service_name,
+            required: true,
+            hint_text: safe_join([
+              f.wording_for('wallet_service_name.hint'),
+              ' ',
+              tag.span(f.wording_for('wallet_service.name_counter', count: name.length, max: max_length), class: ['wx-count', ('is-over' if name.length > max_length)], id: 'wallet-service-name-count', aria: { live: 'polite' }, data: { wallet_service_target: 'counter' }),
+            ]),
+            data: { wallet_service_target: 'name', action: 'input->wallet-service#nameChanged', field_format_kind: 'max_length', field_format_max_length: max_length } %>
+          <%= f.dsfr_text_field :wallet_service_identifier,
+            required: true,
+            autocomplete: 'off',
+            spellcheck: false,
+            data: { wallet_service_target: 'identifier', action: 'input->wallet-service#identifierChanged', field_format_kind: 'service_identifier' } %>
+        </div>
+        <div class="fr-col-12 fr-col-md-5">
+          <div class="wx-wallet" aria-hidden="true">
+            <p class="wx-wallet__kicker"><%= f.wording_for('wallet_service.preview.kicker') %></p>
+            <p class="wx-wallet__row">
+              <span class="wx-avatar" data-wallet-service-target="previewInitial"><%= name.strip.first.presence&.upcase || '?' %></span>
+              <span>
+                <strong data-wallet-service-target="previewName"><%= name.presence || f.wording_for('wallet_service.preview.placeholder') %></strong>
+                <br>
+                <span class="fr-text--xs"><%= f.wording_for('wallet_service.preview.sentence') %></span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_text_area :wallet_service_description, required: true, rows: 3, data: { field_format_kind: 'service_description' } %>
+    </div>
+
+    <div class="fr-fieldset__element fr-mb-0">
+      <div>
+        <p class="fr-label fr-mb-0" id="wallet-service-entitlement-label">
+          <%= f.wording_for('wallet_service.entitlement.label') %>
+          <span class="fr-hint-text"><%= f.wording_for('wallet_service.entitlement.hint') %></span>
+        </p>
+        <p class="fr-text--bold fr-mt-1w fr-mb-0" id="wallet-service-entitlement">
+          <%= f.wording_for("wallet_service.entitlement.values.#{@authorization_request.wallet_entitlement}") %>
+        </p>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

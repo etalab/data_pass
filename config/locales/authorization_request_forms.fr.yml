@@ -24,6 +24,7 @@ fr:
         france_connect: "L'habilitation FranceConnect"
         cnous_data_extraction_criteria: "Les conditions d’extraction CNOUS"
         wallet_organization: "L’organisation"
+        wallet_service: "Le service"
         finish: "La synthèse"
       terms_of_service_accepted:
         label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation</a>&nbsp;et je les valide.
@@ -1392,6 +1393,29 @@ fr:
       wallet_not_registered_elsewhere:
         label: Je déclare que %{organization_name} n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
         label_unknown_name: Je déclare que votre organisation n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
+      wallet_service:
+        title: Quel service demandera des données au wallet ?
+        subtitle: "Un service est ce que l’usager reconnaît : une application, un site, un guichet. Pour un autre service, faites une nouvelle demande."
+        card_title: Votre service
+        name_counter: "%{count}/%{max} caractères"
+        preview:
+          kicker: Aperçu dans le wallet
+          placeholder: Nom du service
+          sentence: souhaite accéder à certaines de vos données
+        entitlement:
+          label: Habilitation du service
+          hint: Fixée par le registre pour un service qui demande des données au wallet. Elle figure dans vos certificats d’enregistrement.
+          values:
+            Service_Provider: Fournisseur de services (Service_Provider)
+      wallet_service_name:
+        label: Nom du service
+        hint: "Le nom que l’usager verra dans son wallet à chaque demande de données. Il figure dans tous vos certificats. 50 caractères au plus :"
+      wallet_service_identifier:
+        label: Identifiant du service
+        hint: Proposé à partir du nom du service, vous pouvez le modifier. Lettres minuscules sans accent, chiffres et tirets. Unique dans votre organisation, il sera figé à l’inscription.
+      wallet_service_description:
+        label: Description du service
+        hint: En français, en une ou deux phrases, 15 caractères au moins. Elle est publiée au registre.
 
     resana:
       legal:

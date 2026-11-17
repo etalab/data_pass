@@ -1731,6 +1731,9 @@ FactoryBot.define do
             authorization_request.identity_legal_name = 'COMMUNE DE CLAMART'
           end
           authorization_request.wallet_postal_address ||= '1 place Maurice Gunsbourg, 92140 Clamart'
+          authorization_request.wallet_service_name ||= 'Vélocité Libre-service'
+          authorization_request.wallet_service_identifier ||= 'velocite-libre-service'
+          authorization_request.wallet_service_description ||= 'Location de vélos en libre-service dans la métropole de Lyon.'
           authorization_request.wallet_address_proof.attach(
             io: Rails.root.join('spec/fixtures/dummy.pdf').open,
             filename: 'dummy.pdf',

@@ -190,6 +190,9 @@ fr:
         wallet_legal_name: Nom officiel de l’organisation
         wallet_postal_address: Adresse d’établissement
         wallet_address_proof: Justificatif
+        wallet_service_name: Nom du service
+        wallet_service_identifier: Identifiant du service
+        wallet_service_description: Description du service
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -355,6 +358,16 @@ fr:
               wallet_postal_address_format: *wallet_postal_address_format
             wallet_address_proof:
               blank: Joignez un justificatif pour continuer.
+            wallet_service_name:
+              blank: Indiquez le nom du service.
+              wallet_service_name_too_long: "Le nom du service compte %{count} caractères. Raccourcissez-le à 50 caractères au plus : il s’affiche dans le wallet."
+            wallet_service_identifier:
+              blank: Indiquez l’identifiant du service.
+              wallet_service_identifier_format: L’identifiant ne peut contenir que des lettres minuscules sans accent, des chiffres et des tirets, par exemple libre-service-lyon.
+              wallet_service_identifier_taken: Un autre service de votre organisation utilise déjà cet identifiant. Choisissez-en un autre.
+            wallet_service_description:
+              blank: Décrivez le service en une ou deux phrases.
+              wallet_service_description_too_short: Décrivez le service en une ou deux phrases, 15 caractères au moins, avec des mots et non seulement des signes de ponctuation.
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:
