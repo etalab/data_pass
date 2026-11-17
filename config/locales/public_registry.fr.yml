@@ -1,0 +1,14 @@
+fr:
+  public_registry:
+    not_provided: Non renseigné
+    status:
+      active: Active
+    origins:
+      datapass: Habilitation DataPass
+      portefeuille-europeen: Partie utilisatrice du portefeuille européen
+  molecules:
+    public_registry:
+      authorization_tile_component:
+        service_label: "API ou service : "
+        provider_label: "Fournisseur : "
+        validated_on: Validée le %{date}
