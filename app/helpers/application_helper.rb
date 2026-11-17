@@ -33,6 +33,14 @@ module ApplicationHelper
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
   end
 
+  def public_header?
+    !user_signed_in? && !registered_subdomain?
+  end
+
+  def european_wallet_page_path
+    root_path(anchor: 'portefeuille-europeen')
+  end
+
   def european_wallet_phone_mockup(caption_id:)
     Molecules::PhoneMockupComponent.new(
       caption: { id: caption_id, text: t('shared.european_wallet_phone.caption') },

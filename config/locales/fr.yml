@@ -99,6 +99,9 @@ fr:
     header:
       title: DataPass
       tagline: Habilitations juridiques
+      public_tagline: Habilitations et registre du portefeuille européen
+      public_tools:
+        sign_in: Se connecter
       tools:
         links:
           admin:
@@ -110,6 +113,9 @@ fr:
           sign_out:
             title: Se déconnecter
       menu:
+        public:
+          home: Accueil
+          european_wallet: Portefeuille européen
         instruction:
           instructor_authorization_requests: Demandes initiées par des instructeurs
           authorizations_and_requests: Demandes / habilitations

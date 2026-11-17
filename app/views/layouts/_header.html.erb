@@ -36,7 +36,7 @@
 
         </div>
         <div class="fr-header__tools">
-          <%= render partial: 'layouts/header/tools' %>
+          <%= render partial: public_header? ? 'layouts/header/public_tools' : 'layouts/header/tools' %>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ Fonctionnalité: Accessibilité
   Scénario: Les liens d'évitement fonctionnent correctement sur la page d'accueil
     Sachant que je me rends sur la page d'accueil
     Alors je dois voir des liens d'évitement
-    Et le lien d'évitement "Bienvenue sur DataPass" doit mener à l'élément "#content"
+    Et le lien d'évitement "Aller au contenu" doit mener à l'élément "#content"
     Et le lien d'évitement "Menu" doit mener à l'élément "#header"
     Et le lien d'évitement "Pied de page" doit mener à l'élément "#footer"
 
