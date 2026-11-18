@@ -2,7 +2,7 @@
 #
 # Lien DSFR de petite taille vers le jeu « Habilitations DataPass validées » sur data.gouv.fr,
 # ouvert dans une nouvelle fenêtre, ce que dit son intitulé en `fr-sr-only` (une seule fois pour un
-# lecteur d’écran). Le slug du jeu est celui que lit `DatagouvAPIClient.dataset_slug`.
+# lecteur d’écran). L’adresse vise toujours le jeu de production, quel que soit l’environnement.
 #
 # **Où** : registre public, dans l’encart « Source » de la fiche
 # (`Molecules::PublicRegistry::SourceCalloutComponent`) et dans l’encart « Télécharger le

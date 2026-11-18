@@ -1,12 +1,6 @@
 class DatagouvAPIClient
   class ServerError < StandardError; end
 
-  DEFAULT_DATASET_SLUG = 'habilitations-datapass-validees'.freeze
-
-  def self.dataset_slug
-    Rails.application.credentials.dig(:data_gouv_fr, :dataset_slug) || DEFAULT_DATASET_SLUG
-  end
-
   def upload_resource(csv_content, filename)
     connection.post(upload_path) do |req|
       req.body = { file: Faraday::FilePart.new(StringIO.new(csv_content), 'text/csv', filename) }
@@ -59,7 +53,7 @@ class DatagouvAPIClient
   end
 
   def dataset_id
-    self.class.dataset_slug
+    Rails.application.credentials.dig(:data_gouv_fr, :dataset_slug) || 'habilitations-datapass-validees'
   end
 
   def resource_id

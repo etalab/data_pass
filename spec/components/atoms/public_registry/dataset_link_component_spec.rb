@@ -13,14 +13,4 @@ RSpec.describe Atoms::PublicRegistry::DatasetLinkComponent, type: :component do
     expect(page_content).to have_link(exact_text: 'Habilitations DataPass validées, sur data.gouv.fr - nouvelle fenêtre')
     expect(page_content).to have_no_css('a[title]')
   end
-
-  context 'when the credentials set another data set slug' do
-    before do
-      allow(DatagouvAPIClient).to receive(:dataset_slug).and_return('autre-jeu')
-    end
-
-    it 'links to the data set read by the data.gouv.fr client' do
-      expect(page_content).to have_link(href: 'https://www.data.gouv.fr/datasets/autre-jeu')
-    end
-  end
 end

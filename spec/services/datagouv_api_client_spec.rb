@@ -83,16 +83,4 @@ RSpec.describe DatagouvAPIClient do
       expect(put_stub).to have_been_requested
     end
   end
-
-  describe '.dataset_slug' do
-    it 'defaults to the DataPass data set' do
-      expect(described_class.dataset_slug).to eq('habilitations-datapass-validees')
-    end
-
-    it 'reads the slug from the credentials' do
-      allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :dataset_slug).and_return('autre-jeu')
-
-      expect(described_class.dataset_slug).to eq('autre-jeu')
-    end
-  end
 end
