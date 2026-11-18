@@ -1,6 +1,7 @@
 fr:
   public_registry:
     not_provided: Non renseigné
+    update_frequency: le 1er de chaque mois
     status:
       active: Active
     origins:
@@ -10,7 +11,6 @@ fr:
     public_registry:
       dataset_link_component:
         text: Habilitations DataPass validées, sur data.gouv.fr
-        title: Habilitations DataPass validées sur data.gouv.fr - nouvelle fenêtre
         new_window: " - nouvelle fenêtre"
       entries_count_component:
         entries:
@@ -36,7 +36,7 @@ fr:
           number: Numéro au registre
       source_callout_component:
         title: Source
-        text: Ces informations sont aussi publiées en open data, mises à jour le 1er de chaque mois. DataPass ne publie ni les contacts, ni les pièces jointes, ni les échanges de l’instruction.
+        text: Ces informations sont aussi publiées en open data, mises à jour %{update_frequency}. DataPass ne publie ni les contacts, ni les pièces jointes, ni les échanges de l’instruction.
       authorization_tile_component:
         service_label: "API ou service : "
         provider_label: "Fournisseur : "
@@ -50,7 +50,7 @@ fr:
         title: Origine
       download_callout_component:
         title: Télécharger le registre
-        text: Les habilitations du registre sont aussi publiées en open data sur data.gouv.fr, avec les mêmes champs, comme le prévoit l’article L114-8 du code des relations entre le public et l’administration. Le fichier est mis à jour le 1er de chaque mois.
+        text: Les habilitations du registre sont aussi publiées en open data sur data.gouv.fr, avec les mêmes champs, comme le prévoit l’article L114-8 du code des relations entre le public et l’administration. Le fichier est mis à jour %{update_frequency}.
       opening_alert_component:
         title: Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026
         text: Les organisations enregistrées y figureront, avec leurs services, les données qu’elles demandent au portefeuille et pourquoi. Seule l’adresse de leur établissement restera privée.

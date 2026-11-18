@@ -7,6 +7,6 @@ RSpec.describe Molecules::PublicRegistry::SourceCalloutComponent, type: :compone
   end
 
   it 'links to the open data set' do
-    expect(page_content).to have_link('Habilitations DataPass validées, sur data.gouv.fr', href: Atoms::PublicRegistry::DatasetLinkComponent::DATASET_URL)
+    expect(page_content).to have_link('Habilitations DataPass validées, sur data.gouv.fr', href: 'https://www.data.gouv.fr/datasets/habilitations-datapass-validees')
   end
 end

@@ -1,3 +1,3 @@
 <h2 class="fr-h6"><%= t('.title') %></h2>
-<p class="fr-text--sm"><%= t('.text') %></p>
+<p class="fr-text--sm"><%= t('.text', update_frequency: t('public_registry.update_frequency')) %></p>
 <p class="fr-text--sm fr-mb-0"><%= render Atoms::PublicRegistry::DatasetLinkComponent.new %></p>
