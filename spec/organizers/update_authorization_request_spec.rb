@@ -76,10 +76,10 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
       context "with #{failure} in DeliverAuthorizationRequestNotification" do
         before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
 
-        it 'keeps the update, without event' do
+        it 'writes nothing' do
           expect { call_through_late_failure { update_authorization_request } }.to not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.administrateur_metier_family_name).to eq('New Dupont')
+          expect(authorization_request.reload.administrateur_metier_family_name).not_to eq('New Dupont')
         end
       end
     end
