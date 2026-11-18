@@ -80,10 +80,10 @@ RSpec.describe ReopenAuthorization do
       context "with #{failure} in DeliverAuthorizationRequestNotification" do
         before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
 
-        it 'keeps the reopened draft, without event' do
+        it 'writes nothing' do
           expect { call_through_late_failure { reopen_authorization } }.to not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload).to have_attributes(state: 'draft', reopened_at: be_present)
+          expect(authorization_request.reload).to have_attributes(state: 'validated', reopened_at: nil)
         end
       end
     end

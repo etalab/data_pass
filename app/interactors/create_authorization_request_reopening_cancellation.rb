@@ -13,10 +13,6 @@ class CreateAuthorizationRequestReopeningCancellation < ApplicationInteractor
     context.fail!(error: :invalid_reopening_cancellation)
   end
 
-  def rollback
-    context.authorization_request_reopening_cancellation.destroy
-  end
-
   private
 
   def authorization_request_reopening_cancellation_params

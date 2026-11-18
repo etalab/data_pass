@@ -106,10 +106,10 @@ RSpec.describe StartNextAuthorizationRequestStage, type: :organizer do
       context "with #{failure} in AssignLatestProductionDataInAuthorizationRequest" do
         before { make_step_fail(AssignLatestProductionDataInAuthorizationRequest, mode) }
 
-        it 'keeps the production draft, without event' do
+        it 'writes nothing' do
           expect { call_through_late_failure { start_next_stage } }.to not_change(AuthorizationRequestEvent, :count)
 
-          expect(AuthorizationRequest.find(authorization_request.id)).to have_attributes(state: 'draft', type: 'AuthorizationRequest::APIImpotParticulier')
+          expect(AuthorizationRequest.find(authorization_request.id)).to have_attributes(state: 'validated', type: 'AuthorizationRequest::APIImpotParticulierSandbox')
         end
       end
     end

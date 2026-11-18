@@ -39,10 +39,10 @@ RSpec.describe ArchiveAuthorizationRequest do
       context "with #{failure} in DeliverAuthorizationRequestNotification" do
         before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
 
-        it 'keeps the archived state, without event' do
+        it 'writes nothing' do
           expect { call_through_late_failure { archive_authorization_request } }.to not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('archived')
+          expect(authorization_request.reload.state).to eq('draft')
         end
       end
     end

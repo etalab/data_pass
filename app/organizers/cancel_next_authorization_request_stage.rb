@@ -1,4 +1,6 @@
 class CancelNextAuthorizationRequestStage < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.state_machine_event = :cancel_next_stage
 

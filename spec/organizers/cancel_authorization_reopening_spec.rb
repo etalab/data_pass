@@ -165,11 +165,11 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
       context "with #{failure} in RestoreAuthorizationRequestToLatestAuthorization" do
         before { make_step_fail(RestoreAuthorizationRequestToLatestAuthorization, mode) }
 
-        it 'keeps the validated state, without cancellation nor event' do
+        it 'writes nothing' do
           expect { call_through_late_failure { cancel_authorization_reopening } }.to not_change(AuthorizationRequestReopeningCancellation, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('validated')
+          expect(authorization_request.reload.state).to eq('draft')
         end
       end
     end

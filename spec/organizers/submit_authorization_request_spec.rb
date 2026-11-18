@@ -109,11 +109,11 @@ RSpec.describe SubmitAuthorizationRequest do
       context "with #{failure} in RunMalwareScanOnDocuments" do
         before { make_step_fail(RunMalwareScanOnDocuments, mode) }
 
-        it 'keeps the submission and the changelog, without event' do
-          expect { call_through_late_failure { submit_authorization_request } }.to change(AuthorizationRequestChangelog, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { submit_authorization_request } }.to not_change(AuthorizationRequestChangelog, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('submitted')
+          expect(authorization_request.reload.state).to eq('draft')
         end
       end
     end

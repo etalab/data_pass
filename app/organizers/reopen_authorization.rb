@@ -1,4 +1,6 @@
 class ReopenAuthorization < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.state_machine_event = :reopen
     context.event_entity = :authorization

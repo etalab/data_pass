@@ -1,4 +1,6 @@
 class SubmitAuthorizationRequest < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.authorization_request_params ||= ActionController::Parameters.new
     context.state_machine_event = :submit
