@@ -49,8 +49,9 @@ class Molecules::Instruction::UserRights::RightFieldComponentPreview < Applicati
 
   # @label 3. Gabarit cloné à l’ajout d’une ligne
   #
-  # Le gabarit avec l’index `NEW`, celui que le JavaScript duplique au clic sur « Ajouter un droit »
-  # en y substituant un vrai index. À l’écran il ressemble au scénario 1 : ce qui change, ce sont
+  # Le gabarit avec l’index `NEW_RECORD`, celui que le JavaScript duplique au clic sur « Ajouter un
+  # droit » : le contrôleur `nested-form` remplace `NEW_RECORD` par un horodatage, ce qui donne des
+  # `id` uniques à chaque ligne ajoutée. À l’écran il ressemble au scénario 1 : ce qui change, ce sont
   # les `id` des champs et la légende du `fieldset`, en `fr-sr-only` donc invisible hors lecteur
   # d’écran.
   #
@@ -58,7 +59,7 @@ class Molecules::Instruction::UserRights::RightFieldComponentPreview < Applicati
   # (`instruction/user_rights/new` et `edit`), section « Les droits », une fois par droit.
   def nested_form_template
     render Molecules::Instruction::UserRights::RightFieldComponent.new(
-      index: 'NEW',
+      index: Molecules::Instruction::UserRights::RightFieldComponent::TEMPLATE_INDEX,
       scope: '',
       role_type: '',
       permissions: definition_manager_permissions

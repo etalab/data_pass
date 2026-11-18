@@ -16,7 +16,7 @@ class Instruction::UserRightPolicy < ApplicationPolicy
   end
 
   def edit?
-    enabled? && record != user && record.managed_by?(user)
+    enabled? && authority.edits?(record)
   end
 
   def update?
@@ -29,5 +29,15 @@ class Instruction::UserRightPolicy < ApplicationPolicy
 
   def confirm_destroy?
     destroy?
+  end
+
+  def droits?
+    enabled? && authority.sees?(record)
+  end
+
+  private
+
+  def authority
+    @authority ||= Rights::ManagerAuthority.new(user)
   end
 end

@@ -4,15 +4,61 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
   let(:api_entreprise) { AuthorizationDefinition.find('api_entreprise') }
   let(:manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
 
-  def render_component(index:, scope: '', role_type: '', actor: manager)
+  def render_component(index:, scope: '', role_type: '', actor: manager, editable: true)
     render_inline(
       described_class.new(
         index:,
         scope:,
         role_type:,
-        permissions: Rights::ManagerAuthority.new(actor)
+        permissions: Rights::ManagerAuthority.new(actor),
+        editable:
       )
     )
+  end
+
+  context 'when the right lies outside the actor perimeter' do
+    before { render_component(index: 'out-0', scope: 'dgfip:api_impot_particulier', role_type: 'reporter', editable: false) }
+
+    it 'shows the right without letting it be changed' do
+      expect(page).to have_css('select[disabled]', count: 2)
+      expect(page).to have_text('Observateur')
+    end
+
+    it 'offers no way to remove it' do
+      expect(page).to have_no_button
+    end
+
+    it 'says why it cannot be changed, for screen readers' do
+      hint = page.find('p.fr-sr-only', text: 'pas modifiable')
+      expect(page).to have_css("select[aria-describedby='#{hint[:id]}']", count: 2)
+    end
+  end
+
+  context 'when describing what the chosen role allows' do
+    it 'describes the selected role' do
+      render_component(index: 0, scope: 'dinum:api_entreprise', role_type: 'instructor')
+
+      expect(page).to have_css('[data-role-description-target="description"]', text: I18n.t('instruction.user_rights.new.roles_help.instructor'))
+    end
+
+    it 'stays empty and hidden until a role is chosen' do
+      render_component(index: 0)
+
+      expect(page).to have_css('[data-role-description-target="description"][hidden]', visible: :hidden)
+    end
+
+    it 'hands every allowed role description to the browser' do
+      render_component(index: 0)
+
+      descriptions = JSON.parse(page.find('[data-controller="role-description"]')['data-role-description-descriptions-value'])
+      expect(descriptions.keys).to match_array(%w[reporter instructor manager developer])
+    end
+
+    it 'adds no description to a read-only right' do
+      render_component(index: 'out-0', scope: 'dgfip:api_impot_particulier', role_type: 'reporter', editable: false)
+
+      expect(page).to have_no_css('[data-controller="role-description"]')
+    end
   end
 
   it 'renders labelled selects for scope and role and a remove button' do
@@ -75,9 +121,10 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
     expect(page).to have_select(id: 'instruction_user_right_form_rights_2_role_type')
   end
 
-  it 'accepts a string placeholder index for the nested-form template' do
-    render_component(index: 'NEW')
+  it 'marks the nested-form template with the placeholder its controller replaces' do
+    render_component(index: described_class::TEMPLATE_INDEX)
 
-    expect(page).to have_select(id: 'instruction_user_right_form_rights_NEW_scope')
+    expect(page).to have_select(id: 'instruction_user_right_form_rights_NEW_RECORD_scope')
+    expect(page).to have_css('legend', text: 'Nouveau droit', visible: :all)
   end
 end

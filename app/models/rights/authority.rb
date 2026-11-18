@@ -21,6 +21,18 @@ class Rights::Authority
     raise NotImplementedError
   end
 
+  def visible_users
+    raise NotImplementedError
+  end
+
+  def sees?(target)
+    visible_users.exists?(target.id)
+  end
+
+  def edits?(_target)
+    raise NotImplementedError
+  end
+
   def authorized_scopes
     @authorized_scopes ||= definition_scopes + fd_scopes
   end
