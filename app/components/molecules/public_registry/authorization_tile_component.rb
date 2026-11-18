@@ -1,7 +1,7 @@
 class Molecules::PublicRegistry::AuthorizationTileComponent < ApplicationComponent
   SEPARATOR = ' · '.freeze
 
-  def initialize(url:, entry:, origin: 'datapass')
+  def initialize(url:, entry:, origin:)
     @url = url
     @entry = entry
     @origin = Molecules::PublicRegistry::Origin.new(origin)

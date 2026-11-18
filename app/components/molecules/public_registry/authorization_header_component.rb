@@ -1,5 +1,5 @@
 class Molecules::PublicRegistry::AuthorizationHeaderComponent < ApplicationComponent
-  def initialize(denomination:, origin: 'datapass')
+  def initialize(denomination:, origin:)
     @denomination = denomination
     @origin = Molecules::PublicRegistry::Origin.new(origin)
   end

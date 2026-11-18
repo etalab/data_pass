@@ -12,7 +12,7 @@ class Molecules::PublicRegistry::AuthorizationHeaderComponentPreview < Applicati
   #
   # **Où** : fiche d’une habilitation du registre public.
   def nominal
-    render Molecules::PublicRegistry::AuthorizationHeaderComponent.new(denomination: 'Ville de Clamart')
+    render Molecules::PublicRegistry::AuthorizationHeaderComponent.new(denomination: 'Ville de Clamart', origin: 'datapass')
   end
 
   # @label 2. Nom long
@@ -20,7 +20,8 @@ class Molecules::PublicRegistry::AuthorizationHeaderComponentPreview < Applicati
   # **Où** : fiche d’une habilitation du registre public.
   def long_denomination
     render Molecules::PublicRegistry::AuthorizationHeaderComponent.new(
-      denomination: 'Secrétariat d’État chargé de l’Éducation prioritaire auprès du ministre de l’Éducation nationale'
+      denomination: 'Secrétariat d’État chargé de l’Éducation prioritaire auprès du ministre de l’Éducation nationale',
+      origin: 'datapass'
     )
   end
 
@@ -30,7 +31,7 @@ class Molecules::PublicRegistry::AuthorizationHeaderComponentPreview < Applicati
   #
   # **Où** : fiche d’une habilitation du registre public.
   def blank_denomination
-    render Molecules::PublicRegistry::AuthorizationHeaderComponent.new(denomination: nil)
+    render Molecules::PublicRegistry::AuthorizationHeaderComponent.new(denomination: nil, origin: 'datapass')
   end
 
   # @label 4. Badge d’origine « Partie utilisatrice du portefeuille européen »

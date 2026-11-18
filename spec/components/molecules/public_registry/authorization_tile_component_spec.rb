@@ -67,4 +67,10 @@ RSpec.describe Molecules::PublicRegistry::AuthorizationTileComponent, type: :com
       expect { described_class.new(url: '#', entry:, origin: 'wallet') }.to raise_error(ArgumentError, /origin must be one of/)
     end
   end
+
+  context 'without an origin' do
+    it 'raises an ArgumentError' do
+      expect { described_class.new(url: '#', entry:) }.to raise_error(ArgumentError, /origin/)
+    end
+  end
 end

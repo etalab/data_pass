@@ -5,8 +5,8 @@ RSpec.describe Organisms::PublicRegistry::ResultsListComponent, type: :component
 
   it 'renders one full width list item per tile in an unstyled DSFR grid' do
     page_content = render_inline(described_class.new) do |list|
-      list.with_tile(url: '#', entry: entry('H44120'))
-      list.with_tile(url: '#', entry: entry('H44121'))
+      list.with_tile(url: '#', entry: entry('H44120'), origin: 'datapass')
+      list.with_tile(url: '#', entry: entry('H44121'), origin: 'datapass')
     end
 
     expect(page_content).to have_css('ul.fr-grid-row.fr-grid-row--gutters.fr-raw-list > li.fr-col-12 > div.fr-tile', count: 2)

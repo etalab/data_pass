@@ -1,7 +1,7 @@
 RSpec.describe Molecules::PublicRegistry::AuthorizationHeaderComponent, type: :component do
   subject(:page_content) { render_inline(described_class.new(**params)) }
 
-  let(:params) { { denomination: 'Ville de Clamart' } }
+  let(:params) { { denomination: 'Ville de Clamart', origin: 'datapass' } }
 
   it 'renders the status badge then the origin badge in a DSFR badges group' do
     badges = page_content.css('ul.fr-badges-group > li > p.fr-badge')
@@ -16,7 +16,7 @@ RSpec.describe Molecules::PublicRegistry::AuthorizationHeaderComponent, type: :c
   end
 
   context 'when the denomination is blank' do
-    let(:params) { { denomination: nil } }
+    let(:params) { { denomination: nil, origin: 'datapass' } }
 
     it 'shows « Non renseigné »' do
       expect(page_content).to have_css('h1', exact_text: 'Non renseigné')
@@ -28,6 +28,12 @@ RSpec.describe Molecules::PublicRegistry::AuthorizationHeaderComponent, type: :c
 
     it 'renders the purple origin badge' do
       expect(page_content).to have_css('p.fr-badge--purple-glycine', text: 'Partie utilisatrice du portefeuille européen')
+    end
+  end
+
+  context 'without an origin' do
+    it 'raises an ArgumentError' do
+      expect { described_class.new(denomination: 'Ville de Clamart') }.to raise_error(ArgumentError, /origin/)
     end
   end
 end

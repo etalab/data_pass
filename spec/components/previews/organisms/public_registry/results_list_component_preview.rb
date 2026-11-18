@@ -16,9 +16,9 @@ class Organisms::PublicRegistry::ResultsListComponentPreview < ApplicationPrevie
   # **Où** : page publique « Registre public », colonne principale.
   def three_results
     render Organisms::PublicRegistry::ResultsListComponent.new do |list|
-      list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'Ville de Clamart', service: 'APIParticulier', provider: 'DINUM', validated_on: Date.new(2026, 7, 2), number: 'H44120'))
-      list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'Département du Rhône', service: 'APIImpotParticulier', provider: 'DGFIP', validated_on: Date.new(2026, 4, 4), number: 'H42305'))
-      list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'MGDIS', service: 'FranceConnect', provider: 'DINUM', validated_on: Date.new(2026, 6, 23), number: 'H43517'))
+      list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'Ville de Clamart', service: 'APIParticulier', provider: 'DINUM', validated_on: Date.new(2026, 7, 2), number: 'H44120'), origin: 'datapass')
+      list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'Département du Rhône', service: 'APIImpotParticulier', provider: 'DGFIP', validated_on: Date.new(2026, 4, 4), number: 'H42305'), origin: 'datapass')
+      list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'MGDIS', service: 'FranceConnect', provider: 'DINUM', validated_on: Date.new(2026, 6, 23), number: 'H43517'), origin: 'datapass')
     end
   end
 end

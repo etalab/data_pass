@@ -20,7 +20,7 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
   #
   # **Où** : page publique « Registre public », liste des résultats.
   def nominal
-    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry)
+    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry, origin: 'datapass')
   end
 
   # @label 2. Même organisation sur plusieurs tuiles
@@ -32,8 +32,8 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
   # **Où** : page publique « Registre public », liste des résultats.
   def same_organization
     render Organisms::PublicRegistry::ResultsListComponent.new do |list|
-      list.with_tile(url: '#', entry: clamart_entry)
-      list.with_tile(url: '#', entry: clamart_entry(service: 'HubEECertDC', number: 'H44121'))
+      list.with_tile(url: '#', entry: clamart_entry, origin: 'datapass')
+      list.with_tile(url: '#', entry: clamart_entry(service: 'HubEECertDC', number: 'H44121'), origin: 'datapass')
     end
   end
 
@@ -43,7 +43,7 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
   #
   # **Où** : page publique « Registre public », liste des résultats.
   def long_denomination
-    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(denomination: 'Secrétariat d’État chargé de l’Éducation prioritaire auprès du ministre de l’Éducation nationale', provider: 'DGFIP', service: 'APIImpotParticulier'))
+    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(denomination: 'Secrétariat d’État chargé de l’Éducation prioritaire auprès du ministre de l’Éducation nationale', provider: 'DGFIP', service: 'APIImpotParticulier'), origin: 'datapass')
   end
 
   # @label 4. Nom de service long sans espace
@@ -53,7 +53,7 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
   #
   # **Où** : page publique « Registre public », liste des résultats.
   def long_service
-    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(service: 'APIGFEEchangeEditeursRestauration'))
+    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(service: 'APIGFEEchangeEditeursRestauration'), origin: 'datapass')
   end
 
   # @label 5. Dénomination vide
@@ -62,7 +62,7 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
   #
   # **Où** : page publique « Registre public », liste des résultats.
   def blank_denomination
-    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(denomination: nil))
+    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(denomination: nil), origin: 'datapass')
   end
 
   # @label 6. Habilitation du bac à sable
@@ -71,7 +71,7 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
   #
   # **Où** : page publique « Registre public », liste des résultats.
   def sandbox
-    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(service: 'APIImpotParticulierSandbox', provider: 'DGFIP', number: 'H44122'))
+    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(service: 'APIImpotParticulierSandbox', provider: 'DGFIP', number: 'H44122'), origin: 'datapass')
   end
 
   # @label 7. Badge d’origine « Partie utilisatrice du portefeuille européen »
