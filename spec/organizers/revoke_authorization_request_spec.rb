@@ -68,11 +68,11 @@ RSpec.describe RevokeAuthorizationRequest, type: :organizer do
       context "with #{failure} in ExecuteAuthorizationRequestBridge" do
         before { make_step_fail(ExecuteAuthorizationRequestBridge, mode) }
 
-        it 'keeps the revocation and the revoked request, with active authorizations and without event' do
-          expect { call_through_late_failure { revoke_authorization_request } }.to change(RevocationOfAuthorization, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { revoke_authorization_request } }.to not_change(RevocationOfAuthorization, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('revoked')
+          expect(authorization_request.reload.state).to eq('validated')
           expect(authorization_request.authorizations.map(&:state).uniq).to eq(%w[active])
         end
       end

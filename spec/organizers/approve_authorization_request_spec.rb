@@ -224,11 +224,11 @@ RSpec.describe ApproveAuthorizationRequest do
       context "with #{failure} in ExecuteAuthorizationRequestBridge" do
         before { make_step_fail(ExecuteAuthorizationRequestBridge, mode) }
 
-        it 'keeps the validation and the authorization, without event' do
-          expect { call_through_late_failure { approve_authorization_request } }.to change(Authorization, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { approve_authorization_request } }.to not_change(Authorization, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('validated')
+          expect(authorization_request.reload.state).to eq('submitted')
         end
       end
     end

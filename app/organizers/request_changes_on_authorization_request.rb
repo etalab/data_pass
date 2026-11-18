@@ -1,4 +1,6 @@
 class RequestChangesOnAuthorizationRequest < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.state_machine_event = :request_changes
     context.event_entity = :instructor_modification_request

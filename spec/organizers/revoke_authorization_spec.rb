@@ -111,12 +111,12 @@ RSpec.describe RevokeAuthorization, type: :organizer do
       context "with #{failure} in RevokeChildAuthorizations" do
         before { make_step_fail(RevokeChildAuthorizations, mode) }
 
-        it 'keeps the revocation and the revoked request, with an active authorization and without event' do
-          expect { call_through_late_failure { revoke_authorization } }.to change(RevocationOfAuthorization, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { revoke_authorization } }.to not_change(RevocationOfAuthorization, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
           expect(authorization.reload.state).to eq('active')
-          expect(authorization_request.reload.state).to eq('revoked')
+          expect(authorization_request.reload.state).to eq('validated')
         end
       end
     end

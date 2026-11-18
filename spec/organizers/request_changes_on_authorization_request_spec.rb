@@ -78,11 +78,11 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
       context "with #{failure} in DeliverAuthorizationRequestNotification" do
         before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
 
-        it 'keeps the modification request and the new state, without event' do
-          expect { call_through_late_failure { request_changes_on_authorization_request } }.to change(InstructorModificationRequest, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { request_changes_on_authorization_request } }.to not_change(InstructorModificationRequest, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('changes_requested')
+          expect(authorization_request.reload.state).to eq('submitted')
         end
       end
     end

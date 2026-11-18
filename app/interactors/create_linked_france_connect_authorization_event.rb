@@ -5,10 +5,6 @@ class CreateLinkedFranceConnectAuthorizationEvent < ApplicationInteractor
     context.linked_france_connect_authorization_event = auto_generate_event
   end
 
-  def rollback
-    context.linked_france_connect_authorization_event&.destroy
-  end
-
   private
 
   def auto_generate_event

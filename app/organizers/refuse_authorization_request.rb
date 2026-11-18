@@ -1,4 +1,6 @@
 class RefuseAuthorizationRequest < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.state_machine_event = :refuse
     context.event_entity = :denial_of_authorization

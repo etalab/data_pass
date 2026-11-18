@@ -1,4 +1,6 @@
 class RevokeAuthorizationRequest < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.state_machine_event = :revoke
     context.event_entity = :revocation_of_authorization

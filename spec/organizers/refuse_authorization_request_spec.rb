@@ -99,11 +99,11 @@ RSpec.describe RefuseAuthorizationRequest do
       context "with #{failure} in RestoreAuthorizationRequestToLatestAuthorization" do
         before { make_step_fail(RestoreAuthorizationRequestToLatestAuthorization, mode) }
 
-        it 'keeps the refusal and the refused state, without event' do
-          expect { call_through_late_failure { refuse_authorization_request } }.to change(DenialOfAuthorization, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { refuse_authorization_request } }.to not_change(DenialOfAuthorization, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.state).to eq('refused')
+          expect(authorization_request.reload.state).to eq('submitted')
         end
       end
     end

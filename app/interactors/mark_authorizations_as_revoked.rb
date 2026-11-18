@@ -3,10 +3,6 @@ class MarkAuthorizationsAsRevoked < ApplicationInteractor
     authorizations.each(&:revoke!)
   end
 
-  def rollback
-    authorizations.each(&:rollback_revoke!)
-  end
-
   private
 
   def authorizations

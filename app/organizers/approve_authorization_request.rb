@@ -1,4 +1,6 @@
 class ApproveAuthorizationRequest < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.state_machine_event = :approve
     context.event_entity = :authorization
