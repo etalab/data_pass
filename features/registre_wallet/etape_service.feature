@@ -24,7 +24,9 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Et la page contient "Vélocité Libre-service"
     Et la page contient "libre-service"
     Et la page contient "Location de vélos en libre-service dans la métropole de Lyon."
-    Et la page contient "Fournisseur de services (Service_Provider)"
+    Et la page contient "Justificatif du nom"
+    Et la page contient "dummy.pdf (non publié)"
+    Et la page ne contient pas "Habilitation du service"
 
   Scénario: Un nom de 51 caractères garde le demandeur sur l’étape (CA2)
     Quand je décris le service "Vélocité Libre-service de la métropole de Lyon 2026" avec l’identifiant "libre-service"
@@ -69,6 +71,7 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Et la page ne contient pas "Justificatif du nom du service"
     Quand je clique sur "Suivant"
     Alors la page ne contient pas "à corriger avant de continuer"
+    Et la page ne contient pas "Justificatif du nom"
 
   Scénario: Sans JavaScript, l’identifiant vide est proposé à partir du nom (RG3)
     Quand je décris le service "Vélo Été" avec l’identifiant ""

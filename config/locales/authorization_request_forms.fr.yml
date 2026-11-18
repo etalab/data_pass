@@ -1407,6 +1407,11 @@ fr:
           hint: Fixée par le registre pour un service qui demande des données au wallet. Elle figure dans vos certificats d’enregistrement.
           values:
             Service_Provider: Fournisseur de services (Service_Provider)
+        summary:
+          identifier: Identifiant
+          description: Description
+          name_proof: Justificatif du nom
+          name_proof_value: "%{filename} (non publié)"
       wallet_service_name:
         label: Nom du service
         hint: "Le nom que l’usager verra dans son wallet à chaque demande de données. Il figure dans tous vos certificats. 50 caractères au plus :"

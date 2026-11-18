@@ -169,6 +169,19 @@ RSpec.describe 'Wallet registry, step « Le service »' do
     end
   end
 
+  describe 'GET the summary' do
+    before do
+      authorization_request.update!(service)
+      get summary_authorization_request_form_path(form_uid: 'registre-wallet', id: authorization_request.id)
+    end
+
+    it 'shows the service name as a title, then its identifier, description and name proof' do
+      expect(response.body).to include('<h3 class="contact-card__full_name">Vélocité Libre-service</h3>')
+      expect(response.body).to include('Identifiant', 'Description', 'Justificatif du nom', 'dummy.pdf (non publié)')
+      expect(response.body).not_to include('Wallet service', 'Habilitation du service')
+    end
+  end
+
   describe 'clicking « Suivant » with the three fields filled (CA1)' do
     before { click_next(service) }
 

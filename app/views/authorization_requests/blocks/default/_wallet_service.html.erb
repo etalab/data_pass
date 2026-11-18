@@ -1,15 +1,18 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.wallet_service'), block_id: :wallet_service, f:, editable: } do %>
-  <% %i[wallet_service_name wallet_service_identifier wallet_service_description].each do |attribute| %>
-    <p>
-      <strong><%= authorization_request.class.human_attribute_name(attribute) %></strong>
-      <br>
-      <%= authorization_request.public_send(attribute).presence || t('authorization_requests.shared.not_filled') %>
-    </p>
-  <% end %>
+  <% not_filled = t('authorization_requests.shared.not_filled') %>
+  <% name_proof = authorization_request.wallet_service_name_proof.first %>
 
-  <p>
-    <strong><%= f.wording_for('wallet_service.entitlement.label') %></strong>
-    <br>
-    <%= f.wording_for("wallet_service.entitlement.values.#{authorization_request.wallet_entitlement}") %>
-  </p>
+  <div class="fr-mt-3w">
+    <h3 class="contact-card__full_name"><%= authorization_request.wallet_service_name.presence || not_filled %></h3>
+
+    <div class="fr-container-fluid">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: f.wording_for('wallet_service.summary.identifier'), value: authorization_request.wallet_service_identifier.presence || not_filled) %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: f.wording_for('wallet_service.summary.description'), value: authorization_request.wallet_service_description.presence || not_filled, width: :full) %>
+        <% if name_proof %>
+          <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: f.wording_for('wallet_service.summary.name_proof'), value: f.wording_for('wallet_service.summary.name_proof_value', filename: name_proof.filename.to_s), width: :full) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>
