@@ -185,8 +185,8 @@ RSpec.describe ClaimInstructorDraftRequest, type: :organizer do
       context "with #{failure} in MarkInstructorDraftAsClaimed" do
         before { make_step_fail(MarkInstructorDraftAsClaimed, mode) }
 
-        it 'keeps the authorization request, without event' do
-          expect { call_through_late_failure { claim_instructor_draft_request } }.to change(AuthorizationRequest, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { claim_instructor_draft_request } }.to not_change(AuthorizationRequest, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
           expect(instructor_draft_request.reload.claimed).to be(false)

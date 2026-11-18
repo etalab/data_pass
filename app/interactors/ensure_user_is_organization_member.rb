@@ -12,10 +12,6 @@ class EnsureUserIsOrganizationMember < ApplicationInteractor
     user.reload
   end
 
-  def rollback
-    user.organizations_users.find_by(organization: organization)&.destroy
-  end
-
   delegate :user, to: :context
   delegate :organization, to: :context
 end

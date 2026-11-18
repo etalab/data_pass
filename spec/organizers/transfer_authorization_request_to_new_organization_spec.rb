@@ -68,11 +68,11 @@ RSpec.describe TransferAuthorizationRequestToNewOrganization, type: :organizer d
       context "with #{failure} in DeliverAuthorizationRequestNotification" do
         before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
 
-        it 'keeps the transfer and the new organization, without event' do
-          expect { call_through_late_failure { transfer_authorization_request } }.to change(AuthorizationRequestTransfer, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { transfer_authorization_request } }.to not_change(AuthorizationRequestTransfer, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.organization).to eq(new_organization)
+          expect(authorization_request.reload.organization).not_to eq(new_organization)
         end
       end
     end

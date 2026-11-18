@@ -125,11 +125,11 @@ RSpec.describe Admin::CreateAdminChange, type: :organizer do
       context "with #{failure} in CreateAuthorizationRequestEventModel" do
         before { make_step_fail(CreateAuthorizationRequestEventModel, mode) }
 
-        it 'keeps the modified data, without admin change nor event' do
+        it 'writes nothing' do
           expect { call_through_late_failure { create_admin_change } }.to not_change(AdminChange, :count)
             .and not_change(AuthorizationRequestEvent, :count)
 
-          expect(authorization_request.reload.data['intitule']).to eq('Nouveau titre')
+          expect(authorization_request.reload.data['intitule']).not_to eq('Nouveau titre')
         end
       end
     end

@@ -11,8 +11,4 @@ class Admin::PersistAdminChange < ApplicationInteractor
 
     context.admin_change = admin_change
   end
-
-  def rollback
-    context.admin_change.destroy
-  end
 end

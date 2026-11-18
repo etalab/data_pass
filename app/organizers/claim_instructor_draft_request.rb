@@ -1,4 +1,6 @@
 class ClaimInstructorDraftRequest < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.organization = context.instructor_draft_request&.organization
     context.user = context.instructor_draft_request&.applicant

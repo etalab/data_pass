@@ -1,4 +1,6 @@
 class Admin::CreateAdminChange < ApplicationOrganizer
+  include TransactionalOrganizer
+
   def self.call(context = {}, &block)
     context[:block] = block if block
     super(context)

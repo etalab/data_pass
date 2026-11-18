@@ -1,4 +1,6 @@
 class TransferAuthorizationRequestToNewApplicant < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.event_entity = :authorization_request_transfer
     context.event_name = 'transfer'
