@@ -29,7 +29,7 @@ module AuthorizationCore::Contacts
 
         class_eval do
           define_contact_type_methods(kind)
-          define_common_contact_attributes(kind, validation_condition:, except: except + optional)
+          define_common_contact_attributes(kind, validation_condition:, except: except + optional, email_format: options.fetch(:email_format, true))
           define_contact_person_attributes(kind, validation_condition:, except: except + optional)
 
           contacts << ContactDefinition.new(kind, options)
@@ -48,7 +48,7 @@ module AuthorizationCore::Contacts
         end
       end
 
-      def self.define_common_contact_attributes(kind, validation_condition:, except: [])
+      def self.define_common_contact_attributes(kind, validation_condition:, except: [], email_format: true)
         %w[email phone_number].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
           override_primitive_write("#{kind}_#{attr}", sanitize_options: { downcase: true, strip: true })
@@ -57,6 +57,8 @@ module AuthorizationCore::Contacts
 
           validates "#{kind}_#{attr}", presence: true, if: validation_condition
         end
+
+        return unless email_format
 
         validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
       end
