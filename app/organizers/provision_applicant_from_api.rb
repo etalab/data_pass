@@ -1,4 +1,6 @@
 class ProvisionApplicantFromAPI < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.identity_federator = 'unknown'
   end

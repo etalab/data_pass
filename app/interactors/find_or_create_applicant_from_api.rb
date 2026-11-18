@@ -1,16 +1,9 @@
 class FindOrCreateApplicantFromAPI < ApplicationInteractor
   def call
     context.applicant = find_or_initialize_user
-    @applicant_was_new = context.applicant.new_record?
     assign_and_save!
   rescue ActiveRecord::RecordInvalid
     fail_with_error(:applicant_invalid, errors: context.applicant.errors.full_messages)
-  end
-
-  def rollback
-    return unless @applicant_was_new && context.applicant&.persisted?
-
-    context.applicant.delete
   end
 
   private

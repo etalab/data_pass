@@ -4,15 +4,8 @@ class FindOrCreateOrganizationForAPI < ApplicationInteractor
       legal_entity_id: context.siret,
       legal_entity_registry: 'insee_sirene'
     )
-    @organization_was_new = organization.new_record?
     context.organization = organization
     save_organization
-  end
-
-  def rollback
-    return unless @organization_was_new
-
-    context.organization.destroy if context.organization&.persisted?
   end
 
   private
