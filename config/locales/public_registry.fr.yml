@@ -41,6 +41,7 @@ fr:
         service_label: "API ou service : "
         provider_label: "Fournisseur : "
         validated_on: Validée le %{date}
+        validated_on_missing: Date de validation non renseignée
       search_bar_component:
         label: Rechercher
         placeholder: Rechercher

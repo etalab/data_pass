@@ -44,6 +44,14 @@ RSpec.describe Molecules::PublicRegistry::AuthorizationTileComponent, type: :com
     end
   end
 
+  context 'when the validation date is missing' do
+    let(:entry_values) { super().merge(validated_on: nil) }
+
+    it 'says the date is not provided instead of failing' do
+      expect(page_content).to have_css('p.fr-tile__desc', text: 'API ou service : APIParticulier · Fournisseur : DINUM · Date de validation non renseignée · H44120')
+    end
+  end
+
   context 'when values contain HTML' do
     let(:entry_values) { super().merge(denomination: '<script>alert(1)</script>', provider: '<b>DINUM</b>') }
 

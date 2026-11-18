@@ -38,10 +38,16 @@ class Molecules::PublicRegistry::AuthorizationTileComponent < ApplicationCompone
       [
         screen_reader_only(t('.service_label')), entry.service, SEPARATOR,
         screen_reader_only(t('.provider_label')), entry.provider, SEPARATOR,
-        t('.validated_on', date: l(entry.validated_on)), SEPARATOR,
+        validated_on, SEPARATOR,
         entry.number
       ]
     )
+  end
+
+  def validated_on
+    return t('.validated_on_missing') if entry.validated_on.blank?
+
+    t('.validated_on', date: l(entry.validated_on))
   end
 
   def displayed_denomination

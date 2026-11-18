@@ -65,7 +65,17 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
     render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(denomination: nil), origin: 'datapass')
   end
 
-  # @label 6. Habilitation du bac à sable
+  # @label 6. Date de validation absente
+  #
+  # Une habilitation sans date de validation ne fait pas tomber la liste : la tuile affiche « Date de
+  # validation non renseignée » à la place de « Validée le … » (texte provisoire).
+  #
+  # **Où** : page publique « Registre public », liste des résultats.
+  def missing_validated_on
+    render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(validated_on: nil), origin: 'datapass')
+  end
+
+  # @label 7. Habilitation du bac à sable
   #
   # Une habilitation de bac à sable s’affiche comme les autres : seul le nom du service le dit.
   #
@@ -74,7 +84,7 @@ class Molecules::PublicRegistry::AuthorizationTileComponentPreview < Application
     render Molecules::PublicRegistry::AuthorizationTileComponent.new(url: '#', entry: clamart_entry(service: 'APIImpotParticulierSandbox', provider: 'DGFIP', number: 'H44122'), origin: 'datapass')
   end
 
-  # @label 7. Badge d’origine « Partie utilisatrice du portefeuille européen »
+  # @label 8. Badge d’origine « Partie utilisatrice du portefeuille européen »
   #
   # Variante de couleur du badge d’origine (`purple-glycine`), prévue pour l’après-ouverture du
   # registre du portefeuille européen. La tuile propre aux parties utilisatrices vient avec
