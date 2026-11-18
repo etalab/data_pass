@@ -88,4 +88,24 @@ RSpec.describe RefuseAuthorizationRequest do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:refuse_authorization_request) { described_class.call(denial_of_authorization_params: attributes_for(:denial_of_authorization), authorization_request:, user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_scolarite]) }
+    let!(:authorization_request) { create(:authorization_request, :api_scolarite, :submitted) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in RestoreAuthorizationRequestToLatestAuthorization" do
+        before { make_step_fail(RestoreAuthorizationRequestToLatestAuthorization, mode) }
+
+        it 'keeps the refusal and the refused state, without event' do
+          expect { call_through_late_failure { refuse_authorization_request } }.to change(DenialOfAuthorization, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.state).to eq('refused')
+        end
+      end
+    end
+  end
 end

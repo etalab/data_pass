@@ -203,4 +203,25 @@ RSpec.describe CreateAuthorizationRequestFromAPI, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:create_authorization_request_from_api) { described_class.call(form_uid: 'api-entreprise', authorized_types: %w[AuthorizationRequest::APIEntreprise], authorization_request_params: ActionController::Parameters.new(intitule: 'Mon projet'), applicant_params: { email: 'applicant@example.com' }, siret: '13002526500013', user: oauth_user) }
+
+    let!(:oauth_user) { create(:user, :developer, authorization_request_types: %w[api_entreprise]) }
+
+    before { mock_insee_sirene_api_etablissement_valid(siret: '13002526500013') }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in DeliverAuthorizationRequestNotification" do
+        before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
+
+        it 'writes nothing' do
+          expect { call_through_late_failure { create_authorization_request_from_api } }.to not_change(AuthorizationRequest, :count)
+            .and not_change(AuthorizationRequestEvent, :count)
+            .and not_change(User, :count)
+            .and not_change(Organization, :count)
+        end
+      end
+    end
+  end
 end

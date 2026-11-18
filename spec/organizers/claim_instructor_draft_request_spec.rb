@@ -175,4 +175,23 @@ RSpec.describe ClaimInstructorDraftRequest, type: :organizer do
       expect(organizer.error).to eq(:unicity_violated)
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:claim_instructor_draft_request) { described_class.call(instructor_draft_request:) }
+
+    let!(:instructor_draft_request) { create(:instructor_draft_request, :complete, claimed: false) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in MarkInstructorDraftAsClaimed" do
+        before { make_step_fail(MarkInstructorDraftAsClaimed, mode) }
+
+        it 'keeps the authorization request, without event' do
+          expect { call_through_late_failure { claim_instructor_draft_request } }.to change(AuthorizationRequest, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(instructor_draft_request.reload.claimed).to be(false)
+        end
+      end
+    end
+  end
 end

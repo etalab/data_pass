@@ -67,4 +67,24 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:request_changes_on_authorization_request) { described_class.call(instructor_modification_request_params: attributes_for(:instructor_modification_request), authorization_request:, user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
+    let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in DeliverAuthorizationRequestNotification" do
+        before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
+
+        it 'keeps the modification request and the new state, without event' do
+          expect { call_through_late_failure { request_changes_on_authorization_request } }.to change(InstructorModificationRequest, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.state).to eq('changes_requested')
+        end
+      end
+    end
+  end
 end

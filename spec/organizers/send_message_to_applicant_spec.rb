@@ -41,4 +41,22 @@ RSpec.describe SendMessageToApplicant do
 
     it_behaves_like 'creates an event', event_name: :instructor_message, entity_type: :message
   end
+
+  describe 'when the last step fails' do
+    subject(:send_message_to_applicant) { described_class.call(authorization_request:, user:, message_params: attributes_for(:message)) }
+
+    let(:user) { create(:user, :instructor) }
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in IncrementAuthorizationRequestUnreadCounter" do
+        before { make_step_fail(IncrementAuthorizationRequestUnreadCounter, mode) }
+
+        it 'keeps the message, without event' do
+          expect { call_through_late_failure { send_message_to_applicant } }.to change(Message, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+        end
+      end
+    end
+  end
 end

@@ -79,4 +79,22 @@ RSpec.describe CancelNextAuthorizationRequestStage, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:cancel_next_stage) { described_class.call(authorization_request:, user: authorization_request.applicant) }
+
+    let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_stationnement_residentiel_production, :draft) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in RestoreAuthorizationRequestToAuthorization" do
+        before { make_step_fail(RestoreAuthorizationRequestToAuthorization, mode) }
+
+        it 'writes nothing' do
+          expect { call_through_late_failure { cancel_next_stage } }.to not_change(AuthorizationRequestEvent, :count)
+
+          expect(AuthorizationRequest.find(authorization_request.id).state).to eq('draft')
+        end
+      end
+    end
+  end
 end

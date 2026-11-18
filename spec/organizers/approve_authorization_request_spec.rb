@@ -213,4 +213,24 @@ RSpec.describe ApproveAuthorizationRequest do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:approve_authorization_request) { described_class.call(authorization_request:, user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_scolarite]) }
+    let!(:authorization_request) { create(:authorization_request, :api_scolarite, :submitted) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in ExecuteAuthorizationRequestBridge" do
+        before { make_step_fail(ExecuteAuthorizationRequestBridge, mode) }
+
+        it 'keeps the validation and the authorization, without event' do
+          expect { call_through_late_failure { approve_authorization_request } }.to change(Authorization, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.state).to eq('validated')
+        end
+      end
+    end
+  end
 end

@@ -99,4 +99,23 @@ RSpec.describe SubmitAuthorizationRequest do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:submit_authorization_request) { described_class.call(user: authorization_request.applicant, authorization_request:) }
+
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in RunMalwareScanOnDocuments" do
+        before { make_step_fail(RunMalwareScanOnDocuments, mode) }
+
+        it 'keeps the submission and the changelog, without event' do
+          expect { call_through_late_failure { submit_authorization_request } }.to change(AuthorizationRequestChangelog, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.state).to eq('submitted')
+        end
+      end
+    end
+  end
 end

@@ -154,4 +154,24 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:cancel_authorization_reopening) { described_class.call(authorization_request:, user:, authorization_request_reopening_cancellation_params: { reason: 'Trop ancien' }) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
+    let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in RestoreAuthorizationRequestToLatestAuthorization" do
+        before { make_step_fail(RestoreAuthorizationRequestToLatestAuthorization, mode) }
+
+        it 'keeps the validated state, without cancellation nor event' do
+          expect { call_through_late_failure { cancel_authorization_reopening } }.to not_change(AuthorizationRequestReopeningCancellation, :count)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.state).to eq('validated')
+        end
+      end
+    end
+  end
 end

@@ -114,4 +114,24 @@ RSpec.describe Admin::CreateAdminChange, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:create_admin_change) { described_class.call(user: admin, authorization_request:, public_reason: 'Correction') { |ar| ar.update!(data: ar.data.merge('intitule' => 'Nouveau titre')) } }
+
+    let(:admin) { create(:user, :admin) }
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in CreateAuthorizationRequestEventModel" do
+        before { make_step_fail(CreateAuthorizationRequestEventModel, mode) }
+
+        it 'keeps the modified data, without admin change nor event' do
+          expect { call_through_late_failure { create_admin_change } }.to not_change(AdminChange, :count)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.data['intitule']).to eq('Nouveau titre')
+        end
+      end
+    end
+  end
 end

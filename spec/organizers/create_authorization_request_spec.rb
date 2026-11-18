@@ -190,4 +190,21 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:create_authorization_request) { described_class.call(authorization_request_form: AuthorizationRequestForm.find('api-entreprise'), user:) }
+
+    let(:user) { create(:user) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in DeliverAuthorizationRequestNotification" do
+        before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
+
+        it 'writes nothing, through its rollbacks' do
+          expect { call_through_late_failure { create_authorization_request } }.to not_change(AuthorizationRequest, :count)
+            .and not_change(AuthorizationRequestEvent, :count)
+        end
+      end
+    end
+  end
 end

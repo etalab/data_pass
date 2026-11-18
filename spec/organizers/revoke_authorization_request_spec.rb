@@ -57,4 +57,25 @@ RSpec.describe RevokeAuthorizationRequest, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:revoke_authorization_request) { described_class.call(authorization_request:, revocation_of_authorization_params: attributes_for(:revocation_of_authorization), user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
+    let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in ExecuteAuthorizationRequestBridge" do
+        before { make_step_fail(ExecuteAuthorizationRequestBridge, mode) }
+
+        it 'keeps the revocation and the revoked request, with active authorizations and without event' do
+          expect { call_through_late_failure { revoke_authorization_request } }.to change(RevocationOfAuthorization, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.state).to eq('revoked')
+          expect(authorization_request.authorizations.map(&:state).uniq).to eq(%w[active])
+        end
+      end
+    end
+  end
 end

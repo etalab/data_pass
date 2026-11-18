@@ -70,4 +70,22 @@ RSpec.describe ReopenAuthorization do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:reopen_authorization) { described_class.call(authorization: authorization_request.latest_authorization, user: authorization_request.applicant) }
+
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in DeliverAuthorizationRequestNotification" do
+        before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
+
+        it 'keeps the reopened draft, without event' do
+          expect { call_through_late_failure { reopen_authorization } }.to not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload).to have_attributes(state: 'draft', reopened_at: be_present)
+        end
+      end
+    end
+  end
 end

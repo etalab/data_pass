@@ -57,4 +57,24 @@ RSpec.describe TransferAuthorizationRequestToNewOrganization, type: :organizer d
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:transfer_authorization_request) { described_class.call(authorization_request:, new_organization:, new_applicant: create(:user, current_organization: new_organization), user: create(:user)) }
+
+    let!(:authorization_request) { create(:authorization_request, :api_scolarite) }
+    let(:new_organization) { create(:organization) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in DeliverAuthorizationRequestNotification" do
+        before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
+
+        it 'keeps the transfer and the new organization, without event' do
+          expect { call_through_late_failure { transfer_authorization_request } }.to change(AuthorizationRequestTransfer, :count).by(1)
+            .and not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.organization).to eq(new_organization)
+        end
+      end
+    end
+  end
 end

@@ -96,4 +96,22 @@ RSpec.describe StartNextAuthorizationRequestStage, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:start_next_stage) { described_class.call(authorization_request:, user: authorization_request.applicant) }
+
+    let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in AssignLatestProductionDataInAuthorizationRequest" do
+        before { make_step_fail(AssignLatestProductionDataInAuthorizationRequest, mode) }
+
+        it 'keeps the production draft, without event' do
+          expect { call_through_late_failure { start_next_stage } }.to not_change(AuthorizationRequestEvent, :count)
+
+          expect(AuthorizationRequest.find(authorization_request.id)).to have_attributes(state: 'draft', type: 'AuthorizationRequest::APIImpotParticulier')
+        end
+      end
+    end
+  end
 end

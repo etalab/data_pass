@@ -66,4 +66,22 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
       end
     end
   end
+
+  describe 'when the last step fails' do
+    subject(:update_authorization_request) { described_class.call(authorization_request:, authorization_request_params: ActionController::Parameters.new(administrateur_metier_family_name: 'New Dupont'), user: authorization_request.applicant) }
+
+    let!(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc) }
+
+    LateFailureHelpers::FAILURE_MODES.each do |failure, mode|
+      context "with #{failure} in DeliverAuthorizationRequestNotification" do
+        before { make_step_fail(DeliverAuthorizationRequestNotification, mode) }
+
+        it 'keeps the update, without event' do
+          expect { call_through_late_failure { update_authorization_request } }.to not_change(AuthorizationRequestEvent, :count)
+
+          expect(authorization_request.reload.administrateur_metier_family_name).to eq('New Dupont')
+        end
+      end
+    end
+  end
 end
