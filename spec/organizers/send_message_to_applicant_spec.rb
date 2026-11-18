@@ -52,8 +52,8 @@ RSpec.describe SendMessageToApplicant do
       context "with #{failure} in IncrementAuthorizationRequestUnreadCounter" do
         before { make_step_fail(IncrementAuthorizationRequestUnreadCounter, mode) }
 
-        it 'keeps the message, without event' do
-          expect { call_through_late_failure { send_message_to_applicant } }.to change(Message, :count).by(1)
+        it 'writes nothing' do
+          expect { call_through_late_failure { send_message_to_applicant } }.to not_change(Message, :count)
             .and not_change(AuthorizationRequestEvent, :count)
         end
       end

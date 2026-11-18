@@ -1,6 +1,8 @@
 class IncrementAuthorizationRequestUnreadCounter < ApplicationInteractor
   def call
-    authorization_request.public_send(redis_counter_for_entity).increment
+    counter = authorization_request.public_send(redis_counter_for_entity)
+
+    ActiveRecord.after_all_transactions_commit { counter.increment }
   end
 
   private

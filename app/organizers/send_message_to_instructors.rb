@@ -1,4 +1,6 @@
 class SendMessageToInstructors < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.message_from = context.user
 

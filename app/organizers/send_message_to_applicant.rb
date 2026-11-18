@@ -1,4 +1,6 @@
 class SendMessageToApplicant < ApplicationOrganizer
+  include TransactionalOrganizer
+
   before do
     context.message_from = context.user
 
