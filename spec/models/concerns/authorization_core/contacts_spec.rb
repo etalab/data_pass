@@ -1,0 +1,30 @@
+RSpec.describe AuthorizationCore::Contacts do
+  def request_class_with_contact(options = {})
+    Class.new(AuthorizationRequest) do
+      def self.name
+        'AuthorizationRequest::ContactsSpecDummy'
+      end
+
+      contact :contact_spec, validation_condition: ->(_record) { true }, options:
+    end
+  end
+
+  def email_errors_for(request_class, email)
+    request = request_class.new(contact_spec_email: email)
+    request.validate
+
+    request.errors.where(:contact_spec_email).map(&:type)
+  end
+
+  it 'checks the email format by default' do
+    expect(email_errors_for(request_class_with_contact, 'camille.martin@')).to include(:invalid)
+  end
+
+  it 'leaves the email format to the form when email_format is false' do
+    expect(email_errors_for(request_class_with_contact(email_format: false), 'camille.martin@')).not_to include(:invalid)
+  end
+
+  it 'still requires the email when email_format is false' do
+    expect(email_errors_for(request_class_with_contact(email_format: false), '')).to include(:blank)
+  end
+end
