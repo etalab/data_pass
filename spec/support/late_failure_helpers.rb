@@ -16,6 +16,13 @@ module LateFailureHelpers
     end
   end
 
+  def make_step_fail_after_running(interactor, mode)
+    allow(interactor).to receive(:call!).and_wrap_original do |original_call, context|
+      original_call.call(context)
+      mode == :fail ? context.fail!(error: :late_failure) : raise(LateFailure)
+    end
+  end
+
   def call_through_late_failure
     yield
   rescue LateFailure
