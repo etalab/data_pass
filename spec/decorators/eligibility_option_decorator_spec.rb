@@ -190,4 +190,20 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
       end
     end
   end
+
+  describe '#description' do
+    it 'is empty by default' do
+      expect(decorator.description).to be_nil
+    end
+
+    context 'when the rule describes the option' do
+      let(:option_attributes) do
+        { 'type' => 'dirigeant', 'label' => 'Le dirigeant d’une entreprise', 'description' => 'Vous figurez comme dirigeant.', 'eligible' => 'yes', 'body' => 'Test' }
+      end
+
+      it 'returns the description' do
+        expect(decorator.description).to eq('Vous figurez comme dirigeant.')
+      end
+    end
+  end
 end
