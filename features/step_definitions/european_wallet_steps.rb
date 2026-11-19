@@ -46,6 +46,18 @@ Alors('l’onglet « Organisations » contient une mise en avant {string}') do |
   end
 end
 
+Alors('la section des acteurs contient {string}') do |text|
+  within('#acteurs') do
+    expect(page).to have_text(text)
+  end
+end
+
+Alors('la section des acteurs ne contient pas {string}') do |text|
+  within('#acteurs') do
+    expect(page).to have_no_text(text)
+  end
+end
+
 Alors('l’onglet « {} » est sélectionné') do |label|
   expect(page).to have_css('.fr-tabs__tab[aria-selected="true"]', text: label)
 end
