@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% AuthorizationDefinition.all.each do |authorization_definition| %>
+                <% AuthorizationDefinition.all.select(&:feature_flag_enabled?).each do |authorization_definition| %>
                   <tr>
                     <td><%= authorization_definition.name_with_stage %></td>
                     <td>
