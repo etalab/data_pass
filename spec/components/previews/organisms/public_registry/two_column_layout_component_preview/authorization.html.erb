@@ -1,0 +1,17 @@
+<%= render Organisms::PublicRegistry::TwoColumnLayoutComponent.new do |layout| %>
+  <% layout.with_main do %>
+    <%= render Molecules::PublicRegistry::AuthorizationFieldsComponent.new(entry: Molecules::PublicRegistry::AuthorizationEntry.new(
+      denomination: 'Ville de Clamart',
+      siret: '21920023500014',
+      service: 'APIParticulier',
+      provider: 'DINUM',
+      scopes: %w[cnaf_quotient_familial cnaf_allocataires],
+      legal_basis: 'Code de l’action sociale et des familles, article L. 123-5',
+      validated_on: Date.new(2026, 7, 2),
+      number: 'H44120'
+    )) %>
+  <% end %>
+  <% layout.with_aside do %>
+    <%= render Molecules::PublicRegistry::SourceCalloutComponent.new %>
+  <% end %>
+<% end %>
