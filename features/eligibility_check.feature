@@ -8,7 +8,9 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
   Scénario: Un utilisateur non connecté voit l'arbre de décision d'éligibilité
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Alors le titre de la page est "Vérifier votre éligibilité - API Particulier - DataPass"
-    Et la page contient "Bienvenue sur DataPass !"
+    Et le titre principal de la page contient "Vérifiez votre éligibilité"
+    Et le titre principal de la page contient "API Particulier"
+    Et la page ne contient pas "Bienvenue sur DataPass"
     Et la page contient "Êtes-vous :"
     Et la page contient "Un particulier"
     Et la page contient "Une collectivité ou une administration"
@@ -87,10 +89,54 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
 
   Scénario: Un éditeur est orienté vers le questionnaire de qualification
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
-    Et je choisis "Une entreprise ou une association souhaitant intégrer API Entreprise en tant qu’éditeur"
-    Alors la page contient "Vous n’avez pas besoin de faire une demande sur DataPass"
+    Alors le titre principal de la page contient "API Entreprise"
+    Quand je choisis "Une entreprise ou une association souhaitant intégrer API Entreprise en tant qu’éditeur"
+    Alors l’encadré est "fr-callout--pink-macaron" avec l’icône "fr-icon-close-circle-line"
+    Et la page contient "Vous n’avez pas besoin de faire une demande sur DataPass"
     Et la page contient un lien vers "form.typeform.com"
     Et la page contient "nouvelle fenêtre"
     Et il y a un bouton "Répondre au questionnaire éditeur"
     Et la page ne contient pas "Demander l'accès aux données"
     Et la page ne contient pas "Déposer une demande Editeur"
+
+  Scénario: Sur ordinateur, l’encadré s’affiche à droite des réponses
+    Sachant que la fenêtre fait 1366 pixels de large
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Alors l’illustration est affichée
+    Et la page contient "Choisissez votre situation : le résultat s’affichera ici."
+    Quand je choisis "Une collectivité ou une administration"
+    Alors l’encadré s’affiche à droite des réponses
+    Et l’encadré est "fr-callout--green-emeraude" avec l’icône "fr-icon-checkbox-circle-line"
+    Et l’illustration n’est pas affichée
+    Et la page ne contient pas "Choisissez votre situation"
+    Quand je choisis "Un particulier"
+    Alors l’encadré s’affiche à droite des réponses
+    Et la page contient "Vous n’êtes pas autorisé"
+    Et la page ne contient pas "vous êtes éligible"
+
+  Scénario: Sur téléphone, l’encadré s’affiche sous la réponse cochée
+    Sachant que la fenêtre fait 390 pixels de large
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Alors l’illustration n’est pas affichée
+    Et la page ne contient pas "Choisissez votre situation"
+    Quand je choisis "Une collectivité ou une administration"
+    Alors l’encadré de "Une collectivité ou une administration" s’affiche sous cette réponse
+    Quand je choisis "Un particulier"
+    Alors l’encadré de "Un particulier" s’affiche sous cette réponse
+    Et la page ne contient pas "vous êtes éligible"
+
+  Scénario: L’encadré change de place quand la largeur de l’écran change
+    Sachant que la fenêtre fait 390 pixels de large
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Et je choisis "Une collectivité ou une administration"
+    Et la fenêtre fait 1366 pixels de large
+    Alors l’encadré s’affiche à droite des réponses
+    Et la réponse "Une collectivité ou une administration" est cochée
+    Quand la fenêtre fait 390 pixels de large
+    Alors l’encadré de "Une collectivité ou une administration" s’affiche sous cette réponse
+
+  Scénario: Une collectivité d’API FICOBA voit un encadré jaune avec un point d’interrogation
+    Quand je démarre une nouvelle demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)"
+    Et je choisis "Une collectivité ou une administration"
+    Alors l’encadré est "fr-callout--yellow-tournesol" avec l’icône "fr-icon-question-line"
+    Et il y a un bouton "Demander l'accès aux données"

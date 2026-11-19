@@ -191,18 +191,16 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
     end
   end
 
-  describe '#description' do
-    it 'is empty by default' do
-      expect(decorator.description).to be_nil
+  describe '#pictogram_path' do
+    it 'points to the DSFR pictogram of the public type' do
+      expect(decorator.pictogram_path).to match(%r{artwork/pictograms/digital/avatar(-\h+)?\.svg\z})
     end
 
-    context 'when the rule describes the option' do
-      let(:option_attributes) do
-        { 'type' => 'dirigeant', 'label' => 'Le dirigeant d’une entreprise', 'description' => 'Vous figurez comme dirigeant.', 'eligible' => 'yes', 'body' => 'Test' }
-      end
+    context 'when the type has no pictogram' do
+      let(:option_attributes) { { 'type' => 'type_sans_pictogramme', 'eligible' => 'yes', 'body' => 'Test' } }
 
-      it 'returns the description' do
-        expect(decorator.description).to eq('Vous figurez comme dirigeant.')
+      it 'returns nil' do
+        expect(decorator.pictogram_path).to be_nil
       end
     end
   end

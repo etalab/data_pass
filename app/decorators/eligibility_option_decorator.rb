@@ -7,6 +7,12 @@ class EligibilityOptionDecorator < ApplicationDecorator
     'maybe' => 'fr-callout--yellow-tournesol'
   }.freeze
 
+  ICON_CLASSES = {
+    'yes' => 'fr-icon-checkbox-circle-line',
+    'no' => 'fr-icon-close-circle-line',
+    'maybe' => 'fr-icon-question-line'
+  }.freeze
+
   CTA_BASE_OPTIONS = { class: 'fr-btn fr-btn--secondary' }.freeze
 
   def id
@@ -19,6 +25,16 @@ class EligibilityOptionDecorator < ApplicationDecorator
 
   def alert_class
     ALERT_CLASSES[eligible]
+  end
+
+  def icon_class
+    ICON_CLASSES[eligible]
+  end
+
+  def pictogram_path
+    return unless I18n.exists?("eligibility.pictograms.#{type}")
+
+    h.asset_path("artwork/pictograms/#{t("eligibility.pictograms.#{type}")}.svg")
   end
 
   def sanitized_body

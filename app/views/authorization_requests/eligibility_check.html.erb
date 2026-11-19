@@ -1,19 +1,16 @@
 <% set_title! t('page_titles.eligibility_check', definition_name: @authorization_definition.name) %>
 
-<div class="fr-container">
-  <div class="fr-grid-row fr-grid-row--middle">
-    <%= render partial: 'pages/shared/unauthenticated_pages/eligibility_illustration' %>
+<div class="fr-container fr-mt-8w fr-mb-5w">
+  <h1 class="fr-h2">
+    <%= t('eligibility.title') %><br>
+    <span class="fr-text--lead fr-text--regular"><%= @authorization_definition.name %></span>
+  </h1>
 
-    <div class="fr-col-sm-12 fr-col-md-7 fr-col-offset-md-1 fr-mt-8w">
-      <h1>
-        <%= t('eligibility.title') %>
-      </h1>
+  <% if eligibility_rule.lead %>
+    <p class="fr-text--lead">
+      <%= eligibility_rule.lead %>
+    </p>
+  <% end %>
 
-      <p class="fr-text--lead">
-        <%= t('eligibility.subtitle') %>
-      </p>
-
-      <%= render partial: 'authorization_requests/eligibility_decision_tree' %>
-    </div>
-  </div>
+  <%= render partial: 'authorization_requests/eligibility_decision_tree' %>
 </div>
