@@ -11,6 +11,10 @@ module AuthorizationCore::Attributes
         @extra_array_attributes ||= []
       end
 
+      def self.extra_nested_attributes
+        @extra_nested_attributes ||= {}
+      end
+
       def self.add_attributes(*names)
         names.each do |name|
           add_attribute(name)
