@@ -1,10 +1,14 @@
-<div class="fr-mt-5w fr-mb-3w">
-  <div class="homepage-subtitle">
-    <h2 class="fr-h6">
-      <%= t('pages.home.pro_connect_connexion') %>
-    </h2>
-  </div>
+<% title = local_assigns.fetch(:title) { t('pages.home.pro_connect_connexion') } %>
+<div class="<%= local_assigns.fetch(:wrapper_class, 'fr-mt-5w fr-mb-3w') %>">
+  <% if title %>
+    <div class="homepage-subtitle">
+      <h2 class="fr-h6">
+        <%= title %>
+      </h2>
+    </div>
+  <% end %>
   <%= form_with(url: "/auth/#{local_assigns.fetch(:identity_federator, 'proconnect')}", method: :post, data: { turbo: false }) do |f| %>
+    <%= hidden_field_tag :return_to, local_assigns[:return_to], id: nil if local_assigns[:return_to] %>
     <%= f.button class: %w(fr-connect fr-connect--pro fr-m-auto), id: 'login_pro_connect' do %>
       <span class="fr-connect__login">
         <%= t('pages.home.pro_connect_login') %>
