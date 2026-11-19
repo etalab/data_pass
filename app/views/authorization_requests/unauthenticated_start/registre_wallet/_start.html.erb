@@ -1,0 +1,82 @@
+<% support_email = @authorization_definition.support_email %>
+<% set_title! t('.page_title') %>
+
+<%= render partial: 'shared/alerts' %>
+
+<p>
+  <%= t('.sub_title_html') %>
+</p>
+
+<ol class="fr-sr-only" id="wallet_registry_steps_list">
+  <li><%= t('.steps.identification') %></li>
+  <li><%= t('.steps.declaration') %></li>
+  <li><%= t('.steps.verification') %> (<%= t('.verification_delay') %>)</li>
+  <li><%= t('.steps.certificates') %></li>
+</ol>
+
+<div class="steps-timeline" id="wallet_registry_steps" aria-hidden="true">
+  <div class="next-steps">
+    <% { identification: 'digital/avatar', declaration: 'document/document-add', verification: 'digital/search', certificates: 'document/document-download' }.each do |step, pictogram| %>
+      <div>
+        <div>
+          <%= render Atoms::PictogramComponent.new(name: pictogram) %>
+        </div>
+        <div><%= t(".steps.#{step}") %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="timeline">
+    <% 4.times do |index| %>
+      <div>
+        <div class="step"></div>
+        <% if index == 1 %>
+          <div class="time-indication"><%= t('.verification_delay') %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="fr-connect-group">
+  <h2 class="fr-h6"><%= t('.sign_in_title') %></h2>
+
+  <% if @wallet_registry_refusal.present? %>
+    <div class="fr-alert fr-alert--error fr-mb-3w" role="alert" id="wallet_registry_refusal" tabindex="-1" autofocus>
+      <h3 class="fr-alert__title"><%= t(".refusals.#{@wallet_registry_refusal}.title", default: t('.refusals.default.title')) %></h3>
+      <p>
+        <%= t(".refusals.#{@wallet_registry_refusal}.description",
+          default: t('.refusals.default.description'),
+          organization_name: current_organization&.name,
+          support_email:) %>
+      </p>
+      <% if @wallet_registry_refusal == :organization_check_pending %>
+        <p><%= link_to t('.refusals.organization_check_pending.retry'), request.path, class: 'fr-link', id: 'wallet_registry_retry' %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect', locals: { return_to: request.path, title: nil, wrapper_class: nil } %>
+
+  <% if FeatureFlag.enabled?(:proconnect_dirigeant) %>
+    <div class="fr-mb-3w" id="wallet_registry_executive">
+      <h2 class="fr-h6"><%= t('.executive.title') %></h2>
+      <p><%= t('.executive.description') %></p>
+      <%= form_with(url: user_signed_in? ? '/auth/proconnect_dirigeant' : '/auth/proconnect', method: :post, data: { turbo: false }) do %>
+        <% if user_signed_in? %>
+          <%= hidden_field_tag :siret_hint, current_organization&.siret, id: nil %>
+        <% else %>
+          <%= hidden_field_tag :parcours, 'dirigeant', id: nil %>
+        <% end %>
+        <%= hidden_field_tag :return_to, request.path, id: nil %>
+        <%= button_tag t('.executive.submit'), type: 'submit', class: %w[fr-btn fr-btn--secondary], id: 'wallet_registry_sign_in_executive' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <p class="fr-mt-3w">
+    <%= t('.support_html', support_email:) %>
+  </p>
+</div>

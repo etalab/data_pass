@@ -5,6 +5,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   allow_unauthenticated_access only: %i[new show]
 
   before_action :find_authorization_definition, only: %i[new]
+  before_action :redirect_to_wallet_registry_form, only: %i[new], if: :signed_in_wallet_registry_applicant?
   before_action :set_facade, only: %i[new]
   before_action :find_eligibility_rule, only: %i[new]
 
@@ -45,6 +46,14 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   private
+
+  def signed_in_wallet_registry_applicant?
+    user_signed_in? && @authorization_definition.applicant_eligibility == 'wallet_registry'
+  end
+
+  def redirect_to_wallet_registry_form
+    redirect_to new_authorization_request_form_path(form_uid: @authorization_definition.available_forms.first.id)
+  end
 
   def render_refusal
     raise unless current_organization&.closed?

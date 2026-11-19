@@ -1,0 +1,68 @@
+fr:
+  authorization_request_forms:
+    registre_wallet:
+      new:
+        title: "Demander un enregistrement au : registre des parties utilisatrices du wallet"
+        organization_html: Vous êtes sur le point d’enregistrer <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank" rel="noopener" title="%{organization_name} - Nouvelle fenêtre">%{organization_name}<span class="fr-sr-only"> - Nouvelle fenêtre</span></a> comme partie utilisatrice du portefeuille européen d’identité numérique, via le formulaire <strong>%{form_name}</strong>.
+        goals_title: Les objectifs de ce formulaire
+        preparation_title: Avant de commencer, préparez
+        preparation:
+          - "au moins un moyen d’assistance pour vos usagers : site, adresse électronique ou téléphone ;"
+          - le responsable de l’application, un contact technique et votre délégué à la protection des données (DPO), qui ne seront pas publiés ;
+          - "la demande de certificat d’accès (CSR) de votre service, que votre équipe technique génère : vous la déposerez après la soumission de la demande, pour obtenir vos certificats."
+        capacity:
+          executive: "Vous n’avez pas à prouver que vous êtes dirigeant : ProConnect l’a vérifié à votre connexion et le vérifiera de nouveau quand vous soumettrez la demande."
+          public_agent: "Vous n’avez pas à prouver que vous pouvez engager votre administration : vous êtes connecté par ProConnect avec son compte."
+          sector_pending: "Nous n’avons pas encore pu lire la catégorie juridique de votre organisation dans le répertoire Sirene. Vous pouvez commencer votre demande : nous vérifierons, avant que vous la soumettiez, qu’un agent public ou un dirigeant certifié par ProConnect la porte."
+        steps_title: Les étapes de votre formulaire
+        steps:
+          - L’organisation
+          - Le service
+          - Les utilisations prévues des données
+          - Les contacts de l’organisation
+        verification_delay: Une fois votre demande soumise, le registre la vérifie sous 5 jours ouvrés.
+        start: Débuter ma demande
+  authorization_requests:
+    unauthenticated_start:
+      registre_wallet:
+        start:
+          page_title: Enregistrer votre organisation au registre des parties utilisatrices du wallet
+          sub_title_html: Vous souhaitez enregistrer votre organisation au <strong>registre des parties utilisatrices du wallet</strong>.<br>Votre enregistrement va se dérouler en 4 étapes
+          steps:
+            identification: S’identifier avec ProConnect
+            declaration: Déclarer votre service et ses utilisations prévues
+            verification: Être vérifié par le registre
+            certificates: Recevoir vos certificats
+          verification_delay: 5 jours ouvrés
+          sign_in_title: Pour enregistrer votre organisation
+          executive:
+            title: Vous dirigez une entreprise
+            description: ProConnect vérifie, après votre connexion, que vous êtes dirigeant de l’entreprise que vous choisissez.
+            submit: Me connecter avec ProConnect dirigeant
+          support_html: Si aucun de ces boutons ne correspond à votre situation, écrivez au support du registre à <a class="fr-link" href="mailto:%{support_email}">%{support_email}</a>.
+          refusals:
+            default:
+              title: Vous ne pouvez pas enregistrer cette organisation
+              description: ProConnect n’a pas pu confirmer votre identité. Réessayez dans quelques minutes. Si le problème continue, écrivez au support du registre à %{support_email}.
+            executive_certification_required:
+              title: Vous ne pouvez pas enregistrer cette organisation
+              description: "D’après sa catégorie juridique dans le répertoire Sirene, %{organization_name} n’est pas un organisme public : seul son dirigeant peut l’enregistrer. Si vous la dirigez, utilisez le bouton « Me connecter avec ProConnect dirigeant ». Si c’est une erreur, écrivez au support du registre à %{support_email}."
+            executive_certification_unavailable:
+              title: Vous ne pouvez pas encore enregistrer cette organisation en ligne
+              description: "D’après sa catégorie juridique dans le répertoire Sirene, %{organization_name} n’est pas un organisme public. Pour l’instant, seuls les organismes publics peuvent s’enregistrer au registre : les entreprises ne peuvent pas encore s’enregistrer en ligne. Si c’est une erreur, écrivez au support du registre à %{support_email}."
+            organization_check_pending:
+              title: Nous vérifions les informations de votre organisation
+              description: Le répertoire Sirene indiquait que %{organization_name} est fermée, mais cette information date de plus d’un jour. Nous la vérifions à nouveau. Réessayez dans quelques minutes.
+              retry: Réessayer
+            organization_closed:
+              title: Vous ne pouvez pas enregistrer cette organisation
+              description: "%{organization_name} est fermée dans le répertoire Sirene. Seule une organisation active peut s’enregistrer au registre. Si c’est une erreur, demandez sa correction à l’INSEE, puis reconnectez-vous."
+            executive_not_certified:
+              title: Vous ne pouvez pas encore enregistrer cette organisation en ligne
+              description: "ProConnect n’a pas pu certifier que vous dirigez %{organization_name}. Pour l’instant, le registre accepte seulement les dirigeants que ProConnect certifie. Les associations et les entreprises dirigées par une autre société ne peuvent pas encore s’enregistrer en ligne : écrivez au support du registre à %{support_email}."
+            executive_siret_outside_siren:
+              title: L’entreprise certifiée n’est pas celle de votre connexion
+              description: Vous avez choisi chez ProConnect une autre entreprise que %{organization_name}. Relancez la certification avec le bouton « Me connecter avec ProConnect dirigeant » et choisissez la même entreprise.
+            executive_identity_mismatch:
+              title: Le compte ProConnect n’est pas le vôtre
+              description: Le compte ProConnect utilisé pour la certification n’est pas celui avec lequel vous êtes connecté à DataPass. Relancez la certification avec votre compte.
