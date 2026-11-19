@@ -3,6 +3,8 @@ module AuthorizationCore::Contacts
 
   include AuthorizationCore::Attributes
 
+  COMMON_CONTACT_ATTRIBUTES = %w[email phone_number].freeze
+
   included do
     unless respond_to?(:contacts)
       def self.contacts
@@ -29,8 +31,7 @@ module AuthorizationCore::Contacts
 
         class_eval do
           define_contact_type_methods(kind)
-          define_common_contact_attributes(kind, validation_condition:, except: except + optional, email_format: options.fetch(:email_format, true))
-          define_contact_person_attributes(kind, validation_condition:, except: except + optional)
+          define_contact_attributes(kind, validation_condition:, except: except + optional, email_format: options.fetch(:email_format, true))
 
           contacts << ContactDefinition.new(kind, options)
         end
@@ -48,30 +49,31 @@ module AuthorizationCore::Contacts
         end
       end
 
-      def self.define_common_contact_attributes(kind, validation_condition:, except: [], email_format: true)
-        %w[email phone_number].each do |attr|
-          store_accessor :data, "#{kind}_#{attr}"
-          override_primitive_write("#{kind}_#{attr}", sanitize_options: { downcase: true, strip: true })
+      def self.define_contact_attributes(kind, validation_condition:, except: [], email_format: true)
+        contact_attributes.each do |attr|
+          store_contact_attribute(kind, attr)
 
           next if except.include?(attr)
 
-          validates "#{kind}_#{attr}", presence: true, if: validation_condition
+          validates "#{kind}_#{attr}", presence: true, if: contact_attribute_validation_condition(kind, attr, validation_condition)
+          validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition if attr == 'email' && email_format
         end
-
-        return unless email_format
-
-        validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
       end
 
-      def self.define_contact_person_attributes(kind, validation_condition:, except: [])
-        %w[family_name given_name job_title].each do |attr|
-          store_accessor :data, "#{kind}_#{attr}"
+      def self.store_contact_attribute(kind, attr)
+        store_accessor :data, "#{kind}_#{attr}"
+
+        if attr.in?(COMMON_CONTACT_ATTRIBUTES)
+          override_primitive_write("#{kind}_#{attr}", sanitize_options: { downcase: true, strip: true })
+        else
           override_primitive_write("#{kind}_#{attr}")
-
-          next if except.include?(attr)
-
-          validates "#{kind}_#{attr}", presence: true, if: -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
         end
+      end
+
+      def self.contact_attribute_validation_condition(kind, attr, validation_condition)
+        return validation_condition if attr.in?(COMMON_CONTACT_ATTRIBUTES)
+
+        -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
       end
     end
   end
