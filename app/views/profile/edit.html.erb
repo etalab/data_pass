@@ -47,7 +47,7 @@
     <%= t('.notifications.title') %>
   </h2>
 
-  <% current_user.authorization_definition_roles_as('reporter').each do |authorization_definition| %>
+  <% current_user.authorization_definition_roles_as('reporter').select(&:feature_flag_enabled?).each do |authorization_definition| %>
     <%= render partial: 'profile/authorization_notifications', locals: { authorization_definition: } %>
   <% end %>
 <% end %>
