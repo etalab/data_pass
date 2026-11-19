@@ -11,6 +11,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   before_action :extract_authorization_request_form
+  before_action :ensure_feature_flag_enabled, only: %i[new create]
   before_action :extract_authorization_request, only: %i[show summary update]
   before_action :extract_potential_bulk_update_notification, only: %i[summary]
 
@@ -312,6 +313,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def extract_authorization_request_form
     @authorization_request_form = AuthorizationRequestForm.find(params.expect(:form_uid)).decorate
+  end
+
+  def ensure_feature_flag_enabled
+    raise StaticApplicationRecord::EntryNotFound unless @authorization_request_form.authorization_definition.feature_flag_enabled?
   end
 
   def review_authorization_request

@@ -23,6 +23,7 @@ fr:
         supporting_documents: "Les pièces justificatives"
         france_connect: "L'habilitation FranceConnect"
         cnous_data_extraction_criteria: "Les conditions d’extraction CNOUS"
+        wallet_organization: "L’organisation"
         finish: "La synthèse"
       terms_of_service_accepted:
         label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation</a>&nbsp;et je les valide.

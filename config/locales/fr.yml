@@ -21,6 +21,7 @@ fr:
     france_connect_eidas: niveau-eidas
     supporting_documents: pieces-justificatives
     france_connect: france-connect
+    wallet_organization: organisation
 
   authorization:
     badge: habilitation %{formatted_id}

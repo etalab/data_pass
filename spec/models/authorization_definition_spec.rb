@@ -301,4 +301,58 @@ RSpec.describe AuthorizationDefinition do
       end
     end
   end
+
+  describe '#feature? for submission' do
+    it 'enables submission by default' do
+      expect(described_class.find('api_entreprise').feature?(:submission)).to be true
+    end
+
+    it 'disables submission for the wallet registry' do
+      expect(described_class.find('registre_wallet').feature?(:submission)).to be false
+    end
+  end
+
+  describe '#startable_by_applicant with a feature flag' do
+    subject { described_class.find('registre_wallet').startable_by_applicant }
+
+    context 'when the environment is production' do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production')) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the environment is sandbox' do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('sandbox')) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when the feature flag is unknown' do
+      subject { described_class.build('mon_api', name: 'Mon API', blocks: [], features: {}, feature_flag: 'flag_inconnu').startable_by_applicant }
+
+      it { is_expected.to be false }
+    end
+
+    it 'only references known feature flags' do
+      unknown_flags = described_class.all.map(&:feature_flag).compact_blank.map(&:to_sym) - FeatureFlag::RULES.keys
+
+      expect(unknown_flags).to be_empty
+    end
+  end
+
+  describe '#wallet_registry?' do
+    it 'is true for the wallet registry' do
+      expect(described_class.find('registre_wallet')).to be_wallet_registry
+    end
+
+    it 'is false for the other definitions' do
+      expect(described_class.find('api_entreprise')).not_to be_wallet_registry
+    end
+  end
+
+  describe 'wallet registry visibility' do
+    it 'is absent from the public catalogue' do
+      expect(described_class.find('registre_wallet').public).to be false
+    end
+  end
 end
