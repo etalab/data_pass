@@ -1,6 +1,10 @@
 module WalletRegistryHelper
   def wallet_registry_wizard_step?
-    !within_summary?
+    !within_summary? && !wallet_registry_summary?
+  end
+
+  def wallet_registry_summary?
+    content_for?(:wallet_registry_summary)
   end
 
   def wallet_registry_body_data(authorization_request)
@@ -34,6 +38,18 @@ module WalletRegistryHelper
     when /\A(\+(?:262|508|590|594|596|681|687|689))(\d{6,9})\z/ then "#{::Regexp.last_match(1)} #{wallet_registry_phone_pairs(::Regexp.last_match(2))}"
     else value
     end
+  end
+
+  def wallet_registry_applicant_link(authorization_request)
+    capacity = authorization_request.wallet_public_sector? ? :public_agent : :executive
+    scope = 'authorization_request_forms.registre_wallet.summary.applicant'
+    organization = t("#{scope}.organization_kinds.#{authorization_request.identity_legal_category_code}", default: t("#{scope}.organization_kinds.default"))
+
+    t("#{scope}.capacity.#{capacity}", organization:)
+  end
+
+  def wallet_registry_person_name(user)
+    [user.given_name, user.family_name].compact_blank.map { |name| name.gsub(/[[:alpha:]]+/) { |word| word.downcase.capitalize } }.join(' ').presence || user.email
   end
 
   def wallet_registry_current_step

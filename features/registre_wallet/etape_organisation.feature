@@ -60,7 +60,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
     Et je remplis l’étape « Les contacts » du registre wallet
-    Alors la page contient "Vérifiez le récapitulatif de votre demande"
+    Alors la page contient "Vérifiez votre demande avant de la soumettre"
     Et la page contient "Non publiée : votre établissement n’est pas diffusible."
 
   Scénario: Sirene ne donne pas l’adresse d’un établissement non diffusible, le demandeur sait quoi faire (CA2)
@@ -94,7 +94,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
     Et je remplis l’étape « Les contacts » du registre wallet
-    Alors la page contient "Vérifiez le récapitulatif de votre demande"
+    Alors la page contient "Vérifiez votre demande avant de la soumettre"
 
   Scénario: Les informations de l’organisation en cours de chargement s’affichent quand elles arrivent (R10)
     Sachant que je suis dirigeant d’une entreprise privée

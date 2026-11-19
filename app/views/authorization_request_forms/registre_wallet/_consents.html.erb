@@ -1,0 +1,16 @@
+<%# locals: (f:, authorization_request:) -%>
+<% consents_refused = authorization_request.errors.added?(:base, :all_terms_not_accepted) %>
+
+<div class="fr-fieldset fr-mb-0 <%= 'fr-fieldset--error' if consents_refused %>" id="wallet-consents" role="group" <%= tag.attributes(aria: { describedby: ('wallet-consents-messages' if consents_refused) }) %>>
+  <% authorization_request.required_consents.each do |consent| %>
+    <div class="fr-fieldset__element">
+      <%= f.term_checkbox consent %>
+    </div>
+  <% end %>
+
+  <div class="fr-messages-group" id="wallet-consents-messages" aria-live="polite">
+    <% if consents_refused %>
+      <p class="fr-message fr-message--error"><%= f.wording_for('summary.consents_missing') %></p>
+    <% end %>
+  </div>
+</div>
