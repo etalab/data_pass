@@ -1339,6 +1339,9 @@ fr:
         submitting: Envoi en cours…
         consents_missing: Cochez les deux cases pour soumettre votre demande.
         executive_submit: Se reconnecter et soumettre
+        server_error:
+          title: Votre demande n’a pas été envoyée
+          description: "Un problème technique nous empêche de l’enregistrer. Votre saisie est conservée : réessayez dans quelques minutes. Si le problème continue, écrivez au support du registre à %{support_email}."
         executive_reconnection: "Pour soumettre la demande, vous vous reconnecterez avec ProConnect : il vérifie que vous dirigez toujours %{organization_name}. Votre brouillon est conservé pendant la reconnexion."
         refusal:
           executive_not_certified:
