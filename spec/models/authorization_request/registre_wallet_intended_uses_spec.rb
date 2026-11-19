@@ -214,6 +214,27 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
         expect(summary_errors).to eq([%i[wallet_intended_uses_attributes_0_start_date wallet_intended_use_start_date_past]])
       end
 
+      it 'keeps accepting a recorded start date once it has passed' do
+        add_use(start_date: '2026-11-17')
+        authorization_request.save!
+        travel_to(today + 5.days)
+
+        authorization_request.reload.valid?(:submit)
+
+        expect(authorization_request.errors.attribute_names).not_to include(:wallet_intended_uses_attributes_0_start_date)
+      end
+
+      it 'refuses a recorded start date moved to the past' do
+        add_use(start_date: '2026-11-17')
+        authorization_request.save!
+        travel_to(today + 5.days)
+        authorization_request.reload.wallet_intended_uses.to_a.first.start_date = '2026-11-20'
+
+        authorization_request.valid?(:submit)
+
+        expect(authorization_request.errors.attribute_names).to include(:wallet_intended_uses_attributes_0_start_date)
+      end
+
       it 'refuses an end date before or on the start date' do
         add_use(end_date: '2027-01-04')
         validate_step

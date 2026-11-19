@@ -114,8 +114,12 @@ class WalletRegistry::IntendedUse < ApplicationRecord
 
   def period_valid
     return errors.add(:start_date, :blank) if start_date.nil?
-    return errors.add(:start_date, :past) if start_date < Date.current
+    return errors.add(:start_date, :past) if start_date_chosen_now? && start_date < Date.current
 
     errors.add(:end_date, :before_start_date) if end_date && end_date <= start_date
+  end
+
+  def start_date_chosen_now?
+    new_record? || will_save_change_to_start_date?
   end
 end
