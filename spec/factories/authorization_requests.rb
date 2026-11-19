@@ -1739,6 +1739,11 @@ FactoryBot.define do
             filename: 'dummy.pdf',
             content_type: 'application/pdf'
           )
+          authorization_request.wallet_service_name_proof.attach(
+            io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+            filename: 'dummy.pdf',
+            content_type: 'application/pdf'
+          )
         end
       end
     end

@@ -1,0 +1,23 @@
+<% attribute = :wallet_service_name_proof %>
+<% errors = f.object.errors.full_messages_for(attribute) %>
+<% attached_file = f.object.public_send(attribute).find(&:persisted?) %>
+<% messages_id = "#{f.field_id(attribute)}-messages" %>
+
+<%= tag.div class: ['fr-upload-group', 'fr-mb-3w', ('fr-upload-group--error' if errors.any?)] do %>
+  <%= f.label attribute, class: 'fr-label' do %>
+    <span><%= f.label_value(attribute) %><span class="fr-ml-1w fr-text-error">*</span></span>
+    <span class="fr-hint-text"><%= f.hint_for(attribute) %></span>
+  <% end %>
+  <%= f.file_field attribute,
+    name: "#{f.object_name}[#{attribute}][]",
+    class: ['fr-upload', ('fr-input--error' if errors.any?)],
+    autocomplete: 'off',
+    required: attached_file.nil?,
+    aria: { describedby: (messages_id if errors.any?) } %>
+  <% if errors.any? %>
+    <p class="fr-error-text" id="<%= messages_id %>"><%= errors.to_sentence %></p>
+  <% end %>
+  <% if attached_file %>
+    <p class="fr-text--sm fr-mt-1w fr-mb-0"><%= f.wording_for('wallet_service_name_proof.attached', filename: attached_file.filename) %></p>
+  <% end %>
+<% end %>

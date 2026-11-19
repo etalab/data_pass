@@ -54,6 +54,22 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Alors la page contient "Un point à corriger avant de continuer"
     Et la page contient "Description du service : trop courte."
 
+  Scénario: Un nom absent du répertoire Sirene demande un justificatif
+    Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service" sans justificatif
+    Et je clique sur "Suivant"
+    Alors la page contient "Un point à corriger avant de continuer"
+    Et la page contient "Justificatif du nom du service : joignez un document."
+    Et la page contient "Joignez un justificatif du nom du service : le registre en a besoin pour le vérifier."
+    Et la page contient "Ce nom ne correspond à aucun nom de votre organisation dans le répertoire Sirene"
+
+  Scénario: Un nom du répertoire Sirene dispense du justificatif
+    Quand je décris le service "Mairie" avec l’identifiant "mairie" sans justificatif
+    Et je clique sur "Enregistrer"
+    Alors la page contient "Ce nom correspond à l’enseigne de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
+    Et la page ne contient pas "Justificatif du nom du service"
+    Quand je clique sur "Suivant"
+    Alors la page ne contient pas "à corriger avant de continuer"
+
   Scénario: Sans JavaScript, l’identifiant vide est proposé à partir du nom (RG3)
     Quand je décris le service "Vélo Été" avec l’identifiant ""
     Et je clique sur "Enregistrer"
@@ -80,3 +96,13 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Quand je remplis "Identifiant du service" avec "Libre_Service"
     Et je quitte le champ "Identifiant du service"
     Alors la page contient "L’identifiant ne peut contenir que des lettres minuscules sans accent, des chiffres et des tirets"
+
+  @javascript
+  Scénario: Le justificatif du nom suit la saisie du nom
+    Alors la page ne contient pas "Justificatif du nom du service"
+    Quand je remplis "Nom du service" avec "Commune de Clamart"
+    Alors la page contient "Ce nom correspond à la dénomination de votre organisation dans le répertoire Sirene"
+    Et la page ne contient pas "Justificatif du nom du service"
+    Quand je remplis "Nom du service" avec "Portail famille de Clamart"
+    Alors la page contient "Justificatif du nom du service"
+    Et la page ne contient pas "Ce nom correspond"

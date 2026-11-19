@@ -25,6 +25,7 @@ fr:
             accepted: Cochez cette case pour continuer.
           wallet_service_identifier_format: "%{attribute} : format non valide."
           wallet_service_description_too_short: "%{attribute} : trop courte."
+          wallet_service_name_proof_missing: "%{attribute} : joignez un document."
     wallet_registry:
       organization_summary_component:
         identification: Identification

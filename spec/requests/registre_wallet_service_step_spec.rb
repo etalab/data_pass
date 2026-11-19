@@ -16,6 +16,7 @@ RSpec.describe 'Wallet registry, step « Le service »' do
       wallet_service_name: 'Vélocité Libre-service',
       wallet_service_identifier: 'libre-service',
       wallet_service_description: 'Location de vélos en libre-service dans la métropole de Lyon.',
+      wallet_service_name_proof: [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/dummy.pdf'), 'application/pdf')],
     }
   end
 
@@ -54,6 +55,63 @@ RSpec.describe 'Wallet registry, step « Le service »' do
     it 'stays on the step with the three points to fix' do
       expect(response).to have_http_status(:unprocessable_content)
       expect(response.body).to include('3 points à corriger avant de continuer', "href=\"##{param_key}_wallet_service_name\"")
+    end
+  end
+
+  describe 'clicking « Suivant » with a name absent from Sirene and no proof' do
+    before { click_next(service.except(:wallet_service_name_proof)) }
+
+    it 'asks for the proof and tells which files it accepts' do
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).to include('Justificatif du nom du service', 'PDF, PNG ou JPEG, 10 Mo au plus.')
+    end
+  end
+
+  describe 'the name proof field' do
+    let(:proof_input) { response.parsed_body.at_css("input##{param_key}_wallet_service_name_proof") }
+
+    context 'when no proof is attached yet' do
+      before do
+        authorization_request.update!(wallet_service_name: 'Vélocité Libre-service')
+        get step_path
+      end
+
+      it 'takes a single required file, like the prototype' do
+        expect(proof_input['multiple']).to be_nil
+        expect(proof_input['required']).to eq('required')
+        expect(proof_input['name']).to eq("#{param_key}[wallet_service_name_proof][]")
+      end
+    end
+
+    context 'when a proof is already attached' do
+      before do
+        authorization_request.update!(service)
+        get step_path
+      end
+
+      it 'names the attached file in plain text, without a link nor a delete button' do
+        expect(response.body).to include('Fichier joint : dummy.pdf')
+        expect(response.body).not_to include('Supprimer ce fichier', 'rails/active_storage')
+        expect(proof_input['required']).to be_nil
+      end
+    end
+  end
+
+  describe 'clicking « Suivant » with a proof already attached' do
+    before { authorization_request.update!(service) }
+
+    it 'keeps the attached proof when no other file is chosen' do
+      click_next(service.except(:wallet_service_name_proof))
+
+      expect(response).to have_http_status(:redirect)
+      expect(authorization_request.reload.wallet_service_name_proof.map { |file| file.filename.to_s }).to eq(['dummy.pdf'])
+    end
+
+    it 'replaces the attached proof with the new file' do
+      click_next(service.merge(wallet_service_name_proof: [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/another_dummy.pdf'), 'application/pdf')]))
+
+      expect(response).to have_http_status(:redirect)
+      expect(authorization_request.reload.wallet_service_name_proof.map { |file| file.filename.to_s }).to eq(['another_dummy.pdf'])
     end
   end
 
@@ -116,7 +174,8 @@ RSpec.describe 'Wallet registry, step « Le service »' do
 
     it 'saves the service in the draft' do
       expect(response).to have_http_status(:redirect)
-      expect(authorization_request.reload.data.slice('wallet_service_name', 'wallet_service_identifier', 'wallet_service_description').values).to eq(service.values)
+      expect(authorization_request.reload.data.slice('wallet_service_name', 'wallet_service_identifier', 'wallet_service_description').values).to eq(service.except(:wallet_service_name_proof).values)
+      expect(authorization_request.wallet_service_name_proof.first.filename.to_s).to eq('dummy.pdf')
     end
   end
 end

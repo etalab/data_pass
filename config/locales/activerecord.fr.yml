@@ -193,6 +193,7 @@ fr:
         wallet_service_name: Nom du service
         wallet_service_identifier: Identifiant du service
         wallet_service_description: Description du service
+        wallet_service_name_proof: Justificatif du nom du service
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -368,6 +369,8 @@ fr:
             wallet_service_description:
               blank: Décrivez le service en une ou deux phrases.
               wallet_service_description_too_short: Décrivez le service en une ou deux phrases, 15 caractères au moins, avec des mots et non seulement des signes de ponctuation.
+            wallet_service_name_proof:
+              wallet_service_name_proof_missing: "Joignez un justificatif du nom du service : le registre en a besoin pour le vérifier."
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:
