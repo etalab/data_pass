@@ -22,17 +22,9 @@
     <% end %>
   </div>
 
-  <% if policy(@authorization_request).submit? %>
+  <% if policy(@authorization_request).submit_as_executive? || policy(@authorization_request).submit? %>
     <% content_for :sticky_bar do %>
-      <div class="fr-container fr-grid-row">
-        <div class="fr-col-12">
-          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--right">
-            <li>
-              <%= f.button f.wording_for('summary.submit'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), data: { turbo_submits_with: f.wording_for('summary.submitting') } %>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <%= render partial: 'authorization_request_forms/registre_wallet/submit_actions', locals: { f:, authorization_request: @authorization_request, as_executive: policy(@authorization_request).submit_as_executive? } %>
     <% end %>
   <% end %>
 <% end %>

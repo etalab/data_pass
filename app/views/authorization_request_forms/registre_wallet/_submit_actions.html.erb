@@ -1,0 +1,23 @@
+<%# locals: (f:, authorization_request:, as_executive:) -%>
+<div class="fr-container">
+  <% if as_executive %>
+    <p class="fr-text--sm fr-mb-2w" id="wallet-executive-reconnection"><%= f.wording_for('summary.executive_reconnection', organization_name: authorization_request.wallet_organization_name) %></p>
+  <% end %>
+
+  <% if @wallet_submission_refusal %>
+    <div class="fr-alert fr-alert--error fr-mb-2w" id="wallet-submission-refusal" role="alert">
+      <h3 class="fr-alert__title"><%= f.wording_for("summary.refusal.#{@wallet_submission_refusal}.title") %></h3>
+      <p><%= f.wording_for("summary.refusal.#{@wallet_submission_refusal}.description", organization_name: authorization_request.wallet_organization_name, support_email: authorization_request.definition.support_email) %></p>
+    </div>
+  <% end %>
+
+  <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--right">
+    <li>
+      <% if as_executive %>
+        <%= f.button f.wording_for('summary.executive_submit'), type: :submit, id: :submit_authorization_request, formaction: wallet_registry_submission_path(form_uid: authorization_request.form_uid, authorization_request_id: authorization_request.id), class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), aria: { describedby: 'wallet-executive-reconnection' }, data: { turbo: false } %>
+      <% else %>
+        <%= f.button f.wording_for('summary.submit'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), data: { turbo_submits_with: f.wording_for('summary.submitting') } %>
+      <% end %>
+    </li>
+  </ul>
+</div>

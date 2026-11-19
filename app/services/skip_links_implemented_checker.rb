@@ -17,6 +17,8 @@ class SkipLinksImplementedChecker
     authorization_request_forms/build#show
     authorization_request_forms/build#update
     authorization_request_forms/introductions#show
+    wallet_registry/submissions#create
+    wallet_registry/submissions#complete
     authorization_requests/blocks#edit
     authorization_requests/blocks#update
     cancel_authorization_reopenings#new

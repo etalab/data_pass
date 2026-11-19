@@ -2,6 +2,11 @@ fr:
   wallet_registry:
     intended_use:
       unnamed: Utilisation %{position}
+    submissions:
+      create:
+        title: Reconnectez-vous pour soumettre votre demande
+        description: ProConnect vérifie de nouveau que vous dirigez %{organization_name} avant que la demande ne parte au registre.
+        button: Continuer vers ProConnect
   support:
     array:
       words_connector: ", "

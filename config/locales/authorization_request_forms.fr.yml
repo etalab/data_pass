@@ -1338,6 +1338,15 @@ fr:
         submit: Soumettre la demande d’enregistrement
         submitting: Envoi en cours…
         consents_missing: Cochez les deux cases pour soumettre votre demande.
+        executive_submit: Se reconnecter et soumettre
+        executive_reconnection: "Pour soumettre la demande, vous vous reconnecterez avec ProConnect : il vérifie que vous dirigez toujours %{organization_name}. Votre brouillon est conservé pendant la reconnexion."
+        refusal:
+          executive_not_certified:
+            title: Vous ne pouvez pas soumettre cette demande
+            description: "ProConnect ne vous identifie plus comme dirigeant de %{organization_name}. Votre brouillon est conservé. Si votre situation a changé récemment, reconnectez-vous plus tard ; sinon, écrivez au support du registre à %{support_email}."
+          resume:
+            title: Votre demande n’a pas été soumise
+            description: "La reconnexion a expiré ou a été interrompue. Votre brouillon est conservé : cliquez de nouveau sur « Se reconnecter et soumettre »."
         applicant:
           title: Demandeur
           link: Lien avec l’organisation

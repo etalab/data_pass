@@ -1,4 +1,4 @@
-class AuthorizationRequestPolicy < ApplicationPolicy
+class AuthorizationRequestPolicy < ApplicationPolicy # rubocop:disable Metrics/ClassLength
   include CommonAuthorizationModelsPolicies
 
   def new?
@@ -45,7 +45,16 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def submit?
     same_user_and_organization? &&
       record.persisted? &&
-      record.can_submit?
+      record.can_submit? &&
+      !record.try(:executive_reconnection_required_to_submit?)
+  end
+
+  def submit_as_executive?
+    same_user_and_organization? &&
+      record.persisted? &&
+      record.can_submit? &&
+      record.try(:executive_reconnection_required_to_submit?) &&
+      FeatureFlag.enabled?(:proconnect_dirigeant)
   end
 
   def review?
