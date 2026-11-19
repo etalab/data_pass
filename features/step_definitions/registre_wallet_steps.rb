@@ -406,3 +406,35 @@ Alors('le champ {string} du contact {string} est signalé en erreur') do |field,
   expect(group[:class]).to include('fr-input-group--error')
   expect(group).to have_css('.fr-message--error')
 end
+
+Quand('j’arrive au récapitulatif du registre wallet') do
+  steps %(
+    Quand je démarre une demande au registre wallet
+    Et je remplis ce que le registre publie
+    Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
+    Et je clique sur "Suivant"
+    Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
+    Et je clique sur "Suivant"
+    Et je remplis l’étape « Les utilisations prévues » du registre wallet
+    Et je remplis l’étape « Les contacts » du registre wallet
+  )
+end
+
+Quand('je coche les deux engagements du registre wallet') do
+  check 'J’ai pris connaissance de la politique d’enregistrement'
+  check 'Je certifie que ces informations sont exactes'
+end
+
+Quand('la description du service de mon brouillon du registre wallet est vidée') do
+  authorization_request = AuthorizationRequest::RegistreWallet.last
+  authorization_request.wallet_service_description = ''
+  authorization_request.save!(validate: false)
+end
+
+Alors('la demande du registre wallet est en cours de vérification') do
+  expect(AuthorizationRequest::RegistreWallet.last).to be_submitted
+end
+
+Alors('la demande du registre wallet est toujours un brouillon') do
+  expect(AuthorizationRequest::RegistreWallet.last).to be_draft
+end
