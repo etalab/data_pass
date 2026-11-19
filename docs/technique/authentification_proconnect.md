@@ -437,7 +437,8 @@ depuis la connexion, sans prolongation par l'activité).
 | Stratégie de vérification du dirigeant | `lib/omniauth/strategies/proconnect_dirigeant.rb` |
 | Contrôles du statut de dirigeant | `app/organizers/verify_dirigeant_through_pro_connect.rb` |
 | Page de vérification du dirigeant | `app/controllers/dirigeant_verifications_controller.rb` |
-| Secteur d'une organisation et ses listes | `app/services/public_sector_classification.rb` + `config/public_sector_classification.yml` |
+| Secteur d'une organisation | `app/services/public_sector_classification.rb` (règle) |
+| Listes du secteur public | `app/services/public_sector_lists.rb` + `config/public_sector_classification.yml` |
 | Refus de la certification dirigeant au secteur public | `app/policies/organization_policy.rb` (`verify_dirigeant?`) |
 | Gem du flux OIDC ProConnect | `omniauth-proconnect` (`lib/omniauth/proconnect.rb`) |
 | Routes auth | `config/routes.rb` (`auth/:provider/callback`, `compte/deconnexion`) |

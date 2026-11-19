@@ -63,6 +63,23 @@ RSpec.describe PublicSectorClassification do
     it { is_expected.to have_attributes(private?: true, reason: :blacklisted_siren) }
   end
 
+  context 'with other lists' do
+    subject(:classification) { described_class.new(organization, lists:) }
+
+    let(:lists) do
+      PublicSectorLists.new(
+        'source' => {},
+        'legal_categories' => [],
+        'whitelisted_sirens' => [],
+        'blacklisted_sirens' => []
+      )
+    end
+
+    it 'applies the rule to the given lists' do
+      expect(classification).to have_attributes(private?: true, reason: :private_legal_category)
+    end
+  end
+
   context 'with the INSEE payload of an existing organization' do
     it 'classifies a commune as public' do
       expect(described_class.new(build(:organization, siret: '21920023500014'))).to be_public
