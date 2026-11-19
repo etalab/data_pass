@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe HeaderHelper do
   let(:subdomain) { nil }
   let(:public_header) { true }
+  let(:wallet_registry_page) { false }
 
   before do
     allow(helper).to receive_messages(registered_subdomain: subdomain, public_header?: public_header)
+    without_partial_double_verification { allow(helper).to receive(:wallet_registry_page?).and_return(wallet_registry_page) }
   end
 
   describe '#header_title' do
@@ -35,6 +37,16 @@ RSpec.describe HeaderHelper do
       end
     end
 
+    context 'when a signed in user is on a page of the wallet registry' do
+      let(:public_header) { false }
+
+      let(:wallet_registry_page) { true }
+
+      it 'keeps the tagline of the wallet registry' do
+        expect(helper.header_tagline).to eq('Habilitations et registre du portefeuille européen')
+      end
+    end
+
     context 'with a subdomain that has its own tagline' do
       let(:subdomain) { instance_double(Subdomain, title: nil, tagline: 'Accès aux données fiscales') }
 
@@ -50,6 +62,33 @@ RSpec.describe HeaderHelper do
         { label: 'Accueil', path: '/' },
         { label: 'Portefeuille européen', path: '/portefeuille-europeen' }
       ])
+    end
+
+    context 'when a signed out visitor is on a page of the wallet registry' do
+      let(:wallet_registry_page) { true }
+
+      it 'lists no link, the page being the way in' do
+        expect(helper.public_menu_links).to eq([])
+      end
+    end
+  end
+
+  describe '#wallet_registry_public_header?' do
+    context 'when a signed out visitor is on a page of the wallet registry' do
+      let(:wallet_registry_page) { true }
+
+      it { expect(helper).to be_wallet_registry_public_header }
+    end
+
+    context 'when a signed in user is on a page of the wallet registry' do
+      let(:public_header) { false }
+      let(:wallet_registry_page) { true }
+
+      it { expect(helper).not_to be_wallet_registry_public_header }
+    end
+
+    context 'when a signed out visitor is on another page' do
+      it { expect(helper).not_to be_wallet_registry_public_header }
     end
   end
 end

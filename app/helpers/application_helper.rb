@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def displays_provider_logo?
-    @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
+    @authorization_definition.present? && @display_provider_logo_in_header && !wallet_registry_page? # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def public_header?

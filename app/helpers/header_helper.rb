@@ -7,12 +7,18 @@ module HeaderHelper
 
   def header_tagline
     return registered_subdomain.tagline if registered_subdomain? && registered_subdomain.tagline.present?
-    return t('layouts.header.public_tagline') if public_header?
+    return t('layouts.header.public_tagline') if public_header? || wallet_registry_page?
 
     t('layouts.header.tagline')
   end
 
+  def wallet_registry_public_header?
+    public_header? && wallet_registry_page?
+  end
+
   def public_menu_links
+    return [] if wallet_registry_public_header?
+
     [
       { label: t('layouts.header.menu.public.home'), path: root_path },
       { label: t('layouts.header.menu.public.european_wallet'), path: european_wallet_page_path }

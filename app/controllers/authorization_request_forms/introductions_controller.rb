@@ -1,6 +1,7 @@
 class AuthorizationRequestForms::IntroductionsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   helper DemandesHabilitations::CommonHelper
+  include WalletRegistryEntry
 
   allow_unauthenticated_access
 
@@ -10,6 +11,7 @@ class AuthorizationRequestForms::IntroductionsController < AuthenticatedUserCont
 
   before_action :extract_authorization_request_form
   before_action :ensure_feature_flag_enabled
+  before_action :enter_wallet_registry, if: :wallet_registry_form?
 
   def show
     prefill.capture(request.query_parameters)
