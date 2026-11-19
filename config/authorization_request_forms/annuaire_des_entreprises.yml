@@ -62,6 +62,7 @@ annuaire-des-entreprises-subventions-associations:
     disabled:
       - chiffre_affaires
       - beneficiaires
+      - jour_naissance_dirigeants
 
 annuaire-des-entreprises-traitement-aides-financieres:
   name: Traitement des aides financières collectives allouées aux partenaires CAF
@@ -80,6 +81,7 @@ annuaire-des-entreprises-traitement-aides-financieres:
       - travaux_publics
       - liens_capitalistiques
       - beneficiaires
+      - jour_naissance_dirigeants
   initialize_with:
     intitule: Traitement aides financières collectives - Ajouter numéro CAF
     description: |
