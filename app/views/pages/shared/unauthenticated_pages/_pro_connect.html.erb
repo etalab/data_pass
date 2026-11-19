@@ -15,8 +15,9 @@
     <% end %>
 
     <p>
-      <a href="https://www.proconnect.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que ProConnect ? - Nouvelle fenêtre">
+      <a href="https://www.proconnect.gouv.fr/" target="_blank" rel="noopener" title="<%= t('pages.home.pro_connect_subtitle') %> - <%= t('shared.new_window') %>">
         <%= t('pages.home.pro_connect_subtitle') %>
+        <span class="fr-sr-only"> - <%= t('shared.new_window') %></span>
       </a>
     </p>
   <% end %>

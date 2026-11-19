@@ -1,0 +1,9 @@
+<%= render Organisms::HeroComponent.new(
+  kicker: t('pages.home.wallet_teaser.kicker'),
+  title: t('pages.home.wallet_teaser.title'),
+  heading: { class: 'fr-h3', id: 'apercu-bande-titre' }
+) do |hero| %>
+  <% hero.with_lead { tag.p(t('pages.home.wallet_teaser.text')) } %>
+  <% hero.with_actions { link_to(t('pages.home.wallet_teaser.button'), '#', class: 'fr-btn') } %>
+  <% hero.with_illustration { render european_wallet_phone_mockup(caption_id: 'apercu-bande-legende') } %>
+<% end %>

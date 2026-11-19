@@ -37,10 +37,12 @@ class SkipLinksImplementedChecker
 
     stats#index
     pages#home
+    pages#connexion
     pages#accessibilite
     pages#plan_action_accessibilite
     pages#politique_confidentialite
     pages#faq
+    pages#european_wallet
     pages#mentions_legales
     pages#cgu_api_impot_particulier_bas
     pages#cgu_api_impot_particulier_prod

@@ -1,0 +1,30 @@
+<%= tag.section(id: section_id, class: section_classes, aria: { labelledby: title_id }) do %>
+  <div class="fr-container">
+    <% heading = capture do %>
+      <% if kicker.present? %>
+        <p class="lp-kicker"><%= kicker %></p>
+      <% end %>
+      <%= content_tag(title_tag, title, class: title_class, id: title_id) %>
+    <% end %>
+    <% if blue? %>
+      <%= heading %>
+      <%= lead %>
+      <%= actions %>
+      <%= footer %>
+    <% else %>
+      <div class="lp-compo">
+        <div class="lp-compo__text">
+          <%= heading %>
+          <%= lead %>
+          <%= actions %>
+          <%= footer %>
+        </div>
+        <% if illustration? %>
+          <div class="lp-compo__img">
+            <%= illustration %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

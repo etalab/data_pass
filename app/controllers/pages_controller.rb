@@ -1,15 +1,24 @@
 class PagesController < ApplicationController
   include Authentication
+  include SubdomainsHelper
 
   allow_unauthenticated_access
 
   before_action :ensure_html_format
 
   def home
+    return redirect_to dashboard_path if user_signed_in?
+
+    redirect_to connexion_path if registered_subdomain?
+  end
+
+  def connexion
     redirect_to dashboard_path if user_signed_in?
   end
 
   def faq; end
+
+  def european_wallet; end
 
   def cgu_api_impot_particulier_bas
     render 'static_pages/cgu_api_impot_particulier_bas'
@@ -36,6 +45,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def layout_name
+    %w[home european_wallet].include?(action_name) ? 'wide_container' : super
+  end
 
   def ensure_html_format
     head :not_acceptable unless request.format.html?
