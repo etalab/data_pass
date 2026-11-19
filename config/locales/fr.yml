@@ -930,9 +930,14 @@ fr:
         one: "Le formulaire contient une erreur"
         other: "Le formulaire contient %{count} erreurs"
   eligibility:
-    title: "Bienvenue sur DataPass !"
-    subtitle: "Les données auxquelles vous souhaitez avoir accès ne sont accessibles que sur habilitation, vérifions si vous êtes éligibles :"
+    title: "Vérifiez votre éligibilité"
+    placeholder: "Choisissez votre situation : le résultat s’affichera ici."
     question: "Êtes-vous :"
+    pictograms:
+      particulier: digital/avatar
+      collectivite_ou_administration: buildings/city-hall
+      entreprise_ou_association: buildings/companie
+      eaje: buildings/school
     user_types:
       particulier: "Un particulier"
       collectivite_ou_administration: "Une collectivité ou une administration"

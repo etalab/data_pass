@@ -1,56 +1,81 @@
-<div class='fr-my-5w'>
-  <div data-controller='show-and-hide' data-show-and-hide-targets-value='.outcome'>
-    <div class='fr-form-group'>
-      <fieldset class='fr-fieldset'>
-        <legend class='fr-fieldset__legend fr-text--lg fr-text--bold'>
-          <%= t('eligibility.question') %>
-        </legend>
+<div class='fr-grid-row fr-grid-row--gutters fr-mt-3w' data-controller='eligibility-result'>
+  <div class='fr-col-12 fr-col-lg-5'>
+    <fieldset class='fr-fieldset'>
+      <legend class='fr-fieldset__legend fr-text--lg fr-text--bold'>
+        <%= t('eligibility.question') %>
+      </legend>
 
-        <% eligibility_rule.options.each do |option| %>
-          <div class='fr-fieldset__element'>
-            <div class='fr-radio-group'>
-              <input type='radio'
-                     id='<%= option.id %>'
-                     name='user-type'
-                     value='<%= option.id %>'
-                     aria-controls='<%= option.outcome_id %>'
-                     data-action='change->show-and-hide#trigger'
-                     data-show-and-hide-target-param='#<%= option.outcome_id %>'>
-              <label class='fr-label' for='<%= option.id %>'>
-                <%= option.label %>
-              </label>
-            </div>
+      <% eligibility_rule.options.each do |option| %>
+        <div class='fr-fieldset__element'>
+          <div class='fr-radio-group fr-radio-rich'>
+            <input type='radio'
+                   id='<%= option.id %>'
+                   name='user-type'
+                   value='<%= option.id %>'
+                   aria-controls='<%= option.outcome_id %>'
+                   data-action='change->eligibility-result#select'
+                   data-eligibility-result-outcome-param='<%= option.outcome_id %>'>
+            <label class='fr-label' for='<%= option.id %>'>
+              <%= option.label %>
+              <% if option.description.present? %>
+                <span class='fr-hint-text'><%= option.description %></span>
+              <% end %>
+            </label>
+            <% if option.pictogram_path %>
+              <div class='fr-radio-rich__pictogram'>
+                <svg aria-hidden='true' class='fr-artwork' viewBox='0 0 80 80' width='80px' height='80px'>
+                  <use class='fr-artwork-decorative' href='<%= option.pictogram_path %>#artwork-decorative'></use>
+                  <use class='fr-artwork-minor' href='<%= option.pictogram_path %>#artwork-minor'></use>
+                  <use class='fr-artwork-major' href='<%= option.pictogram_path %>#artwork-major'></use>
+                </svg>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class='eligibility-result-slot fr-px-1w'
+             aria-live='polite'
+             aria-atomic='true'
+             data-eligibility-result-target='slot'
+             data-outcome-id='<%= option.outcome_id %>'></div>
+      <% end %>
+    </fieldset>
+  </div>
+
+  <div class='fr-col-12 fr-col-lg-7 eligibility-result-aside'>
+    <div class='fr-mt-4w' data-eligibility-result-target='placeholder'>
+      <%= render partial: 'pages/shared/unauthenticated_pages/eligibility_illustration' %>
+      <p class='fr-text--sm fr-text-mention--grey fr-mt-2w eligibility-result-placeholder'>
+        <%= t('eligibility.placeholder') %>
+      </p>
+    </div>
+    <div aria-live='polite' aria-atomic='true' data-eligibility-result-target='aside'></div>
+  </div>
+
+  <div hidden data-eligibility-result-target='store'>
+    <% eligibility_rule.options.each do |option| %>
+      <div id='<%= option.outcome_id %>' class='fr-mb-3w'>
+        <div class='fr-callout <%= option.alert_class %> <%= option.icon_class %>'>
+          <div class='fr-callout__text fr-text--md'>
+            <%= option.sanitized_body %>
+          </div>
+        </div>
+        <% if option.shows_request_access_button? %>
+          <div class='fr-mt-3w'>
+            <%= link_to eligibility_rule.request_access_label,
+              eligibility_rule.request_access_path(option),
+              class: 'fr-btn' %>
+          </div>
+        <% elsif option.shows_custom_cta? %>
+          <div class='fr-mt-3w'>
+            <%= link_to option.cta_url, option.cta_html_options do %>
+              <%= option.cta_content %>
+              <% if option.cta_opens_in_new_tab? %>
+                <span class='fr-sr-only'> - <%= t('shared.new_window') %></span>
+              <% end %>
+            <% end %>
           </div>
         <% end %>
-      </fieldset>
-    </div>
-
-    <div aria-live='polite' aria-atomic='true'>
-      <% eligibility_rule.options.each do |option| %>
-        <div id='<%= option.outcome_id %>' class='fr-hidden fr-my-3w outcome' aria-hidden='true'>
-          <div class='fr-callout <%= option.alert_class %>'>
-            <div class='fr-alert__body'>
-              <%= option.sanitized_body %>
-            </div>
-          </div>
-          <% if option.shows_request_access_button? %>
-            <div class='fr-mt-3w'>
-              <%= link_to t('eligibility.cta.request_access'),
-                eligibility_rule.request_access_path(option),
-                class: 'fr-btn' %>
-            </div>
-          <% elsif option.shows_custom_cta? %>
-            <div class='fr-mt-3w'>
-              <%= link_to option.cta_url, option.cta_html_options do %>
-                <%= option.cta_content %>
-                <% if option.cta_opens_in_new_tab? %>
-                  <span class='fr-sr-only'> - <%= t('shared.new_window') %></span>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

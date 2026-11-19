@@ -190,4 +190,18 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
       end
     end
   end
+
+  describe '#pictogram_path' do
+    it 'points to the DSFR pictogram of the public type' do
+      expect(decorator.pictogram_path).to match(%r{artwork/pictograms/digital/avatar(-\h+)?\.svg\z})
+    end
+
+    context 'when the type has no pictogram' do
+      let(:option_attributes) { { 'type' => 'type_sans_pictogramme', 'eligible' => 'yes', 'body' => 'Test' } }
+
+      it 'returns nil' do
+        expect(decorator.pictogram_path).to be_nil
+      end
+    end
+  end
 end

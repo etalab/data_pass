@@ -167,3 +167,22 @@ h3.with-icon img {
   width: 100%;
   min-width: 560px;
 }
+
+.eligibility-result-slot {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+.eligibility-result-aside {
+  display: none;
+}
+
+.eligibility-result-placeholder {
+  text-align: center;
+}
+
+@media (min-width: 62em) {
+  .eligibility-result-aside {
+    display: block;
+  }
+}

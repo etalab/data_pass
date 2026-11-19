@@ -51,4 +51,57 @@ RSpec.describe EligibilityRuleDecorator, type: :decorator do
       expect(decorator.id).to eq(eligibility_rule.id)
     end
   end
+
+  context 'with a rule that defines its own button and lead' do
+    let(:eligibility_rule) do
+      EligibilityRule.new(
+        definition_id: 'regle_de_test',
+        request_access_label: 'Commencer l’enregistrement',
+        options: [
+          { 'type' => 'dirigeant', 'eligible' => 'yes', 'body' => 'Test', 'request_access_params' => { 'parcours' => 'dirigeant' } },
+          { 'type' => 'association', 'eligible' => 'no', 'body' => 'Test' }
+        ]
+      )
+    end
+
+    around do |example|
+      I18n.backend.store_translations(:fr, eligibility: { leads: { regle_de_test: 'Votre réponse détermine la façon de vous connecter.' } })
+      example.run
+    ensure
+      I18n.backend.reload!
+    end
+
+    it 'uses the button label of the rule' do
+      expect(decorator.request_access_label).to eq('Commencer l’enregistrement')
+    end
+
+    it 'adds the parameter of the option to the path' do
+      dirigeant_option = decorator.options.find { |option| option.type == 'dirigeant' }
+
+      expected_path = '/demandes/regle_de_test/nouveau?eligibility_confirmed=true&parcours=dirigeant'
+      expect(decorator.request_access_path(dirigeant_option)).to eq(expected_path)
+    end
+
+    it 'keeps the parameters of the journey when the option tries to override them' do
+      option = EligibilityOption.new(
+        'type' => 'dirigeant', 'eligible' => 'yes', 'body' => 'Test', 'use_case' => 'cas_de_test',
+        'request_access_params' => { 'eligibility_confirmed' => false, 'use_case' => 'autre_cas' }
+      ).decorate
+
+      expected_path = '/demandes/regle_de_test/nouveau?eligibility_confirmed=true&use_case=cas_de_test'
+      expect(decorator.request_access_path(option)).to eq(expected_path)
+    end
+
+    it 'uses the lead of the rule' do
+      expect(decorator.lead).to eq('Votre réponse détermine la façon de vous connecter.')
+    end
+  end
+
+  describe '#lead' do
+    let(:eligibility_rule) { EligibilityRule.new(definition_id: 'regle_sans_chapo', options: []) }
+
+    it 'has no lead by default' do
+      expect(decorator.lead).to be_nil
+    end
+  end
 end
