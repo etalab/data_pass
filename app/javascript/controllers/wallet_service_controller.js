@@ -13,9 +13,13 @@ export function proposeIdentifier (name) {
     .replace(/^-+|-+$/g, '')
 }
 
+export function normalizeSireneName (name) {
+  return proposeIdentifier(name).replace(/-/g, '')
+}
+
 export default class extends Controller {
-  static targets = ['name', 'identifier', 'counter', 'previewName', 'previewInitial']
-  static values = { maxLength: Number, counter: String, placeholder: String }
+  static targets = ['name', 'identifier', 'counter', 'previewName', 'previewInitial', 'sireneMatch', 'sireneMatchMessage', 'nameProof']
+  static values = { maxLength: Number, counter: String, placeholder: String, sireneNames: Object, sireneMessages: Object }
 
   connect () {
     const identifier = this.identifierTarget.value.trim()
@@ -27,6 +31,7 @@ export default class extends Controller {
 
     this.updateCounter(name)
     this.updatePreview(name)
+    this.updateNameProof(name)
     if (this.identifierProposed) this.identifierTarget.value = proposeIdentifier(name)
   }
 
@@ -38,6 +43,15 @@ export default class extends Controller {
   updateCounter (name) {
     this.counterTarget.textContent = this.counterValue.replace('__count__', name.length)
     this.counterTarget.classList.toggle('is-over', name.length > this.maxLengthValue)
+  }
+
+  updateNameProof (name) {
+    const normalizedName = normalizeSireneName(name)
+    const kind = normalizedName === '' ? undefined : Object.keys(this.sireneNamesValue).find((candidate) => this.sireneNamesValue[candidate].includes(normalizedName))
+
+    this.sireneMatchTarget.hidden = !kind
+    this.sireneMatchMessageTarget.textContent = kind ? this.sireneMessagesValue[kind] : ''
+    this.nameProofTarget.hidden = normalizedName === '' || Boolean(kind)
   }
 
   updatePreview (name) {

@@ -20,6 +20,7 @@ module AuthorizationExtensions::WalletService
     add_attribute :wallet_service_name
     add_attribute :wallet_service_identifier
     add_attribute :wallet_service_description
+    add_documents :wallet_service_name_proof, content_type: ['application/pdf', 'image/png', 'image/jpeg'], size: { less_than: 10.megabytes }, limit: { max: 1 }
 
     before_validation :propose_wallet_service_identifier
 
@@ -35,6 +36,7 @@ module AuthorizationExtensions::WalletService
       validates :wallet_service_name, presence: true
       validates :wallet_service_identifier, presence: true
       validates :wallet_service_description, presence: true
+      validate :wallet_service_name_proof_attached
     end
 
     validate :wallet_service_identifier_available, if: -> { filling? && need_complete_validation?(:wallet_service) }
@@ -44,12 +46,27 @@ module AuthorizationExtensions::WalletService
     ENTITLEMENT
   end
 
+  def wallet_service_name_sirene_kind
+    IdentitySources::SireneNames.new(organization).kind_of(wallet_service_name)
+  end
+
+  def wallet_service_name_proof_required?
+    IdentitySources::SireneNames.normalize(wallet_service_name).present? && wallet_service_name_sirene_kind.nil?
+  end
+
   private
 
   def propose_wallet_service_identifier
     return if wallet_service_identifier.present? || wallet_service_name.blank?
 
     self.wallet_service_identifier = AuthorizationExtensions::WalletService.propose_identifier(wallet_service_name)
+  end
+
+  def wallet_service_name_proof_attached
+    return unless wallet_service_name_proof_required?
+    return if wallet_service_name_proof.attached?
+
+    errors.add(:wallet_service_name_proof, :wallet_service_name_proof_missing)
   end
 
   def wallet_service_identifier_available

@@ -1734,6 +1734,11 @@ FactoryBot.define do
           authorization_request.wallet_service_name ||= 'Vélocité Libre-service'
           authorization_request.wallet_service_identifier ||= 'velocite-libre-service'
           authorization_request.wallet_service_description ||= 'Location de vélos en libre-service dans la métropole de Lyon.'
+          authorization_request.wallet_service_name_proof.attach(
+            io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+            filename: 'dummy.pdf',
+            content_type: 'application/pdf'
+          )
         end
       end
     end

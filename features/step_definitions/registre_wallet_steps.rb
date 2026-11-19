@@ -178,8 +178,13 @@ Quand('je remplis l’étape « L’organisation » du registre wallet') do
   )
 end
 
-Quand('je décris le service {string} avec l’identifiant {string}') do |name, identifier|
+Quand('je décris le service {string} avec l’identifiant {string} sans justificatif') do |name, identifier|
   fill_in 'Nom du service', with: name
   fill_in 'Identifiant du service', with: identifier
   fill_in 'Description du service', with: 'Location de vélos en libre-service dans la métropole de Lyon.'
+end
+
+Quand('je décris le service {string} avec l’identifiant {string}') do |name, identifier|
+  steps %(Quand je décris le service "#{name}" avec l’identifiant "#{identifier}" sans justificatif)
+  find_field('authorization_request_registre_wallet_wallet_service_name_proof', visible: :all).set(Rails.root.join('spec/fixtures/dummy.pdf').to_s)
 end

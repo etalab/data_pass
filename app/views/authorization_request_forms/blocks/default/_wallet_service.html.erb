@@ -1,11 +1,15 @@
 <% name = @authorization_request.wallet_service_name.to_s %>
 <% max_length = AuthorizationExtensions::WalletService::SERVICE_NAME_MAX_LENGTH %>
+<% sirene_names = IdentitySources::SireneNames.new(@authorization_request.organization) %>
+<% sirene_kind = @authorization_request.wallet_service_name_sirene_kind %>
 
 <%= tag.div class: 'wx-panel', data: {
   controller: 'wallet-service',
   wallet_service_max_length_value: max_length,
   wallet_service_counter_value: f.wording_for('wallet_service.name_counter', count: '__count__', max: max_length),
   wallet_service_placeholder_value: f.wording_for('wallet_service.preview.placeholder'),
+  wallet_service_sirene_names_value: sirene_names.normalized_by_kind.to_json,
+  wallet_service_sirene_messages_value: IdentitySources::SireneNames::KINDS.index_with { |kind| f.wording_for("wallet_service_name_proof.sirene_match.#{kind}") }.to_json,
 } do %>
   <div class="wx-card-head fr-mb-2w">
     <h3 class="fr-h5 fr-mb-0" id="wallet-service-card-title"><%= f.wording_for('wallet_service.card_title') %></h3>
@@ -23,6 +27,14 @@
               tag.span(f.wording_for('wallet_service.name_counter', count: name.length, max: max_length), class: ['wx-count', ('is-over' if name.length > max_length)], id: 'wallet-service-name-count', aria: { live: 'polite' }, data: { wallet_service_target: 'counter' }),
             ]),
             data: { wallet_service_target: 'name', action: 'input->wallet-service#nameChanged', field_format_kind: 'max_length', field_format_max_length: max_length } %>
+          <div aria-live="polite">
+            <%= tag.div class: 'fr-messages-group fr-mb-3w', hidden: sirene_kind.nil?, data: { wallet_service_target: 'sireneMatch' } do %>
+              <%= tag.p sirene_kind && f.wording_for("wallet_service_name_proof.sirene_match.#{sirene_kind}"), class: 'fr-message fr-message--info', data: { wallet_service_target: 'sireneMatchMessage' } %>
+            <% end %>
+          </div>
+          <%= tag.div hidden: !@authorization_request.wallet_service_name_proof_required?, data: { wallet_service_target: 'nameProof' } do %>
+            <%= render 'authorization_request_forms/registre_wallet/service_name_proof_field', f: %>
+          <% end %>
           <%= f.dsfr_text_field :wallet_service_identifier,
             required: true,
             autocomplete: 'off',

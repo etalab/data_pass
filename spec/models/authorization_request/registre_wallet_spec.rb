@@ -276,6 +276,7 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
         wallet_service_name: 'Vélocité Libre-service',
         wallet_service_identifier: 'libre-service',
         wallet_service_description: 'Location de vélos en libre-service dans la métropole de Lyon.',
+        wallet_service_name_proof: [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/dummy.pdf'), 'application/pdf')],
       }
     end
     let(:attributes) { service_attributes }
@@ -352,6 +353,30 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
         it 'lists the three fields' do
           expect(authorization_request.errors.attribute_names).to contain_exactly(:wallet_service_name, :wallet_service_identifier, :wallet_service_description)
         end
+      end
+
+      context 'with a name absent from the Sirene directory and no proof' do
+        let(:attributes) { service_attributes.except(:wallet_service_name_proof) }
+
+        it 'asks for a proof of the name' do
+          expect(error_messages_for(:wallet_service_name_proof)).to eq(['Joignez un justificatif du nom du service : le registre en a besoin pour le vérifier.'])
+        end
+      end
+
+      context 'with the enseigne of the establishment as name and no proof' do
+        let(:attributes) { service_attributes.except(:wallet_service_name_proof).merge(wallet_service_name: 'Mairie') }
+
+        it { is_expected.to be_valid }
+
+        it 'recognizes the Sirene name it matches' do
+          expect(authorization_request.wallet_service_name_sirene_kind).to eq(:enseigne)
+        end
+      end
+
+      context 'with the legal name in other words and no proof' do
+        let(:attributes) { service_attributes.except(:wallet_service_name_proof).merge(wallet_service_name: 'Commune de Clamart') }
+
+        it { is_expected.to be_valid }
       end
 
       context 'with a name of 51 characters' do

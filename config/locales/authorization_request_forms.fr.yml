@@ -1407,6 +1407,15 @@ fr:
       wallet_service_description:
         label: Description du service
         hint: En français, en une ou deux phrases, 15 caractères au moins. Elle est publiée au registre.
+      wallet_service_name_proof:
+        label: Justificatif du nom du service
+        hint: "Ce nom ne correspond à aucun nom de votre organisation dans le répertoire Sirene : dénomination, sigle, dénomination usuelle ou enseigne. Joignez un document qui montre que votre organisation utilise ce nom, le registre le vérifiera. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus."
+        attached: "Fichier joint : %{filename}"
+        sirene_match:
+          denomination: "Ce nom correspond à la dénomination de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
+          sigle: "Ce nom correspond au sigle de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
+          usual_name: "Ce nom correspond à la dénomination usuelle de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
+          enseigne: "Ce nom correspond à l’enseigne de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
 
     resana:
       legal:
