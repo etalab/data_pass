@@ -71,6 +71,24 @@ RSpec.describe AuthorizationRequestPolicy do
     end
   end
 
+  describe '#submit?' do
+    subject { instance.submit? }
+
+    let(:authorization_request_class) { authorization_request }
+
+    context 'when the definition allows submission' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when the definition disables submission (wallet registry)' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user) }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#submit_reopening?' do
     subject { instance.submit_reopening? }
 

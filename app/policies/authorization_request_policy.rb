@@ -32,7 +32,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def submit?
-    same_user_and_organization? &&
+    feature_enabled?(:submission) &&
+      same_user_and_organization? &&
       record.persisted? &&
       record.can_submit?
   end
