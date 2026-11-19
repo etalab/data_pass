@@ -676,4 +676,33 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       end
     end
   end
+
+  describe 'submission while the public sector of the organization is still unknown' do
+    let(:siret) { '13002526500013' }
+
+    before { authorization_request.data['identity_public_sector'] = nil }
+
+    it 'lets the draft be saved' do
+      authorization_request.current_build_step = 'wallet_organization'
+
+      authorization_request.validate
+
+      expect(authorization_request.errors.details[:identity_public_sector]).to be_empty
+    end
+
+    it 'refuses the submission and points to the step « L’organisation »' do
+      authorization_request.valid?(:submit)
+
+      expect(authorization_request.errors.details[:identity_public_sector]).to include(error: :wallet_public_sector_unknown)
+      expect(authorization_request.wallet_incomplete_steps).to include('wallet_organization')
+    end
+
+    it 'leaves the only message to the identity still loading, which has the same cause' do
+      authorization_request.identity_source = 'sirene_pending'
+
+      authorization_request.valid?(:submit)
+
+      expect(authorization_request.errors.details[:identity_public_sector]).to be_empty
+    end
+  end
 end

@@ -11,6 +11,11 @@
           <%= link_to t('authorization_request_forms.registre_wallet.summary.incomplete_steps.link', position: authorization_request.steps_names.index(step) + 1, name: t("authorization_request_forms.registre_wallet.summary.incomplete_steps.steps.#{step}")),
             edit_authorization_request_block_path(authorization_request, t("wicked.#{step}")),
             class: 'fr-link' %>
+          <% if step == 'wallet_organization' %>
+            <% %i[identity_source identity_public_sector].flat_map { |attribute| authorization_request.errors.messages_for(attribute) }.each do |message| %>
+              <p class="fr-mb-0"><%= message %></p>
+            <% end %>
+          <% end %>
         </li>
       <% end %>
     </ul>

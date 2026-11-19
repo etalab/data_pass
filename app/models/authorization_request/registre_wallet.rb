@@ -7,6 +7,8 @@ class AuthorizationRequest::RegistreWallet < AuthorizationRequest
   add_checkbox :wallet_registration_policy_accepted
   add_checkbox :wallet_information_certified
 
+  validate :wallet_public_sector_known, on: :submit
+
   def name
     wallet_service_name.presence || super
   end
@@ -24,6 +26,10 @@ class AuthorizationRequest::RegistreWallet < AuthorizationRequest
   end
 
   private
+
+  def wallet_public_sector_known
+    errors.add(:identity_public_sector, :wallet_public_sector_unknown) if identity_public_sector.nil? && !identity_pending?
+  end
 
   def wallet_step_of(attribute)
     case attribute.to_s

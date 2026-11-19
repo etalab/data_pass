@@ -1730,6 +1730,7 @@ FactoryBot.define do
             authorization_request.identity_source = 'sirene'
             authorization_request.identity_legal_name = 'COMMUNE DE CLAMART'
           end
+          authorization_request.identity_public_sector ||= 'true'
           authorization_request.wallet_postal_address ||= '1 place Maurice Gunsbourg, 92140 Clamart'
           authorization_request.wallet_service_name ||= 'Vélocité Libre-service'
           authorization_request.wallet_service_identifier ||= 'velocite-libre-service'
