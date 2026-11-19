@@ -1,5 +1,6 @@
 require 'omniauth-oauth2'
 require 'omniauth/proconnect'
+require Rails.root.join('lib/omniauth/strategies/proconnect_overrides').to_s
 require Rails.root.join('lib/omniauth/failure_reporter').to_s
 
 module ProConnectConfig
@@ -34,57 +35,6 @@ module ProConnectConfig
 
   def scope
     'openid given_name usual_name email uid idp_id siret phone'
-  end
-end
-
-module OmniAuth
-  module Strategies
-    class Proconnect
-      MFA_ACR_VALUES = [
-        'eidas0-mfa',
-        'eidas1-mfa',
-        'eidas2',
-        'eidas3'
-      ].freeze
-
-      extra do
-        {
-          raw_info: @userinfo,
-          acr: id_token_claims['acr']
-        }
-      end
-
-      private
-
-      def authorization_uri
-        URI(discovered_configuration['authorization_endpoint']).tap do |endpoint|
-          endpoint.query = URI.encode_www_form(
-            response_type: 'code',
-            client_id: options[:client_id],
-            redirect_uri: options[:redirect_uri],
-            scope: options[:scope],
-            state: store_new_state!,
-            nonce: store_new_nonce!,
-            claims: mfa_claims.to_json
-          )
-        end
-      end
-
-      def id_token_claims
-        id_token = session['omniauth.pc.id_token']
-        return {} if id_token.blank?
-
-        JSON::JWT.decode(id_token, :skip_verification)
-      end
-
-      def mfa_claims
-        {
-          id_token: {
-            acr: { essential: true, values: MFA_ACR_VALUES }
-          }
-        }
-      end
-    end
   end
 end
 
