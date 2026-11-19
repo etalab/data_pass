@@ -33,6 +33,22 @@ RSpec.describe OrganizationPolicy do
     end
   end
 
+  describe '#verify_dirigeant?' do
+    let(:identity_provider_uid) { 'fia1v2' }
+
+    {
+      'a public organization' => ['21920023500014', false],
+      'a private company' => ['32816124500027', true],
+      'an organization whose sector is still unknown' => ['41040946000756', true]
+    }.each do |description, (siret, allowed)|
+      context "with #{description}" do
+        let(:organization) { build(:organization, siret:) }
+
+        it { expect(instance.verify_dirigeant?).to be(allowed) }
+      end
+    end
+  end
+
   describe '#create?' do
     let(:identity_provider_uid) { 'fia1v2' }
 
