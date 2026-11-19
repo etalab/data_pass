@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include LocalSignInProtection
+  include WalletRegistryPage
 
   class BannedUserError < StandardError; end
 

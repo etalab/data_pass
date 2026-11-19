@@ -320,7 +320,8 @@ flowchart TD
   même pour une organisation non couverte) ; l'application d'intégration refuse les agents du
   secteur privé (`Y500015`, case réglée par ProConnect, à changer sur demande par le formulaire
   « Modifier votre configuration »). L'application de production n'a pas cette restriction : le
-  secteur privé peut déjà s'y connecter. La persistance du statut relève de DPP-201/206.
+  secteur privé peut déjà s'y connecter. Le statut est retenu une heure en session (voir
+  « Démarrer un enregistrement au registre wallet »).
 
 ### Connexion par le bouton « ProConnect dirigeant »
 
@@ -364,8 +365,7 @@ flowchart TD
   certifiable) y ramène aussi : `OmniAuth::FailureReporter` recopie `return_to` dans
   `omniauth.origin`, que la `FailureEndpoint` transmet à `sessions#failure` (`origin`). Seul un
   chemin local est suivi (pas de `//`, de `\` ni d'hôte, `LocalReturnPath`) ; sinon, la personne
-  arrive sur `/verification-dirigeant`. Le statut n'étant pas conservé, la page d'arrivée devra
-  revérifier à la soumission que la personne est toujours dirigeante (DPP-206).
+  arrive sur `/verification-dirigeant`.
 
 ### Secteur de l'organisation
 
@@ -404,6 +404,43 @@ Le secteur se contrôle au moment de l'action qui l'exige, dans sa policy.
   action qui suppose le statut vérifie elle-même une certification réussie et encore valide
   (DPP-206 pour le registre). DPP-202 n'expose aucune action de ce type, seulement l'affichage du
   résultat.
+
+## Démarrer un enregistrement au registre wallet (DPP-206)
+
+Le formulaire `registre-wallet` ne s'ouvre qu'à deux profils. La définition le déclare par
+`applicant_eligibility: wallet_registry`, que lit `AuthorizationRequestCreationRules` au démarrage
+(`new?` et `create?`, donc adresse directe comprise) :
+
+| Profil | Condition (`WalletRegistryEligibility`) | Phrase de l'introduction |
+|---|---|---|
+| agent public | `PublicSectorClassification#public?` | « vous êtes connecté par ProConnect avec son compte » |
+| dirigeant | certification valide en session pour cet utilisateur et ce SIRET | « ProConnect l'a vérifié à votre connexion » |
+
+- **Certification retenue** : à la réussite, `DirigeantVerificationsController#create` écrit
+  `session[:dirigeant_verification]` (`DirigeantVerificationFact` : `user_id`, `siret` de
+  l'organisation courante, `verified_at`). Elle ne vaut qu'une heure, et plus du tout après un
+  changement d'organisation. Un échec l'efface. Rien de nominatif n'y est stocké : la session est
+  un cookie chiffré.
+- **Lecture** : `pundit_user` passe le fait à `UserContext#dirigeant_verification`, que
+  `AuthorizationRequestFormPolicy` transmet aux règles de création.
+- **Page de démarrage** (`WalletRegistryEntry`) : la page habituelle de DataPass
+  (`authorization_requests/unauthenticated_start`). Sous le titre, tout le bloc de démarrage
+  (sous-titre, frise des étapes, connexion) passe par `render_custom_start_or_default` : un partial
+  `authorization_requests/unauthenticated_start/<id de la définition>/_start` le remplace s'il
+  existe, sinon la page garde `_default_start`, celui de tous les formulaires. Celui du registre
+  (`registre_wallet/_start`) reprend les textes du prototype (« Votre enregistrement va se dérouler
+  en 4 étapes », sans délai affiché tant que D-38 est ouverte, « Pour enregistrer votre
+  organisation ») et ajoute le message du refus, le bouton « Me connecter avec ProConnect
+  dirigeant » (seulement si `proconnect_dirigeant` est actif) et le renvoi au support. Une personne
+  déjà connectée qui ne remplit pas les conditions y reste ; le bouton dirigeant lance alors
+  directement la certification (`POST /auth/proconnect_dirigeant`). L'entrée n'appelle pas l'INSEE :
+  un secteur encore inconnu (`PublicSectorClassification#known?` faux) laisse entrer
+  (`:sector_pending`), le contrôle se fera à la soumission.
+- **Ouverture** : flag `registre_wallet`, ouvert hors production, et en production quand le
+  `Setting` `european_wallet_registry_open` vaut `true` (le même réglage ouvre les pages publiques
+  du wallet ; voir [Paramétrage en base](parametrage_en_base.md)).
+- **Soumission** (DPP-211) : `WalletRegistryEligibility` peut être rappelé pour revérifier que la
+  personne est toujours dirigeante. Les étapes d'un brouillon déjà commencé ne sont pas bloquées.
 
 ## Validation partagée avec Rails Pulse
 
@@ -480,6 +517,9 @@ depuis la connexion, sans prolongation par l'activité).
 | Organisation courante | `app/interactors/change_user_current_organization.rb` |
 | Caractéristiques d'un FI | `app/models/identity_provider.rb` + `config/identity_providers.yml` |
 | Provider legacy (changement d'organisation) | `app/organizers/change_current_organization_through_mon_compte_pro.rb` |
+| Parcours dirigeant (enchaînement, retours) | `app/controllers/concerns/pro_connect_dirigeant_journey.rb` |
+| Certification retenue en session | `app/models/dirigeant_verification_fact.rb` |
+| Entrée du registre wallet | `app/services/wallet_registry_eligibility.rb`, `app/controllers/concerns/wallet_registry_entry.rb` |
 
 ## Glossaire
 
