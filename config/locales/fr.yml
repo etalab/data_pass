@@ -68,6 +68,9 @@ fr:
       validated: Validée
       refused: Refusée
       archived: Supprimée
+    status_by_definition:
+      registre_wallet:
+        submitted: En cours de vérification
     reopening: Mise à jour
     stage:
       sandbox: Bac à sable
