@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  <div class="fr-alert fr-alert--error fr-mb-2w" id="wallet-submission-server-error" tabindex="-1" role="alert" hidden data-submission-error-target="alert">
+    <h3 class="fr-alert__title"><%= f.wording_for('summary.server_error.title') %></h3>
+    <p><%= f.wording_for('summary.server_error.description', support_email: authorization_request.definition.support_email) %></p>
+  </div>
+
   <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--right">
     <li>
       <% if as_executive %>

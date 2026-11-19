@@ -1,7 +1,7 @@
 <% set_title! t('page_titles.authorization_request_summary', definition_name: @authorization_request.definition.name) %>
 <% provide :wallet_registry_summary, 'true' %>
 
-<%= authorization_request_form(@authorization_request, form_options: { html: { novalidate: true } }) do |f| %>
+<%= authorization_request_form(@authorization_request, form_options: { html: { novalidate: true }, data: { controller: 'submission-error', action: 'turbo:before-fetch-response->submission-error#check turbo:fetch-request-error->submission-error#show' } }) do |f| %>
   <div id="<%= dom_id(@authorization_request, :summary) %>">
     <% if @authorization_request.draft? %>
       <div class="fr-mb-6w">
