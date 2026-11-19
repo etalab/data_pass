@@ -1,0 +1,13 @@
+<% set_title! t('.title') %>
+
+<div class="fr-my-6w" data-controller="auto-submit">
+  <h1 class="fr-h3"><%= t('.title') %></h1>
+  <p><%= t('.description', organization_name: @authorization_request.wallet_organization_name) %></p>
+
+  <%= form_with url: '/auth/proconnect_dirigeant', method: :post, data: { turbo: false, auto_submit_target: 'form' } do %>
+    <%= hidden_field_tag :siret_hint, @authorization_request.organization.siret, id: nil %>
+    <%= hidden_field_tag :return_to, @return_path, id: nil %>
+    <%= hidden_field_tag :origin, @return_path, id: nil %>
+    <%= button_tag t('.button'), type: 'submit', class: %w[fr-btn], id: 'wallet-executive-reconnect' %>
+  <% end %>
+</div>

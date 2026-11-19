@@ -87,6 +87,22 @@ RSpec.describe AuthorizationRequestPolicy do
 
       it { is_expected.to be true }
     end
+
+    context 'with a wallet registry draft of a company, whose executive must reconnect' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user).tap { |request| request.update_columns(data: request.data.merge('identity_public_sector' => 'false')) } }
+
+      it 'sends the executive through the reconnection instead' do
+        expect([instance.submit?, instance.submit_as_executive?]).to eq([false, true])
+      end
+    end
+
+    context 'with a wallet registry draft whose public sector is unknown' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user).tap { |request| request.update_columns(data: request.data.merge('identity_public_sector' => nil)) } }
+
+      it 'offers the classic submission, refused by the validation until the sector is known' do
+        expect([instance.submit?, instance.submit_as_executive?]).to eq([true, false])
+      end
+    end
   end
 
   describe '#submit_reopening?' do

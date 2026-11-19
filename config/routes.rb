@@ -96,6 +96,8 @@ Rails.application.routes.draw do
         resource :identity_refresh, controller: 'authorization_request_forms/identity_refreshes', only: %w[create], path: 'identite', as: 'authorization_request_form_identity_refresh'
         resource :wallet_intended_uses, controller: 'authorization_request_forms/wallet_intended_uses', only: %w[update], path: 'utilisations-prevues', as: 'authorization_request_form_wallet_intended_uses', constraints: { form_uid: 'registre-wallet' }
         get 'utilisations-prevues/:intended_use_id/attestations', to: 'authorization_request_forms/wallet_rulebooks#index', as: 'authorization_request_form_wallet_rulebooks', constraints: { form_uid: 'registre-wallet' }
+        match 'soumission', to: 'wallet_registry/submissions#create', as: 'wallet_registry_submission', via: %i[post patch], constraints: { form_uid: 'registre-wallet' }
+        get 'soumission/:nonce', to: 'wallet_registry/submissions#complete', as: 'complete_wallet_registry_submission', constraints: { form_uid: 'registre-wallet' }
       end
 
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'

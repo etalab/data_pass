@@ -21,6 +21,10 @@ class AuthorizationRequest::RegistreWallet < AuthorizationRequest
     true
   end
 
+  def executive_reconnection_required_to_submit?
+    !identity_public_sector.nil? && !wallet_public_sector?
+  end
+
   def wallet_incomplete_steps
     errors.attribute_names.excluding(:base).map { |attribute| wallet_step_of(attribute) }.uniq.sort_by { |step| steps_names.index(step) }
   end
