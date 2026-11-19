@@ -49,6 +49,18 @@ vaut exactement `"false"`**. Là où `:boolean` accepte `"0"`, `"off"` ou `""` c
 `:enabled_unless_false` les considère comme vrais. C’est le bon type pour un interrupteur qui coupe la
 production : une faute de frappe ne doit ni couper ni rouvrir par accident.
 
+`:enabled_if_true` est son symétrique, pour un interrupteur qui **ouvre** quelque chose : la valeur est
+vraie **seulement si elle vaut exactement `"true"`**. C’est le type d’`european_wallet_registry_open`,
+qui ouvre en production les pages publiques du portefeuille européen et le démarrage du registre :
+
+```ruby
+Setting.set(:european_wallet_registry_open, 'true')   # ouvrir
+Setting.unset(:european_wallet_registry_open)         # refermer (défaut : false)
+```
+
+Pour la transition, l’ancienne variable `EUROPEAN_WALLET_REGISTRY_OPEN` est encore lue en repli
+(`env:`), après la base : une valeur en base l’emporte toujours.
+
 ## Depuis la console
 
 ```ruby
