@@ -743,6 +743,62 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_100000) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "wallet_registry_rulebook_claim_paths", force: :cascade do |t|
+    t.bigint "rulebook_claim_id", null: false
+    t.bigint "rulebook_format_id", null: false
+    t.string "path", null: false, array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rulebook_claim_id", "rulebook_format_id"], name: "idx_on_rulebook_claim_id_rulebook_format_id_694d2ffa1e", unique: true
+    t.index ["rulebook_claim_id"], name: "idx_on_rulebook_claim_id_b66c98bd97"
+    t.index ["rulebook_format_id"], name: "idx_on_rulebook_format_id_ffaf6eb68f"
+  end
+
+  create_table "wallet_registry_rulebook_claims", force: :cascade do |t|
+    t.bigint "rulebook_id", null: false
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.string "requirement", null: false
+    t.string "group_name", null: false
+    t.text "description"
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rulebook_id", "identifier"], name: "idx_on_rulebook_id_identifier_0606615909", unique: true
+    t.index ["rulebook_id"], name: "index_wallet_registry_rulebook_claims_on_rulebook_id"
+  end
+
+  create_table "wallet_registry_rulebook_formats", force: :cascade do |t|
+    t.bigint "rulebook_id", null: false
+    t.string "format", null: false
+    t.string "vct"
+    t.string "doctype"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rulebook_id", "format"], name: "idx_on_rulebook_id_format_85f6443ffc", unique: true
+    t.index ["rulebook_id"], name: "index_wallet_registry_rulebook_formats_on_rulebook_id"
+  end
+
+  create_table "wallet_registry_rulebooks", force: :cascade do |t|
+    t.string "source", null: false
+    t.string "identifier", null: false
+    t.string "version", null: false
+    t.string "name", null: false
+    t.string "category"
+    t.string "version_label"
+    t.string "documentation_url"
+    t.string "schema_uri"
+    t.string "keywords"
+    t.text "search_text", default: "", null: false
+    t.jsonb "source_details", default: {}, null: false
+    t.boolean "provisional", default: true, null: false
+    t.text "provisional_note"
+    t.datetime "retired_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source", "identifier", "version"], name: "idx_on_source_identifier_version_904a3bfcc0", unique: true
+  end
+
   create_table "webhook_attempts", force: :cascade do |t|
     t.bigint "webhook_id", null: false
     t.bigint "authorization_request_id", null: false
@@ -815,6 +871,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_100000) do
   add_foreign_key "rails_pulse_requests", "rails_pulse_routes", column: "route_id"
   add_foreign_key "revocation_of_authorizations", "authorization_requests"
   add_foreign_key "revocation_of_authorizations", "authorizations"
+  add_foreign_key "wallet_registry_rulebook_claim_paths", "wallet_registry_rulebook_claims", column: "rulebook_claim_id", on_delete: :cascade
+  add_foreign_key "wallet_registry_rulebook_claim_paths", "wallet_registry_rulebook_formats", column: "rulebook_format_id", on_delete: :cascade
+  add_foreign_key "wallet_registry_rulebook_claims", "wallet_registry_rulebooks", column: "rulebook_id", on_delete: :cascade
+  add_foreign_key "wallet_registry_rulebook_formats", "wallet_registry_rulebooks", column: "rulebook_id", on_delete: :cascade
   add_foreign_key "webhook_attempts", "authorization_requests"
   add_foreign_key "webhook_attempts", "webhooks"
 end

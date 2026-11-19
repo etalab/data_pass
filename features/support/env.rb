@@ -36,9 +36,10 @@ Cucumber::Rails::Database.autorun_database_cleaner = false
 World(FactoryBot::Syntax::Methods)
 
 Seeds.new.flushdb
+WalletRegistry::RulebookSources::ManualReading.import!
 
 Before('@javascript') do
-  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.strategy = :truncation, { except: WalletRegistry::REFERENCE_TABLES }
 end
 
 Before('not @javascript') do

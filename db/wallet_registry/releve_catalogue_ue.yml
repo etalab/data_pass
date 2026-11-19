@@ -1,0 +1,335 @@
+# Relevé manuel du catalogue des rulebooks de la Commission (DPP-205), provisoire.
+# Chargé en base par : bin/rails wallet_registry:load_manual_reading
+# Mode opératoire : docs/technique/registre_wallet_referentiel_attestations.md
+source: eu_catalog
+provisional: true
+source_details:
+  method: manual
+  catalog_api: "Aucune adresse publique pour l’API du catalogue (TS11 §5.3) au 17/11/2026 : reprise manuelle des rulebooks."
+  repository: "https://github.com/eu-digital-identity-wallet/eudi-doc-attestation-rulebooks-catalog"
+  commit: "36f8adcf91"
+  last_change: "2026-07-20"
+  read_on: "2026-11-17"
+
+rulebooks:
+  pid:
+    name: "Données d’identification personnelle (PID)"
+    category: "PID"
+    version: "1.7"
+    version_label: "Rulebook v1.7 du 17/07/2026"
+    documentation_url: "https://github.com/eu-digital-identity-wallet/eudi-doc-attestation-rulebooks-catalog/blob/main/rulebooks/pid/pid-rulebook.md"
+    schema_uri: ~
+    keywords: "identité nom prénom naissance adresse nationalité photo email téléphone"
+    formats:
+      dc+sd-jwt:
+        vct_values: ["urn:eudi:pid:1"]
+      mso_mdoc:
+        doctype_value: "eu.europa.ec.eudi.pid.1"
+    groups:
+      - name: "Identité"
+        claims:
+          - id: family_name
+            label: "Nom"
+            description: "Nom de famille actuel de l’usager."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [family_name]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, family_name]
+          - id: given_name
+            label: "Prénoms"
+            description: "Prénoms actuels de l’usager."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [given_name]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, given_name]
+          - id: nationality
+            label: "Nationalité(s)"
+            description: "Une ou plusieurs nationalités, en codes pays à deux lettres."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [nationalities]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, nationality]
+          - id: portrait
+            label: "Photo du visage"
+            description: "Photo d’identité de face, sauf si l’usager a refusé de la fournir."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [picture]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, portrait]
+          - id: sex
+            label: "Sexe"
+            description: "Sexe de l’usager, sous forme de code numérique."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [sex]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, sex]
+          - id: family_name_birth
+            label: "Nom de naissance"
+            description: "Nom de famille de l’usager à sa naissance."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [birth_family_name]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, family_name_birth]
+          - id: given_name_birth
+            label: "Prénoms de naissance"
+            description: "Prénoms de l’usager à sa naissance."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [birth_given_name]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, given_name_birth]
+          - id: personal_administrative_number
+            label: "Numéro administratif personnel"
+            description: "Numéro unique attribué à l’usager par le fournisseur de l’attestation."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [personal_administrative_number]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, personal_administrative_number]
+      - name: "Naissance"
+        claims:
+          - id: birth_date
+            label: "Date de naissance"
+            description: "Jour, mois et année de naissance de l’usager."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [birthdate]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, birth_date]
+          - id: birth_place
+            label: "Lieu de naissance"
+            description: "Pays, région ou commune de naissance de l’usager."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [place_of_birth]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, place_of_birth]
+      - name: "Adresse"
+        claims:
+          - id: resident_address
+            label: "Adresse complète"
+            description: "Adresse complète où l’usager réside ou peut être joint."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, formatted]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, resident_address]
+          - id: resident_street
+            label: "Rue et numéro"
+            description: "Nom de la rue, avec le numéro."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, street_address]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, resident_street]
+          - id: resident_house_number
+            label: "Numéro dans la rue"
+            description: "Numéro dans la rue, seul."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, house_number]
+          - id: resident_postal_code
+            label: "Code postal"
+            description: "Code postal du lieu de résidence."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, postal_code]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, resident_postal_code]
+          - id: resident_city
+            label: "Commune"
+            description: "Commune de résidence."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, locality]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, resident_city]
+          - id: resident_state
+            label: "Région"
+            description: "Région, département ou province de résidence."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, region]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, resident_state]
+          - id: resident_country
+            label: "Pays de résidence"
+            description: "Pays de résidence, en code pays à deux lettres."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [address, country]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, resident_country]
+      - name: "Contact"
+        claims:
+          - id: email_address
+            label: "Adresse électronique"
+            description: "Adresse électronique de l’usager."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [email]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, email_address]
+          - id: mobile_phone_number
+            label: "Téléphone mobile"
+            description: "Numéro de téléphone mobile, au format international."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [phone_number]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, mobile_phone_number]
+      - name: "Document"
+        claims:
+          - id: issuing_authority
+            label: "Autorité de délivrance"
+            description: "Administration qui a délivré l’attestation."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [issuing_authority]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, issuing_authority]
+          - id: issuing_country
+            label: "Pays de délivrance"
+            description: "Pays qui a délivré l’attestation."
+            presence: mandatory
+            paths:
+              dc+sd-jwt: [issuing_country]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, issuing_country]
+          - id: issuance_date
+            label: "Date de délivrance"
+            description: "Début de la validité administrative de l’attestation."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [date_of_issuance]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, issuance_date]
+          - id: expiry_date
+            label: "Date de fin de validité"
+            description: "Fin de la validité administrative de l’attestation."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [date_of_expiry]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, expiry_date]
+          - id: document_number
+            label: "Numéro du document"
+            description: "Numéro attribué à l’attestation par son fournisseur."
+            presence: optional_by_country
+            paths:
+              dc+sd-jwt: [document_number]
+              mso_mdoc: [eu.europa.ec.eudi.pid.1, document_number]
+
+  mdl:
+    name: "Permis de conduire mobile"
+    category: ~
+    version: "ARF-3.02"
+    version_label: "Rulebook ARF 3.02, document de travail"
+    documentation_url: "https://github.com/eu-digital-identity-wallet/eudi-doc-attestation-rulebooks-catalog/blob/main/rulebooks/mdl/mdl-rulebook.md"
+    schema_uri: ~
+    provisional_note: "Le rulebook renvoie à l’ISO/IEC 18013-5 sans lister les données : liste reprise du prototype V1, à confirmer."
+    keywords: "permis conduire âge majeur majorité plus de 18 ans catégories adresse photo"
+    formats:
+      mso_mdoc:
+        doctype_value: "org.iso.18013.5.1.mDL"
+    groups:
+      - name: "Titulaire"
+        claims:
+          - id: family_name
+            label: "Nom"
+            description: "Nom de famille du titulaire du permis."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, family_name]
+          - id: given_name
+            label: "Prénoms"
+            description: "Prénoms du titulaire du permis."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, given_name]
+          - id: birth_date
+            label: "Date de naissance"
+            description: "Date de naissance du titulaire."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, birth_date]
+          - id: portrait
+            label: "Photo du visage"
+            description: "Photo du titulaire figurant sur le permis."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, portrait]
+          - id: birth_place
+            label: "Lieu de naissance"
+            description: "Lieu de naissance du titulaire."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, birth_place]
+          - id: nationality
+            label: "Nationalité"
+            description: "Nationalité du titulaire."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, nationality]
+          - id: sex
+            label: "Sexe"
+            description: "Sexe du titulaire."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, sex]
+      - name: "Âge"
+        claims:
+          - id: age_over_18
+            label: "Plus de 18 ans"
+            description: "Indique seulement si le titulaire a plus de 18 ans, sans sa date de naissance."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, age_over_18]
+          - id: age_in_years
+            label: "Âge en années"
+            description: "Âge du titulaire, en années."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, age_in_years]
+          - id: age_birth_year
+            label: "Année de naissance"
+            description: "Année de naissance du titulaire, seule."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, age_birth_year]
+      - name: "Permis"
+        claims:
+          - id: driving_privileges
+            label: "Catégories de permis"
+            description: "Catégories de véhicules que le titulaire peut conduire."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, driving_privileges]
+          - id: document_number
+            label: "Numéro du permis"
+            description: "Numéro du permis de conduire."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, document_number]
+          - id: issue_date
+            label: "Date de délivrance"
+            description: "Date de délivrance du permis."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, issue_date]
+          - id: expiry_date
+            label: "Date de fin de validité"
+            description: "Date de fin de validité du permis."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, expiry_date]
+          - id: issuing_country
+            label: "Pays de délivrance"
+            description: "Pays qui a délivré le permis."
+            presence: mandatory
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, issuing_country]
+      - name: "Adresse"
+        claims:
+          - id: resident_address
+            label: "Adresse"
+            description: "Adresse du titulaire."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, resident_address]
+          - id: resident_city
+            label: "Commune"
+            description: "Commune de résidence du titulaire."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, resident_city]
+          - id: resident_postal_code
+            label: "Code postal"
+            description: "Code postal du titulaire."
+            presence: optional_by_issuer
+            paths:
+              mso_mdoc: [org.iso.18013.5.1, resident_postal_code]

@@ -14,6 +14,7 @@ class Seeds
   def perform
     create_data_providers
     create_organizations_and_accounts
+    WalletRegistry::RulebookSources::ManualReading.import!
 
     STEPS.each { |step| step.new(context).perform }
   end
@@ -76,7 +77,7 @@ class Seeds
 
   def truncate_all_tables_statement
     connection = ActiveRecord::Base.connection
-    tables = (connection.tables - %w[schema_migrations ar_internal_metadata]).map { |table| connection.quote_table_name(table) }
+    tables = (connection.tables - %w[schema_migrations ar_internal_metadata] - WalletRegistry::REFERENCE_TABLES).map { |table| connection.quote_table_name(table) }
 
     "TRUNCATE TABLE #{tables.join(', ')} RESTART IDENTITY CASCADE;"
   end
