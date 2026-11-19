@@ -45,6 +45,11 @@ Quand('je me rends sur la page de vérification de dirigeant') do
   visit dirigeant_verification_path
 end
 
+Quand('une heure s’est écoulée depuis la certification') do
+  travel(DirigeantVerificationFact::VALIDITY + 1.minute)
+end
+
 After do
   OmniAuth.config.mock_auth[:proconnect_dirigeant] = nil
+  travel_back
 end

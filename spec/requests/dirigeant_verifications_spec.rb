@@ -39,6 +39,21 @@ RSpec.describe 'Dirigeant verification' do
       expect(response.body).to include('ProConnect certifie que vous êtes dirigeant de cette entreprise.')
     end
 
+    it 'remembers the certification in the session for the current user and organization' do
+      get '/auth/proconnect_dirigeant/callback'
+
+      fact = DirigeantVerificationFact.from_session(session[:dirigeant_verification])
+      expect(fact.valid_for?(user:, organization: user.current_organization)).to be true
+    end
+
+    it 'forgets a previous certification when ProConnect does not certify' do
+      get '/auth/proconnect_dirigeant/callback'
+      dirigeant_payload.extra.acr = 'eidas1-mfa'
+      get '/auth/proconnect_dirigeant/callback'
+
+      expect(session[:dirigeant_verification]).to be_nil
+    end
+
     it 'sends the user back to the page given as return_to' do
       post '/auth/proconnect_dirigeant', params: { return_to: '/demandes/registre/nouveau' }
       follow_redirect!
