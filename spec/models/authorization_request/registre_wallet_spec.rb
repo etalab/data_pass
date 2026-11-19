@@ -627,4 +627,23 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       expect(authorization_request.contact_types_for(applicant)).to include('wallet_data_protection_officer')
     end
   end
+
+  describe 'validation of the step « Les contacts » with the previous steps incomplete' do
+    subject(:authorization_request) { build(:authorization_request, :registre_wallet, organization:) }
+
+    let(:contact_attribute) { /\Awallet_(application_manager|technical_contact|data_protection_officer)_/ }
+
+    it 'lists only the errors of the contacts (RG8)' do
+      authorization_request.current_build_step = 'wallet_contacts'
+      authorization_request.validate
+
+      expect(authorization_request.errors.attribute_names.map(&:to_s)).to be_present.and all(match(contact_attribute))
+    end
+
+    it 'still lists the errors of every step at submission' do
+      authorization_request.validate(:submit)
+
+      expect(authorization_request.errors.attribute_names.map(&:to_s)).to include(match(contact_attribute), 'wallet_service_name')
+    end
+  end
 end

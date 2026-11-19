@@ -34,6 +34,16 @@ Fonctionnalité: Registre wallet, étape « Les contacts »
     Et la page contient "Indiquez le nom du responsable de l’application."
     Et la page contient "Indiquez le téléphone du délégué à la protection des données."
 
+  Scénario: Le bandeau de l’étape ne liste que ses erreurs, même si les étapes précédentes sont incomplètes (RG8)
+    Sachant que les étapes 1 à 3 de mon brouillon du registre wallet ont été vidées
+    Quand je recharge la page
+    Et je clique sur "Suivant"
+    Alors la page contient "12 points à corriger avant de continuer"
+    Et la page contient "Indiquez le nom du responsable de l’application."
+    Et la page ne contient pas "Indiquez l’adresse de votre politique de confidentialité"
+    Et la page ne contient pas "Indiquez le nom du service."
+    Et la page ne contient pas "Ajoutez au moins une utilisation prévue."
+
   Plan du scénario: Un format refusé garde le demandeur sur l’étape (CA3)
     Quand je remplis les trois contacts du registre wallet
     Et je remplis le champ "<champ>" du contact "Contact technique" avec "<valeur>"
