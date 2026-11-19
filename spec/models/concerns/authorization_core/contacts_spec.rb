@@ -27,4 +27,13 @@ RSpec.describe AuthorizationCore::Contacts do
   it 'still requires the email when email_format is false' do
     expect(email_errors_for(request_class_with_contact(email_format: false), '')).to include(:blank)
   end
+
+  it 'lists the errors of a contact in the order of the form fields' do
+    request = request_class_with_contact.new
+    request.validate
+
+    contact_errors = request.errors.attribute_names.grep(/\Acontact_spec_/).map { |attribute| attribute.to_s.delete_prefix('contact_spec_') }
+
+    expect(contact_errors).to eq(%w[family_name given_name email phone_number job_title])
+  end
 end
