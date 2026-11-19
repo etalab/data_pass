@@ -31,6 +31,13 @@ Fonctionnalité: Page publique Portefeuille européen
     Et la page ne contient pas de lien "Consulter le registre public"
     Et la page ne contient pas de lien "Lire la politique d’enregistrement"
 
+  Scénario: Le schéma présente quatre acteurs, et le registre porte les certificats
+    Quand je me rends sur le chemin "/portefeuille-europeen"
+    Alors la section des acteurs contient "Quatre acteurs interviennent"
+    Et la section des acteurs contient "Votre organisation y récupère ensuite les certificats"
+    Et la section des acteurs ne contient pas "transmet l’enregistrement"
+    Et la page contient "vous le récupérez dans DataPass après votre enregistrement"
+
   Scénario: Les trois liens de l’accueil mènent à la page Portefeuille européen
     Quand je me rends sur la page d'accueil
     Alors l'en-tête contient un lien "Portefeuille européen" vers "/portefeuille-europeen"

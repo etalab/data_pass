@@ -14,7 +14,7 @@ fr:
         register: "Enregistrer mon organisation"
       actors:
         title: "Les acteurs du portefeuille européen"
-        intro: "Cinq acteurs interviennent quand votre service demande des données à un usager. Les données partagées vont directement du portefeuille à votre service, sans passer par DataPass."
+        intro: "Quatre acteurs interviennent quand votre service demande des données à un usager. Les données partagées vont directement du portefeuille à votre service, sans passer par DataPass."
         providers:
           title: "Fournisseurs d’attestations"
           text: "Ils délivrent l’identité, le permis de conduire ou un diplôme dans le portefeuille."
@@ -26,19 +26,14 @@ fr:
           text: "Partie utilisatrice. Elle demande les données utiles à son service, dans la limite de ce qu’elle a déclaré."
         registry:
           title: "Registre des parties utilisatrices"
-          text: "Tenu par la DINUM dans DataPass, il vérifie votre organisation et publie ce qu’elle demandera et pourquoi."
+          text: "Tenu par la DINUM dans DataPass, il vérifie votre organisation et publie ce qu’elle demandera et pourquoi. Votre organisation y récupère ensuite les certificats qui permettent au portefeuille de la reconnaître."
           mobile_text: "Le portefeuille vérifie que votre organisation y est enregistrée."
-        ants:
-          title: "France Titres (ANTS)"
-          text: "Elle délivre à votre organisation son certificat d’accès et un certificat d’enregistrement par usage."
         labels:
           issue: "délivrent les attestations"
           request: "demande des données"
           register: "s’enregistre"
           verify: "vérifie l’enregistrement"
-          transmit: "transmet l’enregistrement"
-          certificates: "délivre les certificats"
-        caption: "Les fournisseurs d’attestations délivrent les attestations dans le portefeuille de l’usager. Votre organisation s’enregistre au registre des parties utilisatrices, qui transmet l’enregistrement à France Titres (ANTS). France Titres délivre à votre organisation ses certificats. Votre organisation demande ensuite des données au portefeuille, qui vérifie l’enregistrement, et l’usager choisit ce qu’il partage."
+        caption: "Les fournisseurs d’attestations délivrent les attestations dans le portefeuille de l’usager. Votre organisation s’enregistre au registre des parties utilisatrices, où elle récupère ses certificats. Elle demande ensuite des données au portefeuille, qui vérifie l’enregistrement, et l’usager choisit ce qu’il partage."
       tabs:
         title: "Ce qui vous concerne"
         intro: "Choisissez votre situation."
@@ -208,7 +203,7 @@ fr:
           - question: "Le registre peut-il refuser les données que je demande ?"
             answer: "Le registre vérifie votre organisation et votre pouvoir de la représenter. Il publie les données que vous demandez et vos finalités, sans les soumettre à autorisation. Il peut suspendre votre enregistrement si vous demandez à un usager plus de données que vous n’en avez déclaré."
           - question: "Quelle différence entre certificat d’accès et certificat d’enregistrement ?"
-            answer: "Le certificat d’accès identifie votre organisation auprès du portefeuille européen ; l’ANTS le délivre. Le certificat d’enregistrement décrit un usage, les données demandées et leur finalité : le portefeuille s’en sert pour vérifier que votre demande reste dans ce que vous avez déclaré. Vous recevez un certificat d’enregistrement par usage."
+            answer: "Le certificat d’accès identifie votre organisation auprès du portefeuille européen ; vous le récupérez dans DataPass après votre enregistrement. Le certificat d’enregistrement décrit un usage, les données demandées et leur finalité : le portefeuille s’en sert pour vérifier que votre demande reste dans ce que vous avez déclaré. Vous recevez un certificat d’enregistrement par usage."
           - question: "Comment tester avant l’ouverture ?"
             answer: 'La Commission européenne propose un service de test qui délivre des certificats de test : <a href="https://registry.serviceproviders.eudiw.dev/" target="_blank" rel="noopener" title="registry.serviceproviders.eudiw.dev - nouvelle fenêtre">registry.serviceproviders.eudiw.dev<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.'
           - question: "Que se passe-t-il si mes informations changent, ou si mon enregistrement est suspendu ?"
