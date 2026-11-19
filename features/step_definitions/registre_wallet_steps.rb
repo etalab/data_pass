@@ -374,6 +374,15 @@ Alors('le bouton « C’est moi » est proposé dans le(s) contact(s) {string}')
   expect(offered).to eq(titles.split(', '))
 end
 
+Sachantque('les étapes 1 à 3 de mon brouillon du registre wallet ont été vidées') do
+  request = AuthorizationRequest::RegistreWallet.last
+  kept_data = request.data.select { |key, _value| key.start_with?(*AuthorizationExtensions::WalletContacts::CONTACT_TYPES.map(&:to_s), 'identity_') }
+
+  request.wallet_intended_uses.destroy_all
+  request.data = kept_data
+  request.save!(validate: false)
+end
+
 Alors('le brouillon du registre wallet a pour contact technique {string}') do |full_name|
   request = AuthorizationRequest::RegistreWallet.last.reload
 
