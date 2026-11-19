@@ -11,7 +11,6 @@ registre_wallet:
   applicant_eligibility: wallet_registry
   features:
     autosave: true
-    submission: false
     return_to_introduction_after_archive: true
     reopening: false
     instructor_drafts: false

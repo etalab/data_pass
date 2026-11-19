@@ -302,16 +302,6 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
-  describe '#feature? for submission' do
-    it 'enables submission by default' do
-      expect(described_class.find('api_entreprise').feature?(:submission)).to be true
-    end
-
-    it 'disables submission for the wallet registry' do
-      expect(described_class.find('registre_wallet').feature?(:submission)).to be false
-    end
-  end
-
   describe '#feature? for autosave' do
     it 'disables autosave by default' do
       expect(described_class.find('api_entreprise').feature?(:autosave)).to be false

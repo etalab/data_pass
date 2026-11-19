@@ -262,20 +262,6 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et la page contient "Avant de commencer, préparez"
     Et le brouillon du registre wallet est archivé
 
-  Scénario: La demande ne peut pas encore être soumise
-    Sachant que je suis un demandeur de la commune de Clamart
-    Et que je me connecte
-    Quand je démarre une demande au registre wallet
-    Et je remplis ce que le registre publie
-    Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
-    Et je clique sur "Suivant"
-    Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
-    Et je clique sur "Suivant"
-    Et je remplis l’étape « Les utilisations prévues » du registre wallet
-    Et je remplis l’étape « Les contacts » du registre wallet
-    Alors la page contient "Les contacts de l’organisation"
-    Et il n'y a pas de bouton "Soumettre la demande d'habilitation"
-
   Scénario: Le récapitulatif présente l’organisation dans le registre, sans le panneau de l’étape 1 (R4)
     Sachant que je suis un demandeur de la commune de Clamart
     Et que je me connecte

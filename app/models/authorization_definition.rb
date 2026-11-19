@@ -6,7 +6,6 @@ class AuthorizationDefinition < StaticApplicationRecord
     transfer: true,
     instructor_drafts: false,
     autosave: false,
-    submission: true,
     return_to_introduction_after_archive: false,
   }.freeze
 

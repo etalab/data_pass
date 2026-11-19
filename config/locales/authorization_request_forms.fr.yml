@@ -1392,6 +1392,10 @@ fr:
         hint: Un document qui montre le nom officiel et l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
         label_non_diffusible: Justificatif de l’adresse d’établissement
         hint_non_diffusible: Un document qui montre l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
+      wallet_registration_policy_accepted:
+        label: J’ai pris connaissance de la politique d’enregistrement et des conditions d’utilisation du registre, et je les valide.
+      wallet_information_certified:
+        label: Je certifie que ces informations sont exactes et je m’engage à les tenir à jour.
       wallet_not_registered_elsewhere:
         label: Je déclare que %{organization_name} n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
         label_unknown_name: Je déclare que votre organisation n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
