@@ -632,7 +632,7 @@ fr:
       summary_block:
         message: Ces informations ne sont pas modifiables
       accepted_tos_checkboxes:
-        title: Conditions d’utilisations acceptées
+        title: Conditions d’utilisation acceptées
 
     form:
       back: Retour à la synthèse
