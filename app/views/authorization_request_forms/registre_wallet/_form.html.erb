@@ -5,25 +5,29 @@
     authorization_request_name: @authorization_request.name) %>
 <% end %>
 
-<div class="wx-head">
-  <div class="fr-container">
-    <div class="wx-head__row">
-      <%= render partial: 'authorization_request_forms/registre_wallet/header_pictogram' %>
-      <div class="wx-head__id">
-        <h1 class="fr-h3 fr-mb-1w"><%= @authorization_request.form.name %></h1>
-        <div class="wx-head__meta">
-          <div role="status">
-            <%= render partial: 'authorization_request_forms/registre_wallet/saved_at', locals: { authorization_request: @authorization_request } %>
+<% unless show_authorization_request_tabs?(@authorization_request) %>
+  <div class="wx-head">
+    <div class="fr-container">
+      <div class="wx-head__row">
+        <%= render partial: 'authorization_request_forms/registre_wallet/header_pictogram' %>
+        <div class="wx-head__id">
+          <h1 class="fr-h3 fr-mb-1w"><%= @authorization_request.form.name %></h1>
+          <div class="wx-head__meta">
+            <div role="status">
+              <% unless wallet_registry_summary? %>
+                <%= render partial: 'authorization_request_forms/registre_wallet/saved_at', locals: { authorization_request: @authorization_request } %>
+              <% end %>
+            </div>
+            <%= render partial: 'authorization_request_forms/registre_wallet/header_badges', locals: { authorization_request: @authorization_request } %>
           </div>
-          <%= render partial: 'authorization_request_forms/registre_wallet/header_badges', locals: { authorization_request: @authorization_request } %>
         </div>
-      </div>
-      <div class="wx-head__actions authorization-request-form-header__actions">
-        <%= render partial: 'authorization_request_forms/registre_wallet/header_actions', locals: { f: } %>
+        <div class="wx-head__actions authorization-request-form-header__actions">
+          <%= render partial: 'authorization_request_forms/registre_wallet/header_actions', locals: { f: } %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <%= tag.div class: 'wx-body', data: wallet_registry_body_data(@authorization_request) do %>
   <div class="fr-container fr-container--with-tiny-alert">

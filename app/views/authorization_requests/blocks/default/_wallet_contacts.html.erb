@@ -3,6 +3,23 @@
 
   <div class="fr-container-fluid">
     <div class="fr-grid-row fr-grid-row--gutters">
+      <div class="fr-col-12 fr-col-lg-6">
+        <div id="<%= dom_id(authorization_request, :wallet_applicant) %>" class="fr-basic-card contact-card">
+          <div class="contact-card__kind"><%= f.wording_for('summary.applicant.title') %></div>
+          <div class="contact-card__full_name"><%= wallet_registry_person_name(authorization_request.applicant) %></div>
+
+          <div class="contact-card__attribute">
+            <div class="contact-card__attribute-label"><%= f.wording_for('summary.applicant.link') %></div>
+            <div class="contact-card__attribute-value"><%= wallet_registry_applicant_link(authorization_request) %></div>
+          </div>
+
+          <div class="contact-card__attribute">
+            <div class="contact-card__attribute-label"><%= f.wording_for('summary.contacts.email') %></div>
+            <div class="contact-card__attribute-value"><%= authorization_request.applicant.email %></div>
+          </div>
+        </div>
+      </div>
+
       <% authorization_request.contact_types.each do |contact_type| %>
         <div class="fr-col-12 fr-col-lg-6">
           <div id="<%= dom_id(authorization_request, contact_type) %>" class="fr-basic-card contact-card">
@@ -11,14 +28,18 @@
             <% full_name = authorization_request.contact_full_name(contact_type) %>
             <div class="contact-card__full_name"><%= full_name.presence || t('authorization_requests.shared.not_filled') %></div>
 
-            <% %w[email phone_number].each do |contact_attribute| %>
-              <div class="contact-card__attribute">
-                <div class="contact-card__attribute-label"><%= f.label_value("#{contact_type}_#{contact_attribute}") %></div>
-                <div class="contact-card__attribute-value">
-                  <%= authorization_request.public_send("#{contact_type}_#{contact_attribute}").presence || t('authorization_requests.shared.not_filled') %>
-                </div>
+            <div class="contact-card__attribute">
+              <div class="contact-card__attribute-label"><%= f.wording_for('summary.contacts.email') %></div>
+              <div class="contact-card__attribute-value"><%= authorization_request.public_send("#{contact_type}_email").presence || t('authorization_requests.shared.not_filled') %></div>
+            </div>
+
+            <div class="contact-card__attribute">
+              <div class="contact-card__attribute-label"><%= f.wording_for('summary.contacts.phone_number') %></div>
+              <div class="contact-card__attribute-value">
+                <% phone_number = authorization_request.public_send("#{contact_type}_phone_number") %>
+                <%= phone_number.present? ? wallet_registry_phone(phone_number) : t('authorization_requests.shared.not_filled') %>
               </div>
-            <% end %>
+            </div>
           </div>
         </div>
       <% end %>

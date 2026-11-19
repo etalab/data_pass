@@ -89,6 +89,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     flash.keep if turbo_request?
 
     @summary_before_submit = @authorization_request.filling?
+
+    render summary_template
   rescue Pundit::NotAuthorizedError
     redirect_on_unauthorized_summary
   end
@@ -301,9 +303,19 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
     if organizer.success?
       clean_wizard_step!
-      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit')
+      success_message_for_authorization_request(@authorization_request, key: submit_message_key)
 
       redirect_to dashboard_path
+    else
+      render_submit_failure
+    end
+  end
+
+  def render_submit_failure
+    if definition_summary_template?
+      @summary_before_submit = true
+
+      render summary_template, formats: :html, status: :unprocessable_content
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit', include_model_errors: true)
 
@@ -312,6 +324,24 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
         format.html { render 'summary', status: :unprocessable_content }
       end
     end
+  end
+
+  def submit_message_key
+    definition_key = "authorization_request_forms.#{@authorization_request.definition.id}.submit"
+
+    I18n.exists?(definition_key) ? definition_key : 'authorization_request_forms.submit'
+  end
+
+  def summary_template
+    definition_summary_template? ? definition_summary_template : 'summary'
+  end
+
+  def definition_summary_template?
+    lookup_context.exists?(definition_summary_template)
+  end
+
+  def definition_summary_template
+    "authorization_request_forms/#{@authorization_request.definition.id}/summary"
   end
 
   def final_submit?

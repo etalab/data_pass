@@ -79,7 +79,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
     Et je remplis l’étape « Les contacts » du registre wallet
-    Alors la page contient "Vérifiez le récapitulatif de votre demande"
+    Alors la page contient "Vérifiez votre demande avant de la soumettre"
     Et la page contient "Nom officiel"
     Et la page contient "COMMUNE DE CLAMART"
 
@@ -294,7 +294,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
     Et je remplis l’étape « Les contacts » du registre wallet
-    Alors la page contient "vous pourrez soumettre votre demande au registre, qui vérifiera votre organisation"
+    Alors la page contient "Le registre vérifie ensuite votre organisation sous 5 jours ouvrés."
     Et la page ne contient pas "équipe d’instruction"
 
   @javascript

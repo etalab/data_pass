@@ -1333,6 +1333,36 @@ fr:
       required_fields: Les champs marqués d’un astérisque * sont obligatoires.
       summary:
         description: Après avoir vérifié ces informations, vous pourrez soumettre votre demande au registre, qui vérifiera votre organisation avant de l’enregistrer.
+        title: Vérifiez votre demande avant de la soumettre
+        subtitle: Le registre vérifie ensuite votre organisation sous 5 jours ouvrés.
+        submit: Soumettre la demande d’enregistrement
+        submitting: Envoi en cours…
+        consents_missing: Cochez les deux cases pour soumettre votre demande.
+        applicant:
+          title: Demandeur
+          link: Lien avec l’organisation
+          capacity:
+            public_agent: Agent de %{organization}, connecté par ProConnect avec le compte de son administration
+            executive: Dirigeant de %{organization}, certifié par ProConnect
+          organization_kinds:
+            default: l’organisation
+            "7210": la commune
+        contacts:
+          email: Email
+          phone_number: Téléphone
+        incomplete_steps:
+          title: Des étapes sont incomplètes
+          description: "Corrigez-les avant de soumettre la demande :"
+          link: "Corriger l’étape %{position} : %{name}"
+          steps:
+            wallet_organization: l’organisation
+            wallet_service: le service
+            wallet_intended_uses: les utilisations prévues
+            wallet_contacts: les contacts
+      submit:
+        success:
+          title: La demande d’enregistrement de %{name} a été soumise avec succès
+          description: Le registre la vérifie sous 5 jours ouvrés. Une fois votre organisation inscrite, sa fiche est publiée au registre public avec la mention « certificats en cours d’émission », jusqu’à ce que l’ANTS délivre vos certificats. Vous retrouverez votre demande dans ce tableau de bord.
       wallet_organization:
         summary_title: L’organisation dans le registre
         title: Quelle organisation enregistrez-vous ?

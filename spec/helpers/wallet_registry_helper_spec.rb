@@ -39,4 +39,12 @@ RSpec.describe WalletRegistryHelper do
       end
     end
   end
+
+  describe '#wallet_registry_person_name' do
+    it 'writes the given name first, in normal case, accents kept' do
+      user = build(:user, given_name: 'YASMINE marie-ÉLODIE', family_name: 'DEMANDEUSE COMMUNE')
+
+      expect(helper.wallet_registry_person_name(user)).to eq('Yasmine Marie-Élodie Demandeuse Commune')
+    end
+  end
 end
