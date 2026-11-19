@@ -19,6 +19,10 @@ module AuthorizationRequestPermittedKeys
     scalar_attributes + array_attributes.map { |name| { name => [] } }
   end
 
+  def permitted_nested_attributes
+    authorization_request_class.extra_nested_attributes.map { |name, keys| { name => keys } }
+  end
+
   def permitted_documents
     authorization_request_class.documents.map(&:permitted_attribute)
   end
@@ -50,6 +54,7 @@ module AuthorizationRequestPermittedKeys
   def extract_permitted_attributes
     %i[
       extra_attributes
+      nested_attributes
       documents
       scopes
       build_step
