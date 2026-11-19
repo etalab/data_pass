@@ -94,4 +94,24 @@ RSpec.describe AuthorizationRequestDecorator, type: :decorator do
       end
     end
   end
+
+  describe '#status_badge' do
+    subject(:badge) { authorization_request.decorate.status_badge }
+
+    context 'with a submitted wallet registry request' do
+      let(:authorization_request) { build(:authorization_request, :registre_wallet, :submitted) }
+
+      it 'speaks of verification' do
+        expect(badge).to include('En cours de vérification')
+      end
+    end
+
+    context 'with a submitted authorization request' do
+      let(:authorization_request) { build(:authorization_request, :api_entreprise, :submitted) }
+
+      it 'keeps the shared wording' do
+        expect(badge).to include('En cours d&#39;instruction')
+      end
+    end
+  end
 end

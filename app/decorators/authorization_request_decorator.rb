@@ -251,12 +251,15 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
   end
 
   def status_badge_translation(scope)
-    case scope
-    when :instruction, 'instruction'
-      "instruction.authorization_requests.index.status.#{state}"
-    else
-      "authorization_request.status.#{state}"
-    end
+    shared_key = case scope
+                 when :instruction, 'instruction'
+                   "instruction.authorization_requests.index.status.#{state}"
+                 else
+                   "authorization_request.status.#{state}"
+                 end
+
+    definition_status_key = "authorization_request.status_by_definition.#{definition.id}.#{state}"
+    I18n.exists?(definition_status_key) ? definition_status_key : shared_key
   end
 
   def card_provider_applicant_details(user)
