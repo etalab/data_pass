@@ -301,4 +301,36 @@ RSpec.describe AuthorizationDefinition do
       end
     end
   end
+
+  describe '#feature? for submission' do
+    it 'enables submission by default' do
+      expect(described_class.find('api_entreprise').feature?(:submission)).to be true
+    end
+
+    it 'disables submission for the wallet registry' do
+      expect(described_class.find('registre_wallet').feature?(:submission)).to be false
+    end
+  end
+
+  describe '#startable_by_applicant with a feature flag' do
+    subject { described_class.find('registre_wallet').startable_by_applicant }
+
+    context 'when the environment is production' do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production')) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the environment is sandbox' do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('sandbox')) }
+
+      it { is_expected.to be true }
+    end
+  end
+
+  describe 'wallet registry visibility' do
+    it 'is absent from the public catalogue' do
+      expect(described_class.find('registre_wallet').public).to be false
+    end
+  end
 end

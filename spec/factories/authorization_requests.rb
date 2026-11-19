@@ -1713,5 +1713,11 @@ FactoryBot.define do
         end
       end
     end
+
+    trait :registre_wallet do
+      type { 'AuthorizationRequest::RegistreWallet' }
+
+      form_uid { 'registre-wallet' }
+    end
   end
 end
