@@ -41,6 +41,29 @@ RSpec.describe Setting do
       end
     end
 
+    it 'keeps the European wallet registry closed by default' do
+      expect(described_class.fetch(:european_wallet_registry_open)).to be(false)
+    end
+
+    it 'still reads the former environment variable to open the European wallet registry' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return('true')
+
+      expect(described_class.fetch(:european_wallet_registry_open)).to be(true)
+    end
+
+    it 'opens the European wallet registry on the exact string true only' do
+      described_class.set(:european_wallet_registry_open, 'true')
+
+      expect(described_class.fetch(:european_wallet_registry_open)).to be(true)
+
+      %w[1 yes TRUE].each do |value|
+        described_class.set(:european_wallet_registry_open, value)
+
+        expect(described_class.fetch(:european_wallet_registry_open)).to be(false)
+      end
+    end
+
     it 'falls back to the declared default when nothing overrides it' do
       expect(described_class.fetch(:insee_refresh_batch_size)).to eq(200)
     end

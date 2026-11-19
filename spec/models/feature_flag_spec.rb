@@ -50,6 +50,27 @@ RSpec.describe FeatureFlag do
       end
     end
 
+    context 'when the flag is registre_wallet' do
+      it 'is disabled in production' do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+
+        expect(described_class.enabled?(:registre_wallet)).to be false
+      end
+
+      it 'is enabled on sandbox' do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('sandbox'))
+
+        expect(described_class.enabled?(:registre_wallet)).to be true
+      end
+
+      it 'opens in production with the setting of the public wallet pages' do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+        Setting.set(:european_wallet_registry_open, 'true')
+
+        expect(described_class.enabled?(:registre_wallet)).to be true
+      end
+    end
+
     context 'when the flag is given as a string' do
       it 'resolves it as a symbol' do
         allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
@@ -95,32 +116,22 @@ RSpec.describe FeatureFlag do
     end
 
     context 'when the flag is european_wallet_registry_open' do
-      before do
-        allow(ENV).to receive(:[]).and_call_original
+      before { Setting.invalidate_cache! }
+
+      it 'follows the european_wallet_registry_open setting' do
+        Setting.set(:european_wallet_registry_open, 'true')
+
+        expect(described_class.enabled?(:european_wallet_registry_open)).to be true
       end
 
-      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is true' do
-        it 'returns true' do
-          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return('true')
-
-          expect(described_class.enabled?(:european_wallet_registry_open)).to be true
-        end
+      it 'stays closed without the setting' do
+        expect(described_class.enabled?(:european_wallet_registry_open)).to be false
       end
 
-      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is missing' do
-        it 'returns false' do
-          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return(nil)
+      it 'stays closed when the setting is false' do
+        Setting.set(:european_wallet_registry_open, 'false')
 
-          expect(described_class.enabled?(:european_wallet_registry_open)).to be false
-        end
-      end
-
-      context 'when EUROPEAN_WALLET_REGISTRY_OPEN is false' do
-        it 'returns false' do
-          allow(ENV).to receive(:[]).with('EUROPEAN_WALLET_REGISTRY_OPEN').and_return('false')
-
-          expect(described_class.enabled?(:european_wallet_registry_open)).to be false
-        end
+        expect(described_class.enabled?(:european_wallet_registry_open)).to be false
       end
     end
   end
