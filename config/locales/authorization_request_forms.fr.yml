@@ -1383,6 +1383,10 @@ fr:
       wallet_support_phone:
         label: Téléphone
         hint: "Format attendu : 04 72 00 00 00"
+      wallet_registration_policy_accepted:
+        label: J’ai pris connaissance de la politique d’enregistrement et des conditions d’utilisation du registre, et je les valide.
+      wallet_information_certified:
+        label: Je certifie que ces informations sont exactes et je m’engage à les tenir à jour.
       wallet_not_registered_elsewhere:
         label: Je déclare que %{organization_name} n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
         label_unknown_name: Je déclare que votre organisation n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.

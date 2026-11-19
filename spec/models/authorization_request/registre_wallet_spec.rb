@@ -645,4 +645,34 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       expect(authorization_request.errors.attribute_names.map(&:to_s)).to include(match(contact_attribute), 'wallet_service_name')
     end
   end
+
+  describe 'consents asked at submission' do
+    it 'asks for the registration policy and the certification of the information, nothing else' do
+      expect(authorization_request.required_consents).to eq(%i[wallet_registration_policy_accepted wallet_information_certified])
+    end
+
+    it 'does not ask to have informed the data protection officer' do
+      expect(authorization_request.skip_data_protection_officer_informed_check_box?).to be true
+    end
+
+    context 'when one of the two boxes is not checked' do
+      let(:attributes) { complete_attributes.merge(wallet_information_certified: false) }
+
+      it 'refuses the submission' do
+        authorization_request.valid?(:submit)
+
+        expect(authorization_request.errors.details[:base]).to include(error: :all_terms_not_accepted)
+      end
+    end
+
+    context 'when both boxes are checked' do
+      let(:attributes) { complete_attributes.merge(wallet_registration_policy_accepted: true, wallet_information_certified: true) }
+
+      it 'accepts the consents' do
+        authorization_request.valid?(:submit)
+
+        expect(authorization_request.errors.details[:base]).not_to include(error: :all_terms_not_accepted)
+      end
+    end
+  end
 end

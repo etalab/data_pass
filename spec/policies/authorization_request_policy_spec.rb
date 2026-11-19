@@ -82,10 +82,10 @@ RSpec.describe AuthorizationRequestPolicy do
       it { is_expected.to be true }
     end
 
-    context 'when the definition disables submission (wallet registry)' do
+    context 'with a wallet registry draft' do
       let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user) }
 
-      it { is_expected.to be false }
+      it { is_expected.to be true }
     end
   end
 
