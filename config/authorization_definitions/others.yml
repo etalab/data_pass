@@ -75,3 +75,6 @@ annuaire_des_entreprises:
     - name: "Bénéficiaires effectifs"
       group: "Données sur les bénéficiaires effectifs et le capital"
       value: "beneficiaires"
+    - name: "Jour de naissance des dirigeants"
+      group: "Données sur les dirigeants"
+      value: "jour_naissance_dirigeants"
