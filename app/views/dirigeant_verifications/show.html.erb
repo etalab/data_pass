@@ -1,0 +1,49 @@
+<% set_title! t('page_titles.dirigeant_verification') %>
+
+<% content_for :content_skip_link_text do %>
+  <%= t('.title') %>
+<% end %>
+
+<div class="fr-container fr-my-6w">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-8">
+      <h1><%= t('.title') %></h1>
+
+      <p><%= t('.description') %></p>
+
+      <% if @result.present? %>
+        <%= render 'result', result: @result %>
+      <% end %>
+
+      <% if !@verification_allowed && @return_to %>
+        <p>
+          <%= link_to t('.back'), @return_to, class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left', id: 'back_to_return_to' %>
+        </p>
+      <% end %>
+
+      <% if @organization&.siret.present? %>
+        <p>
+          <%= t('.organization', name: @organization.name, siret: @organization.siret) %>
+        </p>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <% if @verification_allowed %>
+          <%= form_with(url: '/auth/proconnect_dirigeant', method: :post, data: { turbo: false }) do |f| %>
+            <%= hidden_field_tag :siret_hint, @organization&.siret %>
+            <%= hidden_field_tag :return_to, @return_to if @return_to %>
+            <%= f.button t('.submit'), class: 'fr-btn', id: 'verify_dirigeant' %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p><%= t('.sign_in_description') %></p>
+
+        <%= form_with(url: '/auth/proconnect', method: :post, data: { turbo: false }) do |f| %>
+          <%= hidden_field_tag :parcours, 'dirigeant' %>
+          <%= hidden_field_tag :return_to, @return_to if @return_to %>
+          <%= f.button t('.sign_in'), class: 'fr-btn', id: 'sign_in_as_dirigeant' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -3,12 +3,15 @@ Rails.application.routes.draw do
 
   get 'connexion', to: 'pages#connexion', as: :connexion
 
+  get 'auth/proconnect_dirigeant/callback', to: 'dirigeant_verifications#create'
   get 'auth/:provider/callback', to: 'sessions#create', constraints: { provider: /proconnect|mon_compte_pro/ }
   get 'auth/failure', to: 'sessions#failure'
 
   get 'local-sign-in', to: 'authenticated_user#bypass_login' unless Rails.env.production?
 
   get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
+
+  get 'verification-dirigeant', to: 'dirigeant_verifications#show', as: :dirigeant_verification
 
   get '/tableau-de-bord', to: 'dashboard#index', as: :dashboard
   get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
