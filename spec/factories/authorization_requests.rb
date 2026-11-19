@@ -1731,6 +1731,7 @@ FactoryBot.define do
             authorization_request.identity_legal_name = 'COMMUNE DE CLAMART'
             authorization_request.identity_address = '1 place Maurice Gunsbourg, 92140 Clamart'
           end
+          authorization_request.identity_public_sector ||= 'true'
           authorization_request.wallet_service_name ||= 'Vélocité Libre-service'
           authorization_request.wallet_service_identifier ||= 'velocite-libre-service'
           authorization_request.wallet_service_description ||= 'Location de vélos en libre-service dans la métropole de Lyon.'

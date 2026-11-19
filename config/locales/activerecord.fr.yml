@@ -380,6 +380,8 @@ fr:
               wallet_identity_pending: Les informations de votre organisation sont encore en cours de chargement. Mettez-les à jour à l’étape « L’organisation » avant de soumettre votre demande.
             identity_address:
               wallet_identity_address_missing: Le répertoire Sirene ne donne pas l’adresse de votre établissement. Mettez-la à jour auprès de l’INSEE, puis relancez la récupération depuis l’étape « L’organisation » avant de soumettre votre demande.
+            identity_public_sector:
+              wallet_public_sector_unknown: Nous n’avons pas encore pu récupérer les informations de votre organisation. Relancez la récupération depuis l’étape « L’organisation », puis soumettez de nouveau.
             wallet_privacy_policy_url:
               blank: Indiquez l’adresse de votre politique de confidentialité, par exemple https://www.exemple.fr/confidentialite
               wallet_https_format: &wallet_https_format Indiquez une adresse qui commence par https://, par exemple https://www.exemple.fr

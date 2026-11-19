@@ -67,6 +67,33 @@ RSpec.describe 'Wallet registry, summary and submission' do
     end
   end
 
+  describe 'submit while the public sector of the organization is still unknown' do
+    before do
+      authorization_request.update_columns(data: authorization_request.data.merge('identity_public_sector' => nil))
+      submit(both_consents)
+    end
+
+    it 'keeps the draft and asks to retrieve the organization again (4 ter)' do
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(authorization_request.reload).to be_draft
+      expect(page.at_css('#wallet-incomplete-steps').text).to include('Corriger l’étape 1 : l’organisation', 'Relancez la récupération depuis l’étape « L’organisation »')
+    end
+  end
+
+  describe 'submit while the organization identity is still loading' do
+    before do
+      authorization_request.update_columns(data: authorization_request.data.merge('identity_source' => 'sirene_pending', 'identity_public_sector' => nil))
+      submit(both_consents)
+    end
+
+    it 'gives a single reason, the loading one, under the step « L’organisation »' do
+      incomplete_steps = page.at_css('#wallet-incomplete-steps').text
+
+      expect(incomplete_steps).to include('Corriger l’étape 1 : l’organisation', 'en cours de chargement')
+      expect(incomplete_steps).not_to include('Relancez la récupération')
+    end
+  end
+
   describe 'submit a complete request' do
     before { submit(both_consents) }
 
