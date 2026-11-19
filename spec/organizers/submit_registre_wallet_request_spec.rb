@@ -13,6 +13,12 @@ RSpec.describe SubmitAuthorizationRequest, '.call' do
         expect { submit_request }.to change { authorization_request.reload.state }.from('draft').to('submitted')
       end
 
+      it 'sends no email until the registry has its own (DPP-242)' do
+        create(:user, :instructor, authorization_request_types: %w[registre_wallet])
+
+        expect { submit_request }.not_to have_enqueued_mail
+      end
+
       it 'records the submission in the history' do
         expect { submit_request }.to change { AuthorizationRequestEvent.where(name: 'submit', authorization_request:).count }.by(1)
       end
