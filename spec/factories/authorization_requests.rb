@@ -1734,6 +1734,15 @@ FactoryBot.define do
           authorization_request.wallet_service_name ||= 'Vélocité Libre-service'
           authorization_request.wallet_service_identifier ||= 'velocite-libre-service'
           authorization_request.wallet_service_description ||= 'Location de vélos en libre-service dans la métropole de Lyon.'
+          if authorization_request.wallet_intended_uses.empty?
+            driving_licence = WalletRegistry::Rulebook.available.find_by!(identifier: 'mdl')
+            use = authorization_request.wallet_intended_uses.build(
+              name: 'Vérifier la majorité',
+              purpose: 'Vérifier que vous avez plus de 18 ans avant de vous louer un vélo.',
+              start_date: Date.current
+            )
+            use.add_attestation(driving_licence).selected_claim_ids = driving_licence.claims.where(identifier: 'age_over_18').ids
+          end
           authorization_request.wallet_service_name_proof.attach(
             io: Rails.root.join('spec/fixtures/dummy.pdf').open,
             filename: 'dummy.pdf',

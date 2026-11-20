@@ -1,0 +1,54 @@
+<div class="wx-sticky">
+  <h3 class="wx-preview-title fr-mb-1w"><%= wallet_intended_uses_t('preview.title') %></h3>
+  <% if uses.size > 1 %>
+    <div class="fr-select-group fr-mb-2w">
+      <label class="fr-label" for="wallet-preview-use">
+        <%= wallet_intended_uses_t('preview.select_label') %>
+        <span class="fr-hint-text"><%= wallet_intended_uses_t('preview.select_hint') %></span>
+      </label>
+      <select class="fr-select" id="wallet-preview-use" data-wallet-intended-uses-target="previewSelect" data-action="wallet-intended-uses#previewChanged">
+        <% uses.each do |use| %>
+          <option value="<%= use.id %>" data-wallet-intended-uses-target="previewOption"><%= use.display_name %></option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+
+  <% if uses.empty? %>
+    <div class="wallet-preview fr-mb-2w">
+      <div class="wallet-preview__screen">
+        <p class="fr-text--sm fr-mb-0"><%= wallet_intended_uses_t('preview.empty') %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% uses.each do |use| %>
+    <%= tag.div class: 'wallet-preview fr-mb-2w', data: { wallet_intended_uses_target: 'preview', use_id: use.id } do %>
+      <div class="wallet-preview__screen">
+        <p class="fr-text--xs fr-mb-1w"><%= wallet_intended_uses_t('preview.kicker') %></p>
+        <p class="wallet-preview__label"><%= wallet_intended_uses_t('preview.who') %></p>
+        <p class="wallet-preview__value"><%= @authorization_request.wallet_service_name.presence || t('authorization_request_forms.registre_wallet.wallet_service.preview.placeholder') %></p>
+        <p class="wallet-preview__label"><%= wallet_intended_uses_t('preview.what') %></p>
+        <div data-wallet-intended-uses-target="previewData">
+          <% selected = use.attestations.map { |attestation| [attestation, wallet_selected_claims(attestation)] }.reject { |_, claims| claims.empty? } %>
+          <% if selected.any? %>
+            <% selected.each do |attestation, claims| %>
+              <p class="fr-text--sm fr-text--bold fr-mb-0"><%= attestation.name %></p>
+              <ul class="fr-text--sm fr-mb-0"><% claims.each do |claim| %><li><%= claim.label %></li><% end %></ul>
+            <% end %>
+          <% else %>
+            <p class="fr-text--sm fr-mb-0 wx-muted"><%= wallet_intended_uses_t('preview.no_data') %></p>
+          <% end %>
+        </div>
+        <p class="wallet-preview__label"><%= wallet_intended_uses_t('preview.why') %></p>
+        <p class="fr-text--sm fr-mb-0" data-wallet-intended-uses-target="previewPurpose"><%= use.purpose.presence || tag.em(wallet_intended_uses_t('preview.no_purpose')) %></p>
+        <p class="wallet-preview__label"><%= wallet_intended_uses_t('preview.rights') %></p>
+        <p class="fr-text--sm fr-mb-0"><%= wallet_preview_privacy_policy(use) %> · <%= wallet_intended_uses_t('preview.authority') %></p>
+        <ul class="fr-btns-group fr-btns-group--sm fr-btns-group--inline fr-btns-group--equisized" aria-hidden="true">
+          <li><span class="fr-btn fr-btn--sm fr-btn--secondary"><%= wallet_intended_uses_t('preview.refuse') %></span></li>
+          <li><span class="fr-btn fr-btn--sm"><%= wallet_intended_uses_t('preview.share') %></span></li>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+</div>

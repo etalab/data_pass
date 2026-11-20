@@ -1,0 +1,66 @@
+<% open = wallet_intended_use_open?(@authorization_request, use) %>
+<% body_id = wallet_intended_use_dom_id(index, 'body') %>
+<% title_id = wallet_intended_use_dom_id(index, 'title') %>
+
+<%= tag.div class: 'wx-panel usage-card', id: "usage-#{use.id}", data: { wallet_intended_uses_target: 'card', use_id: use.id, open: open } do %>
+  <div class="wx-card-head fr-mb-2w">
+    <div>
+      <h3 class="fr-h5 fr-mb-0 wx-card-title" id="<%= title_id %>" data-wallet-intended-uses-target="title"><%= use.display_name %></h3>
+      <p class="fr-text--sm fr-mb-0 wx-muted" data-wallet-intended-uses-target="totals"><%= wallet_intended_use_totals(use) %></p>
+      <ul class="att-summary" data-wallet-intended-uses-target="cardSummary">
+        <% use.attestations.each do |attestation| %>
+          <% claims = wallet_selected_claims(attestation) %>
+          <% next if claims.empty? %>
+          <li><strong><%= attestation.name %></strong> : <%= claims.map { |claim| claim.label.downcase }.join(', ') %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="wx-card-actions">
+      <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-delete-line" aria-controls="wallet-delete-use-<%= use.id %>" data-fr-opened="false">
+        <%= wallet_intended_uses_t('card.delete') %><span class="fr-sr-only"><%= wallet_intended_uses_t('card.delete_sr', name: use.display_name) %></span>
+      </button>
+      <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-right fr-icon-arrow-up-s-line" aria-expanded="true" aria-controls="<%= body_id %>" data-action="wallet-intended-uses#toggleCard" data-wallet-intended-uses-target="cardToggle"><%= wallet_intended_uses_t('card.collapse') %><span class="fr-sr-only"><%= wallet_intended_uses_t('card.toggle_sr', name: use.display_name) %></span></button>
+    </div>
+  </div>
+
+  <%= f.fields_for(:wallet_intended_uses, use, child_index: index, builder: DsfrFormBuilder) do |uf| %>
+    <fieldset class="fr-fieldset fr-mb-0" aria-labelledby="<%= title_id %>" id="<%= body_id %>">
+      <div class="fr-fieldset__element"><h4 class="fr-h6 fr-mb-1w"><%= wallet_intended_uses_t('sections.purpose') %></h4></div>
+      <div class="fr-fieldset__element">
+        <%= uf.dsfr_text_field :name, required: true, hint_text: wallet_intended_uses_t('fields.name.hint'), autofocus: wallet_intended_use_focus?(use, 'name'), data: { action: 'input->wallet-intended-uses#nameChanged' } %>
+      </div>
+      <div class="fr-fieldset__element">
+        <% purpose_length = use.purpose.to_s.length %>
+        <% max_length = WalletRegistry::IntendedUse::PURPOSE_MAX_LENGTH %>
+        <%= uf.dsfr_text_area :purpose, required: true, rows: 3,
+          hint_text: safe_join([
+            wallet_intended_uses_t('fields.purpose.hint'), ' ',
+            tag.span(wallet_intended_uses_t('fields.purpose.counter', count: purpose_length, max: max_length), class: ['wx-count', ('is-over' if purpose_length > max_length)], aria: { live: 'polite' }, data: { wallet_intended_uses_target: 'purposeCounter' }),
+          ]),
+          data: { field_format_kind: 'purpose', action: 'input->wallet-intended-uses#purposeChanged', max_length: } %>
+      </div>
+      <div class="fr-fieldset__element">
+        <%= uf.dsfr_url_field :privacy_policy_url, required: true, value: use.effective_privacy_policy_url, hint_text: wallet_intended_uses_t('fields.privacy_policy_url.hint'), data: { field_format_kind: 'https_url' } %>
+      </div>
+
+      <div class="fr-fieldset__element fr-mb-0"><hr class="fr-hr"></div>
+      <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/data', locals: { use:, index: } %>
+
+      <div class="fr-fieldset__element fr-mb-0"><hr class="fr-hr"></div>
+      <div class="fr-fieldset__element"><h4 class="fr-h6 fr-mb-1w"><%= wallet_intended_uses_t('sections.period') %></h4></div>
+      <div class="fr-fieldset__element">
+        <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="fr-col-12 fr-col-md-6">
+            <%= uf.dsfr_date_field :start_date, required: true, min: Date.current.iso8601, hint_text: wallet_intended_uses_t('fields.start_date.hint'), data: { field_format_kind: 'date_not_past' } %>
+          </div>
+          <div class="fr-col-12 fr-col-md-6">
+            <%= uf.dsfr_date_field :end_date, required: false, hint_text: wallet_intended_uses_t('fields.end_date.hint'), data: { field_format_kind: 'date_after', field_format_after: uf.field_id(:start_date) } %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
+
+  <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/catalog', locals: { use: } %>
+  <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/delete_use_modal', locals: { use: } %>
+<% end %>

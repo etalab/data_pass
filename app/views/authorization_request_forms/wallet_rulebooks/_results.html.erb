@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "wallet-catalog-#{use.id}-results" do %>
+  <%= tag.div hidden: true, data: { count_text: wallet_intended_uses_t('catalog.count', count: rulebooks.size) } %>
+  <% if rulebooks.any? %>
+    <ul class="cat-list">
+      <% rulebooks.each do |rulebook| %>
+        <%= render partial: 'authorization_request_forms/wallet_rulebooks/rulebook', locals: { use:, rulebook:, embedded: } %>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="fr-alert fr-alert--info fr-alert--sm fr-mt-2w">
+      <p><%= wallet_intended_uses_t('catalog.no_result') %></p>
+    </div>
+  <% end %>
+<% end %>

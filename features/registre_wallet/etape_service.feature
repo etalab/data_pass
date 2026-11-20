@@ -10,7 +10,7 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Et je remplis l’étape « L’organisation » du registre wallet
 
   Scénario: L’étape présente le service et son habilitation en lecture seule (CA7)
-    Alors la page contient "Étape 2/2"
+    Alors la page contient "Étape 2/3"
     Et la page contient "Quel service demandera des données au wallet ?"
     Et la page contient "Aperçu dans le wallet"
     Et la page contient "Habilitation du service"
@@ -21,7 +21,8 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Alors la page ne contient pas "à corriger avant de continuer"
-    Et la page contient "Vélocité Libre-service"
+    Quand je remplis l’étape « Les utilisations prévues » du registre wallet
+    Alors la page contient "Vélocité Libre-service"
     Et la page contient "libre-service"
     Et la page contient "Location de vélos en libre-service dans la métropole de Lyon."
     Et la page contient "Justificatif du nom"
@@ -47,7 +48,7 @@ Fonctionnalité: Registre wallet, étape « Le service »
     Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Alors la page ne contient pas "à corriger avant de continuer"
-    Et la page contient "Vélocité Libre-service"
+    Et la page contient "Étape 3/3"
 
   Scénario: Une description « test » garde le demandeur sur l’étape (CA4)
     Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"

@@ -1,0 +1,33 @@
+<% open_attestation = wallet_open_attestation(use) %>
+<% attestations_error = use.errors.where(:attestations, :blank).first %>
+
+<div class="fr-fieldset__element" id="<%= wallet_intended_use_dom_id(index, 'data') %>">
+  <div class="wx-data-head">
+    <h4 class="fr-h6 fr-mb-0"><%= wallet_intended_uses_t('sections.data') %><span class="fr-ml-1w fr-text-error">*</span></h4>
+    <p class="fr-text--sm fr-mb-0 wx-muted" aria-live="polite" data-wallet-intended-uses-target="totals"><%= wallet_intended_use_totals(use) %></p>
+  </div>
+  <p class="fr-text--sm"><%= wallet_intended_uses_t('data.intro') %></p>
+
+  <% if attestations_error %>
+    <div class="fr-messages-group" id="<%= wallet_intended_use_dom_id(index, 'attestations') %>-messages">
+      <p class="fr-message fr-message--error"><%= attestations_error.message %></p>
+    </div>
+  <% end %>
+
+  <% if use.attestations.any? %>
+    <p class="d-help wx-muted"><%= wallet_intended_uses_t('data.help') %></p>
+    <div class="fr-accordions-group att-d-group">
+      <% use.attestations.each_with_index do |attestation, attestation_index| %>
+        <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/attestation', locals: { use:, index:, attestation:, attestation_index:, open: attestation == open_attestation } %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="fr-text--sm wx-muted"><%= wallet_intended_uses_t('data.no_attestation') %></p>
+  <% end %>
+
+  <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm fr-btn--icon-left fr-icon-add-line fr-mb-3w"
+    id="<%= wallet_intended_use_dom_id(index, 'attestations') %>"
+    aria-controls="wallet-catalog-<%= use.id %>" data-fr-opened="false"
+    <%= 'aria-describedby="' + wallet_intended_use_dom_id(index, 'attestations') + '-messages"' if attestations_error %>
+    <%= 'autofocus' if wallet_intended_use_focus?(use, 'add_attestation') %>><%= wallet_intended_uses_t('data.add_attestation') %></button>
+</div>

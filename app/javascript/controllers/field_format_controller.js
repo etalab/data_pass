@@ -26,15 +26,38 @@ export default class extends Controller {
     if (!kind) return
 
     const value = this.normalize(kind, input.value)
-    const valid = value === '' || this.respects(kind, input, value)
+    const messageKey = value === '' ? null : this.failure(kind, input, value)
 
-    this.display(input, valid ? null : this.messagesValue[kind].replace('__count__', input.value.length))
+    this.display(input, messageKey ? this.messagesValue[messageKey].replace('__count__', value.length) : null)
   }
 
-  respects (kind, input, value) {
-    if (kind === 'max_length') return input.value.length <= Number(input.dataset.fieldFormatMaxLength)
+  failure (kind, input, value) {
+    if (kind === 'max_length') return input.value.length <= Number(input.dataset.fieldFormatMaxLength) ? null : kind
+    if (kind === 'purpose') return this.purposeFailure(input, value)
+    if (kind === 'date_not_past') return value < this.today() ? kind : null
+    if (kind === 'date_after') return this.dateAfterFailure(input, value)
 
-    return FORMATS[kind].test(value)
+    return FORMATS[kind].test(value) ? null : kind
+  }
+
+  purposeFailure (input, value) {
+    if (value.length > Number(input.dataset.maxLength)) return 'purpose_too_long'
+
+    return FORMATS.service_description.test(value) ? null : 'purpose_too_short'
+  }
+
+  dateAfterFailure (input, value) {
+    const start = document.getElementById(input.dataset.fieldFormatAfter)
+    if (!start || start.value === '') return null
+
+    return value > start.value ? null : 'date_after'
+  }
+
+  today () {
+    const now = new Date()
+    const pad = (number) => String(number).padStart(2, '0')
+
+    return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
   }
 
   normalize (kind, value) {

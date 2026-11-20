@@ -188,3 +188,96 @@ Quand('je décris le service {string} avec l’identifiant {string}') do |name, 
   steps %(Quand je décris le service "#{name}" avec l’identifiant "#{identifier}" sans justificatif)
   find_field('authorization_request_registre_wallet_wallet_service_name_proof', visible: :all).set(Rails.root.join('spec/fixtures/dummy.pdf').to_s)
 end
+
+Quand('je remplis l’étape « Le service » du registre wallet') do
+  steps %(
+    Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
+    Et je clique sur "Suivant"
+  )
+end
+
+def last_wallet_intended_use_card
+  all('.usage-card').last
+end
+
+Quand('j’ajoute une utilisation prévue {string}') do |name|
+  count = all('.usage-card').size
+  click_button 'Ajouter une utilisation prévue'
+  expect(page).to have_css('.usage-card', count: count + 1)
+
+  within(last_wallet_intended_use_card) do
+    fill_in 'Nom de l’utilisation prévue', with: name
+    fill_in 'Pourquoi demandez-vous ces données ?', with: 'Vérifier que vous avez plus de 18 ans avant de vous louer un vélo.'
+    fill_in 'Date de début', with: Date.current.iso8601
+  end
+end
+
+Quand('j’ouvre le catalogue des attestations de la dernière utilisation') do
+  within(last_wallet_intended_use_card) do
+    click_button 'Ajouter une attestation' if javascript?
+    click_button 'Ouvrir le catalogue des attestations' unless javascript?
+  end
+  expect(page).to have_text('attestations dans le catalogue de la Commission')
+end
+
+Quand('je cherche {string} dans le catalogue des attestations') do |query|
+  if javascript?
+    within(last_wallet_intended_use_card) { fill_in 'Rechercher une attestation ou une donnée', with: query }
+  else
+    fill_in 'Rechercher une attestation ou une donnée', with: query
+    click_button 'Rechercher'
+  end
+end
+
+Quand('j’ajoute l’attestation {string} à la dernière utilisation') do |attestation|
+  step 'j’ouvre le catalogue des attestations de la dernière utilisation'
+  javascript? ? within(last_wallet_intended_use_card) { click_button "Ajouter #{attestation}" } : click_button("Ajouter #{attestation}")
+  expect(page).to have_css('.usage-card .att-acc', text: attestation)
+end
+
+Quand('je coche les données {string} de la dernière utilisation') do |labels|
+  within(last_wallet_intended_use_card) do
+    labels.split(', ').each { |label| javascript? ? find(:checkbox, label, visible: :all).trigger('click') : check(label) }
+  end
+end
+
+Quand('je remplis le champ {string} de la dernière utilisation avec {string}') do |label, value|
+  within(last_wallet_intended_use_card) { fill_in label, with: value }
+end
+
+Quand('je remplis le champ {string} de la première utilisation avec {string}') do |label, value|
+  within(first('.usage-card')) { fill_in label, with: value }
+end
+
+Quand('je clique sur {string} dans la dernière utilisation') do |label|
+  within(last_wallet_intended_use_card) { click_button label, match: :first }
+end
+
+Quand('je confirme {string} dans la dernière utilisation') do |label|
+  within(last_wallet_intended_use_card) { click_button label, exact: true }
+end
+
+Alors('le brouillon du registre wallet produit {string} au format Credential') do |vct|
+  credentials = AuthorizationRequest::RegistreWallet.last.reload.wallet_intended_uses.flat_map(&:credentials)
+
+  expect(credentials).to include(a_hash_including('format' => 'dc+sd-jwt', 'meta' => { 'vct_values' => [vct] }))
+end
+
+Alors('les politiques de confidentialité des utilisations sont {string}') do |urls|
+  uses = AuthorizationRequest::RegistreWallet.last.reload.wallet_intended_uses
+
+  expect(uses.map(&:effective_privacy_policy_url)).to eq(urls.split(', '))
+end
+
+Alors('le brouillon du registre wallet compte {int} utilisation(s) prévue(s)') do |count|
+  expect(AuthorizationRequest::RegistreWallet.last.reload.wallet_intended_uses.size).to eq(count)
+end
+
+Quand('je remplis l’étape « Les utilisations prévues » du registre wallet') do
+  steps %(
+    Quand j’ajoute une utilisation prévue "Vérifier la majorité"
+    Et j’ajoute l’attestation "Permis de conduire mobile" à la dernière utilisation
+    Et je coche les données "Plus de 18 ans" de la dernière utilisation
+    Et je clique sur "Suivant"
+  )
+end

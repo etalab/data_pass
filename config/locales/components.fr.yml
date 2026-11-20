@@ -26,6 +26,18 @@ fr:
           wallet_service_identifier_format: "%{attribute} : format non valide."
           wallet_service_description_too_short: "%{attribute} : trop courte."
           wallet_service_name_proof_missing: "%{attribute} : joignez un document."
+          wallet_intended_uses_missing: Ajoutez au moins une utilisation prévue.
+          wallet_intended_use_name_blank: "%{use_name} : indiquez son nom."
+          wallet_intended_use_purpose_blank: "%{use_name} : indiquez la finalité."
+          wallet_intended_use_purpose_too_short: "%{use_name} : la finalité est trop courte."
+          wallet_intended_use_purpose_too_long: "%{use_name} : raccourcissez la finalité."
+          wallet_intended_use_privacy_policy_url_blank: "%{use_name} : indiquez la politique de confidentialité."
+          wallet_intended_use_privacy_policy_url_https_format: "%{use_name} : corrigez l’adresse de la politique de confidentialité."
+          wallet_intended_use_attestations_blank: "%{use_name} : ajoutez une attestation."
+          wallet_intended_use_attestations_no_claim: "%{use_name} : cochez au moins une donnée dans « %{attestation_name} »."
+          wallet_intended_use_start_date_blank: "%{use_name} : indiquez la date de début."
+          wallet_intended_use_start_date_past: "%{use_name} : la date de début est passée."
+          wallet_intended_use_end_date_before_start_date: "%{use_name} : la date de fin est avant la date de début."
     wallet_registry:
       organization_summary_component:
         identification: Identification

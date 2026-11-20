@@ -12,7 +12,7 @@ RSpec.describe 'Wallet registry, step « L’organisation »' do
 
     it 'shows the identity read from the INSEE data and the published fields' do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('COMMUNE DE CLAMART', 'Agent connecté par ProConnect', 'Brouillon enregistré à', 'Étape 1/2')
+      expect(response.body).to include('COMMUNE DE CLAMART', 'Agent connecté par ProConnect', 'Brouillon enregistré à', 'Étape 1/3')
       expect(response.body).to include("#{param_key}_wallet_privacy_policy_url", 'type="tel"', 'novalidate')
     end
 

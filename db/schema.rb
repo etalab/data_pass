@@ -743,6 +743,38 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_100000) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "wallet_registry_intended_use_attestations", force: :cascade do |t|
+    t.bigint "intended_use_id", null: false
+    t.bigint "rulebook_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intended_use_id", "rulebook_id"], name: "index_wallet_registry_intended_use_attestations_unicity", unique: true
+    t.index ["intended_use_id"], name: "idx_on_intended_use_id_f10d4e5962"
+    t.index ["rulebook_id"], name: "index_wallet_registry_intended_use_attestations_on_rulebook_id"
+  end
+
+  create_table "wallet_registry_intended_use_claims", force: :cascade do |t|
+    t.bigint "intended_use_attestation_id", null: false
+    t.bigint "rulebook_claim_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intended_use_attestation_id", "rulebook_claim_id"], name: "index_wallet_registry_intended_use_claims_unicity", unique: true
+    t.index ["intended_use_attestation_id"], name: "idx_on_intended_use_attestation_id_d377ccd242"
+    t.index ["rulebook_claim_id"], name: "index_wallet_registry_intended_use_claims_on_rulebook_claim_id"
+  end
+
+  create_table "wallet_registry_intended_uses", force: :cascade do |t|
+    t.bigint "authorization_request_id", null: false
+    t.string "name"
+    t.string "privacy_policy_url"
+    t.text "purpose"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_7fce0ddac2"
+  end
+
   create_table "wallet_registry_rulebook_claim_paths", force: :cascade do |t|
     t.bigint "rulebook_claim_id", null: false
     t.bigint "rulebook_format_id", null: false
@@ -871,6 +903,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_100000) do
   add_foreign_key "rails_pulse_requests", "rails_pulse_routes", column: "route_id"
   add_foreign_key "revocation_of_authorizations", "authorization_requests"
   add_foreign_key "revocation_of_authorizations", "authorizations"
+  add_foreign_key "wallet_registry_intended_use_attestations", "wallet_registry_intended_uses", column: "intended_use_id", on_delete: :cascade
+  add_foreign_key "wallet_registry_intended_use_attestations", "wallet_registry_rulebooks", column: "rulebook_id"
+  add_foreign_key "wallet_registry_intended_use_claims", "wallet_registry_intended_use_attestations", column: "intended_use_attestation_id", on_delete: :cascade
+  add_foreign_key "wallet_registry_intended_use_claims", "wallet_registry_rulebook_claims", column: "rulebook_claim_id"
+  add_foreign_key "wallet_registry_intended_uses", "authorization_requests", on_delete: :cascade
   add_foreign_key "wallet_registry_rulebook_claim_paths", "wallet_registry_rulebook_claims", column: "rulebook_claim_id", on_delete: :cascade
   add_foreign_key "wallet_registry_rulebook_claim_paths", "wallet_registry_rulebook_formats", column: "rulebook_format_id", on_delete: :cascade
   add_foreign_key "wallet_registry_rulebook_claims", "wallet_registry_rulebooks", column: "rulebook_id", on_delete: :cascade

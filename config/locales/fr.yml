@@ -1,4 +1,7 @@
 fr:
+  wallet_registry:
+    intended_use:
+      unnamed: Utilisation %{position}
   support:
     array:
       words_connector: ", "
@@ -23,6 +26,7 @@ fr:
     france_connect: france-connect
     wallet_organization: organisation
     wallet_service: service
+    wallet_intended_uses: utilisations-prevues
 
   authorization:
     badge: habilitation %{formatted_id}

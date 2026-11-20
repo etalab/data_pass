@@ -51,7 +51,12 @@ module WalletRegistryHelper
   end
 
   def wallet_registry_error_field_ids(form)
-    { wallet_support: form.field_id(:wallet_support_url), identity_source: 'wallet-identity-refresh', identity_address: 'wallet-identity-refresh' }
+    {
+      wallet_support: form.field_id(:wallet_support_url),
+      identity_source: 'wallet-identity-refresh',
+      identity_address: 'wallet-identity-refresh',
+      wallet_intended_uses: 'wallet-add-intended-use'
+    }
   end
 
   def wallet_registry_field_format_messages
@@ -64,7 +69,19 @@ module WalletRegistryHelper
       max_length: t("#{scope}.wallet_service_name.wallet_service_name_too_long", count: '__count__'),
       service_identifier: t("#{scope}.wallet_service_identifier.wallet_service_identifier_format"),
       service_description: t("#{scope}.wallet_service_description.wallet_service_description_too_short"),
+      **wallet_intended_use_field_format_messages,
     }.to_json
+  end
+
+  def wallet_intended_use_field_format_messages
+    scope = 'activerecord.errors.models.wallet_registry/intended_use.attributes'
+
+    {
+      purpose_too_short: t("#{scope}.purpose.too_short"),
+      purpose_too_long: t("#{scope}.purpose.too_long", count: '__count__'),
+      date_not_past: t("#{scope}.start_date.past"),
+      date_after: t("#{scope}.end_date.before_start_date"),
+    }
   end
 
   private
