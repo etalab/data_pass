@@ -40,6 +40,21 @@ RSpec.describe WalletRegistryHelper do
     end
   end
 
+  describe '#wallet_registry_organization_name' do
+    let(:organization) { instance_double(Organization, denomination: nil) }
+    let(:authorization_request) { instance_double(AuthorizationRequest::RegistreWallet, identity_legal_name: nil, wallet_legal_name: nil, organization:) }
+
+    it 'says « votre organisation » rather than a SIRET when no name is known yet' do
+      expect(helper.wallet_registry_organization_name(authorization_request)).to eq('votre organisation')
+    end
+
+    it 'prefers the name read in Sirene' do
+      allow(authorization_request).to receive(:identity_legal_name).and_return('COMMUNE DE CLAMART')
+
+      expect(helper.wallet_registry_organization_name(authorization_request)).to eq('COMMUNE DE CLAMART')
+    end
+  end
+
   describe '#wallet_registry_person_name' do
     it 'writes the given name first, in normal case, accents kept' do
       user = build(:user, given_name: 'YASMINE marie-ÉLODIE', family_name: 'DEMANDEUSE COMMUNE')

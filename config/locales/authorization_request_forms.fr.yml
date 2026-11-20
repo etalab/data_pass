@@ -1339,6 +1339,7 @@ fr:
         submitting: Envoi en cours…
         consents_missing: Cochez les deux cases pour soumettre votre demande.
         consents_legend: Vos engagements
+        organization_fallback: votre organisation
         executive_submit: Se reconnecter et soumettre
         server_error:
           title: Votre demande n’a pas été envoyée

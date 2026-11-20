@@ -2,7 +2,7 @@
 
 <div class="fr-my-6w" data-controller="auto-submit">
   <h1 class="fr-h3"><%= t('.title') %></h1>
-  <p><%= t('.description', organization_name: @authorization_request.wallet_organization_name) %></p>
+  <p><%= t('.description', organization_name: wallet_registry_organization_name(@authorization_request)) %></p>
 
   <%= form_with url: '/auth/proconnect_dirigeant', method: :post, data: { turbo: false, auto_submit_target: 'form' } do %>
     <%= hidden_field_tag :siret_hint, @authorization_request.organization.siret, id: nil %>
