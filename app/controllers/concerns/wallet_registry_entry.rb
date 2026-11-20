@@ -1,6 +1,8 @@
 module WalletRegistryEntry
   extend ActiveSupport::Concern
 
+  include WalletRegistryAnswer
+
   DIRIGEANT_VERIFICATION_REFUSALS = {
     'acr_not_dirigeant' => 'executive_not_certified',
     'proconnect_error' => 'executive_not_certified',
@@ -18,8 +20,10 @@ module WalletRegistryEntry
   def enter_wallet_registry
     if user_signed_in? && wallet_registry_violation.nil?
       render_wallet_registry_introduction
-    else
+    elsif user_signed_in? || wallet_registry_answer
       render_wallet_registry_start
+    else
+      redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
     end
   end
 

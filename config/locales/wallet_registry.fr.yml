@@ -35,18 +35,18 @@ fr:
             certificates: Recevoir vos certificats
           verification_delay: 5 jours ouvrés
           sign_in_title: Pour enregistrer votre organisation
-          executive:
-            title: Vous dirigez une entreprise
-            description: ProConnect vérifie, après votre connexion, que vous êtes dirigeant de l’entreprise que vous choisissez.
-            submit: Me connecter avec ProConnect dirigeant
-          support_html: Si aucun de ces boutons ne correspond à votre situation, écrivez au support du registre à <a class="fr-link" href="mailto:%{support_email}">%{support_email}</a>.
+          answers:
+            dirigeant: "Vous avez répondu : le dirigeant d’une entreprise. ProConnect vous demandera ensuite de vous identifier avec FranceConnect pour confirmer que vous dirigez l’entreprise."
+            dirigeant_without_certification: "Vous avez répondu : le dirigeant d’une entreprise."
+            agent: "Vous avez répondu : un agent d’une administration ou d’une collectivité. Connectez-vous avec le compte de votre administration."
+          change_answer: Changer de réponse
           refusals:
             default:
               title: Vous ne pouvez pas enregistrer cette organisation
               description: ProConnect n’a pas pu confirmer votre identité. Réessayez dans quelques minutes. Si le problème continue, écrivez au support du registre à %{support_email}.
             executive_certification_required:
               title: Vous ne pouvez pas enregistrer cette organisation
-              description: "D’après sa catégorie juridique dans le répertoire Sirene, %{organization_name} n’est pas un organisme public : seul son dirigeant peut l’enregistrer. Si vous la dirigez, utilisez le bouton « Me connecter avec ProConnect dirigeant ». Si c’est une erreur, écrivez au support du registre à %{support_email}."
+              description: "D’après sa catégorie juridique dans le répertoire Sirene, %{organization_name} n’est pas un organisme public : seul son dirigeant peut l’enregistrer. Si c’est une erreur, écrivez au support du registre à %{support_email}."
             executive_certification_unavailable:
               title: Vous ne pouvez pas encore enregistrer cette organisation en ligne
               description: "D’après sa catégorie juridique dans le répertoire Sirene, %{organization_name} n’est pas un organisme public. Pour l’instant, seuls les organismes publics peuvent s’enregistrer au registre : les entreprises ne peuvent pas encore s’enregistrer en ligne. Si c’est une erreur, écrivez au support du registre à %{support_email}."
@@ -62,7 +62,7 @@ fr:
               description: "ProConnect n’a pas pu certifier que vous dirigez %{organization_name}. Pour l’instant, le registre accepte seulement les dirigeants que ProConnect certifie. Les associations et les entreprises dirigées par une autre société ne peuvent pas encore s’enregistrer en ligne : écrivez au support du registre à %{support_email}."
             executive_siret_outside_siren:
               title: L’entreprise certifiée n’est pas celle de votre connexion
-              description: Vous avez choisi chez ProConnect une autre entreprise que %{organization_name}. Relancez la certification avec le bouton « Me connecter avec ProConnect dirigeant » et choisissez la même entreprise.
+              description: Vous avez choisi chez ProConnect une autre entreprise que %{organization_name}. Relancez la certification et choisissez la même entreprise.
             executive_identity_mismatch:
               title: Le compte ProConnect n’est pas le vôtre
               description: Le compte ProConnect utilisé pour la certification n’est pas celui avec lequel vous êtes connecté à DataPass. Relancez la certification avec votre compte.
