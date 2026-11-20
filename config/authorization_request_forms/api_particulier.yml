@@ -1804,6 +1804,12 @@ api-particulier-mgdis-tarification-cantines-lycees:
         - cnaf_allocataires
         - cnaf_enfants
         - cnaf_adresse
+        - men_statut_identite
+        - men_statut_scolarite
+        - men_statut_boursier
+        - men_echelon_bourse
+        - men_statut_etablissement
+        - men_regime_pensionnat
   introduction: |
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des cantines"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
 
@@ -1910,6 +1916,7 @@ api-particulier-mgdis-aides-facultatives-departementales:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
       - mesri_identite
       - mesri_admissions
       - mesri_admission_inscrit
