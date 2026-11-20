@@ -8,3 +8,4 @@ registre-wallet:
     - name: wallet_organization
     - name: wallet_service
     - name: wallet_intended_uses
+    - name: wallet_contacts

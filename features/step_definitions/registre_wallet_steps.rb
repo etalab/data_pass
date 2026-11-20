@@ -301,3 +301,99 @@ Quand('je remplis l’étape « Les utilisations prévues » du registre wallet'
     Et je clique sur "Suivant"
   )
 end
+
+WALLET_CONTACT_FIELDS = {
+  'nom' => 'Nom',
+  'prénom' => 'Prénom',
+  'adresse électronique' => 'Email',
+  'téléphone' => 'Téléphone',
+}.freeze
+
+def wallet_contact_block(title)
+  find('h3', text: title, exact_text: true).ancestor('.wx-panel')
+end
+
+def wallet_contact_field(title, field)
+  wallet_contact_block(title).find_field(WALLET_CONTACT_FIELDS.fetch(field))
+end
+
+Quand('je remplis le contact {string} avec {string}, {string}, {string} et {string}') do |title, family_name, given_name, email, phone|
+  within(wallet_contact_block(title)) do
+    fill_in 'Nom', with: family_name
+    fill_in 'Prénom', with: given_name
+    fill_in 'Email', with: email
+    fill_in 'Téléphone', with: phone
+  end
+end
+
+Quand('je remplis le champ {string} du contact {string} avec {string}') do |field, title, value|
+  wallet_contact_field(title, field).fill_in(with: value)
+end
+
+Quand('je vide le contact {string}') do |title|
+  WALLET_CONTACT_FIELDS.each_key { |field| wallet_contact_field(title, field).fill_in(with: '') }
+end
+
+Quand('je clique sur « C’est moi » dans le contact {string}') do |title|
+  within(wallet_contact_block(title)) { click_button 'C’est moi' }
+end
+
+Quand('je remplis les trois contacts du registre wallet') do
+  steps %(
+    Quand je remplis le contact "Responsable de l’application" avec "Martin", "Camille", "camille.martin@clamart.fr" et "04 72 00 00 00"
+    Et je remplis le contact "Contact technique" avec "Lefèvre", "Jules", "jules.lefevre@clamart.fr" et "+33 (0)4 72 00 00 01"
+    Et je remplis le contact "Délégué à la protection des données (DPO)" avec "Durand", "Alex", "dpo@clamart.fr" et "04.72.00.00.02"
+  )
+end
+
+Quand('je remplis l’étape « Les contacts » du registre wallet') do
+  steps %(
+    Quand je remplis les trois contacts du registre wallet
+    Et je clique sur "Suivant"
+  )
+end
+
+Quand('je saisis à la main mes nom, prénom et adresse électronique dans le contact {string}') do |title|
+  user = current_user!
+
+  { 'nom' => user.family_name, 'prénom' => user.given_name, 'adresse électronique' => user.email }.each do |field, value|
+    wallet_contact_field(title, field).fill_in(with: value)
+  end
+end
+
+Alors('le contact {string} porte mes nom, prénom et adresse électronique, sans téléphone') do |title|
+  user = current_user!
+  values = WALLET_CONTACT_FIELDS.keys.map { |field| wallet_contact_field(title, field).value.to_s }
+
+  expect(values).to eq([user.family_name, user.given_name, user.email, ''].map(&:to_s))
+end
+
+Alors('le bouton « C’est moi » est proposé dans le(s) contact(s) {string}') do |titles|
+  offered = all('.wx-panel').select { |panel| panel.has_button?('C’est moi', wait: false) }.map { |panel| panel.find('h3').text }
+
+  expect(offered).to eq(titles.split(', '))
+end
+
+Alors('le brouillon du registre wallet a pour contact technique {string}') do |full_name|
+  request = AuthorizationRequest::RegistreWallet.last.reload
+
+  expect([request.wallet_technical_contact_given_name, request.wallet_technical_contact_family_name].join(' ')).to eq(full_name)
+end
+
+Alors('le(s) champ(s) {string} du contact {string} n’est/ne sont plus signalé(s) en erreur') do |fields, title|
+  fields.split(', ').each do |field|
+    input = wallet_contact_field(title, field)
+    group = input.ancestor('.fr-input-group')
+
+    expect(group[:class]).not_to include('fr-input-group--error')
+    expect(group).to have_no_css('.fr-message--error')
+    expect(input[:'aria-describedby'].to_s).not_to include('-messages')
+  end
+end
+
+Alors('le champ {string} du contact {string} est signalé en erreur') do |field, title|
+  group = wallet_contact_field(title, field).ancestor('.fr-input-group')
+
+  expect(group[:class]).to include('fr-input-group--error')
+  expect(group).to have_css('.fr-message--error')
+end

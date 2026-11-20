@@ -46,7 +46,7 @@ RSpec.describe 'Wallet registry, step « Les utilisations prévues »' do
 
     it 'shows the empty state, the counter at zero and the button to add a use' do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('Étape 3/3', 'Pourquoi demandez-vous des données aux usagers ?', 'Aucune utilisation prévue pour l’instant')
+      expect(response.body).to include('Étape 3/4', 'Pourquoi demandez-vous des données aux usagers ?', 'Aucune utilisation prévue pour l’instant')
       expect(response.body).to include('soit <strong>0</strong>', 'Ajouter une utilisation prévue')
       expect(response.body).to include('Ajoutez une utilisation prévue pour voir l’aperçu.')
       expect(response.body).to match(%r{<h3 class="wx-preview-title[^"]*">Ce que verra l’usager</h3>})
@@ -276,8 +276,12 @@ RSpec.describe 'Wallet registry, step « Les utilisations prévues »' do
   describe 'clicking « Suivant » with a complete use (CA1)' do
     before { patch step_path, params: { next: '', param_key => { wallet_intended_uses_attributes: use_params } } }
 
-    it 'goes to the summary, which repeats the counter' do
-      follow_redirect! while response.redirect?
+    it 'goes on to the contacts step' do
+      expect(response).to redirect_to(authorization_request_form_build_path(form_uid: 'registre-wallet', authorization_request_id: authorization_request.id, id: 'contacts-de-l-organisation'))
+    end
+
+    it 'shows the use in the summary, which repeats the counter' do
+      get summary_authorization_request_form_path(form_uid: 'registre-wallet', id: authorization_request.id)
       expect(response.body).to include('Les utilisations prévues des données', 'Vérifier la majorité', 'Plus de 18 ans', '1 certificat d’enregistrement')
       expect(response.body).to match(%r{contact-card__attribute-label[^>]*>Période</div>\s*<div class="contact-card__attribute-value})
       expect(response.body).to match(%r{contact-card__attribute-label[^>]*>Politique de confidentialité</div>})

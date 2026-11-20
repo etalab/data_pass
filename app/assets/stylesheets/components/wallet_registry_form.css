@@ -15,6 +15,7 @@
 .wx-step-head .wx-kicker { font-size: .875rem; line-height: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; color: var(--text-action-high-blue-france); margin: 0 0 .5rem; }
 .wx-required { font-size: .75rem; line-height: 1.25rem; margin: .75rem 0 0; }
 .wx-panel { background-color: var(--background-default-grey); border: 1px solid var(--border-default-grey); padding: 2rem; margin-bottom: 1.5rem; }
+.wx-panel--fill { height: 100%; margin-bottom: 0; }
 .wx-panel-title { display: flex; align-items: center; gap: .5rem 1rem; flex-wrap: wrap; }
 .wx-muted { color: var(--text-mention-grey); }
 .wx-org__head { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; margin-bottom: 1.5rem; }

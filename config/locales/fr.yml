@@ -27,6 +27,7 @@ fr:
     wallet_organization: organisation
     wallet_service: service
     wallet_intended_uses: utilisations-prevues
+    wallet_contacts: contacts-de-l-organisation
 
   authorization:
     badge: habilitation %{formatted_id}

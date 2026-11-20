@@ -508,4 +508,123 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       end
     end
   end
+
+  describe 'step « Les contacts »' do
+    subject(:authorization_request) { create(:authorization_request, :registre_wallet, organization:, applicant:, fill_all_attributes: true) }
+
+    let(:organization) { create(:organization, siret: '21920023500014') }
+    let(:applicant) { create(:user, given_name: 'Camille', family_name: 'Martin', email: 'camille.martin@clamart.fr').tap { |user| user.add_to_organization(organization, current: true) } }
+
+    def validate_step(**contact_attributes)
+      authorization_request.assign_attributes(contact_attributes)
+      authorization_request.validate(:submit)
+    end
+
+    def error_types_for(attribute)
+      authorization_request.errors.where(attribute).map(&:type)
+    end
+
+    it 'asks for three contacts, without job title' do
+      expect(described_class.contact_types).to eq(%i[wallet_application_manager wallet_technical_contact wallet_data_protection_officer])
+    end
+
+    it 'is valid with the three contacts filled' do
+      validate_step
+
+      expect(authorization_request.errors).to be_empty
+    end
+
+    it 'requires every field of every contact (RG1)' do
+      validate_step(**described_class.contact_types.product(%w[family_name given_name email phone_number]).to_h { |type, attribute| [:"#{type}_#{attribute}", ''] })
+
+      expect(authorization_request.errors.count).to eq(12)
+    end
+
+    it 'says which field is missing' do
+      validate_step(wallet_technical_contact_given_name: '')
+
+      expect(authorization_request.errors.messages_for(:wallet_technical_contact_given_name)).to eq(['Indiquez le prénom du contact technique.'])
+    end
+
+    ['---', ' . , ', '…'].each do |name|
+      it "treats « #{name} » as an empty name (RG6)" do
+        validate_step(wallet_application_manager_family_name: name)
+
+        expect(error_types_for(:wallet_application_manager_family_name)).to eq([:blank])
+      end
+    end
+
+    ['camille.martin@', 'camille@clamart.f', 'camille martin@clamart.fr', 'camille@clamart'].each do |email|
+      it "refuses the email « #{email} » with one message (RG6)" do
+        validate_step(wallet_data_protection_officer_email: email)
+
+        expect(authorization_request.errors.messages_for(:wallet_data_protection_officer_email)).to eq(['Indiquez une adresse électronique valide, par exemple nom@domaine.fr'])
+      end
+    end
+
+    ['04 72 00 00 00', '04.72.00.00.00', '04-72-00-00-00', '+33 (0)4 72 00 00 00', '+1 202-555-0143', '0472000000'].each do |phone|
+      it "accepts the phone number « #{phone} » (RG6)" do
+        validate_step(wallet_technical_contact_phone_number: phone)
+
+        expect(error_types_for(:wallet_technical_contact_phone_number)).to be_empty
+      end
+    end
+
+    ['04 72', '04 72 00 00 0a', '33+ 4 72 00 00 00', '04 72 00 00 00 poste 12'].each do |phone|
+      it "refuses the phone number « #{phone} » (RG6)" do
+        validate_step(wallet_technical_contact_phone_number: phone)
+
+        expect(authorization_request.errors.messages_for(:wallet_technical_contact_phone_number)).to eq(['Indiquez un numéro de téléphone valide, par exemple 04 72 00 00 00'])
+      end
+    end
+
+    it 'names the contact in the format error, for the error summary' do
+      validate_step(wallet_technical_contact_email: 'camille.martin@')
+
+      expect(authorization_request.errors.where(:wallet_technical_contact_email).first.options).to include(contact: 'Contact technique')
+    end
+
+    describe 'saving a draft' do
+      subject(:authorization_request) { create(:authorization_request, :registre_wallet, organization:, applicant:) }
+
+      it 'keeps an incomplete draft valid (RG8)' do
+        authorization_request.wallet_technical_contact_family_name = 'Lefèvre'
+
+        expect(authorization_request.save(context: :save_within_wizard)).to be true
+      end
+
+      it 'sets a badly formatted phone number aside and keeps the rest' do
+        authorization_request.assign_attributes(wallet_technical_contact_family_name: 'Lefèvre', wallet_technical_contact_phone_number: '04 72')
+        authorization_request.save(context: :save_within_wizard)
+
+        expect(authorization_request.reload.slice(:wallet_technical_contact_family_name, :wallet_technical_contact_phone_number).values).to eq(['Lefèvre', nil])
+      end
+    end
+
+    describe '#wallet_contact_of_applicant' do
+      subject(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, applicant:) }
+
+      it 'is nil when no contact is the applicant' do
+        expect(authorization_request.wallet_contact_of_applicant(applicant)).to be_nil
+      end
+
+      it 'is the contact filled with the name and email of the applicant, whatever the case' do
+        authorization_request.assign_attributes(wallet_technical_contact_given_name: 'Camille', wallet_technical_contact_family_name: 'MARTIN ', wallet_technical_contact_email: 'Camille.Martin@clamart.fr')
+
+        expect(authorization_request.wallet_contact_of_applicant(applicant)).to eq(:wallet_technical_contact)
+      end
+
+      it 'is nil when the contact is someone else with the same name' do
+        authorization_request.assign_attributes(wallet_technical_contact_given_name: 'Camille', wallet_technical_contact_family_name: 'Martin', wallet_technical_contact_email: 'c.martin@clamart.fr')
+
+        expect(authorization_request.wallet_contact_of_applicant(applicant)).to be_nil
+      end
+    end
+
+    it 'mentions a contact who is a DataPass user (CA6, existing mention)' do
+      authorization_request.wallet_data_protection_officer_email = 'camille.martin@clamart.fr'
+
+      expect(authorization_request.contact_types_for(applicant)).to include('wallet_data_protection_officer')
+    end
+  end
 end

@@ -12,7 +12,7 @@ Fonctionnalité: Registre wallet, étape « Les utilisations prévues »
     Et je remplis l’étape « Le service » du registre wallet
 
   Scénario: L’étape s’ouvre sans utilisation, avec le compteur de certificats
-    Alors la page contient "Étape 3/3"
+    Alors la page contient "Étape 3/4"
     Et la page contient "Pourquoi demandez-vous des données aux usagers ?"
     Et la page contient "Aucune utilisation prévue pour l’instant"
     Et la page contient "Vous recevrez un certificat d’enregistrement par utilisation prévue, soit 0"
@@ -24,7 +24,8 @@ Fonctionnalité: Registre wallet, étape « Les utilisations prévues »
     Et je coche les données "Nom, Prénoms, Date de naissance" de la dernière utilisation
     Et je clique sur "Suivant"
     Alors la page ne contient pas "à corriger avant de continuer"
-    Et la page contient "Les utilisations prévues des données"
+    Quand je remplis l’étape « Les contacts » du registre wallet
+    Alors la page contient "Les utilisations prévues des données"
     Et la page contient "Vérifier la majorité"
     Et la page contient "Date de naissance"
     Et la page contient "1 certificat d’enregistrement"

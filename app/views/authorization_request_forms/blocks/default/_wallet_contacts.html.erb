@@ -1,0 +1,48 @@
+<% applicant_contact = @authorization_request.wallet_contact_of_applicant(current_user) %>
+
+<%= tag.div class: 'fr-container-fluid', data: {
+  controller: 'wallet-contacts',
+  wallet_contacts_applicant_value: current_user.attributes.slice(*AuthorizationExtensions::WalletContacts::APPLICANT_IDENTITY_ATTRIBUTES).to_json,
+} do %>
+  <div class="fr-sr-only" role="status" aria-live="polite" aria-atomic="true" data-wallet-contacts-target="notification" data-message="<%= f.wording_for('wallet_contacts.filled_with_applicant_data') %>"></div>
+
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <% @authorization_request.contact_types.each do |contact_type| %>
+      <% title_id = "wallet-contact-#{contact_type}-title" %>
+      <% info_id = "wallet-contact-#{contact_type}-info" %>
+
+      <div class="fr-col-12 fr-col-lg-6">
+        <%= tag.div class: 'wx-panel wx-panel--fill', id: dom_id(@authorization_request, contact_type), data: { wallet_contacts_target: 'block', contact_type: } do %>
+          <div class="wx-card-head fr-mb-1w">
+            <h3 class="fr-h5 fr-mb-0" id="<%= title_id %>"><%= f.wording_for("#{contact_type}.title") %></h3>
+            <%= tag.button type: 'button',
+              class: 'fr-btn fr-btn--secondary fr-btn--sm',
+              hidden: applicant_contact.present? && applicant_contact != contact_type,
+              data: { wallet_contacts_target: 'itsMe', action: 'wallet-contacts#fill' } do %>
+              <%= f.wording_for('wallet_contacts.its_me') %><span class="fr-sr-only"> : <%= f.wording_for("#{contact_type}.its_me_target") %></span>
+            <% end %>
+          </div>
+          <p class="fr-text--sm wx-muted" id="<%= info_id %>"><%= f.wording_for("#{contact_type}.info") %></p>
+
+          <fieldset class="fr-fieldset fr-mb-3w" aria-labelledby="<%= title_id %>" aria-describedby="<%= info_id %>">
+            <% AuthorizationExtensions::WalletContacts::CONTACT_FIELDS.each do |attribute| %>
+              <% field = :"#{contact_type}_#{attribute}" %>
+              <% options = { required: true, autocomplete: 'off', data: { wallet_contacts_field: attribute, action: 'input->wallet-contacts#refresh' } } %>
+
+              <div class="fr-fieldset__element">
+                <% case attribute %>
+                <% when :email %>
+                  <%= f.dsfr_email_field field, options.deep_merge(spellcheck: false, data: { field_format_kind: 'email' }) %>
+                <% when :phone_number %>
+                  <%= f.dsfr_tel_field field, options.deep_merge(data: { field_format_kind: 'contact_phone' }) %>
+                <% else %>
+                  <%= f.dsfr_text_field field, options %>
+                <% end %>
+              </div>
+            <% end %>
+          </fieldset>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

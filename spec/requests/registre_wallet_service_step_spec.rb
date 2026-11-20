@@ -31,7 +31,7 @@ RSpec.describe 'Wallet registry, step « Le service »' do
 
     it 'shows the three fields, the counter and the read-only entitlement' do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('Étape 2/3', 'Quel service demandera des données au wallet ?', '0/50 caractères')
+      expect(response.body).to include('Étape 2/4', 'Quel service demandera des données au wallet ?', '0/50 caractères')
       expect(response.body).to include("#{param_key}_wallet_service_name", "#{param_key}_wallet_service_identifier", "#{param_key}_wallet_service_description")
       expect(response.body).to include('Habilitation du service', 'Fournisseur de services (Service_Provider)', 'aria-labelledby="wallet-service-card-title"')
     end
