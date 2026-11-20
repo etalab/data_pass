@@ -42,10 +42,6 @@ module ProConnectConfig
     'openid given_name usual_name email uid idp_id siret phone'
   end
 
-  def dirigeant_enabled?
-    FeatureFlag.enabled?(:proconnect_dirigeant)
-  end
-
   def dirigeant_options
     {
       client_id:,
@@ -118,7 +114,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     }
   )
 
-  provider(:proconnect_dirigeant, ProConnectConfig.dirigeant_options) if ProConnectConfig.dirigeant_enabled?
+  provider(:proconnect_dirigeant, ProConnectConfig.dirigeant_options)
 end
 
 OmniAuth.config.on_failure = OmniAuth::FailureReporter
