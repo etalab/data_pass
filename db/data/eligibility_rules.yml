@@ -398,3 +398,28 @@
       <br />
 
       <p> Pour obtenir un agrément, vous devez <strong>justifier du cadre juridique</strong> dans lequel s’inscrit votre demande.</p>
+- id: 20
+  definition_id: registre_wallet
+  request_access_label: Commencer l’enregistrement
+  options:
+  - type: dirigeant_entreprise
+    eligible: 'yes'
+    description: Vous figurez comme dirigeant de l’entreprise en votre nom propre.
+    request_access_params:
+      profil: dirigeant
+    body: |-
+      <p>Vous dirigez une entreprise privée immatriculée au RCS ou au RNE (SARL, SAS, SA, entreprise individuelle…), vous y figurez comme dirigeant en votre nom propre (gérant, président…) et vous avez un compte FranceConnect. ProConnect vous demandera de vous identifier avec FranceConnect pour confirmer que vous dirigez l’entreprise.</p>
+      <br />
+      <p>Votre entreprise est dirigée par une autre société, ou vous n’en êtes pas le dirigeant ? Écrivez au <a href="mailto:datapass@api.gouv.fr">support du registre</a> (datapass@api.gouv.fr).</p>
+  - type: agent_public
+    eligible: 'yes'
+    description: Administration, collectivité ou établissement public.
+    request_access_params:
+      profil: agent
+    body: |-
+      <p>Vous travaillez pour une administration, une collectivité ou un établissement public. Connectez-vous avec ProConnect, avec le compte de votre administration.</p>
+  - type: association
+    eligible: 'no'
+    description: L’enregistrement en ligne n’est pas encore possible.
+    body: |-
+      <p>Le registre ne peut pas encore enregistrer une association en ligne : ProConnect ne certifie pas encore les dirigeants d’associations. Écrivez au <a href="mailto:datapass@api.gouv.fr">support du registre</a> (datapass@api.gouv.fr), qui vous indiquera comment faire.</p>

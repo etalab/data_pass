@@ -103,5 +103,33 @@ RSpec.describe EligibilityRuleDecorator, type: :decorator do
     it 'has no lead by default' do
       expect(decorator.lead).to be_nil
     end
+
+    it 'has no title of its own by default' do
+      expect(decorator.title).to be_nil
+    end
+  end
+
+  context 'with the rule of the wallet registry' do
+    let(:eligibility_rule) { EligibilityRule.find_by(definition_id: 'registre_wallet') }
+
+    it 'gives the page the title of the registry' do
+      expect(decorator.title).to eq('Enregistrer votre organisation au registre du portefeuille européen')
+    end
+
+    it 'sends each answer that can sign in to the start page with its answer' do
+      paths = decorator.options.select(&:shows_request_access_button?).to_h { |option| [option.type, decorator.request_access_path(option)] }
+
+      expect(paths).to eq(
+        'dirigeant_entreprise' => '/demandes/registre_wallet/nouveau?eligibility_confirmed=true&profil=dirigeant',
+        'agent_public' => '/demandes/registre_wallet/nouveau?eligibility_confirmed=true&profil=agent'
+      )
+    end
+
+    it 'gives the association no way to sign in' do
+      association = decorator.options.find { |option| option.type == 'association' }
+
+      expect(association).not_to be_shows_request_access_button
+      expect(association).not_to be_shows_custom_cta
+    end
   end
 end

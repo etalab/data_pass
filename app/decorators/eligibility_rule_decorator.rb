@@ -16,6 +16,10 @@ class EligibilityRuleDecorator < ApplicationDecorator
     object.request_access_label.presence || t('eligibility.cta.request_access')
   end
 
+  def title
+    t("eligibility.titles.#{definition_id}") if I18n.exists?("eligibility.titles.#{definition_id}")
+  end
+
   def lead
     t("eligibility.leads.#{definition_id}") if I18n.exists?("eligibility.leads.#{definition_id}")
   end
