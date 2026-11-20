@@ -1,10 +1,13 @@
 <%# locals: (f:, authorization_request:) -%>
 <% consents_refused = authorization_request.errors.added?(:base, :all_terms_not_accepted) %>
+<% first_unchecked_consent = authorization_request.required_consents.find { |consent| !ActiveModel::Type::Boolean.new.cast(authorization_request.public_send(consent)) } if wallet_registry_summary_focus(authorization_request) == :consents %>
 
-<div class="fr-fieldset fr-mb-0 <%= 'fr-fieldset--error' if consents_refused %>" id="wallet-consents" role="group" <%= tag.attributes(aria: { describedby: ('wallet-consents-messages' if consents_refused) }) %>>
+<fieldset class="fr-fieldset fr-mb-0 <%= 'fr-fieldset--error' if consents_refused %>" id="wallet-consents" aria-labelledby="<%= ['wallet-consents-legend', ('wallet-consents-messages' if consents_refused)].compact.join(' ') %>">
+  <legend class="fr-fieldset__legend fr-sr-only" id="wallet-consents-legend"><%= f.wording_for('summary.consents_legend') %></legend>
+
   <% authorization_request.required_consents.each do |consent| %>
     <div class="fr-fieldset__element">
-      <%= f.term_checkbox consent %>
+      <%= f.term_checkbox consent, autofocus: consent == first_unchecked_consent %>
     </div>
   <% end %>
 
@@ -13,4 +16,4 @@
       <p class="fr-message fr-message--error"><%= f.wording_for('summary.consents_missing') %></p>
     <% end %>
   </div>
-</div>
+</fieldset>

@@ -1338,6 +1338,7 @@ fr:
         submit: Soumettre la demande d’enregistrement
         submitting: Envoi en cours…
         consents_missing: Cochez les deux cases pour soumettre votre demande.
+        consents_legend: Vos engagements
         executive_submit: Se reconnecter et soumettre
         server_error:
           title: Votre demande n’a pas été envoyée

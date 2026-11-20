@@ -5,10 +5,10 @@
   <% end %>
 
   <% if @wallet_submission_refusal %>
-    <div class="fr-alert fr-alert--error fr-mb-2w" id="wallet-submission-refusal" role="alert">
+    <%= tag.div class: 'fr-alert fr-alert--error fr-mb-2w', id: 'wallet-submission-refusal', role: 'alert', tabindex: -1, autofocus: wallet_registry_summary_focus(authorization_request, refusal: @wallet_submission_refusal) == :refusal do %>
       <h3 class="fr-alert__title"><%= f.wording_for("summary.refusal.#{@wallet_submission_refusal}.title") %></h3>
       <p><%= f.wording_for("summary.refusal.#{@wallet_submission_refusal}.description", organization_name: authorization_request.wallet_organization_name, support_email: authorization_request.definition.support_email) %></p>
-    </div>
+    <% end %>
   <% end %>
 
   <div class="fr-alert fr-alert--error fr-mb-2w" id="wallet-submission-server-error" tabindex="-1" role="alert" hidden data-submission-error-target="alert">

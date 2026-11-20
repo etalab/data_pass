@@ -73,6 +73,13 @@ RSpec.describe 'Wallet registry, submission by a certified executive' do
       expect(authorization_request.reload).to be_submitted
     end
 
+    it 'focuses the refusal on the way back from ProConnect' do
+      dirigeant_payload.extra.acr = 'eidas1-mfa'
+      come_back_from_pro_connect
+
+      expect(page.css('[autofocus]').pluck('id')).to eq(['wallet-submission-refusal'])
+    end
+
     it 'keeps the draft when ProConnect no longer certifies the executive (CA4)' do
       dirigeant_payload.extra.acr = 'eidas1-mfa'
       come_back_from_pro_connect
