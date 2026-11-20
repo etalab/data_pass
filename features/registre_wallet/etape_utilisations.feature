@@ -45,6 +45,18 @@ Fonctionnalité: Registre wallet, étape « Les utilisations prévues »
     Quand je choisis "Vérifier la majorité" comme utilisation affichée
     Alors l’aperçu montre l’utilisation "Vérifier la majorité" et "Vérifier que vous avez plus de 18 ans avant de vous louer un vélo."
 
+  @javascript
+  Scénario: L’aperçu suit l’utilisation que le demandeur parcourt (CA9)
+    Quand j’ajoute une utilisation prévue "Vérifier la majorité"
+    Et j’ajoute une utilisation prévue "Ouvrir un compte client"
+    Et je remplis le champ "Pourquoi demandez-vous ces données ?" de la dernière utilisation avec "Créer votre compte client et le contrat à votre nom."
+    Quand je fais défiler la page jusqu’à la première utilisation
+    Alors l’aperçu montre l’utilisation "Vérifier la majorité" et "Vérifier que vous avez plus de 18 ans avant de vous louer un vélo."
+    Quand je fais défiler la page jusqu’à la dernière utilisation
+    Alors l’aperçu montre l’utilisation "Ouvrir un compte client" et "Créer votre compte client et le contrat à votre nom."
+    Quand je donne le focus à « Modifier » dans la première utilisation, sans faire défiler
+    Alors l’aperçu montre l’utilisation "Vérifier la majorité" et "Vérifier que vous avez plus de 18 ans avant de vous louer un vélo."
+
   Scénario: Sans utilisation, l’aperçu invite à en ajouter une (CA9)
     Alors la page contient "Ce que verra l’usager"
     Et la page contient "Ajoutez une utilisation prévue pour voir l’aperçu."

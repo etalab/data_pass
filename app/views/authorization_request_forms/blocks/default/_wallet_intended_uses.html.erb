@@ -1,6 +1,6 @@
 <% uses = @authorization_request.wallet_intended_uses_loaded_for(:form) %>
 
-<%= tag.div id: 'wallet-intended-uses', data: { controller: 'wallet-intended-uses', wallet_intended_uses_wordings_value: wallet_intended_uses_client_wordings } do %>
+<%= tag.div id: 'wallet-intended-uses', data: { controller: 'wallet-intended-uses', action: 'focusin->wallet-intended-uses#followFocus scroll@window->wallet-intended-uses#followScroll:passive', wallet_intended_uses_wordings_value: wallet_intended_uses_client_wordings } do %>
   <div class="wx-counter fr-mb-3w">
     <span class="fr-icon-award-line fr-icon--sm" aria-hidden="true"></span>
     <p class="fr-text--sm fr-mb-0"><%= wallet_intended_uses_t('certificates_html', count: @authorization_request.wallet_registration_certificates_count) %></p>
