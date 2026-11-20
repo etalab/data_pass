@@ -1,0 +1,2 @@
+<%= turbo_stream.replace 'wallet-identity-panel', partial: 'authorization_request_forms/registre_wallet/identity_panel', locals: { authorization_request: @authorization_request } %>
+<%= turbo_stream.update 'wallet-identity-status', partial: 'authorization_request_forms/registre_wallet/identity_refresh_result', locals: { authorization_request: @authorization_request, refreshed: @identity_refreshed } %>

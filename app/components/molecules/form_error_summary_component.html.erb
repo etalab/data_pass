@@ -1,0 +1,8 @@
+<div class="fr-alert fr-alert--error fr-mb-3w" id="form-error-summary" tabindex="-1" role="alert" data-controller="error-summary">
+  <h3 class="fr-alert__title"><%= title %></h3>
+  <ul class="fr-mb-0">
+    <% errors.each do |error| %>
+      <li><%= link_to summary_for(error), anchor_for(error), class: 'fr-link' %></li>
+    <% end %>
+  </ul>
+</div>

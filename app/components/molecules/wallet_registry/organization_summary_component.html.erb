@@ -1,0 +1,40 @@
+<div class="wx-sum-group">
+  <h3 class="wx-sum-group__title"><%= t('.identification') %></h3>
+  <div class="fr-container-fluid">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.legal_name'), value: legal_name) %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.siret'), value: formatted_siret) %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.country_code'), value: 'FR') %>
+      <% if sirene_available? || authorization_request.identity_pending? %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.public_sector'), value: public_sector_label) %>
+      <% end %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.address'), value: address, width: :full) %>
+      <% if authorization_request.wallet_identity_entered_by_applicant? && authorization_request.wallet_address_proof.attached? %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.address_proof'), width: :full) do %>
+          <% authorization_request.wallet_address_proof.each do |document| %>
+            <%= document.try(:unsafe?) ? document.filename : link_to(helpers.safe_join([document.filename.to_s, tag.span(" - #{t('.new_window')}", class: 'fr-sr-only')]), helpers.url_for(document), target: '_blank', rel: 'noopener', class: 'fr-link') %>
+          <% end %>
+          <%= t('.not_published') %>
+        <% end %>
+      <% end %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.not_registered_elsewhere'), value: not_registered_elsewhere, width: :full) %>
+    </div>
+  </div>
+</div>
+
+<div class="wx-sum-group">
+  <h3 class="wx-sum-group__title"><%= t('.for_users') %></h3>
+  <div class="fr-container-fluid">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.privacy_policy'), value: value_or_not_filled(authorization_request.wallet_privacy_policy_url), width: :half) %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.website'), value: value_or_not_filled(authorization_request.wallet_website_url), width: :half) %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.support'), width: :half) do %>
+        <%= support_channels.any? ? safe_join(support_channels, tag.br) : t('.not_filled') %>
+      <% end %>
+      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.data_protection_authority'), width: :half) do %>
+        <%= t('.data_protection_authority_name') %><br>
+        <%= t('.data_protection_authority_contact') %>
+      <% end %>
+    </div>
+  </div>
+</div>

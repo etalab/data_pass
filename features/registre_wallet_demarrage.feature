@@ -41,7 +41,7 @@ Fonctionnalité: Démarrer un enregistrement au registre wallet
     Et la page ne contient pas "Le certificat d’accès du service"
     Et la page contient "Une fois votre demande soumise, le registre la vérifie sous 5 jours ouvrés."
     Quand je clique sur "Débuter ma demande"
-    Alors la page contient "L’organisation"
+    Alors la page contient "Quelle organisation enregistrez-vous ?"
 
   Scénario: Un dirigeant certifié par ProConnect arrive sur l’introduction
     Sachant que je suis dirigeant d’une entreprise privée
@@ -166,7 +166,7 @@ Fonctionnalité: Démarrer un enregistrement au registre wallet
     Quand je me rends sur la page de démarrage du registre wallet
     Alors la page contient "Nous n’avons pas encore pu lire la catégorie juridique de votre organisation"
     Quand je clique sur "Débuter ma demande"
-    Alors la page contient "L’organisation"
+    Alors la page contient "Quelle organisation enregistrez-vous ?"
 
   @javascript
   Scénario: Un dirigeant certifié passe par l’arbre et arrive à la première étape
@@ -182,7 +182,7 @@ Fonctionnalité: Démarrer un enregistrement au registre wallet
     Quand je clique sur "S’identifier avec ProConnect"
     Alors la page contient "Vous n’avez pas à prouver que vous êtes dirigeant : ProConnect l’a vérifié à votre connexion"
     Quand je clique sur "Débuter ma demande"
-    Alors la page contient "L’organisation"
+    Alors la page contient "Quelle organisation enregistrez-vous ?"
 
   @javascript
   Scénario: Un agent public passe par l’arbre et arrive à la première étape
@@ -195,7 +195,7 @@ Fonctionnalité: Démarrer un enregistrement au registre wallet
     Quand je clique sur "S’identifier avec ProConnect"
     Alors la page contient "Vous n’avez pas à prouver que vous pouvez engager votre administration"
     Quand je clique sur "Débuter ma demande"
-    Alors la page contient "L’organisation"
+    Alors la page contient "Quelle organisation enregistrez-vous ?"
 
   @javascript
   Scénario: Une association est renvoyée vers le support, sans bouton de connexion

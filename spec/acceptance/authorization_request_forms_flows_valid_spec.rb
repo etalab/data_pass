@@ -63,7 +63,14 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
       authorization_request.france_connect_authorization_id = full_request.france_connect_authorization_id if authorization_request.respond_to?(:france_connect_authorization_id)
     when 'scopes'
       handle_scopes_step(authorization_request, full_request)
+    when 'wallet_organization'
+      handle_wallet_organization_step(authorization_request)
     end
+  end
+
+  def handle_wallet_organization_step(authorization_request)
+    authorization_request.organization.update!(insee_payload: JSON.parse(Rails.root.join('spec/fixtures/insee/21920023500014.json').read))
+    authorization_request.copy_identity_from_sources
   end
 
   def handle_scopes_step(authorization_request, full_request)
@@ -151,6 +158,16 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         volumetrie_appels_par_minute
         volumetrie_justification
         adresse_ip_publique_production
+      ],
+      'wallet_organization' => %w[
+        wallet_privacy_policy_url
+        wallet_website_url
+        wallet_support_url
+        wallet_support_email
+        wallet_support_phone
+        wallet_not_registered_elsewhere
+        wallet_postal_address
+        wallet_address_proof
       ],
     }
   end

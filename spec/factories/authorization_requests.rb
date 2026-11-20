@@ -1718,6 +1718,26 @@ FactoryBot.define do
       type { 'AuthorizationRequest::RegistreWallet' }
 
       form_uid { 'registre-wallet' }
+
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.copy_identity_from_sources if authorization_request.identity_source.nil?
+
+        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+          authorization_request.wallet_privacy_policy_url ||= 'https://www.clamart.fr/confidentialite'
+          authorization_request.wallet_support_email ||= 'contact@clamart.fr'
+          authorization_request.wallet_not_registered_elsewhere = true if authorization_request.data['wallet_not_registered_elsewhere'].nil?
+          if %i[sirene_unavailable sirene_pending].include?(authorization_request.wallet_identity_source)
+            authorization_request.identity_source = 'sirene'
+            authorization_request.identity_legal_name = 'COMMUNE DE CLAMART'
+          end
+          authorization_request.wallet_postal_address ||= '1 place Maurice Gunsbourg, 92140 Clamart'
+          authorization_request.wallet_address_proof.attach(
+            io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+            filename: 'dummy.pdf',
+            content_type: 'application/pdf'
+          )
+        end
+      end
     end
   end
 end

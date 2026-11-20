@@ -1,1 +1,98 @@
-<%= f.info_for(:wallet_organization) %>
+<% source = @authorization_request.wallet_identity_source %>
+
+<% if source == :sirene_unavailable %>
+  <div class="fr-alert fr-alert--warning fr-mb-3w">
+    <h3 class="fr-alert__title"><%= f.wording_for('wallet_organization.sirene_unavailable.title') %></h3>
+    <p><%= f.wording_for('wallet_organization.sirene_unavailable.description') %></p>
+  </div>
+<% end %>
+
+<div class="wx-panel">
+  <% if source == :sirene_unavailable %>
+    <div class="wx-panel-title fr-mb-1w">
+      <h3 class="fr-h5 fr-mb-0"><%= f.wording_for('wallet_organization.sirene_unavailable.panel_title') %></h3>
+    </div>
+  <% end %>
+
+  <%= render 'authorization_request_forms/registre_wallet/identity_panel', authorization_request: @authorization_request %>
+  <div id="wallet-identity-status" role="status"></div>
+
+  <% if source == :sirene_unavailable %>
+    <%= f.dsfr_text_field :wallet_legal_name, required: true, autocomplete: 'organization' %>
+    <%= f.dsfr_text_field :wallet_postal_address, required: true, autocomplete: 'street-address', data: { field_format_kind: 'postal_address' } %>
+    <%= f.dsfr_file_field :wallet_address_proof, required: true, multiple: false, class: 'fr-upload-group fr-mb-0' %>
+  <% end %>
+
+  <% if source == :non_diffusible %>
+    <div class="fr-notice fr-notice--info fr-mb-2w">
+      <div class="fr-container fr-px-2w">
+        <div class="fr-notice__body">
+          <p class="fr-notice__title"><%= f.wording_for('wallet_organization.non_diffusible') %></p>
+        </div>
+      </div>
+    </div>
+    <%= f.dsfr_text_field :wallet_postal_address, required: true, autocomplete: 'street-address', hint_text: f.wording_for('wallet_postal_address.hint_non_diffusible'), data: { field_format_kind: 'postal_address' } %>
+    <%= f.dsfr_file_field :wallet_address_proof, required: true, multiple: false, label_text: f.wording_for('wallet_address_proof.label_non_diffusible'), hint_text: f.wording_for('wallet_address_proof.hint_non_diffusible'), class: 'fr-upload-group fr-mb-3w' %>
+  <% end %>
+
+  <% if %i[sirene non_diffusible].include?(source) %>
+    <p class="fr-text--sm fr-mb-0 wx-muted">
+      <%= t('authorization_request_forms.registre_wallet.wallet_organization.insee_correction_html') %>
+    </p>
+  <% end %>
+</div>
+
+<div class="wx-panel">
+  <div class="wx-panel-title fr-mb-1w">
+    <h3 class="fr-h5 fr-mb-0"><%= f.wording_for('wallet_organization.published.title') %></h3>
+  </div>
+  <p class="fr-text--sm wx-muted"><%= f.wording_for('wallet_organization.published.description') %></p>
+
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-8">
+      <%= f.dsfr_url_field :wallet_privacy_policy_url, required: true, data: { field_format_kind: 'https_url' } %>
+
+      <div class="fr-mb-3w">
+        <p class="fr-label fr-mb-0">
+          <%= f.wording_for('wallet_organization.data_protection_authority.label') %>
+          <span class="fr-hint-text"><%= f.wording_for('wallet_organization.data_protection_authority.hint') %></span>
+        </p>
+        <p class="fr-text--bold fr-mt-1w fr-mb-0">
+          <%= f.wording_for('wallet_organization.data_protection_authority.name') %>
+        </p>
+        <p class="fr-text--sm fr-mt-1v fr-mb-0">
+          <%= t('authorization_request_forms.registre_wallet.wallet_organization.data_protection_authority.contact_html') %>
+        </p>
+      </div>
+
+      <%= f.dsfr_url_field :wallet_website_url, autocomplete: 'url', class: 'fr-mb-0', data: { field_format_kind: 'https_url' } %>
+    </div>
+  </div>
+
+  <fieldset class="fr-fieldset fr-mt-3w fr-mb-0" id="wallet-support" aria-labelledby="wallet-support-legend">
+    <legend class="fr-fieldset__legend fr-fieldset__legend--regular" id="wallet-support-legend">
+      <%= f.wording_for('wallet_organization.support.legend') %><span class="fr-ml-1w fr-text-error">*</span>
+      <span class="fr-hint-text"><%= f.wording_for('wallet_organization.support.hint') %></span>
+    </legend>
+    <div class="fr-fieldset__element">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-12 fr-col-md-4">
+          <%= f.dsfr_url_field :wallet_support_url, required: false, data: { field_format_kind: 'https_url' } %>
+        </div>
+        <div class="fr-col-12 fr-col-md-4">
+          <%= f.dsfr_email_field :wallet_support_email, required: false, autocomplete: 'email', data: { field_format_kind: 'email', controller: 'wallet-generic-email', wallet_generic_email_warning_value: f.wording_for('wallet_organization.support.generic_email_warning') } %>
+        </div>
+        <div class="fr-col-12 fr-col-md-4">
+          <%= f.dsfr_tel_field :wallet_support_phone, required: false, autocomplete: 'tel', data: { field_format_kind: 'phone' } %>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<div class="wx-panel">
+  <div class="wx-engage">
+    <p class="fr-text--bold fr-mb-2w"><%= f.wording_for('wallet_organization.commitment.title') %></p>
+    <%= f.dsfr_check_box :wallet_not_registered_elsewhere, required: true, label_text: wallet_registry_commitment_label(@authorization_request), class: 'fr-mb-2w' %>
+  </div>
+</div>

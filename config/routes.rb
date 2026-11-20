@@ -94,6 +94,8 @@ Rails.application.routes.draw do
 
       scope 'demande/:authorization_request_id' do
         resources :build, controller: 'authorization_request_forms/build', only: %w[show update], path: 'etapes', as: 'authorization_request_form_build'
+        resource :autosave, controller: 'authorization_request_forms/autosaves', only: %w[update], path: 'enregistrement-automatique', as: 'authorization_request_form_autosave'
+        resource :identity_refresh, controller: 'authorization_request_forms/identity_refreshes', only: %w[create], path: 'identite', as: 'authorization_request_form_identity_refresh'
       end
 
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'

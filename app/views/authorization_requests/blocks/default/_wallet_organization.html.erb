@@ -1,2 +1,3 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.wallet_organization'), block_id: :wallet_organization, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('wallet_organization.summary_title'), block_id: :wallet_organization, f:, editable: } do %>
+  <%= render Molecules::WalletRegistry::OrganizationSummaryComponent.new(authorization_request:) %>
 <% end %>
