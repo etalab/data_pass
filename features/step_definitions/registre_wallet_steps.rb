@@ -257,6 +257,16 @@ Quand('je choisis {string} comme utilisation affichée') do |name|
   select name, from: 'Utilisation prévue affichée'
 end
 
+Quand('je fais défiler la page jusqu’à la {word} utilisation') do |position|
+  card = position == 'première' ? first('.usage-card') : last_wallet_intended_use_card
+  page.execute_script("arguments[0].scrollIntoView({ block: 'center' })", card)
+end
+
+Quand('je donne le focus à « {word} » dans la première utilisation, sans faire défiler') do |label|
+  button = within(first('.usage-card')) { find_button(label, match: :first) }
+  page.execute_script('arguments[0].focus({ preventScroll: true })', button)
+end
+
 Alors('l’aperçu montre l’utilisation {string} et {string}') do |name, purpose|
   expect(page).to have_select('Utilisation prévue affichée', selected: name)
   expect(page).to have_css('.wallet-preview', visible: :visible, count: 1)

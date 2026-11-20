@@ -69,8 +69,39 @@ export default class extends Controller {
     if (this.checkedIn(attestation).length > 0) this.clearClaimError(attestation)
   }
 
+  disconnect () {
+    window.cancelAnimationFrame(this.scrollFrame)
+  }
+
   previewChanged () {
     this.showPreview(this.previewSelectTarget.value)
+  }
+
+  followFocus (event) {
+    this.follow(this.cardOf(event.target))
+  }
+
+  followScroll () {
+    if (!this.hasPreviewSelectTarget || this.scrollFrame) return
+
+    this.scrollFrame = window.requestAnimationFrame(() => {
+      this.scrollFrame = null
+      this.follow(this.cardAtReadingLine())
+    })
+  }
+
+  follow (card) {
+    if (!this.hasPreviewSelectTarget || !card || card.dataset.useId === this.previewSelectTarget.value) return
+
+    this.previewSelectTarget.value = card.dataset.useId
+    this.showPreview(card.dataset.useId)
+  }
+
+  cardAtReadingLine () {
+    const readingLine = window.innerHeight / 3
+    const reached = this.cardTargets.filter((card) => card.getBoundingClientRect().top <= readingLine)
+
+    return reached[reached.length - 1] || this.cardTargets[0]
   }
 
   setCardOpen (card, open) {
