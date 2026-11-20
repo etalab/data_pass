@@ -1,5 +1,9 @@
 <% set_title! t('page_titles.authorization_request_new', authorization_name: @authorization_request_form.authorization_definition.name) %>
 
+<div id="flash-alerts" class="fr-mt-4w">
+  <%= render partial: 'shared/alerts' %>
+</div>
+
 <h2 class="fr-mt-16v">
   <%= t('authorization_request_forms.new.title', authorization_name: @authorization_request_form.authorization_definition.name) %>
 </h2>

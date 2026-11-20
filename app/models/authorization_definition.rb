@@ -5,7 +5,9 @@ class AuthorizationDefinition < StaticApplicationRecord
     reopening: true,
     transfer: true,
     instructor_drafts: false,
+    autosave: false,
     submission: true,
+    return_to_introduction_after_archive: false,
   }.freeze
 
   CONFIGURATION_ATTRIBUTES = %i[

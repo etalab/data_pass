@@ -19,10 +19,7 @@
         </div>
 
         <div class="fr-modal__footer">
-          <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
-            <%= link_to t('.cancel'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
-            <%= button_to t('.archive'), namespace?(:instruction) ? instruction_authorization_request_archive_index_path(@authorization_request) : authorization_request_archive_index_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
-          </div>
+          <%= render partial: archive_modal_buttons_partial(@authorization_request), locals: { archive_path: namespace?(:instruction) ? instruction_authorization_request_archive_index_path(@authorization_request) : authorization_request_archive_index_path(@authorization_request) } %>
         </div>
       </turbo-frame>
     </div>

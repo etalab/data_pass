@@ -21,7 +21,7 @@ module AuthorizationRequestsHelpers
 
   def authorization_request_form(authorization_request, url: nil, form_options: {}, &)
     authorization_request_form_tag(authorization_request, url:, form_options:) do |f|
-      render(layout: 'authorization_request_forms/form', locals: { f: }) do
+      render(layout: authorization_request_form_layout(authorization_request), locals: { f: }) do
         yield f
       end
     end
