@@ -351,3 +351,22 @@ ne demande donc plus ni PR ni déploiement** :
 ```ruby
 Setting.set(:insee_password, '…')
 ```
+
+## L’INSEE fictive en développement
+
+Sans payload INSEE, le secteur d’une organisation reste inconnu (`PublicSectorClassification#known?`). En
+développement, sans identifiants INSEE valides, le refus de la certification dirigeant au secteur public n’est
+donc pas recettable. `config/initializers/insee_fictive.rb` remplace alors l’API par les
+fixtures de `spec/fixtures/insee/` :
+
+```sh
+INSEE_FICTIVE=1 bin/local_run.sh       # SIRET inconnu → MGDIS (entreprise privée), sous ce SIRET
+INSEE_FICTIVE=public bin/local_run.sh  # SIRET inconnu → Commune de Clamart (secteur public)
+```
+
+Un SIRET présent dans les fixtures renvoie toujours sa fixture. L’INSEE fictive ignore l’interrupteur, le
+coupe-circuit et l’absence d’identifiants : aucun appel ne part. Elle n’agit qu’en `development`.
+
+Le coupe-circuit, lui, vit dans Redis sous une clé sans espace de noms (`insee_calls_pause`). Redis étant
+partagé entre les worktrees d’un même poste, un 401 dans un worktree suspend les appels INSEE de tous les
+autres, sans log ni Sentry en développement. `INSEECallsPause.reset!` en console le relâche.

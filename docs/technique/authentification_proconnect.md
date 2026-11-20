@@ -71,9 +71,11 @@ sequenceDiagram
     FI-->>N: L'agent s'authentifie avec double authentification<br/>(MFA du FI, TOTP ProConnect Identité ou code par email)
     PC-->>N: Redirige vers /auth/proconnect/callback?code=XXX&state=…
     N->>DP: GET /auth/proconnect/callback
-    Note over DP: Vérifie le state
+    Note over DP: error= ? → échec. Vérifie le state
     DP->>PC: Échange code → tokens (back-channel, client_secret)
     PC-->>DP: access_token + id_token + refresh_token
+    DP->>PC: GET jwks_uri (clés publiques)
+    Note over DP: Vérifie l'id_token : signature,<br/>iss, aud, exp, nonce
     DP->>PC: GET userinfo (Bearer access_token)
     PC-->>DP: Infos de l'agent (un JWT)
     Note over DP: Vérifie l'acr de l'id_token (MFA ?)<br/>Crée user + organisation<br/>+ session DataPass
@@ -93,18 +95,28 @@ sequenceDiagram
 3. **Authentification chez ProConnect.** L'agent choisit son organisation, s'authentifie, puis
    valide sa double authentification. DataPass ne voit rien de cette étape.
 4. **Retour avec un code.** ProConnect renvoie le navigateur vers
-   `/auth/proconnect/callback` avec un `code` à usage unique et le `state`. DataPass vérifie
-   d'abord que le `state` correspond à celui qu'il avait émis (`verify_state!`).
+   `/auth/proconnect/callback` avec un `code` à usage unique et le `state`. Si ProConnect
+   renvoie un paramètre `error` à la place du `code` (usager qui abandonne, erreur côté
+   ProConnect), DataPass s'arrête là, sans tenter d'échange. Sinon, il vérifie que le `state`
+   correspond à celui qu'il avait émis (`valid_state?`).
 5. **Échange code → tokens (back-channel).** Le `code` seul est inutile. DataPass rappelle
    ProConnect **de serveur à serveur** (le navigateur n'est pas dans la boucle), avec son
    `client_secret`, pour échanger le code contre des tokens (`access_token`, `id_token`,
-   `refresh_token`), stockés en session sous `omniauth.pc.*`.
+   `refresh_token`), stockés en session sous `omniauth.pc.*`. L'`id_token` est ensuite vérifié
+   (`verified_id_token_claims`) : signature avec les clés publiées sur le `jwks_uri` de la
+   découverte (RS256 ou ES256), émetteur (`iss`) égal à celui de la découverte, audience
+   (`aud`) contenant notre `client_id`, expiration (`exp`) future à 10 secondes près (tolérance
+   d'horloge), et `nonce` égal à celui de la session (supprimé après usage).
 6. **Récupération des infos agent.** DataPass appelle le `userinfo_endpoint` avec
    l'`access_token`. Particularité ProConnect : la réponse est un **JWT** (jeton signé), pas
    du JSON brut. Il est décodé dans `@userinfo`. Claims utiles : `sub` (identifiant unique),
    `email`, `given_name`, `usual_name`, `siret`, `idp_id` (quel FI a servi), `phone_number`.
-   L'`acr` de l'`id_token` (niveau de garantie atteint) est exposé à côté, dans
-   `extra.acr` du hash OmniAuth.
+   Le `sub` de userinfo doit être celui de l'`id_token`. L'`acr` et l'`amr` de l'`id_token`
+   vérifié sont exposés à côté, dans `extra.acr` et `extra.amr` du hash OmniAuth.
+
+Chaque contrôle qui échoue appelle `fail!` avec un motif (`proconnect_error`, `csrf_detected`,
+`token_exchange_failed`, `invalid_id_token`). `OmniAuth::FailureReporter` journalise le motif,
+l'envoie à Sentry en `warning`, puis redirige vers `/auth/failure` (`sessions#failure`).
 7. **Construction côté DataPass.** Voir la section suivante.
 
 ## Traitement côté DataPass (étape 7)
@@ -192,7 +204,7 @@ Il y a donc **deux sessions distinctes** :
 **Le `state` — éviter qu'une connexion soit détournée.**
 Au moment d'envoyer l'agent vers ProConnect, DataPass génère un identifiant aléatoire propre à
 cette tentative de connexion, le conserve dans la session et le transmet à ProConnect, qui le
-renvoie inchangé. Au retour, DataPass vérifie que les deux correspondent (`verify_state!`). Sans
+renvoie inchangé. Au retour, DataPass vérifie que les deux correspondent (`valid_state?`). Sans
 ce contrôle, un tiers pourrait forger une réponse d'authentification et la faire traiter par le
 navigateur de la victime (attaque CSRF) ; le `state` garantit que la réponse traitée répond bien
 à une demande émise depuis ce navigateur. En cas de différence, la connexion est rejetée.
@@ -201,14 +213,31 @@ navigateur de la victime (attaque CSRF) ; le `state` garantit que la réponse tr
 DataPass insère un second identifiant aléatoire dans la demande ; ProConnect le réinscrit à
 l'intérieur de l'`id_token` qu'il délivre. DataPass vérifie ainsi que le jeton reçu a bien été
 émis pour cette demande précise, et non rejoué à partir d'un échange antérieur intercepté. Là où
-le `state` protège l'aller-retour de la requête, le `nonce` protège le contenu du jeton.
+le `state` protège l'aller-retour de la requête, le `nonce` protège le contenu du jeton. Le
+`nonce` n'est utilisable qu'une fois : il est retiré de la session dès sa vérification.
+
+**La signature de l'`id_token` — fonder un droit sur un jeton authentique.**
+La documentation ProConnect impose de vérifier la signature de l'`id_token` avant de lire ses
+claims. La gem ne le fait pas : la surcharge `lib/omniauth/strategies/proconnect_overrides.rb`
+récupère les clés publiques de ProConnect (`jwks_uri`) à chaque retour et rejette tout jeton
+non signé, signé par une autre clé, émis pour une autre application, par un autre émetteur ou
+expiré. Avant novembre 2026 (DPP-202), l'`acr` de la double authentification était lu sans cette
+vérification.
+
+Un interrupteur permet de couper **la seule vérification de signature** sans redéployer, si
+ProConnect venait à signer autrement (algorithme hors RS256/ES256, clés JWKS indisponibles) et
+bloquait ainsi toutes les connexions : le réglage `proconnect_id_token_signature_check`
+(`Setting`, ou variable `PROCONNECT_ID_TOKEN_SIGNATURE_CHECK`), actif sauf s'il vaut `false`.
+Coupé, l'`id_token` est décodé sans vérifier la signature, comme avant DPP-202, mais `iss`,
+`aud`, `exp`, `nonce`, le `state` et la cohérence du `sub` restent contrôlés. C'est une
+roue de secours : le remettre à `true` dès que la cause est corrigée.
 
 **La double authentification obligatoire — pour tous les agents.**
 (Janvier 2026 : réservée aux agents MonComptePro via un aller-retour de réauthentification ;
 octobre 2026 : étendue à tous, DPP-166.) Dès la requête d'autorisation, DataPass réclame à
 ProConnect un `acr` MFA comme claim essentiel de l'`id_token` :
 `claims={"id_token":{"acr":{"essential":true,"values":["eidas0-mfa","eidas1-mfa","eidas2","eidas3"]}}}`
-(`MFA_ACR_VALUES`, `mfa_claims`). ProConnect fait alors faire le second facteur à l'agent : le
+(`MFA_ACR_VALUES`, `requested_claims`). ProConnect fait alors faire le second facteur à l'agent : le
 MFA de son fournisseur d'identité s'il en a un, le TOTP pour ProConnect Identité, sinon un code
 à usage unique envoyé par email (`eidas1-mfa`).
 
@@ -239,6 +268,125 @@ bannissement (`BannedUserError`), puis `return` — pour ne jamais autoriser l'a
 banni. Limites de ce palier *stateless* (cookie store, sans store serveur) : pas de révocation à
 distance ni de « déconnecter partout », un cookie volé reste valide jusqu'à son expiration (12 h).
 Ces points seront traités par **DP-1790** (store serveur révocable).
+
+## Vérification du statut de dirigeant (DPP-202)
+
+ProConnect peut certifier qu'un usager est dirigeant d'une entreprise : il rapproche son identité
+FranceConnect de la liste des dirigeants issue de Sirene et du RNE, pour le SIREN de
+l'organisation choisie. La seule preuve renvoyée est l'`acr`
+`https://proconnect.gouv.fr/assurance/certification-dirigeant`.
+
+DataPass l'utilise par une **seconde stratégie OmniAuth**, `proconnect_dirigeant`
+(`lib/omniauth/strategies/proconnect_dirigeant.rb`), lancée par un usager **déjà connecté** :
+
+```mermaid
+flowchart TD
+    A["/verification-dirigeant (flag proconnect_dirigeant)"] --> B["POST /auth/proconnect_dirigeant<br/>siret_hint = SIRET de l'organisation courante<br/>claims : acr dirigeant essentiel + amr"]
+    B --> C["ProConnect"]
+    C --> D["GET /auth/proconnect_dirigeant/callback<br/>mêmes contrôles que la connexion<br/>(error=, state, signature, nonce)"]
+    D -- échec --> F["/auth/failure?strategy=proconnect_dirigeant<br/>→ /verification-dirigeant avec le motif"]
+    D --> E["DirigeantVerificationsController#create<br/>VerifyDirigeantThroughProConnect"]
+    E --> G["acr = certification-dirigeant ?<br/>compte ProConnect = usager connecté ?<br/>SIRET renvoyé ∈ SIREN de l'organisation ?"]
+    G --> H["Résultat en flash → /verification-dirigeant<br/>rien n'est enregistré"]
+```
+
+- **Pas de déconnexion ni de rotation de session** : le callback dédié n'ouvre pas de session.
+  La route générique `auth/:provider/callback` est restreinte à `proconnect` et
+  `mon_compte_pro`, pour qu'un retour dirigeant ne puisse jamais passer par `sessions#create`.
+- **Session de connexion intacte** : la stratégie range `state` et `nonce` sous
+  `omniauth.pc_dirigeant.*` et ne stocke pas ses jetons en session. L'`id_token` de la connexion,
+  qui sert à la déconnexion, n'est pas écrasé. Elle n'a pas de chemin `/logout`.
+- **Configuration** : la stratégie utilise l'application ProConnect de la connexion
+  (`ProConnectConfig`). L'URL de retour `<host>/auth/proconnect_dirigeant/callback`
+  (`ProConnectConfig.dirigeant_redirect_uri`) doit être déclarée sur cette application.
+- **Rapprochement du compte** : les deux parcours passant par la même application, le `sub`
+  renvoyé est le même : `CheckProConnectDirigeantIdentity` le compare à `users.external_id`.
+- **Limites connues** : ProConnect ne transmet pas la cause d'un refus (`error=invalid_request`
+  même pour une organisation non couverte) ; l'application d'intégration refuse les agents du
+  secteur privé (`Y500015`, case réglée par ProConnect, à changer sur demande par le formulaire
+  « Modifier votre configuration »). L'application de production n'a pas cette restriction : le
+  secteur privé peut déjà s'y connecter. La persistance du statut relève de DPP-201/206.
+
+### Connexion par le bouton « ProConnect dirigeant »
+
+ProConnect ne sait demander qu'un `acr` à la fois : soit la double authentification, soit la
+certification dirigeant. Le parcours dirigeant enchaîne donc deux cinématiques sans repasser par
+une page DataPass :
+
+```mermaid
+flowchart TD
+    A["POST /auth/proconnect<br/>parcours=dirigeant"] --> B["ProConnect : connexion MFA"]
+    B --> C["sessions#create<br/>MFA, ouverture de session"]
+    C -- organisation classée publique --> R["/verification-dirigeant : refus expliqué, personne connectée"]
+    C --> D["302 GET /auth/proconnect_dirigeant?siret_hint=…<br/>autorisé une seule fois par le marqueur de session"]
+    D --> E["ProConnect : certification dirigeant"]
+    E --> F["DirigeantVerificationsController#create"]
+```
+
+- Le paramètre `parcours=dirigeant` revient au callback par `env['omniauth.params']`. Il n'est lu
+  que si le flag `proconnect_dirigeant` est actif.
+- Le flag `proconnect_dirigeant` est ouvert partout sauf en production, où il suit le Setting
+  `proconnect_dirigeant_open` (type `:enabled_if_true`, coupé par défaut, repli sur la variable
+  `PROCONNECT_DIRIGEANT_OPEN`). L'ouvrir ne demande ni déploiement ni redémarrage :
+  `Setting.set(:proconnect_dirigeant_open, 'true')`, et `Setting.unset` pour refermer.
+- La stratégie OmniAuth `proconnect_dirigeant` est toujours déclarée, mais elle ne reconnaît ses
+  chemins (`on_request_path?`, `on_callback_path?`) que si le flag est ouvert, lu au moment de la
+  requête. Flag fermé, `/auth/proconnect_dirigeant` et sa callback passent à l'application, qui
+  répond 404.
+- Le départ d'OmniAuth n'accepte que le POST avec jeton CSRF (`omniauth-rails_csrf_protection`).
+  Pour enchaîner par une redirection, `ProconnectDirigeant#request_call?` accepte aussi un GET, à
+  condition que `sessions#create` ait posé le marqueur
+  `omniauth.pc_dirigeant.chained_request` juste après la connexion. Le marqueur est l'heure de la
+  connexion : il est consommé au premier usage et n'est plus accepté au-delà de deux minutes
+  (`CHAINED_REQUEST_TTL`), pour qu'un lien externe suivi plus tard ne lance pas la certification
+  sans POST. Un GET hors enchaînement tombe en 404.
+- Si l'entreprise certifiée n'est pas celle de la connexion (`siret_outside_siren`), la page
+  l'explique et propose de relancer la vérification. Pas de bascule automatique d'organisation.
+- Le paramètre `return_to`, posé sur l'un ou l'autre formulaire de départ, suit la connexion,
+  l'enchaînement et le retour de ProConnect (`env['omniauth.params']`). Après la certification,
+  `DirigeantVerificationsController#create` y renvoie la personne, avec le résultat dans
+  `flash[:dirigeant_verification]`. Un échec renvoyé par ProConnect (annulation, structure non
+  certifiable) y ramène aussi : `OmniAuth::FailureReporter` recopie `return_to` dans
+  `omniauth.origin`, que la `FailureEndpoint` transmet à `sessions#failure` (`origin`). Seul un
+  chemin local est suivi (pas de `//`, de `\` ni d'hôte, `LocalReturnPath`) ; sinon, la personne
+  arrive sur `/verification-dirigeant`. Le statut n'étant pas conservé, la page d'arrivée devra
+  revérifier à la soumission que la personne est toujours dirigeante (DPP-206).
+
+### Secteur de l'organisation
+
+La connexion ne contrôle pas le secteur : elle ne refuse personne et ne signale rien à Sentry.
+Le secteur se contrôle au moment de l'action qui l'exige, dans sa policy.
+
+- `PublicSectorClassification.new(organization)` lit le payload INSEE déjà en base, sans appel
+  externe. Il répond `public?`, `private?` et `known?`, et donne la raison du verdict (`reason`) :
+  `public_legal_category`, `whitelisted_siren`, `private_legal_category`, `blacklisted_siren`,
+  `closed_unit` ou `unknown_legal_category`. Sans catégorie juridique, le secteur est inconnu :
+  ni public, ni privé.
+- La règle est celle de ProConnect (`computeServicePublicInfo` du paquet
+  `@proconnect-gouv/proconnect.identite`) et de l'Annuaire des Entreprises, avec les listes
+  recopiées dans `config/public_sector_classification.yml` (78 catégories juridiques, liste
+  blanche et liste noire de SIREN, commit source indiqué dans le fichier). Liste noire, puis unité
+  légale cessée, puis liste blanche, puis catégorie juridique. La liste blanche écarte une ligne du
+  Grist mal saisie (`77566343803654.0`, un SIRET passé en nombre), qu'aucun SIREN ne peut faire
+  correspondre, ni chez ProConnect ni chez nous.
+- Pas d'exception pour le RIE : ProConnect y accorde le rôle `agent_public` d'office, mais ce
+  rôle n'est pas exploitable par les fournisseurs de service. La règle s'applique donc partout.
+- Une policy ne refuse que sur une information connue et contraire. `OrganizationPolicy#verify_dirigeant?`
+  refuse la certification dirigeant à une organisation classée publique, et la laisse passer
+  quand le secteur est inconnu. La page `/verification-dirigeant` explique alors le refus
+  (`organization_is_public_service`) sans proposer le bouton, la connexion par le parcours
+  dirigeant y ramène la personne, toujours connectée, sans lancer l'aller-retour ProConnect, et le
+  retour de ProConnect est refusé de la même façon. C'est la soumission (DPP-211) qui exigera un
+  secteur connu.
+- À la connexion, les données INSEE ne sont pas attendues : `UpdateOrganizationINSEEPayload`
+  met en file leur rafraîchissement quand elles manquent ou datent de plus de 24 heures. Tant
+  qu'aucun appel n'a abouti, `known?` reste faux.
+- Le statut de dirigeant ne se déduit ni du paramètre `parcours` (libre, posé par le formulaire
+  de départ) ni de la connexion : une entreprise privée qui choisit `parcours=dirigeant` est
+  connectée avant la certification, et le reste si elle l'abandonne ou si elle échoue. Chaque
+  action qui suppose le statut vérifie elle-même une certification réussie et encore valide
+  (DPP-206 pour le registre). DPP-202 n'expose aucune action de ce type, seulement l'affichage du
+  résultat.
 
 ## Validation partagée avec Rails Pulse
 
@@ -288,7 +436,15 @@ depuis la connexion, sans prolongation par l'activité).
 
 | Rôle | Fichier |
 |---|---|
-| Config des providers, scopes, MFA | `config/initializers/omniauth.rb` |
+| Config des providers, scopes | `config/initializers/omniauth.rb` |
+| Contrôles du retour ProConnect, MFA demandée | `lib/omniauth/strategies/proconnect_overrides.rb` |
+| Signalement des échecs OmniAuth | `lib/omniauth/failure_reporter.rb` |
+| Stratégie de vérification du dirigeant | `lib/omniauth/strategies/proconnect_dirigeant.rb` |
+| Contrôles du statut de dirigeant | `app/organizers/verify_dirigeant_through_pro_connect.rb` |
+| Page de vérification du dirigeant | `app/controllers/dirigeant_verifications_controller.rb` |
+| Secteur d'une organisation | `app/services/public_sector_classification.rb` (règle) |
+| Listes du secteur public | `app/services/public_sector_lists.rb` + `config/public_sector_classification.yml` |
+| Refus de la certification dirigeant au secteur public | `app/policies/organization_policy.rb` (`verify_dirigeant?`) |
 | Gem du flux OIDC ProConnect | `omniauth-proconnect` (`lib/omniauth/proconnect.rb`) |
 | Routes auth | `config/routes.rb` (`auth/:provider/callback`, `compte/deconnexion`) |
 | Bouton de connexion | `app/views/pages/shared/unauthenticated_pages/_pro_connect.html.erb` |
