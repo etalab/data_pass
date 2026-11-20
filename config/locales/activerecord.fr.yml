@@ -200,6 +200,18 @@ fr:
         wallet_service_description: Description du service
         wallet_service_name_proof: Justificatif du nom du service
         wallet_intended_uses: Utilisations prévues
+        wallet_application_manager_family_name: Nom du responsable de l’application
+        wallet_application_manager_given_name: Prénom du responsable de l’application
+        wallet_application_manager_email: Adresse électronique du responsable de l’application
+        wallet_application_manager_phone_number: Téléphone du responsable de l’application
+        wallet_technical_contact_family_name: Nom du contact technique
+        wallet_technical_contact_given_name: Prénom du contact technique
+        wallet_technical_contact_email: Adresse électronique du contact technique
+        wallet_technical_contact_phone_number: Téléphone du contact technique
+        wallet_data_protection_officer_family_name: Nom du délégué à la protection des données
+        wallet_data_protection_officer_given_name: Prénom du délégué à la protection des données
+        wallet_data_protection_officer_email: Adresse électronique du délégué à la protection des données
+        wallet_data_protection_officer_phone_number: Téléphone du délégué à la protection des données
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -394,6 +406,36 @@ fr:
               wallet_service_name_proof_missing: "Joignez un justificatif du nom du service : le registre en a besoin pour le vérifier."
             wallet_intended_uses:
               wallet_intended_uses_missing: Ajoutez au moins une utilisation prévue.
+            wallet_application_manager_family_name:
+              blank: Indiquez le nom du responsable de l’application.
+            wallet_application_manager_given_name:
+              blank: Indiquez le prénom du responsable de l’application.
+            wallet_application_manager_email:
+              blank: Indiquez l’adresse électronique du responsable de l’application.
+              wallet_contact_email_format: &wallet_contact_email_format Indiquez une adresse électronique valide, par exemple nom@domaine.fr
+            wallet_application_manager_phone_number:
+              blank: Indiquez le téléphone du responsable de l’application.
+              wallet_contact_phone_format: &wallet_contact_phone_format Indiquez un numéro de téléphone valide, par exemple 04 72 00 00 00
+            wallet_technical_contact_family_name:
+              blank: Indiquez le nom du contact technique.
+            wallet_technical_contact_given_name:
+              blank: Indiquez le prénom du contact technique.
+            wallet_technical_contact_email:
+              blank: Indiquez l’adresse électronique du contact technique.
+              wallet_contact_email_format: *wallet_contact_email_format
+            wallet_technical_contact_phone_number:
+              blank: Indiquez le téléphone du contact technique.
+              wallet_contact_phone_format: *wallet_contact_phone_format
+            wallet_data_protection_officer_family_name:
+              blank: Indiquez le nom du délégué à la protection des données.
+            wallet_data_protection_officer_given_name:
+              blank: Indiquez le prénom du délégué à la protection des données.
+            wallet_data_protection_officer_email:
+              blank: Indiquez l’adresse électronique du délégué à la protection des données.
+              wallet_contact_email_format: *wallet_contact_email_format
+            wallet_data_protection_officer_phone_number:
+              blank: Indiquez le téléphone du délégué à la protection des données.
+              wallet_contact_phone_format: *wallet_contact_phone_format
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:

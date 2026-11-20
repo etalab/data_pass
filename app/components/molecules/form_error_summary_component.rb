@@ -1,5 +1,5 @@
 class Molecules::FormErrorSummaryComponent < ApplicationComponent
-  INTERPOLATED_OPTIONS = %i[count use_name attestation_name].freeze
+  INTERPOLATED_OPTIONS = %i[count use_name attestation_name contact].freeze
 
   def initialize(record:, field_ids: {})
     @record = record

@@ -117,7 +117,7 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
   end
 
   def attributes_for_step(step_name, authorization_request)
-    return contact_attributes(authorization_request) if step_name == 'contacts'
+    return contact_attributes(authorization_request) if %w[contacts wallet_contacts].include?(step_name)
 
     step_attributes_mapping.fetch(step_name, [])
   end

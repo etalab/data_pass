@@ -14,7 +14,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et la page contient "1 place Maurice Gunsbourg, 92140 Clamart"
     Et la page ne contient pas "TVA intracommunautaire"
     Et la page contient "Agent connecté par ProConnect"
-    Et la page contient "Étape 1/3"
+    Et la page contient "Étape 1/4"
 
   Scénario: Une SAS n’est pas un organisme du secteur public, sans badge (CA1)
     Sachant que je suis un demandeur d'une entreprise
@@ -59,6 +59,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
+    Et je remplis l’étape « Les contacts » du registre wallet
     Alors la page contient "Vérifiez le récapitulatif de votre demande"
     Et la page contient "Non publiée : votre établissement n’est pas diffusible."
 
@@ -110,6 +111,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
+    Et je remplis l’étape « Les contacts » du registre wallet
     Alors la page ne contient pas "à corriger avant de continuer"
     Et la page contient "L’organisation dans le registre"
     Quand le répertoire Sirene renseigne mon organisation
@@ -267,7 +269,8 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
-    Alors la page contient "Les utilisations prévues des données"
+    Et je remplis l’étape « Les contacts » du registre wallet
+    Alors la page contient "Les contacts de l’organisation"
     Et il n'y a pas de bouton "Soumettre la demande d'habilitation"
 
   Scénario: Le récapitulatif présente l’organisation dans le registre, sans le panneau de l’étape 1 (R4)
@@ -280,6 +283,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
+    Et je remplis l’étape « Les contacts » du registre wallet
     Alors la page contient "L’organisation dans le registre"
     Et la page contient "Identification"
     Et la page contient "Informations pour les usagers"
@@ -300,6 +304,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
     Et je clique sur "Suivant"
     Et je remplis l’étape « Les utilisations prévues » du registre wallet
+    Et je remplis l’étape « Les contacts » du registre wallet
     Alors la page contient "vous pourrez soumettre votre demande au registre, qui vérifiera votre organisation"
     Et la page ne contient pas "équipe d’instruction"
 

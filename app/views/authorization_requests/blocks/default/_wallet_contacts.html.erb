@@ -1,0 +1,27 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.wallet_contacts'), block_id: :wallet_contacts, f:, editable: } do %>
+  <p class="fr-text--sm"><%= f.wording_for('wallet_contacts.not_published') %></p>
+
+  <div class="fr-container-fluid">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <% authorization_request.contact_types.each do |contact_type| %>
+        <div class="fr-col-12 fr-col-lg-6">
+          <div id="<%= dom_id(authorization_request, contact_type) %>" class="fr-basic-card contact-card">
+            <div class="contact-card__kind"><%= f.wording_for("#{contact_type}.title") %></div>
+
+            <% full_name = authorization_request.contact_full_name(contact_type) %>
+            <div class="contact-card__full_name"><%= full_name.presence || t('authorization_requests.shared.not_filled') %></div>
+
+            <% %w[email phone_number].each do |contact_attribute| %>
+              <div class="contact-card__attribute">
+                <div class="contact-card__attribute-label"><%= f.label_value("#{contact_type}_#{contact_attribute}") %></div>
+                <div class="contact-card__attribute-value">
+                  <%= authorization_request.public_send("#{contact_type}_#{contact_attribute}").presence || t('authorization_requests.shared.not_filled') %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
