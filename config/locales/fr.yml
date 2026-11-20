@@ -932,6 +932,10 @@ fr:
         other: "Le formulaire contient %{count} erreurs"
   eligibility:
     title: "Vérifiez votre éligibilité"
+    titles:
+      registre_wallet: "Enregistrer votre organisation au registre du portefeuille européen"
+    leads:
+      registre_wallet: "Votre réponse détermine la façon de vous connecter."
     placeholder: "Choisissez votre situation : le résultat s’affichera ici."
     question: "Êtes-vous :"
     pictograms:
@@ -939,11 +943,17 @@ fr:
       collectivite_ou_administration: buildings/city-hall
       entreprise_ou_association: buildings/companie
       eaje: buildings/school
+      dirigeant_entreprise: buildings/companie
+      agent_public: buildings/city-hall
+      association: leisure/community
     user_types:
       particulier: "Un particulier"
       collectivite_ou_administration: "Une collectivité ou une administration"
       entreprise_ou_association: "Une entreprise ou une association"
       eaje: "Un établissement d’accueil du jeune enfant (EAJE)"
+      dirigeant_entreprise: "Le dirigeant d’une entreprise"
+      agent_public: "Un agent d’une administration ou d’une collectivité"
+      association: "Une association"
     cta:
       request_access: "Demander l'accès aux données"
 
