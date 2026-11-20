@@ -19,7 +19,7 @@
   <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--right">
     <li>
       <% if as_executive %>
-        <%= f.button f.wording_for('summary.executive_submit'), type: :submit, id: :submit_authorization_request, formaction: wallet_registry_submission_path(form_uid: authorization_request.form_uid, authorization_request_id: authorization_request.id), class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), aria: { describedby: 'wallet-executive-reconnection' }, data: { turbo: false } %>
+        <%= f.button f.wording_for('summary.executive_submit'), type: :submit, id: :submit_authorization_request, formaction: wallet_registry_submission_path(form_uid: authorization_request.form_uid, authorization_request_id: authorization_request.id), class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), aria: { describedby: 'wallet-executive-reconnection' } %>
       <% else %>
         <%= f.button f.wording_for('summary.submit'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), data: { turbo_submits_with: f.wording_for('summary.submitting') } %>
       <% end %>

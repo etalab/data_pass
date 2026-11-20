@@ -3,7 +3,7 @@ fr:
     intended_use:
       unnamed: Utilisation %{position}
     submissions:
-      create:
+      reconnect:
         title: Reconnectez-vous pour soumettre votre demande
         description: ProConnect vérifie de nouveau que vous dirigez %{organization_name} avant que la demande ne parte au registre.
         button: Continuer vers ProConnect
