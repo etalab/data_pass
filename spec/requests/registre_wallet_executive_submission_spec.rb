@@ -27,6 +27,7 @@ RSpec.describe 'Wallet registry, submission by a certified executive' do
 
   def start_submission(consents = both_consents)
     post start_path, params: { param_key => consents }
+    follow_redirect! if response.redirect?
   end
 
   def page
@@ -48,6 +49,34 @@ RSpec.describe 'Wallet registry, submission by a certified executive' do
 
     expect(page.at_css('#submit_authorization_request').text).to eq('Se reconnecter et soumettre')
     expect(page.at_css('#wallet-executive-reconnection').text).to include('vous vous reconnecterez avec ProConnect')
+  end
+
+  it 'lets Turbo send the button, with the page token rather than the token of the summary form' do
+    get summary_path
+
+    expect(page.at_css('#submit_authorization_request')['data-turbo']).to be_nil
+  end
+
+  context 'with forgery protection, as in production' do
+    around do |example|
+      ActionController::Base.allow_forgery_protection = true
+      example.run
+    ensure
+      ActionController::Base.allow_forgery_protection = false
+    end
+
+    it 'accepts the button sent by Turbo to another address than the summary form' do
+      get summary_path
+      post start_path, params: { param_key => both_consents }, headers: { 'X-CSRF-Token' => page.at_css('meta[name=csrf-token]')['content'] }
+
+      expect(response).to redirect_to(reconnect_wallet_registry_submission_path(form_uid: 'registre-wallet', authorization_request_id: authorization_request.id))
+    end
+  end
+
+  it 'sends back to the summary a reconnection page opened without a submission in progress' do
+    get reconnect_wallet_registry_submission_path(form_uid: 'registre-wallet', authorization_request_id: authorization_request.id)
+
+    expect(response).to redirect_to(summary_path)
   end
 
   it 'refuses the classic submission, which would skip the reconnection' do

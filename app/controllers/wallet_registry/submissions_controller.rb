@@ -9,12 +9,22 @@ class WalletRegistry::SubmissionsController < AuthorizationRequestFormsControlle
 
     if organizer.success?
       session[WalletRegistry::SubmissionIntent::SESSION_KEY] = organizer.submission_intent.to_session
-      @return_path = complete_wallet_registry_submission_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id, nonce: organizer.submission_intent.nonce)
 
-      render :create, layout: 'container'
+      redirect_to reconnect_wallet_registry_submission_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id), status: :see_other
     else
       render_submit_failure
     end
+  end
+
+  def reconnect
+    authorize @authorization_request, :submit_as_executive?
+
+    submission_intent = WalletRegistry::SubmissionIntent.from_session(session[WalletRegistry::SubmissionIntent::SESSION_KEY])
+    return redirect_to(summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)) unless submission_intent&.authorization_request_id == @authorization_request.id
+
+    @return_path = complete_wallet_registry_submission_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id, nonce: submission_intent.nonce)
+
+    render layout: 'container'
   end
 
   def complete
