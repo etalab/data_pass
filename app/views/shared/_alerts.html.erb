@@ -1,4 +1,4 @@
-<% %i[error info success warning].each do |kind| %>
+<% local_assigns.fetch(:kinds, %i[error info success warning]).each do |kind| %>
   <% if flash[kind].present? %>
     <%= render FlashAlertComponent.new(
       type: kind,

@@ -674,15 +674,15 @@ fr:
         reopening_error: *authorization_requests_update_reopening_error
   archive_authorization_requests:
     new:
-      title: Suppression de la demande %{authorization_request_name}
+      title: Suppression de la demande « %{authorization_request_name} »
       disclaimer: |
-        <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous ne supprimez pas une demande légitime.
+        <strong>Cette action est irréversible.</strong> Vérifiez que vous ne supprimez pas une demande que vous voulez garder.
       disclaimer_next_stage:
         Cette demande d'autorisation est associée à au moins une demande précédente déjà validée, archiver cette demande archivera aussi toutes les demandes associées validées.
       cancel: Annuler
       archive: Supprimer la demande
     create:
-      success: La demande %{name} a été supprimée avec succès
+      success: La demande « %{name} » a été supprimée avec succès
   reopen_authorizations:
     new:
       title: Mettre à jour l’habilitation %{authorization_name}

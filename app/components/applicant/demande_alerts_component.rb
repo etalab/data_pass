@@ -39,9 +39,16 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
 
     render DsfrComponent::NoticeComponent.new(
       title: I18n.t('authorization_request_forms.summary.title'),
-      description: I18n.t('authorization_request_forms.summary.description'),
+      description: summary_before_submit_description,
       type: 'warning',
       html_attributes: { class: NOTICE_STANDARD_CLASSES }
+    )
+  end
+
+  def summary_before_submit_description
+    I18n.t(
+      "authorization_request_forms.#{authorization_request.form.uid.underscore}.summary.description",
+      default: I18n.t('authorization_request_forms.summary.description')
     )
   end
 

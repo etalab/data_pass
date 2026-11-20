@@ -10,7 +10,7 @@ class ArchiveAuthorizationRequestsController < AuthenticatedUserController
     if organizer.success?
       success_message(title: t('.success', name: @authorization_request.name))
 
-      redirect_to dashboard_path,
+      redirect_to after_archive_path,
         status: :see_other
     else
       render 'new'
@@ -21,6 +21,14 @@ class ArchiveAuthorizationRequestsController < AuthenticatedUserController
 
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params.expect(:authorization_request_id)).decorate
+  end
+
+  def after_archive_path
+    if @authorization_request.definition.feature?(:return_to_introduction_after_archive)
+      new_authorization_request_form_path(form_uid: @authorization_request.form_uid)
+    else
+      dashboard_path
+    end
   end
 
   def authorize_authorization_request_archive
