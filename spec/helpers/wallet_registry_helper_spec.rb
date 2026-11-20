@@ -49,6 +49,24 @@ RSpec.describe WalletRegistryHelper do
     end
   end
 
+  describe '#wallet_registry_applicant_link' do
+    def link_for(public_sector)
+      helper.wallet_registry_applicant_link(instance_double(AuthorizationRequest::RegistreWallet, identity_public_sector: public_sector, identity_legal_category_code: '7210'))
+    end
+
+    it 'names a public agent of the commune' do
+      expect(link_for('true')).to eq('Agent de la commune, connecté par ProConnect avec le compte de son administration')
+    end
+
+    it 'names a certified executive of a private organization' do
+      expect(link_for('false')).to start_with('Dirigeant de la commune')
+    end
+
+    it 'claims nothing while the public sector of the organization is unknown' do
+      expect(link_for(nil)).to eq('À confirmer, une fois les informations de la commune récupérées')
+    end
+  end
+
   describe '#wallet_registry_person_name' do
     it 'writes the given name first, in normal case, accents kept' do
       user = build(:user, given_name: 'YASMINE marie-ÉLODIE', family_name: 'DEMANDEUSE COMMUNE')

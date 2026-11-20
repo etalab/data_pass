@@ -1358,6 +1358,7 @@ fr:
           capacity:
             public_agent: Agent de %{organization}, connecté par ProConnect avec le compte de son administration
             executive: Dirigeant de %{organization}, certifié par ProConnect
+            unknown: À confirmer, une fois les informations de %{organization} récupérées
           organization_kinds:
             default: l’organisation
             "7210": la commune
