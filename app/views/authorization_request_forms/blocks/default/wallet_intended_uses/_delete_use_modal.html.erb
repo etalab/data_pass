@@ -1,0 +1,12 @@
+<%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/confirmation_modal', locals: {
+  modal_id: "wallet-delete-use-#{use.id}",
+  command: "remove_use:#{use.id}",
+  wording: {
+    title: wallet_intended_uses_t('delete_use_modal.title', name: use.display_name),
+    detail: wallet_intended_uses_t('delete_use_modal.detail', count: use.claim_count),
+    warning: wallet_intended_uses_t('delete_use_modal.warning'),
+    confirm: wallet_intended_uses_t('delete_use_modal.confirm'),
+    cancel: wallet_intended_uses_t('delete_use_modal.cancel'),
+    close: wallet_intended_uses_t('delete_use_modal.close'),
+  },
+} %>

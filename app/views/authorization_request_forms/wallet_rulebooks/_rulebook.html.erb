@@ -1,0 +1,22 @@
+<% label = safe_join([wallet_intended_uses_t('catalog.add'), tag.span(" #{rulebook.name}", class: 'fr-sr-only')]) %>
+<% command = "add_attestation:#{use.id}:#{rulebook.id}" %>
+
+<li class="cat-item">
+  <div>
+    <h2><%= rulebook.name %></h2>
+    <div class="cat-badges">
+      <span class="fr-badge fr-badge--sm fr-badge--success fr-badge--no-icon"><%= wallet_intended_uses_t('attestation.badge') %></span>
+      <a class="fr-link fr-link--sm" href="<%= rulebook.documentation_url %>" target="_blank" rel="noopener" title="<%= wallet_intended_uses_t('attestation.documentation_title') %>"><%= wallet_intended_uses_t('catalog.see_documentation') %><span class="fr-sr-only"><%= wallet_intended_uses_t('catalog.documentation_sr', name: rulebook.name) %><%= wallet_intended_uses_t('new_window') %></span></a>
+    </div>
+    <p class="wx-muted"><%= wallet_intended_uses_t('catalog.claims', count: rulebook.claims.length) %> · <%= wallet_attestation_technical_line(rulebook) %></p>
+  </div>
+  <% if use.attestation_for(rulebook.id) %>
+    <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary" disabled><%= wallet_intended_uses_t('catalog.already_added') %><span class="fr-sr-only"> <%= rulebook.name %></span></button>
+  <% elsif embedded %>
+    <%= wallet_intended_use_command_button(@authorization_request, command, label, class: 'fr-btn fr-btn--sm fr-btn--secondary', data: { turbo_frame: '_top' }) %>
+  <% else %>
+    <%= button_to wallet_intended_uses_command_url(@authorization_request), method: :patch, params: { wallet_command: command }, class: 'fr-btn fr-btn--sm fr-btn--secondary', form_class: 'fr-mb-0' do %>
+      <%= label %>
+    <% end %>
+  <% end %>
+</li>

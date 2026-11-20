@@ -30,6 +30,13 @@ fr:
               role_type_not_allowed: contiennent un rôle non autorisé (seuls reporter, instructeur, manager et développeur sont autorisés)
   activerecord:
     attributes:
+      wallet_registry/intended_use:
+        name: Nom de l’utilisation prévue
+        purpose: Pourquoi demandez-vous ces données ?
+        privacy_policy_url: Politique de confidentialité de cette utilisation
+        attestations: Données demandées
+        start_date: Date de début
+        end_date: Date de fin
       api_access_grant:
         oauth_application: Application
         oauth_application_id: Application
@@ -194,6 +201,7 @@ fr:
         wallet_service_identifier: Identifiant du service
         wallet_service_description: Description du service
         wallet_service_name_proof: Justificatif du nom du service
+        wallet_intended_uses: Utilisations prévues
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -291,6 +299,26 @@ fr:
     errors:
       messages: *active_record_messages_errors
       models:
+        wallet_registry/intended_use:
+          format: "%{message}"
+          attributes:
+            name:
+              blank: Indiquez le nom de l’utilisation prévue.
+            purpose:
+              blank: Expliquez à l’usager pourquoi vous demandez ces données.
+              too_short: Expliquez à l’usager pourquoi vous demandez ces données, en 15 caractères au moins, avec des mots et non seulement des signes de ponctuation.
+              too_long: "La finalité compte %{count} caractères. Raccourcissez-la à 300 caractères au plus : l’usager la lit dans son wallet."
+            privacy_policy_url:
+              blank: Indiquez l’adresse de la politique de confidentialité. Elle commence par https://
+              https_format: Indiquez une adresse qui commence par https://, par exemple https://www.exemple.fr
+            attestations:
+              blank: Ajoutez au moins une attestation, puis cochez les données que votre service demandera.
+              no_claim: Cochez au moins une donnée dans cette attestation, ou retirez-la.
+            start_date:
+              blank: Indiquez la date de début.
+              past: "La date de début ne peut pas être passée : indiquez aujourd’hui ou une date à venir."
+            end_date:
+              before_start_date: La date de fin doit être postérieure à la date de début.
         api_access_grant:
           attributes:
             base:
@@ -371,6 +399,8 @@ fr:
               wallet_service_description_too_short: Décrivez le service en une ou deux phrases, 15 caractères au moins, avec des mots et non seulement des signes de ponctuation.
             wallet_service_name_proof:
               wallet_service_name_proof_missing: "Joignez un justificatif du nom du service : le registre en a besoin pour le vérifier."
+            wallet_intended_uses:
+              wallet_intended_uses_missing: Ajoutez au moins une utilisation prévue.
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:

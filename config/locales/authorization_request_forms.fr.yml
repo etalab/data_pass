@@ -25,6 +25,7 @@ fr:
         cnous_data_extraction_criteria: "Les conditions d’extraction CNOUS"
         wallet_organization: "L’organisation"
         wallet_service: "Le service"
+        wallet_intended_uses: "Les utilisations prévues des données"
         finish: "La synthèse"
       terms_of_service_accepted:
         label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation</a>&nbsp;et je les valide.
@@ -1430,6 +1431,167 @@ fr:
           sigle: "Ce nom correspond au sigle de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
           usual_name: "Ce nom correspond à la dénomination usuelle de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
           enseigne: "Ce nom correspond à l’enseigne de votre organisation dans le répertoire Sirene : vous n’avez pas de justificatif à joindre."
+      wallet_intended_uses:
+        title: Pourquoi demandez-vous des données aux usagers ?
+        subtitle: "Décrivez chaque utilisation prévue : la finalité, puis les attestations que votre service demandera et, dans chacune, les données utiles. Ces informations sont publiques et l’usager les lira dans son wallet avant d’accepter."
+        certificates_html: Vous recevrez un certificat d’enregistrement par utilisation prévue, soit <strong>%{count}</strong>, et un certificat d’accès pour le service, délivré par l’ANTS.
+        empty:
+          title: Aucune utilisation prévue pour l’instant
+          description: "Une utilisation prévue dit pourquoi votre service demande des données à l’usager, et lesquelles. Ajoutez-en au moins une : chacune donne un certificat d’enregistrement."
+        add_use: Ajouter une utilisation prévue
+        new_window: " - nouvelle fenêtre"
+        totals:
+          none: Aucune attestation choisie
+          attestations:
+            one: "%{count} attestation"
+            other: "%{count} attestations"
+          claims:
+            one: "%{count} donnée demandée"
+            other: "%{count} données demandées"
+        card:
+          edit: Modifier
+          collapse: Replier
+          delete: Supprimer
+          delete_sr: " l’utilisation %{name}"
+          toggle_sr: " l’utilisation %{name}"
+        sections:
+          purpose: À quoi sert cette utilisation ?
+          data: Quelles données demandez-vous ?
+          period: Quand demanderez-vous ces données ?
+        fields:
+          name:
+            label: Nom de l’utilisation prévue
+            hint: "Pour vous repérer. Il n’est pas publié : l’usager et la fiche publique voient la finalité. Le registre attribuera un identifiant à l’utilisation."
+          purpose:
+            label: Pourquoi demandez-vous ces données ?
+            hint: "Écrivez à l’usager, en une ou deux phrases simples. Elles s’afficheront dans son wallet. De 15 à 300 caractères :"
+            counter: "%{count}/%{max} caractères"
+          privacy_policy_url:
+            label: Politique de confidentialité de cette utilisation
+            hint: Reprise de la politique de votre organisation, indiquée à l’étape 1. Changez-la si cette utilisation a sa propre politique.
+          start_date:
+            label: Date de début
+            hint: Premier jour où vous demanderez ces données, aujourd’hui ou plus tard
+          end_date:
+            label: Date de fin
+            hint: Facultative, si l’utilisation s’arrête à une date connue
+        data:
+          intro: "Ajoutez les attestations que votre service demandera, puis cochez les données utiles dans chacune. Ne demandez que le nécessaire : le wallet prévient l’usager si une demande dépasse ce que vous déclarez ici."
+          help: Une donnée sans mention est toujours présente dans l’attestation. Si une donnée peut manquer, votre service doit pouvoir s’en passer.
+          no_attestation: Aucune attestation pour cette utilisation. Ajoutez celle que votre service demandera.
+          add_attestation: Ajouter une attestation
+        attestation:
+          claims_count:
+            zero: Aucune donnée demandée
+            one: "%{count} donnée demandée"
+            other: "%{count} données demandées"
+          badge: Catalogue officiel
+          technical_details: Détails techniques
+          technical_details_sr: " de %{name}"
+          category: "Catégorie : %{category}"
+          category_unknown: Non indiquée dans le rulebook
+          formats:
+            one: "Format : %{formats}"
+            other: "Formats : %{formats}"
+          formats_registered:
+            one: Le format %{formats} est enregistré par DataPass.
+            other: Les deux formats sont enregistrés par DataPass.
+          documentation: Documentation de l’attestation (en anglais)
+          documentation_title: Documentation de l’attestation, en anglais - nouvelle fenêtre
+          provisional: Liste provisoire
+          group_count:
+            zero: Aucune donnée cochée
+            one: "%{count} donnée cochée"
+            other: "%{count} données cochées"
+          show_claims: Afficher les données
+          hide_claims: Masquer les données
+          group_sr: " du groupe %{group}"
+          presence:
+            optional_by_country: peut manquer selon le pays de l’usager
+            optional_by_issuer: peut manquer (facultative pour l’émetteur)
+          single_format: seulement si votre service lit le format %{format_name} (votre équipe technique le sait)
+          remove: Retirer cette attestation
+          remove_sr: " : %{name}"
+        remove_attestation_modal:
+          title: Retirer l’attestation « %{name} » ?
+          detail:
+            zero: Aucune donnée n’est cochée dans cette attestation.
+            one: La donnée cochée dans cette attestation sera aussi retirée de l’utilisation « %{use_name} ».
+            other: Les %{count} données cochées dans cette attestation seront aussi retirées de l’utilisation « %{use_name} ».
+          warning: Vous pourrez l’ajouter de nouveau depuis le catalogue, mais il faudra cocher ses données une à une.
+          confirm: Retirer l’attestation
+          cancel: Annuler
+          close: Fermer
+        delete_use_modal:
+          title: Supprimer l’utilisation prévue « %{name} » ?
+          detail:
+            zero: Elle ne demande encore aucune donnée.
+            one: Elle demande %{count} donnée, qui sera retirée avec elle.
+            other: Elle demande %{count} données, qui seront retirées avec elle.
+          warning: Vous ne pourrez pas annuler cette suppression.
+          confirm: Supprimer l’utilisation
+          cancel: Annuler
+          close: Fermer
+        catalog:
+          title: Ajouter une attestation
+          for_html: Pour l’utilisation prévue « <strong>%{name}</strong> ». Choisissez une attestation du catalogue, vous cocherez ensuite les données utiles.
+          search_label: Rechercher une attestation ou une donnée
+          search_placeholder: "Par exemple : adresse, majeur, santé, IBAN"
+          search_button: Rechercher
+          count:
+            one: "%{count} attestation dans le catalogue de la Commission"
+            other: "%{count} attestations dans le catalogue de la Commission"
+          no_result: Aucune attestation ne correspond à votre recherche. Vérifiez l’orthographe ou cherchez une donnée, par exemple « adresse ». Si l’attestation dont vous avez besoin n’existe pas dans le catalogue, voyez ci-dessous.
+          claims:
+            one: "%{count} donnée"
+            other: "%{count} données"
+          see_documentation: Voir la documentation
+          documentation_sr: " de %{name}"
+          add: Ajouter
+          already_added: Déjà ajoutée
+          missing:
+            title: Mon attestation n’est pas dans la liste
+            description_html: "Le catalogue appartient à la Commission européenne : DataPass ne peut pas l’enrichir. Pour l’instant, le registre ne propose que les attestations de ce catalogue. Si celle dont vous avez besoin n’y figure pas, écrivez à <a class=\"fr-link\" href=\"mailto:%{support_email}\" title=\"Écrire à l’équipe du registre : %{support_email}\">l’équipe du registre</a>."
+          close: Fermer
+          page_title: Ajouter une attestation à l’utilisation prévue « %{name} »
+          loading: Chargement du catalogue des attestations…
+          open: Ouvrir le catalogue des attestations
+          for_sr: pour « %{name} »
+          back: Revenir à l’utilisation prévue
+        preview:
+          title: Ce que verra l’usager
+          select_label: Utilisation prévue affichée
+          select_hint: Choisissez l’utilisation à prévisualiser.
+          kicker: Demande de partage de données
+          who: Qui demande
+          what: Ce qui est demandé
+          why: Pourquoi
+          rights: Vos droits
+          no_data: Aucune donnée
+          no_purpose: Finalité à rédiger
+          empty: Ajoutez une utilisation prévue pour voir l’aperçu.
+          privacy_policy: Politique de confidentialité
+          privacy_policy_title: Politique de confidentialité - nouvelle fenêtre
+          authority: "Autorité : CNIL"
+          refuse: Refuser
+          share: Partager
+        summary:
+          none: Aucune utilisation prévue.
+          purpose: Finalité
+          period: Période
+          period_from: À partir du %{start}
+          period_from_to: À partir du %{start} jusqu’au %{end}
+          period_open: "À partir du %{start}, sans date de fin"
+          period_missing: Date de début à renseigner
+          privacy_policy: Politique de confidentialité
+          privacy_policy_inherited: Celle de l’organisation
+          data: Données demandées
+          no_data: Aucune
+          not_filled: Non renseignée
+          unnamed: Nom à renseigner
+          certificates_html:
+            one: <strong>%{count} certificat d’enregistrement</strong>, un par utilisation prévue.
+            other: <strong>%{count} certificats d’enregistrement</strong>, un par utilisation prévue.
 
     resana:
       legal:

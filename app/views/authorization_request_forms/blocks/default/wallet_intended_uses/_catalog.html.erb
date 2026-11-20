@@ -1,0 +1,41 @@
+<% modal_id = "wallet-catalog-#{use.id}" %>
+<% catalog_url = authorization_request_form_wallet_rulebooks_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id, intended_use_id: use.id) %>
+
+<dialog aria-labelledby="<%= modal_id %>-title" id="<%= modal_id %>" class="fr-modal" role="dialog">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+        <%= tag.div class: 'fr-modal__body', data: { controller: 'wallet-catalog', wallet_catalog_url_value: catalog_url } do %>
+          <div class="fr-modal__header">
+            <button type="button" class="fr-btn--close fr-btn" aria-controls="<%= modal_id %>"><%= wallet_intended_uses_t('catalog.close') %></button>
+          </div>
+          <div class="fr-modal__content">
+            <h1 id="<%= modal_id %>-title" class="fr-modal__title"><%= wallet_intended_uses_t('catalog.title') %></h1>
+            <p class="fr-text--sm"><%= wallet_intended_uses_t('catalog.for_html', name: use.display_name) %></p>
+            <div class="fr-search-bar" role="search">
+              <label class="fr-label" for="<%= modal_id %>-search"><%= wallet_intended_uses_t('catalog.search_label') %></label>
+              <input class="fr-input" type="search" id="<%= modal_id %>-search" placeholder="<%= wallet_intended_uses_t('catalog.search_placeholder') %>" data-wallet-catalog-target="search" data-action="input->wallet-catalog#search keydown.enter->wallet-catalog#ignoreEnter">
+              <button type="button" class="fr-btn" title="<%= wallet_intended_uses_t('catalog.search_button') %>" data-action="wallet-catalog#load"><%= wallet_intended_uses_t('catalog.search_button') %></button>
+            </div>
+            <p class="cat-count" aria-live="polite" data-wallet-catalog-target="count"></p>
+            <%= turbo_frame_tag "#{modal_id}-results", src: catalog_url, loading: :lazy, data: { wallet_catalog_target: 'frame', action: 'turbo:frame-load->wallet-catalog#frameLoaded' } do %>
+              <p class="fr-text--sm wx-muted"><%= wallet_intended_uses_t('catalog.loading') %></p>
+              <%= wallet_intended_use_command_button(@authorization_request, "open_catalog:#{use.id}",
+                safe_join([wallet_intended_uses_t('catalog.open'), tag.span(" #{wallet_intended_uses_t('catalog.for_sr', name: use.display_name)}", class: 'fr-sr-only')]),
+                class: 'fr-btn fr-btn--sm fr-btn--secondary', data: { wallet_catalog_target: 'fallback' }) %>
+            <% end %>
+
+            <section class="fr-accordion fr-mt-3w">
+              <h2 class="fr-accordion__title">
+                <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= modal_id %>-missing"><%= wallet_intended_uses_t('catalog.missing.title') %></button>
+              </h2>
+              <div class="fr-collapse" id="<%= modal_id %>-missing">
+                <p class="fr-text--sm"><%= wallet_intended_uses_t('catalog.missing.description_html', support_email: @authorization_request.definition.support_email) %></p>
+              </div>
+            </section>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</dialog>

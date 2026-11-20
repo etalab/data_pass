@@ -1,0 +1,86 @@
+<% collapse_id = "#{wallet_intended_use_dom_id(index, "attestation_#{attestation.rulebook_id}")}-collapse" %>
+<% claim_ids = attestation.selected_claim_ids %>
+<% claim_error = use.claim_error_for(attestation) %>
+<% message_id = "#{wallet_intended_use_dom_id(index, "attestation_#{attestation.rulebook_id}")}-messages" %>
+
+<%= tag.section class: 'fr-accordion att-acc att-d', data: { wallet_intended_uses_target: 'attestation', attestation_name: attestation.name } do %>
+  <h5 class="fr-accordion__title">
+    <%= tag.button type: 'button', class: 'fr-accordion__btn', id: wallet_intended_use_dom_id(index, "attestation_#{attestation.rulebook_id}"),
+      aria: { expanded: open, controls: collapse_id, describedby: (message_id if claim_error) },
+      autofocus: wallet_intended_use_focus?(use, "attestation_#{attestation.rulebook_id}") do %>
+      <span><%= attestation.name %> · <span data-wallet-intended-uses-target="claimsCount"><%= wallet_intended_uses_t('attestation.claims_count', count: claim_ids.size) %></span></span>
+    <% end %>
+  </h5>
+  <div class="fr-collapse<%= ' fr-collapse--expanded' if open %>" id="<%= collapse_id %>">
+    <div class="att-meta fr-mb-0">
+      <span class="fr-badge fr-badge--sm fr-badge--success fr-badge--no-icon"><%= wallet_intended_uses_t('attestation.badge') %></span>
+      <% if attestation.provisional_note %>
+        <span class="fr-badge fr-badge--sm fr-badge--warning fr-badge--no-icon" title="<%= attestation.provisional_note %>"><%= wallet_intended_uses_t('attestation.provisional') %></span>
+      <% end %>
+    </div>
+
+    <div class="att-d__tech">
+      <button type="button" class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-btn--icon-right fr-icon-arrow-down-s-line" aria-expanded="true" aria-controls="<%= collapse_id %>-tech" data-action="wallet-intended-uses#toggleSection" data-wallet-intended-uses-target="sectionToggle">
+        <%= wallet_intended_uses_t('attestation.technical_details') %><span class="fr-sr-only"><%= wallet_intended_uses_t('attestation.technical_details_sr', name: attestation.name) %></span>
+      </button>
+      <div class="att-d__tech-body" id="<%= collapse_id %>-tech">
+        <p><%= wallet_attestation_technical_line(attestation) %></p>
+        <p><%= wallet_intended_uses_t('attestation.formats_registered', count: attestation.formats.size, formats: attestation.format_labels.join(', ')) %></p>
+        <% if attestation.provisional_note %><p><%= attestation.provisional_note %></p><% end %>
+        <p><a class="fr-link fr-link--sm" href="<%= attestation.documentation_url %>" target="_blank" rel="noopener" title="<%= wallet_intended_uses_t('attestation.documentation_title') %>"><%= wallet_intended_uses_t('attestation.documentation') %><span class="fr-sr-only"><%= wallet_intended_uses_t('new_window') %></span></a></p>
+      </div>
+    </div>
+
+    <%= hidden_field_tag wallet_attestation_param(index, attestation_index, 'id'), attestation.id, id: nil %>
+    <%= hidden_field_tag "#{wallet_attestation_param(index, attestation_index, 'selected_claim_ids')}[]", '', id: nil %>
+
+    <% if claim_error %>
+      <div class="fr-messages-group" id="<%= message_id %>" data-wallet-intended-uses-target="claimError">
+        <p class="fr-message fr-message--error"><%= claim_error.message %></p>
+      </div>
+    <% end %>
+
+    <% attestation.groups.each_with_index do |group, group_index| %>
+      <% group_id = "#{collapse_id}-group-#{group_index}" %>
+      <% checked = group[:claims].count { |claim| claim_ids.include?(claim.id) } %>
+      <div class="grp" data-wallet-intended-uses-target="group">
+        <div class="grp__head">
+          <div>
+            <p class="grp__title" id="<%= group_id %>-title"><%= group[:name] %></p>
+            <p class="grp__sum" data-wallet-intended-uses-target="groupCount"><%= wallet_intended_uses_t('attestation.group_count', count: checked) %></p>
+          </div>
+          <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-right fr-icon-arrow-up-s-line" aria-expanded="true" aria-controls="<%= group_id %>" data-action="wallet-intended-uses#toggleGroup" data-wallet-intended-uses-target="groupToggle">
+            <%= wallet_intended_uses_t('attestation.hide_claims') %><span class="fr-sr-only"><%= wallet_intended_uses_t('attestation.group_sr', group: group[:name]) %></span>
+          </button>
+        </div>
+        <div class="grp__body" id="<%= group_id %>">
+          <fieldset class="fr-fieldset fr-mb-0" aria-labelledby="<%= group_id %>-title">
+            <% group[:claims].each do |claim| %>
+              <% checkbox_id = wallet_intended_use_dom_id(index, "claim_#{attestation.rulebook_id}_#{claim.identifier}") %>
+              <% mentions = wallet_claim_mentions(attestation, claim) %>
+              <div class="fr-fieldset__element">
+                <div class="fr-checkbox-group fr-checkbox-group--sm">
+                  <%= check_box_tag "#{wallet_attestation_param(index, attestation_index, 'selected_claim_ids')}[]", claim.id, claim_ids.include?(claim.id),
+                    id: checkbox_id, data: { action: 'change->wallet-intended-uses#claimChanged', claim_label: claim.label, attestation_name: attestation.name } %>
+                  <label class="fr-label" for="<%= checkbox_id %>">
+                    <%= claim.label %>
+                    <% if mentions.any? %>
+                      <span class="fr-hint-text"><%= safe_join(mentions.map { |mention| tag.span(mention) }, tag.br) %></span>
+                    <% end %>
+                  </label>
+                </div>
+              </div>
+            <% end %>
+          </fieldset>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="att-d__foot">
+      <button type="button" class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-btn--icon-left fr-icon-delete-line" aria-controls="wallet-remove-attestation-<%= use.id %>-<%= attestation.rulebook_id %>" data-fr-opened="false">
+        <%= wallet_intended_uses_t('attestation.remove') %><span class="fr-sr-only"><%= wallet_intended_uses_t('attestation.remove_sr', name: attestation.name) %></span>
+      </button>
+    </div>
+  </div>
+  <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/remove_attestation_modal', locals: { use:, attestation:, claim_count: claim_ids.size } %>
+<% end %>

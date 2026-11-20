@@ -175,6 +175,9 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         wallet_service_description
         wallet_service_name_proof
       ],
+      'wallet_intended_uses' => %w[
+        wallet_intended_uses
+      ],
     }
   end
 

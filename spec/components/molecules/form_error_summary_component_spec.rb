@@ -47,4 +47,26 @@ RSpec.describe Molecules::FormErrorSummaryComponent, type: :component do
 
     it { expect(rendered.to_html).to be_empty }
   end
+
+  context 'with an error on a nested intended use' do
+    before do
+      authorization_request.errors.clear
+      authorization_request.errors.add(:wallet_intended_uses_attributes_0_purpose, :wallet_intended_use_purpose_too_short, use_name: 'Vérifier la majorité', message: 'trop courte')
+    end
+
+    it 'names the use in the summary wording and links to its field' do
+      expect(rendered).to have_link('Vérifier la majorité : la finalité est trop courte.', href: '#authorization_request_registre_wallet_wallet_intended_uses_attributes_0_purpose')
+    end
+  end
+
+  context 'with an error carrying I18n lookup options' do
+    before do
+      authorization_request.errors.clear
+      authorization_request.errors.add(:wallet_intended_uses_attributes_0_purpose, :wallet_intended_use_purpose_too_short, use_name: 'Vérifier la majorité', scope: 'unknown', default: 'ignored', message: 'trop courte')
+    end
+
+    it 'only passes the interpolated options to the summary wording' do
+      expect(rendered).to have_link('Vérifier la majorité : la finalité est trop courte.')
+    end
+  end
 end

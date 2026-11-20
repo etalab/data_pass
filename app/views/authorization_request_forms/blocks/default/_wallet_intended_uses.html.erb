@@ -1,0 +1,32 @@
+<% uses = @authorization_request.wallet_intended_uses_loaded_for(:form) %>
+
+<%= tag.div id: 'wallet-intended-uses', data: { controller: 'wallet-intended-uses', wallet_intended_uses_wordings_value: wallet_intended_uses_client_wordings } do %>
+  <div class="wx-counter fr-mb-3w">
+    <span class="fr-icon-award-line fr-icon--sm" aria-hidden="true"></span>
+    <p class="fr-text--sm fr-mb-0"><%= wallet_intended_uses_t('certificates_html', count: @authorization_request.wallet_registration_certificates_count) %></p>
+  </div>
+
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-lg-8">
+      <% if uses.empty? %>
+        <div class="wx-panel" id="wallet-intended-uses-empty">
+          <p class="fr-text--bold fr-mb-1w"><%= wallet_intended_uses_t('empty.title') %></p>
+          <p class="fr-mb-0"><%= wallet_intended_uses_t('empty.description') %></p>
+        </div>
+      <% end %>
+
+      <% uses.each_with_index do |use, index| %>
+        <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/use', locals: { f:, use:, index: } %>
+      <% end %>
+
+      <%= wallet_intended_use_command_button(@authorization_request, 'add_use', wallet_intended_uses_t('add_use'),
+        id: 'wallet-add-intended-use',
+        class: 'fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-add-line fr-mt-3w',
+        autofocus: params[:focus] == 'add_use') %>
+    </div>
+
+    <div class="fr-col-12 fr-col-lg-4">
+      <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/preview', locals: { uses: } %>
+    </div>
+  </div>
+<% end %>

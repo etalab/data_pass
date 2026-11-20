@@ -1,0 +1,37 @@
+<% uses = authorization_request.wallet_intended_uses_loaded_for(:summary) %>
+
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.wallet_intended_uses'), block_id: :wallet_intended_uses, f:, editable: } do %>
+  <% if uses.empty? %>
+    <p class="fr-mb-0"><%= wallet_intended_uses_t('summary.none') %></p>
+  <% end %>
+
+  <% uses.each do |use| %>
+    <div class="scopes-group sum-usage fr-mb-2w">
+      <h3 class="scopes-group__title fr-h5"><%= use.name.presence || wallet_intended_uses_t('summary.unnamed') %></h3>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: wallet_intended_uses_t('summary.purpose'), value: use.purpose.presence || wallet_intended_uses_t('summary.not_filled'), width: :full) %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: wallet_intended_uses_t('summary.period'), value: wallet_summary_period(use)) %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: wallet_intended_uses_t('summary.privacy_policy'), value: use.own_privacy_policy_url || wallet_intended_uses_t('summary.privacy_policy_inherited'), width: :half) %>
+      </div>
+      <div class="sum-usage__data">
+        <div class="contact-card__attribute-label fr-mb-1w"><%= wallet_intended_uses_t('summary.data') %></div>
+        <% selected = use.attestations.map { |attestation| [attestation, wallet_selected_claims(attestation)] }.reject { |_, claims| claims.empty? } %>
+        <% if selected.empty? %>
+          <p class="fr-mb-0"><%= wallet_intended_uses_t('summary.no_data') %></p>
+        <% end %>
+        <% selected.each do |attestation, claims| %>
+          <p class="sum-usage__att"><%= attestation.name %></p>
+          <ul class="fr-tags-group">
+            <% claims.each do |claim| %>
+              <li><p class="fr-tag fr-tag--sm"><%= claim.label %></p></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <p class="fr-mb-0">
+    <span class="fr-icon-award-line fr-icon--sm fr-mr-1w" aria-hidden="true"></span><%= wallet_intended_uses_t('summary.certificates_html', count: authorization_request.wallet_registration_certificates_count) %>
+  </p>
+<% end %>

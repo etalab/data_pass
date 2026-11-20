@@ -1,0 +1,30 @@
+<% set_title! wallet_intended_uses_t('catalog.page_title', name: @intended_use.display_name) %>
+
+<% content_for :skip_links do %>
+  <%= skip_link(wallet_intended_uses_t('catalog.title'), 'content') %>
+  <%= skip_link('Menu', 'header') %>
+  <%= skip_link('Pied de page', 'footer') %>
+<% end %>
+
+<div class="fr-grid-row fr-grid-row--center wx-body">
+  <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+    <h1><%= wallet_intended_uses_t('catalog.title') %></h1>
+    <p class="fr-text--sm"><%= wallet_intended_uses_t('catalog.for_html', name: @intended_use.display_name) %></p>
+
+    <%= form_with url: request.path, method: :get, class: 'fr-search-bar', role: 'search', id: 'wallet-catalog-search' do %>
+      <label class="fr-label" for="wallet-catalog-query"><%= wallet_intended_uses_t('catalog.search_label') %></label>
+      <input class="fr-input" type="search" id="wallet-catalog-query" name="q" value="<%= @query %>" placeholder="<%= wallet_intended_uses_t('catalog.search_placeholder') %>">
+      <button type="submit" class="fr-btn" title="<%= wallet_intended_uses_t('catalog.search_button') %>"><%= wallet_intended_uses_t('catalog.search_button') %></button>
+    <% end %>
+
+    <p class="cat-count"><%= wallet_intended_uses_t('catalog.count', count: @rulebooks.size) %></p>
+    <%= render partial: 'authorization_request_forms/wallet_rulebooks/results', locals: { use: @intended_use, rulebooks: @rulebooks, embedded: false } %>
+
+    <h2 class="fr-h6 fr-mt-3w"><%= wallet_intended_uses_t('catalog.missing.title') %></h2>
+    <p class="fr-text--sm"><%= wallet_intended_uses_t('catalog.missing.description_html', support_email: @authorization_request.definition.support_email) %></p>
+
+    <%= link_to wallet_intended_uses_t('catalog.back'),
+      authorization_request_form_build_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id, id: t('wicked.wallet_intended_uses'), ouverte: @intended_use.id, focus: 'add_attestation', anchor: 'wallet-intended-uses'),
+      class: 'fr-link fr-icon-arrow-left-line fr-link--icon-left' %>
+  </div>
+</div>
