@@ -1,6 +1,8 @@
 class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   include Rails.application.routes.url_helpers
 
+  LABEL_OPTIONS = %i[label_text hint_text].freeze
+
   def dsfr_text_field(attribute, opts = {})
     dsfr_input_field(attribute, :text_field, opts)
   end
@@ -25,6 +27,10 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
     dsfr_input_field(attribute, :url_field, opts)
   end
 
+  def dsfr_tel_field(attribute, opts = {})
+    dsfr_input_field(attribute, :telephone_field, opts)
+  end
+
   def dsfr_file_field(attribute, opts = {}) # rubocop:disable Metrics/AbcSize
     opts[:class] ||= 'fr-upload-group'
 
@@ -41,7 +47,7 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
       @template.safe_join(
         [
           label_with_hint(attribute, opts),
-          file_field(attribute, class: 'fr-upload', autocomplete: 'off', required: html_input_required, **enhance_input_options(opts).except(:class, :required)),
+          file_field(attribute, class: 'fr-upload', autocomplete: 'off', required: html_input_required, **described_by_error(attribute, enhance_input_options(opts).except(:class, :required, *LABEL_OPTIONS))),
           error_message(attribute),
           existing_file_link,
           hidden_fields,
@@ -55,8 +61,9 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
       @template.content_tag(:div, class: 'fr-checkbox-group') do
         @template.safe_join(
           [
-            check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **enhance_input_options(opts).except(:class, :label)),
-            @template.safe_join([opts[:label] || label_with_hint(attribute, opts)])
+            check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **described_by_error(attribute, enhance_input_options(opts).except(:class, :label, *LABEL_OPTIONS))),
+            @template.safe_join([opts[:label] || label_with_hint(attribute, opts)]),
+            error_message(attribute)
           ]
         )
       end
@@ -154,7 +161,7 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
       @template.safe_join(
         [
           label_with_hint(attribute, opts),
-          public_send(input_kind, attribute, class: input_classes(opts), autocomplete: 'off', **enhance_input_options(opts).except(:class)),
+          public_send(input_kind, attribute, class: input_classes(opts), autocomplete: 'off', **described_by_error(attribute, enhance_input_options(opts).except(:class, *LABEL_OPTIONS))),
           error_message(attribute)
         ]
       )
@@ -164,7 +171,7 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   def label_with_hint(attribute, opts = {})
     label(attribute, class: 'fr-label') do
       label_text_container = @template.content_tag(:span) do
-        label_value = [label_value(attribute)]
+        label_value = [opts[:label_text] || label_value(attribute)]
         label_value.push(required_tag) if opts[:required]
         @template.safe_join(label_value)
       end
@@ -172,7 +179,7 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
       @template.safe_join(
         [
           label_text_container,
-          hint(attribute)
+          opts[:hint_text] ? @template.content_tag(:span, opts[:hint_text], class: 'fr-hint-text') : hint(attribute)
         ]
       )
     end
@@ -197,11 +204,23 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   def error_message(attr)
     return if @object.errors[attr].none?
 
-    @template.content_tag(:p, class: 'fr-messages-group') do
+    @template.content_tag(:p, class: 'fr-messages-group', id: error_message_id(attr)) do
       @object.errors.full_messages_for(attr).map { |msg|
         @template.content_tag(:span, msg, class: 'fr-message fr-message--error')
       }.join.html_safe
     end
+  end
+
+  def error_message_id(attribute)
+    "#{field_id(attribute)}-messages"
+  end
+
+  def described_by_error(attribute, input_options)
+    return input_options if @object.errors[attribute].none?
+
+    described_by = [input_options.dig(:aria, :describedby), error_message_id(attribute)].compact.join(' ')
+
+    input_options.merge(aria: (input_options[:aria] || {}).merge(describedby: described_by))
   end
 
   def join_classes(arr)
