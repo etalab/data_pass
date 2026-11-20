@@ -288,6 +288,10 @@ fr:
         changes_requested_title: Demandes à modifier
         active_title: Habilitations actives
         revoked_title: Habilitations révoquées
+        by_definition:
+          registre_wallet:
+            pending_title: Demandes en cours de vérification
+            pending_mixed_title: Demandes en cours d’instruction ou de vérification
       search:
         main_input:
           label_demandes: Rechercher dans toutes les demandes
