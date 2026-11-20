@@ -29,17 +29,13 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
     Sentry.capture_exception(error, level: :warning)
   end
 
-  def perform(organization_id)
+  def perform(organization_id, force: false)
     return if skip_development?
     return unless AbstractINSEEAPIClient.calls_allowed?
 
     @organization = Organization.find(organization_id)
 
-    return if last_update_within_24h?
-    return if organization.foreign?
-    return if organization.insee_skipped?
-
-    update_organization_insee_payload
+    update_organization_insee_payload if insee_update_wanted?(force:)
   # rubocop:disable Lint/SuppressedException
   rescue ActiveRecord::RecordNotFound
   end
@@ -58,6 +54,12 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
 
   def skip_development?
     Rails.env.development? && Setting.fetch(:insee_client_id).blank?
+  end
+
+  def insee_update_wanted?(force:)
+    return false if organization.foreign? || organization.insee_skipped?
+
+    force || !last_update_within_24h?
   end
 
   def last_update_within_24h?

@@ -84,6 +84,16 @@ class Organization < ApplicationRecord
     LEGAL_CATEGORY_MAP.fetch(unite_legale['categorieJuridiqueUniteLegale'], :other)
   end
 
+  def legal_category_code
+    unite_legale['categorieJuridiqueUniteLegale']
+  end
+
+  def etablissement_diffusible?
+    diffusion_status = insee_payload.dig('etablissement', 'statutDiffusionEtablissement')
+
+    diffusion_status.blank? || diffusion_status == 'O'
+  end
+
   def insee_payload
     self[:insee_payload] || {}
   end

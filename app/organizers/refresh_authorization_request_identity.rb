@@ -1,0 +1,4 @@
+class RefreshAuthorizationRequestIdentity < ApplicationOrganizer
+  organize RefreshAuthorizationRequestIdentitySources,
+    SaveAuthorizationRequestIdentity
+end
