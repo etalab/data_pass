@@ -59,7 +59,7 @@ module WalletRegistryHelper
   end
 
   def wallet_registry_applicant_link(authorization_request)
-    capacity = authorization_request.wallet_public_sector? ? :public_agent : :executive
+    capacity = { 'true' => :public_agent, nil => :unknown }.fetch(authorization_request.identity_public_sector, :executive)
     scope = 'authorization_request_forms.registre_wallet.summary.applicant'
     organization = t("#{scope}.organization_kinds.#{authorization_request.identity_legal_category_code}", default: t("#{scope}.organization_kinds.default"))
 
