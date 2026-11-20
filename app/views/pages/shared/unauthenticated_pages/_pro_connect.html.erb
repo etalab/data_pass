@@ -9,6 +9,9 @@
   <% end %>
   <%= form_with(url: "/auth/#{local_assigns.fetch(:identity_federator, 'proconnect')}", method: :post, data: { turbo: false }) do |f| %>
     <%= hidden_field_tag :return_to, local_assigns[:return_to], id: nil if local_assigns[:return_to] %>
+    <% local_assigns.fetch(:hidden_fields, {}).each do |name, value| %>
+      <%= hidden_field_tag name, value, id: nil %>
+    <% end %>
     <%= f.button class: %w(fr-connect fr-connect--pro fr-m-auto), id: 'login_pro_connect' do %>
       <span class="fr-connect__login">
         <%= t('pages.home.pro_connect_login') %>

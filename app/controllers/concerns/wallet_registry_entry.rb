@@ -1,11 +1,14 @@
 module WalletRegistryEntry
   extend ActiveSupport::Concern
 
+  include WalletRegistryAnswer
+
   DIRIGEANT_VERIFICATION_REFUSALS = {
     'acr_not_dirigeant' => 'executive_not_certified',
     'proconnect_error' => 'executive_not_certified',
     'siret_outside_siren' => 'executive_siret_outside_siren',
-    'identity_mismatch' => 'executive_identity_mismatch'
+    'identity_mismatch' => 'executive_identity_mismatch',
+    'organization_without_siren' => 'executive_organization_without_siren'
   }.freeze
 
   private
@@ -18,8 +21,10 @@ module WalletRegistryEntry
   def enter_wallet_registry
     if user_signed_in? && wallet_registry_violation.nil?
       render_wallet_registry_introduction
-    else
+    elsif user_signed_in? || wallet_registry_answer
       render_wallet_registry_start
+    else
+      redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
     end
   end
 
@@ -36,9 +41,10 @@ module WalletRegistryEntry
   def render_wallet_registry_start
     save_redirect_path
 
+    @authorization_definition = @authorization_request_form.authorization_definition
+    @wallet_registry_sign_in = build_wallet_registry_sign_in(violation: (wallet_registry_violation if user_signed_in?))
     @wallet_registry_refusal = wallet_registry_refusal
     @wallet_registry_start_renders_alerts = true
-    @authorization_definition = @authorization_request_form.authorization_definition
 
     render 'authorization_requests/unauthenticated_start', layout: 'authorization_request'
   end
@@ -51,7 +57,7 @@ module WalletRegistryEntry
   end
 
   def signed_in_wallet_registry_refusal
-    return :executive_certification_unavailable if wallet_registry_violation == :executive_certification_required && !FeatureFlag.enabled?(:proconnect_dirigeant)
+    return :executive_certification_unavailable if wallet_registry_violation == :executive_certification_required && !@wallet_registry_sign_in.executive_journey_open?
     return :organization_check_pending if wallet_registry_violation == :organization_closed && current_organization.insee_refresh_due?
 
     wallet_registry_violation

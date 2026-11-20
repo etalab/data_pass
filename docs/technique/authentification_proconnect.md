@@ -423,18 +423,29 @@ Le formulaire `registre-wallet` ne s'ouvre qu'à deux profils. La définition le
   un cookie chiffré.
 - **Lecture** : `pundit_user` passe le fait à `UserContext#dirigeant_verification`, que
   `AuthorizationRequestFormPolicy` transmet aux règles de création.
+- **Arbre d'éligibilité** : déconnecté, `/formulaires/registre-wallet/demande/nouveau` sans réponse
+  renvoie à l'arbre (`/demandes/registre-wallet/nouveau`, règle `registre_wallet` de
+  `db/data/eligibility_rules.yml`). Il demande « Êtes-vous : » : « Le dirigeant d'une entreprise »
+  et « Un agent d'une administration ou d'une collectivité » mènent, par « Commencer
+  l'enregistrement », à la page de démarrage avec `parcours=dirigeant` ou `parcours=agent` ; « Une
+  association » n'a pas de bouton et renvoie au support. `parcours` (liste blanche
+  `WalletRegistryAnswer::ANSWERS`) ne sert qu'à l'affichage : l'éligibilité est tranchée après la
+  connexion. Connecté, « Changer de réponse » rouvre l'arbre (`changer_de_reponse=true`).
 - **Page de démarrage** (`WalletRegistryEntry`) : la page habituelle de DataPass
   (`authorization_requests/unauthenticated_start`). Sous le titre, tout le bloc de démarrage
   (sous-titre, frise des étapes, connexion) passe par `render_custom_start_or_default` : un partial
   `authorization_requests/unauthenticated_start/<id de la définition>/_start` le remplace s'il
   existe, sinon la page garde `_default_start`, celui de tous les formulaires. Celui du registre
   (`registre_wallet/_start`) reprend les textes du prototype (« Votre enregistrement va se dérouler
-  en 4 étapes », sans délai affiché tant que D-38 est ouverte, « Pour enregistrer votre
-  organisation ») et ajoute le message du refus, le bouton « Me connecter avec ProConnect
-  dirigeant » (seulement si `proconnect_dirigeant` est actif) et le renvoi au support. Une personne
-  déjà connectée qui ne remplit pas les conditions y reste ; le bouton dirigeant lance alors
-  directement la certification (`POST /auth/proconnect_dirigeant`). L'entrée n'appelle pas l'INSEE :
-  un secteur encore inconnu (`PublicSectorClassification#known?` faux) laisse entrer
+  en 4 étapes », « 5 jours ouvrés », « Pour enregistrer votre organisation »), puis affiche le
+  message du refus, le rappel de la réponse et un seul bouton « S'identifier avec ProConnect »
+  (`WalletRegistryStartHelper#wallet_registry_sign_in_locals`). Pour `parcours=dirigeant`, si
+  `proconnect_dirigeant` est actif, ce bouton ouvre le parcours dirigeant : déconnecté, il poste
+  `parcours=dirigeant` vers `/auth/proconnect` (champ lu par `ProConnectDirigeantJourney` dans
+  `omniauth.params`) ; connecté, il poste vers `/auth/proconnect_dirigeant` avec le SIRET. Le
+  retour après la connexion (`return_to`) vise le formulaire, avec `parcours`. Une personne déjà
+  connectée qui ne remplit pas les conditions reste sur la page, avec le refus. L'entrée n'appelle
+  pas l'INSEE : un secteur encore inconnu (`PublicSectorClassification#known?` faux) laisse entrer
   (`:sector_pending`), le contrôle se fera à la soumission.
 - **Ouverture** : flag `registre_wallet`, ouvert hors production, et en production quand le
   `Setting` `european_wallet_registry_open` vaut `true` (le même réglage ouvre les pages publiques
