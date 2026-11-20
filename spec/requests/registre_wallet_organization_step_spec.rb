@@ -39,7 +39,7 @@ RSpec.describe 'Wallet registry, step « L’organisation »' do
       head = Capybara.string(response.body).find('.wx-head__row')
 
       expect(head).to have_css('.wx-head__picto + .wx-head__id h1')
-      expect(head).to have_css('.wx-head__picto svg.fr-artwork[aria-hidden="true"] use[href*="artwork/pictograms/digital/smartphone"]', visible: :all)
+      expect(head).to have_css('.wx-head__picto img[alt=""][aria-hidden="true"][src*="registre_wallet/pictogramme-en-tete"]', visible: :all)
     end
 
     it 'puts « Enregistrer » before « Supprimer »' do
