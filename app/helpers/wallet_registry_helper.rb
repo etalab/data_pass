@@ -50,6 +50,13 @@ module WalletRegistryHelper
     end
   end
 
+  def wallet_registry_organization_name(authorization_request)
+    authorization_request.identity_legal_name.presence ||
+      authorization_request.wallet_legal_name.presence ||
+      authorization_request.organization.denomination.presence ||
+      t('authorization_request_forms.registre_wallet.summary.organization_fallback')
+  end
+
   def wallet_registry_applicant_link(authorization_request)
     capacity = authorization_request.wallet_public_sector? ? :public_agent : :executive
     scope = 'authorization_request_forms.registre_wallet.summary.applicant'
