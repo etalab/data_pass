@@ -30,6 +30,10 @@ module WalletIntendedUsesHelper
     authorization_request.active_wallet_intended_uses.last == use
   end
 
+  def wallet_previewed_use(authorization_request, uses)
+    uses.find { |use| wallet_intended_use_open?(authorization_request, use) } || uses.first
+  end
+
   def wallet_intended_use_focus?(use, key)
     params[:ouverte].present? ? params[:ouverte] == use.id.to_s && params[:focus] == key : false
   end

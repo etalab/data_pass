@@ -7,8 +7,9 @@
         <span class="fr-hint-text"><%= wallet_intended_uses_t('preview.select_hint') %></span>
       </label>
       <select class="fr-select" id="wallet-preview-use" data-wallet-intended-uses-target="previewSelect" data-action="wallet-intended-uses#previewChanged">
+        <% previewed_use = wallet_previewed_use(@authorization_request, uses) %>
         <% uses.each do |use| %>
-          <option value="<%= use.id %>" data-wallet-intended-uses-target="previewOption"><%= use.display_name %></option>
+          <%= tag.option use.display_name, value: use.id, selected: use == previewed_use %>
         <% end %>
       </select>
     </div>

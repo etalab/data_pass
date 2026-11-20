@@ -253,6 +253,16 @@ Quand('je clique sur {string} dans la dernière utilisation') do |label|
   within(last_wallet_intended_use_card) { click_button label, match: :first }
 end
 
+Quand('je choisis {string} comme utilisation affichée') do |name|
+  select name, from: 'Utilisation prévue affichée'
+end
+
+Alors('l’aperçu montre l’utilisation {string} et {string}') do |name, purpose|
+  expect(page).to have_select('Utilisation prévue affichée', selected: name)
+  expect(page).to have_css('.wallet-preview', visible: :visible, count: 1)
+  expect(find('.wallet-preview', visible: :visible)).to have_text(purpose)
+end
+
 Quand('je confirme {string} dans la dernière utilisation') do |label|
   within(last_wallet_intended_use_card) { click_button label, exact: true }
 end
