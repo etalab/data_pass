@@ -119,7 +119,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     end
   end
 
-  # rubocop:disable-next Metrics/AbcSize
   def create_for_multiple_steps
     organizer = organizer_for_creation
 
@@ -127,18 +126,27 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
     if organizer.success?
       clear_prefill_data
-      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create', tiny: true) unless next_submit?
+      creation_messages
 
-      redirect_to authorization_request_form_build_path(
-        form_uid: @authorization_request.form_uid,
-        authorization_request_id: @authorization_request.id,
-        id: next_step_localized,
-      )
+      redirect_to path_after_creation
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
 
       render view_path(@authorization_request.form.steps.first[:name]),
         status: :unprocessable_content
+    end
+  end
+
+  def creation_messages
+    success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create', tiny: true) unless next_submit?
+    set_aside_values_message(@authorization_request) if @authorization_request.draft_set_aside_values.any?
+  end
+
+  def path_after_creation
+    if next_submit? && authorization_request_steps_names.one?
+      summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+    else
+      authorization_request_form_build_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id, id: next_step_localized)
     end
   end
 

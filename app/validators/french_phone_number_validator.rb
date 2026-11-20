@@ -28,6 +28,10 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
     /\A\+689[\s.-]*8[79]([\s.-]*\d{2}){2}\z/  # (French Polynesia mobiles - 87/89 XX XX)
   ].freeze
 
+  def self.french_phone_number?(phone_number)
+    FRENCH_PHONE_FORMATS.any? { |format| format.match?(phone_number) }
+  end
+
   def validate_each(record, attribute, value)
     return if value.blank?
 
@@ -59,7 +63,7 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
   end
 
   def valid_french_phone_number?(phone_number)
-    FRENCH_PHONE_FORMATS.any? { |format| format.match?(phone_number) }
+    self.class.french_phone_number?(phone_number)
   end
 
   def valid_mobile_phone_number?(phone_number)

@@ -7,6 +7,17 @@ module AuthorizationRequestsFlashes
     message_for_authorization_request(authorization_request, key:, type: :error, include_model_errors:)
   end
 
+  def set_aside_values_message(authorization_request, now: false)
+    values = authorization_request.draft_set_aside_values
+    model_class = (authorization_request.try(:object) || authorization_request).class
+    fields = values.keys.map { |attribute| model_class.human_attribute_name(attribute) }.to_sentence
+
+    (now ? flash.now : flash)[:warning] = {
+      'title' => t('authorization_request_forms.draft_set_aside.title', count: values.size, fields:),
+      'tiny' => true,
+    }
+  end
+
   private
 
   def message_for_authorization_request(authorization_request, key:, type:, include_model_errors: false, tiny: false)
