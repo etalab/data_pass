@@ -144,6 +144,7 @@ ignore_unused:
   - "gdpr_contact_mailer.responsable_traitement.subject"
   - "instruction.authorization_requests.index.status.*"
   - "authorization_request.status_by_definition.*"
+  - "dashboard.show.lists.*"
   - "wicked.*"
   - 'admin.*'
   - 'authorization.states.*'

@@ -117,6 +117,13 @@ RSpec.describe 'Wallet registry, summary and submission' do
 
       expect(response.body).to include("La demande d’enregistrement de #{authorization_request.wallet_service_name} a été soumise avec succès", 'Le registre la vérifie sous 5 jours ouvrés.')
     end
+
+    it 'lists it among the requests being verified, never « instruites » (Z35)' do
+      follow_redirect! while response.redirect?
+
+      expect(response.body).to include('Demandes en cours de vérification')
+      expect(response.body).not_to include('en cours d&#39;instruction', "en cours d'instruction")
+    end
   end
 
   describe 'GET a submitted request' do
