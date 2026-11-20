@@ -40,6 +40,16 @@ module WalletRegistryHelper
     end
   end
 
+  def wallet_registry_summary_focus(authorization_request, refusal: nil)
+    if authorization_request.wallet_incomplete_steps.any?
+      :incomplete_steps
+    elsif authorization_request.errors.added?(:base, :all_terms_not_accepted)
+      :consents
+    elsif refusal
+      :refusal
+    end
+  end
+
   def wallet_registry_applicant_link(authorization_request)
     capacity = authorization_request.wallet_public_sector? ? :public_agent : :executive
     scope = 'authorization_request_forms.registre_wallet.summary.applicant'

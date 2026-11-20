@@ -51,6 +51,14 @@ RSpec.describe 'Wallet registry, summary and submission' do
       expect(page.at_css('#wallet-consents-messages').text).to include('Cochez les deux cases pour soumettre votre demande.')
       expect(page.css('#wallet-incomplete-steps')).to be_empty
     end
+
+    it 'names the group of boxes, ties the message to it and focuses the unchecked box' do
+      consents = page.at_css('fieldset#wallet-consents')
+
+      expect(consents['aria-labelledby']).to eq('wallet-consents-legend wallet-consents-messages')
+      expect(page.at_css('#wallet-consents-legend').text).to eq('Vos engagements')
+      expect(page.css('#wallet-consents input[autofocus]').pluck('name')).to eq(["#{param_key}[wallet_information_certified]"])
+    end
   end
 
   describe 'submit with an incomplete step' do
@@ -64,6 +72,10 @@ RSpec.describe 'Wallet registry, summary and submission' do
 
       expect(response).to have_http_status(:unprocessable_content)
       expect(links).to eq(['Corriger l’étape 2 : le service', 'Corriger l’étape 4 : les contacts'])
+    end
+
+    it 'focuses the list of steps rather than the boxes' do
+      expect(page.css('[autofocus]').pluck('id')).to eq(['wallet-incomplete-steps'])
     end
   end
 
