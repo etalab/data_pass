@@ -1,6 +1,7 @@
 class AuthorizationRequestsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include SubdomainsHelper
+  include WalletRegistryAnswer
 
   allow_unauthenticated_access only: %i[new show]
 
@@ -8,6 +9,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   before_action :redirect_to_wallet_registry_form, only: %i[new], if: :signed_in_wallet_registry_applicant?
   before_action :set_facade, only: %i[new]
   before_action :find_eligibility_rule, only: %i[new]
+  before_action :render_eligibility_check, only: %i[new], if: -> { @eligibility_rule && wallet_registry_answer_change? }
 
   decorates_assigned :eligibility_rule
 
@@ -48,11 +50,12 @@ class AuthorizationRequestsController < AuthenticatedUserController
   private
 
   def signed_in_wallet_registry_applicant?
-    user_signed_in? && @authorization_definition.applicant_eligibility == 'wallet_registry'
+    user_signed_in? && @authorization_definition.wallet_registry? && !wallet_registry_answer_change?
   end
 
   def redirect_to_wallet_registry_form
-    redirect_to authorization_request_form_introduction_path(form_uid: @authorization_definition.available_forms.first.id)
+    flash.keep
+    redirect_to authorization_request_form_introduction_path(form_uid: @authorization_definition.available_forms.first.id, parcours: wallet_registry_answer)
   end
 
   def render_refusal
@@ -98,10 +101,17 @@ class AuthorizationRequestsController < AuthenticatedUserController
     @display_provider_logo_in_header = true
 
     if @eligibility_rule && params[:eligibility_confirmed] != 'true'
-      render 'authorization_requests/eligibility_check'
+      render_eligibility_check
     else
+      @wallet_registry_sign_in = build_wallet_registry_sign_in if @authorization_definition.wallet_registry?
       render 'authorization_requests/unauthenticated_start'
     end
+  end
+
+  def render_eligibility_check
+    @display_provider_logo_in_header = true
+
+    render 'authorization_requests/eligibility_check'
   end
 
   def id_sanitized

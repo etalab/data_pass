@@ -28,5 +28,11 @@ RSpec.describe 'Wallet registry start for an organization seen closed' do
       expect(refusal).not_to include('est fermée dans le répertoire Sirene')
       expect(response.body).not_to include('Débuter ma demande')
     end
+
+    it 'keeps the answer in the retry link' do
+      get '/formulaires/registre-wallet/demande/nouveau?parcours=agent'
+
+      expect(response.parsed_body.at_css('#wallet_registry_retry')['href']).to eq('/formulaires/registre-wallet/demande/nouveau?parcours=agent')
+    end
   end
 end

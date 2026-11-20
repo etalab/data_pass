@@ -53,30 +53,18 @@
           support_email:) %>
       </p>
       <% if @wallet_registry_refusal == :organization_check_pending %>
-        <p><%= link_to t('.refusals.organization_check_pending.retry'), request.path, class: 'fr-link', id: 'wallet_registry_retry' %></p>
+        <p><%= link_to t('.refusals.organization_check_pending.retry'), request.fullpath, class: 'fr-link', id: 'wallet_registry_retry' %></p>
       <% end %>
     </div>
   <% end %>
 
-  <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect', locals: { return_to: request.path, title: nil, wrapper_class: nil } %>
-
-  <% if FeatureFlag.enabled?(:proconnect_dirigeant) %>
-    <div class="fr-mb-3w" id="wallet_registry_executive">
-      <h2 class="fr-h6"><%= t('.executive.title') %></h2>
-      <p><%= t('.executive.description') %></p>
-      <%= form_with(url: user_signed_in? ? '/auth/proconnect_dirigeant' : '/auth/proconnect', method: :post, data: { turbo: false }) do %>
-        <% if user_signed_in? %>
-          <%= hidden_field_tag :siret_hint, current_organization&.siret, id: nil %>
-        <% else %>
-          <%= hidden_field_tag :parcours, 'dirigeant', id: nil %>
-        <% end %>
-        <%= hidden_field_tag :return_to, request.path, id: nil %>
-        <%= button_tag t('.executive.submit'), type: 'submit', class: %w[fr-btn fr-btn--secondary], id: 'wallet_registry_sign_in_executive' %>
-      <% end %>
-    </div>
+  <% if @wallet_registry_sign_in.answer %>
+    <p class="fr-text--md fr-mb-2w" id="wallet_registry_answer"><%= t(".answers.#{@wallet_registry_sign_in.answer_key}") %></p>
   <% end %>
 
-  <p class="fr-mt-3w">
-    <%= t('.support_html', support_email:) %>
+  <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect', locals: @wallet_registry_sign_in.pro_connect_locals %>
+
+  <p class="fr-mb-0">
+    <%= link_to t('.change_answer'), wallet_registry_change_answer_path, class: 'fr-link', id: 'wallet_registry_change_answer' %>
   </p>
 </div>
