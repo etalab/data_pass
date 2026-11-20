@@ -340,6 +340,10 @@ class AuthorizationRequest < ApplicationRecord
     names
   end
 
+  def draft_set_aside_values
+    {}
+  end
+
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
     return false if already_been_refused_or_approved?

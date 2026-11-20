@@ -1307,6 +1307,14 @@ fr:
       responsable_traitement_informed:
         label: Je confirme que le responsable de l’administration de mon organisation est informé de ma demande.
 
+    draft_set_aside:
+      title:
+        one: "Brouillon enregistré, sauf une valeur au format invalide : %{fields}. Corrigez-la puis enregistrez de nouveau."
+        other: "Brouillon enregistré, sauf %{count} valeurs au format invalide : %{fields}. Corrigez-les puis enregistrez de nouveau."
+      autosave:
+        one: "· une valeur non enregistrée, au format invalide"
+        other: "· %{count} valeurs non enregistrées, au format invalide"
+
     resana:
       legal:
         title: Le cadre juridique
