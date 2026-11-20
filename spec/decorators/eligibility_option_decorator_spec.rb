@@ -203,5 +203,21 @@ RSpec.describe EligibilityOptionDecorator, type: :decorator do
         expect(decorator.pictogram_path).to be_nil
       end
     end
+
+    context 'when the pictogram file does not exist' do
+      around do |example|
+        I18n.backend.store_translations(:fr, eligibility: { pictograms: { particulier: 'digital/inexistant' } })
+        example.run
+      ensure
+        I18n.backend.reload!
+      end
+
+      it 'returns nil and reports the missing asset to Sentry' do
+        allow(Sentry).to receive(:capture_exception)
+
+        expect(decorator.pictogram_path).to be_nil
+        expect(Sentry).to have_received(:capture_exception).with(instance_of(Propshaft::MissingAssetError), level: :warning)
+      end
+    end
   end
 end
