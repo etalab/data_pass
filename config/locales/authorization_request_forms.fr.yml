@@ -1307,6 +1307,14 @@ fr:
       responsable_traitement_informed:
         label: Je confirme que le responsable de l’administration de mon organisation est informé de ma demande.
 
+    identity_refreshes:
+      create:
+        success:
+          title: Les informations de votre organisation sont à jour.
+        unavailable:
+          title: Le répertoire Sirene ne répond pas
+          description: Les informations affichées n’ont pas changé. Réessayez dans quelques minutes ; si le problème persiste, écrivez au support à %{support_email}.
+
     draft_set_aside:
       title:
         one: "Brouillon enregistré, sauf une valeur au format invalide : %{fields}. Corrigez-la puis enregistrez de nouveau."
@@ -1314,6 +1322,76 @@ fr:
       autosave:
         one: "· une valeur non enregistrée, au format invalide"
         other: "· %{count} valeurs non enregistrées, au format invalide"
+
+    registre_wallet:
+      saved_at: Brouillon enregistré à %{time}
+      kicker: Étape %{current}/%{total}
+      kicker_sr: Étape %{current} sur %{total}
+      required_fields: Les champs marqués d’un astérisque * sont obligatoires.
+      summary:
+        description: Après avoir vérifié ces informations, vous pourrez soumettre votre demande au registre, qui vérifiera votre organisation avant de l’enregistrer.
+      wallet_organization:
+        summary_title: L’organisation dans le registre
+        title: Quelle organisation enregistrez-vous ?
+        subtitle: Nous avons retrouvé votre organisation à partir de votre connexion ProConnect. Vérifiez ses informations et complétez ce qui manque.
+        identity_refresh:
+          button: Mettre à jour les informations de l’organisation
+          loading: Mise à jour des informations de l’organisation…
+          retrieved_at: Informations récupérées le %{date} à %{time}.
+          replace_warning: Si la mise à jour réussit, le nom officiel que vous avez saisi sera remplacé par celui du répertoire Sirene.
+        identity_pending:
+          badge: Informations en cours de chargement
+          description: "Nous récupérons les informations de votre organisation dans le répertoire Sirene. Elles s’afficheront ici : rechargez la page dans quelques instants ou utilisez le bouton de mise à jour. Vous pouvez remplir le reste de l’étape en attendant."
+        sirene_unavailable:
+          title: Le répertoire Sirene ne répond pas
+          description: "Saisissez le nom officiel et l’adresse d’établissement de votre organisation, puis joignez un justificatif : le registre les vérifiera. Vous pouvez aussi réessayer la récupération avec le bouton de mise à jour. Votre brouillon est enregistré."
+          panel_title: Votre organisation
+        non_diffusible: "Nous n’avons pas pu retrouver l’adresse de votre organisation : elle n’est pas diffusible dans l’Annuaire des entreprises. Saisissez-la et joignez un justificatif, le registre le vérifiera."
+        insee_correction_html: Ces informations seront publiées au registre. Une erreur ? Demandez sa correction à l’<a class="fr-link fr-link--sm" href="https://www.insee.fr/" target="_blank" rel="noopener">INSEE<span class="fr-sr-only"> - nouvelle fenêtre</span></a>, puis mettez à jour les informations de l’organisation.
+        published:
+          title: Ce que le registre publie
+          description: Ces informations figurent sur la fiche publique de votre organisation. Dans son wallet, l’usager voit votre assistance et l’autorité de protection des données, et ouvre la politique de confidentialité de l’utilisation qui lui demande des données.
+        data_protection_authority:
+          label: Autorité de protection des données compétente
+          hint: L’usager pourra la contacter pour signaler une demande suspecte.
+          name: Commission nationale de l’informatique et des libertés (CNIL), France
+          contact_html: 'Contact publié : <a class="fr-link fr-link--sm" href="https://www.cnil.fr/fr/adresser-une-plainte" target="_blank" rel="noopener">adresser une plainte à la CNIL<span class="fr-sr-only"> - nouvelle fenêtre</span></a>'
+        support:
+          legend: Assistance aux usagers
+          hint: Renseignez au moins un moyen. Affichée dans le wallet, l’assistance sert aussi à l’usager pour demander la suppression de ses données.
+          generic_email_warning: "Cette adresse semble être celle d’une personne. Elle sera publiée au registre et affichée dans le wallet : préférez une adresse générique."
+        commitment:
+          title: Votre engagement
+      wallet_privacy_policy_url:
+        label: Adresse de votre politique de confidentialité
+        hint: Reprise pour chaque utilisation prévue ; vous pourrez la changer pour une utilisation précise. Elle commence par https://
+      wallet_website_url:
+        label: Site internet de l’organisation, si elle en a un
+        hint: Le registre le publie sur votre fiche. Il commence par https://
+      wallet_support_url:
+        label: Site d’assistance
+        hint: Il commence par https://
+      wallet_support_email:
+        label: Adresse électronique
+        hint: Une adresse générique, par exemple contact@domaine.fr
+      wallet_support_phone:
+        label: Téléphone
+        hint: "Format attendu : 04 72 00 00 00"
+      wallet_legal_name:
+        label: Nom officiel de l’organisation
+        hint: Tel qu’il figure dans le répertoire Sirene. Il sera publié au registre.
+      wallet_postal_address:
+        label: Adresse d’établissement
+        hint: Numéro, voie, code postal et commune. Une fois votre organisation inscrite, cette adresse sera publiée sur la fiche publique du registre.
+        hint_non_diffusible: Une fois votre organisation inscrite, cette adresse sera publiée sur la fiche publique du registre, même si elle n’est pas diffusible dans l’Annuaire des entreprises.
+      wallet_address_proof:
+        label: Justificatif
+        hint: Un document qui montre le nom officiel et l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
+        label_non_diffusible: Justificatif de l’adresse d’établissement
+        hint_non_diffusible: Un document qui montre l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
+      wallet_not_registered_elsewhere:
+        label: Je déclare que %{organization_name} n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
+        label_unknown_name: Je déclare que votre organisation n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
 
     resana:
       legal:

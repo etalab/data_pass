@@ -312,6 +312,24 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '#feature? for autosave' do
+    it 'disables autosave by default' do
+      expect(described_class.find('api_entreprise').feature?(:autosave)).to be false
+    end
+
+    it 'enables autosave for the wallet registry' do
+      expect(described_class.find('registre_wallet').feature?(:autosave)).to be true
+    end
+  end
+
+  describe 'wallet registry request features (R8, réunion du 17/11)' do
+    let(:definition) { described_class.find('registre_wallet') }
+
+    it 'disables messaging and transfer' do
+      expect([definition.feature?(:messaging), definition.feature?(:transfer)]).to eq([false, false])
+    end
+  end
+
   describe '#startable_by_applicant with a feature flag' do
     subject { described_class.find('registre_wallet').startable_by_applicant }
 

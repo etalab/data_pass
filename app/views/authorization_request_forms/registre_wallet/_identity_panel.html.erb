@@ -1,0 +1,12 @@
+<%# locals: (authorization_request:) %>
+<div id="wallet-identity-panel" class="wx-identity">
+  <%= render 'authorization_request_forms/registre_wallet/identity_refresh', authorization_request: %>
+  <% if authorization_request.identity_pending? %>
+    <% scope = 'authorization_request_forms.registre_wallet.wallet_organization.identity_pending' %>
+    <div class="fr-mb-3w" id="wallet-identity-pending">
+      <p class="fr-badge fr-badge--info fr-badge--sm fr-mb-1w"><%= t("#{scope}.badge") %></p>
+      <p class="fr-text--sm fr-mb-0"><%= t("#{scope}.description") %></p>
+    </div>
+  <% end %>
+  <%= render Molecules::WalletRegistry::OrganizationIdentityComponent.new(authorization_request:, executive_certified: wallet_executive_certified(authorization_request)) %>
+</div>

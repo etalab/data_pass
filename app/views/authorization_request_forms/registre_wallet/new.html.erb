@@ -1,6 +1,10 @@
 <% set_title! t('page_titles.authorization_request_new', authorization_name: @authorization_request_form.authorization_definition.name) %>
 
 <div class="fr-px-2w fr-px-md-0" id="wallet_registry_introduction">
+  <div id="flash-alerts" class="fr-mt-4w">
+    <%= render partial: 'shared/alerts' %>
+  </div>
+
   <h1 class="fr-h2 fr-mt-16v">
     <%= t('.title') %>
   </h1>

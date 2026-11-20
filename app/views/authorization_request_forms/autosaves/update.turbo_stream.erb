@@ -1,0 +1,3 @@
+<%= turbo_stream.replace 'wallet-saved-at' do %>
+  <%= render partial: 'authorization_request_forms/registre_wallet/saved_at', locals: { authorization_request: @authorization_request, set_aside_count: @authorization_request.draft_set_aside_values.size } %>
+<% end %>

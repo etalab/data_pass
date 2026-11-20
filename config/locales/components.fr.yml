@@ -7,6 +7,61 @@ fr:
       "true": Oui
       "false": Non
   molecules:
+    form_error_summary_component:
+      title:
+        one: Un point à corriger avant de continuer
+        other: "%{count} points à corriger avant de continuer"
+      messages:
+        registre_wallet:
+          wallet_https_format: "%{attribute} : l’adresse doit commencer par https://"
+          wallet_email_format: "%{attribute} : adresse électronique non valide"
+          invalid_french_phone_format: "%{attribute} : numéro de téléphone non valide"
+          accepted: "%{attribute} : cochez la case pour continuer"
+          wallet_privacy_policy_url:
+            wallet_https_format: "Politique de confidentialité : l’adresse doit commencer par https://"
+          wallet_support_url:
+            wallet_support_channel_missing: "Assistance aux usagers : indiquez au moins un moyen."
+          wallet_not_registered_elsewhere:
+            accepted: Cochez cette case pour continuer.
+    wallet_registry:
+      organization_summary_component:
+        identification: Identification
+        for_users: Informations pour les usagers
+        legal_name: Nom officiel
+        siret: Numéro de SIRET
+        country_code: Code pays
+        public_sector: Organisme du secteur public
+        address: Adresse d’établissement
+        address_proof: Justificatif de l’adresse
+        not_published: (non publié)
+        new_window: nouvelle fenêtre
+        not_registered_elsewhere: Non-inscription dans un autre État
+        declared: Déclarée
+        not_declared: Non déclarée
+        privacy_policy: Politique de confidentialité par défaut
+        website: Site internet
+        support: Assistance aux usagers
+        data_protection_authority: Autorité de protection des données
+        data_protection_authority_name: Commission nationale de l’informatique et des libertés (CNIL), France
+        data_protection_authority_contact: "Contact publié : https://www.cnil.fr/fr/adresser-une-plainte"
+        not_filled: Non renseigné
+        loading: En cours de chargement
+      organization_identity_component:
+        siret: Numéro de SIRET
+        siret_from_pro_connect: Numéro de SIRET (connexion ProConnect)
+        country_code: Code pays
+        address: Adresse d’établissement
+        public_sector:
+          label: Organisme du secteur public
+          "yes": Oui, d’après la catégorie juridique (%{legal_form})
+          "no": Non, d’après la catégorie juridique (%{legal_form})
+        capacity:
+          public_agent: Agent connecté par ProConnect
+          executive: Certifié dirigeant par ProConnect
+          executive_verification_required: Vérification de dirigeant à faire
+        executive_verification:
+          description: Votre certification de dirigeant par ProConnect a expiré ou n’a pas abouti. Vous pouvez continuer à remplir ce brouillon, mais il faudra la refaire pour soumettre la demande.
+          button: Vérifier que je dirige l’organisation
     instruction:
       authorization_definition:
         config_block_component:

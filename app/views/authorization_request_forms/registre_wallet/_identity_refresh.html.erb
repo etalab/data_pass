@@ -1,0 +1,24 @@
+<%# locals: (authorization_request:) %>
+<% if authorization_request.persisted? && policy(authorization_request).refresh_identity? %>
+  <% scope = 'authorization_request_forms.registre_wallet.wallet_organization.identity_refresh' %>
+  <div class="wx-identity-refresh">
+    <% if authorization_request.identity_retrieved? %>
+      <% retrieved_at = Time.zone.parse(authorization_request.identity_retrieved_at) %>
+      <p class="fr-text--sm fr-mb-0 wx-muted">
+        <%= t("#{scope}.retrieved_at", date: retrieved_at.strftime('%d/%m/%Y'), time: retrieved_at.strftime('%H:%M')) %>
+      </p>
+    <% end %>
+    <% replace_warning = authorization_request.try(:wallet_legal_name_replaced_on_refresh?) %>
+    <%= tag.button t("#{scope}.button"), type: 'submit', form: 'wallet-identity-refresh-form', id: 'wallet-identity-refresh', class: %w[fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-refresh-line], title: t("#{scope}.button"), aria: { describedby: ('wallet-identity-refresh-warning' if replace_warning) } %>
+  </div>
+  <% if replace_warning %>
+    <p class="fr-text--sm fr-mb-2w wx-identity-refresh__warning" id="wallet-identity-refresh-warning">
+      <span class="fr-icon-warning-line fr-icon--sm" aria-hidden="true"></span>
+      <%= t("#{scope}.replace_warning") %>
+    </p>
+  <% end %>
+  <p class="fr-text--sm fr-mb-2w wx-identity-loading" data-identity-refresh-loader hidden>
+    <span class="fr-icon-refresh-line fr-icon--sm wx-spin" aria-hidden="true"></span>
+    <%= t("#{scope}.loading") %>
+  </p>
+<% end %>

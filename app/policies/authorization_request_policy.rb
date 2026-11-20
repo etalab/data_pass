@@ -31,6 +31,17 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.editable_by_applicant?
   end
 
+  def autosave?
+    update? &&
+      feature_enabled?(:autosave)
+  end
+
+  def refresh_identity?
+    update? &&
+      record.draft? &&
+      record.try(:identity_sources).present?
+  end
+
   def submit?
     feature_enabled?(:submission) &&
       same_user_and_organization? &&

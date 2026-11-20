@@ -192,6 +192,65 @@ RSpec.describe AuthorizationRequestPolicy do
 
       it { is_expected.to be true }
     end
+
+    context 'with a wallet registry request, whose transfer is disabled' do
+      let(:authorization_request_class) { authorization_request }
+
+      context 'when it is a draft' do
+        let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user) }
+
+        it 'offers neither the transfer nor the manual transfer page' do
+          expect([instance.transfer?, instance.manual_transfer_from_instructor?]).to eq([false, false])
+        end
+      end
+
+      context 'when it is submitted' do
+        let(:authorization_request) { create(:authorization_request, :registre_wallet, :submitted, applicant: user) }
+
+        it 'sends the applicant to the manual transfer page' do
+          expect([instance.transfer?, instance.manual_transfer_from_instructor?]).to eq([false, true])
+        end
+      end
+    end
+  end
+
+  describe '#refresh_identity?' do
+    subject { instance.refresh_identity? }
+
+    let(:authorization_request_class) { authorization_request }
+
+    context 'with a wallet registry draft whose identity was retrieved' do
+      let(:organization) { create(:organization, siret: '21920023500014') }
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user, organization:) }
+
+      before { user.add_to_organization(organization, current: true) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'with a submitted wallet registry request' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, :submitted, applicant: user) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'with a wallet registry draft whose identity could not be retrieved' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user, identity_source: 'sirene_unavailable') }
+
+      it { is_expected.to be true }
+    end
+
+    context 'with a wallet registry draft whose identity is still loading' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, applicant: user, identity_source: 'sirene_pending') }
+
+      it { is_expected.to be true }
+    end
+
+    context 'with a definition without identity sources' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
+
+      it { is_expected.to be false }
+    end
   end
 
   describe '#reopen?' do

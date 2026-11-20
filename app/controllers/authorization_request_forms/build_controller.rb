@@ -12,6 +12,7 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
   def show
     authorize @authorization_request, :show?
+    copy_loaded_identity
 
     render_wizard
   end
@@ -40,10 +41,25 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
   private
 
+  def copy_loaded_identity
+    return unless policy(@authorization_request).refresh_identity?
+
+    @authorization_request.object.copy_loaded_identity!
+  end
+
   def save_only
+    return show_set_aside_values if @authorization_request.draft_set_aside_values.any?
+
     success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update', tiny: true)
 
     redirect_to wizard_path
+  end
+
+  def show_set_aside_values
+    set_aside_values_message(@authorization_request, now: true)
+    @authorization_request.reveal_draft_set_aside_values!
+
+    render_wizard(nil, status: :unprocessable_content)
   end
 
   def save_and_continue

@@ -1,0 +1,67 @@
+<% unless content_for?(:page_title) %>
+  <% set_title! t('page_titles.authorization_request_form_wizard',
+    step_name: authorization_request_step_name(@authorization_request, wallet_registry_current_step),
+    definition_name: @authorization_request.definition.name,
+    authorization_request_name: @authorization_request.name) %>
+<% end %>
+
+<div class="wx-head">
+  <div class="fr-container">
+    <div class="wx-head__row">
+      <%= render partial: 'authorization_request_forms/registre_wallet/header_pictogram' %>
+      <div class="wx-head__id">
+        <h1 class="fr-h3 fr-mb-1w"><%= @authorization_request.form.name %></h1>
+        <div class="wx-head__meta">
+          <div role="status">
+            <%= render partial: 'authorization_request_forms/registre_wallet/saved_at', locals: { authorization_request: @authorization_request } %>
+          </div>
+          <%= render partial: 'authorization_request_forms/registre_wallet/header_badges', locals: { authorization_request: @authorization_request } %>
+        </div>
+      </div>
+      <div class="wx-head__actions authorization-request-form-header__actions">
+        <%= render partial: 'authorization_request_forms/registre_wallet/header_actions', locals: { f: } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= tag.div class: 'wx-body', data: wallet_registry_body_data(@authorization_request) do %>
+  <div class="fr-container fr-container--with-tiny-alert">
+    <div id="flash-alerts">
+      <%= render partial: 'shared/alerts', locals: { kinds: wallet_registry_flash_kinds(@authorization_request) } %>
+    </div>
+
+    <% if wallet_registry_wizard_step? %>
+      <div class="wx-step-head">
+        <p class="wx-kicker">
+          <span aria-hidden="true"><%= t('authorization_request_forms.registre_wallet.kicker', **wallet_registry_step_position(@authorization_request)) %></span>
+          <span class="fr-sr-only"><%= t('authorization_request_forms.registre_wallet.kicker_sr', **wallet_registry_step_position(@authorization_request)) %></span>
+        </p>
+        <h2 class="fr-h3 fr-mb-1w"><%= f.wording_for("#{wallet_registry_current_step}.title") %></h2>
+        <% if wallet_registry_step_position(@authorization_request)[:current] == 1 %>
+          <p class="fr-text--lg fr-mb-0"><%= f.wording_for("#{wallet_registry_current_step}.subtitle") %></p>
+          <p class="wx-required"><%= t('authorization_request_forms.registre_wallet.required_fields') %></p>
+        <% else %>
+          <div class="fr-col-md-8 wx-step-head__lead">
+            <p><%= f.wording_for("#{wallet_registry_current_step}.subtitle") %></p>
+            <p class="wx-required"><%= t('authorization_request_forms.registre_wallet.required_fields') %></p>
+          </div>
+        <% end %>
+      </div>
+
+      <%= render Molecules::FormErrorSummaryComponent.new(record: @authorization_request, field_ids: wallet_registry_error_field_ids(f)) %>
+    <% end %>
+
+    <%= yield %>
+
+    <%= render partial: "authorization_request_forms/shared/hidden_params", locals: { f: f } %>
+  </div>
+<% end %>
+
+<% if content_for? :sticky_bar %>
+  <div class="fr-py-2w sticky-bar wx-actions" data-controller="sticky-bar">
+    <div class="fr-container-fluid">
+      <%= yield :sticky_bar %>
+    </div>
+  </div>
+<% end %>

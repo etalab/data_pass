@@ -1,0 +1,9 @@
+<%# locals: (authorization_request:, refreshed:) %>
+<% scope = 'authorization_request_forms.identity_refreshes.create' %>
+<div class="fr-alert fr-alert--sm fr-mb-2w <%= refreshed ? 'fr-alert--success' : 'fr-alert--warning' %>">
+  <% if refreshed %>
+    <p><%= t("#{scope}.success.title") %></p>
+  <% else %>
+    <p><%= t("#{scope}.unavailable.title") %>. <%= t("#{scope}.unavailable.description", support_email: authorization_request.definition.support_email) %></p>
+  <% end %>
+</div>

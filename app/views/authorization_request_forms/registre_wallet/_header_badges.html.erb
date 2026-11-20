@@ -1,0 +1,7 @@
+<%# locals: (authorization_request:) -%>
+<ul class="fr-badge-group" id="wallet-header-badges">
+  <% if authorization_request.persisted? %>
+    <li><span class="fr-badge fr-badge--sm fr-badge--no-icon"><%= t('authorization_request.badge', formatted_id: authorization_request.formatted_id) %></span></li>
+  <% end %>
+  <li><span class="fr-badge fr-badge--sm fr-badge--grey fr-badge--no-icon"><%= t("authorization_request.status.#{authorization_request.state}") %></span></li>
+</ul>

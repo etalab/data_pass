@@ -1,0 +1,46 @@
+<% if sirene_available? %>
+  <div class="wx-org__head">
+    <span class="wx-org__icon fr-icon-building-line" aria-hidden="true"></span>
+    <div>
+      <p class="wx-org__name"><%= identity_legal_name %></p>
+      <p class="fr-text--sm fr-mb-0 wx-muted"><%= legal_summary %></p>
+    </div>
+    <%= capacity_badge %>
+  </div>
+
+  <% if executive_verification_required? %>
+    <div class="fr-notice fr-notice--warning fr-mb-3w" id="wallet-executive-verification">
+      <div class="fr-container fr-px-2w">
+        <div class="fr-notice__body">
+          <p class="fr-notice__title"><%= t('.executive_verification.description') %></p>
+        </div>
+      </div>
+    </div>
+    <p class="fr-mb-3w">
+      <%= button_tag t('.executive_verification.button'), type: 'submit', form: EXECUTIVE_VERIFICATION_FORM_ID, class: %w[fr-btn fr-btn--secondary fr-btn--sm], id: 'wallet-verify-executive' %>
+    </p>
+  <% end %>
+<% end %>
+
+<dl class="wx-facts">
+  <div>
+    <dt><%= siret_label %></dt>
+    <dd><%= formatted_siret %></dd>
+  </div>
+  <div>
+    <dt><%= t('.country_code') %></dt>
+    <dd>FR</dd>
+  </div>
+  <% if sirene_available? %>
+    <div>
+      <dt><%= t('.public_sector.label') %></dt>
+      <dd><%= public_sector_label %></dd>
+    </div>
+  <% end %>
+  <% if address_known? %>
+    <div>
+      <dt><%= t('.address') %></dt>
+      <dd><%= formatted_address %></dd>
+    </div>
+  <% end %>
+</dl>

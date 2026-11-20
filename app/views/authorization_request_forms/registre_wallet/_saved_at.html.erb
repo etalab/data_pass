@@ -1,0 +1,10 @@
+<%# locals: (authorization_request:, set_aside_count: 0) -%>
+<p class="fr-text--sm fr-mb-0 wx-saved" id="wallet-saved-at" data-saved-at="<%= authorization_request.updated_at&.iso8601(6) %>">
+  <% if authorization_request.updated_at %>
+    <span class="fr-icon-check-line fr-icon--sm" aria-hidden="true"></span>
+    <%= t('authorization_request_forms.registre_wallet.saved_at', time: l(authorization_request.updated_at, format: '%H:%M')) %>
+    <% if set_aside_count.positive? %>
+      <span class="fr-text-default--warning"><%= t('authorization_request_forms.draft_set_aside.autosave', count: set_aside_count) %></span>
+    <% end %>
+  <% end %>
+</p>

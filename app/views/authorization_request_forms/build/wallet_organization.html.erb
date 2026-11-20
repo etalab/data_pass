@@ -1,4 +1,16 @@
-<%= authorization_request_form(@authorization_request) do |f| %>
+<%= authorization_request_form(@authorization_request, form_options: { html: { novalidate: true } }) do |f| %>
   <%= render_custom_form_or_default(@authorization_request, "wallet_organization", { f: }) %>
-  <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: } %>
+  <%= render partial: 'authorization_request_forms/registre_wallet/first_step_buttons', locals: { f: } %>
+<% end %>
+
+<% if @authorization_request.persisted? && policy(@authorization_request).refresh_identity? %>
+  <%= form_with url: authorization_request_form_identity_refresh_path(form_uid: @authorization_request.form_uid, authorization_request_id: @authorization_request.id), method: :post, id: 'wallet-identity-refresh-form', data: { controller: 'identity-refresh', identity_refresh_panel_value: 'wallet-identity-panel' }, html: { hidden: true } do %><% end %>
+<% end %>
+
+<% unless wallet_executive_certified(@authorization_request).nil? %>
+  <%= form_with url: '/auth/proconnect_dirigeant', method: :post, id: Molecules::WalletRegistry::OrganizationIdentityComponent::EXECUTIVE_VERIFICATION_FORM_ID, data: { turbo: false }, html: { hidden: true } do %>
+    <%= hidden_field_tag :siret_hint, @authorization_request.organization.siret, id: nil %>
+    <%= hidden_field_tag :return_to, request.path, id: nil %>
+    <%= hidden_field_tag :origin, request.path, id: nil %>
+  <% end %>
 <% end %>

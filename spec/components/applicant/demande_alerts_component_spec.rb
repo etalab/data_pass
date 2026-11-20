@@ -73,7 +73,18 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
       it 'renders the summary before submit notice' do
         expect(page).to have_css('.fr-notice.fr-notice--warning')
         expect(page).to have_css('.fr-notice__title', text: I18n.t('authorization_request_forms.summary.title'))
-        expect(page).to have_css('.fr-notice__desc')
+        expect(page).to have_css('.fr-notice__desc', text: 'vous pourrez la soumettre à l’équipe d’instruction')
+      end
+    end
+
+    context 'when the draft is a wallet registry request' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, :draft) }
+
+      before { render_inline(component) }
+
+      it 'tells that the registry verifies the organization, without any instruction' do
+        expect(page).to have_css('.fr-notice__desc', text: 'vous pourrez soumettre votre demande au registre, qui vérifiera votre organisation')
+        expect(page).to have_no_text('instruction')
       end
     end
 

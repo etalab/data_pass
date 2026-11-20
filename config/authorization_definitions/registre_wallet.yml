@@ -10,8 +10,13 @@ registre_wallet:
   feature_flag: registre_wallet
   applicant_eligibility: wallet_registry
   features:
+    autosave: true
     submission: false
+    return_to_introduction_after_archive: true
     reopening: false
     instructor_drafts: false
+    messaging: false
+    message_templates: false
+    transfer: false
   blocks:
     - name: "wallet_organization"
