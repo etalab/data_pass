@@ -2,7 +2,7 @@
 <% provide :wallet_registry_summary, 'true' %>
 
 <%= authorization_request_form(@authorization_request, form_options: { html: { novalidate: true }, data: { controller: 'submission-error', action: 'turbo:before-fetch-response->submission-error#check turbo:fetch-request-error->submission-error#show' } }) do |f| %>
-  <div id="<%= dom_id(@authorization_request, :summary) %>">
+  <div id="<%= dom_id(@authorization_request, :summary) %>" class="wx-summary">
     <% if @authorization_request.draft? %>
       <div class="fr-mb-6w">
         <h2 class="fr-h3 fr-mb-1w"><%= f.wording_for('summary.title') %></h2>

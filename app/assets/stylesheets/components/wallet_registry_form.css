@@ -106,3 +106,8 @@ html:has(.wx-actions) { scroll-padding-bottom: 6rem; }
 .sum-usage__att + .fr-tags-group { margin-bottom: .5rem; }
 @media (max-width: 767px) { .wx-sticky { position: static; } }
 .wx-body [hidden] { display: none !important; }
+
+.wx-summary .summary-block__container { margin-top: 1.5rem; }
+.wx-summary .fr-grid-row > [class*="fr-col"] > .contact-card__attribute { margin-top: 0; }
+.wx-summary h3.contact-card__full_name { margin-bottom: 1rem; }
+.wx-summary .sum-usage .scopes-group__title { margin-bottom: 1.25rem; }
