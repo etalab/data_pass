@@ -35,6 +35,9 @@ class EligibilityOptionDecorator < ApplicationDecorator
     return unless I18n.exists?("eligibility.pictograms.#{type}")
 
     h.asset_path("artwork/pictograms/#{t("eligibility.pictograms.#{type}")}.svg")
+  rescue Propshaft::MissingAssetError => e
+    Sentry.capture_exception(e, level: :warning)
+    nil
   end
 
   def sanitized_body
