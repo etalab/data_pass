@@ -8,5 +8,6 @@ class BuildAuthorizationRequest < ApplicationOrganizer
   end
 
   organize AssignDefaultDataToAuthorizationRequest,
-    AssignQueryParamsDataToAuthorizationRequest
+    AssignQueryParamsDataToAuthorizationRequest,
+    AssignIdentityToAuthorizationRequest
 end

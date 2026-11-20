@@ -1,7 +1,7 @@
 class UpdateOrganizationINSEEPayload < ApplicationInteractor
   def call
     return if organization.nil?
-    return unless organization.insee_refresh_due?
+    return unless insee_refresh_wanted?
 
     update_organization_insee_payload
   rescue INSEESireneAPIClient::EntityNotFoundError => e
@@ -15,7 +15,7 @@ class UpdateOrganizationINSEEPayload < ApplicationInteractor
 
   def update_organization_insee_payload
     if update_organization_now?
-      UpdateOrganizationINSEEPayloadJob.new.perform(organization.id)
+      UpdateOrganizationINSEEPayloadJob.new.perform(organization.id, force: force_insee_refresh?)
       organization.reload
     else
       UpdateOrganizationINSEEPayloadJob.perform_later(organization.id)
@@ -28,8 +28,18 @@ class UpdateOrganizationINSEEPayload < ApplicationInteractor
     UpdateOrganizationINSEEPayloadJob.perform_later(organization.id)
   end
 
+  def insee_refresh_wanted?
+    return organization.insee_refresh_due? unless force_insee_refresh?
+
+    !organization.foreign? && !organization.insee_skipped?
+  end
+
+  def force_insee_refresh?
+    context.force_insee_refresh.present?
+  end
+
   def update_organization_now?
-    context.update_organization_insee_payload_now
+    context.update_organization_insee_payload_now || force_insee_refresh?
   end
 
   def tolerate_insee_entity_not_found?
