@@ -6,7 +6,9 @@
     <% if @authorization_request.draft? %>
       <div class="fr-mb-6w">
         <h2 class="fr-h3 fr-mb-1w"><%= f.wording_for('summary.title') %></h2>
-        <p class="fr-mb-0 wx-lede"><%= f.wording_for('summary.subtitle') %></p>
+        <div class="fr-col-md-8">
+          <p class="fr-mb-0 wx-muted"><%= f.wording_for('summary.subtitle') %></p>
+        </div>
       </div>
     <% end %>
 
