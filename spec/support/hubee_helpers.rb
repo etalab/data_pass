@@ -37,5 +37,17 @@ module HubEEHelpers
         subject
       end
     end
+
+    context 'when the organization has no INSEE data' do
+      before do
+        organization.update!(insee_payload: {}, last_insee_payload_updated_at: nil)
+      end
+
+      it 'raises an explicit error without calling HubEE' do
+        expect { subject }.to raise_error(HubEEBaseBridge::MissingINSEEDataError, /Organization ##{organization.id}/)
+        expect(hubee_api_client).not_to have_received(:get_organization)
+        expect(hubee_api_client).not_to have_received(:create_organization)
+      end
+    end
   end
 end

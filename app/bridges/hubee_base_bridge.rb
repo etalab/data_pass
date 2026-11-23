@@ -1,4 +1,6 @@
 class HubEEBaseBridge < ApplicationBridge
+  class MissingINSEEDataError < StandardError; end
+
   protected
 
   def organization_create_payload
@@ -46,9 +48,17 @@ class HubEEBaseBridge < ApplicationBridge
   end
 
   def find_or_create_organization
+    ensure_insee_data_present!
+
     hubee_api_client.get_organization(organization.siret, organization_code_commune)
   rescue Faraday::ResourceNotFound
     hubee_api_client.create_organization(organization_create_payload)
+  end
+
+  def ensure_insee_data_present!
+    return if organization_code_commune.present?
+
+    raise MissingINSEEDataError, "Organization ##{organization.id} has no INSEE data (code commune missing), cannot register it on HubEE for authorization_request ##{authorization_request.id}"
   end
 
   def hubee_api_client
