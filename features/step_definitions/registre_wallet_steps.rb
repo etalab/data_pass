@@ -431,6 +431,29 @@ Quand('la description du service de mon brouillon du registre wallet est vidée'
   authorization_request.save!(validate: false)
 end
 
+Quand('les informations de l’organisation de mon brouillon du registre wallet sont en cours de chargement') do
+  authorization_request = AuthorizationRequest::RegistreWallet.last
+  authorization_request.organization.update!(insee_payload: nil)
+  authorization_request.data = authorization_request.data.merge('identity_source' => IdentitySources::Sirene.pending_source)
+  authorization_request.save!(validate: false)
+end
+
+Alors('la liste des étapes incomplètes précède le récapitulatif') do
+  html = Nokogiri::HTML(page.html)
+  ordered_ids = html.css('#wallet-incomplete-steps, .summary-block, #wallet-consents').map { |node| node['id'] || 'block' }
+
+  expect(ordered_ids.first).to eq('wallet-incomplete-steps')
+  expect(html.at_css('#wallet-incomplete-steps[autofocus]')).to be_present
+end
+
+Quand('je modifie le bloc « L’organisation » de mon brouillon du registre wallet') do
+  visit edit_authorization_request_block_path(AuthorizationRequest::RegistreWallet.last, 'organisation')
+end
+
+Alors('le bouton {string} est désactivé') do |label|
+  expect(page).to have_button(label, disabled: true)
+end
+
 Alors('la demande du registre wallet est en cours de vérification') do
   expect(AuthorizationRequest::RegistreWallet.last).to be_submitted
 end

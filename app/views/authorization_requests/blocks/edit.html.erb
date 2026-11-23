@@ -16,3 +16,7 @@
     </div>
   <% end %>
 <% end %>
+
+<% if block_id.to_s == 'wallet_organization' %>
+  <%= render 'authorization_request_forms/registre_wallet/identity_forms', authorization_request: @authorization_request %>
+<% end %>

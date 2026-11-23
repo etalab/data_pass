@@ -10,6 +10,8 @@
           <p class="fr-mb-0 wx-muted"><%= f.wording_for('summary.subtitle') %></p>
         </div>
       </div>
+
+      <%= render partial: 'authorization_request_forms/registre_wallet/incomplete_steps', locals: { authorization_request: @authorization_request } %>
     <% end %>
 
     <% @authorization_request.blocks.each do |block| %>
@@ -18,7 +20,6 @@
 
     <% if @authorization_request.draft? %>
       <%= render partial: 'authorization_request_forms/registre_wallet/consents', locals: { f:, authorization_request: @authorization_request } %>
-      <%= render partial: 'authorization_request_forms/registre_wallet/incomplete_steps', locals: { authorization_request: @authorization_request } %>
     <% else %>
       <%= render_accepted_tos_checkboxes(@authorization_request, f:, editable: false) %>
     <% end %>

@@ -26,6 +26,8 @@ export default class extends Controller {
 
   _toggleSubmitButtons (state) {
     this.element.querySelectorAll('button[type="submit"], input[type="submit"]').forEach((button) => {
+      if (button.form !== this.element) return
+
       button.disabled = state
     })
   }

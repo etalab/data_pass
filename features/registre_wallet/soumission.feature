@@ -36,6 +36,35 @@ Fonctionnalité: Registre wallet, relire et soumettre sa demande d’enregistrem
     Quand je clique sur "Corriger l’étape 2 : le service"
     Alors la page contient "Étape 2/4"
 
+  Scénario: Depuis le récapitulatif, le demandeur relance le chargement des informations de l’organisation (R10)
+    Sachant que je suis un demandeur de la commune de Clamart
+    Et que je me connecte
+    Quand j’arrive au récapitulatif du registre wallet
+    Et les informations de l’organisation de mon brouillon du registre wallet sont en cours de chargement
+    Et je coche les deux engagements du registre wallet
+    Et je clique sur "Soumettre la demande d’enregistrement"
+    Alors la page contient "Des étapes sont incomplètes"
+    Et la liste des étapes incomplètes précède le récapitulatif
+    Quand je clique sur "Corriger l’étape 1 : l’organisation"
+    Alors la page contient "Informations en cours de chargement"
+    Quand je clique sur "Mettre à jour les informations de l’organisation"
+    Alors la page contient "Les informations de votre organisation sont à jour."
+    Et la page contient "COMMUNE DE CLAMART"
+    Et la page ne contient pas "Informations en cours de chargement"
+
+  @javascript
+  Scénario: La mise à jour des informations de l’organisation reste active quand le bloc est modifié depuis le récapitulatif (R10)
+    Sachant que je suis un demandeur de la commune de Clamart
+    Et que je me connecte
+    Quand j’arrive au récapitulatif du registre wallet
+    Et les informations de l’organisation de mon brouillon du registre wallet sont en cours de chargement
+    Et je modifie le bloc « L’organisation » de mon brouillon du registre wallet
+    Alors la page contient "Nous récupérons les informations de votre organisation"
+    Et le bouton "Enregistrer les modifications" est désactivé
+    Quand je clique sur "Mettre à jour les informations de l’organisation"
+    Alors la page contient "Les informations de votre organisation sont à jour."
+    Et la page ne contient pas "Nous récupérons les informations de votre organisation"
+
   Scénario: Une demande soumise se relit sans pouvoir être modifiée (CA5)
     Sachant que je suis un demandeur de la commune de Clamart
     Et que je me connecte
