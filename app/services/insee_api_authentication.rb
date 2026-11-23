@@ -66,7 +66,7 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
   private
 
   def post_token_request
-    http_connection.post(TOKEN_URL, user_credentials.to_query) do |request|
+    http_connection.post(TOKEN_URL, { 'grant_type' => 'client_credentials' }.to_query) do |request|
       request.headers['Authorization'] = "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
     end
   end
@@ -78,27 +78,11 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
     payload
   end
 
-  def user_credentials
-    {
-      'grant_type' => 'password',
-      'username' => username,
-      'password' => password,
-    }
-  end
-
   def client_id
     Setting.fetch(:insee_client_id)
   end
 
   def client_secret
     Setting.fetch(:insee_client_secret)
-  end
-
-  def username
-    Setting.fetch(:insee_username)
-  end
-
-  def password
-    Setting.fetch(:insee_password)
   end
 end

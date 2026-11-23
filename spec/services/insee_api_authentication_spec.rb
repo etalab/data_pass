@@ -91,21 +91,6 @@ RSpec.describe INSEEAPIAuthentication do
       end
     end
 
-    context 'when the credentials come from the database' do
-      before do
-        token_request_stub
-        Setting.set(:insee_password, 'rotated_password')
-      end
-
-      it 'sends the value stored in the database' do
-        access_token
-
-        expect(
-          a_request(:post, described_class::TOKEN_URL).with(body: /password=rotated_password/)
-        ).to have_been_made
-      end
-    end
-
     context 'when the client secret is required in the basic authorization header' do
       before do
         token_request_stub
@@ -119,6 +104,14 @@ RSpec.describe INSEEAPIAuthentication do
         expect(
           a_request(:post, described_class::TOKEN_URL)
             .with(basic_auth: %w[a_client_id a_client_secret]) { |request| request.body.exclude?('client_secret') }
+        ).to have_been_made
+      end
+
+      it 'asks for a token with the client credentials grant and no user password' do
+        access_token
+
+        expect(
+          a_request(:post, described_class::TOKEN_URL).with(body: 'grant_type=client_credentials')
         ).to have_been_made
       end
     end
