@@ -1,0 +1,13 @@
+<%= render DsfrComponent::ModalComponent.new(title: wording(:title), html_attributes: { id: modal_id, role: 'alertdialog' }) do |modal| %>
+  <% modal.with_header do %>
+    <button type="button" class="fr-btn--close fr-btn" aria-controls="<%= modal_id %>"><%= wording(:close) %></button>
+  <% end %>
+  <% modal.with_button do %>
+    <li><%= wallet_intended_use_command_button(authorization_request, command, wording(:confirm), class: 'fr-btn') %></li>
+  <% end %>
+  <% modal.with_button do %>
+    <li><button type="button" class="fr-btn fr-btn--secondary" aria-controls="<%= modal_id %>"><%= wording(:cancel) %></button></li>
+  <% end %>
+  <p><%= wording(:detail) %></p>
+  <p class="fr-mb-0"><%= wording(:warning) %></p>
+<% end %>

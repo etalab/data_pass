@@ -62,5 +62,5 @@
   <% end %>
 
   <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/catalog', locals: { use: } %>
-  <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/delete_use_modal', locals: { use: } %>
+  <%= render Molecules::WalletRegistry::ConfirmationModalComponent.delete_use(authorization_request: @authorization_request, use:) %>
 <% end %>
