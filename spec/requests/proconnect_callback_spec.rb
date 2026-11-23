@@ -159,6 +159,30 @@ RSpec.describe 'GET /auth/proconnect/callback' do
     it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
   end
 
+  context 'when the id_token is signed with the client secret' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: ProConnectConfig.client_secret, algorithm: :HS256) }
+
+    it 'signs the user in' do
+      callback
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
+
+  context 'when the id_token is signed with another secret' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: 'another-secret', algorithm: :HS256) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is signed in HS256 with the provider public key' do
+    let(:id_token) do
+      proconnect_signed_id_token(id_token_claims, key: proconnect_signing_key.to_key.public_to_pem, algorithm: :HS256)
+    end
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
   context 'when the id_token is not signed' do
     let(:id_token) { JSON::JWT.new(id_token_claims).to_s }
 

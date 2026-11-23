@@ -10,7 +10,7 @@ module OmniAuth
         eidas3
       ].freeze
 
-      ID_TOKEN_SIGNING_ALGORITHMS = %i[RS256 ES256].freeze
+      ID_TOKEN_SIGNING_ALGORITHMS = %i[RS256 ES256 HS256].freeze
       ID_TOKEN_EXPIRY_LEEWAY = 10.seconds
 
       class CallbackError < Error
@@ -102,7 +102,17 @@ module OmniAuth
       def decode_id_token
         return JSON::JWT.decode(raw_id_token.to_s, :skip_verification) unless Setting.fetch(:proconnect_id_token_signature_check)
 
-        JSON::JWT.decode(raw_id_token.to_s, provider_signing_keys, ID_TOKEN_SIGNING_ALGORITHMS)
+        JSON::JWT.decode(raw_id_token.to_s, id_token_verification_key, ID_TOKEN_SIGNING_ALGORITHMS)
+      end
+
+      def id_token_verification_key
+        return provider_signing_keys unless id_token_algorithm == 'HS256'
+
+        options[:client_secret].presence || raise(CallbackError.new(:invalid_id_token, 'missing client secret for HS256'))
+      end
+
+      def id_token_algorithm
+        JSON::JWT.decode(raw_id_token.to_s, :skip_verification).alg.to_s
       end
 
       def provider_signing_keys

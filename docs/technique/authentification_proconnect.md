@@ -107,7 +107,9 @@ sequenceDiagram
    reste en mémoire, le `refresh_token` est ignoré. La session tient dans un cookie de 4 Ko, et un
    jeton y coûte environ deux fois sa taille (chiffrement puis encodage). L'`id_token` est ensuite vérifié
    (`verified_id_token_claims`) : signature avec les clés publiées sur le `jwks_uri` de la
-   découverte (RS256 ou ES256), émetteur (`iss`) égal à celui de la découverte, audience
+   découverte (RS256 ou ES256), ou avec notre `client_secret` (HS256, l'algorithme choisi pour
+   l'application chez ProConnect, comme sur sandbox). La clé suit l'en-tête `alg` : un HS256 n'est
+   jamais vérifié avec une clé publique. Émetteur (`iss`) égal à celui de la découverte, audience
    (`aud`) contenant notre `client_id`, expiration (`exp`) future à 10 secondes près (tolérance
    d'horloge), et `nonce` égal à celui de la session (supprimé après usage).
 6. **Récupération des infos agent.** DataPass appelle le `userinfo_endpoint` avec
@@ -228,7 +230,7 @@ expiré. Avant novembre 2026 (DPP-202), l'`acr` de la double authentification é
 vérification.
 
 Un interrupteur permet de couper **la seule vérification de signature** sans redéployer, si
-ProConnect venait à signer autrement (algorithme hors RS256/ES256, clés JWKS indisponibles) et
+ProConnect venait à signer autrement (algorithme hors RS256/ES256/HS256, clés JWKS indisponibles) et
 bloquait ainsi toutes les connexions : le réglage `proconnect_id_token_signature_check`
 (`Setting`, ou variable `PROCONNECT_ID_TOKEN_SIGNATURE_CHECK`), actif sauf s'il vaut `false`.
 Coupé, l'`id_token` est décodé sans vérifier la signature, comme avant DPP-202, mais `iss`,

@@ -6,7 +6,7 @@ module ProConnectOidcHelpers
     @proconnect_signing_key ||= OpenSSL::PKey::RSA.generate(2048).to_jwk
   end
 
-  def proconnect_signed_id_token(claims, key: proconnect_signing_key, client_id: ProConnectConfig.client_id)
+  def proconnect_signed_id_token(claims, key: proconnect_signing_key, client_id: ProConnectConfig.client_id, algorithm: :RS256)
     jwt = JSON::JWT.new(
       {
         iss: PROCONNECT_TEST_ISSUER,
@@ -15,8 +15,8 @@ module ProConnectOidcHelpers
         iat: Time.now.to_i
       }.merge(claims)
     )
-    jwt.kid = key[:kid]
-    jwt.sign(key, :RS256).to_s
+    jwt.kid = key[:kid] if key.is_a?(JSON::JWK)
+    jwt.sign(key, algorithm).to_s
   end
 
   def stub_proconnect_oidc_endpoints(id_token:, userinfo:)
