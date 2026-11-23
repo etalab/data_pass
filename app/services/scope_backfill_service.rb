@@ -1,6 +1,6 @@
 class ScopeBackfillService
-  def initialize(authorization_request_types, added_scope:, when_any_of:)
-    @rewriter = ScopeRewriter.new(authorization_request_types)
+  def initialize(authorization_request_types, added_scope:, when_any_of:, form_uids: nil)
+    @rewriter = ScopeRewriter.new(authorization_request_types, form_uids:)
     @added_scope = added_scope
     @trigger_scopes = Array(when_any_of)
   end
