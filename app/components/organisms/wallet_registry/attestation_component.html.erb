@@ -1,13 +1,8 @@
-<% collapse_id = "#{wallet_intended_use_dom_id(index, "attestation_#{attestation.rulebook_id}")}-collapse" %>
-<% claim_ids = attestation.selected_claim_ids %>
-<% claim_error = use.claim_error_for(attestation) %>
-<% message_id = "#{wallet_intended_use_dom_id(index, "attestation_#{attestation.rulebook_id}")}-messages" %>
-
 <%= tag.section class: 'fr-accordion att-acc att-d', data: { wallet_intended_uses_target: 'attestation', attestation_name: attestation.name } do %>
   <h5 class="fr-accordion__title">
-    <%= tag.button type: 'button', class: 'fr-accordion__btn', id: wallet_intended_use_dom_id(index, "attestation_#{attestation.rulebook_id}"),
+    <%= tag.button type: 'button', class: 'fr-accordion__btn', id: button_id,
       aria: { expanded: open, controls: collapse_id, describedby: (message_id if claim_error) },
-      autofocus: wallet_intended_use_focus?(use, "attestation_#{attestation.rulebook_id}") do %>
+      autofocus: focused do %>
       <span><%= attestation.name %> · <span data-wallet-intended-uses-target="claimsCount"><%= wallet_intended_uses_t('attestation.claims_count', count: claim_ids.size) %></span></span>
     <% end %>
   </h5>
@@ -32,7 +27,7 @@
     </div>
 
     <%= hidden_field_tag wallet_attestation_param(index, attestation_index, 'id'), attestation.id, id: nil %>
-    <%= hidden_field_tag "#{wallet_attestation_param(index, attestation_index, 'selected_claim_ids')}[]", '', id: nil %>
+    <%= hidden_field_tag claims_param, '', id: nil %>
 
     <% if claim_error %>
       <div class="fr-messages-group" id="<%= message_id %>" data-wallet-intended-uses-target="claimError">
@@ -42,12 +37,11 @@
 
     <% attestation.groups.each_with_index do |group, group_index| %>
       <% group_id = "#{collapse_id}-group-#{group_index}" %>
-      <% checked = group[:claims].count { |claim| claim_ids.include?(claim.id) } %>
       <div class="grp" data-wallet-intended-uses-target="group">
         <div class="grp__head">
           <div>
             <p class="grp__title" id="<%= group_id %>-title"><%= group[:name] %></p>
-            <p class="grp__sum" data-wallet-intended-uses-target="groupCount"><%= wallet_intended_uses_t('attestation.group_count', count: checked) %></p>
+            <p class="grp__sum" data-wallet-intended-uses-target="groupCount"><%= wallet_intended_uses_t('attestation.group_count', count: checked_count(group)) %></p>
           </div>
           <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-right fr-icon-arrow-up-s-line" aria-expanded="true" aria-controls="<%= group_id %>" data-action="wallet-intended-uses#toggleGroup" data-wallet-intended-uses-target="groupToggle">
             <%= wallet_intended_uses_t('attestation.hide_claims') %><span class="fr-sr-only"><%= wallet_intended_uses_t('attestation.group_sr', group: group[:name]) %></span>
@@ -56,13 +50,12 @@
         <div class="grp__body" id="<%= group_id %>">
           <fieldset class="fr-fieldset fr-mb-0" aria-labelledby="<%= group_id %>-title">
             <% group[:claims].each do |claim| %>
-              <% checkbox_id = wallet_intended_use_dom_id(index, "claim_#{attestation.rulebook_id}_#{claim.identifier}") %>
-              <% mentions = wallet_claim_mentions(attestation, claim) %>
+              <% mentions = claim_mentions(claim) %>
               <div class="fr-fieldset__element">
                 <div class="fr-checkbox-group fr-checkbox-group--sm">
-                  <%= check_box_tag "#{wallet_attestation_param(index, attestation_index, 'selected_claim_ids')}[]", claim.id, claim_ids.include?(claim.id),
-                    id: checkbox_id, data: { action: 'change->wallet-intended-uses#claimChanged', claim_label: claim.label, attestation_name: attestation.name } %>
-                  <label class="fr-label" for="<%= checkbox_id %>">
+                  <%= check_box_tag claims_param, claim.id, claim_ids.include?(claim.id),
+                    id: checkbox_id(claim), data: { action: 'change->wallet-intended-uses#claimChanged', claim_label: claim.label, attestation_name: attestation.name } %>
+                  <label class="fr-label" for="<%= checkbox_id(claim) %>">
                     <%= claim.label %>
                     <% if mentions.any? %>
                       <span class="fr-hint-text"><%= safe_join(mentions.map { |mention| tag.span(mention) }, tag.br) %></span>
@@ -82,5 +75,5 @@
       </button>
     </div>
   </div>
-  <%= render Molecules::WalletRegistry::ConfirmationModalComponent.remove_attestation(authorization_request: @authorization_request, use:, attestation:, claim_count: claim_ids.size) %>
+  <%= render Molecules::WalletRegistry::ConfirmationModalComponent.remove_attestation(authorization_request:, use:, attestation:, claim_count: claim_ids.size) %>
 <% end %>

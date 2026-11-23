@@ -1,33 +1,16 @@
 <% open = wallet_intended_use_open?(@authorization_request, use) %>
 <% body_id = wallet_intended_use_dom_id(index, 'body') %>
 <% title_id = wallet_intended_use_dom_id(index, 'title') %>
+<% focus = wallet_intended_use_focus(use) %>
 
 <%= tag.div class: 'wx-panel usage-card', id: "usage-#{use.id}", data: { wallet_intended_uses_target: 'card', use_id: use.id, open: open } do %>
-  <div class="wx-card-head fr-mb-2w">
-    <div>
-      <h3 class="fr-h5 fr-mb-0 wx-card-title" id="<%= title_id %>" data-wallet-intended-uses-target="title"><%= use.display_name %></h3>
-      <p class="fr-text--sm fr-mb-0 wx-muted" data-wallet-intended-uses-target="totals"><%= wallet_intended_use_totals(use) %></p>
-      <ul class="att-summary" data-wallet-intended-uses-target="cardSummary">
-        <% use.attestations.each do |attestation| %>
-          <% claims = wallet_selected_claims(attestation) %>
-          <% next if claims.empty? %>
-          <li><strong><%= attestation.name %></strong> : <%= claims.map { |claim| claim.label.downcase }.join(', ') %></li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="wx-card-actions">
-      <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-delete-line" aria-controls="wallet-delete-use-<%= use.id %>" data-fr-opened="false">
-        <%= wallet_intended_uses_t('card.delete') %><span class="fr-sr-only"><%= wallet_intended_uses_t('card.delete_sr', name: use.display_name) %></span>
-      </button>
-      <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-right fr-icon-arrow-up-s-line" aria-expanded="true" aria-controls="<%= body_id %>" data-action="wallet-intended-uses#toggleCard" data-wallet-intended-uses-target="cardToggle"><%= wallet_intended_uses_t('card.collapse') %><span class="fr-sr-only"><%= wallet_intended_uses_t('card.toggle_sr', name: use.display_name) %></span></button>
-    </div>
-  </div>
+  <%= render Molecules::WalletRegistry::IntendedUseHeaderComponent.new(use:, title_id:, body_id:) %>
 
   <%= f.fields_for(:wallet_intended_uses, use, child_index: index, builder: DsfrFormBuilder) do |uf| %>
     <fieldset class="fr-fieldset fr-mb-0" aria-labelledby="<%= title_id %>" id="<%= body_id %>">
       <div class="fr-fieldset__element"><h4 class="fr-h6 fr-mb-1w"><%= wallet_intended_uses_t('sections.purpose') %></h4></div>
       <div class="fr-fieldset__element">
-        <%= uf.dsfr_text_field :name, required: true, hint_text: wallet_intended_uses_t('fields.name.hint'), autofocus: wallet_intended_use_focus?(use, 'name'), data: { action: 'input->wallet-intended-uses#nameChanged' } %>
+        <%= uf.dsfr_text_field :name, required: true, hint_text: wallet_intended_uses_t('fields.name.hint'), autofocus: focus == 'name', data: { action: 'input->wallet-intended-uses#nameChanged' } %>
       </div>
       <div class="fr-fieldset__element">
         <% purpose_length = use.purpose.to_s.length %>
@@ -44,7 +27,7 @@
       </div>
 
       <div class="fr-fieldset__element fr-mb-0"><hr class="fr-hr"></div>
-      <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/data', locals: { use:, index: } %>
+      <%= render Organisms::WalletRegistry::IntendedUseDataComponent.new(use:, index:, focus_key: focus) %>
 
       <div class="fr-fieldset__element fr-mb-0"><hr class="fr-hr"></div>
       <div class="fr-fieldset__element"><h4 class="fr-h6 fr-mb-1w"><%= wallet_intended_uses_t('sections.period') %></h4></div>

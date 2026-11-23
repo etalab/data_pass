@@ -1,0 +1,17 @@
+<div class="wx-card-head fr-mb-2w">
+  <div>
+    <h3 class="fr-h5 fr-mb-0 wx-card-title" id="<%= title_id %>" data-wallet-intended-uses-target="title"><%= use.display_name %></h3>
+    <p class="fr-text--sm fr-mb-0 wx-muted" data-wallet-intended-uses-target="totals"><%= wallet_intended_use_totals(use) %></p>
+    <ul class="att-summary" data-wallet-intended-uses-target="cardSummary">
+      <% summarized_attestations.each do |name, claims| %>
+        <li><strong><%= name %></strong> : <%= claims %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="wx-card-actions">
+    <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-delete-line" aria-controls="wallet-delete-use-<%= use.id %>" data-fr-opened="false">
+      <%= wallet_intended_uses_t('card.delete') %><span class="fr-sr-only"><%= wallet_intended_uses_t('card.delete_sr', name: use.display_name) %></span>
+    </button>
+    <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-right fr-icon-arrow-up-s-line" aria-expanded="true" aria-controls="<%= body_id %>" data-action="wallet-intended-uses#toggleCard" data-wallet-intended-uses-target="cardToggle"><%= wallet_intended_uses_t('card.collapse') %><span class="fr-sr-only"><%= wallet_intended_uses_t('card.toggle_sr', name: use.display_name) %></span></button>
+  </div>
+</div>

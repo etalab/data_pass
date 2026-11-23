@@ -34,32 +34,14 @@ module WalletIntendedUsesHelper
     uses.find { |use| wallet_intended_use_open?(authorization_request, use) } || uses.first
   end
 
-  def wallet_intended_use_focus?(use, key)
-    params[:ouverte].present? ? params[:ouverte] == use.id.to_s && params[:focus] == key : false
-  end
-
-  def wallet_open_attestation(use)
-    focused = use.attestations.find { |attestation| wallet_intended_use_focus?(use, "attestation_#{attestation.rulebook_id}") }
-
-    focused || use.attestations.find { |attestation| use.claim_error_for(attestation) } || use.attestations.first
+  def wallet_intended_use_focus(use)
+    params[:focus] if params[:ouverte].present? && params[:ouverte] == use.id.to_s
   end
 
   def wallet_intended_use_totals(use)
     return wallet_intended_uses_t('totals.none') if use.attestations.empty?
 
     [wallet_intended_uses_t('totals.attestations', count: use.attestations.size), wallet_intended_uses_t('totals.claims', count: use.claim_count)].join(', ')
-  end
-
-  def wallet_claim_mentions(attestation, claim)
-    mentions = []
-    mentions << wallet_intended_uses_t("attestation.presence.#{claim.requirement}") if claim.may_be_missing?
-    mentions << wallet_intended_uses_t('attestation.single_format', format_name: wallet_claim_format_label(attestation, claim)) if attestation.formats.size > claim.format_count
-    mentions
-  end
-
-  def wallet_claim_format_label(attestation, claim)
-    format_ids = claim.paths.map(&:rulebook_format_id)
-    attestation.formats.find { |format| format_ids.include?(format.id) }&.label
   end
 
   def wallet_attestation_technical_line(attestation)
