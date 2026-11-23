@@ -14,7 +14,7 @@ La première source qui répond gagne. Une valeur vide en base ne masque pas la 
 est ignorée comme si la ligne n’existait pas.
 
 ```ruby
-Setting.fetch(:insee_password)
+Setting.fetch(:insee_client_secret)
 Setting.fetch(:insee_calls_enabled)        # => true
 ```
 
@@ -26,7 +26,7 @@ plus personne ne relit en PR.
 
 ```ruby
 DEFINITIONS = {
-  insee_password: { type: :string, env: 'INSEE_PASSWORD', credential: %i[insee_password] },
+  insee_client_secret: { type: :string, env: 'INSEE_CLIENT_SECRET', credential: %i[insee_client_secret] },
   insee_calls_enabled: { type: :enabled_unless_false, default: true },
 }.freeze
 ```
@@ -52,9 +52,9 @@ production : une faute de frappe ne doit ni couper ni rouvrir par accident.
 ## Depuis la console
 
 ```ruby
-Setting.fetch(:insee_password)             # lire, chaîne complète
-Setting.set(:insee_password, '…')          # surcharger
-Setting.unset(:insee_password)             # revenir à la chaîne
+Setting.fetch(:insee_client_secret)             # lire, chaîne complète
+Setting.set(:insee_client_secret, '…')          # surcharger
+Setting.unset(:insee_client_secret)             # revenir à la chaîne
 Setting.overridden_keys                    # ce que la base surcharge réellement
 ```
 

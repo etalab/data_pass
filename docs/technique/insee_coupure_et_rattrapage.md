@@ -2,12 +2,9 @@
 
 ## Pourquoi
 
-Le compte INSEE est verrouillé 30 minutes après **5 échecs d’authentification sur 12 heures**, et ce
-compteur est **commun** au jeton, à l’API de renouvellement et au portail. Tant que DataPass continue
-d’appeler l’INSEE avec des identifiants refusés, le compte est verrouillé en permanence par nos propres
-appels — et la rotation du mot de passe ne peut pas aboutir.
-
-Couper les appels est donc un **prérequis** à la rotation, pas une mitigation.
+Tant que DataPass continue d’appeler l’INSEE avec des identifiants refusés, chaque tentative est un
+échec de plus et le coupe-circuit se réarme sans fin. Couper les appels est donc un **prérequis** à la
+correction des identifiants (client ou grant), pas une mitigation.
 
 ## L’interrupteur
 
@@ -47,8 +44,8 @@ Il est armé par le **client**, dans les trois situations où l’INSEE nous ref
 
 | Origine | Erreur | Sens |
 | -- | -- | -- |
-| `POST .../token` | 400 | identifiants refusés — l’erreur observée en production |
-| `POST .../token` | 401 | identifiants refusés |
+| `POST .../token` | 400 | identifiants ou grant refusés (`Client not allowed for direct access grants`) |
+| `POST .../token` | 401 | client refusé (`Invalid method used to get client secret` : le secret doit passer en Basic) |
 | `GET .../siret/…` | 401, **deux fois de suite** | jeton refusé, même renouvelé |
 
 Un 401 de Sirene ne coupe pas du premier coup. Comme le recommande l’INSEE, on renouvelle alors le
@@ -324,10 +321,10 @@ signal à creuser.
 
 1. Vérifier que les appels sont bien arrêtés : `AbstractINSEEAPIClient.calls_allowed?` → `false`.
    Si le coupe-circuit n’est pas armé, couper à la main : `Setting.set(:insee_calls_enabled, 'false')`.
-2. **Attendre 35 minutes** : si des coupures se sont enchaînées pendant la nuit, le compte est
-   verrouillé, et le verrou tombe 30 minutes après le dernier échec. Tourner le mot de passe INSEE
-   ensuite seulement.
-3. Poser la nouvelle valeur : `Setting.set(:insee_password, '…')`. Aucun déploiement.
+2. Lire la cause dans Sentry (projet `datapass-reborn`, `bin/sentry/issues -q INSEE`) ou la reproduire
+   par un seul appel direct au point d’échange de jetons (voir « Vérifier un client à la main »).
+   Réessayer en boucle ne fait qu’alimenter les échecs.
+3. Corriger les identifiants : `Setting.set(:insee_client_secret, '…')`. Aucun déploiement.
 4. Relâcher : `INSEECallsPause.reset!`, puis `Setting.unset(:insee_calls_enabled)` si l’interrupteur
    manuel avait été utilisé.
 5. Mesurer l’ampleur : `Organization.needing_insee_refresh.count`.
@@ -335,19 +332,41 @@ signal à creuser.
 
 ## Les identifiants
 
-Les quatre identifiants INSEE passent par `Setting` :
+DataPass s’authentifie auprès de l’INSEE par le grant **`client_credentials`**, avec le client id et le
+client secret passés en **Basic** (`client_secret_basic`). Le nom d’utilisateur et le mot de passe du
+compte ne sont plus utilisés : l’INSEE a désactivé le grant `password` sur les clients DataPass.
+
+Les deux identifiants passent par `Setting` :
 
 ```ruby
 Setting.fetch(:insee_client_id)
 Setting.fetch(:insee_client_secret)
-Setting.fetch(:insee_username)
-Setting.fetch(:insee_password)
 ```
 
-La chaîne `BDD → ENV → credentials` préserve le comportement existant — une variable d’environnement ou
-une valeur en credentials continue d’être lue — et ajoute la base devant. **La rotation du mot de passe
-ne demande donc plus ni PR ni déploiement** :
+La chaîne `BDD → ENV → credentials` s’applique : une variable d’environnement ou une valeur en
+credentials continue d’être lue, et la base passe devant. Changer le secret ne demande ni PR ni
+déploiement :
 
 ```ruby
-Setting.set(:insee_password, '…')
+Setting.set(:insee_client_secret, '…')
 ```
+
+La staging et la production utilisent chacune leur client INSEE, configurés séparément côté INSEE : un
+refus sur l’une n’implique pas un refus sur l’autre.
+
+### Vérifier un client à la main
+
+Un seul appel, le secret lu sans écho pour ne pas le laisser dans l’historique :
+
+```bash
+read -rs INSEE_CLIENT_SECRET; echo
+curl -s -w '\nHTTP %{http_code}\n' \
+  https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token \
+  -u "<client id>:$INSEE_CLIENT_SECRET" \
+  --data-urlencode grant_type=client_credentials
+unset INSEE_CLIENT_SECRET
+```
+
+Un 200 avec `access_token` prouve que le client est valide. Les refus renvoient `error` et
+`error_description` de Keycloak : `invalid_client`/`unauthorized_client` (méthode d’envoi du secret, grant
+non autorisé), ce que Sentry masque.
