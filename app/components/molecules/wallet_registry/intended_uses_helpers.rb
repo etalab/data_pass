@@ -4,6 +4,8 @@ module Molecules::WalletRegistry::IntendedUsesHelpers
     :wallet_attestation_param,
     :wallet_intended_use_command_button,
     :wallet_intended_uses_command_url,
+    :authorization_request_form_wallet_rulebooks_path,
+    :turbo_frame_tag,
     :wallet_intended_use_totals,
     :wallet_attestation_technical_line,
     :wallet_selected_claims,

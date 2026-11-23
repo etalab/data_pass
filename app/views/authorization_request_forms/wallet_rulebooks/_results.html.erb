@@ -3,7 +3,7 @@
   <% if rulebooks.any? %>
     <ul class="cat-list">
       <% rulebooks.each do |rulebook| %>
-        <%= render partial: 'authorization_request_forms/wallet_rulebooks/rulebook', locals: { use:, rulebook:, embedded: } %>
+        <%= render Molecules::WalletRegistry::CatalogRulebookComponent.new(authorization_request: @authorization_request, use:, rulebook:, embedded:) %>
       <% end %>
     </ul>
   <% else %>

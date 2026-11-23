@@ -1,6 +1,3 @@
-<% label = safe_join([wallet_intended_uses_t('catalog.add'), tag.span(" #{rulebook.name}", class: 'fr-sr-only')]) %>
-<% command = "add_attestation:#{use.id}:#{rulebook.id}" %>
-
 <li class="cat-item">
   <div>
     <h2><%= rulebook.name %></h2>
@@ -10,13 +7,13 @@
     </div>
     <p class="wx-muted"><%= wallet_intended_uses_t('catalog.claims', count: rulebook.claims.length) %> · <%= wallet_attestation_technical_line(rulebook) %></p>
   </div>
-  <% if use.attestation_for(rulebook.id) %>
+  <% if already_added? %>
     <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary" disabled><%= wallet_intended_uses_t('catalog.already_added') %><span class="fr-sr-only"> <%= rulebook.name %></span></button>
   <% elsif embedded %>
-    <%= wallet_intended_use_command_button(@authorization_request, command, label, class: 'fr-btn fr-btn--sm fr-btn--secondary', data: { turbo_frame: '_top' }) %>
+    <%= wallet_intended_use_command_button(authorization_request, command, add_label, class: 'fr-btn fr-btn--sm fr-btn--secondary', data: { turbo_frame: '_top' }) %>
   <% else %>
-    <%= button_to wallet_intended_uses_command_url(@authorization_request), method: :patch, params: { wallet_command: command }, class: 'fr-btn fr-btn--sm fr-btn--secondary', form_class: 'fr-mb-0' do %>
-      <%= label %>
+    <%= button_to wallet_intended_uses_command_url(authorization_request), method: :patch, params: { wallet_command: command }, class: 'fr-btn fr-btn--sm fr-btn--secondary', form_class: 'fr-mb-0' do %>
+      <%= add_label %>
     <% end %>
   <% end %>
 </li>
