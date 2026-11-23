@@ -106,6 +106,23 @@ RSpec.describe INSEEAPIAuthentication do
       end
     end
 
+    context 'when the client secret is required in the basic authorization header' do
+      before do
+        token_request_stub
+        Setting.set(:insee_client_id, 'a_client_id')
+        Setting.set(:insee_client_secret, 'a_client_secret')
+      end
+
+      it 'sends the client credentials as a basic authorization header and not in the body' do
+        access_token
+
+        expect(
+          a_request(:post, described_class::TOKEN_URL)
+            .with(basic_auth: %w[a_client_id a_client_secret]) { |request| request.body.exclude?('client_secret') }
+        ).to have_been_made
+      end
+    end
+
     context 'when INSEE rejects the credentials with a 400' do
       before do
         stub_request(:post, described_class::TOKEN_URL).to_return(status: 400)

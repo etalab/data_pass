@@ -49,7 +49,7 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
   def request_access_token
     ensure_insee_available!
 
-    validated_access_token_payload(http_connection.post(TOKEN_URL, credentials.to_query).body)
+    validated_access_token_payload(post_token_request.body)
   rescue Faraday::BadRequestError, Faraday::UnauthorizedError => e
     pause_insee_calls!(e, 'INSEE rejected our credentials')
   end
@@ -65,6 +65,12 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
 
   private
 
+  def post_token_request
+    http_connection.post(TOKEN_URL, user_credentials.to_query) do |request|
+      request.headers['Authorization'] = "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
+    end
+  end
+
   def validated_access_token_payload(payload)
     raise InvalidResponseError, 'INSEE token response is not a JSON object' unless payload.is_a?(Hash)
     raise InvalidResponseError, 'INSEE token response carries no access_token' if payload['access_token'].blank?
@@ -72,11 +78,9 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
     payload
   end
 
-  def credentials
+  def user_credentials
     {
       'grant_type' => 'password',
-      'client_id' => client_id,
-      'client_secret' => client_secret,
       'username' => username,
       'password' => password,
     }
