@@ -7,7 +7,6 @@
         <span class="fr-hint-text"><%= wallet_intended_uses_t('preview.select_hint') %></span>
       </label>
       <select class="fr-select" id="wallet-preview-use" data-wallet-intended-uses-target="previewSelect" data-action="wallet-intended-uses#previewChanged">
-        <% previewed_use = wallet_previewed_use(@authorization_request, uses) %>
         <% uses.each do |use| %>
           <%= tag.option use.display_name, value: use.id, selected: use == previewed_use %>
         <% end %>
@@ -28,10 +27,10 @@
       <div class="wallet-preview__screen">
         <p class="fr-text--xs fr-mb-1w"><%= wallet_intended_uses_t('preview.kicker') %></p>
         <p class="wallet-preview__label"><%= wallet_intended_uses_t('preview.who') %></p>
-        <p class="wallet-preview__value"><%= @authorization_request.wallet_service_name.presence || t('authorization_request_forms.registre_wallet.wallet_service.preview.placeholder') %></p>
+        <p class="wallet-preview__value"><%= service_name %></p>
         <p class="wallet-preview__label"><%= wallet_intended_uses_t('preview.what') %></p>
         <div data-wallet-intended-uses-target="previewData">
-          <% selected = use.attestations.map { |attestation| [attestation, wallet_selected_claims(attestation)] }.reject { |_, claims| claims.empty? } %>
+          <% selected = selected_attestations(use) %>
           <% if selected.any? %>
             <% selected.each do |attestation, claims| %>
               <p class="fr-text--sm fr-text--bold fr-mb-0"><%= attestation.name %></p>

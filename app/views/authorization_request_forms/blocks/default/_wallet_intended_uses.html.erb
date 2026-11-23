@@ -26,7 +26,7 @@
     </div>
 
     <div class="fr-col-12 fr-col-lg-4">
-      <%= render partial: 'authorization_request_forms/blocks/default/wallet_intended_uses/preview', locals: { uses: } %>
+      <%= render Molecules::WalletRegistry::WalletPreviewComponent.new(authorization_request: @authorization_request, uses:, previewed_use: wallet_previewed_use(@authorization_request, uses)) %>
     </div>
   </div>
 <% end %>
