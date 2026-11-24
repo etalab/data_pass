@@ -35,6 +35,7 @@ api-entreprise-socle-de-base:
       - beneficiaires_effectifs_inpi
       - fondations_mi_siaf_beneficiaires_effectifs
       - fondations_mi_siaf_controle
+      - fondations_mi_siaf_comptes
       - mandataires_sociaux_infogreffe
       - liens_capitalistiques_dgfip
       - chiffre_affaires_dgfip
@@ -88,6 +89,7 @@ api-entreprise-marches-publics:
     disabled:
       - beneficiaires_effectifs_inpi
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
     hide:
       - fondations_mi_siaf_controle
   initialize_with:
@@ -102,6 +104,7 @@ api-entreprise-marches-publics:
       - attestation_sociale_urssaf
       - cotisations_msa
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
       - fondations_mi_siaf_beneficiaires_effectifs
 
 api-entreprise-aides-publiques:
@@ -127,6 +130,7 @@ api-entreprise-aides-publiques:
     disabled:
       - beneficiaires_effectifs_inpi
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
     hide:
       - fondations_mi_siaf_beneficiaires_effectifs
       - fondations_mi_siaf_controle
@@ -143,6 +147,7 @@ api-entreprise-aides-publiques:
       - attestation_sociale_urssaf
       - cotisations_msa
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
 
 api-entreprise-subventions-associations:
   name: "Subventions des associations"
@@ -166,6 +171,7 @@ api-entreprise-subventions-associations:
   scopes_config:
     disabled:
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
     hide:
       - beneficiaires_effectifs_inpi
       - fondations_mi_siaf_beneficiaires_effectifs
@@ -186,6 +192,7 @@ api-entreprise-subventions-associations:
       - liasses_fiscales_dgfip
       - liens_capitalistiques_dgfip
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
 
 api-entreprise-detection-fraude:
   name: "Détection de la fraude"
@@ -213,6 +220,7 @@ api-entreprise-detection-fraude:
       - attestation_fiscale_dgfip
       - liens_capitalistiques_dgfip
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
   initialize_with:
     scopes:
       - unites_legales_etablissements_insee
@@ -227,6 +235,7 @@ api-entreprise-detection-fraude:
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
       - fondations_mi_siaf
+      - fondations_mi_siaf_comptes
       - fondations_mi_siaf_beneficiaires_effectifs
       - fondations_mi_siaf_controle
 
