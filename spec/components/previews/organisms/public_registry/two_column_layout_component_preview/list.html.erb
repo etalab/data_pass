@@ -1,0 +1,13 @@
+<%= render Organisms::PublicRegistry::TwoColumnLayoutComponent.new do |layout| %>
+  <% layout.with_main do %>
+    <%= render Molecules::PublicRegistry::OriginFilterComponent.new(url: '#', placement: :mobile) %>
+    <%= render Atoms::PublicRegistry::EntriesCountComponent.new(count: 31_751) %>
+    <%= render Organisms::PublicRegistry::ResultsListComponent.new do |list| %>
+      <% list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'Ville de Clamart', service: 'APIParticulier', provider: 'DINUM', validated_on: Date.new(2026, 7, 2), number: 'H44120'), origin: 'datapass') %>
+      <% list.with_tile(url: '#', entry: Molecules::PublicRegistry::AuthorizationEntry.new(denomination: 'Département du Rhône', service: 'APIImpotParticulier', provider: 'DGFIP', validated_on: Date.new(2026, 4, 4), number: 'H42305'), origin: 'datapass') %>
+    <% end %>
+  <% end %>
+  <% layout.with_aside do %>
+    <%= render Organisms::PublicRegistry::SidebarComponent.new(url: '#') %>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<dl class="fr-mb-0 fr-pl-0">
+  <% fields.each do |field| %>
+    <div class="fr-grid-row fr-mb-2w">
+      <dt class="<%= self.class::TERM_CLASSES %>"><%= t(".labels.#{field.key}") %></dt>
+      <dd class="<%= definition_classes(field) %>"><%= displayed_value(field) %></dd>
+    </div>
+  <% end %>
+</dl>

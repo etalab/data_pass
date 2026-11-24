@@ -1,0 +1,62 @@
+fr:
+  public_registry:
+    not_provided: Non renseigné
+    update_frequency: le 1er de chaque mois
+    status:
+      active: Active
+    origins:
+      datapass: Habilitation DataPass
+      portefeuille-europeen: Partie utilisatrice du portefeuille européen
+  atoms:
+    public_registry:
+      dataset_link_component:
+        text: Habilitations DataPass validées, sur data.gouv.fr
+        new_window: " - nouvelle fenêtre"
+      entries_count_component:
+        entries:
+          one: "%{formatted_count} entrée"
+          other: "%{formatted_count} entrées"
+        in_registry: au registre
+        for_query: pour « %{query} »
+      empty_results_component:
+        no_match: Aucune entrée ne correspond. Essayez un autre nom d’organisation.
+        no_match_filtered: Aucune entrée ne correspond. Essayez un autre nom d’organisation ou retirez un filtre.
+        no_wallet_entry: Aucune organisation n’est encore enregistrée.
+  molecules:
+    public_registry:
+      authorization_fields_component:
+        labels:
+          denomination: Organisation habilitée
+          siret: SIRET
+          service: API ou service
+          provider: Fournisseur
+          scopes: Données demandées
+          legal_basis: Fondement juridique
+          validated_on: Date de validation
+          number: Numéro au registre
+      source_callout_component:
+        title: Source
+        text: Ces informations sont aussi publiées en open data, mises à jour %{update_frequency}. DataPass ne publie ni les contacts, ni les pièces jointes, ni les échanges de l’instruction.
+      authorization_tile_component:
+        service_label: "API ou service : "
+        provider_label: "Fournisseur : "
+        validated_on: Validée le %{date}
+        validated_on_missing: Date de validation non renseignée
+      search_bar_component:
+        label: Rechercher
+        placeholder: Rechercher
+        hint: Une organisation, un SIRET ou un SIREN, une API ou un service, un fournisseur, un numéro
+        button: Rechercher
+      origin_filter_component:
+        title: Origine
+      download_callout_component:
+        title: Télécharger le registre
+        text: Les habilitations du registre sont aussi publiées en open data sur data.gouv.fr, avec les mêmes champs, comme le prévoit l’article L114-8 du code des relations entre le public et l’administration. Le fichier est mis à jour %{update_frequency}.
+      opening_alert_component:
+        title: Le registre des parties utilisatrices du portefeuille européen ouvre le 24 décembre 2026
+        text: Les organisations enregistrées y figureront, avec leurs services, les données qu’elles demandent au portefeuille et pourquoi. Seule l’adresse de leur établissement restera privée.
+        link: Découvrir le registre du portefeuille européen
+  organisms:
+    public_registry:
+      sidebar_component:
+        label: Filtres et téléchargement

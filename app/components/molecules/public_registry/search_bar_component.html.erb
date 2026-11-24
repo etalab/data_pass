@@ -1,0 +1,11 @@
+<form class="fr-mb-3w" role="search" method="get" action="<%= url %>">
+  <% if origins.any? %>
+    <%= hidden_field_tag :origine, origins_value, id: nil %>
+  <% end %>
+  <div class="fr-search-bar">
+    <%= label_tag INPUT_ID, t('.label'), class: 'fr-label' %>
+    <%= search_field_tag :q, query, id: INPUT_ID, class: 'fr-input', placeholder: t('.placeholder'), 'aria-describedby': HINT_ID %>
+    <button class="fr-btn" title="<%= t('.button') %>"><%= t('.button') %></button>
+  </div>
+  <p class="fr-text--sm fr-text-mention--grey fr-mt-1w fr-mb-0" id="<%= HINT_ID %>"><%= t('.hint') %></p>
+</form>

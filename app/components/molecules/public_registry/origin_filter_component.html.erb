@@ -1,0 +1,17 @@
+<%= tag.div(class: sidebar? ? nil : 'fr-hidden-lg fr-mb-3w') do %>
+  <% if sidebar? %>
+    <h2 class="fr-h6" id="<%= title_id %>"><%= t('.title') %></h2>
+  <% else %>
+    <p class="fr-text--bold fr-mb-1w" id="<%= title_id %>"><%= t('.title') %></p>
+  <% end %>
+  <form method="get" action="<%= url %>">
+    <% if query.present? %>
+      <%= hidden_field_tag :q, query, id: nil %>
+    <% end %>
+    <ul class="fr-tags-group" aria-labelledby="<%= title_id %>">
+      <% Molecules::PublicRegistry::Origin::VALUES.each do |value| %>
+        <li><%= render tag_for(value) %></li>
+      <% end %>
+    </ul>
+  </form>
+<% end %>
