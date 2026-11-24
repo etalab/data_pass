@@ -1,11 +1,20 @@
 name: CI - CD
-on: [push]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Numéro de la pull request externe à tester
+        required: true
+        type: string
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: docker/build-push-action@v7.4.0
         with:
@@ -31,6 +40,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: actions/cache@v6.1.0
         with:
@@ -47,6 +58,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: actions/cache@v6.1.0
         with:
@@ -63,6 +76,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: actions/cache@v6.1.0
         with:
@@ -79,6 +94,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: actions/cache@v6.1.0
         with:
@@ -120,6 +137,8 @@ jobs:
           - "6379:6379"
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: actions/cache@v6.1.0
         with:
@@ -160,6 +179,8 @@ jobs:
           - "6379:6379"
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.pr_number && format('refs/pull/{0}/head', inputs.pr_number) || '' }}
       - uses: docker/setup-buildx-action@v4.4.1
       - uses: actions/cache@v6.1.0
         with:
@@ -193,7 +214,7 @@ jobs:
   merge-with-main:
     name: "Merge develop with main"
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     needs:
       - security
       - rb-lint
@@ -225,7 +246,7 @@ jobs:
   continuous-deployment-staging:
     name: "Continuous deployment on staging"
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     needs:
       - security
       - rb-lint
@@ -259,7 +280,7 @@ jobs:
   continuous-deployment-production:
     name: "Continuous deployment on production"
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     needs:
       - security
       - rb-lint
