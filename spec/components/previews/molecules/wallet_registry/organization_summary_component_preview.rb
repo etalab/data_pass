@@ -11,12 +11,12 @@ class Molecules::WalletRegistry::OrganizationSummaryComponentPreview < Applicati
     render Molecules::WalletRegistry::OrganizationSummaryComponent.new(authorization_request: filled_draft_for('21920023500014'))
   end
 
-  # @label 2. Identité saisie par le demandeur (Sirene n’a pas répondu)
-  def typed_identity
+  # @label 2. Sirene n’a pas répondu : identité à récupérer
+  def sirene_unavailable
     draft = filled_draft_for('21920023500014')
     draft.identity_source = 'sirene_unavailable'
-    draft.wallet_legal_name = 'COMMUNE DE CLAMART'
-    draft.wallet_postal_address = '1 place Maurice Gunsbourg, 92140 Clamart'
+    draft.identity_legal_name = nil
+    draft.identity_address = nil
 
     render Molecules::WalletRegistry::OrganizationSummaryComponent.new(authorization_request: draft)
   end

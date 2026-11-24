@@ -1338,13 +1338,13 @@ fr:
           button: Mettre à jour les informations de l’organisation
           loading: Mise à jour des informations de l’organisation…
           retrieved_at: Informations récupérées le %{date} à %{time}.
-          replace_warning: Si la mise à jour réussit, le nom officiel que vous avez saisi sera remplacé par celui du répertoire Sirene.
         identity_pending:
           badge: Informations en cours de chargement
           description: "Nous récupérons les informations de votre organisation dans le répertoire Sirene. Elles s’afficheront ici : rechargez la page dans quelques instants ou utilisez le bouton de mise à jour. Vous pouvez remplir le reste de l’étape en attendant."
         sirene_unavailable:
           title: Le répertoire Sirene ne répond pas
-          description: "Saisissez le nom officiel et l’adresse d’établissement de votre organisation, puis joignez un justificatif : le registre les vérifiera. Vous pouvez aussi réessayer la récupération avec le bouton de mise à jour. Votre brouillon est enregistré."
+          description: "Nous n’avons pas pu récupérer les informations de votre organisation. Vous pouvez remplir le reste de votre demande, mais vous ne pourrez la soumettre qu’après une récupération réussie. Votre brouillon est enregistré."
+          retry: Relancer la récupération
           panel_title: Votre organisation
         non_diffusible: "Nous n’avons pas pu retrouver l’adresse de votre organisation : elle n’est pas diffusible dans l’Annuaire des entreprises. Saisissez-la et joignez un justificatif, le registre le vérifiera."
         insee_correction_html: Ces informations seront publiées au registre. Une erreur ? Demandez sa correction à l’<a class="fr-link fr-link--sm" href="https://www.insee.fr/" target="_blank" rel="noopener">INSEE<span class="fr-sr-only"> - nouvelle fenêtre</span></a>, puis mettez à jour les informations de l’organisation.
@@ -1377,16 +1377,10 @@ fr:
       wallet_support_phone:
         label: Téléphone
         hint: "Format attendu : 04 72 00 00 00"
-      wallet_legal_name:
-        label: Nom officiel de l’organisation
-        hint: Tel qu’il figure dans le répertoire Sirene. Il sera publié au registre.
       wallet_postal_address:
         label: Adresse d’établissement
-        hint: Numéro, voie, code postal et commune. Une fois votre organisation inscrite, cette adresse sera publiée sur la fiche publique du registre.
         hint_non_diffusible: Une fois votre organisation inscrite, cette adresse sera publiée sur la fiche publique du registre, même si elle n’est pas diffusible dans l’Annuaire des entreprises.
       wallet_address_proof:
-        label: Justificatif
-        hint: Un document qui montre le nom officiel et l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
         label_non_diffusible: Justificatif de l’adresse d’établissement
         hint_non_diffusible: Un document qui montre l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
       wallet_not_registered_elsewhere:

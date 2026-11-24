@@ -20,12 +20,10 @@ module AuthorizationExtensions::WalletOrganization
     add_attribute :wallet_support_email
     add_attribute :wallet_support_phone
     add_attribute :wallet_not_registered_elsewhere, type: :boolean
-    add_attribute :wallet_legal_name
     add_attribute :wallet_postal_address
     add_documents :wallet_address_proof, content_type: ['application/pdf', 'image/png', 'image/jpeg'], size: { less_than: 10.megabytes }, limit: { max: 1 }
 
     before_validation :normalize_wallet_support_phone, prepend: true
-    before_save :erase_legal_name_replaced_by_sirene
 
     %i[wallet_privacy_policy_url wallet_website_url wallet_support_url].each do |attribute|
       draft_format(attribute, :wallet_https_format) { |value| HTTPS_URL_FORMAT.match?(value) }
@@ -42,10 +40,6 @@ module AuthorizationExtensions::WalletOrganization
 
     validate :wallet_identity_loaded, on: :submit
 
-    with_options if: -> { need_complete_validation?(:wallet_organization) && wallet_identity_source == :sirene_unavailable } do
-      validates :wallet_legal_name, presence: true
-    end
-
     with_options if: -> { need_complete_validation?(:wallet_organization) && wallet_identity_entered_by_applicant? } do
       validates :wallet_postal_address, presence: true
       validates :wallet_address_proof, presence: true
@@ -57,15 +51,11 @@ module AuthorizationExtensions::WalletOrganization
   end
 
   def wallet_organization_name
-    identity_legal_name.presence || wallet_legal_name.presence || organization.name
+    identity_legal_name.presence || organization.name
   end
 
   def wallet_identity_entered_by_applicant?
-    %i[non_diffusible sirene_unavailable].include?(wallet_identity_source)
-  end
-
-  def wallet_legal_name_replaced_on_refresh?
-    wallet_identity_source == :sirene_unavailable && wallet_legal_name.present?
+    wallet_identity_source == :non_diffusible
   end
 
   def wallet_public_sector?
@@ -87,12 +77,6 @@ module AuthorizationExtensions::WalletOrganization
 
   def wallet_identity_loaded
     errors.add(:identity_source, :wallet_identity_pending) if identity_pending?
-  end
-
-  def erase_legal_name_replaced_by_sirene
-    return if wallet_identity_source == :sirene_unavailable || identity_pending?
-
-    self.wallet_legal_name = nil
   end
 
   def wallet_support_channel_present

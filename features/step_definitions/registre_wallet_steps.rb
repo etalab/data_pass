@@ -32,10 +32,6 @@ Quand('le répertoire Sirene répond de nouveau') do
   stub_request(:get, %r{^https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}}).to_return(status: 200, headers: { 'Content-Type' => 'application/json' }, body: Rails.root.join("spec/fixtures/insee/#{siret}.json").read)
 end
 
-Alors('le nom officiel saisi a été effacé de la demande') do
-  expect(AuthorizationRequest::RegistreWallet.last.wallet_legal_name).to be_nil
-end
-
 Alors('aucun élément ne passe sous la barre « Précédent \\/ Suivant » quand je parcours l’étape au clavier dans une fenêtre basse') do
   page.current_window.resize_to(1280, 600)
   page.execute_script('document.activeElement.blur(); window.scrollTo(0, 0)')

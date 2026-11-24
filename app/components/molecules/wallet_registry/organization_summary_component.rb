@@ -14,7 +14,7 @@ class Molecules::WalletRegistry::OrganizationSummaryComponent < ApplicationCompo
   end
 
   def legal_name
-    authorization_request.identity_legal_name.presence || authorization_request.wallet_legal_name.presence || missing_identity_value
+    authorization_request.identity_legal_name.presence || missing_identity_value
   end
 
   def address

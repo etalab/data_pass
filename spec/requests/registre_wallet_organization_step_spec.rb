@@ -55,26 +55,25 @@ RSpec.describe 'Wallet registry, step « L’organisation »' do
 
   describe 'GET the step while Sirene did not answer' do
     let(:organization) { create(:organization, siret: '21920023500022').tap { |org| org.update!(insee_payload: nil, insee_consecutive_failures: 1) } }
-    let(:warning) { 'Si la mise à jour réussit, le nom officiel que vous avez saisi sera remplacé par celui du répertoire Sirene.' }
+    let(:page) { Capybara.string(response.body) }
 
-    context 'without a legal name typed yet' do
-      before { get step_path }
+    before { get step_path }
 
-      it { expect(response.body).not_to include(warning) }
+    it 'announces that a successful retrieval is needed before submitting, with a button to retry it' do
+      alert = page.find('.fr-alert--warning', text: 'Le répertoire Sirene ne répond pas')
+
+      expect(alert).to have_text('vous ne pourrez la soumettre qu’après une récupération réussie')
+      expect(alert).to have_button('Relancer la récupération', id: 'wallet-identity-refresh')
+      expect(page.find_button('Relancer la récupération')['form']).to eq('wallet-identity-refresh-form')
     end
 
-    context 'with a legal name typed' do
-      before do
-        authorization_request.update!(wallet_legal_name: 'Ma commune')
-        get step_path
-      end
+    it 'does not open any manual entry of the identity' do
+      expect(page).to have_no_field(type: 'file')
+      expect(response.body).not_to include("#{param_key}_wallet_postal_address", "#{param_key}_wallet_legal_name")
+    end
 
-      it 'warns, next to the update button, that the name will be replaced' do
-        page = Capybara.string(response.body)
-        warning_id = page.find_by_id('wallet-identity-refresh')['aria-describedby']
-
-        expect(page).to have_css("##{warning_id}", text: warning)
-      end
+    it 'keeps a single retry button' do
+      expect(page).to have_css('#wallet-identity-refresh', count: 1)
     end
   end
 

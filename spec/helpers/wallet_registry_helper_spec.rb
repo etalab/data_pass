@@ -9,12 +9,6 @@ RSpec.describe WalletRegistryHelper do
       it { is_expected.to eq('Je déclare que COMMUNE DE CLAMART n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.') }
     end
 
-    context 'when the legal name is typed by the applicant' do
-      let(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, identity_source: 'sirene_unavailable', identity_legal_name: nil, wallet_legal_name: 'MAIRIE DE CLAMART') }
-
-      it { is_expected.to include('Je déclare que MAIRIE DE CLAMART n’est') }
-    end
-
     context 'when the legal name is not known yet' do
       let(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, identity_source: 'sirene_pending', identity_legal_name: nil) }
 

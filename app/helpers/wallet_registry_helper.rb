@@ -21,7 +21,7 @@ module WalletRegistryHelper
   end
 
   def wallet_registry_commitment_label(authorization_request)
-    known_name = authorization_request.identity_legal_name.presence || authorization_request.wallet_legal_name.presence
+    known_name = authorization_request.identity_legal_name.presence
     scope = 'authorization_request_forms.registre_wallet.wallet_not_registered_elsewhere'
 
     known_name ? t("#{scope}.label", organization_name: known_name) : t("#{scope}.label_unknown_name")

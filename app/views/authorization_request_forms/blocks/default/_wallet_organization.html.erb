@@ -4,6 +4,11 @@
   <div class="fr-alert fr-alert--warning fr-mb-3w">
     <h3 class="fr-alert__title"><%= f.wording_for('wallet_organization.sirene_unavailable.title') %></h3>
     <p><%= f.wording_for('wallet_organization.sirene_unavailable.description') %></p>
+    <% if @authorization_request.persisted? && policy(@authorization_request).refresh_identity? %>
+      <p class="fr-mt-2w fr-mb-0">
+        <%= tag.button f.wording_for('wallet_organization.sirene_unavailable.retry'), type: 'submit', form: 'wallet-identity-refresh-form', id: 'wallet-identity-refresh', class: %w[fr-btn fr-btn--secondary fr-btn--sm fr-btn--icon-left fr-icon-refresh-line] %>
+      </p>
+    <% end %>
   </div>
 <% end %>
 
@@ -16,12 +21,6 @@
 
   <%= render 'authorization_request_forms/registre_wallet/identity_panel', authorization_request: @authorization_request %>
   <div id="wallet-identity-status" role="status"></div>
-
-  <% if source == :sirene_unavailable %>
-    <%= f.dsfr_text_field :wallet_legal_name, required: true, autocomplete: 'organization' %>
-    <%= f.dsfr_text_field :wallet_postal_address, required: true, autocomplete: 'street-address', data: { field_format_kind: 'postal_address' } %>
-    <%= f.dsfr_file_field :wallet_address_proof, required: true, multiple: false, class: 'fr-upload-group fr-mb-0' %>
-  <% end %>
 
   <% if source == :non_diffusible %>
     <div class="fr-notice fr-notice--info fr-mb-2w">

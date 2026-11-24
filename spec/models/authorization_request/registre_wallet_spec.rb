@@ -190,7 +190,7 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       it { expect(authorization_request.wallet_identity_source).to eq(:sirene_pending) }
 
       it 'lets the applicant continue, without asking to type the identity' do
-        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :wallet_legal_name, :wallet_address_proof)
+        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :wallet_postal_address, :wallet_address_proof)
       end
 
       it 'asks to update the identity before submitting' do
@@ -206,12 +206,8 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
 
       it { expect(authorization_request.wallet_identity_source).to eq(:sirene_unavailable) }
 
-      it 'asks the applicant to type the identity, with a proof' do
-        expect(authorization_request.errors.attribute_names).to include(:wallet_legal_name, :wallet_postal_address, :wallet_address_proof)
-      end
-
-      it 'explains what the legal name is' do
-        expect(error_messages_for(:wallet_legal_name)).to eq(['Indiquez le nom officiel de votre organisation, tel qu’il figure dans le répertoire Sirene'])
+      it 'lets the applicant continue, without asking to type the identity' do
+        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :wallet_postal_address, :wallet_address_proof)
       end
     end
 
@@ -228,29 +224,6 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
         let(:attributes) { complete_attributes.merge(wallet_postal_address: '1 place Maurice Gunsbourg Clamart') }
 
         it { expect(error_messages_for(:wallet_postal_address)).to eq(['Indiquez une adresse complète : numéro, voie, code postal et commune. Par exemple : 12 rue des Cyclistes, 69003 Lyon']) }
-      end
-    end
-  end
-
-  describe 'legal name typed by the applicant while Sirene did not answer' do
-    let(:organization) { create(:organization, siret: '21920023500022').tap { |org| org.update!(insee_payload: nil, insee_consecutive_failures: 1) } }
-    let(:authorization_request) { create(:authorization_request, :registre_wallet, organization:, wallet_legal_name: 'Ma commune', wallet_postal_address: '1 rue de la Mairie, 92140 Clamart') }
-
-    it 'is kept as long as the identity is not retrieved' do
-      authorization_request.save!(validate: false)
-
-      expect(authorization_request.reload.wallet_legal_name).to eq('Ma commune')
-    end
-
-    context 'when the identity is then retrieved from Sirene' do
-      before do
-        organization.update!(insee_payload: JSON.parse(Rails.root.join('spec/fixtures/insee/21920023500022.json').read), insee_consecutive_failures: 0)
-        authorization_request.copy_identity_from_sources
-        authorization_request.save!(validate: false)
-      end
-
-      it 'is erased, the address typed being kept' do
-        expect(authorization_request.reload.values_at(:wallet_legal_name, :wallet_postal_address)).to eq([nil, '1 rue de la Mairie, 92140 Clamart'])
       end
     end
   end

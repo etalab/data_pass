@@ -32,13 +32,12 @@ RSpec.describe Molecules::WalletRegistry::OrganizationSummaryComponent, type: :c
     expect(rendered).to have_no_css('.wx-org__icon')
   end
 
-  context 'when the applicant typed the identity' do
-    let(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, identity_source: 'sirene_unavailable', wallet_legal_name: 'VILLE DE CLAMART', wallet_postal_address: '1 place Maurice Gunsbourg, 92140 Clamart') }
+  context 'when the applicant typed the address of a non diffusible establishment' do
+    let(:organization) { create(:organization, siret: '12345678900015') }
+    let(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, wallet_postal_address: '12 rue des Cyclistes, 69003 Lyon') }
 
-    it 'shows the typed name and address, without the public sector line' do
-      expect(rendered).to have_css('.contact-card__attribute-value', text: 'VILLE DE CLAMART')
-      expect(rendered).to have_css('.contact-card__attribute-value', text: '1 place Maurice Gunsbourg, 92140 Clamart')
-      expect(rendered).to have_no_css('.contact-card__attribute-label', text: 'Organisme du secteur public')
+    it 'shows the typed address' do
+      expect(rendered).to have_css('.contact-card__attribute-value', text: '12 rue des Cyclistes, 69003 Lyon')
     end
 
     context 'with a proof attached' do
@@ -101,11 +100,13 @@ RSpec.describe Molecules::WalletRegistry::OrganizationSummaryComponent, type: :c
     end
   end
 
-  context 'when Sirene did not answer and nothing was typed' do
+  context 'when Sirene did not answer' do
     let(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, identity_source: 'sirene_unavailable', identity_legal_name: nil, identity_address: nil) }
 
-    it 'says the name is not filled' do
+    it 'says the name and the address are not filled, without the public sector line' do
       expect(rendered).to have_css('.contact-card__attribute', text: /Nom officiel\s*Non renseigné/)
+      expect(rendered).to have_css('.contact-card__attribute', text: /Adresse d’établissement\s*Non renseigné/)
+      expect(rendered).to have_no_css('.contact-card__attribute-label', text: 'Organisme du secteur public')
       expect(rendered).to have_no_text('nom inconnu')
     end
   end

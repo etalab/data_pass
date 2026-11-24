@@ -58,25 +58,22 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Alors la page contient "Un point à corriger avant de continuer"
     Et la page contient "Joignez un justificatif pour continuer."
 
-  Scénario: Rien n’a pu être récupéré, le demandeur saisit l’identité lui-même (CA3)
+  Scénario: Rien n’a pu être récupéré, l’étape annonce qu’une récupération réussie sera nécessaire (CA3)
     Sachant que je suis un demandeur de la commune de Clamart
     Et que je me connecte
     Et que j’ai un brouillon du registre wallet dont l’identité n’a pas pu être récupérée
     Quand je reprends mon brouillon du registre wallet
     Alors la page contient "Le répertoire Sirene ne répond pas"
+    Et la page contient "vous ne pourrez la soumettre qu’après une récupération réussie"
     Et la page contient "Numéro de SIRET (connexion ProConnect)"
-    Et la page contient "Mettre à jour les informations de l’organisation"
+    Et la page contient "Relancer la récupération"
+    Et la page ne contient pas "Adresse d’établissement"
+    Et la page ne contient pas "Justificatif"
     Quand je remplis ce que le registre publie
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
     Et je clique sur "Suivant"
-    Alors la page contient "Indiquez le nom officiel de votre organisation"
-    Quand je remplis "Nom officiel de l’organisation" avec "COMMUNE DE CLAMART"
-    Et je remplis "Adresse d’établissement" avec "1 place Maurice Gunsbourg, 92140 Clamart"
-    Et je remplis "Justificatif" avec le fichier "spec/fixtures/dummy.pdf"
-    Et je clique sur "Suivant"
-    Alors la page contient "Vérifiez le récapitulatif de votre demande"
-    Et la page contient "Nom officiel"
-    Et la page contient "COMMUNE DE CLAMART"
+    Alors la page ne contient pas "à corriger avant de continuer"
+    Et la page contient "Vérifiez le récapitulatif de votre demande"
 
   Scénario: Les informations de l’organisation en cours de chargement s’affichent quand elles arrivent (R10)
     Sachant que je suis dirigeant d’une entreprise privée
@@ -109,7 +106,7 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et la page contient "MGDIS"
     Et la page ne contient pas "Informations en cours de chargement"
 
-  Scénario: Si le chargement échoue, le demandeur saisit l’identité et peut réessayer (R10, CA3)
+  Scénario: Si le chargement échoue, le demandeur relance la récupération (R10, CA3)
     Sachant que je suis dirigeant d’une entreprise privée
     Et que le répertoire Sirene n’a pas encore renseigné mon organisation
     Et que je me connecte
@@ -119,27 +116,12 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et le répertoire Sirene ne répond plus
     Et je clique sur "Mettre à jour les informations de l’organisation"
     Alors la page contient "Le répertoire Sirene ne répond pas"
-    Et la page contient "Nom officiel de l’organisation"
-    Et la page contient "Mettre à jour les informations de l’organisation"
-
-  Scénario: Le nom officiel saisi est remplacé, après avertissement, quand le répertoire Sirene répond (Q1)
-    Sachant que je suis dirigeant d’une entreprise privée
-    Et que le répertoire Sirene n’a pas encore renseigné mon organisation
-    Et que je me connecte
-    Quand je me rends sur la page de démarrage du registre wallet
-    Et je clique sur "Débuter ma demande"
-    Et je clique sur "Enregistrer"
-    Et le répertoire Sirene ne répond plus
-    Et je clique sur "Mettre à jour les informations de l’organisation"
-    Alors la page ne contient pas "le nom officiel que vous avez saisi sera remplacé"
-    Quand je remplis "Nom officiel de l’organisation" avec "MA SOCIÉTÉ"
-    Et je clique sur "Enregistrer"
-    Alors la page contient "Si la mise à jour réussit, le nom officiel que vous avez saisi sera remplacé par celui du répertoire Sirene."
-    Quand le répertoire Sirene répond de nouveau
-    Et je clique sur "Mettre à jour les informations de l’organisation"
-    Alors la page contient "MGDIS"
+    Et la page contient "Relancer la récupération"
     Et la page ne contient pas "Nom officiel de l’organisation"
-    Et le nom officiel saisi a été effacé de la demande
+    Quand le répertoire Sirene répond de nouveau
+    Et je clique sur "Relancer la récupération"
+    Alors la page contient "MGDIS"
+    Et la page ne contient pas "Le répertoire Sirene ne répond pas"
 
   Scénario: L’identité affichée est celle copiée dans la demande
     Sachant que je suis un demandeur de la commune de Clamart

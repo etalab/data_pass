@@ -34,7 +34,6 @@
 }
 .wx-identity-refresh { display: flex; gap: .5rem; align-items: center; justify-content: flex-end; margin-bottom: .5rem; }
 .wx-identity[aria-busy="true"] .wx-org__head, .wx-identity[aria-busy="true"] .wx-facts { opacity: .5; }
-.wx-identity-refresh__warning { text-align: right; color: var(--text-default-warning); }
 .wx-identity-loading { display: flex; gap: .5rem; align-items: center; justify-content: flex-end; }
 .wx-identity-loading[hidden] { display: none; }
 @keyframes wx-spin { to { transform: rotate(360deg); } }
