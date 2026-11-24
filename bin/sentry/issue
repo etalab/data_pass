@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+require_relative 'sentry_client'
+
+issue_id = ARGV.first
+abort 'Usage: bin/sentry/issue <ISSUE_ID>' unless issue_id
+
+client = SentryClient.new
+issue = client.issue(issue_id)
+event = client.latest_event(issue_id)
+
+puts "# #{issue['title']}", "Link: #{issue['permalink']}", "Events: #{issue['count']} (#{issue['firstSeen']} → #{issue['lastSeen']})", "Culprit: #{issue['culprit']}", ''
+event['entries'].to_a.select { |e| e['type'] == 'exception' }.each do |entry|
+  entry.dig('data', 'values').each { |value| puts "## #{value['type']}", value['value'].to_s, '' }
+end
+puts '## Contexts', JSON.pretty_generate(event['contexts'].to_h.except('browser', 'os', 'runtime', 'trace')), ''
+puts '## Tags', event['tags'].to_a.map { |tag| "#{tag['key']}: #{tag['value']}" }

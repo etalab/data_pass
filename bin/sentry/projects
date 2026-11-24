@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative 'sentry_client'
+
+SentryClient.new.projects.each { |project| puts "#{project['slug'].ljust(30)} #{project['name']}" }

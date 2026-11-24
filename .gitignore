@@ -69,3 +69,4 @@ lib/suivi_dtnum/__pycache__
 venv/
 
 /docs/shaping/*
+.sentry_token
