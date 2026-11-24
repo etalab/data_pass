@@ -32,9 +32,7 @@ fr:
         country_code: Code pays
         public_sector: Organisme du secteur public
         address: Adresse d’établissement
-        address_proof: Justificatif de l’adresse
-        not_published: (non publié)
-        new_window: nouvelle fenêtre
+        address_not_published: "Non publiée : votre établissement n’est pas diffusible."
         not_registered_elsewhere: Non-inscription dans un autre État
         declared: Déclarée
         not_declared: Non déclarée

@@ -21,7 +21,7 @@ class Molecules::WalletRegistry::OrganizationIdentityComponent < ApplicationComp
   end
 
   def address_known?
-    wallet_identity_source == :sirene
+    authorization_request.identity_address.present?
   end
 
   def legal_summary

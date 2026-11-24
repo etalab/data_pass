@@ -8,7 +8,7 @@
         <%= t("#{scope}.retrieved_at", date: retrieved_at.strftime('%d/%m/%Y'), time: retrieved_at.strftime('%H:%M')) %>
       </p>
     <% end %>
-    <% unless authorization_request.try(:wallet_identity_source) == :sirene_unavailable %>
+    <% unless authorization_request.try(:wallet_identity_retry_needed?) %>
       <%= tag.button t("#{scope}.button"), type: 'submit', form: 'wallet-identity-refresh-form', id: 'wallet-identity-refresh', class: %w[fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-refresh-line], title: t("#{scope}.button") %>
     <% end %>
   </div>

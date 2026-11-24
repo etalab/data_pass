@@ -18,9 +18,11 @@ class Molecules::WalletRegistry::OrganizationSummaryComponent < ApplicationCompo
   end
 
   def address
-    return formatted_address if authorization_request.wallet_identity_source == :sirene
+    authorization_request.identity_address.present? ? formatted_address : missing_identity_value
+  end
 
-    authorization_request.wallet_postal_address.presence || missing_identity_value
+  def address_withheld_from_public?
+    authorization_request.identity_address.present? && authorization_request.wallet_publishable_address.nil?
   end
 
   def missing_identity_value

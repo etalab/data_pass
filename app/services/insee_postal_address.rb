@@ -11,6 +11,7 @@ class INSEEPostalAddress
     'VLA' => 'villa', 'VLGE' => 'village'
   }.freeze
   LOWERCASE_WORDS = %w[à au aux d de des du en et l la le les sous sur].freeze
+  WITHHELD_VALUE = '[ND]'.freeze
 
   def initialize(address_payload)
     @address_payload = address_payload || {}
@@ -18,6 +19,10 @@ class INSEEPostalAddress
 
   def to_s
     [street, town].compact_blank.join(', ')
+  end
+
+  def known?
+    address_payload.values.exclude?(WITHHELD_VALUE) && town_known?
   end
 
   private
@@ -33,6 +38,10 @@ class INSEEPostalAddress
 
   def town
     [address_payload['codePostalEtablissement'], name_case(address_payload['libelleCommuneEtablissement'], capitalize_first: true)].compact_blank.join(' ')
+  end
+
+  def town_known?
+    address_payload['codePostalEtablissement'].present? && address_payload['libelleCommuneEtablissement'].present?
   end
 
   def name_case(text, capitalize_first:)

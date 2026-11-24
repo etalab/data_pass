@@ -45,18 +45,29 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Et la page contient "Certifié dirigeant par ProConnect"
     Et la page ne contient pas "Vérification de dirigeant à faire"
 
-  Scénario: L’adresse d’un établissement non diffusible est saisie avec un justificatif (CA2)
+  Scénario: L’adresse d’un établissement non diffusible vient de Sirene et n’est pas publiée (CA2)
+    Sachant que je suis un demandeur d'un établissement non diffusible dont Sirene donne l’adresse
+    Et que je me connecte
+    Quand je démarre une demande au registre wallet
+    Alors la page contient "12 rue des Cyclistes, 69003 Lyon 3e Arrondissement"
+    Et la page contient "ne sera pas publiée sur la fiche publique du registre"
+    Et la page ne contient pas "Justificatif"
+    Quand je remplis ce que le registre publie
+    Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
+    Et je clique sur "Suivant"
+    Alors la page contient "Vérifiez le récapitulatif de votre demande"
+    Et la page contient "Non publiée : votre établissement n’est pas diffusible."
+
+  Scénario: Sirene ne donne pas l’adresse d’un établissement non diffusible, le demandeur sait quoi faire (CA2)
     Sachant que je suis un demandeur d'un établissement non diffusible
     Et que je me connecte
     Quand je démarre une demande au registre wallet
-    Alors la page contient "elle n’est pas diffusible dans l’Annuaire des entreprises"
-    Et la page contient "même si elle n’est pas diffusible dans l’Annuaire des entreprises"
-    Quand je remplis ce que le registre publie
-    Et je remplis "Adresse d’établissement" avec "12 rue des Cyclistes, 69003 Lyon"
-    Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
-    Et je clique sur "Suivant"
-    Alors la page contient "Un point à corriger avant de continuer"
-    Et la page contient "Joignez un justificatif pour continuer."
+    Et je clique sur "Enregistrer"
+    Alors la page contient "L’adresse de votre établissement manque dans le répertoire Sirene"
+    Et la page contient "mettez à jour les informations de votre établissement auprès de l’INSEE"
+    Et la page contient "Relancer la récupération"
+    Et la page ne contient pas "Adresse d’établissement"
+    Et la page ne contient pas "Justificatif"
 
   Scénario: Rien n’a pu être récupéré, l’étape annonce qu’une récupération réussie sera nécessaire (CA3)
     Sachant que je suis un demandeur de la commune de Clamart

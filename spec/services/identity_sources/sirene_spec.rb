@@ -24,10 +24,18 @@ RSpec.describe IdentitySources::Sirene do
       end
     end
 
-    context 'with a non diffusible establishment' do
+    context 'with a non diffusible establishment whose address Sirene gives (fixture : forme supposée de la réponse 3.11 privée, non vérifiée sur un vrai SIRET)' do
+      let(:siret) { '12345678900023' }
+
+      it 'keeps the address, with the non diffusible status' do
+        expect(attributes.values_at(:source, :address)).to eq(['non_diffusible', '12 rue des Cyclistes, 69003 Lyon 3e Arrondissement'])
+      end
+    end
+
+    context 'with a non diffusible establishment whose address is withheld as « [ND] »' do
       let(:siret) { '12345678900015' }
 
-      it 'gives no address' do
+      it 'gives no address, rather than « [ND] »' do
         expect(attributes.values_at(:source, :address)).to eq(['non_diffusible', nil])
       end
     end

@@ -190,7 +190,7 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       it { expect(authorization_request.wallet_identity_source).to eq(:sirene_pending) }
 
       it 'lets the applicant continue, without asking to type the identity' do
-        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :wallet_postal_address, :wallet_address_proof)
+        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :identity_address)
       end
 
       it 'asks to update the identity before submitting' do
@@ -207,23 +207,49 @@ RSpec.describe AuthorizationRequest::RegistreWallet do
       it { expect(authorization_request.wallet_identity_source).to eq(:sirene_unavailable) }
 
       it 'lets the applicant continue, without asking to type the identity' do
-        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :wallet_postal_address, :wallet_address_proof)
+        expect(authorization_request.errors.attribute_names).not_to include(:identity_source, :identity_address)
       end
     end
 
-    context 'when the establishment is not diffusible' do
-      let(:siret) { '12345678900015' }
+    context 'when the establishment is not diffusible, Sirene giving its address (fixture : forme supposée de la réponse 3.11 privée, non vérifiée sur un vrai SIRET)' do
+      let(:siret) { '12345678900023' }
 
       it { expect(authorization_request.wallet_identity_source).to eq(:non_diffusible) }
 
-      it 'requires the address and a proof' do
-        expect(authorization_request.errors.attribute_names).to include(:wallet_postal_address, :wallet_address_proof)
+      it 'lets the applicant continue, without asking to type the address' do
+        expect(authorization_request.errors).to be_empty
       end
 
-      context 'with an address missing its postal code' do
-        let(:attributes) { complete_attributes.merge(wallet_postal_address: '1 place Maurice Gunsbourg Clamart') }
+      it 'keeps the address, but never as a publishable one' do
+        expect(authorization_request.values_at(:identity_address, :wallet_publishable_address)).to eq(['12 rue des Cyclistes, 69003 Lyon 3e Arrondissement', nil])
+      end
 
-        it { expect(error_messages_for(:wallet_postal_address)).to eq(['Indiquez une adresse complète : numéro, voie, code postal et commune. Par exemple : 12 rue des Cyclistes, 69003 Lyon']) }
+      it 'can be submitted as far as the address is concerned' do
+        authorization_request.valid?(:submit)
+
+        expect(authorization_request.errors.attribute_names).not_to include(:identity_address)
+      end
+    end
+
+    context 'when the establishment is not diffusible and Sirene withholds its address as « [ND] »' do
+      let(:siret) { '12345678900015' }
+
+      it 'lets the applicant continue, without asking to type the address' do
+        expect(authorization_request.errors).to be_empty
+      end
+
+      it 'refuses the submission, telling to update the address with the INSEE then retry' do
+        authorization_request.valid?(:submit)
+
+        expect(error_messages_for(:identity_address)).to eq(['Le répertoire Sirene ne donne pas l’adresse de votre établissement. Mettez-la à jour auprès de l’INSEE, puis relancez la récupération depuis l’étape « L’organisation » avant de soumettre votre demande.'])
+      end
+    end
+
+    context 'when the establishment is diffusible' do
+      let(:siret) { '21920023500014' }
+
+      it 'publishes the address read in Sirene' do
+        expect(authorization_request.wallet_publishable_address).to eq('1 place Maurice Gunsbourg, 92140 Clamart')
       end
     end
   end

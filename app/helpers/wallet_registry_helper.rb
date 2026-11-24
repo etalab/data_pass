@@ -52,7 +52,7 @@ module WalletRegistryHelper
   end
 
   def wallet_registry_error_field_ids(form)
-    { wallet_support: form.field_id(:wallet_support_url), identity_source: 'wallet-identity-refresh' }
+    { wallet_support: form.field_id(:wallet_support_url), identity_source: 'wallet-identity-refresh', identity_address: 'wallet-identity-refresh' }
   end
 
   def wallet_registry_field_format_messages
@@ -62,7 +62,6 @@ module WalletRegistryHelper
       https_url: t("#{scope}.wallet_website_url.wallet_https_format"),
       email: t("#{scope}.wallet_support_email.wallet_email_format"),
       phone: t("#{scope}.wallet_support_phone.invalid_french_phone_format"),
-      postal_address: t("#{scope}.wallet_postal_address.wallet_postal_address_format"),
     }.to_json
   end
 

@@ -31,7 +31,7 @@ class IdentitySources::Sirene
     @organization = organization
     return ATTRIBUTE_NAMES.index_with(nil).merge(source: missing_payload_source, siret: organization.siret) if organization.insee_payload.blank?
 
-    identity.merge(source: diffusible? ? 'sirene' : 'non_diffusible', address: (address if diffusible?))
+    identity.merge(source: diffusible? ? 'sirene' : 'non_diffusible', address:)
   end
 
   private
@@ -70,6 +70,8 @@ class IdentitySources::Sirene
   end
 
   def address
-    INSEEPostalAddress.new(organization.insee_payload.dig('etablissement', 'adresseEtablissement')).to_s
+    postal_address = INSEEPostalAddress.new(organization.insee_payload.dig('etablissement', 'adresseEtablissement'))
+
+    postal_address.to_s if postal_address.known?
   end
 end

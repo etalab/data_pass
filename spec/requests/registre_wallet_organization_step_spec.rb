@@ -69,7 +69,7 @@ RSpec.describe 'Wallet registry, step « L’organisation »' do
 
     it 'does not open any manual entry of the identity' do
       expect(page).to have_no_field(type: 'file')
-      expect(response.body).not_to include("#{param_key}_wallet_postal_address", "#{param_key}_wallet_legal_name")
+      expect(response.body).not_to include("#{param_key}_wallet_postal_address", "#{param_key}_wallet_legal_name", "#{param_key}_wallet_address_proof")
     end
 
     it 'keeps a single retry button' do

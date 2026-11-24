@@ -180,6 +180,7 @@ fr:
         lettre_habilitation_document: Lettre de votre DSI ou DNUM
       authorization_request/registre_wallet:
         identity_source: Informations de l’organisation
+        identity_address: Adresse d’établissement
         wallet_privacy_policy_url: Adresse de votre politique de confidentialité
         wallet_website_url: Site internet de l’organisation
         wallet_support: Assistance aux usagers
@@ -187,8 +188,6 @@ fr:
         wallet_support_email: Adresse électronique d’assistance
         wallet_support_phone: Téléphone d’assistance
         wallet_not_registered_elsewhere: Déclaration de non-enregistrement dans un autre État de l’Union
-        wallet_postal_address: Adresse d’établissement
-        wallet_address_proof: Justificatif
 
       authorization:
         message: Message complémentaire (optionnel)
@@ -333,6 +332,8 @@ fr:
           attributes:
             identity_source:
               wallet_identity_pending: Les informations de votre organisation sont encore en cours de chargement. Mettez-les à jour à l’étape « L’organisation » avant de soumettre votre demande.
+            identity_address:
+              wallet_identity_address_missing: Le répertoire Sirene ne donne pas l’adresse de votre établissement. Mettez-la à jour auprès de l’INSEE, puis relancez la récupération depuis l’étape « L’organisation » avant de soumettre votre demande.
             wallet_privacy_policy_url:
               blank: Indiquez l’adresse de votre politique de confidentialité, par exemple https://www.exemple.fr/confidentialite
               wallet_https_format: &wallet_https_format Indiquez une adresse qui commence par https://, par exemple https://www.exemple.fr
@@ -347,11 +348,6 @@ fr:
               invalid_french_phone_format: Indiquez un numéro de téléphone valide, par exemple 04 72 00 00 00
             wallet_not_registered_elsewhere:
               accepted: Cochez cette case pour continuer.
-            wallet_postal_address:
-              blank: &wallet_postal_address_format "Indiquez une adresse complète : numéro, voie, code postal et commune. Par exemple : 12 rue des Cyclistes, 69003 Lyon"
-              wallet_postal_address_format: *wallet_postal_address_format
-            wallet_address_proof:
-              blank: Joignez un justificatif pour continuer.
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:

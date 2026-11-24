@@ -24,4 +24,32 @@ RSpec.describe INSEEPostalAddress do
 
     it { is_expected.to eq('') }
   end
+
+  describe '#known?' do
+    subject(:known) { described_class.new(address_payload).known? }
+
+    context 'with a full address' do
+      let(:address_payload) { { 'numeroVoieEtablissement' => '1', 'libelleVoieEtablissement' => 'MAIRIE', 'codePostalEtablissement' => '92140', 'libelleCommuneEtablissement' => 'CLAMART' } }
+
+      it { is_expected.to be(true) }
+    end
+
+    context 'with values withheld as « [ND] »' do
+      let(:address_payload) { { 'numeroVoieEtablissement' => '[ND]', 'libelleVoieEtablissement' => '[ND]', 'codePostalEtablissement' => '[ND]', 'libelleCommuneEtablissement' => '[ND]' } }
+
+      it { is_expected.to be(false) }
+    end
+
+    context 'without postal code' do
+      let(:address_payload) { { 'libelleVoieEtablissement' => 'MAIRIE', 'libelleCommuneEtablissement' => 'CLAMART' } }
+
+      it { is_expected.to be(false) }
+    end
+
+    context 'without address' do
+      let(:address_payload) { nil }
+
+      it { is_expected.to be(false) }
+    end
+  end
 end

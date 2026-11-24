@@ -1341,12 +1341,15 @@ fr:
         identity_pending:
           badge: Informations en cours de chargement
           description: "Nous récupérons les informations de votre organisation dans le répertoire Sirene. Elles s’afficheront ici : rechargez la page dans quelques instants ou utilisez le bouton de mise à jour. Vous pouvez remplir le reste de l’étape en attendant."
+        retry: Relancer la récupération
         sirene_unavailable:
           title: Le répertoire Sirene ne répond pas
-          description: "Nous n’avons pas pu récupérer les informations de votre organisation. Vous pouvez remplir le reste de votre demande, mais vous ne pourrez la soumettre qu’après une récupération réussie. Votre brouillon est enregistré."
-          retry: Relancer la récupération
+          description_html: "Nous n’avons pas pu récupérer les informations de votre organisation. Vous pouvez remplir le reste de votre demande, mais vous ne pourrez la soumettre qu’après une récupération réussie. Votre brouillon est enregistré."
           panel_title: Votre organisation
-        non_diffusible: "Nous n’avons pas pu retrouver l’adresse de votre organisation : elle n’est pas diffusible dans l’Annuaire des entreprises. Saisissez-la et joignez un justificatif, le registre le vérifiera."
+        address_missing:
+          title: L’adresse de votre établissement manque dans le répertoire Sirene
+          description_html: 'Vous pouvez remplir le reste de votre demande, mais vous ne pourrez la soumettre qu’avec cette adresse. Pour l’ajouter, mettez à jour les informations de votre établissement auprès de <a class="fr-link" href="https://www.insee.fr/" target="_blank" rel="noopener">l’INSEE<span class="fr-sr-only"> - nouvelle fenêtre</span></a>, puis relancez la récupération.'
+        non_diffusible: "Votre établissement n’est pas diffusible : son adresse, lue dans le répertoire Sirene, ne sera pas publiée sur la fiche publique du registre."
         insee_correction_html: Ces informations seront publiées au registre. Une erreur ? Demandez sa correction à l’<a class="fr-link fr-link--sm" href="https://www.insee.fr/" target="_blank" rel="noopener">INSEE<span class="fr-sr-only"> - nouvelle fenêtre</span></a>, puis mettez à jour les informations de l’organisation.
         published:
           title: Ce que le registre publie
@@ -1377,12 +1380,6 @@ fr:
       wallet_support_phone:
         label: Téléphone
         hint: "Format attendu : 04 72 00 00 00"
-      wallet_postal_address:
-        label: Adresse d’établissement
-        hint_non_diffusible: Une fois votre organisation inscrite, cette adresse sera publiée sur la fiche publique du registre, même si elle n’est pas diffusible dans l’Annuaire des entreprises.
-      wallet_address_proof:
-        label_non_diffusible: Justificatif de l’adresse d’établissement
-        hint_non_diffusible: Un document qui montre l’adresse d’établissement de votre organisation. Il n’est pas publié. PDF, PNG ou JPEG, 10 Mo au plus.
       wallet_not_registered_elsewhere:
         label: Je déclare que %{organization_name} n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.
         label_unknown_name: Je déclare que votre organisation n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union.

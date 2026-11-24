@@ -32,23 +32,11 @@ RSpec.describe Molecules::WalletRegistry::OrganizationSummaryComponent, type: :c
     expect(rendered).to have_no_css('.wx-org__icon')
   end
 
-  context 'when the applicant typed the address of a non diffusible establishment' do
-    let(:organization) { create(:organization, siret: '12345678900015') }
-    let(:authorization_request) { build(:authorization_request, :registre_wallet, organization:, wallet_postal_address: '12 rue des Cyclistes, 69003 Lyon') }
+  context 'with a non diffusible establishment (fixture : forme supposée de la réponse 3.11 privée, non vérifiée sur un vrai SIRET)' do
+    let(:organization) { create(:organization, siret: '12345678900023') }
 
-    it 'shows the typed address' do
-      expect(rendered).to have_css('.contact-card__attribute-value', text: '12 rue des Cyclistes, 69003 Lyon')
-    end
-
-    context 'with a proof attached' do
-      before do
-        authorization_request.wallet_address_proof.attach(io: StringIO.new('%PDF-1.4'), filename: 'justificatif.pdf', content_type: 'application/pdf')
-        authorization_request.save!(validate: false)
-      end
-
-      it 'links to the proof, announcing the new window (RGAA 13.2)' do
-        expect(rendered).to have_link(href: /justificatif\.pdf/, text: 'justificatif.pdf - nouvelle fenêtre')
-      end
+    it 'shows the address read in Sirene, saying it is not published' do
+      expect(rendered).to have_css('.contact-card__attribute-value', text: /12 rue des Cyclistes, 69003 Lyon 3e Arrondissement\s*Non publiée : votre établissement n’est pas diffusible\./)
     end
   end
 
@@ -108,14 +96,6 @@ RSpec.describe Molecules::WalletRegistry::OrganizationSummaryComponent, type: :c
       expect(rendered).to have_css('.contact-card__attribute', text: /Adresse d’établissement\s*Non renseigné/)
       expect(rendered).to have_no_css('.contact-card__attribute-label', text: 'Organisme du secteur public')
       expect(rendered).to have_no_text('nom inconnu')
-    end
-  end
-
-  context 'when the identity came from Sirene after a proof was attached' do
-    before { authorization_request.wallet_address_proof.attach(io: StringIO.new('%PDF-1.4'), filename: 'justificatif.pdf', content_type: 'application/pdf') }
-
-    it 'does not show the proof, which nobody needs any more' do
-      expect(rendered).to have_no_text('justificatif.pdf')
     end
   end
 end

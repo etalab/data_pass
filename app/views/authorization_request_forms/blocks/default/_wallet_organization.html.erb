@@ -1,12 +1,14 @@
 <% source = @authorization_request.wallet_identity_source %>
+<% scope = 'authorization_request_forms.registre_wallet.wallet_organization' %>
+<% retry_reason = @authorization_request.wallet_identity_address_missing? ? 'address_missing' : source %>
 
-<% if source == :sirene_unavailable %>
-  <div class="fr-alert fr-alert--warning fr-mb-3w">
-    <h3 class="fr-alert__title"><%= f.wording_for('wallet_organization.sirene_unavailable.title') %></h3>
-    <p><%= f.wording_for('wallet_organization.sirene_unavailable.description') %></p>
+<% if @authorization_request.wallet_identity_retry_needed? %>
+  <div class="fr-alert fr-alert--warning fr-mb-3w" id="wallet-identity-retry">
+    <h3 class="fr-alert__title"><%= t("#{scope}.#{retry_reason}.title") %></h3>
+    <p><%= t("#{scope}.#{retry_reason}.description_html") %></p>
     <% if @authorization_request.persisted? && policy(@authorization_request).refresh_identity? %>
       <p class="fr-mt-2w fr-mb-0">
-        <%= tag.button f.wording_for('wallet_organization.sirene_unavailable.retry'), type: 'submit', form: 'wallet-identity-refresh-form', id: 'wallet-identity-refresh', class: %w[fr-btn fr-btn--secondary fr-btn--sm fr-btn--icon-left fr-icon-refresh-line] %>
+        <%= tag.button t("#{scope}.retry"), type: 'submit', form: 'wallet-identity-refresh-form', id: 'wallet-identity-refresh', class: %w[fr-btn fr-btn--secondary fr-btn--sm fr-btn--icon-left fr-icon-refresh-line] %>
       </p>
     <% end %>
   </div>
@@ -15,28 +17,26 @@
 <div class="wx-panel">
   <% if source == :sirene_unavailable %>
     <div class="wx-panel-title fr-mb-1w">
-      <h3 class="fr-h5 fr-mb-0"><%= f.wording_for('wallet_organization.sirene_unavailable.panel_title') %></h3>
+      <h3 class="fr-h5 fr-mb-0"><%= t("#{scope}.sirene_unavailable.panel_title") %></h3>
     </div>
   <% end %>
 
   <%= render 'authorization_request_forms/registre_wallet/identity_panel', authorization_request: @authorization_request %>
   <div id="wallet-identity-status" role="status"></div>
 
-  <% if source == :non_diffusible %>
-    <div class="fr-notice fr-notice--info fr-mb-2w">
+  <% if source == :non_diffusible && !@authorization_request.wallet_identity_address_missing? %>
+    <div class="fr-notice fr-notice--info fr-mb-2w" id="wallet-non-diffusible">
       <div class="fr-container fr-px-2w">
         <div class="fr-notice__body">
-          <p class="fr-notice__title"><%= f.wording_for('wallet_organization.non_diffusible') %></p>
+          <p class="fr-notice__title"><%= t("#{scope}.non_diffusible") %></p>
         </div>
       </div>
     </div>
-    <%= f.dsfr_text_field :wallet_postal_address, required: true, autocomplete: 'street-address', hint_text: f.wording_for('wallet_postal_address.hint_non_diffusible'), data: { field_format_kind: 'postal_address' } %>
-    <%= f.dsfr_file_field :wallet_address_proof, required: true, multiple: false, label_text: f.wording_for('wallet_address_proof.label_non_diffusible'), hint_text: f.wording_for('wallet_address_proof.hint_non_diffusible'), class: 'fr-upload-group fr-mb-3w' %>
   <% end %>
 
   <% if %i[sirene non_diffusible].include?(source) %>
     <p class="fr-text--sm fr-mb-0 wx-muted">
-      <%= t('authorization_request_forms.registre_wallet.wallet_organization.insee_correction_html') %>
+      <%= t("#{scope}.insee_correction_html") %>
     </p>
   <% end %>
 </div>

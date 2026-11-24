@@ -5,7 +5,6 @@ module AuthorizationExtensions::WalletOrganization
   EMAIL_FORMAT = /\A[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}\z/
   SUPPORT_CHANNELS = %i[wallet_support_url wallet_support_email wallet_support_phone].freeze
   NATIONAL_PREFIX_AFTER_COUNTRY_CODE = /(\+\d{1,3})\s*\(\s*0\s*\)/
-  POSTAL_ADDRESS_FORMAT = /\A(?=.{12,}).*\b\d{5}\b/m
   IDENTITY_SOURCES = %w[sirene non_diffusible sirene_pending sirene_unavailable].freeze
 
   included do
@@ -20,8 +19,6 @@ module AuthorizationExtensions::WalletOrganization
     add_attribute :wallet_support_email
     add_attribute :wallet_support_phone
     add_attribute :wallet_not_registered_elsewhere, type: :boolean
-    add_attribute :wallet_postal_address
-    add_documents :wallet_address_proof, content_type: ['application/pdf', 'image/png', 'image/jpeg'], size: { less_than: 10.megabytes }, limit: { max: 1 }
 
     before_validation :normalize_wallet_support_phone, prepend: true
 
@@ -30,7 +27,6 @@ module AuthorizationExtensions::WalletOrganization
     end
     draft_format(:wallet_support_email, :wallet_email_format) { |value| EMAIL_FORMAT.match?(value) }
     draft_format(:wallet_support_phone, :invalid_french_phone_format) { |value| FrenchPhoneNumberValidator.french_phone_number?(value) }
-    draft_format(:wallet_postal_address, :wallet_postal_address_format) { |value| POSTAL_ADDRESS_FORMAT.match?(value) }
 
     with_options if: -> { need_complete_validation?(:wallet_organization) } do
       validates :wallet_privacy_policy_url, presence: true
@@ -39,11 +35,7 @@ module AuthorizationExtensions::WalletOrganization
     end
 
     validate :wallet_identity_loaded, on: :submit
-
-    with_options if: -> { need_complete_validation?(:wallet_organization) && wallet_identity_entered_by_applicant? } do
-      validates :wallet_postal_address, presence: true
-      validates :wallet_address_proof, presence: true
-    end
+    validate :wallet_identity_address_present, on: :submit
   end
 
   def wallet_identity_source
@@ -54,8 +46,16 @@ module AuthorizationExtensions::WalletOrganization
     identity_legal_name.presence || organization.name
   end
 
-  def wallet_identity_entered_by_applicant?
-    wallet_identity_source == :non_diffusible
+  def wallet_identity_address_missing?
+    %i[sirene non_diffusible].include?(wallet_identity_source) && identity_address.blank?
+  end
+
+  def wallet_identity_retry_needed?
+    wallet_identity_source == :sirene_unavailable || wallet_identity_address_missing?
+  end
+
+  def wallet_publishable_address
+    identity_address if wallet_identity_source == :sirene
   end
 
   def wallet_public_sector?
@@ -77,6 +77,10 @@ module AuthorizationExtensions::WalletOrganization
 
   def wallet_identity_loaded
     errors.add(:identity_source, :wallet_identity_pending) if identity_pending?
+  end
+
+  def wallet_identity_address_present
+    errors.add(:identity_address, :wallet_identity_address_missing) if wallet_identity_address_missing?
   end
 
   def wallet_support_channel_present

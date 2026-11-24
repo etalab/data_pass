@@ -78,6 +78,10 @@ Sachantque("je suis un demandeur d'un établissement non diffusible") do
   login_as_certified_executive_of_wallet_organization('12345678900015')
 end
 
+Sachantque("je suis un demandeur d'un établissement non diffusible dont Sirene donne l’adresse") do
+  login_as_certified_executive_of_wallet_organization('12345678900023')
+end
+
 Sachantque('j’ai un brouillon du registre wallet dont l’identité n’a pas pu être récupérée') do
   user = current_user!
 

@@ -66,7 +66,15 @@ RSpec.describe Molecules::WalletRegistry::OrganizationIdentityComponent, type: :
     end
   end
 
-  context 'with a non diffusible establishment' do
+  context 'with a non diffusible establishment whose address Sirene gives (fixture : forme supposée de la réponse 3.11 privée, non vérifiée sur un vrai SIRET)' do
+    let(:siret) { '12345678900023' }
+
+    it 'shows the address to the applicant' do
+      expect(rendered).to have_css('dd', text: '12 rue des Cyclistes, 69003 Lyon 3e Arrondissement')
+    end
+  end
+
+  context 'with a non diffusible establishment whose address is withheld as « [ND] »' do
     let(:siret) { '12345678900015' }
 
     it 'does not show the address' do

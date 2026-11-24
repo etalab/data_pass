@@ -8,14 +8,13 @@
       <% if sirene_available? || authorization_request.identity_pending? %>
         <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.public_sector'), value: public_sector_label) %>
       <% end %>
-      <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.address'), value: address, width: :full) %>
-      <% if authorization_request.wallet_identity_entered_by_applicant? && authorization_request.wallet_address_proof.attached? %>
-        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.address_proof'), width: :full) do %>
-          <% authorization_request.wallet_address_proof.each do |document| %>
-            <%= document.try(:unsafe?) ? document.filename : link_to(helpers.safe_join([document.filename.to_s, tag.span(" - #{t('.new_window')}", class: 'fr-sr-only')]), helpers.url_for(document), target: '_blank', rel: 'noopener', class: 'fr-link') %>
-          <% end %>
-          <%= t('.not_published') %>
+      <% if address_withheld_from_public? %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.address'), width: :full) do %>
+          <%= address %><br>
+          <%= t('.address_not_published') %>
         <% end %>
+      <% else %>
+        <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.address'), value: address, width: :full) %>
       <% end %>
       <%= render Molecules::WalletRegistry::SummaryFieldComponent.new(label: t('.not_registered_elsewhere'), value: not_registered_elsewhere, width: :full) %>
     </div>

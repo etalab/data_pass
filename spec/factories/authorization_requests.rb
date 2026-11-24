@@ -1729,13 +1729,8 @@ FactoryBot.define do
           if %i[sirene_unavailable sirene_pending].include?(authorization_request.wallet_identity_source)
             authorization_request.identity_source = 'sirene'
             authorization_request.identity_legal_name = 'COMMUNE DE CLAMART'
+            authorization_request.identity_address = '1 place Maurice Gunsbourg, 92140 Clamart'
           end
-          authorization_request.wallet_postal_address ||= '1 place Maurice Gunsbourg, 92140 Clamart'
-          authorization_request.wallet_address_proof.attach(
-            io: Rails.root.join('spec/fixtures/dummy.pdf').open,
-            filename: 'dummy.pdf',
-            content_type: 'application/pdf'
-          )
         end
       end
     end
