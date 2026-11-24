@@ -930,7 +930,7 @@ fr:
         one: "Le formulaire contient une erreur"
         other: "Le formulaire contient %{count} erreurs"
   eligibility:
-    title: "Vérifiez votre éligibilité"
+    title: "Vérifier votre éligibilité"
     placeholder: "Choisissez votre situation : le résultat s’affichera ici."
     question: "Êtes-vous :"
     pictograms:

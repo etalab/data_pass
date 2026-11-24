@@ -8,7 +8,7 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
   Scénario: Un utilisateur non connecté voit l'arbre de décision d'éligibilité
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Alors le titre de la page est "Vérifier votre éligibilité - API Particulier - DataPass"
-    Et le titre principal de la page contient "Vérifiez votre éligibilité"
+    Et le titre principal de la page contient "Vérifier votre éligibilité"
     Et le titre principal de la page contient "API Particulier"
     Et la page ne contient pas "Bienvenue sur DataPass"
     Et la page contient "Êtes-vous :"
