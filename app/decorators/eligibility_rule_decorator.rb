@@ -1,4 +1,6 @@
 class EligibilityRuleDecorator < ApplicationDecorator
+  ALLOWED_REQUEST_ACCESS_PARAMS = %w[parcours].freeze
+
   delegate_all
 
   decorates_association :options, with: EligibilityOptionDecorator
@@ -23,8 +25,9 @@ class EligibilityRuleDecorator < ApplicationDecorator
   private
 
   def option_request_access_params(option)
-    return {} if option.nil?
+    params = option&.request_access_params
+    return {} unless params.is_a?(Hash)
 
-    option.request_access_params.to_h.symbolize_keys
+    params.stringify_keys.slice(*ALLOWED_REQUEST_ACCESS_PARAMS).symbolize_keys
   end
 end

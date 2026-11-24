@@ -92,6 +92,25 @@ RSpec.describe EligibilityRuleDecorator, type: :decorator do
       expect(decorator.request_access_path(option)).to eq(expected_path)
     end
 
+    it 'ignores the parameters that are not allowed' do
+      option = EligibilityOption.new(
+        'type' => 'dirigeant', 'eligible' => 'yes', 'body' => 'Test',
+        'request_access_params' => { 'parcours' => 'agent', 'format' => 'json', 'anchor' => 'ailleurs' }
+      ).decorate
+
+      expected_path = '/demandes/regle_de_test/nouveau?eligibility_confirmed=true&parcours=agent'
+      expect(decorator.request_access_path(option)).to eq(expected_path)
+    end
+
+    it 'ignores parameters that are not a dictionary' do
+      option = EligibilityOption.new(
+        'type' => 'dirigeant', 'eligible' => 'yes', 'body' => 'Test', 'request_access_params' => 'parcours=agent'
+      ).decorate
+
+      expected_path = '/demandes/regle_de_test/nouveau?eligibility_confirmed=true'
+      expect(decorator.request_access_path(option)).to eq(expected_path)
+    end
+
     it 'uses the lead of the rule' do
       expect(decorator.lead).to eq('Votre réponse détermine la façon de vous connecter.')
     end
