@@ -19,7 +19,7 @@ RSpec.describe 'ProConnect dirigeant verification interrupted by ProConnect' do
     expect(flash[:dirigeant_verification]).to eq('status' => 'failure', 'reason' => 'access_denied')
   end
 
-  it 'forgets a previous certification' do
+  it 'keeps a previous certification, ProConnect having said nothing about the dirigeant status' do
     OmniAuth.config.mock_auth[:proconnect_dirigeant] = OmniAuth::AuthHash.new(
       provider: :proconnect_dirigeant,
       uid: user.external_id,
@@ -27,12 +27,14 @@ RSpec.describe 'ProConnect dirigeant verification interrupted by ProConnect' do
       extra: { acr: OmniAuth::Strategies::ProconnectDirigeant::DIRIGEANT_ACR_VALUE, raw_info: { sub: user.external_id, siret: organization.siret } }
     )
     get '/auth/proconnect_dirigeant/callback'
-    expect(session[:dirigeant_verification]).to be_present
+    organization_link = user.organizations_users.find_by(organization:)
+    expect(organization_link.dirigeant_verified_at).to be_present
 
     OmniAuth.config.mock_auth[:proconnect_dirigeant] = :access_denied
-    post '/auth/proconnect_dirigeant', params: { return_to: origin }
-    follow_redirect! while response.redirect? && !response.location.end_with?(origin)
 
-    expect(session[:dirigeant_verification]).to be_nil
+    expect {
+      post '/auth/proconnect_dirigeant', params: { return_to: origin }
+      follow_redirect! while response.redirect? && !response.location.end_with?(origin)
+    }.not_to(change { organization_link.reload.dirigeant_verified_at })
   end
 end

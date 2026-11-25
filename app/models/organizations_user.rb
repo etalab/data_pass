@@ -9,6 +9,7 @@ class OrganizationsUser < ApplicationRecord
   validates :identity_provider_uid, presence: true, unless: -> { identity_federator == 'unknown' }
 
   scope :current, -> { where(current: true) }
+  scope :certified_dirigeant, -> { where.not(dirigeant_verified_at: nil) }
 
   def set_as_current!
     transaction do

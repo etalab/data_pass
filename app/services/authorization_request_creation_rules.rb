@@ -1,6 +1,6 @@
 class AuthorizationRequestCreationRules
-  def self.for_form(form, organization:, applicant: nil, dirigeant_verification: nil)
-    new(definition: form.authorization_definition, startable: form.startable_by_applicant, organization:, applicant:, dirigeant_verification:)
+  def self.for_form(form, organization:, applicant: nil)
+    new(definition: form.authorization_definition, startable: form.startable_by_applicant, organization:, applicant:)
   end
 
   def self.for_definition(definition, organization:, applicant: nil)
@@ -25,12 +25,11 @@ class AuthorizationRequestCreationRules
     )
   end
 
-  def initialize(definition:, startable:, organization:, applicant: nil, dirigeant_verification: nil)
+  def initialize(definition:, startable:, organization:, applicant: nil)
     @definition = definition
     @startable = startable
     @organization = organization
     @applicant = applicant
-    @dirigeant_verification = dirigeant_verification
   end
 
   def creation_violation
@@ -49,7 +48,7 @@ class AuthorizationRequestCreationRules
   def applicant_eligibility
     return unless wallet_registry_eligibility_required?
 
-    WalletRegistryEligibility.new(organization:, applicant:, dirigeant_verification: @dirigeant_verification)
+    WalletRegistryEligibility.new(organization:, applicant:)
   end
 
   def startable?

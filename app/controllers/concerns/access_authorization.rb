@@ -7,12 +7,7 @@ module AccessAuthorization
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def pundit_user
-      UserContext.new(
-        current_user,
-        request.host,
-        authentication_session: session[:user_id],
-        dirigeant_verification: DirigeantVerificationFact.from_session(session[DirigeantVerificationFact::SESSION_KEY])
-      )
+      UserContext.new(current_user, request.host, authentication_session: session[:user_id])
     end
   end
 

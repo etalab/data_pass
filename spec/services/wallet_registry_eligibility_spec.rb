@@ -1,10 +1,13 @@
 RSpec.describe WalletRegistryEligibility do
-  subject(:eligibility) { described_class.new(organization:, applicant: user, dirigeant_verification:) }
+  subject(:eligibility) { described_class.new(organization:, applicant: user) }
 
   let(:user) { create(:user, skip_organization_creation: true) }
-  let(:dirigeant_verification) { nil }
 
   before { user.add_to_organization(organization, current: true, verified: true) }
+
+  def certify_dirigeant_of(certified_organization, verified_at: Time.zone.now)
+    user.add_to_organization(certified_organization).update!(dirigeant_verified_at: verified_at)
+  end
 
   context 'when the organization belongs to the public sector' do
     let(:organization) { create(:organization, siret: '21920023500014') }
@@ -24,7 +27,7 @@ RSpec.describe WalletRegistryEligibility do
     end
 
     context 'when ProConnect certified the applicant as its dirigeant' do
-      let(:dirigeant_verification) { DirigeantVerificationFact.build(user:, organization:) }
+      before { certify_dirigeant_of(organization) }
 
       it 'lets the applicant start as an executive' do
         expect(eligibility.capacity).to eq(:executive)
@@ -33,18 +36,18 @@ RSpec.describe WalletRegistryEligibility do
     end
 
     context 'when the certification was given for another organization' do
-      let(:dirigeant_verification) { DirigeantVerificationFact.build(user:, organization: create(:organization)) }
+      before { certify_dirigeant_of(create(:organization)) }
 
       it 'still asks for the certification' do
         expect(eligibility.violation).to eq(:executive_certification_required)
       end
     end
 
-    context 'when the certification is more than an hour old' do
-      let(:dirigeant_verification) { DirigeantVerificationFact.build(user:, organization:, verified_at: 2.hours.ago) }
+    context 'when the certification dates back several months' do
+      before { certify_dirigeant_of(organization, verified_at: 6.months.ago) }
 
-      it 'still asks for the certification' do
-        expect(eligibility.violation).to eq(:executive_certification_required)
+      it 'lets the applicant start, the certification being renewed at submission' do
+        expect(eligibility.capacity).to eq(:executive)
       end
     end
   end
@@ -60,7 +63,7 @@ RSpec.describe WalletRegistryEligibility do
     end
 
     context 'when ProConnect certified the applicant as its dirigeant' do
-      let(:dirigeant_verification) { DirigeantVerificationFact.build(user:, organization:) }
+      before { certify_dirigeant_of(organization) }
 
       it 'lets the applicant start as an executive' do
         expect(eligibility.capacity).to eq(:executive)

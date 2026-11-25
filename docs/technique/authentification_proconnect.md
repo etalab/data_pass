@@ -414,15 +414,21 @@ Le formulaire `registre-wallet` ne s'ouvre qu'à deux profils. La définition le
 | Profil | Condition (`WalletRegistryEligibility`) | Phrase de l'introduction |
 |---|---|---|
 | agent public | `PublicSectorClassification#public?` | « vous êtes connecté par ProConnect avec son compte » |
-| dirigeant | certification valide en session pour cet utilisateur et ce SIRET | « ProConnect l'a vérifié à votre connexion » |
+| dirigeant | `dirigeant_verified_at` renseigné sur le rattachement de l'utilisateur à cette organisation | « ProConnect l'a vérifié à votre connexion » |
 
-- **Certification retenue** : à la réussite, `DirigeantVerificationsController#create` écrit
-  `session[:dirigeant_verification]` (`DirigeantVerificationFact` : `user_id`, `siret` de
-  l'organisation courante, `verified_at`). Elle ne vaut qu'une heure, et plus du tout après un
-  changement d'organisation. Un échec l'efface. Rien de nominatif n'y est stocké : la session est
-  un cookie chiffré.
-- **Lecture** : `pundit_user` passe le fait à `UserContext#dirigeant_verification`, que
-  `AuthorizationRequestFormPolicy` transmet aux règles de création.
+- **Certification retenue** : à la réussite, `RecordProConnectDirigeantCertification` (dernière
+  étape de `VerifyDirigeantThroughProConnect`) date la certification sur le rattachement
+  `organizations_users` de l'utilisateur à son organisation courante (`dirigeant_verified_at`).
+  C'est la date de la dernière vérification réussie : elle survit à la déconnexion et ne vaut que
+  pour cette organisation. Sa présence suffit pour démarrer, sans durée de validité : la
+  certification sera refaite à chaque soumission (DPP-211).
+- **Révocation** : seul un retour négatif de ProConnect (`acr_not_dirigeant`, ou pas d'`acr`) vide
+  la colonne, dans `CheckProConnectDirigeantAcr`. Les autres échecs (interruption ou erreur
+  ProConnect, compte ProConnect différent, SIRET hors SIREN, organisation sans SIREN) ne disent
+  rien du statut de dirigeant et la laissent intacte.
+- **Lecture** : `WalletRegistryEligibility` lit le rattachement (scope
+  `OrganizationsUser.certified_dirigeant`) ; toutes les policies qui passent par
+  `AuthorizationRequestCreationRules` donnent donc la même réponse.
 - **Arbre d'éligibilité** : déconnecté, `/formulaires/registre-wallet/demande/nouveau` sans réponse
   renvoie à l'arbre (`/demandes/registre-wallet/nouveau`, règle `registre_wallet` de
   `db/data/eligibility_rules.yml`). Il demande « Êtes-vous : » : « Le dirigeant d'une entreprise »
@@ -529,7 +535,7 @@ depuis la connexion, sans prolongation par l'activité).
 | Caractéristiques d'un FI | `app/models/identity_provider.rb` + `config/identity_providers.yml` |
 | Provider legacy (changement d'organisation) | `app/organizers/change_current_organization_through_mon_compte_pro.rb` |
 | Parcours dirigeant (enchaînement, retours) | `app/controllers/concerns/pro_connect_dirigeant_journey.rb` |
-| Certification retenue en session | `app/models/dirigeant_verification_fact.rb` |
+| Certification retenue sur le rattachement | `app/interactors/record_pro_connect_dirigeant_certification.rb` |
 | Entrée du registre wallet | `app/services/wallet_registry_eligibility.rb`, `app/controllers/concerns/wallet_registry_entry.rb` |
 
 ## Glossaire

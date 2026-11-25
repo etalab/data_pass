@@ -1,8 +1,7 @@
 class WalletRegistryEligibility
-  def initialize(organization:, applicant:, dirigeant_verification: nil)
+  def initialize(organization:, applicant:)
     @organization = organization
     @applicant = applicant
-    @dirigeant_verification = dirigeant_verification
   end
 
   def capacity
@@ -18,7 +17,7 @@ class WalletRegistryEligibility
 
   private
 
-  attr_reader :organization, :applicant, :dirigeant_verification
+  attr_reader :organization, :applicant
 
   def public_organization?
     organization.present? && sector_classification.public?
@@ -33,6 +32,6 @@ class WalletRegistryEligibility
   end
 
   def certified_executive?
-    dirigeant_verification.present? && dirigeant_verification.valid_for?(user: applicant, organization:)
+    applicant.present? && organization.present? && applicant.organizations_users.certified_dirigeant.exists?(organization:)
   end
 end

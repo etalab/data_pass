@@ -6,7 +6,6 @@ module ProConnectDirigeantJourney
   private
 
   def redirect_dirigeant_verification_failure
-    session.delete(DirigeantVerificationFact::SESSION_KEY)
     flash[:dirigeant_verification] = { 'status' => 'failure', 'reason' => params[:message].to_s }
     redirect_to local_return_path(params[:origin]) || dirigeant_verification_path
   end

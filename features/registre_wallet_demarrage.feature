@@ -123,18 +123,41 @@ Fonctionnalité: Démarrer un enregistrement au registre wallet
     Alors la page contient "n’est pas un organisme public : seul son dirigeant peut l’enregistrer"
     Et la page ne contient pas "Débuter ma demande"
 
-  Scénario: La certification retenue n’ouvre plus l’introduction au bout d’une heure
+  Scénario: La certification retenue ouvre encore l’introduction après une reconnexion
     Sachant que je suis dirigeant d’une entreprise privée
     Et que ProConnect certifie que je suis dirigeant de mon organisation
     Quand je me rends sur la page de démarrage du registre wallet en répondant "le dirigeant d’une entreprise"
     Et que je clique sur "S’identifier avec ProConnect"
     Alors la page contient "Débuter ma demande"
-    Quand une heure s’est écoulée depuis la certification
+    Quand je quitte DataPass puis m’y reconnecte
+    Et que je me rends sur la page de démarrage du registre wallet
+    Alors la page contient "Débuter ma demande"
+
+  Scénario: ProConnect qui ne certifie plus le dirigeant lui retire l’introduction
+    Sachant que je suis dirigeant d’une entreprise privée
+    Et que ProConnect certifie que je suis dirigeant de mon organisation
+    Quand je me rends sur la page de démarrage du registre wallet en répondant "le dirigeant d’une entreprise"
+    Et que je clique sur "S’identifier avec ProConnect"
+    Alors la page contient "Débuter ma demande"
+    Sachant que ProConnect ne certifie pas mon statut de dirigeant
+    Quand je me rends sur la page de vérification de dirigeant
+    Et que je clique sur "Vérifier avec ProConnect"
     Et que je me rends sur la page de démarrage du registre wallet
     Alors la page contient "n’est pas un organisme public : seul son dirigeant peut l’enregistrer"
     Et la page ne contient pas "Débuter ma demande"
     Quand je me rends sur le chemin "/formulaires/registre-wallet/demande/commencer"
     Alors la page contient "n’est pas un organisme public : seul son dirigeant peut l’enregistrer"
+
+  Scénario: Une interruption de ProConnect laisse la certification retenue
+    Sachant que je suis dirigeant d’une entreprise privée
+    Et que ProConnect certifie que je suis dirigeant de mon organisation
+    Quand je me rends sur la page de démarrage du registre wallet en répondant "le dirigeant d’une entreprise"
+    Et que je clique sur "S’identifier avec ProConnect"
+    Sachant que ProConnect interrompt la vérification de dirigeant
+    Quand je me rends sur la page de vérification de dirigeant
+    Et que je clique sur "Vérifier avec ProConnect"
+    Et que je me rends sur la page de démarrage du registre wallet
+    Alors la page contient "Débuter ma demande"
 
   Scénario: Une organisation dont le secteur n’est pas encore connu peut commencer sa demande
     Sachant que je suis dirigeant d’une entreprise privée
