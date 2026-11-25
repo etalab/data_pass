@@ -1,4 +1,4 @@
-module ProConnectOidcHelpers
+module ProConnectOIDCHelpers
   PROCONNECT_TEST_HOST = 'https://test.proconnect.gouv.fr'.freeze
   PROCONNECT_TEST_ISSUER = "#{PROCONNECT_TEST_HOST}/api/v2".freeze
 
@@ -59,5 +59,5 @@ module ProConnectOidcHelpers
 end
 
 RSpec.configure do |config|
-  config.include ProConnectOidcHelpers, type: :request
+  config.include ProConnectOIDCHelpers, type: :request
 end

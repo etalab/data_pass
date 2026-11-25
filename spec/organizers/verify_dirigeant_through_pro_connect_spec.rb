@@ -1,7 +1,7 @@
 RSpec.describe VerifyDirigeantThroughProConnect do
   it 'checks the certification, the account and the SIRET, then describes the verification' do
     expect(described_class.organized).to eq([
-      CheckProConnectDirigeantAcr,
+      CheckProConnectDirigeantACR,
       CheckProConnectDirigeantIdentity,
       CheckProConnectDirigeantSiret,
       AssignProConnectDirigeantVerification

@@ -1,4 +1,4 @@
-class CheckProConnectDirigeantAcr < ApplicationInteractor
+class CheckProConnectDirigeantACR < ApplicationInteractor
   def call
     return if acr == OmniAuth::Strategies::ProconnectDirigeant::DIRIGEANT_ACR_VALUE
 

@@ -1,5 +1,5 @@
 class VerifyDirigeantThroughProConnect < ApplicationOrganizer
-  organize CheckProConnectDirigeantAcr,
+  organize CheckProConnectDirigeantACR,
     CheckProConnectDirigeantIdentity,
     CheckProConnectDirigeantSiret,
     AssignProConnectDirigeantVerification

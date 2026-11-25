@@ -1,4 +1,4 @@
-RSpec.describe CheckProConnectDirigeantAcr do
+RSpec.describe CheckProConnectDirigeantACR do
   subject(:check) { described_class.call(pro_connect_omniauth_payload: { 'extra' => { 'acr' => acr } }) }
 
   let(:acr) { OmniAuth::Strategies::ProconnectDirigeant::DIRIGEANT_ACR_VALUE }
