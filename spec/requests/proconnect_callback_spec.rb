@@ -165,28 +165,25 @@ RSpec.describe 'GET /auth/proconnect/callback' do
     it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
   end
 
-  context 'when the id_token is signed with the client secret' do
-    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: ProConnectConfig.client_secret, algorithm: :HS256) }
+  {
+    'HS256 with the client secret' => [:HS256, -> { ProConnectConfig.client_secret }],
+    'ES256' => [:ES256, -> { OpenSSL::PKey::EC.generate('prime256v1').to_jwk }]
+  }.each do |description, (algorithm, key)|
+    context "when the id_token is signed in #{description}" do
+      let(:id_token) { proconnect_signed_id_token(id_token_claims, key: key.call, algorithm:) }
 
-    it 'signs the user in' do
-      callback
+      it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
 
-      expect(response).to redirect_to(dashboard_path)
+      it 'names the received algorithm in the failure report' do
+        callback
+
+        expect(Sentry).to have_received(:capture_message).with(
+          'OmniAuth authentication failure',
+          level: :warning,
+          extra: hash_including(error: "unexpected id_token alg #{algorithm}, expected RS256")
+        )
+      end
     end
-  end
-
-  context 'when the id_token is signed with another secret' do
-    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: 'another-secret', algorithm: :HS256) }
-
-    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
-  end
-
-  context 'when the id_token is signed in HS256 with the provider public key' do
-    let(:id_token) do
-      proconnect_signed_id_token(id_token_claims, key: proconnect_signing_key.to_key.public_to_pem, algorithm: :HS256)
-    end
-
-    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
   end
 
   context 'when the id_token is not signed' do
