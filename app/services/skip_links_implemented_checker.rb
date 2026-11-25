@@ -13,10 +13,10 @@ class SkipLinksImplementedChecker
     authorization_request_forms#show
     authorization_request_forms#create
     authorization_request_forms#update
-    authorization_request_forms#start
     authorization_request_forms#summary
     authorization_request_forms/build#show
     authorization_request_forms/build#update
+    authorization_request_forms/introductions#show
     authorization_requests/blocks#edit
     authorization_requests/blocks#update
     cancel_authorization_reopenings#new

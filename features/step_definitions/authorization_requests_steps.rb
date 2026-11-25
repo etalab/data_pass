@@ -16,7 +16,7 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string}') do
 
   raise "More than one form found for #{authorization_request_name} and #{authorization_request_form_name}" if authorization_request_forms.many?
 
-  visit new_authorization_request_form_path(form_uid: authorization_request_forms.first.uid)
+  visit authorization_request_form_introduction_path(form_uid: authorization_request_forms.first.uid)
 end
 
 Quand('je veux remplir une demande pour {string} via le formulaire {string} à l\'étape {string}') do |authorization_request_name, authorization_request_form_name, stage|
@@ -27,7 +27,7 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string} à l
 
   raise "More than one form found for #{authorization_request_name} and #{authorization_request_form_name}" if authorization_request_forms.many?
 
-  visit new_authorization_request_form_path(form_uid: authorization_request_forms.first.uid)
+  visit authorization_request_form_introduction_path(form_uid: authorization_request_forms.first.uid)
 end
 
 Quand('je veux remplir une demande pour {string} via le formulaire {string} de l\'éditeur {string}') do |authorization_request_name, authorization_request_form_name, service_provider_name|
@@ -42,7 +42,7 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string} de l
 
   raise "More than one form found for #{authorization_request_name}, #{authorization_request_form_name} and #{service_provider_name}" if authorization_request_forms.many?
 
-  visit new_authorization_request_form_path(form_uid: authorization_request_forms.first.uid)
+  visit authorization_request_form_introduction_path(form_uid: authorization_request_forms.first.uid)
 end
 
 Quand('je veux remplir une demande pour {string}') do |authorization_request_name|
@@ -76,11 +76,11 @@ end
 Quand("j'ouvre le lien direct du formulaire de la démarche {string}") do |name|
   form_uid = find_authorization_definition_from_name(name, nil).available_forms.first.uid
 
-  visit new_authorization_request_form_path(form_uid:)
+  visit authorization_request_form_introduction_path(form_uid:)
 end
 
 Quand('je visite le formulaire {string} avec le paramètre {string} égal à {string}') do |form_uid, key, value|
-  visit new_authorization_request_form_path(form_uid:, key => value)
+  visit authorization_request_form_introduction_path(form_uid:, key => value)
 end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|

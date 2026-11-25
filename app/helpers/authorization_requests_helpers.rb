@@ -69,7 +69,7 @@ module AuthorizationRequestsHelpers
   def authorization_request_first_step_build?
     @authorization_request.form.multiple_steps? &&
       controller_name == 'authorization_request_forms' &&
-      action_name == 'start'
+      action_name == 'new'
   end
 
   def authorization_request_form_tag(authorization_request, url: nil, form_options: {}, &)
