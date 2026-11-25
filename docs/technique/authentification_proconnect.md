@@ -107,9 +107,13 @@ sequenceDiagram
    reste en mémoire, le `refresh_token` est ignoré. La session tient dans un cookie de 4 Ko, et un
    jeton y coûte environ deux fois sa taille (chiffrement puis encodage). L'`id_token` est ensuite vérifié
    (`verified_id_token_claims`) : signature avec les clés publiées sur le `jwks_uri` de la
-   découverte, en RS256 seulement : tout autre algorithme est refusé (`invalid_id_token`, avec
-   l'algorithme reçu dans le message remonté à Sentry), ce qui signale une application ProConnect
-   mal configurée. Émetteur (`iss`) égal à celui de la découverte, audience
+   découverte, en RS256. **Temporairement**, HS256 est aussi accepté, vérifié avec notre
+   `client_secret` seulement : l'application ProConnect de production signe en HS256, et seul le
+   support ProConnect peut la passer en RS256. Chaque algorithme a sa clé (jamais une clé publique
+   comme secret HMAC), et l'algorithme reçu est journalisé à chaque connexion
+   (`[ProConnect] id_token signed with …`), pour voir quand la production bascule. Le commit qui
+   accepte HS256 est à annuler à ce moment-là. Tout autre algorithme est refusé (`invalid_id_token`,
+   avec l'algorithme reçu dans le message remonté à Sentry). Émetteur (`iss`) égal à celui de la découverte, audience
    (`aud`) contenant notre `client_id`, expiration (`exp`) future à 10 secondes près (tolérance
    d'horloge), et `nonce` égal à celui de la session (supprimé après usage).
 6. **Récupération des infos agent.** DataPass appelle le `userinfo_endpoint` avec

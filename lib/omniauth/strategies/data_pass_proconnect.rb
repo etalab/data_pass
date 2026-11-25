@@ -10,7 +10,7 @@ module OmniAuth
         eidas3
       ].freeze
 
-      ID_TOKEN_SIGNING_ALGORITHMS = %w[RS256].freeze
+      ID_TOKEN_SIGNING_ALGORITHMS = %w[RS256 HS256].freeze
       ID_TOKEN_EXPIRY_LEEWAY = 10.seconds
 
       option :name, 'proconnect'
@@ -121,7 +121,14 @@ module OmniAuth
         algorithm = id_token_algorithm
         raise CallbackError.new(:invalid_id_token, unexpected_algorithm_message(algorithm)) unless ID_TOKEN_SIGNING_ALGORITHMS.include?(algorithm)
 
-        JSON::JWT.decode(raw_id_token.to_s, provider_signing_keys, [algorithm.to_sym])
+        Rails.logger.info("[ProConnect] id_token signed with #{algorithm}")
+        JSON::JWT.decode(raw_id_token.to_s, id_token_verification_key(algorithm), [algorithm.to_sym])
+      end
+
+      def id_token_verification_key(algorithm)
+        return provider_signing_keys unless algorithm == 'HS256'
+
+        options[:client_secret].presence || raise(CallbackError.new(:invalid_id_token, 'missing client secret for HS256'))
       end
 
       def unexpected_algorithm_message(algorithm)
