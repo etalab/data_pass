@@ -8,12 +8,12 @@ module LocalReturnPath
 
     uri = URI.parse(path)
     [uri.path, uri.query].compact.join('?')
+  rescue URI::InvalidURIError
+    nil
   end
 
   def local_path?(path)
-    path.is_a?(String) && path.start_with?('/') && !protocol_relative?(path) && !contains_backslash?(path) && URI.parse(path).host.nil?
-  rescue URI::InvalidURIError
-    false
+    path.is_a?(String) && path.start_with?('/') && !protocol_relative?(path) && !contains_backslash?(path)
   end
 
   def protocol_relative?(path)

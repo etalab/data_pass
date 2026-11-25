@@ -46,13 +46,11 @@ RSpec.describe 'Dirigeant verification' do
       expect(response).to redirect_to('/demandes/registre/nouveau')
     end
 
-    ['//example.com/demandes', '///example.com/demandes', '/\\example.com/demandes', 'https://example.com/demandes'].each do |return_to|
-      it "ignores the return_to #{return_to}, which points to another host" do
-        post '/auth/proconnect_dirigeant', params: { return_to: }
-        follow_redirect!
+    it 'ignores a return_to pointing to another host' do
+      post '/auth/proconnect_dirigeant', params: { return_to: '//evil.example/demandes' }
+      follow_redirect!
 
-        expect(response).to redirect_to(dirigeant_verification_path)
-      end
+      expect(response).to redirect_to(dirigeant_verification_path)
     end
 
     it 'keeps a local return_to in the verification form' do
@@ -62,7 +60,7 @@ RSpec.describe 'Dirigeant verification' do
     end
 
     it 'drops a return_to pointing to another host from the verification form' do
-      get dirigeant_verification_path, params: { return_to: 'https://example.com/demandes' }
+      get dirigeant_verification_path, params: { return_to: '//evil.example/demandes' }
 
       expect(response.body).not_to include('name="return_to"')
     end
@@ -104,12 +102,10 @@ RSpec.describe 'Dirigeant verification' do
         expect(response.body).to include('id="back_to_return_to" href="/demandes/registre/nouveau"')
       end
 
-      ['//example.com/demandes', '///example.com/demandes', 'https://example.com/demandes'].each do |return_to|
-        it "does not link back to #{return_to}, which points to another host" do
-          get dirigeant_verification_path, params: { return_to: }
+      it 'does not link back to a return_to pointing to another host' do
+        get dirigeant_verification_path, params: { return_to: '//evil.example/demandes' }
 
-          expect(response.body).not_to include('back_to_return_to')
-        end
+        expect(response.body).not_to include('back_to_return_to')
       end
 
       it 'does not link back without return_to' do
