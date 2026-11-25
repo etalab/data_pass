@@ -30,6 +30,6 @@ class Molecules::Instruction::Form::ShowHeaderComponent < ApplicationComponent
   end
 
   def request_url
-    helpers.new_authorization_request_form_url(form_uid: form.uid)
+    helpers.authorization_request_form_introduction_url(form_uid: form.uid)
   end
 end

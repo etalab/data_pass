@@ -41,9 +41,12 @@ Tout query param qui ne matche pas l'allowlist est ignoré silencieusement.
 
 Trois étapes :
 
-1. **Capture** (`AuthorizationRequestFormsController#new`) : filtre les query
-   params via `prefillable_attribute_names` et stocke le résultat en session,
-   keyé par `form_uid` :
+Le stockage en session est porté par `AuthorizationRequestPrefill`
+(`capture`, `data`, `clear`), partagé par les deux controllers.
+
+1. **Capture** (`AuthorizationRequestForms::IntroductionsController#show`, page
+   d'introduction) : filtre les query params via `prefillable_attribute_names`
+   et stocke le résultat en session, keyé par `form_uid` :
    ```ruby
    session[:authorization_request_prefill] = { 'form_uid' => ..., 'data' => ... }
    ```
@@ -51,18 +54,18 @@ Trois étapes :
    la même session pour ce form est nettoyé — visiter la page d'intro sans
    params réinitialise.
 
-2. **Affichage** (`#start`) : `peek_prefill_data` lit la session sans la
-   supprimer, passe les valeurs à `BuildAuthorizationRequest`. Les champs de la
+2. **Affichage** (`AuthorizationRequestFormsController#new`, étape 1) :
+   `AuthorizationRequestPrefill#data` lit la session sans la supprimer, passe les valeurs à `BuildAuthorizationRequest`. Les champs de la
    première étape (ou de la page unique) s'affichent pré-remplis via
    l'interactor `AssignQueryParamsDataToAuthorizationRequest`.
 
-3. **Persistance** (`#create`) : `peek_prefill_data` est aussi utilisé ici,
+3. **Persistance** (`#create`) : `AuthorizationRequestPrefill#data` est aussi utilisé ici,
    les valeurs sont passées à `CreateAuthorizationRequest` où l'interactor
    `AssignQueryParamsDataToAuthorizationRequest` les applique **entre les
    defaults (`initialize_with` YAML) et les params soumis** — donc le prefill
    écrase les defaults statiques, et les saisies utilisateur écrasent le
    prefill. La session n'est nettoyée qu'après que l'organizer a réussi
-   (`clear_prefill_data`). Tant que le create renvoie 422, le prefill survit
+   (`AuthorizationRequestPrefill#clear`). Tant que le create renvoie 422, le prefill survit
    pour le submit suivant.
 
    Cette étape est critique pour les formulaires wicked multi-étapes : tous

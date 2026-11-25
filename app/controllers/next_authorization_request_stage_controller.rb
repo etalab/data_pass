@@ -7,7 +7,7 @@ class NextAuthorizationRequestStageController < AuthenticatedUserController
 
     @start_next_stage = true
 
-    render 'authorization_request_forms/new', layout: 'form_introduction'
+    render 'authorization_request_forms/introductions/show', layout: 'form_introduction'
   end
 
   def create

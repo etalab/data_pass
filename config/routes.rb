@@ -80,9 +80,11 @@ Rails.application.routes.draw do
     post '/demandes/:authorization_request_id/annuler-prochaine-etape', to: 'cancel_next_authorization_request_stage#create'
 
     scope(path: 'formulaires/:form_uid') do
-      resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do
+      get 'demande/nouveau', to: 'authorization_request_forms/introductions#show', as: :authorization_request_form_introduction
+
+      resources :authorization_request_forms, only: %w[create show update], path: 'demande' do
         collection do
-          get :start, path: 'commencer'
+          get :new, path: 'commencer', as: :start
         end
 
         member do

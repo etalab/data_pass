@@ -22,7 +22,7 @@
       <p class="fr-callout__text fr-my-3w">
         <%= t("authorization_requests.new.default.no_france_connect_callout.content", definition_name: @authorization_definition.name) %>
       </p>
-      <%= link_to  t("authorization_requests.new.default.no_france_connect_callout.link"), new_authorization_request_form_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
+      <%= link_to  t("authorization_requests.new.default.no_france_connect_callout.link"), authorization_request_form_introduction_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
     </div>
   <% else %>
     <div class="fr-select-group">
