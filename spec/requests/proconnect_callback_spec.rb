@@ -41,14 +41,22 @@ RSpec.describe 'GET /auth/proconnect/callback' do
       expect(session[:user_id]).to be_nil
     end
 
-    it 'reports the failure to Sentry' do
-      callback
+    if OmniAuth::FailureReporter::SENTRY_REPORTED_TYPES.include?(failure_type)
+      it 'reports the failure to Sentry' do
+        callback
 
-      expect(Sentry).to have_received(:capture_message).with(
-        'OmniAuth authentication failure',
-        level: :warning,
-        extra: hash_including(strategy: 'proconnect', type: failure_type)
-      )
+        expect(Sentry).to have_received(:capture_message).with(
+          'OmniAuth authentication failure',
+          level: :warning,
+          extra: hash_including(strategy: 'proconnect', type: failure_type)
+        )
+      end
+    else
+      it 'does not report the failure to Sentry' do
+        callback
+
+        expect(Sentry).not_to have_received(:capture_message)
+      end
     end
   end
 
@@ -142,6 +150,18 @@ RSpec.describe 'GET /auth/proconnect/callback' do
       callback
 
       expect(a_request(:post, 'https://test.proconnect.gouv.fr/token')).not_to have_been_made
+    end
+
+    context 'with an error code and a description that do not look like OAuth ones' do
+      let(:callback_params) { { error: "<script>\nforged", error_description: 'x' * 1000, state: authorization_params['state'] } }
+
+      it 'logs a filtered code and a truncated description' do
+        allow(Rails.logger).to receive(:info).and_call_original
+
+        callback
+
+        expect(Rails.logger).to have_received(:info).with(/"error":"unknown: x{197}\.\.\."/)
+      end
     end
   end
 

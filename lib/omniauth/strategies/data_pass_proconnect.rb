@@ -12,6 +12,8 @@ module OmniAuth
 
       ID_TOKEN_SIGNING_ALGORITHMS = %w[RS256 HS256].freeze
       ID_TOKEN_EXPIRY_LEEWAY = 10.seconds
+      OAUTH_ERROR_CODE_FORMAT = /\A[a-z_]{1,64}\z/
+      PROVIDER_ERROR_DESCRIPTION_LIMIT = 200
 
       option :name, 'proconnect'
 
@@ -57,7 +59,13 @@ module OmniAuth
       end
 
       def provider_error
-        CallbackError.new(:proconnect_error, request.params.values_at('error', 'error_description').compact.join(': '))
+        description = request.params['error_description']&.to_s&.truncate(PROVIDER_ERROR_DESCRIPTION_LIMIT)
+
+        CallbackError.new(:proconnect_error, [provider_error_code, description].compact.join(': '))
+      end
+
+      def provider_error_code
+        request.params['error'].to_s.then { |code| code.match?(OAUTH_ERROR_CODE_FORMAT) ? code : 'unknown' }
       end
 
       def valid_state?

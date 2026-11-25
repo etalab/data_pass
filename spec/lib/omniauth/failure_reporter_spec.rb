@@ -35,4 +35,28 @@ RSpec.describe OmniAuth::FailureReporter do
       extra: { strategy: 'proconnect', type: :invalid_id_token, error: 'invalid nonce' }
     )
   end
+
+  it 'reports a failed token exchange to Sentry' do
+    env['omniauth.error.type'] = :token_exchange_failed
+
+    response
+
+    expect(Sentry).to have_received(:capture_message)
+  end
+
+  %i[csrf_detected proconnect_error invalid_credentials].each do |failure_type|
+    context "with a #{failure_type} failure, that a visitor or an expected refusal can cause" do
+      before do
+        env['omniauth.error.type'] = failure_type
+        allow(Rails.logger).to receive(:info).and_call_original
+      end
+
+      it 'only logs it' do
+        response
+
+        expect(Sentry).not_to have_received(:capture_message)
+        expect(Rails.logger).to have_received(:info).with(/\[OmniAuth\] authentication failure .*#{failure_type}/)
+      end
+    end
+  end
 end

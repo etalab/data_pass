@@ -125,7 +125,13 @@ sequenceDiagram
 
 Chaque contrôle qui échoue appelle `fail!` avec un motif (`proconnect_error`, `csrf_detected`,
 `token_exchange_failed`, `invalid_id_token`). `OmniAuth::FailureReporter` journalise le motif,
-l'envoie à Sentry en `warning`, puis redirige vers `/auth/failure` (`sessions#failure`).
+puis redirige vers `/auth/failure` (`sessions#failure`). Seuls `invalid_id_token` et
+`token_exchange_failed`, qui signalent un problème chez nous ou chez ProConnect, partent aussi
+dans Sentry en `warning`. `csrf_detected` (qu'un visiteur anonyme peut provoquer) et
+`proconnect_error` (dont le refus attendu de la certification dirigeant) ne sont que
+journalisés, en `info`. Pour `proconnect_error`, le code `error` venu de la requête n'est gardé
+que s'il a la forme d'un code OAuth (`unknown` sinon), et `error_description` est tronqué à
+200 caractères.
 7. **Construction côté DataPass.** Voir la section suivante.
 
 ## Traitement côté DataPass (étape 7)
