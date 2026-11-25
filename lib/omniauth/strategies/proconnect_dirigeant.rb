@@ -10,14 +10,6 @@ module OmniAuth
 
       option :name, 'proconnect_dirigeant'
 
-      def on_request_path?
-        super && journey_open?
-      end
-
-      def on_callback_path?
-        super && journey_open?
-      end
-
       def request_call?
         super || chained_request?
       end
@@ -27,10 +19,6 @@ module OmniAuth
       end
 
       private
-
-      def journey_open?
-        FeatureFlag.enabled?(:proconnect_dirigeant)
-      end
 
       def chained_request?
         on_request_path? && request.get? && fresh_chain?(session.delete(CHAINED_REQUEST_SESSION_KEY))

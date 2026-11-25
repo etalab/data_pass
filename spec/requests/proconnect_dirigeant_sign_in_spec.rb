@@ -115,18 +115,4 @@ RSpec.describe 'Sign in through the ProConnect dirigeant journey' do
       expect(response.body).not_to include('id="verify_dirigeant"')
     end
   end
-
-  context 'when the feature is disabled' do
-    before do
-      allow(FeatureFlag).to receive(:enabled?).and_call_original
-      allow(FeatureFlag).to receive(:enabled?).with(:proconnect_dirigeant).and_return(false)
-    end
-
-    it 'signs the user in as usual' do
-      sign_in_as_dirigeant
-
-      expect(session[:user_id]).to be_present
-      expect(response).not_to redirect_to(%r{/auth/proconnect_dirigeant})
-    end
-  end
 end

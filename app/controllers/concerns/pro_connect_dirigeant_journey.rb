@@ -11,7 +11,7 @@ module ProConnectDirigeantJourney
   end
 
   def dirigeant_journey?
-    FeatureFlag.enabled?(:proconnect_dirigeant) && request.env.dig('omniauth.params', 'parcours') == 'dirigeant'
+    request.env.dig('omniauth.params', 'parcours') == 'dirigeant'
   end
 
   def start_dirigeant_verification(organization)

@@ -328,16 +328,16 @@ flowchart TD
     E --> F["DirigeantVerificationsController#create"]
 ```
 
-- Le paramètre `parcours=dirigeant` revient au callback par `env['omniauth.params']`. Il n'est lu
-  que si le flag `proconnect_dirigeant` est actif.
+- Le paramètre `parcours=dirigeant` revient au callback par `env['omniauth.params']`.
 - Le flag `proconnect_dirigeant` est ouvert partout sauf en production, où il suit le Setting
   `proconnect_dirigeant_open` (type `:enabled_if_true`, coupé par défaut, repli sur la variable
   `PROCONNECT_DIRIGEANT_OPEN`). L'ouvrir ne demande ni déploiement ni redémarrage :
   `Setting.set(:proconnect_dirigeant_open, 'true')`, et `Setting.unset` pour refermer.
-- La stratégie OmniAuth `proconnect_dirigeant` est toujours déclarée, mais elle ne reconnaît ses
-  chemins (`on_request_path?`, `on_callback_path?`) que si le flag est ouvert, lu au moment de la
-  requête. Flag fermé, `/auth/proconnect_dirigeant` et sa callback passent à l'application, qui
-  répond 404.
+- Le flag ne garde que les points d'entrée visibles : la page `/verification-dirigeant`
+  (404 flag fermé) et les boutons qui mènent au parcours. La stratégie OmniAuth
+  `proconnect_dirigeant` et la lecture de `parcours=dirigeant` ne le consultent pas : sans bouton,
+  personne n'y arrive, et l'application ProConnect de production refuse une URL de retour qu'on
+  ne lui a pas déclarée.
 - Le départ d'OmniAuth n'accepte que le POST avec jeton CSRF (`omniauth-rails_csrf_protection`).
   Pour enchaîner par une redirection, `ProconnectDirigeant#request_call?` accepte aussi un GET, à
   condition que `sessions#create` ait posé le marqueur
