@@ -2,7 +2,7 @@ require 'omniauth/proconnect'
 
 module OmniAuth
   module Strategies
-    class Proconnect
+    class DataPassProconnect < Proconnect
       MFA_ACR_VALUES = %w[
         eidas0-mfa
         eidas1-mfa
@@ -12,6 +12,8 @@ module OmniAuth
 
       ID_TOKEN_SIGNING_ALGORITHMS = %i[RS256 ES256 HS256].freeze
       ID_TOKEN_EXPIRY_LEEWAY = 10.seconds
+
+      option :name, 'proconnect'
 
       class CallbackError < Error
         attr_reader :key
@@ -33,10 +35,14 @@ module OmniAuth
       def callback_phase
         failure = callback_failure
 
-        failure ? fail!(failure.key, failure) : super
+        failure ? fail!(failure.key, failure) : omniauth_callback_phase
       end
 
       private
+
+      def omniauth_callback_phase
+        OmniAuth::Strategy.instance_method(:callback_phase).bind_call(self)
+      end
 
       def callback_failure
         return provider_error if request.params['error'].present?
@@ -66,6 +72,16 @@ module OmniAuth
         @userinfo = JSON::JWT.decode(get_userinfo!.body, :skip_verification)
 
         raise CallbackError.new(:invalid_id_token, 'userinfo sub differs from id_token sub') unless @userinfo['sub'] == @id_token_claims['sub']
+
+        remember_id_token_for_logout! if keeps_id_token_for_logout?
+      end
+
+      def keeps_id_token_for_logout?
+        true
+      end
+
+      def remember_id_token_for_logout!
+        session[id_token_session_key] = raw_id_token
       end
 
       def verified_id_token_claims
@@ -125,7 +141,7 @@ module OmniAuth
 
       def store_tokens!(response)
         @access_token = response.body['access_token']
-        session[id_token_session_key] = response.body['id_token']
+        @id_token = response.body['id_token']
 
         response
       end
@@ -135,7 +151,7 @@ module OmniAuth
       end
 
       def raw_id_token
-        session[id_token_session_key]
+        @id_token
       end
 
       def id_token_session_key

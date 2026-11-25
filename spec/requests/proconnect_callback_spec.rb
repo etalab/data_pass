@@ -81,6 +81,12 @@ RSpec.describe 'GET /auth/proconnect/callback' do
       expect(Rack::Utils.parse_query(URI(response.location).query)).to include('id_token_hint' => id_token)
     end
 
+    it 'exchanges the authorization code only once' do
+      callback
+
+      expect(a_request(:post, 'https://test.proconnect.gouv.fr/token')).to have_been_made.once
+    end
+
     it 'fetches the userinfo with the access token' do
       callback
 
@@ -253,5 +259,24 @@ RSpec.describe 'GET /auth/proconnect/callback' do
     let(:id_token_claims) { { sub: 'another-sub', acr:, nonce: authorization_params['nonce'] } }
 
     it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when a rejected callback follows a valid sign in' do
+    let(:rejected_id_token) { proconnect_signed_id_token(id_token_claims.merge(nonce: 'replayed-nonce')) }
+
+    before do
+      callback
+      second_authorization_params = proconnect_authorization_params('/auth/proconnect')
+      stub_proconnect_json(:post, '/token', { access_token: 'access-token', id_token: rejected_id_token })
+      get '/auth/proconnect/callback', params: { code: 'second-code', state: second_authorization_params['state'] }
+    end
+
+    it 'rejects the second callback' do
+      expect(response).to redirect_to(%r{\A/auth/failure\?message=invalid_id_token})
+    end
+
+    it 'keeps the id_token of the signed in session' do
+      expect(session['omniauth.pc.id_token']).to eq(id_token)
+    end
   end
 end

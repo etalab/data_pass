@@ -223,8 +223,9 @@ le `state` protège l'aller-retour de la requête, le `nonce` protège le conten
 
 **La signature de l'`id_token` — fonder un droit sur un jeton authentique.**
 La documentation ProConnect impose de vérifier la signature de l'`id_token` avant de lire ses
-claims. La gem ne le fait pas : la surcharge `lib/omniauth/strategies/proconnect_overrides.rb`
-récupère les clés publiques de ProConnect (`jwks_uri`) à chaque retour et rejette tout jeton
+claims. La gem ne le fait pas : la sous-classe `OmniAuth::Strategies::DataPassProconnect`
+(`lib/omniauth/strategies/data_pass_proconnect.rb`), déclarée à la place de la stratégie de la gem
+sous le même nom `proconnect`, récupère les clés publiques de ProConnect (`jwks_uri`) à chaque retour et rejette tout jeton
 non signé, signé par une autre clé, émis pour une autre application, par un autre émetteur ou
 expiré. Avant novembre 2026 (DPP-202), l'`acr` de la double authentification était lu sans cette
 vérification.
@@ -407,6 +408,10 @@ flowchart TD
     C --> D["end_session_endpoint ProConnect (id_token_hint)<br/>déconnexion globale côté ProConnect"]
 ```
 
+L'`id_token_hint` est l'`id_token` gardé en session à la connexion. Il n'y est écrit qu'une fois
+tous les contrôles du retour passés : un retour refusé laisse intact le jeton de la personne déjà
+connectée. La stratégie dirigeant n'écrit jamais cette clé.
+
 ## Provider legacy MonComptePro
 
 Un second provider existe dans `config/initializers/omniauth.rb` : `mon_compte_pro` (l'ancêtre,
@@ -441,7 +446,7 @@ depuis la connexion, sans prolongation par l'activité).
 | Rôle | Fichier |
 |---|---|
 | Config des providers, scopes | `config/initializers/omniauth.rb` |
-| Contrôles du retour ProConnect, MFA demandée | `lib/omniauth/strategies/proconnect_overrides.rb` |
+| Contrôles du retour ProConnect, MFA demandée | `lib/omniauth/strategies/data_pass_proconnect.rb` |
 | Signalement des échecs OmniAuth | `lib/omniauth/failure_reporter.rb` |
 | Stratégie de vérification du dirigeant | `lib/omniauth/strategies/proconnect_dirigeant.rb` |
 | Contrôles du statut de dirigeant | `app/organizers/verify_dirigeant_through_pro_connect.rb` |

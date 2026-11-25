@@ -84,7 +84,7 @@ class SessionsController < ApplicationController
   end
 
   def mfa_performed?
-    OmniAuth::Strategies::Proconnect::MFA_ACR_VALUES.include?(proconnect_acr)
+    OmniAuth::Strategies::DataPassProconnect::MFA_ACR_VALUES.include?(proconnect_acr)
   end
 
   def proconnect_acr

@@ -1,6 +1,6 @@
 require 'omniauth-oauth2'
 require 'omniauth/proconnect'
-require Rails.root.join('lib/omniauth/strategies/proconnect_overrides').to_s
+require Rails.root.join('lib/omniauth/strategies/data_pass_proconnect').to_s
 require Rails.root.join('lib/omniauth/strategies/proconnect_dirigeant').to_s
 require Rails.root.join('lib/omniauth/failure_reporter').to_s
 
@@ -103,7 +103,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :mon_compte_pro, setup: setup_proc
 
   provider(
-    :proconnect,
+    OmniAuth::Strategies::DataPassProconnect,
     {
       client_id: ProConnectConfig.client_id,
       client_secret: ProConnectConfig.client_secret,

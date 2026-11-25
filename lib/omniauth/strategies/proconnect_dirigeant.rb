@@ -1,8 +1,8 @@
-require Rails.root.join('lib/omniauth/strategies/proconnect_overrides').to_s
+require Rails.root.join('lib/omniauth/strategies/data_pass_proconnect').to_s
 
 module OmniAuth
   module Strategies
-    class ProconnectDirigeant < Proconnect
+    class ProconnectDirigeant < DataPassProconnect
       DIRIGEANT_ACR_VALUE = 'https://proconnect.gouv.fr/assurance/certification-dirigeant'.freeze
       SIRET_FORMAT = /\A\d{14}\z/
       CHAINED_REQUEST_SESSION_KEY = 'omniauth.pc_dirigeant.chained_request'.freeze
@@ -55,15 +55,8 @@ module OmniAuth
         }
       end
 
-      def store_tokens!(response)
-        @access_token = response.body['access_token']
-        @id_token = response.body['id_token']
-
-        response
-      end
-
-      def raw_id_token
-        @id_token
+      def keeps_id_token_for_logout?
+        false
       end
 
       def state_session_key
