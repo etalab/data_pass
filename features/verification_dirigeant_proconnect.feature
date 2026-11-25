@@ -2,7 +2,8 @@
 
 Fonctionnalité: Vérification du statut de dirigeant par ProConnect
   En tant que demandeur connecté, je peux faire vérifier par ProConnect que je suis
-  dirigeant de l’entreprise de mon organisation. Le résultat est affiché, rien n’est enregistré.
+  dirigeant de l’entreprise de mon organisation. Le résultat est affiché, et la date de la
+  certification est retenue sur mon rattachement à l’organisation.
 
   Contexte:
     Sachant que je suis un demandeur

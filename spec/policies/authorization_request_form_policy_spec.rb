@@ -43,7 +43,7 @@ RSpec.describe AuthorizationRequestFormPolicy do
     end
 
     context 'when ProConnect certified the applicant as its dirigeant' do
-      let(:user_context) { UserContext.new(user, dirigeant_verification: DirigeantVerificationFact.build(user:, organization:)) }
+      before { user.organizations_users.find_by(organization:).update!(dirigeant_verified_at: Time.zone.now) }
 
       it { expect(instance.create?).to be(true) }
     end

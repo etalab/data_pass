@@ -22,7 +22,6 @@ class DirigeantVerificationsController < AuthenticatedUserController
 
     report_rejection(organizer.error) if organizer.failure?
 
-    remember_verification(organizer)
     flash[:dirigeant_verification] = verification_result(organizer)
     redirect_to path_after_verification
   end
@@ -47,14 +46,6 @@ class DirigeantVerificationsController < AuthenticatedUserController
 
   def verification_allowed?
     OrganizationPolicy.new(pundit_user, current_organization).start_dirigeant_verification?
-  end
-
-  def remember_verification(organizer)
-    if organizer.success?
-      session[DirigeantVerificationFact::SESSION_KEY] = DirigeantVerificationFact.build(user: current_user, organization: current_organization).to_session
-    else
-      session.delete(DirigeantVerificationFact::SESSION_KEY)
-    end
   end
 
   def ensure_dirigeant_verification_enabled

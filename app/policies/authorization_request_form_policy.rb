@@ -12,11 +12,6 @@ class AuthorizationRequestFormPolicy < ApplicationPolicy
   private
 
   def creation_rules
-    @creation_rules ||= AuthorizationRequestCreationRules.for_form(
-      record,
-      organization: current_organization,
-      applicant: user,
-      dirigeant_verification: user_context.dirigeant_verification
-    )
+    @creation_rules ||= AuthorizationRequestCreationRules.for_form(record, organization: current_organization, applicant: user)
   end
 end
