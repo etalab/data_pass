@@ -17,25 +17,25 @@ RSpec.describe PublicSectorClassification do
   end
 
   it 'classifies an active organization with a public legal category as public' do
-    expect(classification).to have_attributes(known?: true, public?: true, private?: false, reason: :public_legal_category)
+    expect(classification).to have_attributes(known?: true, public?: true, private?: false)
   end
 
   context 'with a private legal category' do
     let(:legal_category) { '5710' }
 
-    it { is_expected.to have_attributes(public?: false, private?: true, reason: :private_legal_category) }
+    it { is_expected.to have_attributes(public?: false, private?: true) }
 
-    context 'when the SIREN is whitelisted' do
+    context 'when the SIREN is always public' do
       let(:siret) { '78452331800010' }
 
-      it { is_expected.to have_attributes(public?: true, reason: :whitelisted_siren) }
+      it { is_expected.to have_attributes(public?: true) }
     end
   end
 
   context 'without legal category' do
     let(:legal_category) { nil }
 
-    it { is_expected.to have_attributes(known?: false, public?: false, private?: false, reason: :unknown_legal_category) }
+    it { is_expected.to have_attributes(known?: false, public?: false, private?: false) }
   end
 
   context 'without INSEE data' do
@@ -47,20 +47,20 @@ RSpec.describe PublicSectorClassification do
   context 'when the organization is closed' do
     let(:administrative_state) { 'C' }
 
-    it { is_expected.to have_attributes(private?: true, reason: :closed_unit) }
+    it { is_expected.to have_attributes(private?: true) }
 
-    context 'when the SIREN is whitelisted' do
+    context 'when the SIREN is always public' do
       let(:siret) { '78452331800010' }
 
-      it { is_expected.to have_attributes(private?: true, reason: :closed_unit) }
+      it { is_expected.to have_attributes(private?: true) }
     end
   end
 
-  context 'when the SIREN is blacklisted' do
+  context 'when the SIREN is never public, despite its public legal category' do
     let(:legal_category) { '4110' }
     let(:siret) { '34867901000010' }
 
-    it { is_expected.to have_attributes(private?: true, reason: :blacklisted_siren) }
+    it { is_expected.to have_attributes(private?: true) }
   end
 
   context 'with other lists' do
@@ -70,13 +70,13 @@ RSpec.describe PublicSectorClassification do
       PublicSectorLists.new(
         'source' => {},
         'legal_categories' => [],
-        'whitelisted_sirens' => [],
-        'blacklisted_sirens' => []
+        'always_public_sirens' => [],
+        'never_public_sirens' => []
       )
     end
 
     it 'applies the rule to the given lists' do
-      expect(classification).to have_attributes(private?: true, reason: :private_legal_category)
+      expect(classification).to have_attributes(private?: true)
     end
   end
 

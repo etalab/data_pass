@@ -5,9 +5,9 @@ RSpec.describe PublicSectorLists do
     expect(lists.legal_categories).to include('7210', '4110')
   end
 
-  it 'loads the whitelisted and blacklisted SIRENs' do
-    expect(lists.whitelisted_sirens).to include('784523318')
-    expect(lists.blacklisted_sirens).to include('348679010')
+  it 'loads the SIRENs that are always public and those that never are' do
+    expect(lists.always_public_sirens).to include('784523318')
+    expect(lists.never_public_sirens).to include('348679010')
   end
 
   it 'keeps the source of the copy' do

@@ -1,9 +1,8 @@
 class PublicSectorClassification
   CLOSED_ADMINISTRATIVE_STATE = 'C'.freeze
-  PUBLIC_REASONS = %i[public_legal_category whitelisted_siren].freeze
 
   def initialize(organization, lists: PublicSectorLists.instance)
-    @unite_legale = organization.insee_payload.dig('etablissement', 'uniteLegale') || {}
+    @unite_legale = organization.unite_legale
     @siren = organization.siret.to_s.first(9)
     @lists = lists
   end
@@ -13,23 +12,26 @@ class PublicSectorClassification
   end
 
   def public?
-    PUBLIC_REASONS.include?(reason)
+    known? && !never_public_siren? && !closed? && (always_public_siren? || public_legal_category?)
   end
 
   def private?
     known? && !public?
   end
 
-  def reason
-    return :unknown_legal_category unless known?
-    return :blacklisted_siren if @lists.blacklisted_sirens.include?(@siren)
-    return :closed_unit if closed?
-    return :whitelisted_siren if @lists.whitelisted_sirens.include?(@siren)
+  private
 
-    @lists.legal_categories.include?(legal_category) ? :public_legal_category : :private_legal_category
+  def never_public_siren?
+    @lists.never_public_sirens.include?(@siren)
   end
 
-  private
+  def always_public_siren?
+    @lists.always_public_sirens.include?(@siren)
+  end
+
+  def public_legal_category?
+    @lists.legal_categories.include?(legal_category)
+  end
 
   def legal_category
     @unite_legale['categorieJuridiqueUniteLegale'].to_s

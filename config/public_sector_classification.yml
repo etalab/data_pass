@@ -82,7 +82,7 @@ legal_categories:
   - '8160'
   - '8170'
   - '8450'
-whitelisted_sirens:
+always_public_sirens:
   - '130000136'
   - '130000383'
   - '130001316'
@@ -582,6 +582,6 @@ whitelisted_sirens:
   - '939106274'
   - '941298317'
   - '941636342'
-blacklisted_sirens:
+never_public_sirens:
   - '348679010'
   - '498569177'

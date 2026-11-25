@@ -363,15 +363,16 @@ La connexion ne contrôle pas le secteur : elle ne refuse personne et ne signale
 Le secteur se contrôle au moment de l'action qui l'exige, dans sa policy.
 
 - `PublicSectorClassification.new(organization)` lit le payload INSEE déjà en base, sans appel
-  externe. Il répond `public?`, `private?` et `known?`, et donne la raison du verdict (`reason`) :
-  `public_legal_category`, `whitelisted_siren`, `private_legal_category`, `blacklisted_siren`,
-  `closed_unit` ou `unknown_legal_category`. Sans catégorie juridique, le secteur est inconnu :
-  ni public, ni privé.
+  externe. Il répond `public?`, `private?` et `known?`. Sans catégorie juridique, le secteur est
+  inconnu : ni public, ni privé. `public?` s'écrit comme la règle : secteur connu, SIREN absent des
+  `never_public_sirens`, unité légale active, et SIREN présent dans les `always_public_sirens` ou
+  catégorie juridique publique.
 - La règle est celle de ProConnect (`computeServicePublicInfo` du paquet
   `@proconnect-gouv/proconnect.identite`) et de l'Annuaire des Entreprises, avec les listes
-  recopiées dans `config/public_sector_classification.yml` (78 catégories juridiques, liste
-  blanche et liste noire de SIREN, commit source indiqué dans le fichier). Liste noire, puis unité
-  légale cessée, puis liste blanche, puis catégorie juridique. La liste blanche écarte une ligne du
+  recopiées dans `config/public_sector_classification.yml` (78 catégories juridiques, SIREN
+  toujours publics et SIREN jamais publics, commit source indiqué dans le fichier). Les listes
+  blanche et noire de ProConnect y deviennent `always_public_sirens` et `never_public_sirens`,
+  nommées par leur effet. La liste des SIREN toujours publics écarte une ligne du
   Grist mal saisie (`77566343803654.0`, un SIRET passé en nombre), qu'aucun SIREN ne peut faire
   correspondre, ni chez ProConnect ni chez nous.
 - Pas d'exception pour le RIE : ProConnect y accorde le rôle `agent_public` d'office, mais ce
