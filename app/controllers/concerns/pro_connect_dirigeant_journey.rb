@@ -26,7 +26,7 @@ module ProConnectDirigeantJourney
   def dirigeant_verification_allowed?(organization)
     user_context = UserContext.new(current_user, request.host, authentication_session: session[:user_id])
 
-    OrganizationPolicy.new(user_context, organization).verify_dirigeant?
+    OrganizationPolicy.new(user_context, organization).start_dirigeant_verification?
   end
 
   def dirigeant_return_to

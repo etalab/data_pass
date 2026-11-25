@@ -45,7 +45,7 @@ class DirigeantVerificationsController < AuthenticatedUserController
   end
 
   def verification_allowed?
-    OrganizationPolicy.new(pundit_user, current_organization).verify_dirigeant?
+    OrganizationPolicy.new(pundit_user, current_organization).start_dirigeant_verification?
   end
 
   def ensure_dirigeant_verification_enabled

@@ -8,11 +8,21 @@ class OrganizationPolicy < ApplicationPolicy
       user.organizations.exclude?(record)
   end
 
-  def verify_dirigeant?
-    record.nil? || !PublicSectorClassification.new(record).public?
+  def start_dirigeant_verification?
+    organization_missing? || !public_sector_organization?
   end
 
   def latest_identity_provider
     IdentityProvider.find(authentication_session&.fetch('identity_provider_uid', nil))
+  end
+
+  private
+
+  def organization_missing?
+    record.nil?
+  end
+
+  def public_sector_organization?
+    PublicSectorClassification.new(record).public?
   end
 end

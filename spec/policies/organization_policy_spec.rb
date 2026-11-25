@@ -33,7 +33,7 @@ RSpec.describe OrganizationPolicy do
     end
   end
 
-  describe '#verify_dirigeant?' do
+  describe '#start_dirigeant_verification?' do
     let(:identity_provider_uid) { 'fia1v2' }
 
     {
@@ -44,8 +44,14 @@ RSpec.describe OrganizationPolicy do
       context "with #{description}" do
         let(:organization) { build(:organization, siret:) }
 
-        it { expect(instance.verify_dirigeant?).to be(allowed) }
+        it { expect(instance.start_dirigeant_verification?).to be(allowed) }
       end
+    end
+
+    context 'without organization, so that the organizer explains the missing SIREN' do
+      let(:organization) { nil }
+
+      it { expect(instance.start_dirigeant_verification?).to be(true) }
     end
   end
 

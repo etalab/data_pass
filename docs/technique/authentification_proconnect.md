@@ -376,7 +376,7 @@ Le secteur se contrôle au moment de l'action qui l'exige, dans sa policy.
   correspondre, ni chez ProConnect ni chez nous.
 - Pas d'exception pour le RIE : ProConnect y accorde le rôle `agent_public` d'office, mais ce
   rôle n'est pas exploitable par les fournisseurs de service. La règle s'applique donc partout.
-- Une policy ne refuse que sur une information connue et contraire. `OrganizationPolicy#verify_dirigeant?`
+- Une policy ne refuse que sur une information connue et contraire. `OrganizationPolicy#start_dirigeant_verification?`
   refuse la certification dirigeant à une organisation classée publique, et la laisse passer
   quand le secteur est inconnu. La page `/verification-dirigeant` explique alors le refus
   (`organization_is_public_service`) sans proposer le bouton, la connexion par le parcours
@@ -453,7 +453,7 @@ depuis la connexion, sans prolongation par l'activité).
 | Page de vérification du dirigeant | `app/controllers/dirigeant_verifications_controller.rb` |
 | Secteur d'une organisation | `app/services/public_sector_classification.rb` (règle) |
 | Listes du secteur public | `app/services/public_sector_lists.rb` + `config/public_sector_classification.yml` |
-| Refus de la certification dirigeant au secteur public | `app/policies/organization_policy.rb` (`verify_dirigeant?`) |
+| Refus de la certification dirigeant au secteur public | `app/policies/organization_policy.rb` (`start_dirigeant_verification?`) |
 | Gem du flux OIDC ProConnect | `omniauth-proconnect` (`lib/omniauth/proconnect.rb`) |
 | Routes auth | `config/routes.rb` (`auth/:provider/callback`, `compte/deconnexion`) |
 | Bouton de connexion | `app/views/pages/shared/unauthenticated_pages/_pro_connect.html.erb` |
