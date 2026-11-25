@@ -46,7 +46,7 @@ RSpec.describe 'Dirigeant verification' do
       expect(response).to redirect_to('/demandes/registre/nouveau')
     end
 
-    ['//example.com/demandes', '/\\example.com/demandes', 'https://example.com/demandes'].each do |return_to|
+    ['//example.com/demandes', '///example.com/demandes', '/\\example.com/demandes', 'https://example.com/demandes'].each do |return_to|
       it "ignores the return_to #{return_to}, which points to another host" do
         post '/auth/proconnect_dirigeant', params: { return_to: }
         follow_redirect!
@@ -104,7 +104,7 @@ RSpec.describe 'Dirigeant verification' do
         expect(response.body).to include('id="back_to_return_to" href="/demandes/registre/nouveau"')
       end
 
-      ['//example.com/demandes', 'https://example.com/demandes'].each do |return_to|
+      ['//example.com/demandes', '///example.com/demandes', 'https://example.com/demandes'].each do |return_to|
         it "does not link back to #{return_to}, which points to another host" do
           get dirigeant_verification_path, params: { return_to: }
 

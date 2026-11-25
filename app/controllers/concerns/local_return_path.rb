@@ -11,8 +11,16 @@ module LocalReturnPath
   end
 
   def local_path?(path)
-    path.is_a?(String) && path.start_with?('/') && !path.start_with?('//') && path.exclude?('\\') && URI.parse(path).host.nil?
+    path.is_a?(String) && path.start_with?('/') && !protocol_relative?(path) && !contains_backslash?(path) && URI.parse(path).host.nil?
   rescue URI::InvalidURIError
     false
+  end
+
+  def protocol_relative?(path)
+    path.start_with?('//')
+  end
+
+  def contains_backslash?(path)
+    path.include?('\\')
   end
 end
