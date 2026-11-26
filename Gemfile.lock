@@ -844,7 +844,7 @@ DEPENDENCIES
   mailjet
   omniauth
   omniauth-oauth2
-  omniauth-proconnect
+  omniauth-proconnect (= 0.6.2)
   omniauth-rails_csrf_protection
   openapi3_parser
   openapi_first

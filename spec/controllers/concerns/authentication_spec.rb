@@ -108,12 +108,12 @@ RSpec.describe Authentication do
         session['omniauth.pc.refresh_token'] = 'token_refresh'
       end
 
-      it 'preserves omniauth.pc.* keys after session rotation' do
+      it 'preserves only the id_token, needed to log out of ProConnect, after session rotation' do
         do_sign_in
 
-        expect(session['omniauth.pc.access_token']).to eq('token_access')
         expect(session['omniauth.pc.id_token']).to eq('token_id')
-        expect(session['omniauth.pc.refresh_token']).to eq('token_refresh')
+        expect(session['omniauth.pc.access_token']).to be_nil
+        expect(session['omniauth.pc.refresh_token']).to be_nil
       end
     end
 

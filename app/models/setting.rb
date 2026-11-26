@@ -21,6 +21,7 @@ class Setting < ApplicationRecord
     insee_refresh_stale_after: { type: :duration, default: 30.days },
     insee_skipped_identifiers: { type: :list, default: [] },
     piste_api_name: { type: :string, env: 'PISTE_API_NAME', default: 'CaptchEtat v2' },
+    proconnect_id_token_signature_check: { type: :enabled_unless_false, env: 'PROCONNECT_ID_TOKEN_SIGNATURE_CHECK', default: true },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze
