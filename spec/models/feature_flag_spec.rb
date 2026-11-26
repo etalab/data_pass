@@ -6,6 +6,32 @@ RSpec.describe FeatureFlag do
       end
     end
 
+    context 'when the flag is proconnect_dirigeant' do
+      context 'when the environment is production' do
+        before do
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+        end
+
+        it 'is closed by default' do
+          expect(described_class.enabled?(:proconnect_dirigeant)).to be false
+        end
+
+        it 'opens with its setting' do
+          Setting.set(:proconnect_dirigeant_open, 'true')
+
+          expect(described_class.enabled?(:proconnect_dirigeant)).to be true
+        end
+      end
+
+      context 'when the environment is not production' do
+        it 'is open without its setting' do
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('staging'))
+
+          expect(described_class.enabled?(:proconnect_dirigeant)).to be true
+        end
+      end
+    end
+
     context 'when the flag is depot_dossier_mariage' do
       context 'when the environment is production' do
         it 'returns false' do

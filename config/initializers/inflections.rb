@@ -38,6 +38,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'PISTE'
   inflect.acronym 'GFE'
   inflect.acronym 'APIM'
+  inflect.acronym 'ACR'
 end
 
 class String
