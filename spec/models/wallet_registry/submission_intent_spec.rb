@@ -19,16 +19,12 @@ RSpec.describe WalletRegistry::SubmissionIntent do
   end
 
   describe '#certified_after_issue?' do
-    def certification(verified_at)
-      DirigeantVerificationFact.new(user_id: user.id, siret: '32816124500027', verified_at:)
-    end
-
     it 'accepts a certification made after the click, at the second' do
-      expect(intent.certified_after_issue?(certification(Time.zone.parse('2026-11-19 10:00:00')))).to be true
+      expect(intent.certified_after_issue?(Time.zone.parse('2026-11-19 10:00:00'))).to be true
     end
 
     it 'refuses a certification made before the click' do
-      expect(intent.certified_after_issue?(certification(issued_at - 1.minute))).to be false
+      expect(intent.certified_after_issue?(issued_at - 1.minute)).to be false
     end
 
     it { expect(intent.certified_after_issue?(nil)).to be false }

@@ -35,10 +35,9 @@ class WalletRegistry::SubmissionIntent
       created_at > now - VALIDITY
   end
 
-  def certified_after_issue?(dirigeant_verification)
-    dirigeant_verification.present? &&
-      dirigeant_verification.verified_at.present? &&
-      dirigeant_verification.verified_at >= created_at.change(usec: 0)
+  def certified_after_issue?(dirigeant_verified_at)
+    dirigeant_verified_at.present? &&
+      dirigeant_verified_at >= created_at.change(usec: 0)
   end
 
   def to_session

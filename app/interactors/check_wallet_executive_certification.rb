@@ -8,10 +8,10 @@ class CheckWalletExecutiveCertification < ApplicationInteractor
   private
 
   def certified_since_the_click?
-    dirigeant_verification = context.dirigeant_verification
+    context.submission_intent.certified_after_issue?(dirigeant_verified_at)
+  end
 
-    dirigeant_verification.present? &&
-      dirigeant_verification.valid_for?(user: context.user, organization: context.authorization_request.organization) &&
-      context.submission_intent.certified_after_issue?(dirigeant_verification)
+  def dirigeant_verified_at
+    context.user.organizations_users.find_by(organization: context.authorization_request.organization)&.dirigeant_verified_at
   end
 end

@@ -52,7 +52,6 @@ class WalletRegistry::SubmissionsController < AuthorizationRequestFormsControlle
       user: current_user,
       nonce: params[:nonce],
       submission_intent: WalletRegistry::SubmissionIntent.from_session(session.delete(WalletRegistry::SubmissionIntent::SESSION_KEY)),
-      dirigeant_verification: pundit_user.dirigeant_verification,
     }
   end
 
