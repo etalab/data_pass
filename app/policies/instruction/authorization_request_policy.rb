@@ -5,7 +5,7 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
 
   def refuse?
     show? &&
-      instructor_for_record? &&
+      decision_maker_for_record? &&
       record.can_refuse?
   end
 
@@ -17,13 +17,13 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
 
   def request_changes?
     show? &&
-      instructor_for_record? &&
+      decision_maker_for_record? &&
       record.can_request_changes?
   end
 
   def approve?
     show? &&
-      instructor_for_record? &&
+      decision_maker_for_record? &&
       record.can_approve?
   end
 
@@ -74,6 +74,12 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   private
+
+  def decision_maker_for_record?
+    return user.verifier? if record.definition.wallet_registry?
+
+    instructor_for_record?
+  end
 
   def instructor_for_record?
     user.instructor?(authorization_request_type)
