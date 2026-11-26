@@ -152,6 +152,7 @@ class SkipLinksImplementedChecker
     reopen_authorizations#new
     transfer_authorization_requests#new
     transfer_authorization_requests#create
+    verification/wallet_registry#show
   ].freeze
 
   def initialize(controller_name:, action_name:, has_skip_links: false)

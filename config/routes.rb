@@ -123,6 +123,10 @@ Rails.application.routes.draw do
   get '/instruction', to: redirect('/instruction/tableau-de-bord/demandes')
   get '/instruction/demandes', to: redirect('/instruction/tableau-de-bord/demandes')
 
+  namespace :verification do
+    get 'registre-wallet', to: 'wallet_registry#show', as: :wallet_registry
+  end
+
   namespace :instruction do
     get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
 

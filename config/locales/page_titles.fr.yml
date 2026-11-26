@@ -52,6 +52,7 @@ fr:
     instruction_draft_requests_new: Initier une demande d’habilitation
     instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
     instruction_user_rights: Gestion des droits
+    verification_wallet_registry: Demandes d’enregistrement
     admin_habilitation_types: "Formulaires"
 
     notification_unsubscription_show: Désinscription des notifications
