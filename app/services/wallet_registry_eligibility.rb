@@ -20,7 +20,7 @@ class WalletRegistryEligibility
   attr_reader :organization, :applicant
 
   def public_organization?
-    organization.present? && sector_classification.public?
+    organization.present? && sector_classification.public_sector?
   end
 
   def sector_unknown?
