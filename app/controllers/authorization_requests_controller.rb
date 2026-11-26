@@ -4,7 +4,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   allow_unauthenticated_access only: %i[new show]
 
-  before_action :find_authorization_definition, only: %i[new]
+  before_action :find_enabled_authorization_definition, only: %i[new]
   before_action :set_facade, only: %i[new]
   before_action :find_eligibility_rule, only: %i[new]
 
@@ -48,9 +48,10 @@ class AuthorizationRequestsController < AuthenticatedUserController
     "authorization_requests/refusals/#{@authorization_definition.id}"
   end
 
-  def find_authorization_definition
+  def find_enabled_authorization_definition
     @authorization_definition = AuthorizationDefinition.find(id_sanitized)
-    raise StaticApplicationRecord::EntryNotFound unless @authorization_definition.feature_flag_enabled?
+
+    raise ActiveRecord::RecordNotFound unless @authorization_definition.feature_flag_enabled?
   rescue StaticApplicationRecord::EntryNotFound
     raise ActiveRecord::RecordNotFound, "AuthorizationDefinition with id '#{id_sanitized}' not found"
   end
