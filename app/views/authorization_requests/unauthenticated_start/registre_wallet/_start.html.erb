@@ -1,7 +1,7 @@
 <% support_email = @authorization_definition.support_email %>
+<% start = wallet_registry_start(@authorization_definition) %>
+<% refusal = start.refusal %>
 <% set_title! t('.page_title') %>
-
-<%= render partial: 'shared/alerts' if @wallet_registry_start_renders_alerts %>
 
 <p>
   <%= t('.sub_title_html') %>
@@ -43,28 +43,28 @@
 <div class="fr-connect-group">
   <h2 class="fr-h6"><%= t('.sign_in_title') %></h2>
 
-  <% if @wallet_registry_refusal.present? %>
+  <% if refusal.present? %>
     <div class="fr-alert fr-alert--error fr-mb-3w" role="alert" id="wallet_registry_refusal" tabindex="-1" autofocus>
-      <h3 class="fr-alert__title"><%= t(".refusals.#{@wallet_registry_refusal}.title", default: t('.refusals.default.title')) %></h3>
+      <h3 class="fr-alert__title"><%= t(".refusals.#{refusal}.title", default: t('.refusals.default.title')) %></h3>
       <p>
-        <%= t(".refusals.#{@wallet_registry_refusal}.description",
+        <%= t(".refusals.#{refusal}.description",
           default: t('.refusals.default.description'),
           organization_name: current_organization&.name,
           support_email:) %>
       </p>
-      <% if @wallet_registry_refusal == :organization_check_pending %>
+      <% if refusal == :organization_check_pending %>
         <p><%= link_to t('.refusals.organization_check_pending.retry'), request.fullpath, class: 'fr-link', id: 'wallet_registry_retry' %></p>
       <% end %>
     </div>
   <% end %>
 
-  <% if @wallet_registry_sign_in.answer %>
-    <p class="fr-text--md fr-mb-2w" id="wallet_registry_answer"><%= t(".answers.#{@wallet_registry_sign_in.answer_key}") %></p>
+  <% if start.answer %>
+    <p class="fr-text--md fr-mb-2w" id="wallet_registry_answer"><%= t(".answers.#{start.answer_key}") %></p>
   <% end %>
 
-  <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect', locals: @wallet_registry_sign_in.pro_connect_locals %>
+  <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect', locals: start.pro_connect_locals(return_to: wallet_registry_return_path(@authorization_definition, start)) %>
 
   <p class="fr-mb-0">
-    <%= link_to t('.change_answer'), wallet_registry_change_answer_path, class: 'fr-link', id: 'wallet_registry_change_answer' %>
+    <%= link_to t('.change_answer'), wallet_registry_change_answer_path(@authorization_definition), class: 'fr-link', id: 'wallet_registry_change_answer' %>
   </p>
 </div>

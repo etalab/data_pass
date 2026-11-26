@@ -8,7 +8,7 @@ RSpec.describe 'Wallet registry entry through its definition path' do
   end
 
   context 'when the applicant is a public agent' do
-    let(:organization) { create(:organization, siret: '21920023500022') }
+    let(:organization) { create(:organization) }
 
     it 'sends them to the wallet registry form' do
       get '/demandes/registre-wallet/nouveau'
@@ -20,13 +20,10 @@ RSpec.describe 'Wallet registry entry through its definition path' do
   context 'when the applicant belongs to a company without certification' do
     let(:organization) { create(:organization, siret: '32816124500027') }
 
-    it 'sends them to the wallet registry form, which shows the refusal' do
+    it 'shows the refusal on the definition page, without opening the form' do
       get '/demandes/registre-wallet/nouveau'
 
-      expect(response).to redirect_to(wallet_registry_form_path)
-
-      follow_redirect!
-
+      expect(response).to have_http_status(:ok)
       expect(response.parsed_body.at_css('#wallet_registry_refusal')).to be_present
     end
   end

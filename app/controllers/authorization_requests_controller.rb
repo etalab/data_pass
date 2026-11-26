@@ -1,15 +1,12 @@
 class AuthorizationRequestsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include SubdomainsHelper
-  include WalletRegistryAnswer
 
   allow_unauthenticated_access only: %i[new show]
 
   before_action :find_authorization_definition, only: %i[new]
-  before_action :redirect_to_wallet_registry_form, only: %i[new], if: :signed_in_wallet_registry_applicant?
   before_action :set_facade, only: %i[new]
   before_action :find_eligibility_rule, only: %i[new]
-  before_action :render_eligibility_check, only: %i[new], if: -> { @eligibility_rule && wallet_registry_answer_change? }
 
   decorates_assigned :eligibility_rule
 
@@ -40,19 +37,15 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   private
 
-  def signed_in_wallet_registry_applicant?
-    user_signed_in? && @authorization_definition.wallet_registry? && !wallet_registry_answer_change?
-  end
-
-  def redirect_to_wallet_registry_form
-    flash.keep
-    redirect_to authorization_request_form_introduction_path(form_uid: @authorization_definition.available_forms.first.id, parcours: wallet_registry_answer)
-  end
-
   def render_refusal
+    return render custom_refusal_template if template_exists?(custom_refusal_template)
     raise unless current_organization&.closed?
 
     render 'closed_organization'
+  end
+
+  def custom_refusal_template
+    "authorization_requests/refusals/#{@authorization_definition.id}"
   end
 
   def find_authorization_definition
@@ -87,7 +80,13 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def eligibility_check_pending?
-    @eligibility_rule.present? && !user_signed_in? && params[:eligibility_confirmed] != 'true'
+    return false if @eligibility_rule.nil?
+
+    changing_answer? || (!user_signed_in? && params[:eligibility_confirmed] != 'true')
+  end
+
+  def changing_answer?
+    params[:changer_de_reponse] == 'true'
   end
 
   def render_eligibility_check
@@ -100,7 +99,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
   def render_sign_in
     remember_page_for_sign_in
     @display_provider_logo_in_header = true
-    @wallet_registry_sign_in = build_wallet_registry_sign_in if @authorization_definition.wallet_registry?
 
     render 'authorization_requests/unauthenticated_start'
   end

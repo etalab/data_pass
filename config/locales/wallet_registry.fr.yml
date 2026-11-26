@@ -1,7 +1,7 @@
 fr:
   authorization_request_forms:
-    registre_wallet:
-      new:
+    introductions:
+      registre_wallet:
         title: "Demander un enregistrement au : registre des parties utilisatrices du wallet"
         organization_html: Vous êtes sur le point d’enregistrer <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank" rel="noopener" title="%{organization_name} - Nouvelle fenêtre">%{organization_name}<span class="fr-sr-only"> - Nouvelle fenêtre</span></a> comme partie utilisatrice du portefeuille européen d’identité numérique, via le formulaire <strong>%{form_name}</strong>.
         goals_title: Les objectifs de ce formulaire

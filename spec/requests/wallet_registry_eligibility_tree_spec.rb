@@ -26,10 +26,10 @@ RSpec.describe 'Eligibility tree of the wallet registry' do
       expect(response.parsed_body.at_css('#association-outcome').text).to include('Écrivez au support du registre')
     end
 
-    it 'sends a visitor of the form address to the tree' do
+    it 'sends a visitor of the form address to the tree, remembering the form' do
       get form_path
 
-      expect(response).to redirect_to('/demandes/registre_wallet/nouveau')
+      expect(response).to redirect_to('/demandes/registre_wallet/nouveau?formulaire=registre-wallet')
     end
 
     it 'keeps the answer for the return after signing in' do
@@ -63,10 +63,10 @@ RSpec.describe 'Eligibility tree of the wallet registry' do
     context 'with a public agent' do
       let(:organization) { create(:organization) }
 
-      it 'skips the tree, keeping the answer for display only' do
+      it 'skips the tree and opens the introduction, the answer being for display only' do
         get "#{tree_path}?eligibility_confirmed=true&parcours=dirigeant"
 
-        expect(response).to redirect_to("#{form_path}?parcours=dirigeant")
+        expect(response).to redirect_to(form_path)
 
         follow_redirect!
 
@@ -83,8 +83,12 @@ RSpec.describe 'Eligibility tree of the wallet registry' do
     context 'with a company the applicant does not lead, according to ProConnect' do
       let(:organization) { create(:organization, siret: '32816124500027') }
 
-      it 'does not open the introduction when the answer says executive' do
-        get "#{form_path}?parcours=dirigeant"
+      it 'sends the introduction back to the definition page, which shows the refusal' do
+        get form_path
+
+        expect(response).to redirect_to('/demandes/registre_wallet/nouveau')
+
+        get "#{tree_path}?parcours=dirigeant"
 
         expect(response.parsed_body.at_css('#wallet_registry_refusal')).to be_present
         expect(response.parsed_body.at_css('#wallet_registry_capacity')).to be_nil
@@ -93,7 +97,7 @@ RSpec.describe 'Eligibility tree of the wallet registry' do
       it 'does not start a request when the answer says executive' do
         get '/formulaires/registre-wallet/demande/commencer?parcours=dirigeant'
 
-        expect(response).to redirect_to(form_path)
+        expect(response).to redirect_to('/demandes/registre_wallet/nouveau')
       end
     end
   end

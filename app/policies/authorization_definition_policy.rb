@@ -10,6 +10,14 @@ class AuthorizationDefinitionPolicy < ApplicationPolicy
   end
 
   def new?
-    AuthorizationRequestCreationRules.for_definition(record, organization: current_organization, applicant: user).access_violation.nil?
+    access_violation.nil?
+  end
+
+  delegate :access_violation, to: :creation_rules
+
+  private
+
+  def creation_rules
+    @creation_rules ||= AuthorizationRequestCreationRules.for_definition(record, organization: current_organization, applicant: user)
   end
 end

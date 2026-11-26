@@ -26,7 +26,7 @@
         <li><%= item %></li>
       <% end %>
     </ul>
-    <p id="wallet_registry_capacity"><%= t(".capacity.#{@wallet_registry_capacity}") %></p>
+    <p id="wallet_registry_capacity"><%= t(".capacity.#{policy(@authorization_request_form).applicant_eligibility.capacity}") %></p>
   </section>
 
   <section id="wallet_registry_form_steps">

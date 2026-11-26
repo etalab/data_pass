@@ -22,7 +22,7 @@ RSpec.describe 'Sign in block of the unauthenticated starting page' do
     expect(sign_in_forms.size).to eq(1)
     expect(sign_in_forms.first['action']).to eq('/auth/proconnect')
     expect(hidden_value(sign_in_forms.first, 'parcours')).to eq('dirigeant')
-    expect(hidden_value(sign_in_forms.first, 'return_to')).to eq('/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant')
+    expect(hidden_value(sign_in_forms.first, 'return_to')).to eq('/demandes/registre_wallet/nouveau?parcours=dirigeant')
     expect(response.parsed_body.at_css('#wallet_registry_answer').text).to start_with('Vous avez répondu : le dirigeant d’une entreprise. ProConnect vous demandera')
   end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Sign in block of the unauthenticated starting page' do
     it 'tells a private company that it cannot register online yet' do
       sign_in_private_company_member
 
-      get '/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant'
+      get '/demandes/registre-wallet/nouveau?parcours=dirigeant'
 
       expect(response.parsed_body.at_css('#wallet_registry_refusal').text).to include('ne peuvent pas encore s’enregistrer en ligne')
       expect(sign_in_forms.pluck('action')).to eq(['/auth/proconnect'])
@@ -85,14 +85,14 @@ RSpec.describe 'Sign in block of the unauthenticated starting page' do
     before { sign_in_private_company_member }
 
     it 'restarts the certification of the organization of the connection' do
-      get '/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant'
+      get '/demandes/registre-wallet/nouveau?parcours=dirigeant'
 
       expect(sign_in_forms.pluck('action')).to eq(['/auth/proconnect_dirigeant'])
       expect(hidden_value(sign_in_forms.first, 'siret_hint')).to eq('32816124500027')
     end
 
     it 'offers the executive certification even without an answer, the certification being the only way in' do
-      get '/formulaires/registre-wallet/demande/nouveau'
+      get '/demandes/registre-wallet/nouveau'
 
       expect(response.parsed_body.at_css('#wallet_registry_answer')).to be_nil
       expect(sign_in_forms.pluck('action')).to eq(['/auth/proconnect_dirigeant'])
@@ -100,7 +100,7 @@ RSpec.describe 'Sign in block of the unauthenticated starting page' do
     end
 
     it 'shows the refusal in the sign in section, under its title, before the answer' do
-      get '/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant'
+      get '/demandes/registre-wallet/nouveau?parcours=dirigeant'
 
       sign_in_section = response.parsed_body.at_css('.fr-connect-group')
 
@@ -109,15 +109,15 @@ RSpec.describe 'Sign in block of the unauthenticated starting page' do
     end
 
     it 'lets them change their answer in the eligibility tree' do
-      get '/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant'
+      get '/demandes/registre-wallet/nouveau?parcours=dirigeant'
 
       expect(response.parsed_body.at_css('#wallet_registry_change_answer')['href']).to eq('/demandes/registre_wallet/nouveau?changer_de_reponse=true')
     end
 
-    it 'brings them back to the registry, with their answer, after signing in again' do
-      get '/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant'
+    it 'brings them back to the definition page, with their answer, after the certification' do
+      get '/demandes/registre-wallet/nouveau?parcours=dirigeant'
 
-      expect(session[:return_to_after_sign_in]).to end_with('/formulaires/registre-wallet/demande/nouveau?parcours=dirigeant')
+      expect(hidden_value(sign_in_forms.first, 'return_to')).to eq('/demandes/registre_wallet/nouveau?parcours=dirigeant')
     end
   end
 

@@ -9,7 +9,7 @@ RSpec.describe 'Wallet registry start for an organization seen closed' do
 
   context 'when the INSEE data was refreshed in the last 24 hours' do
     it 'refuses the closed organization' do
-      get '/formulaires/registre-wallet/demande/nouveau'
+      get '/demandes/registre-wallet/nouveau'
 
       expect(response.parsed_body.at_css('#wallet_registry_refusal').text).to include('est fermée dans le répertoire Sirene')
     end
@@ -20,7 +20,7 @@ RSpec.describe 'Wallet registry start for an organization seen closed' do
 
     it 'refreshes the INSEE data and shows a pending check instead of a refusal' do
       expect {
-        get '/formulaires/registre-wallet/demande/nouveau'
+        get '/demandes/registre-wallet/nouveau'
       }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob).with(organization.id)
 
       refusal = response.parsed_body.at_css('#wallet_registry_refusal').text
@@ -30,9 +30,9 @@ RSpec.describe 'Wallet registry start for an organization seen closed' do
     end
 
     it 'keeps the answer in the retry link' do
-      get '/formulaires/registre-wallet/demande/nouveau?parcours=agent'
+      get '/demandes/registre-wallet/nouveau?parcours=agent'
 
-      expect(response.parsed_body.at_css('#wallet_registry_retry')['href']).to eq('/formulaires/registre-wallet/demande/nouveau?parcours=agent')
+      expect(response.parsed_body.at_css('#wallet_registry_retry')['href']).to eq('/demandes/registre-wallet/nouveau?parcours=agent')
     end
   end
 end

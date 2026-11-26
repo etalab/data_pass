@@ -3,7 +3,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   helper DemandesHabilitations::CommonHelper
   include AuthorizationRequestsFlashes
-  include WalletRegistryEntry
 
   decorates_assigned :authorization_request
 
@@ -15,7 +14,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   before_action :ensure_feature_flag_enabled, only: %i[new create]
   before_action :extract_authorization_request, only: %i[show summary update]
   before_action :extract_potential_bulk_update_notification, only: %i[summary]
-  before_action :guard_wallet_registry_start, only: %i[new create], if: :wallet_registry_form?
 
   def new
     authorize @authorization_request_form, :create?
