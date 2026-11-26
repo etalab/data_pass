@@ -185,25 +185,52 @@ RSpec.describe 'GET /auth/proconnect/callback' do
     it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
   end
 
-  {
-    'HS256 with the client secret' => [:HS256, -> { ProConnectConfig.client_secret }],
-    'ES256' => [:ES256, -> { OpenSSL::PKey::EC.generate('prime256v1').to_jwk }]
-  }.each do |description, (algorithm, key)|
-    context "when the id_token is signed in #{description}" do
-      let(:id_token) { proconnect_signed_id_token(id_token_claims, key: key.call, algorithm:) }
+  context 'when the id_token is signed in ES256' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: OpenSSL::PKey::EC.generate('prime256v1').to_jwk, algorithm: :ES256) }
 
-      it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
 
-      it 'names the received algorithm in the failure report' do
-        callback
+    it 'names the received algorithm in the failure report' do
+      callback
 
-        expect(Sentry).to have_received(:capture_message).with(
-          'OmniAuth authentication failure',
-          level: :warning,
-          extra: hash_including(error: "unexpected id_token alg #{algorithm}, expected RS256")
-        )
-      end
+      expect(Sentry).to have_received(:capture_message).with(
+        'OmniAuth authentication failure',
+        level: :warning,
+        extra: hash_including(error: 'unexpected id_token alg ES256, expected RS256/HS256')
+      )
     end
+  end
+
+  context 'when the id_token is signed in HS256 with the client secret' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: ProConnectConfig.client_secret, algorithm: :HS256) }
+
+    it 'signs the user in' do
+      callback
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+
+    it 'logs the algorithm, to see when ProConnect switches to RS256' do
+      allow(Rails.logger).to receive(:info).and_call_original
+
+      callback
+
+      expect(Rails.logger).to have_received(:info).with('[ProConnect] id_token signed with HS256')
+    end
+  end
+
+  context 'when the id_token is signed in HS256 with another secret' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: 'another-secret', algorithm: :HS256) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is signed in HS256 with the provider public key' do
+    let(:id_token) do
+      proconnect_signed_id_token(id_token_claims, key: proconnect_signing_key.to_key.public_to_pem, algorithm: :HS256)
+    end
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
   end
 
   context 'when the id_token is not signed' do
