@@ -27,6 +27,9 @@ fr:
     instructor_invalid:
       title: Instructeur invalide
       detail: Les informations de l’instructeur sont manquantes ou invalides.
+    verifier_invalid:
+      title: Vérificateur invalide
+      detail: La validation d’une demande au registre wallet doit désigner un compte DataPass qui a le rôle de vérificateur et un accès en consultation au registre.
     not_approvable_from_api:
       title: État non modifiable
       detail: Seule une demande en cours d’instruction peut être validée par API.

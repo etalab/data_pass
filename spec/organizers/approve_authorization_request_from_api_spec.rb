@@ -151,5 +151,66 @@ RSpec.describe ApproveAuthorizationRequestFromAPI do
         end
       end
     end
+
+    context 'with a wallet registry request' do
+      let(:authorization_request) { create(:authorization_request, :registre_wallet, :submitted, data: { 'service_name' => 'Service de test' }) }
+      let(:roles) { %w[dinum:registre_wallet:verifier] }
+      let!(:instructor) { create(:user, roles:) }
+
+      context 'when the designated person is a verifier with read access' do
+        let(:roles) { %w[dinum:registre_wallet:reporter dinum:registre_wallet:verifier] }
+
+        it 'validates the request in their name' do
+          expect { approve_from_api }.to change { authorization_request.reload.state }.from('submitted').to('validated')
+          expect(authorization_request.events.find_by(name: 'approve').user).to eq(instructor)
+        end
+      end
+
+      context 'when the designated person is an admin and a verifier' do
+        let(:roles) { %w[admin dinum:registre_wallet:verifier] }
+
+        it { is_expected.to be_success }
+      end
+
+      {
+        'an instructor without the verifier role' => %w[dinum:registre_wallet:instructor],
+        'a wildcard manager without the verifier role' => %w[dinum:*:manager],
+        'a verifier without read access' => %w[dinum:registre_wallet:verifier],
+      }.each do |description, refused_roles|
+        context "when the designated person is #{description}" do
+          let(:roles) { refused_roles }
+
+          it 'fails with the invalid verifier error' do
+            expect(approve_from_api.error[:key]).to eq(:verifier_invalid)
+            expect(authorization_request.reload.state).to eq('submitted')
+          end
+        end
+      end
+
+      context 'when the verifier is banned' do
+        let(:roles) { %w[dinum:*:reporter dinum:registre_wallet:verifier] }
+
+        before { instructor.update!(banned_at: Time.zone.now, ban_reason: 'Test') }
+
+        it 'fails with the invalid verifier error' do
+          expect(approve_from_api.error[:key]).to eq(:verifier_invalid)
+        end
+      end
+
+      context 'with an email which does not match any account' do
+        let(:roles) { %w[dinum:*:reporter dinum:registre_wallet:verifier] }
+        let(:instructor_email) { 'inconnu@gouv.fr' }
+
+        it 'fails with the invalid verifier error' do
+          expect(approve_from_api.error[:key]).to eq(:verifier_invalid)
+        end
+      end
+
+      it 'explains the refusal on the designated email' do
+        error = APIErrorsFacade.new({ key: :verifier_invalid }).errors.first
+
+        expect(error).to include(title: 'Vérificateur invalide', source: { pointer: '/instructeur/email' })
+      end
+    end
   end
 end

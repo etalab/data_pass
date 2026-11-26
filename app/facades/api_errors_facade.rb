@@ -1,7 +1,7 @@
 class APIErrorsFacade
   DEFAULT_STATUS = 422
   STATUS_OVERRIDES = { unauthorized_type: 403, not_created_by_api: 403 }.freeze
-  FIXED_SOURCE_POINTERS = { instructor_invalid: '/instructeur/email' }.freeze
+  FIXED_SOURCE_POINTERS = { instructor_invalid: '/instructeur/email', verifier_invalid: '/instructeur/email' }.freeze
   GENERIC_KEY = :generic
 
   attr_reader :status, :errors
