@@ -1,5 +1,6 @@
 require 'omniauth-oauth2'
 require 'omniauth/proconnect'
+require Rails.root.join('lib/omniauth/failure_reporter').to_s
 
 module ProConnectConfig
   module_function
@@ -149,5 +150,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   )
 end
 
+OmniAuth.config.on_failure = OmniAuth::FailureReporter
 OmniAuth.config.test_mode = Rails.env.test?
 OmniAuth.config.logger = Rails.logger
