@@ -16,8 +16,7 @@ module WalletRegistryHelper
   def wallet_executive_certified(authorization_request)
     return if authorization_request.identity_public_sector.nil? || authorization_request.wallet_public_sector? || !FeatureFlag.enabled?(:proconnect_dirigeant)
 
-    dirigeant_verification = pundit_user.dirigeant_verification
-    dirigeant_verification.present? && dirigeant_verification.valid_for?(user: current_user, organization: authorization_request.organization)
+    current_user.organizations_users.certified_dirigeant.exists?(organization: authorization_request.organization)
   end
 
   def wallet_registry_commitment_label(authorization_request)

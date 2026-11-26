@@ -88,8 +88,8 @@ Sachantque('j’ai un brouillon du registre wallet dont l’identité n’a pas 
   FactoryBot.create(:authorization_request, :registre_wallet, applicant: user, organization: user.current_organization, identity_source: 'sirene_unavailable')
 end
 
-Quand('ma certification de dirigeant expire') do
-  travel(DirigeantVerificationFact::VALIDITY + 1.minute)
+Quand('ma certification de dirigeant est retirée') do
+  current_user!.organizations_users.find_each { |organizations_user| organizations_user.update!(dirigeant_verified_at: nil) }
 end
 
 Quand('je reprends mon brouillon du registre wallet') do
@@ -101,7 +101,7 @@ Quand('je démarre une demande au registre wallet') do
     step 'je me rends sur la page de démarrage du registre wallet en répondant "le dirigeant d’une entreprise"'
     click_on 'S’identifier avec ProConnect'
   else
-    visit new_authorization_request_form_path(form_uid: 'registre-wallet')
+    visit authorization_request_form_introduction_path(form_uid: 'registre-wallet')
   end
   click_on 'Débuter ma demande'
 end

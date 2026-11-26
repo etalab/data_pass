@@ -49,7 +49,7 @@ RSpec.describe 'Wallet registry, step « L’organisation »' do
     end
 
     it 'goes back to the introduction with « Précédent »' do
-      expect(Capybara.string(response.body)).to have_link('Précédent', href: new_authorization_request_form_path(form_uid: 'registre-wallet'))
+      expect(Capybara.string(response.body)).to have_link('Précédent', href: authorization_request_form_introduction_path(form_uid: 'registre-wallet'))
     end
   end
 
@@ -147,7 +147,7 @@ RSpec.describe 'Wallet registry, step « L’organisation »' do
     it 'goes back to the introduction with the success message' do
       archive
 
-      expect(response).to redirect_to(new_authorization_request_form_path(form_uid: 'registre-wallet'))
+      expect(response).to redirect_to(authorization_request_form_introduction_path(form_uid: 'registre-wallet'))
       follow_redirect!
       expect(response.body).to include('La demande « Enregistrement d’une partie utilisatrice » a été supprimée avec succès')
     end

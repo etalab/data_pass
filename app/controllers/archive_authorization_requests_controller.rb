@@ -25,7 +25,7 @@ class ArchiveAuthorizationRequestsController < AuthenticatedUserController
 
   def after_archive_path
     if @authorization_request.definition.feature?(:return_to_introduction_after_archive)
-      new_authorization_request_form_path(form_uid: @authorization_request.form_uid)
+      authorization_request_form_introduction_path(form_uid: @authorization_request.form_uid)
     else
       dashboard_path
     end

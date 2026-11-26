@@ -30,12 +30,12 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Alors la page contient "Certifié dirigeant par ProConnect"
     Et la page ne contient pas "Vérification de dirigeant à faire"
 
-  Scénario: Une certification de dirigeant expirée est signalée dans le bloc, avec de quoi la refaire
+  Scénario: Une certification de dirigeant retirée est signalée dans le bloc, avec de quoi la refaire
     Sachant que je suis un demandeur d'une entreprise
     Et que je me connecte
     Quand je démarre une demande au registre wallet
     Et je clique sur "Enregistrer"
-    Et ma certification de dirigeant expire
+    Et ma certification de dirigeant est retirée
     Et je clique sur "Mettre à jour les informations de l’organisation"
     Alors la page contient "Quelle organisation enregistrez-vous ?"
     Et la page contient "Vérification de dirigeant à faire"
