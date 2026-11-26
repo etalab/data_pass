@@ -2,9 +2,7 @@ module Authentication::SessionLifecycle
   SESSION_MAX_DURATION = 12.hours
 
   ROTATION_PRESERVED_KEYS = %w[
-    omniauth.pc.access_token
     omniauth.pc.id_token
-    omniauth.pc.refresh_token
     return_to_after_sign_in
   ].freeze
 

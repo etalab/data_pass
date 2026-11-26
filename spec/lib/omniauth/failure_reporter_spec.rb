@@ -7,7 +7,7 @@ RSpec.describe OmniAuth::FailureReporter do
     Rack::MockRequest.env_for('/auth/proconnect/callback').merge(
       'omniauth.error.type' => :invalid_id_token,
       'omniauth.error' => StandardError.new('invalid nonce'),
-      'omniauth.error.strategy' => instance_double(OmniAuth::Strategies::Proconnect, name: 'proconnect', path_prefix: '/auth')
+      'omniauth.error.strategy' => instance_double(OmniAuth::Strategies::DataPassProconnect, name: 'proconnect', path_prefix: '/auth')
     )
   end
 
