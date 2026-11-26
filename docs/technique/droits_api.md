@@ -22,6 +22,8 @@ authorize definition, :submit?, policy_class: APIAccessPolicy
 
 `POST /api/v1/demandes/:id/valider` (`API::V1::AuthorizationRequestsController#validate`) applique `APIAccessPolicy#validate?` puis appelle `ApproveAuthorizationRequestFromAPI`. Cet organizer vérifie que `instructeur.email` désigne un instructeur du type, puis que la demande est `submitted` et approuvable par cet instructeur selon `Instruction::AuthorizationRequestPolicy#approve?` (la même règle que dans l’interface, restreinte par l’API aux demandes `submitted`), puis délègue à `ApproveAuthorizationRequest` avec cet instructeur comme `user` : les effets sont donc ceux de la validation dans l’interface.
 
+**Exception du registre wallet.** Pour ce type, `instructeur.email` désigne un vérificateur : un compte non banni qui a le rôle exact `dinum:registre_wallet:verifier` et un accès en consultation au registre (rôle d’instruction, rôle `dinum:*` ou administrateur). Un rôle d’instructeur ou de manager ne suffit pas, et un vérificateur sans accès en consultation est refusé, comme dans l’interface. La réponse est alors une `422` « Vérificateur invalide » (`verifier_invalid`).
+
 L’origine par API est portée par `authorization_request_events.api_application_name` (nom recopié, sans clé étrangère), alimenté par `context.api_application_name`. L’événement garde le nom `approve` : aucun événement `approve_by_api` n’est émis, pour ne pas modifier les abonnements webhook. `HistoricalAuthorizationRequestEventComponent` affiche la clé `message_summary_by_api` quand le nom d’application est présent.
 
 ## Soumission par API

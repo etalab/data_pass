@@ -306,7 +306,7 @@ request.body = {
 }.to_json
 ```
 
-- `instructeur.email` désigne un compte DataPass existant qui a le rôle d'instructeur sur ce type. Une personne nommément identifiée doit porter la responsabilité de la décision.
+- `instructeur.email` désigne un compte DataPass existant qui a le rôle d'instructeur sur ce type. Une personne nommément identifiée doit porter la responsabilité de la décision. Pour le registre wallet, voir [l'exception du registre](#valider-une-demande).
 - Seules les demandes `submitted` sont validables par API. Le refus, la demande de modification et la révocation restent dans l'interface DataPass.
 - La validation a les mêmes effets qu'une validation dans l'interface (habilitation créée, anciennes habilitations `obsolete`, passerelles, webhook `approve`). La réponse contient la demande avec l'habilitation active dans `habilitations`.
 
@@ -408,6 +408,7 @@ curl -X POST https://datapass.api.gouv.fr/api/v1/demandes/123/valider \
 ```
 
 - `instructeur.email` (obligatoire) : adresse d’un compte DataPass existant qui a le rôle d’instructeur sur le type de la demande.
+- **Registre wallet** : `instructeur.email` doit désigner une personne qui a le rôle de vérificateur du registre et un accès en consultation à celui-ci. Un rôle d’instructeur ou de manager ne suffit pas. Sinon, la réponse est une erreur `422` « Vérificateur invalide ».
 - `message` (facultatif) : message de validation, comme dans l’interface.
 
 La validation produit **exactement les mêmes effets** qu’une validation dans l’interface : création de l’habilitation, passage des habilitations précédentes en « Obsolète » pour une mise à jour, passerelles, webhook `approve` et habilitation FranceConnect liée le cas échéant. La réponse `200` contient la demande à jour (état `validated`) avec l’habilitation active dans `habilitations`.
