@@ -374,7 +374,7 @@ authorization_request_forms:
 
 ### Personnalisation du démarrage
 
-S'il n'y a qu'un seul formulaire associé à la définition, alors on redirige directement vers le `new` du formulaire, c'est-à-dire `/formulaires/:form_uid/demande/nouveau`.
+S'il n'y a qu'un seul formulaire associé à la définition, alors on redirige directement vers l'introduction du formulaire (`AuthorizationRequestForms::IntroductionsController#show`), c'est-à-dire `/formulaires/:form_uid/demande/nouveau`.
 
 S'il y a plusieurs formulaires il y a par défaut la liste de formulaires générique de `authorization_requests/new/default.html.erb`. Il est possible de personnaliser cette page afin par exemple d'effectuer de l'aiguillage.
 

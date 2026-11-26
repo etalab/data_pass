@@ -36,7 +36,7 @@
 
         </div>
         <div class="fr-header__tools">
-          <%= render partial: public_header? ? 'layouts/header/public_tools' : 'layouts/header/tools' %>
+          <%= render partial: public_header? ? 'layouts/header/public_tools' : 'layouts/header/tools' unless wallet_registry_public_header? %>
         </div>
       </div>
     </div>

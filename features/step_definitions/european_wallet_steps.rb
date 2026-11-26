@@ -1,10 +1,9 @@
 Sachantque('le registre du portefeuille européen est ouvert') do
-  @registry_open_before_scenario = ENV.fetch('EUROPEAN_WALLET_REGISTRY_OPEN', nil)
-  ENV['EUROPEAN_WALLET_REGISTRY_OPEN'] = 'true'
+  Setting.set(:european_wallet_registry_open, 'true')
 end
 
 After('@registre_ouvert') do
-  ENV['EUROPEAN_WALLET_REGISTRY_OPEN'] = @registry_open_before_scenario
+  Setting.invalidate_cache!
 end
 
 Alors('le fil d’Ariane mène de « {} » à « {} »') do |home, current|

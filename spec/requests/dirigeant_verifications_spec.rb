@@ -12,6 +12,8 @@ RSpec.describe 'Dirigeant verification' do
     )
   end
 
+  let(:organization_link) { user.organizations_users.find_by(organization: user.current_organization) }
+
   before { OmniAuth.config.mock_auth[:proconnect_dirigeant] = dirigeant_payload }
 
   after { OmniAuth.config.mock_auth[:proconnect_dirigeant] = nil }
@@ -30,13 +32,36 @@ RSpec.describe 'Dirigeant verification' do
       expect(session.id.to_s).to eq(session_id)
     end
 
-    it 'shows the result without persisting anything' do
+    it 'shows the result without touching the user nor the organization' do
       expect {
         get '/auth/proconnect_dirigeant/callback'
         follow_redirect!
       }.not_to(change { [user.reload.updated_at, user.current_organization.reload.updated_at] })
 
       expect(response.body).to include('ProConnect certifie que vous êtes dirigeant de cette entreprise.')
+    end
+
+    it 'dates the certification on the link between the user and the current organization' do
+      freeze_time do
+        get '/auth/proconnect_dirigeant/callback'
+
+        expect(organization_link.reload.dirigeant_verified_at).to eq(Time.zone.now)
+      end
+    end
+
+    it 'revokes a previous certification when ProConnect does not certify' do
+      get '/auth/proconnect_dirigeant/callback'
+      dirigeant_payload.extra.acr = 'eidas1-mfa'
+      get '/auth/proconnect_dirigeant/callback'
+
+      expect(organization_link.reload.dirigeant_verified_at).to be_nil
+    end
+
+    it 'keeps a previous certification when the ProConnect account is not the signed-in one' do
+      get '/auth/proconnect_dirigeant/callback'
+      dirigeant_payload.uid = 'autre-sub'
+
+      expect { get '/auth/proconnect_dirigeant/callback' }.not_to(change { organization_link.reload.dirigeant_verified_at })
     end
 
     it 'sends the user back to the page given as return_to' do

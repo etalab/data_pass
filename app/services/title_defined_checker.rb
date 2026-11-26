@@ -3,7 +3,7 @@ class TitleDefinedChecker
 
   WHITELISTED_ROUTES = %w[
     archive_authorization_requests#new
-    authorization_request_forms#new
+    authorization_request_forms/introductions#show
     authorization_requests#new
     cancel_authorization_reopenings#new
     cancel_next_authorization_request_stage#new

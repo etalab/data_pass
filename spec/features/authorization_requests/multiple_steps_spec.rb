@@ -14,7 +14,7 @@ RSpec.describe 'Authorization request with multiple steps' do
   describe 'new habilitation' do
     describe 'click on start' do
       subject(:start_new_habilitation) do
-        visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
+        visit authorization_request_form_introduction_path(form_uid: authorization_request_form.uid)
 
         click_link_or_button dom_id(authorization_request_form, :start_authorization_request)
       end

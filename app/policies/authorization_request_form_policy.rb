@@ -7,6 +7,8 @@ class AuthorizationRequestFormPolicy < ApplicationPolicy
     creation_rules.creation_violation.nil?
   end
 
+  delegate :access_violation, :applicant_eligibility, to: :creation_rules
+
   private
 
   def creation_rules

@@ -21,6 +21,15 @@ RSpec.describe 'Stats' do
       expect(json_response).to have_key('types')
       expect(json_response['types']).to be_an(Array)
     end
+
+    it 'leaves out the types whose feature flag is off' do
+      allow(FeatureFlag).to receive(:enabled?).and_call_original
+      allow(FeatureFlag).to receive(:enabled?).with('registre_wallet').and_return(false)
+
+      get stats_filters_path
+
+      expect(response.parsed_body['types'].pluck('class_name')).not_to include('AuthorizationRequest::RegistreWallet')
+    end
   end
 
   describe 'GET /stats/data' do

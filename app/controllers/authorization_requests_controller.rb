@@ -4,28 +4,19 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   allow_unauthenticated_access only: %i[new show]
 
-  before_action :find_authorization_definition, only: %i[new]
+  before_action :find_enabled_authorization_definition, only: %i[new]
   before_action :set_facade, only: %i[new]
   before_action :find_eligibility_rule, only: %i[new]
 
   decorates_assigned :eligibility_rule
 
   def new
-    if user_signed_in?
-      authorize @authorization_definition, :new?
+    return render_eligibility_check if eligibility_check_pending?
+    return render_sign_in unless user_signed_in?
 
-      custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
+    authorize @authorization_definition, :new?
 
-      if template_exists?(custom_template_path)
-        render custom_template_path
-      elsif @authorization_definition.public_available_forms.many?
-        render 'authorization_requests/new/default', layout: 'form_introduction'
-      else
-        redirect_to new_authorization_request_form_path(form_uid: @authorization_definition.public_available_forms.first.id)
-      end
-    else
-      new_as_guest_user
-    end
+    render_form_choice
   rescue Pundit::NotAuthorizedError
     render_refusal
   end
@@ -47,13 +38,20 @@ class AuthorizationRequestsController < AuthenticatedUserController
   private
 
   def render_refusal
+    return render custom_refusal_template if template_exists?(custom_refusal_template)
     raise unless current_organization&.closed?
 
     render 'closed_organization'
   end
 
-  def find_authorization_definition
+  def custom_refusal_template
+    "authorization_requests/refusals/#{@authorization_definition.id}"
+  end
+
+  def find_enabled_authorization_definition
     @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+
+    raise ActiveRecord::RecordNotFound unless @authorization_definition.feature_flag_enabled?
   rescue StaticApplicationRecord::EntryNotFound
     raise ActiveRecord::RecordNotFound, "AuthorizationDefinition with id '#{id_sanitized}' not found"
   end
@@ -82,16 +80,57 @@ class AuthorizationRequestsController < AuthenticatedUserController
     render 'pages/connexion'
   end
 
-  def new_as_guest_user
-    @authorization_definition = AuthorizationDefinition.find(id_sanitized)
-    save_redirect_path
+  def eligibility_check_pending?
+    return false if @eligibility_rule.nil?
+
+    changing_answer? || (!user_signed_in? && params[:eligibility_confirmed] != 'true')
+  end
+
+  def changing_answer?
+    params[:changer_de_reponse] == 'true'
+  end
+
+  def render_eligibility_check
+    remember_page_for_sign_in unless user_signed_in?
     @display_provider_logo_in_header = true
 
-    if @eligibility_rule && params[:eligibility_confirmed] != 'true'
-      render 'authorization_requests/eligibility_check'
+    render 'authorization_requests/eligibility_check'
+  end
+
+  def render_sign_in
+    remember_page_for_sign_in
+    @display_provider_logo_in_header = true
+
+    render 'authorization_requests/unauthenticated_start'
+  end
+
+  def remember_page_for_sign_in
+    save_redirect_path unless requested_form
+  end
+
+  def render_form_choice
+    if requested_form
+      redirect_to_introduction(requested_form)
+    elsif template_exists?(custom_form_choice_template)
+      render custom_form_choice_template
+    elsif @authorization_definition.public_available_forms.many?
+      render 'authorization_requests/new/default', layout: 'form_introduction'
     else
-      render 'authorization_requests/unauthenticated_start'
+      redirect_to_introduction(@authorization_definition.public_available_forms.first)
     end
+  end
+
+  def requested_form
+    @authorization_definition.available_forms.find { |form| form.id == params[:formulaire] }
+  end
+
+  def custom_form_choice_template
+    "authorization_requests/new/#{@authorization_definition.id}"
+  end
+
+  def redirect_to_introduction(form)
+    flash.keep
+    redirect_to authorization_request_form_introduction_path(form_uid: form.id)
   end
 
   def id_sanitized

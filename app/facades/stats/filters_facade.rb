@@ -19,7 +19,7 @@ class Stats::FiltersFacade
   def types_list
     providers_by_slug = providers.index_by(&:slug)
 
-    AuthorizationDefinition.all.map do |definition|
+    AuthorizationDefinition.all.select(&:feature_flag_enabled?).map do |definition|
       provider = providers_by_slug[definition.provider_slug]
 
       {

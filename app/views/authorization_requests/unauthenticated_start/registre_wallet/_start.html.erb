@@ -1,0 +1,70 @@
+<% support_email = @authorization_definition.support_email %>
+<% start = wallet_registry_start(@authorization_definition) %>
+<% refusal = start.refusal %>
+<% set_title! t('.page_title') %>
+
+<p>
+  <%= t('.sub_title_html') %>
+</p>
+
+<ol class="fr-sr-only" id="wallet_registry_steps_list">
+  <li><%= t('.steps.identification') %></li>
+  <li><%= t('.steps.declaration') %></li>
+  <li><%= t('.steps.verification') %> (<%= t('.verification_delay') %>)</li>
+  <li><%= t('.steps.certificates') %></li>
+</ol>
+
+<div class="steps-timeline" id="wallet_registry_steps" aria-hidden="true">
+  <div class="next-steps">
+    <% { identification: 'digital/avatar', declaration: 'document/document-add', verification: 'digital/search', certificates: 'document/document-download' }.each do |step, pictogram| %>
+      <div>
+        <div>
+          <%= render Atoms::PictogramComponent.new(name: pictogram) %>
+        </div>
+        <div><%= t(".steps.#{step}") %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="timeline">
+    <% 4.times do |index| %>
+      <div>
+        <div class="step"></div>
+        <% if index == 1 %>
+          <div class="time-indication"><%= t('.verification_delay') %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="fr-connect-group">
+  <h2 class="fr-h6"><%= t('.sign_in_title') %></h2>
+
+  <% if refusal.present? %>
+    <div class="fr-alert fr-alert--error fr-mb-3w" role="alert" id="wallet_registry_refusal" tabindex="-1" autofocus>
+      <h3 class="fr-alert__title"><%= t(".refusals.#{refusal}.title", default: t('.refusals.default.title')) %></h3>
+      <p>
+        <%= t(".refusals.#{refusal}.description",
+          default: t('.refusals.default.description'),
+          organization_name: current_organization&.name,
+          support_email:) %>
+      </p>
+      <% if refusal == :organization_check_pending %>
+        <p><%= link_to t('.refusals.organization_check_pending.retry'), request.fullpath, class: 'fr-link', id: 'wallet_registry_retry' %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if start.answer %>
+    <p class="fr-text--md fr-mb-2w" id="wallet_registry_answer"><%= t(".answers.#{start.answer_key}") %></p>
+  <% end %>
+
+  <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect', locals: start.pro_connect_locals(return_to: wallet_registry_return_path(@authorization_definition, start)) %>
+
+  <p class="fr-mb-0">
+    <%= link_to t('.change_answer'), wallet_registry_change_answer_path(@authorization_definition), class: 'fr-link', id: 'wallet_registry_change_answer' %>
+  </p>
+</div>

@@ -12,9 +12,15 @@ RSpec.describe EligibilityRule do
   describe 'rules of db/data/eligibility_rules.yml' do
     let(:options) { described_class.all.flat_map(&:options) }
 
-    it 'gives each option a known result and a pictogram' do
+    it 'gives each option a known result and an existing pictogram' do
       expect(options.map(&:eligible)).to all(be_in(%w[yes no maybe]))
-      expect(options.map(&:type).uniq).to all(satisfy { |type| I18n.exists?("eligibility.pictograms.#{type}") })
+
+      options.map(&:type).uniq.each do |type|
+        pictogram = I18n.t("eligibility.pictograms.#{type}", default: nil)
+
+        expect(pictogram).to be_present, "#{type} n’a pas de pictogramme dans eligibility.pictograms"
+        expect(Rails.application.assets.resolver.resolve("artwork/pictograms/#{pictogram}.svg")).to be_present, "#{pictogram}.svg introuvable"
+      end
     end
 
     it 'does not repeat an option type within a rule' do

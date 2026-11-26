@@ -45,6 +45,13 @@ Quand('je me rends sur la page de vérification de dirigeant') do
   visit dirigeant_verification_path
 end
 
+Quand('je quitte DataPass puis m’y reconnecte') do
+  Capybara.reset_sessions!
+  steps %(
+    Quand je me connecte
+  )
+end
+
 After do
   OmniAuth.config.mock_auth[:proconnect_dirigeant] = nil
 end

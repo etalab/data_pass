@@ -23,6 +23,7 @@ class Setting < ApplicationRecord
     piste_api_name: { type: :string, env: 'PISTE_API_NAME', default: 'CaptchEtat v2' },
     proconnect_dirigeant_open: { type: :enabled_if_true, env: 'PROCONNECT_DIRIGEANT_OPEN', default: false },
     proconnect_id_token_signature_check: { type: :enabled_unless_false, env: 'PROCONNECT_ID_TOKEN_SIGNATURE_CHECK', default: true },
+    european_wallet_registry_open: { type: :enabled_if_true, env: 'EUROPEAN_WALLET_REGISTRY_OPEN', default: false },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze

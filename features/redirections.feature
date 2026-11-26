@@ -2,25 +2,37 @@
 
 Fonctionnalité: Démarrage d'habilitation par des internautes
 
+  @javascript
   Scénario:  Un internaute veut remplir une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
+    Alors le titre principal de la page contient "Vérifiez votre éligibilité"
+    Quand je choisis "Une entité publique ou un organisme privé investi d’une mission de service public"
+    Et je clique sur "Demander l'accès aux données"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
     Et la page contient "Vous souhaitez accéder à l’API Entreprise"
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec ProConnect"
 
+  @javascript
   Scénario:  Un internaute veut remplir une demande d'habilitation API Entreprise via le formulaire "Marchés publics"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Marchés publics"
+    Alors le titre principal de la page contient "Vérifiez votre éligibilité"
+    Quand je choisis "Une entité publique ou un organisme privé investi d’une mission de service public"
+    Et je clique sur "Demander l'accès aux données"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
     Et la page contient "Vous souhaitez accéder à l’API Entreprise"
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec ProConnect"
 
+  @javascript
   Scénario:  Un internaute veut démarrer une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
+    Alors le titre principal de la page contient "Vérifiez votre éligibilité"
+    Quand je choisis "Une entité publique ou un organisme privé investi d’une mission de service public"
+    Et je clique sur "Demander l'accès aux données"
     Alors je clique sur "S’identifier avec ProConnect"
     Alors je suis sur la page "Demander une habilitation à : API Entreprise"
     Et la page contient "DUPONT Jean"

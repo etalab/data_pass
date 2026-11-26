@@ -1,0 +1,17 @@
+registre_wallet:
+  name: "Registre des parties utilisatrices du wallet"
+  description: "Enregistrer une organisation comme partie utilisatrice du portefeuille européen d’identité numérique."
+  provider: "dinum"
+  kind: 'service'
+  support_email: "datapass@api.gouv.fr"
+  public: false
+  startable_by_applicant: true
+  unique: false
+  feature_flag: registre_wallet
+  applicant_eligibility: wallet_registry
+  features:
+    submission: false
+    reopening: false
+    instructor_drafts: false
+  blocks:
+    - name: "wallet_organization"

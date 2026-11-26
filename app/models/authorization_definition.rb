@@ -5,7 +5,13 @@ class AuthorizationDefinition < StaticApplicationRecord
     reopening: true,
     transfer: true,
     instructor_drafts: false,
+    submission: true,
   }.freeze
+
+  CONFIGURATION_ATTRIBUTES = %i[
+    name description link cgu_link access_link support_email public kind
+    startable_by_applicant unique feature_flag applicant_eligibility
+  ].freeze
 
   attr_accessor :id,
     :name,
@@ -19,7 +25,9 @@ class AuthorizationDefinition < StaticApplicationRecord
     :blocks,
     :features,
     :stage,
-    :provider_slug
+    :provider_slug,
+    :feature_flag,
+    :applicant_eligibility
 
   attr_writer :startable_by_applicant,
     :public,
@@ -66,18 +74,7 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def self.build(uid, hash)
     new(
-      hash.slice(
-        :name,
-        :description,
-        :link,
-        :cgu_link,
-        :access_link,
-        :support_email,
-        :public,
-        :kind,
-        :startable_by_applicant,
-        :unique,
-      ).merge(
+      hash.slice(*CONFIGURATION_ATTRIBUTES).merge(
         id: uid.to_s,
         provider_slug: hash[:provider],
         stage: Stage.new(hash[:stage]),
@@ -178,7 +175,18 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def startable_by_applicant
-    value_or_default(@startable_by_applicant, true)
+    value_or_default(@startable_by_applicant, true) &&
+      feature_flag_enabled?
+  end
+
+  def wallet_registry?
+    applicant_eligibility == 'wallet_registry'
+  end
+
+  def feature_flag_enabled?
+    return true if feature_flag.blank?
+
+    FeatureFlag::RULES.key?(feature_flag.to_sym) && FeatureFlag.enabled?(feature_flag)
   end
 
   def multi_stage?

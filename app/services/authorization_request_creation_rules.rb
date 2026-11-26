@@ -40,7 +40,15 @@ class AuthorizationRequestCreationRules
     return :applicant_banned if applicant_known_and_banned?
     return :form_not_startable unless startable?
 
-    :organization_closed unless organization_active?
+    return :organization_closed unless organization_active?
+
+    applicant_eligibility_violation
+  end
+
+  def applicant_eligibility
+    return unless wallet_registry_eligibility_required?
+
+    WalletRegistryEligibility.new(organization:, applicant:)
   end
 
   def startable?
@@ -60,6 +68,14 @@ class AuthorizationRequestCreationRules
   private
 
   attr_reader :definition, :organization, :applicant
+
+  def applicant_eligibility_violation
+    applicant_eligibility&.violation
+  end
+
+  def wallet_registry_eligibility_required?
+    definition.wallet_registry? && applicant.present?
+  end
 
   def applicant_known_and_banned?
     applicant.present? && applicant.banned?

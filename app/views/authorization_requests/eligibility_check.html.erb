@@ -1,10 +1,14 @@
-<% set_title! t('page_titles.eligibility_check', definition_name: @authorization_definition.name) %>
+<% set_title!(eligibility_rule.title || t('page_titles.eligibility_check', definition_name: @authorization_definition.name)) %>
 
 <div class="fr-container fr-mt-8w fr-mb-5w">
-  <h1 class="fr-h2">
-    <%= t('eligibility.title') %><br>
-    <span class="fr-text--lead fr-text--regular"><%= @authorization_definition.name %></span>
-  </h1>
+  <% if eligibility_rule.title %>
+    <h1 class="fr-h2"><%= eligibility_rule.title %></h1>
+  <% else %>
+    <h1 class="fr-h2">
+      <%= t('eligibility.title') %><br>
+      <span class="fr-text--lead fr-text--regular"><%= @authorization_definition.name %></span>
+    </h1>
+  <% end %>
 
   <% if eligibility_rule.lead %>
     <p class="fr-text--lead">

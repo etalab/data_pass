@@ -1,0 +1,8 @@
+registre-wallet:
+  authorization_request: RegistreWallet
+  name: Enregistrement d’une partie utilisatrice
+  introduction: |
+    <p>Pour demander des données au wallet d’un usager, votre organisation doit d’abord être enregistrée. Une demande porte sur un seul service. Le registre vérifie votre organisation ; les finalités et les données demandées sont publiées telles que déclarées, sans autorisation préalable.</p>
+    <p>Si votre service passe par un intermédiaire, vous ne pouvez pas encore l’enregistrer : écrivez au support du registre à <a class="fr-link" href="mailto:datapass@api.gouv.fr">datapass@api.gouv.fr</a>.</p>
+  steps:
+    - name: wallet_organization

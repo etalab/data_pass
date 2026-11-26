@@ -62,7 +62,7 @@
         <% if option.shows_request_access_button? %>
           <div class='fr-mt-3w'>
             <%= link_to eligibility_rule.request_access_label,
-              eligibility_rule.request_access_path(option),
+              eligibility_rule.request_access_path(option, formulaire: params[:formulaire]),
               class: 'fr-btn' %>
           </div>
         <% elsif option.shows_custom_cta? %>
