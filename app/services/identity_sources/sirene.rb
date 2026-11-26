@@ -66,7 +66,7 @@ class IdentitySources::Sirene
   def public_sector
     classification = PublicSectorClassification.new(organization)
 
-    classification.public?.to_s if classification.known?
+    classification.public_sector?.to_s if classification.known?
   end
 
   def address
