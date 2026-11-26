@@ -46,6 +46,10 @@ FactoryBot.define do
       end
     end
 
+    trait :wallet_verifier do
+      after(:build) { |user| user.grant_role(:verifier, 'registre_wallet') }
+    end
+
     trait :admin do
       after(:build, &:grant_admin_role)
     end

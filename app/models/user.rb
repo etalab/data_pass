@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include NotificationsSettings
   include UserRoles
 
-  ROLES = %w[reporter instructor manager developer].freeze
+  ROLES = %w[reporter instructor manager developer verifier].freeze
 
   validates :email,
     presence: true,

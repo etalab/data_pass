@@ -4,6 +4,7 @@ module RoleHierarchy
     instructor: %i[reporter],
     developer: %i[reporter],
     reporter: [],
+    verifier: [],
   }.freeze
 
   def self.qualifying_roles(kind)

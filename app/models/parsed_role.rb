@@ -12,6 +12,7 @@ ParsedRole = Data.define(:provider_slug, :definition_id, :role) do
     parsed = parse(role_string)
     return false unless parsed.role
     return true if parsed.admin?
+    return role_string == UserRoles::WALLET_REGISTRY_VERIFIER_ROLE if parsed.role == 'verifier'
     return false unless User::ROLES.include?(parsed.role)
 
     parsed.valid_definition?
