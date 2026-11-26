@@ -1,6 +1,7 @@
 require 'omniauth-oauth2'
 require 'omniauth/proconnect'
 require Rails.root.join('lib/omniauth/strategies/data_pass_proconnect').to_s
+require Rails.root.join('lib/omniauth/strategies/proconnect_dirigeant').to_s
 require Rails.root.join('lib/omniauth/failure_reporter').to_s
 
 module ProConnectConfig
@@ -33,8 +34,22 @@ module ProConnectConfig
     "#{host}/auth/proconnect/callback"
   end
 
+  def dirigeant_redirect_uri
+    "#{host}/auth/proconnect_dirigeant/callback"
+  end
+
   def scope
     'openid given_name usual_name email uid idp_id siret phone'
+  end
+
+  def dirigeant_options
+    {
+      client_id:,
+      client_secret:,
+      proconnect_domain: domain,
+      redirect_uri: dirigeant_redirect_uri,
+      scope:
+    }
   end
 end
 
@@ -98,6 +113,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       scope: ProConnectConfig.scope
     }
   )
+
+  provider(:proconnect_dirigeant, ProConnectConfig.dirigeant_options)
 end
 
 OmniAuth.config.on_failure = OmniAuth::FailureReporter
