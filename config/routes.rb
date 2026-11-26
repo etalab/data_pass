@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'connexion', to: 'pages#connexion', as: :connexion
 
-  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/:provider/callback', to: 'sessions#create', constraints: { provider: /proconnect|mon_compte_pro/ }
   get 'auth/failure', to: 'sessions#failure'
 
   get 'local-sign-in', to: 'authenticated_user#bypass_login' unless Rails.env.production?
