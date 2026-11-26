@@ -48,7 +48,10 @@ RSpec.describe 'Authorization requests access' do
           create(:authorization_request, :portail_hubee_demarche_certdc, organization: user.current_organization)
         end
 
-        it_behaves_like 'an unauthorized access'
+        it 'sends the applicant back to the definition page, which explains how to go on' do
+          expect(new_authorization_request).to redirect_to(new_authorization_request_path(definition_id: 'hubee_cert_dc'))
+          expect(flash[:error]).to include(title: I18n.t('application.user_not_authorized.title'))
+        end
       end
     end
   end

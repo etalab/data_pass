@@ -50,7 +50,7 @@ RSpec.describe 'Sign in block of the unauthenticated starting page' do
   end
 
   it 'keeps the usual ProConnect button alone for any other form' do
-    get '/formulaires/api-entreprise/demande/nouveau'
+    get '/demandes/api-entreprise/nouveau?eligibility_confirmed=true&formulaire=api-entreprise'
 
     expect(response.body).to include('Bienvenue sur DataPass !', 'login_pro_connect')
     expect(response.body).not_to include('wallet_registry_answer', 'wallet_registry_refusal')

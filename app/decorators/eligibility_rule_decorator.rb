@@ -3,12 +3,13 @@ class EligibilityRuleDecorator < ApplicationDecorator
 
   decorates_association :options, with: EligibilityOptionDecorator
 
-  def request_access_path(option = nil)
+  def request_access_path(option = nil, formulaire: nil)
     h.new_authorization_request_path(
       **option_request_access_params(option),
       definition_id: definition_id,
       eligibility_confirmed: true,
-      use_case: option&.use_case
+      use_case: option&.use_case,
+      formulaire:
     )
   end
 

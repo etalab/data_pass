@@ -27,6 +27,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     ).authorization_request.decorate
 
     render view_path
+  rescue Pundit::NotAuthorizedError
+    refuse_start
   end
 
   def create
@@ -37,6 +39,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       create_for_single_page_form
     end
+  rescue Pundit::NotAuthorizedError
+    refuse_start
   end
 
   def show
@@ -358,5 +362,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def prefill
     AuthorizationRequestPrefill.new(session, @authorization_request_form)
+  end
+
+  def refuse_start
+    flash[:error] = { title: t('application.user_not_authorized.title') }
+    redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
   end
 end

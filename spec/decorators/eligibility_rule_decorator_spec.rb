@@ -25,6 +25,10 @@ RSpec.describe EligibilityRuleDecorator, type: :decorator do
   end
 
   describe '#request_access_path' do
+    it 'carries the form a partner link asked for' do
+      expect(decorator.request_access_path(nil, formulaire: 'api-particulier')).to eq('/demandes/api_particulier/nouveau?eligibility_confirmed=true&formulaire=api-particulier')
+    end
+
     it 'returns the correct path for the API' do
       expected_path = '/demandes/api_particulier/nouveau?eligibility_confirmed=true'
       expect(decorator.request_access_path).to eq(expected_path)

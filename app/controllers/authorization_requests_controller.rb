@@ -14,21 +14,12 @@ class AuthorizationRequestsController < AuthenticatedUserController
   decorates_assigned :eligibility_rule
 
   def new
-    if user_signed_in?
-      authorize @authorization_definition, :new?
+    return render_eligibility_check if eligibility_check_pending?
+    return render_sign_in unless user_signed_in?
 
-      custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
+    authorize @authorization_definition, :new?
 
-      if template_exists?(custom_template_path)
-        render custom_template_path
-      elsif @authorization_definition.public_available_forms.many?
-        render 'authorization_requests/new/default', layout: 'form_introduction'
-      else
-        redirect_to authorization_request_form_introduction_path(form_uid: @authorization_definition.public_available_forms.first.id)
-      end
-    else
-      new_as_guest_user
-    end
+    render_form_choice
   rescue Pundit::NotAuthorizedError
     render_refusal
   end
@@ -95,23 +86,52 @@ class AuthorizationRequestsController < AuthenticatedUserController
     render 'pages/connexion'
   end
 
-  def new_as_guest_user
-    @authorization_definition = AuthorizationDefinition.find(id_sanitized)
-    save_redirect_path
-    @display_provider_logo_in_header = true
-
-    if @eligibility_rule && params[:eligibility_confirmed] != 'true'
-      render_eligibility_check
-    else
-      @wallet_registry_sign_in = build_wallet_registry_sign_in if @authorization_definition.wallet_registry?
-      render 'authorization_requests/unauthenticated_start'
-    end
+  def eligibility_check_pending?
+    @eligibility_rule.present? && !user_signed_in? && params[:eligibility_confirmed] != 'true'
   end
 
   def render_eligibility_check
+    remember_page_for_sign_in unless user_signed_in?
     @display_provider_logo_in_header = true
 
     render 'authorization_requests/eligibility_check'
+  end
+
+  def render_sign_in
+    remember_page_for_sign_in
+    @display_provider_logo_in_header = true
+    @wallet_registry_sign_in = build_wallet_registry_sign_in if @authorization_definition.wallet_registry?
+
+    render 'authorization_requests/unauthenticated_start'
+  end
+
+  def remember_page_for_sign_in
+    save_redirect_path unless requested_form
+  end
+
+  def render_form_choice
+    if requested_form
+      redirect_to_introduction(requested_form)
+    elsif template_exists?(custom_form_choice_template)
+      render custom_form_choice_template
+    elsif @authorization_definition.public_available_forms.many?
+      render 'authorization_requests/new/default', layout: 'form_introduction'
+    else
+      redirect_to_introduction(@authorization_definition.public_available_forms.first)
+    end
+  end
+
+  def requested_form
+    @authorization_definition.available_forms.find { |form| form.id == params[:formulaire] }
+  end
+
+  def custom_form_choice_template
+    "authorization_requests/new/#{@authorization_definition.id}"
+  end
+
+  def redirect_to_introduction(form)
+    flash.keep
+    redirect_to authorization_request_form_introduction_path(form_uid: form.id)
   end
 
   def id_sanitized

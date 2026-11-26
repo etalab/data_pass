@@ -54,6 +54,17 @@ Le stockage en session est porté par `AuthorizationRequestPrefill`
    la même session pour ce form est nettoyé — visiter la page d'intro sans
    params réinitialise.
 
+   Un visiteur non connecté n'y reste pas : une fois la capture faite, il est
+   renvoyé vers la page de la définition (`/demandes/:definition_id/nouveau`)
+   avec `formulaire=<form_uid>`. Cette page lui montre l'arbre d'éligibilité
+   s'il y en a un, puis la connexion. L'introduction mémorise sa propre URL,
+   query params compris, comme page de retour après la connexion, et la page de
+   la définition ne l'écrase pas tant que `formulaire` est présent : la
+   connexion renouvelle la session et n'en garde que cette URL, c'est donc le
+   retour sur l'introduction qui recapture le pré-remplissage. Les boutons de
+   l'arbre gardent `formulaire`, qui ramène aussi un demandeur déjà connecté
+   sur l'introduction de ce formulaire au lieu du choix des cas d'usage.
+
 2. **Affichage** (`AuthorizationRequestFormsController#new`, étape 1) :
    `AuthorizationRequestPrefill#data` lit la session sans la supprimer, passe les valeurs à `BuildAuthorizationRequest`. Les champs de la
    première étape (ou de la page unique) s'affichent pré-remplis via

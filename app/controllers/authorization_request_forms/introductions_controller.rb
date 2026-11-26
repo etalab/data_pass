@@ -18,23 +18,21 @@ class AuthorizationRequestForms::IntroductionsController < AuthenticatedUserCont
 
     authorize @authorization_request_form, :new?
 
-    user_signed_in? ? render_introduction : render_unauthenticated_start
+    user_signed_in? ? render(layout: 'form_introduction') : come_back_here_after_sign_in
   rescue Pundit::NotAuthorizedError
     explain_unavailable_form
-    redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id)
+    redirect_to_definition_page
   end
 
   private
 
-  def render_introduction
-    render layout: 'form_introduction'
+  def come_back_here_after_sign_in
+    save_redirect_path
+    redirect_to_definition_page(formulaire: @authorization_request_form.id)
   end
 
-  def render_unauthenticated_start
-    @authorization_definition = @authorization_request_form.authorization_definition
-
-    save_redirect_path
-    render 'authorization_requests/unauthenticated_start', layout: 'authorization_request'
+  def redirect_to_definition_page(formulaire: nil)
+    redirect_to new_authorization_request_path(definition_id: @authorization_request_form.authorization_definition.id, formulaire:)
   end
 
   def explain_unavailable_form

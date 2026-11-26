@@ -25,7 +25,7 @@ Fonctionnalité: Démarrer un enregistrement au registre wallet
     Et la page ne contient pas "Me connecter avec ProConnect dirigeant"
 
   Scénario: Les autres formulaires gardent la page de démarrage sans bouton dirigeant
-    Quand je me rends sur le chemin "/formulaires/api-entreprise/demande/nouveau"
+    Quand je me rends sur le chemin "/demandes/api-entreprise/nouveau?eligibility_confirmed=true&formulaire=api-entreprise"
     Alors la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "Pour suivre vos demandes d’habilitations"
     Et la page contient "S’identifier avec ProConnect"
