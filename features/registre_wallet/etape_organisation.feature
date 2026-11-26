@@ -55,6 +55,9 @@ Fonctionnalité: Registre wallet, étape « L’organisation »
     Quand je remplis ce que le registre publie
     Et je coche "n’est enregistrée comme partie utilisatrice dans aucun autre État de l’Union"
     Et je clique sur "Suivant"
+    Alors la page contient "Quel service demandera des données au wallet ?"
+    Quand je décris le service "Vélocité Libre-service" avec l’identifiant "libre-service"
+    Et je clique sur "Suivant"
     Alors la page contient "Vérifiez le récapitulatif de votre demande"
     Et la page contient "Non publiée : votre établissement n’est pas diffusible."
 
