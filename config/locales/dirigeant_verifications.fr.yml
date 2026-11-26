@@ -1,0 +1,34 @@
+fr:
+  dirigeant_verifications:
+    show:
+      title: Vérifier mon statut de dirigeant
+      description: ProConnect rapproche votre identité FranceConnect de la liste des dirigeants de l’entreprise, tirée du répertoire Sirene et du registre national des entreprises. Cette vérification n’est pas enregistrée.
+      organization: "Organisation vérifiée : %{name} (SIRET %{siret})"
+      submit: Vérifier avec ProConnect
+      sign_in_description: Vous vous connectez d’abord avec ProConnect et la double authentification, puis ProConnect vérifie aussitôt que vous dirigez l’entreprise choisie.
+      sign_in: Me connecter avec ProConnect dirigeant
+      back: Revenir à la page de départ
+    result:
+      empty: Non transmis
+      attributes:
+        siren: SIREN de l’organisation
+        siret: SIRET renvoyé par ProConnect
+        acr: Niveau (acr)
+        amr: Méthodes d’authentification (amr)
+        verified_at: Vérifié le
+      success:
+        title: ProConnect certifie que vous êtes dirigeant de cette entreprise.
+      failure:
+        title: Votre statut de dirigeant n’a pas pu être vérifié.
+        support: Si vous êtes bien dirigeant de cette entreprise, écrivez-nous à datapass@api.gouv.fr.
+        reasons:
+          generic: La vérification a échoué. Veuillez réessayer.
+          acr_not_dirigeant: ProConnect n’a pas certifié votre statut de dirigeant.
+          identity_mismatch: Le compte ProConnect utilisé n’est pas celui avec lequel vous êtes connecté à DataPass.
+          organization_is_public_service: Votre organisation relève du secteur public. La certification dirigeant est réservée aux entreprises privées.
+          organization_without_siren: Votre organisation n’a pas de numéro SIREN.
+          siret_outside_siren: L’entreprise choisie pour la certification dirigeant n’est pas celle choisie pour votre connexion. Relancez la vérification en choisissant la même entreprise.
+          proconnect_error: ProConnect a interrompu la vérification. Il ne précise pas pourquoi, par exemple si l’entreprise n’est pas couverte par la certification.
+          csrf_detected: La vérification a expiré. Veuillez la relancer depuis cette page.
+          token_exchange_failed: ProConnect n’a pas répondu. Veuillez réessayer.
+          invalid_id_token: La réponse de ProConnect n’a pas pu être authentifiée.
