@@ -27,6 +27,10 @@ Sachantque('ProConnect certifie que je suis dirigeant d’une autre entreprise')
   mock_proconnect_dirigeant(current_user!, siret: '13002526500013')
 end
 
+Sachantque('ProConnect interrompt la vérification de dirigeant') do
+  OmniAuth.config.mock_auth[:proconnect_dirigeant] = :proconnect_error
+end
+
 Sachantque('je suis dirigeant d’une entreprise privée') do
   @current_user_email = 'dirigeant@entreprise.fr'
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email, skip_organization_creation: true)

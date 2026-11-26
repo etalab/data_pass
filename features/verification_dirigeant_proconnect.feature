@@ -30,3 +30,9 @@ Fonctionnalité: Vérification du statut de dirigeant par ProConnect
     Sachant que ProConnect certifie que je suis dirigeant d’une autre entreprise
     Quand je clique sur "Vérifier avec ProConnect"
     Alors la page contient "L’entreprise choisie pour la certification dirigeant n’est pas celle choisie pour votre connexion."
+
+  Scénario: ProConnect interrompt la vérification
+    Sachant que ProConnect interrompt la vérification de dirigeant
+    Quand je clique sur "Vérifier avec ProConnect"
+    Alors la page contient "ProConnect a interrompu la vérification."
+    Et la page contient "Vérifier mon statut de dirigeant"
