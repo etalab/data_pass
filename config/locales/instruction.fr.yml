@@ -723,6 +723,7 @@ fr:
         readonly_alerts:
           default: Ce droit n’est pas modifiable depuis cette interface.
           admin: Contactez un tech de l’équipe pour modifier un droit admin.
+          verifier: Seul un administrateur peut modifier le rôle « Vérificateur ».
         readonly_scopes: "Concerné : %{scopes}"
         destroy_cta: Supprimer tous les droits
         oauth_revocation_warning:
