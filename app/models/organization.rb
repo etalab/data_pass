@@ -88,6 +88,10 @@ class Organization < ApplicationRecord
     self[:insee_payload] || {}
   end
 
+  def unite_legale
+    insee_payload.dig('etablissement', 'uniteLegale') || {}
+  end
+
   def code_commune_etablissement
     insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
   end
@@ -145,10 +149,6 @@ class Organization < ApplicationRecord
   end
 
   private
-
-  def unite_legale
-    insee_payload.dig('etablissement', 'uniteLegale') || {}
-  end
 
   def nom
     unite_legale['nomUniteLegale'].to_s
