@@ -1,6 +1,7 @@
 class ScopeRewriter
-  def initialize(authorization_request_types)
+  def initialize(authorization_request_types, form_uids: nil)
     @authorization_request_types = Array(authorization_request_types)
+    @form_uids = form_uids && Array(form_uids)
   end
 
   def rewrite(when_any_of:, &)
@@ -16,7 +17,7 @@ class ScopeRewriter
 
   private
 
-  attr_reader :authorization_request_types
+  attr_reader :authorization_request_types, :form_uids
 
   def rewrite_current_scopes(authorization_request, trigger_scopes, &)
     current_scopes = parse_scopes(authorization_request.data['scopes'])
@@ -50,7 +51,7 @@ class ScopeRewriter
   end
 
   def authorization_requests_with_any_of(scopes)
-    relation = AuthorizationRequest.where(type: authorization_request_types)
+    relation = within_forms(AuthorizationRequest.where(type: authorization_request_types))
 
     with_any_of(relation, scopes).or(relation.where(<<~SQL.squish, scopes))
       EXISTS (
@@ -62,7 +63,13 @@ class ScopeRewriter
   end
 
   def authorizations_with_any_of(scopes)
-    with_any_of(Authorization.where(authorization_request_class: authorization_request_types), scopes)
+    with_any_of(within_forms(Authorization.where(authorization_request_class: authorization_request_types)), scopes)
+  end
+
+  def within_forms(relation)
+    return relation if form_uids.nil?
+
+    relation.where(form_uid: form_uids)
   end
 
   def with_any_of(relation, scopes)
