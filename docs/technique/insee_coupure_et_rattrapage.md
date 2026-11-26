@@ -351,3 +351,21 @@ ne demande donc plus ni PR ni déploiement** :
 ```ruby
 Setting.set(:insee_password, '…')
 ```
+
+## Le secteur des organisations en développement
+
+Sans payload INSEE, le secteur d’une organisation reste inconnu (`PublicSectorClassification#known?`). En
+développement, sans identifiants INSEE valides, `UpdateOrganizationINSEEPayloadJob` ne réécrit pas le
+payload : une organisation seedée avec sa fixture de `spec/fixtures/insee/` garde donc son secteur, y compris
+après une connexion ProConnect qui la retrouve par son SIRET. Pour recetter la certification dirigeant :
+
+- `dem-editeur@yopmail.com` (MGDIS, `32816124500027`, entreprise privée) est le compte dirigeant de
+  référence : la certification peut démarrer ;
+- `dem-commune@yopmail.com` (Ville de Clamart, secteur public) voit le refus expliqué.
+
+`/local-sign-in` ne donne pas le statut de dirigeant : il vient de l’`acr` renvoyé au retour de
+ProConnect. Une organisation créée hors des seeds reste sans secteur.
+
+Le coupe-circuit, lui, vit dans Redis sous une clé sans espace de noms (`insee_calls_pause`). Redis étant
+partagé entre les worktrees d’un même poste, un 401 dans un worktree suspend les appels INSEE de tous les
+autres, sans log ni Sentry en développement. `INSEECallsPause.reset!` en console le relâche.
