@@ -80,4 +80,19 @@ RSpec.describe Molecules::Instruction::UserRights::RightFieldComponent, type: :c
 
     expect(page).to have_select(id: 'instruction_user_right_form_rights_NEW_scope')
   end
+
+  it 'offers the verifier role and the registry to an admin' do
+    admin = create(:user, :admin)
+
+    render_inline(described_class.new(index: 0, scope: '', role_type: '', permissions: Rights::AdminAuthority.new(admin)))
+
+    expect(page).to have_select('instruction_user_right_form[rights][][role_type]', with_options: ['Vérificateur'])
+    expect(page).to have_select('instruction_user_right_form[rights][][scope]', with_options: ['Registre des parties utilisatrices du wallet'])
+  end
+
+  it 'does not offer the verifier role to a manager of all DINUM services' do
+    render_component(index: 0, actor: create(:user, roles: ['dinum:*:manager']))
+
+    expect(page).to have_no_select('instruction_user_right_form[rights][][role_type]', with_options: ['Vérificateur'])
+  end
 end

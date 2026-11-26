@@ -154,3 +154,20 @@ Alors('ma ligne affiche un bouton de modification') do
     expect(page).to have_css('.fr-icon-edit-line')
   end
 end
+
+Alors('le journal des actions admin trace un changement de droits par moi sur {string}') do |email|
+  event = AdminEvent.where(name: 'user_rights_changed_by_admin', entity: User.find_by!(email:)).sole
+
+  expect(event.admin).to eq(current_user!)
+  expect(event.created_at).to be_present
+end
+
+Alors('la page contient le message d’adresse sans compte') do
+  message = Instruction::UserRightForm.new(authority: nil).errors.generate_message(:email, :not_found)
+
+  expect(page).to have_text(message)
+end
+
+Alors('aucun compte n’existe pour {string}') do |email|
+  expect(User.find_by(email:)).to be_nil
+end

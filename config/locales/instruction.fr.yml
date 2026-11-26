@@ -683,6 +683,7 @@ fr:
         instructor: Instructeur
         reporter: Observateur
         developer: Développeur
+        verifier: Vérificateur
         admin: Admin
       new:
         title: Ajouter des droits à un utilisateur sans droits
@@ -698,6 +699,7 @@ fr:
           instructor: Peut instruire les demandes (comme un observateur, et peut valider, refuser ou demander des modifications dans son périmètre).
           manager: Peut gérer les droits des autres utilisateurs et instruire les demandes (comme un instructeur, et peut attribuer ou retirer des droits aux autres utilisateurs dans son périmètre).
           developer: Peut consulter les demandes et habilitations via l’API, et recevoir des événements par webhook.
+          verifier: Peut vérifier les demandes d’enregistrement au registre wallet. Ne donne aucun droit sur les habilitations.
         right_legend: "Droit %{position}"
         right_legend_new: Nouveau droit
         scope_label: Portée des droits

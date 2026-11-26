@@ -8,7 +8,7 @@ class Instruction::RightValidator
     return [%i[base at_least_one_right]] if no_right_filled?
     return [%i[rights incomplete_right]] if partially_filled?
 
-    [role_type_error, scope_error].compact
+    [role_type_error, scope_error].compact.presence || [pair_error].compact
   end
 
   private
@@ -33,5 +33,11 @@ class Instruction::RightValidator
     return if rights.all? { |r| permissions.authorized_scopes.include?(r[:scope]) }
 
     %i[rights scope_not_authorized]
+  end
+
+  def pair_error
+    return if rights.all? { |r| ParsedRole.valid?("#{r[:scope]}:#{r[:role_type]}") }
+
+    %i[rights role_not_available_on_scope]
   end
 end

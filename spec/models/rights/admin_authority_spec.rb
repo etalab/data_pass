@@ -6,8 +6,8 @@ RSpec.describe Rights::AdminAuthority do
   let(:user) { create(:user, roles: ['admin']) }
 
   describe '#allowed_role_types' do
-    it 'includes developer in addition to manager-level roles' do
-      expect(authority.allowed_role_types).to eq(%w[reporter instructor manager developer])
+    it 'includes developer and verifier in addition to manager-level roles' do
+      expect(authority.allowed_role_types).to eq(%w[reporter instructor manager developer verifier])
     end
 
     it 'does not include admin' do
