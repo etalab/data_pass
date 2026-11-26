@@ -193,6 +193,16 @@ RSpec.describe Instruction::UserRightForm do
     end
   end
 
+  describe 'the message for a role the person cannot grant' do
+    subject(:form) { described_class.new(authority: Rights::AdminAuthority.new(create(:user, :admin)), email: 'user@gouv.fr', rights: [valid_right(role_type: 'unknown')]) }
+
+    it 'does not list roles that would leave some out' do
+      form.valid?
+
+      expect(form.errors.full_messages.to_sentence).to include('contiennent un rôle que vous ne pouvez pas attribuer')
+    end
+  end
+
   describe 'wallet registry rights' do
     subject(:form) { described_class.new(authority: Rights::AdminAuthority.new(create(:user, :admin)), email: 'user@gouv.fr', rights: [right]) }
 

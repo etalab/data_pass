@@ -28,7 +28,7 @@ fr:
               scope_not_authorized: contiennent une portée qui n’est pas dans votre périmètre
               role_not_available_on_scope: 'sont invalides : « Vérificateur » n’existe que sur le registre wallet'
               incomplete_right: chaque droit doit renseigner une portée et un rôle
-              role_type_not_allowed: contiennent un rôle non autorisé (seuls reporter, instructeur, manager et développeur sont autorisés)
+              role_type_not_allowed: contiennent un rôle que vous ne pouvez pas attribuer
   activerecord:
     attributes:
       api_access_grant:
