@@ -23,6 +23,6 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def public_sector_organization?
-    PublicSectorClassification.new(record).public?
+    PublicSectorClassification.new(record).public_sector?
   end
 end

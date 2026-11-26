@@ -373,8 +373,9 @@ La connexion ne contrôle pas le secteur : elle ne refuse personne et ne signale
 Le secteur se contrôle au moment de l'action qui l'exige, dans sa policy.
 
 - `PublicSectorClassification.new(organization)` lit le payload INSEE déjà en base, sans appel
-  externe. Il répond `public?`, `private?` et `known?`. Sans catégorie juridique, le secteur est
-  inconnu : ni public, ni privé. `public?` s'écrit comme la règle : secteur connu, SIREN absent des
+  externe. Il répond `public_sector?` et `known?` ; une organisation du secteur privé est connue
+  sans être publique. Sans catégorie juridique, le secteur est inconnu : ni public, ni privé.
+  `public_sector?` s'écrit comme la règle : secteur connu, SIREN absent des
   `never_public_sirens`, unité légale active, et SIREN présent dans les `always_public_sirens` ou
   catégorie juridique publique.
 - La règle est celle de ProConnect (`computeServicePublicInfo` du paquet

@@ -11,12 +11,8 @@ class PublicSectorClassification
     legal_category.present?
   end
 
-  def public?
+  def public_sector?
     known? && !never_public_siren? && !closed? && (always_public_siren? || public_legal_category?)
-  end
-
-  def private?
-    known? && !public?
   end
 
   private

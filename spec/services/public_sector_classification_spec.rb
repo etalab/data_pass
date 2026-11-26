@@ -17,42 +17,42 @@ RSpec.describe PublicSectorClassification do
   end
 
   it 'classifies an active organization with a public legal category as public' do
-    expect(classification).to have_attributes(known?: true, public?: true, private?: false)
+    expect(classification).to have_attributes(known?: true, public_sector?: true)
   end
 
   context 'with a private legal category' do
     let(:legal_category) { '5710' }
 
-    it { is_expected.to have_attributes(public?: false, private?: true) }
+    it { is_expected.to have_attributes(known?: true, public_sector?: false) }
 
     context 'when the SIREN is always public' do
       let(:siret) { '78452331800010' }
 
-      it { is_expected.to have_attributes(public?: true) }
+      it { is_expected.to have_attributes(public_sector?: true) }
     end
   end
 
   context 'without legal category' do
     let(:legal_category) { nil }
 
-    it { is_expected.to have_attributes(known?: false, public?: false, private?: false) }
+    it { is_expected.to have_attributes(known?: false, public_sector?: false) }
   end
 
   context 'without INSEE data' do
     let(:insee_payload) { nil }
 
-    it { is_expected.to have_attributes(known?: false, public?: false, private?: false) }
+    it { is_expected.to have_attributes(known?: false, public_sector?: false) }
   end
 
   context 'when the organization is closed' do
     let(:administrative_state) { 'C' }
 
-    it { is_expected.to have_attributes(private?: true) }
+    it { is_expected.to have_attributes(known?: true, public_sector?: false) }
 
     context 'when the SIREN is always public' do
       let(:siret) { '78452331800010' }
 
-      it { is_expected.to have_attributes(private?: true) }
+      it { is_expected.to have_attributes(known?: true, public_sector?: false) }
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe PublicSectorClassification do
     let(:legal_category) { '4110' }
     let(:siret) { '34867901000010' }
 
-    it { is_expected.to have_attributes(private?: true) }
+    it { is_expected.to have_attributes(known?: true, public_sector?: false) }
   end
 
   context 'with other lists' do
@@ -76,21 +76,21 @@ RSpec.describe PublicSectorClassification do
     end
 
     it 'applies the rule to the given lists' do
-      expect(classification).to have_attributes(private?: true)
+      expect(classification).to have_attributes(known?: true, public_sector?: false)
     end
   end
 
   context 'with the INSEE payload of an existing organization' do
     it 'classifies a commune as public' do
-      expect(described_class.new(build(:organization, siret: '21920023500014'))).to be_public
+      expect(described_class.new(build(:organization, siret: '21920023500014'))).to be_public_sector
     end
 
     it 'classifies a private company as private' do
-      expect(described_class.new(build(:organization, siret: '32816124500027'))).to be_private
+      expect(described_class.new(build(:organization, siret: '32816124500027'))).to have_attributes(known?: true, public_sector?: false)
     end
 
     it 'classifies a closed public organization as private' do
-      expect(described_class.new(build(:organization, siret: '13002437500011'))).to be_private
+      expect(described_class.new(build(:organization, siret: '13002437500011'))).to have_attributes(known?: true, public_sector?: false)
     end
 
     it 'does not know an organization without INSEE data' do
