@@ -52,7 +52,6 @@ module WalletRegistryHelper
 
   def wallet_registry_organization_name(authorization_request)
     authorization_request.identity_legal_name.presence ||
-      authorization_request.wallet_legal_name.presence ||
       authorization_request.organization.denomination.presence ||
       t('authorization_request_forms.registre_wallet.summary.organization_fallback')
   end

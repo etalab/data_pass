@@ -36,7 +36,7 @@ RSpec.describe WalletRegistryHelper do
 
   describe '#wallet_registry_organization_name' do
     let(:organization) { instance_double(Organization, denomination: nil) }
-    let(:authorization_request) { instance_double(AuthorizationRequest::RegistreWallet, identity_legal_name: nil, wallet_legal_name: nil, organization:) }
+    let(:authorization_request) { instance_double(AuthorizationRequest::RegistreWallet, identity_legal_name: nil, organization:) }
 
     it 'says « votre organisation » rather than a SIRET when no name is known yet' do
       expect(helper.wallet_registry_organization_name(authorization_request)).to eq('votre organisation')
