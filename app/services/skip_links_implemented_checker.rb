@@ -22,6 +22,7 @@ class SkipLinksImplementedChecker
     cancel_authorization_reopenings#new
     cancel_next_authorization_request_stage#new
     claim_instructor_draft_requests#show
+    dirigeant_verifications#show
     claim_instructor_draft_requests#create
 
     notification_unsubscriptions#show

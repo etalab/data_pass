@@ -29,6 +29,10 @@ RSpec.describe AuthenticateUserThroughProConnect do
       expect(authenticate_user.user.current_organization).to eq(authenticate_user.organization)
     end
 
+    it 'enqueues the INSEE data refresh of a new organization instead of waiting for it' do
+      expect { authenticate_user }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
+    end
+
     context 'when an applicant was created beforehand by the API with the same email' do
       let!(:api_applicant) do
         ProvisionApplicantFromAPI.call(

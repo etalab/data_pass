@@ -21,6 +21,8 @@ class Setting < ApplicationRecord
     insee_refresh_stale_after: { type: :duration, default: 30.days },
     insee_skipped_identifiers: { type: :list, default: [] },
     piste_api_name: { type: :string, env: 'PISTE_API_NAME', default: 'CaptchEtat v2' },
+    proconnect_dirigeant_open: { type: :enabled_if_true, env: 'PROCONNECT_DIRIGEANT_OPEN', default: false },
+    proconnect_id_token_signature_check: { type: :enabled_unless_false, env: 'PROCONNECT_ID_TOKEN_SIGNATURE_CHECK', default: true },
   }.freeze
 
   REDIS_CACHE_KEY = 'setting:cache_version'.freeze
@@ -98,6 +100,7 @@ class Setting < ApplicationRecord
       when :integer then Integer(value)
       when :duration then Integer(value).seconds
       when :enabled_unless_false then value.to_s != 'false'
+      when :enabled_if_true then value.to_s == 'true'
       when :list then cast_list(value)
       else value
       end

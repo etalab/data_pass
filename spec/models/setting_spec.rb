@@ -45,6 +45,22 @@ RSpec.describe Setting do
       expect(described_class.fetch(:insee_refresh_batch_size)).to eq(200)
     end
 
+    it 'keeps the ProConnect dirigeant journey closed by default' do
+      expect(described_class.fetch(:proconnect_dirigeant_open)).to be(false)
+    end
+
+    it 'opens the ProConnect dirigeant journey on the exact string true only' do
+      described_class.set(:proconnect_dirigeant_open, 'true')
+
+      expect(described_class.fetch(:proconnect_dirigeant_open)).to be(true)
+
+      %w[1 yes TRUE].each do |value|
+        described_class.set(:proconnect_dirigeant_open, value)
+
+        expect(described_class.fetch(:proconnect_dirigeant_open)).to be(false)
+      end
+    end
+
     it 'casts an integer setting' do
       described_class.set(:insee_refresh_batch_size, '25')
 

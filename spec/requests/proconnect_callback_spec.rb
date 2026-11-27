@@ -1,13 +1,14 @@
 RSpec.describe 'GET /auth/proconnect/callback' do
   subject(:callback) do
-    post '/auth/proconnect'
-    state = Rack::Utils.parse_query(URI(response.location).query)['state']
-
-    get '/auth/proconnect/callback', params: { code: 'authorization-code', state: }
+    get '/auth/proconnect/callback', params: callback_params
   end
 
+  let(:authorization_params) { proconnect_authorization_params('/auth/proconnect') }
+  let(:callback_params) { { code: 'authorization-code', state: authorization_params['state'] } }
   let(:user) { create(:user) }
-  let(:id_token) { JSON::JWT.new(acr:).to_s }
+  let(:acr) { 'eidas1-mfa' }
+  let(:id_token_claims) { { sub: user.external_id, acr:, nonce: authorization_params['nonce'] } }
+  let(:id_token) { proconnect_signed_id_token(id_token_claims) }
   let(:userinfo) do
     JSON::JWT.new(
       sub: user.external_id,
@@ -29,34 +30,75 @@ RSpec.describe 'GET /auth/proconnect/callback' do
   before do
     allow(Sentry).to receive(:capture_message)
 
-    stub_request(:get, %r{.well-known/openid-configuration$}).to_return(
-      status: 200,
-      headers: { 'Content-Type' => 'application/json' },
-      body: {
-        authorization_endpoint: 'https://test.proconnect.gouv.fr/authorize',
-        token_endpoint: 'https://test.proconnect.gouv.fr/token',
-        userinfo_endpoint: 'https://test.proconnect.gouv.fr/userinfo'
-      }.to_json
-    )
-    stub_request(:post, 'https://test.proconnect.gouv.fr/token').to_return(
-      status: 200,
-      headers: { 'Content-Type' => 'application/json' },
-      body: { access_token: 'access-token', id_token: }.to_json
-    )
-    stub_request(:get, 'https://test.proconnect.gouv.fr/userinfo').to_return(
-      status: 200,
-      headers: { 'Content-Type' => 'application/jwt' },
-      body: userinfo
-    )
+    stub_proconnect_oidc_endpoints(id_token:, userinfo:)
+  end
+
+  shared_examples 'a rejected ProConnect callback' do |failure_type|
+    it 'redirects to the failure endpoint without signing the user in' do
+      callback
+
+      expect(response).to redirect_to(%r{\A/auth/failure\?message=#{failure_type}&strategy=proconnect})
+      expect(session[:user_id]).to be_nil
+    end
+
+    if OmniAuth::FailureReporter::SENTRY_REPORTED_TYPES.include?(failure_type)
+      it 'reports the failure to Sentry' do
+        callback
+
+        expect(Sentry).to have_received(:capture_message).with(
+          'OmniAuth authentication failure',
+          level: :warning,
+          extra: hash_including(strategy: 'proconnect', type: failure_type)
+        )
+      end
+    else
+      it 'does not report the failure to Sentry' do
+        callback
+
+        expect(Sentry).not_to have_received(:capture_message)
+      end
+    end
   end
 
   context 'when ProConnect performed MFA' do
-    let(:acr) { 'eidas1-mfa' }
-
     it 'signs the user in' do
       callback
 
       expect(response).to redirect_to(dashboard_path)
+    end
+
+    it 'consumes the nonce' do
+      callback
+
+      expect(session['omniauth.nonce']).to be_nil
+    end
+
+    it 'keeps only the id_token in the session, for the ProConnect logout' do
+      stub_proconnect_json(:post, '/token', { access_token: 'access-token', id_token:, refresh_token: 'refresh-token' })
+
+      callback
+
+      expect(session['omniauth.pc.id_token']).to eq(id_token)
+      expect(session.to_hash.keys).not_to include('omniauth.pc.access_token', 'omniauth.pc.refresh_token')
+    end
+
+    it 'logs out of ProConnect with the id_token kept in the session' do
+      callback
+      get '/auth/proconnect/logout'
+
+      expect(Rack::Utils.parse_query(URI(response.location).query)).to include('id_token_hint' => id_token)
+    end
+
+    it 'exchanges the authorization code only once' do
+      callback
+
+      expect(a_request(:post, 'https://test.proconnect.gouv.fr/token')).to have_been_made.once
+    end
+
+    it 'fetches the userinfo with the access token' do
+      callback
+
+      expect(a_request(:get, 'https://test.proconnect.gouv.fr/userinfo').with(headers: { 'Authorization' => 'Bearer access-token' })).to have_been_made
     end
   end
 
@@ -83,12 +125,202 @@ RSpec.describe 'GET /auth/proconnect/callback' do
   end
 
   context 'when the id_token has no acr' do
-    let(:id_token) { JSON::JWT.new({}).to_s }
+    let(:acr) { nil }
 
     it 'does not sign the user in' do
       callback
 
       expect(response).to redirect_to(connexion_path)
+      expect(session[:user_id]).to be_nil
+    end
+  end
+
+  context 'when ProConnect returns an error' do
+    let(:callback_params) do
+      {
+        error: 'invalid_request',
+        error_description: 'authentication aborted due to a technical error on the authorization server',
+        state: authorization_params['state']
+      }
+    end
+
+    it_behaves_like 'a rejected ProConnect callback', :proconnect_error
+
+    it 'does not try to exchange a code' do
+      callback
+
+      expect(a_request(:post, 'https://test.proconnect.gouv.fr/token')).not_to have_been_made
+    end
+
+    context 'with an error code and a description that do not look like OAuth ones' do
+      let(:callback_params) { { error: "<script>\nforged", error_description: 'x' * 1000, state: authorization_params['state'] } }
+
+      it 'logs a filtered code and a truncated description' do
+        allow(Rails.logger).to receive(:info).and_call_original
+
+        callback
+
+        expect(Rails.logger).to have_received(:info).with(/"error":"unknown: x{197}\.\.\."/)
+      end
+    end
+  end
+
+  context 'when the state does not match' do
+    let(:callback_params) { { code: 'authorization-code', state: 'forged-state' } }
+
+    it_behaves_like 'a rejected ProConnect callback', :csrf_detected
+  end
+
+  context 'when the token exchange fails' do
+    before do
+      stub_request(:post, 'https://test.proconnect.gouv.fr/token').to_return(status: 400)
+    end
+
+    it_behaves_like 'a rejected ProConnect callback', :token_exchange_failed
+  end
+
+  context 'when the id_token is signed with an unknown key' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: OpenSSL::PKey::RSA.generate(2048).to_jwk) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is signed in ES256' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: OpenSSL::PKey::EC.generate('prime256v1').to_jwk, algorithm: :ES256) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+
+    it 'names the received algorithm in the failure report' do
+      callback
+
+      expect(Sentry).to have_received(:capture_message).with(
+        'OmniAuth authentication failure',
+        level: :warning,
+        extra: hash_including(error: 'unexpected id_token alg ES256, expected RS256/HS256')
+      )
+    end
+  end
+
+  context 'when the id_token is signed in HS256 with the client secret' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: ProConnectConfig.client_secret, algorithm: :HS256) }
+
+    it 'signs the user in' do
+      callback
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+
+    it 'logs the algorithm, to see when ProConnect switches to RS256' do
+      allow(Rails.logger).to receive(:info).and_call_original
+
+      callback
+
+      expect(Rails.logger).to have_received(:info).with('[ProConnect] id_token signed with HS256')
+    end
+  end
+
+  context 'when the id_token is signed in HS256 with another secret' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, key: 'another-secret', algorithm: :HS256) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is signed in HS256 with the provider public key' do
+    let(:id_token) do
+      proconnect_signed_id_token(id_token_claims, key: proconnect_signing_key.to_key.public_to_pem, algorithm: :HS256)
+    end
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is not signed' do
+    let(:id_token) { JSON::JWT.new(id_token_claims).to_s }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token nonce does not match' do
+    let(:id_token_claims) { { sub: user.external_id, acr:, nonce: 'replayed-nonce' } }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is issued for another client' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims, client_id: 'another-client') }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token is expired' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims.merge(exp: 1.minute.ago.to_i)) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when the id_token expired a few seconds ago' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims.merge(exp: 5.seconds.ago.to_i)) }
+
+    it 'tolerates the clock skew and signs the user in' do
+      callback
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
+
+  context 'when the id_token signature check is switched off' do
+    before { Setting.set(:proconnect_id_token_signature_check, 'false') }
+
+    context 'with an id_token signed with an unknown key' do
+      let(:id_token) { proconnect_signed_id_token(id_token_claims, key: OpenSSL::PKey::RSA.generate(2048).to_jwk) }
+
+      it 'signs the user in' do
+        callback
+
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+
+    context 'with an id_token whose nonce does not match' do
+      let(:id_token_claims) { { sub: user.external_id, acr:, nonce: 'replayed-nonce' } }
+
+      it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+    end
+
+    context 'with an id_token issued for another client' do
+      let(:id_token) { proconnect_signed_id_token(id_token_claims, client_id: 'another-client') }
+
+      it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+    end
+  end
+
+  context 'when the id_token comes from another issuer' do
+    let(:id_token) { proconnect_signed_id_token(id_token_claims.merge(iss: 'https://evil.example')) }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when userinfo and id_token disagree on the sub' do
+    let(:id_token_claims) { { sub: 'another-sub', acr:, nonce: authorization_params['nonce'] } }
+
+    it_behaves_like 'a rejected ProConnect callback', :invalid_id_token
+  end
+
+  context 'when a rejected callback follows a valid sign in' do
+    let(:rejected_id_token) { proconnect_signed_id_token(id_token_claims.merge(nonce: 'replayed-nonce')) }
+
+    before do
+      callback
+      second_authorization_params = proconnect_authorization_params('/auth/proconnect')
+      stub_proconnect_json(:post, '/token', { access_token: 'access-token', id_token: rejected_id_token })
+      get '/auth/proconnect/callback', params: { code: 'second-code', state: second_authorization_params['state'] }
+    end
+
+    it 'rejects the second callback' do
+      expect(response).to redirect_to(%r{\A/auth/failure\?message=invalid_id_token})
+    end
+
+    it 'keeps the id_token of the signed in session' do
+      expect(session['omniauth.pc.id_token']).to eq(id_token)
     end
   end
 end

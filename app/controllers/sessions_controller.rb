@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   include Authentication
+  include ProConnectDirigeantJourney
 
   class AuthenticationFailedError < StandardError; end
 
@@ -16,6 +17,8 @@ class SessionsController < ApplicationController
   end
 
   def failure
+    return redirect_dirigeant_verification_failure if params[:strategy] == 'proconnect_dirigeant'
+
     redirect_to_sign_in_with_error(t('sessions.failure.title'))
   end
 
@@ -69,6 +72,8 @@ class SessionsController < ApplicationController
 
     organizer = authenticate_user
 
+    return start_dirigeant_verification(organizer.organization) if dirigeant_journey?
+
     user = organizer.user
 
     if user.current_identity_provider.choose_organization_on_sign_in?
@@ -79,7 +84,7 @@ class SessionsController < ApplicationController
   end
 
   def mfa_performed?
-    OmniAuth::Strategies::Proconnect::MFA_ACR_VALUES.include?(proconnect_acr)
+    OmniAuth::Strategies::DataPassProconnect::MFA_ACR_VALUES.include?(proconnect_acr)
   end
 
   def proconnect_acr
