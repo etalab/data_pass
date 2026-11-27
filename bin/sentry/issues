@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require_relative 'sentry_client'
+
+query = 'is:unresolved'
+period = '14d'
+project = SentryClient::DEFAULT_PROJECT
+args = ARGV.dup
+
+while (arg = args.shift)
+  case arg
+  when '-q', '--query' then query = args.shift
+  when '-p', '--period' then period = args.shift
+  when '-P', '--project' then project = args.shift
+  when '-h', '--help'
+    puts 'Usage: bin/sentry/issues [-q QUERY] [-p PERIOD] [-P PROJECT]  (env: SENTRY_URL, SENTRY_ORG, SENTRY_PROJECT)'
+    exit 0
+  end
+end
+
+issues = SentryClient.new(project:).issues(query:, stats_period: period)
+puts "Found #{issues.count} issues on #{project} (#{period})\n\n"
+issues.each do |issue|
+  puts "#{issue['id'].ljust(10)} | #{issue['count'].to_s.rjust(5)} events | #{issue['lastSeen'][0, 16]} | #{issue['level']} | #{issue['title'][0, 80]}"
+end
