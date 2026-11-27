@@ -380,3 +380,24 @@ end
 Alors('je suis sur mon tableau de bord') do
   expect(page).to have_current_path(%r{\A/tableau-de-bord})
 end
+
+Alors('le champ {string} a une indication contenant {string}') do |label, hint|
+  expect(page).to have_css("label[for='#{find_field(label)[:id]}'] .fr-hint-text", text: hint)
+end
+
+Alors('le panneau d’aide {string} contient {string}') do |title, help_text|
+  panel_id = find_button(title)['aria-controls']
+
+  expect(find_by_id(panel_id, visible: :all).text(:all)).to include(help_text)
+end
+
+Alors('les étapes annoncées du formulaire sont :') do |table|
+  expect(all('ol li').map { |item| item.text.strip }).to eq(table.raw.flatten)
+end
+
+Alors('le lien {string} s’ouvre dans une nouvelle fenêtre annoncée') do |text|
+  link = find_link(text)
+
+  expect(link[:target]).to eq('_blank')
+  expect(link).to have_css('.fr-sr-only', text: 'nouvelle fenêtre', visible: :all)
+end

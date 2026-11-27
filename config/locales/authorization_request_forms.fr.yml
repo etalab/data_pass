@@ -359,6 +359,28 @@ fr:
         info: |
           Cette personne est en charge de l'intégration de l'API et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents, ainsi qu'en copie des notifications d'expiration du jeton.
 
+    api_entreprise_observatoire_economique:
+      legal:
+        info:
+          content: |
+            <p>Afin de bénéficier du raccordement à l’API Entreprise, vous devez fournir le cadre légal et/ou réglementaire qui établit votre mission de service public et justifie l’accès aux données demandées.</p>
+            <p class="fr-text--bold fr-mb-1w">Exemples de justificatifs acceptés</p>
+            <ul>
+              <li>Communauté de communes : arrêté préfectoral de création ou de compétences</li>
+              <li>Agence d’urbanisme : article L132-6 du code de l’urbanisme</li>
+              <li>Autre organisme : délibération, loi ou convention qui établit sa mission de service public</li>
+            </ul>
+            <p class="fr-mb-0">La seule citation du CRPA, de la loi ESSOC ou de la loi pour une République numérique ne suffit pas.</p>
+      scopes:
+        title: Les données sont fixées pour ce cas d’usage
+        subtitle: Elles sont cochées pour vous et ne peuvent pas être modifiées.
+        info:
+          title: Où consulter la documentation des données ?
+          content: |
+            Vous pouvez consulter leur documentation dans le <a href="https://entreprise.api.gouv.fr/catalogue/" target="_blank" rel="noopener">catalogue des API<span class="fr-sr-only"> - nouvelle fenêtre</span></a>.
+      destinataire_donnees_caractere_personnel:
+        hint: Les données des entreprises en diffusion partielle concernent surtout des entrepreneurs individuels, donc des personnes physiques. Même si vous agrégez ensuite ces données, leur traitement doit être encadré. <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
+
     api_entreprise_setec_atexo: &api_entreprise_contacts_editeur
       contact_metier:
         info: |
