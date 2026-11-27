@@ -3,12 +3,24 @@ module UserRightsPathsHelper
     controller.controller_path.start_with?('admin/') ? :admin : :instruction
   end
 
+  def user_rights_page_title
+    t("page_titles.#{user_rights_namespace}_user_rights")
+  end
+
+  def user_rights_index_title
+    t("instruction.user_rights.index.#{user_rights_namespace}.title")
+  end
+
+  def user_rights_index_subtitle
+    t("instruction.user_rights.index.#{user_rights_namespace}.subtitle")
+  end
+
   def user_rights_index_path
     send(:"#{user_rights_namespace}_user_rights_path")
   end
 
-  def new_user_right_path
-    send(:"new_#{user_rights_namespace}_user_right_path")
+  def new_user_right_path(**)
+    send(:"new_#{user_rights_namespace}_user_right_path", **)
   end
 
   def edit_user_right_path(user)
@@ -17,6 +29,10 @@ module UserRightsPathsHelper
 
   def user_right_path(user)
     send(:"#{user_rights_namespace}_user_right_path", user)
+  end
+
+  def droits_user_right_path(user)
+    send(:"droits_#{user_rights_namespace}_user_right_path", user)
   end
 
   def confirm_destroy_user_right_path(user)

@@ -79,6 +79,27 @@ RSpec.describe Rights::AdminAuthority do
     end
   end
 
+  describe '#visible_users' do
+    it 'lists every account, with or without roles' do
+      without_roles = create(:user, roles: [])
+
+      expect(authority.visible_users).to include(user, without_roles)
+    end
+  end
+
+  describe '#sees?' do
+    it 'sees any account' do
+      expect(authority.sees?(create(:user, roles: []))).to be true
+    end
+  end
+
+  describe '#edits?' do
+    it 'edits any account, its own included' do
+      expect(authority.edits?(create(:user, roles: ['dinum:api_particulier:instructor']))).to be true
+      expect(authority.edits?(user)).to be true
+    end
+  end
+
   describe '#authorized_scopes' do
     it 'includes a fd-wildcard scope for every provider' do
       provider_slugs = AuthorizationDefinition.all.filter_map(&:provider_slug).uniq
