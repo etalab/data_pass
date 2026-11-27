@@ -26,7 +26,7 @@ require 'cucumber/rails'
 ActionController::Base.allow_rescue = false
 
 DatabaseCleaner.allow_remote_database_url = true
-DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.strategy = :truncation
 
 Capybara.enable_aria_label = true
 
@@ -38,22 +38,27 @@ World(FactoryBot::Syntax::Methods)
 Seeds.new.flushdb
 
 Before('@javascript') do
-  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.clean
 end
 
 Before('not @javascript') do
-  DatabaseCleaner.strategy = :transaction
+  ActiveRecord::Base.connection_pool.pin_connection!(true)
 end
 
 Before do
-  DatabaseCleaner.clean
-  DatabaseCleaner.start
   Kredis.redis.flushdb
+end
+
+After('@javascript') do
+  DatabaseCleaner.clean
+end
+
+After('not @javascript') do
+  ActiveRecord::Base.connection_pool.unpin_connection!
 end
 
 After do
   Capybara.reset_sessions!
-  DatabaseCleaner.clean
   AuthorizationDefinition.reset!
   AuthorizationRequestForm.reset!
 end
