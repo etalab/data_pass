@@ -77,6 +77,18 @@ shared:
     type: editor
     name: Periscolia
     siret: "10298517300016"
+  respublicia:
+    type: editor
+    name: Respublicia
+    siret: "10599757100010"
+  nexpublica:
+    type: editor
+    name: Nexpublica
+    siret: "93843503900012"
+  devolis:
+    type: editor
+    name: Devolis
+    siret: "49383795900037"
   nouvelle_epoque_industries:
     type: editor
     name: Nouvelle Epoque Industries

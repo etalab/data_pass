@@ -12,16 +12,16 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 
 | Cadre | Ancre YAML | Formulaires | Texte du cadre juridique |
 |---|---|---:|---|
-| **Socle général** | `socle_general` | 63 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
+| **Socle général** | `socle_general` | 65 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers. |
 | **CCAS** | `ccas` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.<br>- Cadre légal spécifique pour les aides facultatives des CCAS : L’article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives. |
 | **Cantines** | `cantines` | 8 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique à la restauration scolaire : L’article R531-52 du Code de l’éducation confère aux collectivités territoriales compétentes la responsabilité de fixer les tarifs des services de restauration scolaire. |
-| **Transport** | `transport_complet` | 6 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification. |
+| **Transport** | `transport_complet` | 7 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadres légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l’article L1113-1 du Code des transports en cas d’utilisation de la complémentaire santé solidaire comme critère de tarification. |
 | **Stationnement résidentiel** | `stationnement_residentiel` | 3 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Cadre légal spécifique au stationnement résidentiel : Les articles L2333-87 et L2333-87-3 du Code général des collectivités territoriales. |
 | **Aides facultatives** | `aides_facultatives` | 4 | - Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration définit le cadre juridique général en vertu duquel les administrations sont tenues d’échanger les données requises dans le cadre des démarches engagées par les usagers.<br>- Ces aides sont attribuées sur délibération de la collectivité. |
 
 ## Formulaires par cadre
 
-### Socle général — 63 formulaire(s)
+### Socle général — 65 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
@@ -46,6 +46,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `clartec` | Manua | `api-particulier-clartec` |
 | `clartec` | Manua Petite enfance | `api-particulier-clartec-petite-enfance` |
 | `cosoluce` | Fluo | `api-particulier-cosoluce-fluo` |
+| `devolis` | Admitio | `api-particulier-devolis` |
 | `dialog` | Memberz | `api-particulier-dialog` |
 | `docaposte` | FAST | `api-particulier-docaposte-fast` |
 | `docaposte` | Fast Petite enfance | `api-particulier-docaposte-fast-petite-enfance` |
@@ -74,6 +75,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `periscolia` | Periscolia | `api-particulier-periscolia` |
 | `qiis` | eTicket | `api-particulier-qiis-eticket` |
 | `resagenda` | Res'Agenda | `api-particulier-resagenda` |
+| `respublicia` | Françoise | `api-particulier-respublicia` |
 | `sigec` | Maelis Petite enfance | `api-particulier-sigec-maelis-petite-enfance` |
 | `sigec` | Maelis Portail | `api-particulier-sigec-maelis` |
 | `studio1247` | Gertrude | `api-particulier-studio1247-petite-enfance` |
@@ -113,7 +115,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | _demande générique_ | Tarification cantine collèges | `api-particulier-tarification-cantines-colleges` |
 | _demande générique_ | Tarification cantine lycées | `api-particulier-tarification-cantines-lycees` |
 
-### Transport — 6 formulaire(s)
+### Transport — 7 formulaire(s)
 
 | Éditeur | Nom du formulaire | Formulaire (slug) |
 |---|---|---|
@@ -122,6 +124,7 @@ Chaque cadre est factorisé en une ancre YAML unique, réutilisée par tous les 
 | `esabora` | PourMesDossiers | `api-particulier-esabora-pourmesdossiers` |
 | `keolis` | Keolis | `api-particulier-keolis` |
 | `monkey_factory` | MaaSify | `api-particulier-monkey-factory-maasify` |
+| `nexpublica` | Pegase | `api-particulier-nexpublica` |
 | _demande générique_ | Tarification des transports | `api-particulier-tarification-transports` |
 
 ### Stationnement résidentiel — 3 formulaire(s)

@@ -179,7 +179,7 @@ RSpec.describe AuthorizationRequestForm do
   end
 
   describe 'forms without prefilled technical contact' do
-    %w[api-particulier-clartec api-particulier-clartec-petite-enfance].each do |uid|
+    %w[api-particulier-clartec api-particulier-clartec-petite-enfance api-particulier-nexpublica].each do |uid|
       it "does not prefill any technical contact for #{uid}" do
         prefilled_keys = described_class.find(uid).initialize_with.keys.map(&:to_s)
 

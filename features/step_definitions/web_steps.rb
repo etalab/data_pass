@@ -197,6 +197,17 @@ Alors('{string} est coché et non modifiable') do |label|
   expect(page).to have_checked_field(label, visible: :all, disabled: true)
 end
 
+Alors('les données proposées sont dans les états suivants :') do |table|
+  states = all('input[type="checkbox"][name$="[scopes][]"]', visible: :all).to_h do |checkbox|
+    state = checkbox.checked? ? 'cochée' : 'décochée'
+    state += ' et non modifiable' if checkbox.disabled?
+
+    [checkbox.value, state]
+  end
+
+  expect(states).to eq(table.rows_hash)
+end
+
 Alors('je peux voir dans le tableau {string}') do |caption, table|
   expect(page).to have_table(caption, with_rows: table.rows)
 end
