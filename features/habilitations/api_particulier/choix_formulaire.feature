@@ -40,6 +40,21 @@ Fonctionnalité: Choix du type de formulalire pour API Particulier
     Alors je vois 2 tuiles
     Et je vois 1 tuile "Manua Petite enfance"
 
+  Plan du scénario: Je choisis un éditeur n’ayant qu’un formulaire
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Et que je choisis "Votre éditeur"
+    Et que je clique sur "<Initiale>"
+    Et que je choisis "<Nom de l'éditeur>"
+    Alors je vois 1 tuiles
+    Et je vois 1 tuile "<Nom du formulaire>"
+    Et la page contient "<Description>"
+
+    Exemples:
+      | Initiale | Nom de l'éditeur | Nom du formulaire | Description                                        |
+      | R        | Respublicia      | Françoise         | Tarification sur Quotient Familial des prestations |
+      | N        | Nexpublica       | Pegase            | Tarification des transports                        |
+      | D        | Devolis          | Admitio           | Gestion de la vie étudiante                        |
+
   Scénario: Je choisis un éditeur inconnu de API Particulier
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Votre éditeur"

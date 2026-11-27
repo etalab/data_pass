@@ -3442,3 +3442,109 @@ api-particulier-edhec:
     contact_technique_job_title: Responsable produit
     modalities:
       - params
+
+api-particulier-respublicia:
+  name: Françoise
+  description: *api_particulier_form_description_tarification_qf
+  authorization_request: APIParticulier
+  use_case: tarification_municipale_enfance
+  service_provider_id: respublicia
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
+  initialize_with:
+    intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs, cantine)
+    description: |
+      Récupération de quotient familial :
+      - par les administrés sur leur compte d’inscription
+      - en mairie pour le compte d’un administré spécifique dans le cas d’un administré n’ayant pas accès à Internet ou pour le compte de l’ensemble des administrés gérés dans le cadre du service et en cours de validité au moment du traitement
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes:
+      - cnaf_quotient_familial
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_respublicia_contact_technique_email || 'tech-respublicia@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_respublicia_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_respublicia_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_respublicia_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Directeur technique
+    modalities:
+      - params
+
+api-particulier-nexpublica:
+  name: Pegase
+  description: Tarification des transports
+  authorization_request: APIParticulier
+  use_case: tarification_transports
+  service_provider_id: nexpublica
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: scopes
+    - name: legal
+    - name: personal_data
+    - name: contacts
+  static_blocks: []
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_adresse
+      - cnaf_allocataires
+      - cnaf_enfants
+      - pole_emploi_identite
+      - pole_emploi_adresse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - revenu_solidarite_active
+      - complementaire_sante_solidaire
+      - men_statut_scolarite
+      - men_statut_etablissement
+      - allocation_adulte_handicape
+      - pole_emploi_paiements
+      - cnav_allocation_enfant_handicape
+  initialize_with:
+    intitule: Tarification des transports
+    description: |
+      Tarification sociale et solidaire dans les transports.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
+    modalities:
+      - params
+
+api-particulier-devolis:
+  name: Admitio
+  description: Gestion de la vie étudiante
+  authorization_request: APIParticulier
+  use_case: inscription_administrative_etudiant
+  service_provider_id: devolis
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    displayed: &api_particulier_devolis_scopes
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - cnous_identite
+  initialize_with:
+    intitule: Gestion de la vie étudiante
+    description: |
+      Logiciel à destination d’utilisateurs habilités en back office (service des bourses) pour mettre à jour les échelons de bourses des étudiants afin de leur offrir des tarifications adaptées à leurs situations (frais de scolarité, cantine…). Un site internet est disponible pour les étudiants.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_socle_general
+    scopes: *api_particulier_devolis_scopes
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_devolis_contact_technique_email || 'tech-devolis@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_devolis_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_devolis_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_devolis_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Responsable technique
+    modalities:
+      - params

@@ -232,6 +232,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Carte Plus          | Carte Plus                |
       | Periscolia          | Periscolia                |
       | Nouvelle Époque     | Nouvelle Epoque Industries |
+      | Françoise           | Respublicia                |
 
    Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
@@ -869,3 +870,93 @@ Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec 
     Exemples:
       | Nom du formulaire                         |
       | Tarification du stationnement résidentiel |
+
+  Scénario: Le formulaire Françoise ne pré-coche que le quotient familial
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Françoise" de l'éditeur "Respublicia"
+    Et que je clique sur "Débuter ma demande"
+    Et que je clique sur "Suivant"
+    Alors les données proposées sont dans les états suivants :
+      | cnaf_quotient_familial | cochée et non modifiable |
+      | cnaf_allocataires      | décochée                 |
+      | cnaf_adresse           | décochée                 |
+      | cnaf_enfants           | décochée                 |
+
+  Scénario: Je soumets une demande d’habilitation avec le formulaire Admitio, dont les données CNOUS sont pré-cochées et décochables
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Admitio" de l'éditeur "Devolis"
+    Et que je clique sur "Débuter ma demande"
+    Et que je clique sur "Suivant"
+    Alors les données proposées sont dans les états suivants :
+      | cnous_statut_boursier | cochée |
+      | cnous_echelon_bourse  | cochée |
+      | cnous_identite        | cochée |
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL" avec "https://etablissement.fr/texte.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+  Scénario: Je soumets une demande d’habilitation avec le formulaire Pegase, sans donnée pré-cochée et avec FranceConnect au choix
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Pegase" de l'éditeur "Nexpublica"
+    Et que je clique sur "Débuter ma demande"
+
+    Alors "Via un jeton d'accès, accompagné des paramètres usagers." est coché
+    * je coche "Via FranceConnect"
+    * je sélectionne la première option pour "FranceConnect"
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    Alors les données proposées sont dans les états suivants :
+      | cnaf_quotient_familial           | décochée |
+      | cnaf_adresse                     | décochée                 |
+      | cnaf_allocataires                | décochée                 |
+      | cnaf_enfants                     | décochée                 |
+      | pole_emploi_identite             | décochée |
+      | pole_emploi_adresse              | décochée |
+      | mesri_identite                   | décochée |
+      | mesri_admissions                 | décochée |
+      | mesri_admission_inscrit          | décochée |
+      | mesri_admission_commune_etudes   | décochée |
+      | cnous_statut_boursier            | décochée |
+      | cnous_echelon_bourse             | décochée |
+      | revenu_solidarite_active         | décochée |
+      | complementaire_sante_solidaire   | décochée |
+      | men_statut_scolarite             | décochée |
+      | men_statut_etablissement         | décochée |
+      | allocation_adulte_handicape      | décochée |
+      | pole_emploi_paiements            | décochée |
+      | cnav_allocation_enfant_handicape | décochée |
+
+    * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je remplis "Indiquez une URL vers la délibération si vous n'avez que ce justificatif à fournir" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+    * je renseigne les informations du contact technique
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"

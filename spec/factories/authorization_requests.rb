@@ -548,6 +548,9 @@ FactoryBot.define do
       api-particulier-andyvie
       api-particulier-polycea
       api-particulier-edhec
+      api-particulier-respublicia
+      api-particulier-nexpublica
+      api-particulier-devolis
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier

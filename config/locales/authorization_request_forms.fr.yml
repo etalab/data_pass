@@ -515,6 +515,8 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_nouvelle_epoque_industries:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_respublicia:
+      <<: *api_particulier_editor_common_wordings
     api_particulier_studio1247_petite_enfance:
       <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_sigec_maelis:
@@ -596,6 +598,11 @@ fr:
       cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
       cadre_juridique_url: *cadre_juridique_url_with_operateur_transport
     api_particulier_airweb:
+      <<: *api_particulier_editor_common_wordings
+      legal: *legal_with_operateur_transport
+      cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
+      cadre_juridique_url: *cadre_juridique_url_with_operateur_transport
+    api_particulier_nexpublica:
       <<: *api_particulier_editor_common_wordings
       legal: *legal_with_operateur_transport
       cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
