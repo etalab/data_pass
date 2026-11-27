@@ -7,7 +7,7 @@ n’est pas à portée.
 ## Installation
 
 1. Créer un token sur https://errors.data.gouv.fr/settings/account/api/auth-tokens/ avec les scopes
-   `event:read`, `project:read` et `org:read`.
+   `event:read` et `project:read`.
 2. L’enregistrer à la racine du dépôt (le fichier est ignoré par git) :
 
 ```bash
@@ -27,7 +27,6 @@ Le token est cherché d’abord dans le dossier courant, puis à la racine du d�
 ## Scripts
 
 ```bash
-bin/sentry/projects                                    # projets accessibles avec le token
 bin/sentry/issues                                      # issues non résolues, 14 jours
 bin/sentry/issues -q "INSEE"                           # recherche libre
 bin/sentry/issues -p 24h -q "is:unresolved level:error environment:staging"

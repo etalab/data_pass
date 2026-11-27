@@ -15,10 +15,6 @@ class SentryClient
     @token = load_token
   end
 
-  def projects
-    get("/api/0/organizations/#{ORG_SLUG}/projects/")
-  end
-
   def issues(query: 'is:unresolved', stats_period: '14d')
     get("/api/0/projects/#{ORG_SLUG}/#{@project}/issues/", statsPeriod: stats_period, query:)
   end
@@ -49,7 +45,7 @@ class SentryClient
 
   def load_token
     path = [File.expand_path(TOKEN_FILE, Dir.pwd), File.expand_path("../../#{TOKEN_FILE}", __dir__)].find { |p| File.exist?(p) }
-    abort "#{TOKEN_FILE} not found. Create a token at #{BASE_URI}/settings/account/api/auth-tokens/ (scopes: event:read, project:read, org:read) and run: echo \"token\" > #{TOKEN_FILE}" unless path
+    abort "#{TOKEN_FILE} not found. Create a token at #{BASE_URI}/settings/account/api/auth-tokens/ (scopes: event:read, project:read) and run: echo \"token\" > #{TOKEN_FILE}" unless path
 
     File.read(path).strip
   end
