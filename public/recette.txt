@@ -1,0 +1,5 @@
+Recette sandbox : recette/2026-11-27
+Base : develop @ e5a7ce503
+
+2026-11-27 09:41 — construction
+             #1886   c9473b917  feature/foyer-rsa-scopes
