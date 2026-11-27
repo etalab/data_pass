@@ -1166,6 +1166,8 @@ paths:
 
         L'instructeur est désigné par son adresse email (`instructeur.email`) : ce doit être un compte DataPass existant qui a le rôle d'instructeur pour le type de la demande. Sinon, la réponse est une erreur `422` « informations de l'instructeur manquantes ou invalides » et la demande ne change pas.
 
+        Exception du registre wallet : `instructeur.email` doit désigner une personne qui a le rôle de vérificateur du registre et un accès en consultation à celui-ci. Un rôle d'instructeur ou de manager ne suffit pas. Sinon, la réponse est une erreur `422` « Vérificateur invalide » et la demande ne change pas.
+
         Seules les demandes en état `submitted` peuvent être validées par API. Une demande `changes_requested`, `draft`, `refused` ou `validated` renvoie une erreur `422` et ne change pas. Le refus, la demande de modification et la révocation ne sont pas possibles par API : ils se font dans l'interface DataPass.
 
         La validation produit exactement les mêmes effets qu'une validation dans l'interface : création de l'habilitation, passage des habilitations précédentes en `obsolete`, passerelles, webhook `approve`, habilitation FranceConnect liée le cas échéant. L'historique affiche le nom de l'instructeur, la mention que la validation a été faite par API, et l'application appelante.
@@ -1223,7 +1225,7 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         422:
           description: |
-            La demande n'a pas été validée : instructeur manquant ou invalide (ou sans rôle d'instructeur sur ce type), ou demande qui n'est pas en état `submitted` (titre « État non modifiable »).
+            La demande n'a pas été validée : instructeur manquant ou invalide (ou sans rôle d'instructeur sur ce type), vérificateur manquant ou invalide pour le registre wallet, ou demande qui n'est pas en état `submitted` (titre « État non modifiable »).
           content:
             application/json:
               schema:
@@ -1236,6 +1238,15 @@ paths:
                       - status: "422"
                         title: "Instructeur invalide"
                         detail: "Informations de l'instructeur manquantes ou invalides."
+                        source:
+                          pointer: "/instructeur/email"
+                verificateur_invalide:
+                  summary: Registre wallet, sans rôle de vérificateur ou sans accès en consultation
+                  value:
+                    errors:
+                      - status: "422"
+                        title: "Vérificateur invalide"
+                        detail: "La validation d’une demande au registre wallet doit désigner un compte DataPass qui a le rôle de vérificateur et un accès en consultation au registre."
                         source:
                           pointer: "/instructeur/email"
 

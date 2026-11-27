@@ -24,6 +24,12 @@ RSpec.describe Molecules::Instruction::UserRights::ReadonlyRightsListComponent, 
     expect(page).to have_css('h4.fr-alert__title')
   end
 
+  it 'names the verifier role and who can change it' do
+    render_component([{ scope: 'dinum:registre_wallet', role_type: 'verifier' }])
+
+    expect(page).to have_text('Seul un administrateur peut modifier le rôle « Vérificateur ».')
+  end
+
   context 'with a role type that has no specific wording' do
     before { render_component([{ scope: 'dinum:api_entreprise', role_type: 'some_role' }]) }
 

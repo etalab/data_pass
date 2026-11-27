@@ -192,4 +192,38 @@ RSpec.describe Instruction::UserRightForm do
       expect(form.to_roles).to eq(%w[dinum:api_entreprise:reporter])
     end
   end
+
+  describe 'the message for a role the person cannot grant' do
+    subject(:form) { described_class.new(authority: Rights::AdminAuthority.new(create(:user, :admin)), email: 'user@gouv.fr', rights: [valid_right(role_type: 'unknown')]) }
+
+    it 'does not list roles that would leave some out' do
+      form.valid?
+
+      expect(form.errors.full_messages.to_sentence).to include('contiennent un rôle que vous ne pouvez pas attribuer')
+    end
+  end
+
+  describe 'wallet registry rights' do
+    subject(:form) { described_class.new(authority: Rights::AdminAuthority.new(create(:user, :admin)), email: 'user@gouv.fr', rights: [right]) }
+
+    context 'with the verifier role on the registry' do
+      let(:right) { valid_right(scope: 'dinum:registre_wallet', role_type: 'verifier') }
+
+      it { is_expected.to be_valid }
+    end
+
+    [
+      ['dinum:api_entreprise', 'verifier'],
+      ['dinum:*', 'verifier'],
+    ].each do |scope, role_type|
+      context "with #{role_type} on #{scope}" do
+        let(:right) { valid_right(scope:, role_type:) }
+
+        it 'is rejected' do
+          expect(form).not_to be_valid
+          expect(form.errors.details[:rights]).to include(hash_including(error: :role_not_available_on_scope))
+        end
+      end
+    end
+  end
 end

@@ -56,6 +56,7 @@ RSpec.describe Seeds do
           'dev-manager-dgfip@yopmail.com' => %w[dgfip:*:developer dgfip:*:manager],
           'admin@yopmail.com' => %w[admin],
           'interne-sans-droit@yopmail.com' => [],
+          'verificateur-wallet@yopmail.com' => %w[dinum:registre_wallet:verifier],
         }
       end
 

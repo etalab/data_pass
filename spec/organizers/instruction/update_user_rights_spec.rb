@@ -93,4 +93,35 @@ RSpec.describe Instruction::UpdateUserRights, type: :organizer do
       end
     end
   end
+
+  describe 'removing the wallet verifier role' do
+    let(:admin) { create(:user, :admin) }
+    let(:verifier) { create(:user, :wallet_verifier) }
+
+    def remove_rights(authority:, actor:)
+      described_class.call(authority:, actor:, user: verifier, new_roles: [])
+    end
+
+    it 'is done by an admin and tracked with its author and date' do
+      remove_rights(authority: Rights::AdminAuthority.new(admin), actor: admin)
+
+      expect(verifier.reload.verifier?).to be false
+      expect(AdminEvent.last).to have_attributes(
+        name: 'user_rights_changed_by_admin',
+        admin:,
+        entity: verifier,
+        before_attributes: { 'roles' => ['dinum:registre_wallet:verifier'] },
+        after_attributes: { 'roles' => [] },
+        created_at: be_present
+      )
+    end
+
+    it 'is out of reach of a manager of all DINUM services' do
+      manager = create(:user, roles: ['dinum:*:manager'])
+
+      remove_rights(authority: Rights::ManagerAuthority.new(manager), actor: manager)
+
+      expect(verifier.reload.verifier?).to be true
+    end
+  end
 end

@@ -109,6 +109,8 @@ fr:
             title: Espace admin
           instruction:
             title: Espace instruction
+          verification:
+            title: Vérification
           authorization_requests_index:
             title: Toutes mes habilitations
           sign_out:

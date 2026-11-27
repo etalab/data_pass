@@ -139,6 +139,12 @@ class AuthorizationDefinition < StaticApplicationRecord
     User.reporter_for(id)
   end
 
+  def verifiers
+    return User.none unless wallet_registry?
+
+    User.with_role_matching([UserRoles::WALLET_REGISTRY_VERIFIER_ROLE])
+  end
+
   def instructors_and_managers
     (instructors + managers).uniq
   end

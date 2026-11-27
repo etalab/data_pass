@@ -15,6 +15,7 @@ class Seeds::TestAccounts
     'dev-manager-dgfip@yopmail.com' => { organization: :dgfip, roles: %w[dgfip:*:developer dgfip:*:manager] },
     'admin@yopmail.com' => { organization: :dinum, roles: %w[admin] },
     'interne-sans-droit@yopmail.com' => { organization: :dinum, roles: [] },
+    'verificateur-wallet@yopmail.com' => { organization: :dinum, roles: %w[dinum:registre_wallet:verifier] },
   }.freeze
 
   PROFILES = {
@@ -34,6 +35,7 @@ class Seeds::TestAccounts
     'admin@yopmail.com' => { given_name: 'Alice', family_name: 'Admin', job_title: 'Administratrice DataPass', phone_number: '0199000111' },
     'admin-instructeur@yopmail.com' => { given_name: 'Marc', family_name: 'Admin instructeur', job_title: 'Administrateur et instructeur DataPass', phone_number: '0199000112' },
     'interne-sans-droit@yopmail.com' => { given_name: 'Chloé', family_name: 'Interne sans droit', job_title: 'Agente DINUM sans rôle', phone_number: '0199000113' },
+    'verificateur-wallet@yopmail.com' => { given_name: 'Dominique', family_name: 'Vérificateur wallet', job_title: 'Vérification du registre wallet', phone_number: '0199000126' },
     'dem-commune@yopmail.com' => { given_name: 'Yasmine', family_name: 'Demandeuse commune', job_title: 'Chargée de mission numérique', phone_number: '0199000119' },
     'dem-departement@yopmail.com' => { given_name: 'Antoine', family_name: 'Demandeur département', job_title: 'Chargé de l’action sociale', phone_number: '0199000120' },
     'dem-editeur@yopmail.com' => { given_name: 'Manon', family_name: 'Demandeuse éditeur', job_title: 'Cheffe de projet intégration', phone_number: '0199000121' },

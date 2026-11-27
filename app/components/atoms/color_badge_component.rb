@@ -27,6 +27,7 @@ class Atoms::ColorBadgeComponent < ApplicationComponent
     'reporter' => 'yellow-tournesol',
     'developer' => 'blue-ecume',
     'admin' => 'pink-macaron',
+    'verifier' => 'green-emeraude',
   }.freeze
 
   def self.for_role(role_type, label:)

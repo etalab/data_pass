@@ -1,6 +1,8 @@
 module UserRoles
   extend ActiveSupport::Concern
 
+  WALLET_REGISTRY_VERIFIER_ROLE = 'dinum:registre_wallet:verifier'.freeze
+
   def roles=(value)
     super
     @role_sets = nil
@@ -33,6 +35,10 @@ module UserRoles
 
   def developer?
     roles_for(:developer).any?
+  end
+
+  def verifier?
+    roles.include?(WALLET_REGISTRY_VERIFIER_ROLE)
   end
 
   alias can_read? reporter?
