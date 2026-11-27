@@ -6,7 +6,8 @@ class Datagouv::BuildHabilitationsRows < ApplicationInteractor
     "Dénomination de l'unité légale du demandeur",
     'Données demandées',
     'Fondement juridique',
-    'Date de validation'
+    'Date de validation',
+    'Numéro d’habilitation'
   ].freeze
 
   before do
@@ -28,7 +29,8 @@ class Datagouv::BuildHabilitationsRows < ApplicationInteractor
       authorization.organization.denomination,
       scopes_for(authorization),
       cadre_juridique_for(authorization),
-      date_validation_for(authorization)
+      date_validation_for(authorization),
+      authorization.formatted_id
     ]
   end
 

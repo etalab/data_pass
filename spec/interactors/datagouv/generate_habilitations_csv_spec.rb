@@ -7,8 +7,8 @@ RSpec.describe Datagouv::GenerateHabilitationsCsv do
 
   let(:rows) do
     [
-      ['DINUM', 'APIEntreprise', '12345678901234', 'ACME', 'scope1', 'Loi', '2025-01-15'],
-      ['', 'ApiParticulier', '', 'Org2', 'scope2', '', '2024-06-01']
+      ['DINUM', 'APIEntreprise', '12345678901234', 'ACME', 'scope1', 'Loi', '2025-01-15', 'H41207'],
+      ['', 'ApiParticulier', '', 'Org2', 'scope2', '', '2024-06-01', 'H45001']
     ]
   end
 

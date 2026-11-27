@@ -32,6 +32,26 @@ RSpec.describe Datagouv::BuildHabilitationsRows do
     expect(row[6]).to eq(active_authorization.created_at.strftime('%Y-%m-%d'))
   end
 
+  it 'keeps the historical columns in place and adds the authorization number last' do
+    expect(described_class::CSV_HEADERS).to eq([
+      "Fournisseur de l'API ou service",
+      'API ou Service demandé',
+      'SIRET du demandeur',
+      "Dénomination de l'unité légale du demandeur",
+      'Données demandées',
+      'Fondement juridique',
+      'Date de validation',
+      'Numéro d’habilitation'
+    ])
+  end
+
+  it 'ends each row with the number displayed on the authorization page' do
+    row = result.rows.first
+
+    expect(row.size).to eq(described_class::CSV_HEADERS.size)
+    expect(row.last).to eq("H#{active_authorization.id}")
+  end
+
   context 'when an authorization is obsolete' do
     before do
       active_authorization.deprecate!

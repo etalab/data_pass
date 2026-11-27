@@ -19,6 +19,9 @@ Une demande peut être en brouillon de réouverture tout en ayant des habilitati
 | Données demandées | `authorization.data['scopes']` |
 | Fondement juridique | `authorization.data['cadre_juridique_nature']` |
 | Date de validation | `authorization.created_at` (format AAAA-MM-JJ) |
+| Numéro d’habilitation | `authorization.formatted_id` (`H` suivi de l’identifiant, par exemple `H41207`) |
+
+Des réutilisateurs lisent le fichier par position ou par nom : une nouvelle colonne s’ajoute en dernière position, sans renommer ni déplacer les colonnes existantes. La description du jeu de données se modifie à la main sur data.gouv.fr (le job ne l’écrit pas) : la mettre à jour quand les colonnes changent.
 
 ## Fréquence
 
