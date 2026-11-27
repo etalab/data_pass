@@ -1178,6 +1178,8 @@ api-particulier-airweb:
       - cnous_statut_boursier
       - cnous_echelon_bourse
       - revenu_solidarite_active
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
       - complementaire_sante_solidaire
       - men_statut_scolarite
       - men_statut_etablissement
@@ -1754,6 +1756,8 @@ api-particulier-keolis:
       - cnous_statut_boursier
       - cnous_echelon_bourse
       - revenu_solidarite_active
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
       - complementaire_sante_solidaire
       - men_statut_scolarite
       - men_statut_etablissement
@@ -1925,6 +1929,8 @@ api-particulier-mgdis-aides-facultatives-departementales:
       - allocation_adulte_handicape
       - revenu_solidarite_active
       - revenu_solidarite_active_majoration
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
       - cnav_allocation_enfant_handicape
       - cnav_allocation_rentree_scolaire
 
@@ -2021,6 +2027,8 @@ api-particulier-qiis-eticket:
     hide:
       - men_statut_boursier
       - men_echelon_bourse
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
   initialize_with:
     intitule: eTicket - Portail Famille
     description:
@@ -2054,6 +2062,8 @@ api-particulier-teamnet-axel:
     hide:
       - men_statut_boursier
       - men_echelon_bourse
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
   initialize_with:
     intitule:
       Déclaration des revenus et calcul du quotient familial pour actualiser
@@ -2178,6 +2188,8 @@ api-particulier-sigec-maelis:
     hide:
       - men_statut_boursier
       - men_echelon_bourse
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
   initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description:
@@ -2554,6 +2566,8 @@ api-particulier-tarification-transports:
       - allocation_adulte_handicape
       - revenu_solidarite_active
       - revenu_solidarite_active_majoration
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
   initialize_with:
     intitule: Tarification des transports
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_transport_complet
@@ -2573,6 +2587,9 @@ api-particulier-gestion-rh-secteur-public:
     - name: personal_data
     - name: contacts
   scopes_config:
+    hide:
+      - cnav_foyer_rsa_beneficiaires
+      - cnav_foyer_rsa_personnes_a_charge
     disabled:
       - pole_emploi_identite
       - pole_emploi_contact
