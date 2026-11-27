@@ -36,6 +36,25 @@ RSpec.describe 'Wallet registry verifier role' do
     end
   end
 
+  describe AuthorizationDefinition, '#verifiers' do
+    let!(:verifier) { create(:user, :wallet_verifier) }
+    let!(:admin_verifier) { create(:user, :admin, :wallet_verifier) }
+
+    before do
+      create(:user, roles: %w[admin])
+      create(:user, roles: %w[dinum:registre_wallet:manager])
+      create(:user, roles: %w[dinum:*:manager])
+    end
+
+    it 'lists the accounts holding the verifier role, admins included' do
+      expect(described_class.find('registre_wallet').verifiers).to contain_exactly(verifier, admin_verifier)
+    end
+
+    it 'is empty for any other definition' do
+      expect(described_class.find('api_entreprise').verifiers).to be_empty
+    end
+  end
+
   describe 'instruction emails' do
     it 'are not sent to verifiers' do
       verifier = create(:user, :wallet_verifier)

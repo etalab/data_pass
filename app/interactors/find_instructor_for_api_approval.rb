@@ -16,9 +16,9 @@ class FindInstructorForAPIApproval < ApplicationInteractor
   end
 
   def find_verifier
-    user = User.not_banned.find_by(email: normalized_email)
+    verifier = definition.verifiers.not_banned.find_by(email: normalized_email)
 
-    user if user&.verifier? && user.reporter?(definition.id)
+    verifier if verifier&.reporter?(definition.id)
   end
 
   def error_key
