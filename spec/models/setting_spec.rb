@@ -4,23 +4,23 @@ RSpec.describe Setting do
   describe '.fetch' do
     it 'reads the environment variable before the credentials' do
       allow(ENV).to receive(:[]).and_call_original
-      allow(ENV).to receive(:[]).with('INSEE_PASSWORD').and_return('from_env')
+      allow(ENV).to receive(:[]).with('INSEE_CLIENT_SECRET').and_return('from_env')
 
-      expect(described_class.fetch(:insee_password)).to eq('from_env')
+      expect(described_class.fetch(:insee_client_secret)).to eq('from_env')
     end
 
     it 'reads the credentials when neither the database nor the environment answers' do
-      allow(Rails.application.credentials).to receive(:dig).with(:insee_password).and_return('from_credentials')
+      allow(Rails.application.credentials).to receive(:dig).with(:insee_client_secret).and_return('from_credentials')
 
-      expect(described_class.fetch(:insee_password)).to eq('from_credentials')
+      expect(described_class.fetch(:insee_client_secret)).to eq('from_credentials')
     end
 
     it 'reads the database before the environment' do
       allow(ENV).to receive(:[]).and_call_original
-      allow(ENV).to receive(:[]).with('INSEE_PASSWORD').and_return('from_env')
-      described_class.set(:insee_password, 'from_database')
+      allow(ENV).to receive(:[]).with('INSEE_CLIENT_SECRET').and_return('from_env')
+      described_class.set(:insee_client_secret, 'from_database')
 
-      expect(described_class.fetch(:insee_password)).to eq('from_database')
+      expect(described_class.fetch(:insee_client_secret)).to eq('from_database')
     end
 
     it 'enables the INSEE calls by default' do
@@ -104,16 +104,16 @@ RSpec.describe Setting do
     end
 
     it 'replaces an existing override instead of creating a second row' do
-      described_class.set(:insee_password, 'first')
+      described_class.set(:insee_client_secret, 'first')
 
-      expect { described_class.set(:insee_password, 'second') }.not_to change(described_class, :count)
-      expect(described_class.fetch(:insee_password)).to eq('second')
+      expect { described_class.set(:insee_client_secret, 'second') }.not_to change(described_class, :count)
+      expect(described_class.fetch(:insee_client_secret)).to eq('second')
     end
 
     it 'stores the value encrypted at rest' do
-      described_class.set(:insee_password, 'a_secret')
+      described_class.set(:insee_client_secret, 'a_secret')
 
-      stored = described_class.connection.select_value("SELECT value FROM settings WHERE key = 'insee_password'")
+      stored = described_class.connection.select_value("SELECT value FROM settings WHERE key = 'insee_client_secret'")
 
       expect(stored).not_to include('a_secret')
     end
@@ -130,23 +130,23 @@ RSpec.describe Setting do
 
   describe '.overridden_keys' do
     it 'lists what the database actually overrides' do
-      described_class.set(:insee_password, 'a_secret')
+      described_class.set(:insee_client_secret, 'a_secret')
 
-      expect(described_class.overridden_keys).to eq(%w[insee_password])
+      expect(described_class.overridden_keys).to eq(%w[insee_client_secret])
     end
   end
 
   describe 'protection of the stored values' do
     it 'keeps the value out of inspect, and therefore out of the logs' do
-      described_class.set(:insee_password, 'a_secret')
+      described_class.set(:insee_client_secret, 'a_secret')
 
-      expect(described_class.find_by(key: 'insee_password').inspect).not_to include('a_secret')
+      expect(described_class.find_by(key: 'insee_client_secret').inspect).not_to include('a_secret')
     end
 
     it 'still reads the value through the model' do
-      described_class.set(:insee_password, 'a_secret')
+      described_class.set(:insee_client_secret, 'a_secret')
 
-      expect(described_class.find_by(key: 'insee_password').value).to eq('a_secret')
+      expect(described_class.find_by(key: 'insee_client_secret').value).to eq('a_secret')
     end
   end
 
@@ -160,17 +160,17 @@ RSpec.describe Setting do
     end
 
     it 'falls through to the rest of the chain instead of breaking' do
-      allow(Rails.application.credentials).to receive(:dig).with(:insee_password).and_return('from_credentials')
+      allow(Rails.application.credentials).to receive(:dig).with(:insee_client_secret).and_return('from_credentials')
 
-      expect(described_class.fetch(:insee_password)).to eq('from_credentials')
+      expect(described_class.fetch(:insee_client_secret)).to eq('from_credentials')
     end
 
     it 'does not cache the failure' do
-      described_class.fetch(:insee_password)
+      described_class.fetch(:insee_client_secret)
       allow(described_class).to receive(:all).and_call_original
-      described_class.create!(key: 'insee_password', value: 'from_database')
+      described_class.create!(key: 'insee_client_secret', value: 'from_database')
 
-      expect(described_class.fetch(:insee_password)).to eq('from_database')
+      expect(described_class.fetch(:insee_client_secret)).to eq('from_database')
     end
   end
 
@@ -186,7 +186,7 @@ RSpec.describe Setting do
 
   describe 'when a stored value cannot be decrypted' do
     let(:unreadable_setting) do
-      instance_double(described_class, key: 'insee_password').tap do |setting|
+      instance_double(described_class, key: 'insee_client_secret').tap do |setting|
         allow(setting).to receive(:value).and_raise(ActiveRecord::Encryption::Errors::Decryption)
       end
     end
@@ -212,12 +212,12 @@ RSpec.describe Setting do
 
   describe 'cache invalidation across processes' do
     it 'picks up a value written by another process' do
-      described_class.fetch(:insee_password)
+      described_class.fetch(:insee_client_secret)
 
-      described_class.create!(key: 'insee_password', value: 'written_elsewhere')
+      described_class.create!(key: 'insee_client_secret', value: 'written_elsewhere')
       Kredis.counter(described_class::REDIS_CACHE_KEY).increment
 
-      expect(described_class.fetch(:insee_password)).to eq('written_elsewhere')
+      expect(described_class.fetch(:insee_client_secret)).to eq('written_elsewhere')
     end
   end
 end
