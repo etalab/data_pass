@@ -85,6 +85,13 @@ api_particulier_demarche_numerique:
         value: "revenu_solidarite_active_majoration"
         group: "API Revenue de Solidarité Active"
 
+      - name: "Bénéficiaires du foyer (identités et qualités)"
+        value: "cnav_foyer_rsa_beneficiaires"
+        group: "API Foyer RSA"
+      - name: "Personnes à charge du foyer"
+        value: "cnav_foyer_rsa_personnes_a_charge"
+        group: "API Foyer RSA"
+
       - name: "Statut Prime d'activité"
         value: "prime_activite"
         group: "API Prime d'Activité"
