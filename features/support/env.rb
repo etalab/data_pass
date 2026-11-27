@@ -49,6 +49,7 @@ Before do
   DatabaseCleaner.clean
   DatabaseCleaner.start
   Kredis.redis.flushdb
+  Rails.cache.clear
 end
 
 After do
