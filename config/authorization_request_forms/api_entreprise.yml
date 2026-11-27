@@ -239,6 +239,57 @@ api-entreprise-detection-fraude:
       - fondations_mi_siaf_beneficiaires_effectifs
       - fondations_mi_siaf_controle
 
+api-entreprise-observatoire-economique:
+  name: "Observatoire économique"
+  description: |
+    Connaître, analyser et suivre le tissu économique d’un territoire.
+    <br/>
+    <br/>
+    <i>Socle de base + données autorisées pour ce cas d’usage.</i>
+  use_case: "observatoire_economique"
+  introduction: |
+    <p>Ce formulaire s’adresse aux acteurs publics et aux organismes chargés d’une mission de service public souhaitant connaître, analyser et suivre le tissu économique de leur territoire, afin d’éclairer leurs politiques publiques de développement économique.</p>
+    <p>Exemples d’utilisation :</p>
+    <ul>
+      <li>Une collectivité territoriale qui alimente son observatoire économique pour suivre l’évolution des entreprises de son territoire.</li>
+      <li>Une agence d’urbanisme qui analyse le tissu entrepreneurial local afin d’accompagner les politiques d’aménagement et de développement territorial pour le compte d’acteurs publics.</li>
+      <li>Un éditeur de logiciel privé qui développe une solution d’observation économique pour le compte d’acteurs publics. Dans ce cas, chaque organisme public client doit disposer de sa propre habilitation API Entreprise, l’éditeur intervenant en qualité de prestataire technique.</li>
+    </ul>
+    <p>Les données sont fixées pour ce cas d’usage : vous n’aurez pas à les choisir.</p>
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+  scopes_config:
+    displayed:
+      - unites_legales_etablissements_insee
+      - effectifs_urssaf
+      - open_data_unites_legales_etablissements_insee
+      - open_data_extrait_rcs_infogreffe
+      - open_data_associations_djepva
+      - open_data_numero_tva_dgfip
+      - open_data_conventions_collectives_fabnum
+      - open_data_immatriculation_eori_douanes
+      - open_data_actes_bilans_inpi
+      - open_data_carte_pro_travaux_publics_fntp
+      - open_data_certifications_bio_agence_bio
+      - open_data_certifications_rge_ademe
+      - open_data_certifications_batiment_qualibat
+      - open_data_certifications_ingenierie_opqibi
+      - open_data_certifications_qualifelec
+    disabled:
+      - unites_legales_etablissements_insee
+      - effectifs_urssaf
+  initialize_with:
+    intitule: "Observatoire économique du territoire"
+    description: "Connaître, analyser et suivre le tissu économique de notre territoire (entreprises et associations), à partir de données actualisées, pour éclairer nos politiques de développement économique."
+    scopes:
+      - unites_legales_etablissements_insee
+      - effectifs_urssaf
+
 api-entreprise-editeur:
   name: "Formulaire spécifique aux éditeurs de logiciels"
   description: |

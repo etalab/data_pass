@@ -401,6 +401,7 @@ FactoryBot.define do
       api-entreprise-portail-gru-preremplissage
       api-entreprise-portail-gru-instruction
       api-entreprise-detection-fraude
+      api-entreprise-observatoire-economique
       api-entreprise-socle-de-base
       api-entreprise-editeur
       api-entreprise-e-attestations
